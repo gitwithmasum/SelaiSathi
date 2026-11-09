@@ -389,15 +389,11 @@
         <div class="ss-nav-group">
           <div class="ss-nav-heading"><span>CLIENT & WORKSHOP</span></div>
           <nav class="space-y-1" aria-label="Client and workshop">
-            <button type="button" id="nav-customers" title="Customers — coming soon" aria-label="Customers — coming soon" aria-disabled="true" class="nav-item nav-item-soon group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300">
-              <span class="nav-icon-badge"><span>♙</span></span><span class="ss-nav-label" data-i18n="menu_customers">Customers</span><span class="ss-nav-soon">SOON</span>
-            </button>
+            <button onclick="navigateTo('customers')" id="nav-customers" title="Customers" aria-label="Customers" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all"><span class="nav-icon-badge"><span>♙</span></span><span class="ss-nav-label" data-i18n="menu_customers">Customers</span></button>
             <button onclick="navigateTo('measurements')" id="nav-measurements" title="Measurements" aria-label="Measurements" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
               <span class="nav-icon-badge"><span>⌗</span></span><span class="ss-nav-label" data-i18n="menu_measurements">Measurements</span>
             </button>
-            <button type="button" id="nav-staff" title="Staff — coming soon" aria-label="Staff — coming soon" aria-disabled="true" class="nav-item nav-item-soon group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300">
-              <span class="nav-icon-badge"><span>✂</span></span><span class="ss-nav-label" data-i18n="menu_staff">Staff</span><span class="ss-nav-soon">SOON</span>
-            </button>
+            <button onclick="navigateTo('staff')" id="nav-staff" title="Staff" aria-label="Staff" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all"><span class="nav-icon-badge"><span>✂</span></span><span class="ss-nav-label" data-i18n="menu_staff">Staff</span></button>
           </nav>
         </div>
 
@@ -407,9 +403,7 @@
             <button onclick="navigateTo('accounts')" id="nav-accounts" title="Accounts" aria-label="Accounts" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
               <span class="nav-icon-badge"><span>৳</span></span><span class="ss-nav-label" data-i18n="menu_accounts">Accounts</span>
             </button>
-            <button type="button" id="nav-fabrics" title="Fabrics — coming soon" aria-label="Fabrics — coming soon" aria-disabled="true" class="nav-item nav-item-soon group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300">
-              <span class="nav-icon-badge"><span>▧</span></span><span class="ss-nav-label" data-i18n="menu_fabrics">Fabrics</span><span class="ss-nav-soon">SOON</span>
-            </button>
+            <button onclick="navigateTo('fabrics')" id="nav-fabrics" title="Fabrics" aria-label="Fabrics" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all"><span class="nav-icon-badge"><span>▧</span></span><span class="ss-nav-label" data-i18n="menu_fabrics">Fabrics</span></button>
             <button onclick="navigateTo('inventory')" id="nav-inventory" title="Inventory" aria-label="Inventory" class="nav-item active group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
               <span class="nav-icon-badge"><span>▦</span></span><span class="ss-nav-label" data-i18n="menu_inventory">Inventory</span>
             </button>
@@ -1646,6 +1640,68 @@
 
       </section>
 
+      <!-- CUSTOMER MANAGEMENT -->
+      <section id="view-customers" class="app-view hidden space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div><div class="text-xs font-mono text-cyan-300 font-bold tracking-widest">CUSTOMER RELATIONSHIP</div><h1 class="text-3xl font-black mt-1">Customers</h1><p class="text-sm text-gray-400 mt-1">Customer profiles, contact details and order history</p></div>
+          <button onclick="openDataModal('customer')" class="px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-cyan-600 to-violet-600">＋ Add customer</button>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="bento-card p-5"><div class="text-xs text-gray-400">Total customers</div><div id="customer-total" class="text-2xl font-black mt-1">0</div></div>
+          <div class="bento-card p-5"><div class="text-xs text-gray-400">Customers with due</div><div id="customer-due-count" class="text-2xl font-black mt-1">0</div></div>
+          <div class="bento-card p-5"><div class="text-xs text-gray-400">Total outstanding</div><div id="customer-due-total" class="text-2xl font-black mt-1">৳0</div></div>
+        </div>
+        <div class="bento-card p-5 space-y-4">
+          <div class="flex flex-col sm:flex-row gap-3 justify-between"><h2 class="font-bold">Customer directory</h2><input id="customer-search" oninput="renderCustomers()" class="sm:max-w-xs px-3 py-2 text-xs rounded-xl" placeholder="Search name or phone..."></div>
+          <div class="overflow-x-auto"><table class="w-full text-left text-xs"><thead><tr class="border-b border-gray-700 text-gray-400"><th class="p-3">Customer</th><th class="p-3">Phone</th><th class="p-3">Orders</th><th class="p-3">Due</th><th class="p-3">Actions</th></tr></thead><tbody id="customers-table"></tbody></table></div>
+          <div id="customers-empty" class="hidden text-center text-sm text-gray-400 py-8">No customers found. Add your first customer.</div>
+        </div>
+      </section>
+
+      <!-- STAFF MANAGEMENT -->
+      <section id="view-staff" class="app-view hidden space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div><div class="text-xs font-mono text-violet-300 font-bold tracking-widest">WORKFORCE MANAGEMENT</div><h1 class="text-3xl font-black mt-1">Staff & Karigar</h1><p class="text-sm text-gray-400 mt-1">Manage workers, roles, contact details and assigned work</p></div>
+          <button onclick="openDataModal('staff')" class="px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-violet-600 to-cyan-600">＋ Add staff</button>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="bento-card p-5"><div class="text-xs text-gray-400">Team members</div><div id="staff-total" class="text-2xl font-black mt-1">0</div></div>
+          <div class="bento-card p-5"><div class="text-xs text-gray-400">Active assignments</div><div id="staff-active" class="text-2xl font-black mt-1">0</div></div>
+          <div class="bento-card p-5"><div class="text-xs text-gray-400">Pending payout</div><div id="staff-payout" class="text-2xl font-black mt-1">৳0</div></div>
+        </div>
+        <div class="bento-card p-5 space-y-4"><div class="flex items-center justify-between"><h2 class="font-bold">Workshop team</h2><span class="text-xs text-gray-400">Karigar · Master · Cutter</span></div>
+          <div id="staff-list" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+          <div id="staff-empty" class="hidden text-center text-sm text-gray-400 py-8">No staff added yet.</div>
+        </div>
+      </section>
+
+      <!-- FABRIC & MATERIALS -->
+      <section id="view-fabrics" class="app-view hidden space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div><div class="text-xs font-mono text-cyan-300 font-bold tracking-widest">MATERIAL CONTROL</div><h1 class="text-3xl font-black mt-1">Fabrics & Materials</h1><p class="text-sm text-gray-400 mt-1">Track fabric rolls, accessories, stock levels and reorder needs</p></div>
+          <button onclick="openDataModal('fabric')" class="px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-cyan-600 to-violet-600">＋ Add material</button>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="bento-card p-5"><div class="text-xs text-gray-400">Material types</div><div id="fabric-total" class="text-2xl font-black mt-1">0</div></div>
+          <div class="bento-card p-5"><div class="text-xs text-gray-400">Low-stock alerts</div><div id="fabric-low" class="text-2xl font-black mt-1">0</div></div>
+          <div class="bento-card p-5"><div class="text-xs text-gray-400">Stock value</div><div id="fabric-value" class="text-2xl font-black mt-1">৳0</div></div>
+        </div>
+        <div class="bento-card p-5 space-y-4"><div class="flex flex-col sm:flex-row gap-3 justify-between"><h2 class="font-bold">Stock register</h2><input id="fabric-search" oninput="renderFabrics()" class="sm:max-w-xs px-3 py-2 text-xs rounded-xl" placeholder="Search material or SKU..."></div>
+          <div class="overflow-x-auto"><table class="w-full text-left text-xs"><thead><tr class="border-b border-gray-700 text-gray-400"><th class="p-3">Material</th><th class="p-3">SKU</th><th class="p-3">Stock</th><th class="p-3">Unit cost</th><th class="p-3">Status</th><th class="p-3">Actions</th></tr></thead><tbody id="fabrics-table"></tbody></table></div>
+          <div id="fabrics-empty" class="hidden text-center text-sm text-gray-400 py-8">No materials found. Add your first stock item.</div>
+        </div>
+      </section>
+
+      <!-- SHARED DATA ENTRY MODAL -->
+      <div id="modal-data-entry" class="hidden fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm items-center justify-center p-4">
+        <div class="bento-card w-full max-w-lg p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+          <div class="flex items-center justify-between"><h3 id="data-modal-title" class="text-lg font-bold">Add record</h3><button onclick="closeDataModal()" class="text-xl text-gray-400">×</button></div>
+          <input id="data-kind" type="hidden"><input id="data-edit-id" type="hidden">
+          <div id="data-modal-fields" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+          <div class="flex justify-end gap-2 pt-2"><button onclick="closeDataModal()" class="px-4 py-2 rounded-xl border border-slate-600 text-xs">Cancel</button><button onclick="saveDataRecord()" class="px-5 py-2 rounded-xl bg-cyan-600 text-white text-xs font-bold">Save record</button></div>
+        </div>
+      </div>
+
     </main>
 
   </div>
@@ -1862,6 +1918,7 @@
       if (activeNav) activeNav.classList.add('active');
 
       if (viewId === 'orders') renderOrdersTable();
+      if (['customers','staff','fabrics'].includes(viewId)) renderWorkspacePages();
     }
 
     const ordersData = [
@@ -1967,6 +2024,102 @@
     function setThemeAccent(color) {
       alert(`Theme accent switched to: ${color}!`);
     }
+
+    // Local-first records for Customers, Staff and Fabrics.
+    // These records persist in this browser via localStorage; cloud sync is not configured here.
+    const ssStoreKey = 'selaisathi_workspace_records_v1';
+    const ssRecords = (() => {
+      try {
+        const saved = JSON.parse(localStorage.getItem(ssStoreKey) || '{}');
+        return {
+          customers: Array.isArray(saved.customers) ? saved.customers : [
+            {id:'C-1001',name:'Shahadat Hossain',phone:'01591463333',address:'Dhaka',notes:'Regular customer'},
+            {id:'C-1002',name:'Arif Hossain',phone:'01324941964',address:'Dhaka',notes:'Prefers cotton fabric'}
+          ],
+          staff: Array.isArray(saved.staff) ? saved.staff : [
+            {id:'S-101',name:'Rahim Uddin',phone:'01700000001',role:'Master Tailor',rate:'350',status:'Active'},
+            {id:'S-102',name:'Karim Mia',phone:'01700000002',role:'Cutter',rate:'250',status:'Active'}
+          ],
+          fabrics: Array.isArray(saved.fabrics) ? saved.fabrics : [
+            {id:'F-201',name:'Cotton Fabric',sku:'FAB-COT-01',stock:'32',unit:'yard',cost:'180',minimum:'10'},
+            {id:'F-202',name:'Buttons',sku:'ACC-BTN-02',stock:'8',unit:'pcs',cost:'5',minimum:'15'},
+            {id:'F-203',name:'Zipper',sku:'ACC-ZIP-03',stock:'45',unit:'pcs',cost:'12',minimum:'10'}
+          ]
+        };
+      } catch(e) { return {customers:[],staff:[],fabrics:[]}; }
+    })();
+    function persistSsRecords(){ try { localStorage.setItem(ssStoreKey, JSON.stringify(ssRecords)); } catch(e) { alert('Could not save records in this browser. Check storage permissions.'); } }
+    function moneyBDT(n){ return '৳'+(Number(n)||0).toLocaleString('en-BD'); }
+    function safeText(v){ return String(v ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+    function renderCustomers(){
+      const q=(document.getElementById('customer-search')?.value||'').toLowerCase();
+      const list=ssRecords.customers.filter(x=>(x.name+' '+x.phone).toLowerCase().includes(q));
+      const body=document.getElementById('customers-table'); if(!body)return;
+      const dueOrders=ordersData.reduce((s,o)=>s+(Number(o.due)||0),0);
+      document.getElementById('customer-total').textContent=ssRecords.customers.length;
+      document.getElementById('customer-due-count').textContent=ordersData.filter(o=>Number(o.due)>0).length;
+      document.getElementById('customer-due-total').textContent=moneyBDT(dueOrders);
+      body.innerHTML=list.map(x=>{
+        const related=ordersData.filter(o=>o.phone===x.phone);
+        const due=related.reduce((s,o)=>s+(Number(o.due)||0),0);
+        return '<tr class="border-b border-slate-700/60"><td class="p-3 font-semibold">'+safeText(x.name)+'</td><td class="p-3">'+safeText(x.phone)+'</td><td class="p-3">'+related.length+'</td><td class="p-3">'+moneyBDT(due)+'</td><td class="p-3"><button onclick="editDataRecord(\'customer\',\''+x.id+'\')" class="text-cyan-300 mr-3">Edit</button><button onclick="deleteDataRecord(\'customer\',\''+x.id+'\')" class="text-rose-300">Delete</button></td></tr>';
+      }).join('');
+      document.getElementById('customers-empty').classList.toggle('hidden',list.length!==0);
+    }
+    function renderStaff(){
+      const el=document.getElementById('staff-list'); if(!el)return;
+      document.getElementById('staff-total').textContent=ssRecords.staff.length;
+      document.getElementById('staff-active').textContent=ssRecords.staff.filter(x=>x.status==='Active').length;
+      document.getElementById('staff-payout').textContent=moneyBDT(ssRecords.staff.reduce((s,x)=>s+(Number(x.rate)||0),0));
+      el.innerHTML=ssRecords.staff.map(x=>'<article class="rounded-xl border border-slate-700/70 bg-slate-900/30 p-4"><div class="flex items-start justify-between gap-3"><div><div class="font-bold">'+safeText(x.name)+'</div><div class="text-xs text-gray-400 mt-1">'+safeText(x.role)+' · '+safeText(x.phone)+'</div></div><span class="text-[10px] px-2 py-1 rounded-lg '+(x.status==='Active'?'bg-emerald-500/15 text-emerald-300':'bg-slate-500/15 text-slate-300')+'">'+safeText(x.status)+'</span></div><div class="flex items-center justify-between mt-4 pt-3 border-t border-slate-700/60"><span class="text-xs text-gray-400">Rate / job: '+moneyBDT(x.rate)+'</span><div><button onclick="editDataRecord(\'staff\',\''+x.id+'\')" class="text-xs text-cyan-300 mr-3">Edit</button><button onclick="deleteDataRecord(\'staff\',\''+x.id+'\')" class="text-xs text-rose-300">Delete</button></div></div></article>').join('');
+      document.getElementById('staff-empty').classList.toggle('hidden',ssRecords.staff.length!==0);
+    }
+    function renderFabrics(){
+      const q=(document.getElementById('fabric-search')?.value||'').toLowerCase();
+      const list=ssRecords.fabrics.filter(x=>(x.name+' '+x.sku).toLowerCase().includes(q));
+      const body=document.getElementById('fabrics-table'); if(!body)return;
+      document.getElementById('fabric-total').textContent=ssRecords.fabrics.length;
+      document.getElementById('fabric-low').textContent=ssRecords.fabrics.filter(x=>Number(x.stock)<=Number(x.minimum)).length;
+      document.getElementById('fabric-value').textContent=moneyBDT(ssRecords.fabrics.reduce((s,x)=>s+(Number(x.stock)||0)*(Number(x.cost)||0),0));
+      body.innerHTML=list.map(x=>'<tr class="border-b border-slate-700/60"><td class="p-3 font-semibold">'+safeText(x.name)+'</td><td class="p-3 font-mono">'+safeText(x.sku)+'</td><td class="p-3">'+safeText(x.stock)+' '+safeText(x.unit)+'</td><td class="p-3">'+moneyBDT(x.cost)+'</td><td class="p-3">'+(Number(x.stock)<=Number(x.minimum)?'<span class="text-amber-300">Low stock</span>':'<span class="text-emerald-300">In stock</span>')+'</td><td class="p-3 whitespace-nowrap"><button onclick="adjustFabricStock(\''+x.id+'\')" class="text-cyan-300 mr-3">Stock ±</button><button onclick="editDataRecord(\'fabric\',\''+x.id+'\')" class="text-cyan-300 mr-3">Edit</button><button onclick="deleteDataRecord(\'fabric\',\''+x.id+'\')" class="text-rose-300">Delete</button></td></tr>').join('');
+      document.getElementById('fabrics-empty').classList.toggle('hidden',list.length!==0);
+    }
+    const ssFieldSets={
+      customer:[['name','Customer name','text'],['phone','Mobile number','tel'],['address','Address','text'],['notes','Notes','text']],
+      staff:[['name','Staff name','text'],['phone','Mobile number','tel'],['role','Role (Master/Cutter/Tailor)','text'],['rate','Rate per job (৳)','number'],['status','Status (Active/Inactive)','text']],
+      fabric:[['name','Material name','text'],['sku','SKU / Code','text'],['stock','Current stock','number'],['unit','Unit (yard/pcs)','text'],['cost','Unit cost (৳)','number'],['minimum','Low-stock threshold','number']]
+    };
+    function openDataModal(kind,record){
+      const fields=ssFieldSets[kind]; if(!fields)return;
+      document.getElementById('data-kind').value=kind;
+      document.getElementById('data-edit-id').value=record?.id||'';
+      document.getElementById('data-modal-title').textContent=(record?'Edit ':'Add ')+(kind==='customer'?'customer':kind==='staff'?'staff member':'material');
+      document.getElementById('data-modal-fields').innerHTML=fields.map(([key,label,type])=>'<label class="text-xs text-gray-300">'+label+'<input id="data-field-'+key+'" type="'+type+'" value="'+safeText(record?.[key]??'')+'" class="block w-full mt-1 px-3 py-2 rounded-xl text-sm" /></label>').join('');
+      const modal=document.getElementById('modal-data-entry'); modal.classList.remove('hidden'); modal.classList.add('flex');
+    }
+    function closeDataModal(){const m=document.getElementById('modal-data-entry');m.classList.add('hidden');m.classList.remove('flex');}
+    function saveDataRecord(){
+      const kind=document.getElementById('data-kind').value, editId=document.getElementById('data-edit-id').value;
+      const record={}; ssFieldSets[kind].forEach(([key])=>record[key]=document.getElementById('data-field-'+key).value.trim());
+      const required=kind==='customer'?['name','phone']:kind==='staff'?['name','phone','role']:['name','sku','stock'];
+      if(required.some(k=>!record[k])){alert('Please complete the required fields.');return;}
+      if(kind==='customer'&&!/^\+?[0-9\s-]{7,16}$/.test(record.phone)){alert('Enter a valid phone number.');return;}
+      if(kind==='fabric'&&Number(record.stock)<0){alert('Stock cannot be negative.');return;}
+      if(editId){const i=ssRecords[kind].findIndex(x=>x.id===editId);if(i>=0)ssRecords[kind][i]={...ssRecords[kind][i],...record};}
+      else {record.id=kind[0].toUpperCase()+'-'+Date.now().toString(36).toUpperCase();ssRecords[kind].unshift(record);}
+      persistSsRecords();closeDataModal();renderCustomers();renderStaff();renderFabrics();
+    }
+    function editDataRecord(kind,id){const record=ssRecords[kind].find(x=>x.id===id);if(record)openDataModal(kind,record);}
+    function deleteDataRecord(kind,id){if(!confirm('Delete this record? This cannot be undone.'))return;ssRecords[kind]=ssRecords[kind].filter(x=>x.id!==id);persistSsRecords();renderCustomers();renderStaff();renderFabrics();}
+    function adjustFabricStock(id){
+      const item=ssRecords.fabrics.find(x=>x.id===id);if(!item)return;
+      const raw=prompt('Enter stock adjustment (+ to add, - to use):','5');if(raw===null)return;
+      const change=Number(raw);if(!Number.isFinite(change)||!change){alert('Enter a non-zero number.');return;}
+      if(Number(item.stock)+change<0){alert('Stock cannot be negative.');return;}
+      item.stock=String(Number(item.stock)+change);persistSsRecords();renderFabrics();
+    }
+    function renderWorkspacePages(){renderCustomers();renderStaff();renderFabrics();}
+
   </script>
 
 </body>
