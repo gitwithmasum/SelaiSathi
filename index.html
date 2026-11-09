@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>সেলাই সাথী (SelaiSathi) — মাপ থেকে ডেলিভারি, সব এক অ্যাপে</title>
+  <meta name="description" content="বাংলাদেশের টেইলার্স, বুটিক ও গ্রাহকদের জন্য ডিজিটাল টেইলারিং ও অর্ডার ট্র্যাকিং প্ল্যাটফর্ম">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧵</text></svg>">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Hind Siliguri for authentic Bengali typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Canvas Confetti for Celebration Effects -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Hind Siliguri"', 'sans-serif'],
+          },
+          colors: {
+            khadi: {
+              50: '#F4F8F5',
+              100: '#E6EFE9',
+              500: '#2E7D32',
+              600: '#1E6322',
+              700: '#0F5132',
+              800: '#0B3D26',
+            },
+            terracotta: '#A52A2A',
+            bkash: '#D12053',
+            nagad: '#F7941D',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Hind Siliguri', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    /* Thermal Slip Styling */
+    .thermal-receipt {
+      background: #fff;
+      font-family: 'Courier New', Courier, monospace;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    .thermal-receipt::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      right: 0;
+      height: 10px;
+      background: radial-gradient(circle, transparent, transparent 50%, #fff 50%, #fff 100% );
+      background-size: 14px 14px;
+    }
+
+    /* Print media styling */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #printable-receipt, #printable-receipt * {
+        visibility: visible;
+      }
+      #printable-receipt {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 58mm;
+        margin: 0;
+        padding: 4mm;
+      }
+    }
+
+    /* Theme CSS Variables */
+    :root {
+      --primary: #0F5132;
+      --primary-light: #E8F5E9;
+      --accent: #A52A2A;
+      --bg: #FBFBF9;
+      --surface: #FFFFFF;
+    }
+    body.theme-indigo {
+      --primary: #1A365D;
+      --primary-light: #EBF8FF;
+      --accent: #D97706;
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+    }
+    body.theme-plum {
+      --primary: #4A154B;
+      --primary-light: #FDF2F8;
+      --accent: #E11D48;
+      --bg: #FFF5F7;
+      --surface: #FFFFFF;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #fff;
+    }
+    .text-primary-var {
+      color: var(--primary);
+    }
+    .bg-primary-var {
+      background-color: var(--primary);
+    }
+    .bg-primary-light-var {
+      background-color: var(--primary-light);
+    }
+    .border-primary-var {
+      border-color: var(--primary);
+    }
+  </style>
+</head>
+<body class="bg-[#F8F9FA] text-gray-800 antialiased min-h-screen flex flex-col">
+
+  <!-- Top Announcement Bar -->
+  <div class="bg-gradient-to-r from-emerald-800 via-emerald-900 to-teal-900 text-white text-xs py-2 px-4 text-center flex items-center justify-center gap-3">
+    <span class="inline-flex items-center gap-1 bg-white/20 px-2 py-0.5 rounded-full font-bold">
+      ✨ লাইভ ইন্টারেক্টিভ অ্যাপ
+    </span>
+    <span>সেলাই সাথী (SelaiSathi) — বাংলাদেশের প্রথম সম্পূর্ণ ডিজিটাল টেইলারিং ও কাটিং ম্যানেজমেন্ট সফটওয়্যার</span>
+    <a href="https://github.com/gitwithmasum/SelaiSathi" target="_blank" class="underline font-bold hover:text-emerald-200 ml-2 hidden sm:inline">
+      GitHub Repo ➔
+    </a>
+  </div>
+
+  <!-- Header & Navigation -->
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Logo -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-primary-var flex items-center justify-center text-white text-2xl shadow-sm">
+          🧵
+        </div>
+        <div>
+          <h1 class="text-xl font-bold text-gray-900 tracking-tight leading-none flex items-center gap-2">
+            সেলাই সাথী <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-md">v1.0 Live</span>
+          </h1>
+          <p class="text-[11px] text-gray-500 font-medium">মাপ থেকে ডেলিভারি, সব এক অ্যাপে</p>
+        </div>
+      </div>
+
+      <!-- Center Navigation Tabs -->
+      <nav class="hidden md:flex items-center gap-1 bg-gray-100 p-1 rounded-xl">
+        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-tab px-3.5 py-1.5 rounded-lg text-sm font-bold text-emerald-900 bg-white shadow-sm transition-all">
+          📊 টেইলার্স ড্যাশবোর্ড
+        </button>
+        <button onclick="switchTab('measurements')" id="nav-measurements" class="nav-tab px-3.5 py-1.5 rounded-lg text-sm font-semibold text-gray-600 hover:text-gray-900 transition-all">
+          📏 মাপের খাতা ও ভয়েস
+        </button>
+        <button onclick="switchTab('tracking')" id="nav-tracking" class="nav-tab px-3.5 py-1.5 rounded-lg text-sm font-semibold text-gray-600 hover:text-gray-900 transition-all">
+          🔍 লাইভ ট্র্যাকিং
+        </button>
+        <button onclick="switchTab('customer-portal')" id="nav-customer-portal" class="nav-tab px-3.5 py-1.5 rounded-lg text-sm font-semibold text-gray-600 hover:text-gray-900 transition-all">
+          🛍️ কাস্টমার ভিউ
+        </button>
+        <button onclick="switchTab('mobile-frame')" id="nav-mobile-frame" class="nav-tab px-3.5 py-1.5 rounded-lg text-sm font-semibold text-gray-600 hover:text-gray-900 transition-all">
+          📱 ফোন ফ্রেম
+        </button>
+      </nav>
+
+      <!-- Right Action & Theme controls -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Theme Selector -->
+        <div class="flex items-center bg-gray-100 p-1 rounded-lg">
+          <button onclick="applyTheme('khadi')" title="খাদি গ্রীন" class="w-6 h-6 rounded-md bg-[#0F5132] border border-white shadow-sm focus:ring-2"></button>
+          <button onclick="applyTheme('indigo')" title="ডেনিম ইন্ডিগো" class="w-6 h-6 rounded-md bg-[#1A365D] border border-white shadow-sm ml-1"></button>
+          <button onclick="applyTheme('plum')" title="ভিন্টেজ প্লাম" class="w-6 h-6 rounded-md bg-[#4A154B] border border-white shadow-sm ml-1"></button>
+        </div>
+
+        <!-- Quick New Order Button -->
+        <button onclick="openNewOrderModal()" class="btn-primary text-xs sm:text-sm font-bold px-3.5 py-2 rounded-xl flex items-center gap-1.5 shadow-sm hover:opacity-95 transition-all">
+          <span>➕</span> <span class="hidden sm:inline">নতুন</span> অর্ডার
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Subnav -->
+    <div class="md:hidden flex overflow-x-auto py-2 px-3 gap-2 border-t border-gray-100 bg-gray-50 text-xs">
+      <button onclick="switchTab('dashboard')" class="px-3 py-1.5 bg-white rounded-lg font-bold border border-gray-200 whitespace-nowrap">📊 ড্যাশবোর্ড</button>
+      <button onclick="switchTab('measurements')" class="px-3 py-1.5 bg-white rounded-lg font-medium border border-gray-200 whitespace-nowrap">📏 মাপ ও ভয়েস</button>
+      <button onclick="switchTab('tracking')" class="px-3 py-1.5 bg-white rounded-lg font-medium border border-gray-200 whitespace-nowrap">🔍 ট্র্যাকিং</button>
+      <button onclick="switchTab('customer-portal')" class="px-3 py-1.5 bg-white rounded-lg font-medium border border-gray-200 whitespace-nowrap">🛍️ কাস্টমার</button>
+      <button onclick="switchTab('mobile-frame')" class="px-3 py-1.5 bg-white rounded-lg font-medium border border-gray-200 whitespace-nowrap">📱 ফোন ভিউ</button>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+
+    <!-- ========================================== -->
+    <!-- TAB 1: TAILOR DASHBOARD                   -->
+    <!-- ========================================== -->
+    <section id="tab-dashboard" class="tab-pane active space-y-6">
+      <!-- Shop Greeting & Stats Bar -->
+      <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <h2 class="text-xl font-bold text-gray-900">নিউ ফ্যাশন টেইলার্স</h2>
+            <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full">দোকান নং ১২, নিউমার্কেট, ঢাকা</span>
+          </div>
+          <p class="text-xs text-gray-500 mt-1">শপ কোড: <span class="font-mono font-bold text-gray-700">SS-1024</span> • আজকের তারিখ: <span id="current-bangla-date" class="font-bold text-gray-700"></span></p>
+        </div>
+
+        <!-- Eid Rush Capacity Alert -->
+        <div class="flex items-center gap-3 bg-amber-50 border border-amber-200 px-4 py-2.5 rounded-xl">
+          <span class="text-2xl">⏳</span>
+          <div>
+            <div class="text-xs font-bold text-amber-900">ডেলিভারি ক্যাপাসিটি রাডার: <span class="text-emerald-700">৬৫% পূর্ণ</span></div>
+            <div class="text-[11px] text-amber-700">প্রতিদিন সর্বোচ্চ ১২টি পোশাক সেলাইয়ের ক্ষমতা (কারিগর ৩ জন)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Grid -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs font-bold text-gray-500 uppercase tracking-wider">চলমান অর্ডার</p>
+            <p id="metric-active-orders" class="text-2xl font-black text-gray-900 mt-1">০৪ টি</p>
+            <span class="text-[11px] font-semibold text-emerald-600">সবগুলো সময়মতো চলছে</span>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-xl">✂️</div>
+        </div>
+
+        <div class="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs font-bold text-gray-500 uppercase tracking-wider">আজকের ডেলিভারি</p>
+            <p class="text-2xl font-black text-amber-600 mt-1">০২ টি</p>
+            <span class="text-[11px] font-semibold text-amber-600">জরুরি ডেলিভারি</span>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl">⏰</div>
+        </div>
+
+        <div class="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs font-bold text-gray-500 uppercase tracking-wider">মোট বকেয়া (বাকি)</p>
+            <p id="metric-total-due" class="text-2xl font-black text-red-600 mt-1">৳ ১,৮৫০</p>
+            <span class="text-[11px] font-semibold text-red-600">৩ জন গ্রাহকের কাছে বাকি</span>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center text-xl">💵</div>
+        </div>
+
+        <div class="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm flex items-center justify-between">
+          <div>
+            <p class="text-xs font-bold text-gray-500 uppercase tracking-wider">আজকের আয় (জমা)</p>
+            <p id="metric-today-income" class="text-2xl font-black text-emerald-700 mt-1">৳ ২,৬০০</p>
+            <span class="text-[11px] font-semibold text-emerald-600">ক্যাশ + বিকাশ</span>
+          </div>
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-xl">📈</div>
+        </div>
+      </div>
+
+      <!-- Live Orders Table / Cards -->
+      <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+        <div class="p-5 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h3 class="text-lg font-bold text-gray-900">সক্রিয় অর্ডারের তালিকা ও এক-ট্যাপ স্টেজ পরিবর্তন</h3>
+            <p class="text-xs text-gray-500">স্টেজ বাটনে ক্লিক করে সরাসরি সেলাইয়ের অগ্রগতি পরিবর্তন ও কাস্টমারকে ট্র্যাকিং আপডেট দিন</p>
+          </div>
+
+          <!-- Stage Filter Pills -->
+          <div class="flex items-center gap-1.5 overflow-x-auto text-xs">
+            <button onclick="filterOrders('ALL')" class="order-filter-btn px-3 py-1.5 rounded-lg font-bold bg-gray-900 text-white">সব</button>
+            <button onclick="filterOrders('FABRIC_RECEIVED')" class="order-filter-btn px-3 py-1.5 rounded-lg font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200">কাপড় গ্রহণ</button>
+            <button onclick="filterOrders('CUTTING')" class="order-filter-btn px-3 py-1.5 rounded-lg font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200">কাটিং</button>
+            <button onclick="filterOrders('STITCHING')" class="order-filter-btn px-3 py-1.5 rounded-lg font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200">সেলাই</button>
+            <button onclick="filterOrders('READY')" class="order-filter-btn px-3 py-1.5 rounded-lg font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200">রেডি</button>
+          </div>
+        </div>
+
+        <!-- Orders Container -->
+        <div id="orders-list-container" class="divide-y divide-gray-100">
+          <!-- Dynamically populated via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: DIGITAL MEASUREMENTS & VOICE       -->
+    <!-- ========================================== -->
+    <section id="tab-measurements" class="tab-pane hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Left 2 Cols: Form -->
+        <div class="lg:col-span-2 bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-5">
+          <div class="flex items-center justify-between border-b border-gray-100 pb-4">
+            <div>
+              <h2 class="text-xl font-bold text-gray-900 flex items-center gap-2">
+                <span>📏</span> ডিজিটাল মাপের রেজিস্ট্রি
+              </h2>
+              <p class="text-xs text-gray-500">গ্রাহকের নতুন মাপ সংরক্ষণ করুন অথবা মুখে বাংলায় মাপ বলুন</p>
+            </div>
+
+            <!-- Voice Input Trigger Button -->
+            <button onclick="toggleVoiceAssistant()" id="btn-voice-assistant" class="flex items-center gap-2 bg-red-50 text-red-700 border border-red-200 px-4 py-2 rounded-xl text-xs font-bold hover:bg-red-100 transition-all shadow-sm">
+              <span id="voice-pulse" class="w-2.5 h-2.5 rounded-full bg-red-600"></span>
+              <span id="voice-btn-text">🎤 বাংলা ভয়েস ইনপুট</span>
+            </button>
+          </div>
+
+          <!-- Voice Feedback Box -->
+          <div id="voice-transcript-box" class="hidden p-3.5 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 flex items-center justify-between">
+            <div>
+              <span class="font-bold">ভয়েস রেকর্ডিং সক্রিয়:</span>
+              <span id="voice-transcript-text" class="italic ml-1">"ঝুল ৪২, বুক ৩৮, পুট ১৮, হাতা ২৪..." বলুন</span>
+            </div>
+            <button onclick="simulateBengaliVoice()" class="text-xs bg-amber-200 hover:bg-amber-300 px-2.5 py-1 rounded-md font-bold text-amber-900">
+              ⚡ অটো সিমুলেশন
+            </button>
+          </div>
+
+          <!-- Customer Selection Row -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-gray-700 mb-1">গ্রাহকের নাম *</label>
+              <input type="text" id="m-cust-name" value="রফিকুল ইসলাম" class="w-full border border-gray-300 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-gray-700 mb-1">মোবাইল নম্বর *</label>
+              <input type="tel" id="m-cust-phone" value="01711223344" class="w-full border border-gray-300 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none">
+            </div>
+          </div>
+
+          <!-- Garment Type Tabs -->
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-2">পোশাকের ধরন বেছে নিন:</label>
+            <div class="flex flex-wrap gap-2">
+              <button onclick="setMeasurementGarment('PANJABI')" id="mg-panjabi" class="mg-tab px-4 py-2 rounded-xl text-xs font-bold bg-primary-var text-white shadow-sm">
+                পাঞ্জাবি (Panjabi)
+              </button>
+              <button onclick="setMeasurementGarment('SHIRT')" id="mg-shirt" class="mg-tab px-4 py-2 rounded-xl text-xs font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200">
+                শার্ট (Shirt)
+              </button>
+              <button onclick="setMeasurementGarment('PANT')" id="mg-pant" class="mg-tab px-4 py-2 rounded-xl text-xs font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200">
+                প্যান্ট (Pant)
+              </button>
+              <button onclick="setMeasurementGarment('KAMEEZ')" id="mg-kameez" class="mg-tab px-4 py-2 rounded-xl text-xs font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200">
+                কামিজ (Salwar Kameez)
+              </button>
+            </div>
+          </div>
+
+          <!-- Measurement Numeric Fields (Dynamic) -->
+          <div id="measurement-fields-container" class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-200">
+            <!-- Dynamically populated -->
+          </div>
+
+          <!-- Special Note -->
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">কাটিং মাস্টারের বিশেষ নোট (ঐচ্ছিক)</label>
+            <textarea id="m-notes" rows="2" placeholder="যেমন: বুক একটু ঢিলা হবে, দুই পাশে পকেট ও ডাবল সেলাই..." class="w-full border border-gray-300 rounded-xl p-3 text-xs focus:ring-2 focus:ring-emerald-600 focus:outline-none"></textarea>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex items-center justify-end gap-3 pt-2">
+            <button onclick="saveMeasurementRecord()" class="btn-primary text-sm font-bold px-6 py-2.5 rounded-xl flex items-center gap-2 shadow-sm hover:opacity-95">
+              <span>💾</span> মাপ সংরক্ষণ করুন
+            </button>
+          </div>
+        </div>
+
+        <!-- Right 1 Col: Saved History & Visual Style -->
+        <div class="space-y-6">
+          <!-- Visual Style Selector Preview -->
+          <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm space-y-4">
+            <h3 class="text-sm font-bold text-gray-900 flex items-center gap-2">
+              <span>🎨</span> ভিজ্যুয়াল কলার ও কাফ সিলেক্টর
+            </h3>
+            <p class="text-[11px] text-gray-500">গ্রাহকের পছন্দ অনুযায়ী কলার ও কাটিং স্টাইল নির্বাচন করুন:</p>
+
+            <div class="grid grid-cols-2 gap-2.5 text-xs">
+              <button onclick="selectStyle('collar', 'band')" id="style-collar-band" class="style-choice-btn p-3 rounded-xl border-2 border-emerald-600 bg-emerald-50 text-emerald-900 font-bold text-center">
+                <span class="block text-xl mb-1">👔</span>
+                ব্যান্ড কলার (Band)
+              </button>
+              <button onclick="selectStyle('collar', 'mandarin')" id="style-collar-mandarin" class="style-choice-btn p-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-700 font-medium text-center hover:border-gray-300">
+                <span class="block text-xl mb-1">🦺</span>
+                চাইনিজ কলার
+              </button>
+              <button onclick="selectStyle('pocket', 'chest')" id="style-pocket-chest" class="style-choice-btn p-3 rounded-xl border-2 border-emerald-600 bg-emerald-50 text-emerald-900 font-bold text-center">
+                <span class="block text-xl mb-1">🏷️</span>
+                ১টি বুক পকেট
+              </button>
+              <button onclick="selectStyle('pocket', 'side')" id="style-pocket-side" class="style-choice-btn p-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-700 font-medium text-center hover:border-gray-300">
+                <span class="block text-xl mb-1">✂️</span>
+                উভয় পাশে পকেট
+              </button>
+            </div>
+          </div>
+
+          <!-- Customer's Past Measurements History -->
+          <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm space-y-3">
+            <h3 class="text-sm font-bold text-gray-900 flex items-center justify-between">
+              <span>📜 পূর্ববর্তী মাপের হিস্ট্রি</span>
+              <span class="text-[10px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full font-bold">ভার্সন v2.1</span>
+            </h3>
+            
+            <div class="space-y-2 text-xs">
+              <div class="p-3 bg-gray-50 rounded-xl border border-gray-200 flex items-center justify-between">
+                <div>
+                  <div class="font-bold text-gray-900">পাঞ্জাবি (ঈদ ২০২৫)</div>
+                  <div class="text-[11px] text-gray-500">ঝুল: ৪২ • বুক: ৩৮ • পুট: ১৮</div>
+                </div>
+                <button onclick="copyOldMeasurement()" class="text-emerald-700 font-bold hover:underline">কপি ➔</button>
+              </div>
+              <div class="p-3 bg-gray-50 rounded-xl border border-gray-200 flex items-center justify-between">
+                <div>
+                  <div class="font-bold text-gray-900">ফরমাল শার্ট (অফিস)</div>
+                  <div class="text-[11px] text-gray-500">ঝুল: ২৯.৫ • বুক: ৩৭.৫ • কলার: ১৫.৫</div>
+                </div>
+                <button onclick="copyOldMeasurement()" class="text-emerald-700 font-bold hover:underline">কপি ➔</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: LIVE ORDER TRACKING                -->
+    <!-- ========================================== -->
+    <section id="tab-tracking" class="tab-pane hidden space-y-6 max-w-3xl mx-auto">
+      
+      <!-- Search Order Card -->
+      <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-4">
+        <div class="text-center">
+          <span class="text-3xl">🔍</span>
+          <h2 class="text-xl font-bold text-gray-900 mt-2">লাইভ পোশাক ট্র্যাকিং</h2>
+          <p class="text-xs text-gray-500">এসএমএস লিংকের টোকেন বা অর্ডার নম্বর দিয়ে সেলাইয়ের বর্তমান অগ্রগতি দেখুন</p>
+        </div>
+
+        <div class="flex gap-2 max-w-md mx-auto">
+          <input type="text" id="track-input-code" value="SS-2026-0001" placeholder="যেমন: SS-2026-0001 বা TAG-1042" class="flex-1 border border-gray-300 rounded-xl px-4 py-2.5 text-sm font-mono font-bold focus:ring-2 focus:ring-emerald-600 focus:outline-none uppercase">
+          <button onclick="searchTrackingOrder()" class="btn-primary text-sm font-bold px-5 py-2.5 rounded-xl flex items-center gap-1.5 shadow-sm">
+            ট্র্যাক করুন
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Tracked Order Display Card -->
+      <div id="tracked-order-card" class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 space-y-6">
+        
+        <!-- Shop & Order Info Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-gray-100">
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 id="trk-shop-name" class="text-lg font-bold text-primary-var">নিউ ফ্যাশন টেইলার্স</h3>
+              <span id="trk-pin-tag" class="text-xs bg-amber-100 text-amber-900 font-black px-2 py-0.5 rounded-md">📌 পিন ট্যাগ: TAG-001</span>
+            </div>
+            <p id="trk-order-no" class="text-xs font-mono font-bold text-gray-500 mt-0.5">অর্ডার নং: SS-2026-0001</p>
+          </div>
+
+          <div class="text-right">
+            <span class="text-xs text-gray-500">সম্মানিত গ্রাহক:</span>
+            <div id="trk-customer-name" class="font-bold text-gray-900">রফিকুল ইসলাম</div>
+          </div>
+        </div>
+
+        <!-- 5-Step Animated Progress Bar -->
+        <div class="space-y-3">
+          <div class="flex justify-between text-xs font-bold text-gray-600">
+            <span>কাজের বর্তমান অবস্থা:</span>
+            <span id="trk-current-stage-label" class="text-emerald-700 font-extrabold text-sm">সেলাই চলছে (In Stitching)</span>
+          </div>
+
+          <!-- Progress Track -->
+          <div class="h-3 bg-gray-100 rounded-full overflow-hidden p-0.5">
+            <div id="trk-progress-fill" class="h-full bg-gradient-to-r from-emerald-600 to-teal-500 rounded-full transition-all duration-700" style="width: 65%;"></div>
+          </div>
+
+          <!-- 5 Stage Markers -->
+          <div class="grid grid-cols-5 text-center text-[10px] font-bold text-gray-500 pt-1">
+            <div class="text-emerald-700">✓ কাপড় গ্রহণ</div>
+            <div class="text-emerald-700">✓ কাটিং শেষ</div>
+            <div class="text-emerald-800 font-extrabold scale-105">🧵 সেলাই চলছে</div>
+            <div>আয়রন/ফিনিশিং</div>
+            <div>ডেলিভারি প্রস্তুত</div>
+          </div>
+        </div>
+
+        <!-- Delivery Date & Notes -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-gray-50 p-4 rounded-xl border border-gray-200 text-xs">
+          <div>
+            <span class="text-gray-500">পোশাকের ধরন:</span>
+            <div id="trk-garment-name" class="font-bold text-gray-900 text-sm mt-0.5">প্রিমিয়াম পাঞ্জাবি (১টি)</div>
+          </div>
+          <div>
+            <span class="text-gray-500">আনুমানিক ডেলিভারি তারিখ:</span>
+            <div id="trk-delivery-date" class="font-bold text-gray-900 text-sm mt-0.5">১৫ নভেম্বর, ২০২৬</div>
+          </div>
+        </div>
+
+        <!-- Financial Statement & MFS Payment Button -->
+        <div class="bg-primary-light-var p-4 rounded-2xl border border-primary-var flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="text-xs text-gray-600 font-semibold">পেমেন্ট স্ট্যাটাস:</div>
+            <div class="text-sm font-bold text-gray-900 mt-0.5">
+              মোট: ৳<span id="trk-total-bill">৮৫০</span> | জমা: ৳<span id="trk-advance-paid">৩০০</span> | 
+              বকেয়া: <span id="trk-due-amount" class="text-red-600 font-black text-base">৳৫৫o</span>
+            </div>
+          </div>
+
+          <!-- Pay via bKash / Nagad trigger -->
+          <button onclick="openMfsModal(550, 'SS-2026-0001')" class="bg-bkash hover:opacity-90 text-white font-bold text-xs sm:text-sm px-5 py-2.5 rounded-xl shadow-md flex items-center justify-center gap-2">
+            <span>💳</span> বিকাশ বা নগদে বকেয়া পরিশোধ
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 4: CUSTOMER PORTAL                    -->
+    <!-- ========================================== -->
+    <section id="tab-customer-portal" class="tab-pane hidden space-y-6">
+      <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+        <div>
+          <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2.5 py-1 rounded-full">গ্রাহক পোর্টাল</span>
+          <h2 class="text-xl font-bold text-gray-900 mt-2">স্বাগতম, রফিকুল ইসলাম</h2>
+          <p class="text-xs text-gray-500">আপনার সংরক্ষিত মাপ ও বর্তমান সক্রিয় অর্ডারসমূহ</p>
+        </div>
+
+        <div class="flex gap-2">
+          <button onclick="switchTab('measurements')" class="px-4 py-2 border border-gray-300 rounded-xl text-xs font-bold text-gray-700 hover:bg-gray-50">
+            📏 আমার মাপ দেখুন
+          </button>
+          <button onclick="openReviewModal('SS-2026-0001', 'নিউ ফ্যাশন টেইলার্স')" class="btn-primary px-4 py-2 rounded-xl text-xs font-bold shadow-sm">
+            ⭐ কাজের রিভিউ দিন
+          </button>
+        </div>
+      </div>
+
+      <!-- Customer Order Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Order 1 -->
+        <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm space-y-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-xs font-mono font-bold text-gray-500">SS-2026-0001</span>
+              <h3 class="text-base font-bold text-gray-900">কাবলি সেট পাঞ্জাবি</h3>
+              <p class="text-xs text-gray-500">নিউ ফ্যাশন টেইলার্স • নিউমার্কেট</p>
+            </div>
+            <span class="text-xs bg-amber-100 text-amber-900 font-bold px-2.5 py-1 rounded-full">সেলাই চলছে</span>
+          </div>
+
+          <div class="space-y-1.5">
+            <div class="flex justify-between text-xs text-gray-600">
+              <span>অগ্রগতি:</span>
+              <span class="font-bold text-emerald-700">৬৫%</span>
+            </div>
+            <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
+              <div class="h-full bg-emerald-600 rounded-full" style="width: 65%;"></div>
+            </div>
+          </div>
+
+          <div class="flex justify-between items-center pt-3 border-t border-gray-100 text-xs">
+            <div>বকেয়া: <span class="font-bold text-red-600">৳৫৫০</span></div>
+            <button onclick="openMfsModal(550, 'SS-2026-0001')" class="text-bkash font-bold hover:underline">
+              💳 বিকাশ দিয়ে দিন ➔
+            </button>
+          </div>
+        </div>
+
+        <!-- Order 2 (Delivered) -->
+        <div class="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm space-y-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-xs font-mono font-bold text-gray-500">SS-2026-0002</span>
+              <h3 class="text-base font-bold text-gray-900">ইটালিয়ান কটন শার্ট</h3>
+              <p class="text-xs text-gray-500">রয়্যাল টেইলার্স • ধানমন্ডি</p>
+            </div>
+            <span class="text-xs bg-emerald-100 text-emerald-900 font-bold px-2.5 py-1 rounded-full">✓ ডেলিভারি সম্পন্ন</span>
+          </div>
+
+          <div class="space-y-1.5">
+            <div class="flex justify-between text-xs text-gray-600">
+              <span>অগ্রগতি:</span>
+              <span class="font-bold text-emerald-700">১০০% সম্পন্ন</span>
+            </div>
+            <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
+              <div class="h-full bg-emerald-600 rounded-full" style="width: 100%;"></div>
+            </div>
+          </div>
+
+          <div class="flex justify-between items-center pt-3 border-t border-gray-100 text-xs">
+            <div class="text-emerald-700 font-bold">✓ সম্পূর্ণ পরিশোধিত</div>
+            <button onclick="openReviewModal('SS-2026-0002', 'রয়্যাল টেইলার্স')" class="text-amber-600 font-bold hover:underline">
+              ⭐ রিভিউ লিখুন ➔
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 5: MOBILE FRAME EXPERIENCE            -->
+    <!-- ========================================== -->
+    <section id="tab-mobile-frame" class="tab-pane hidden py-4 flex flex-col items-center">
+      <div class="text-center mb-6">
+        <h2 class="text-xl font-bold text-gray-900">মোবাইল অ্যাপ সিমুলেটর (Live Mobile UI)</h2>
+        <p class="text-xs text-gray-500">স্মার্টফোনের স্ক্রিনে সেলাই সাথীর নেটিভ মোবাইল ইন্টারফেস পরখ করুন</p>
+      </div>
+
+      <!-- Phone Outer Bezel -->
+      <div class="w-[360px] h-[700px] bg-gray-900 rounded-[44px] p-3.5 shadow-2xl border-4 border-gray-800 relative flex flex-col">
+        <!-- Speaker / Camera Notch -->
+        <div class="w-32 h-5 bg-black rounded-b-2xl mx-auto z-20 flex items-center justify-center">
+          <div class="w-3 h-3 rounded-full bg-gray-900 mr-2"></div>
+          <div class="w-8 h-1 bg-gray-800 rounded-full"></div>
+        </div>
+
+        <!-- Phone Inner Screen -->
+        <div class="flex-1 bg-white rounded-[32px] overflow-hidden flex flex-col relative text-xs">
+          <!-- Mobile Status Bar -->
+          <div class="h-6 bg-primary-var text-white flex items-center justify-between px-4 text-[10px] font-bold">
+            <span>9:41 AM</span>
+            <div class="flex items-center gap-1">
+              <span>📶 5G</span>
+              <span>🔋 100%</span>
+            </div>
+          </div>
+
+          <!-- Mobile App Header -->
+          <div class="bg-primary-var text-white p-3.5 flex items-center justify-between">
+            <div>
+              <div class="text-sm font-bold flex items-center gap-1.5">
+                <span>🧵 সেলাই সাথী</span>
+              </div>
+              <div class="text-[10px] text-emerald-200">নিউ ফ্যাশন টেইলার্স</div>
+            </div>
+            <button onclick="openNewOrderModal()" class="bg-white/20 hover:bg-white/30 text-white px-2.5 py-1 rounded-lg text-[10px] font-bold">
+              + নতুন অর্ডার
+            </button>
+          </div>
+
+          <!-- Mobile Screen Content (Scrollable) -->
+          <div class="flex-1 overflow-y-auto p-3 space-y-3 bg-gray-50">
+            <!-- Mobile Metrics -->
+            <div class="grid grid-cols-2 gap-2">
+              <div class="bg-white p-2.5 rounded-xl border border-gray-200">
+                <span class="text-[10px] text-gray-500">চলমান অর্ডার</span>
+                <div class="text-base font-black text-gray-900 mt-0.5">৪ টি</div>
+              </div>
+              <div class="bg-white p-2.5 rounded-xl border border-gray-200">
+                <span class="text-[10px] text-gray-500">বকেয়া</span>
+                <div class="text-base font-black text-red-600 mt-0.5">৳ ১,৮৫০</div>
+              </div>
+            </div>
+
+            <!-- Mobile Active Order Card -->
+            <div class="bg-white p-3 rounded-xl border border-gray-200 shadow-sm space-y-2">
+              <div class="flex justify-between items-start">
+                <div>
+                  <div class="font-bold text-gray-900">পাঞ্জাবি • রফিকুল</div>
+                  <div class="text-[10px] font-mono text-gray-400">SS-2026-0001</div>
+                </div>
+                <span class="text-[9px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">সেলাই</span>
+              </div>
+              
+              <!-- Progress mini -->
+              <div class="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-emerald-600" style="width: 65%;"></div>
+              </div>
+
+              <div class="flex justify-between items-center pt-2 border-t border-gray-100 text-[10px]">
+                <span class="text-red-600 font-bold">বাকি: ৳৫৫০</span>
+                <button onclick="showThermalReceipt('SS-2026-0001')" class="text-emerald-700 font-bold">
+                  🖨️ স্লিপ
+                </button>
+              </div>
+            </div>
+
+            <!-- Quick Action Pills -->
+            <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-[11px] space-y-2">
+              <div class="font-bold text-emerald-900">🎤 ভয়েস কমান্ড দিয়ে মাপ নিন:</div>
+              <button onclick="simulateBengaliVoice()" class="w-full bg-emerald-700 text-white py-1.5 rounded-lg font-bold">
+                মুখে বলুন: "ঝুল ৪২, বুক ৩৮"
+              </button>
+            </div>
+          </div>
+
+          <!-- Mobile Bottom Navigation Bar -->
+          <div class="h-14 bg-white border-t border-gray-200 grid grid-cols-4 text-center items-center text-[10px] text-gray-500">
+            <button class="text-primary-var font-bold">
+              <span class="block text-sm">📊</span>
+              অর্ডার
+            </button>
+            <button onclick="switchTab('measurements')">
+              <span class="block text-sm">📏</span>
+              মাপ
+            </button>
+            <button onclick="switchTab('tracking')">
+              <span class="block text-sm">🔍</span>
+              ট্র্যাক
+            </button>
+            <button onclick="switchTab('customer-portal')">
+              <span class="block text-sm">👤</span>
+              গ্রাহক
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================== -->
+  <!-- MODALS (New Order, MFS, Receipt, Review)   -->
+  <!-- ========================================== -->
+
+  <!-- MODAL 1: NEW ORDER CREATION -->
+  <div id="modal-new-order" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b border-gray-100 pb-3">
+        <h3 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+          <span>➕</span> নতুন অর্ডার তৈরি করুন
+        </h3>
+        <button onclick="closeModal('modal-new-order')" class="text-gray-400 hover:text-gray-600 font-bold text-xl">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-gray-700 mb-1">গ্রাহকের নাম *</label>
+          <input type="text" id="order-cust-name" placeholder="যেমন: মো: আরিফুল ইসলাম" class="w-full border border-gray-300 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none">
+        </div>
+        <div>
+          <label class="block font-bold text-gray-700 mb-1">মোবাইল নম্বর *</label>
+          <input type="tel" id="order-cust-phone" placeholder="017xxxxxxxx" class="w-full border border-gray-300 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-gray-700 mb-1">পোশাকের ধরন</label>
+            <select id="order-garment-select" class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none">
+              <option value="পাঞ্জাবি">পাঞ্জাবি (Panjabi)</option>
+              <option value="শার্ট">শার্ট (Shirt)</option>
+              <option value="প্যান্ট">প্যান্ট (Pant)</option>
+              <option value="কামিজ">সেলোয়ার কামিজ</option>
+              <option value="ব্লেজার">ব্লেজার / স্যুট</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-gray-700 mb-1">ডেলিভারি তারিখ</label>
+            <input type="date" id="order-delivery-date" class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-gray-700 mb-1">মোট বিল (টাকা) *</label>
+            <input type="number" id="order-total-price" value="800" class="w-full border border-gray-300 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none font-bold">
+          </div>
+          <div>
+            <label class="block font-bold text-gray-700 mb-1">অগ্রিম জমা (Advance)</label>
+            <input type="number" id="order-advance-paid" value="300" class="w-full border border-gray-300 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-emerald-600 focus:outline-none font-bold text-emerald-700">
+          </div>
+        </div>
+
+        <!-- Fabric Pin Tag Auto Preview -->
+        <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl flex items-center justify-between">
+          <div>
+            <span class="text-amber-800 font-bold">অটো ফ্যাব্রিক পিন ট্যাগ তৈরি হবে:</span>
+            <div id="preview-pin-tag" class="font-mono font-black text-amber-900 text-sm">📌 TAG-1043</div>
+          </div>
+          <span class="text-[10px] text-amber-700">কাপড়ের সাথে সেফটি পিন দিয়ে আটকানোর জন্য</span>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-3 border-t border-gray-100">
+        <button onclick="closeModal('modal-new-order')" class="px-4 py-2 border border-gray-300 rounded-xl text-xs font-bold text-gray-600 hover:bg-gray-50">
+          বাতিল
+        </button>
+        <button onclick="submitNewOrder()" class="btn-primary px-5 py-2 rounded-xl text-xs font-bold shadow-md">
+          ✓ অর্ডার নিশ্চিত করুন
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: MFS (BKASH / NAGAD) CHECKOUT -->
+  <div id="modal-mfs" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex justify-between items-center border-b border-gray-100 pb-3">
+        <h3 class="text-base font-bold text-gray-900 flex items-center gap-2">
+          <span>💳</span> অনলাইন বকেয়া পরিশোধ (MFS)
+        </h3>
+        <button onclick="closeModal('modal-mfs')" class="text-gray-400 hover:text-gray-600 font-bold text-xl">✕</button>
+      </div>
+
+      <!-- Gateway choice -->
+      <div class="grid grid-cols-2 gap-3">
+        <button onclick="selectMfsGateway('BKASH')" id="btn-gw-bkash" class="p-3 rounded-xl border-2 border-bkash bg-pink-50 text-bkash font-bold text-center flex items-center justify-center gap-2">
+          <span>🌸</span> বিকাশ (bKash)
+        </button>
+        <button onclick="selectMfsGateway('NAGAD')" id="btn-gw-nagad" class="p-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-700 font-medium text-center flex items-center justify-center gap-2">
+          <span>⚡</span> নগদ (Nagad)
+        </button>
+      </div>
+
+      <!-- Payment Instructions -->
+      <div class="p-3.5 bg-gray-50 rounded-xl border border-gray-200 text-xs space-y-2">
+        <div class="flex justify-between">
+          <span class="text-gray-500">পরিশোধের পরিমাণ:</span>
+          <span class="font-bold text-gray-900 text-sm">৳<span id="mfs-modal-amount">550</span></span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-500">দোকানের মার্চেন্ট নম্বর:</span>
+          <span class="font-mono font-bold text-emerald-800">01700-112233</span>
+        </div>
+      </div>
+
+      <!-- TrxID Input -->
+      <div class="space-y-1">
+        <label class="block text-xs font-bold text-gray-700">ট্রানজেকশন আইডি (TrxID) লিখুন:</label>
+        <div class="flex gap-2">
+          <input type="text" id="mfs-trxid-input" placeholder="যেমন: BL98A2K5X" class="flex-1 border border-gray-300 rounded-xl px-3 py-2 text-sm font-mono font-bold uppercase focus:ring-2 focus:ring-pink-600 focus:outline-none">
+          <button onclick="generateRandomTrxId()" class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl text-xs font-bold text-gray-700" title="পরীক্ষার জন্য অটো TrxID">
+            ⚡ অটো
+          </button>
+        </div>
+      </div>
+
+      <div class="pt-2">
+        <button onclick="verifyMfsPayment()" id="mfs-confirm-btn" class="w-full bg-bkash hover:opacity-90 text-white font-bold text-sm py-3 rounded-xl shadow-md transition-all">
+          পেমেন্ট ভেরিফাই করুন ✓
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: 58MM THERMAL RECEIPT SLIP -->
+  <div id="modal-receipt" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex justify-between items-center border-b border-gray-100 pb-3">
+        <h3 class="text-sm font-bold text-gray-900">৫৮মিমি থার্মাল পস স্লিপ (POS Memo)</h3>
+        <button onclick="closeModal('modal-receipt')" class="text-gray-400 hover:text-gray-600 font-bold text-xl">✕</button>
+      </div>
+
+      <!-- Printable Slip Area -->
+      <div id="printable-receipt" class="thermal-receipt p-4 text-xs space-y-2 text-gray-900 border border-dashed border-gray-300">
+        <div class="text-center pb-2 border-b border-gray-300 border-dashed">
+          <div class="font-bold text-sm tracking-wider">নিউ ফ্যাশন টেইলার্স</div>
+          <div class="text-[10px]">দোকান নং ১২, নিউমার্কেট, ঢাকা</div>
+          <div class="text-[10px]">ফোন: ০১৭০০-০০০০০০</div>
+        </div>
+
+        <div class="flex justify-between text-[11px] font-mono">
+          <span>ভাউচার: <strong id="rcpt-order-no">SS-2026-0001</strong></span>
+          <span id="rcpt-pin-tag" class="bg-black text-white px-1 font-bold">TAG-001</span>
+        </div>
+
+        <div class="text-[10px] text-gray-700">
+          <div>গ্রাহক: <strong id="rcpt-cust-name">রফিকুল ইসলাম</strong></div>
+          <div>মোবাইল: <strong id="rcpt-cust-phone">01711223344</strong></div>
+          <div>ডেলিভারি: <strong id="rcpt-del-date">15/11/2026</strong></div>
+        </div>
+
+        <div class="border-t border-b border-gray-300 border-dashed py-1 space-y-1 text-[11px]">
+          <div class="flex justify-between">
+            <span id="rcpt-garment-name">পাঞ্জাবি সেলাই (১টি)</span>
+            <span>৳<span id="rcpt-price">850</span></span>
+          </div>
+        </div>
+
+        <div class="space-y-0.5 text-[11px]">
+          <div class="flex justify-between">
+            <span>মোট বিল:</span>
+            <span>৳<span id="rcpt-total">850</span></span>
+          </div>
+          <div class="flex justify-between font-bold text-emerald-800">
+            <span>অগ্রিম জমা:</span>
+            <span>৳<span id="rcpt-advance">300</span></span>
+          </div>
+          <div class="flex justify-between font-bold text-red-600 border-t border-gray-200 pt-0.5">
+            <span>বকেয়া:</span>
+            <span>৳<span id="rcpt-due">550</span></span>
+          </div>
+        </div>
+
+        <div class="text-center pt-2 text-[9px] text-gray-500">
+          <div>লাইভ ট্র্যাকিং লিংক: selaisathi.com/track/xyz</div>
+          <div>ধন্যবাদ, আবার আসবেন!</div>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeModal('modal-receipt')" class="px-4 py-2 border border-gray-300 rounded-xl text-xs font-bold text-gray-600 hover:bg-gray-50">
+          বন্ধ করুন
+        </button>
+        <button onclick="window.print()" class="btn-primary px-5 py-2 rounded-xl text-xs font-bold shadow-md flex items-center gap-1.5">
+          <span>🖨️</span> পস প্রিন্ট দিন
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: CUSTOMER REVIEW & RATING -->
+  <div id="modal-review" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex justify-between items-center border-b border-gray-100 pb-3">
+        <h3 class="text-base font-bold text-gray-900">⭐ কাস্টমার রিভিউ ও রেটিং দিন</h3>
+        <button onclick="closeModal('modal-review')" class="text-gray-400 hover:text-gray-600 font-bold text-xl">✕</button>
+      </div>
+
+      <div class="text-center space-y-2">
+        <p class="text-xs text-gray-500">পোশাকের ফিটিং ও সেলাইয়ের ফিনিশিং কেমন লেগেছে?</p>
+        <!-- Interactive 5 Stars -->
+        <div class="flex justify-center gap-2 text-3xl cursor-pointer py-2">
+          <span onclick="setRating(1)" id="star-1" class="star-rating text-amber-400 hover:scale-110 transition-transform">★</span>
+          <span onclick="setRating(2)" id="star-2" class="star-rating text-amber-400 hover:scale-110 transition-transform">★</span>
+          <span onclick="setRating(3)" id="star-3" class="star-rating text-amber-400 hover:scale-110 transition-transform">★</span>
+          <span onclick="setRating(4)" id="star-4" class="star-rating text-amber-400 hover:scale-110 transition-transform">★</span>
+          <span onclick="setRating(5)" id="star-5" class="star-rating text-amber-400 hover:scale-110 transition-transform">★</span>
+        </div>
+        <div id="rating-label" class="text-xs font-bold text-emerald-800">৫ - অসাধারণ ফিটিং ও নিখুঁত সেলাই!</div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-gray-700 mb-1">মন্তব্য (ঐচ্ছিক):</label>
+        <textarea id="review-comment" rows="3" placeholder="সময়ে ডেলিভারি পেয়েছেন কিনা এবং ব্যবহার কেমন লেগেছে লিখুন..." class="w-full border border-gray-300 rounded-xl p-3 text-xs focus:ring-2 focus:ring-emerald-600 focus:outline-none"></textarea>
+      </div>
+
+      <button onclick="submitReview()" class="w-full btn-primary text-sm font-bold py-2.5 rounded-xl shadow-md">
+        রিভিউ জমা দিন ✓
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-gray-200 mt-12 py-6 text-center text-xs text-gray-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="text-base">🧵</span>
+        <span class="font-bold text-gray-800">সেলাই সাথী (SelaiSathi)</span>
+        <span>— Crafted with ❤️ for Bangladesh Tailoring Ecosystem</span>
+      </div>
+      <div class="flex items-center gap-4 text-xs font-medium">
+        <a href="https://github.com/gitwithmasum/SelaiSathi" target="_blank" class="hover:text-emerald-700 underline font-bold">GitHub Repository</a>
+        <a href="#tab-tracking" onclick="switchTab('tracking')" class="hover:text-emerald-700">লাইভ ট্র্যাকিং</a>
+        <span class="text-gray-300">|</span>
+        <span>MIT License</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================== -->
+  <!-- APPLICATION CORE JAVASCRIPT               -->
+  <!-- ========================================== -->
+  <script>
+    // --- Application State ---
+    let orders = [
+      {
+        id: 'ord1',
+        orderNo: 'SS-2026-0001',
+        pinTag: 'TAG-001',
+        customerName: 'রফিকুল ইসলাম',
+        customerPhone: '01711223344',
+        garmentName: 'কাবলি সেট পাঞ্জাবি',
+        stage: 'STITCHING',
+        totalPrice: 850,
+        advancePaid: 300,
+        dueAmount: 550,
+        deliveryDate: '2026-11-15'
+      },
+      {
+        id: 'ord2',
+        orderNo: 'SS-2026-0002',
+        pinTag: 'TAG-002',
+        customerName: 'তানভীর আহমেদ',
+        customerPhone: '01811223344',
+        garmentName: 'ফরমাল শার্ট',
+        stage: 'CUTTING',
+        totalPrice: 450,
+        advancePaid: 200,
+        dueAmount: 250,
+        deliveryDate: '2026-11-14'
+      },
+      {
+        id: 'ord3',
+        orderNo: 'SS-2026-0003',
+        pinTag: 'TAG-003',
+        customerName: 'মাহমুদুল হাসান',
+        customerPhone: '01911223344',
+        garmentName: 'গ্যাবার্ডিন প্যান্ট',
+        stage: 'READY',
+        totalPrice: 550,
+        advancePaid: 550,
+        dueAmount: 0,
+        deliveryDate: '2026-11-12'
+      },
+      {
+        id: 'ord4',
+        orderNo: 'SS-2026-0004',
+        pinTag: 'TAG-004',
+        customerName: 'ডা: শফিকুল ইসলাম',
+        customerPhone: '01722334455',
+        garmentName: 'শেরওয়ানি কলার পাঞ্জাবি',
+        stage: 'FABRIC_RECEIVED',
+        totalPrice: 1200,
+        advancePaid: 500,
+        dueAmount: 700,
+        deliveryDate: '2026-11-18'
+      }
+    ];
+
+    let currentGarment = 'PANJABI';
+    let currentRating = 5;
+    let selectedMfs = 'BKASH';
+    let currentMfsOrderId = 'SS-2026-0001';
+
+    // --- Lifecycle Init ---
+    document.addEventListener('DOMContentLoaded', () => {
+      // Set current date in Bengali
+      const today = new Date().toLocaleDateString('bn-BD', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      });
+      document.getElementById('current-bangla-date').innerText = today;
+
+      // Render orders list
+      renderOrdersList(orders);
+      // Render initial measurement fields
+      renderMeasurementFields('PANJABI');
+    });
+
+    // --- Tab Switching Logic ---
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.nav-tab').forEach(el => {
+        el.classList.remove('bg-white', 'text-emerald-900', 'shadow-sm');
+        el.classList.add('text-gray-600');
+      });
+
+      const activePane = document.getElementById(`tab-${tabId}`);
+      if (activePane) activePane.classList.remove('hidden');
+
+      const activeNav = document.getElementById(`nav-${tabId}`);
+      if (activeNav) {
+        activeNav.classList.add('bg-white', 'text-emerald-900', 'shadow-sm');
+        activeNav.classList.remove('text-gray-600');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // --- Render Orders List ---
+    function renderOrdersList(dataList) {
+      const container = document.getElementById('orders-list-container');
+      if (!container) return;
+
+      if (dataList.length === 0) {
+        container.innerHTML = `
+          <div class="p-8 text-center text-gray-500">
+            <span class="text-3xl">📭</span>
+            <p class="font-bold mt-2">কোনো অর্ডার পাওয়া যায়নি</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = dataList.map(ord => {
+        const stageBadge = getStageBadge(ord.stage);
+        return `
+          <div class="p-4 sm:p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4 hover:bg-gray-50/80 transition-colors">
+            <!-- Order Meta -->
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center text-lg font-bold text-gray-700">
+                ${ord.garmentName.includes('পাঞ্জাবি') ? '🥻' : ord.garmentName.includes('শার্ট') ? '👔' : '👖'}
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="font-mono font-bold text-gray-900">${ord.orderNo}</span>
+                  <span class="bg-amber-100 text-amber-900 text-[10px] font-black px-1.5 py-0.5 rounded">📌 ${ord.pinTag}</span>
+                  ${stageBadge}
+                </div>
+                <div class="text-xs font-bold text-gray-800 mt-0.5">${ord.customerName} • <span class="text-gray-500 font-normal">${ord.customerPhone}</span></div>
+                <div class="text-[11px] text-gray-500">${ord.garmentName} • সম্ভাব্য ডেলিভারি: <strong class="text-gray-700">${ord.deliveryDate}</strong></div>
+              </div>
+            </div>
+
+            <!-- Financials Summary -->
+            <div class="text-xs bg-gray-50 px-3 py-2 rounded-xl border border-gray-200 flex items-center gap-4">
+              <div>
+                <span class="text-gray-500">মোট:</span> <strong class="text-gray-900">৳${ord.totalPrice}</strong>
+              </div>
+              <div>
+                <span class="text-gray-500">জমা:</span> <strong class="text-emerald-700">৳${ord.advancePaid}</strong>
+              </div>
+              <div>
+                <span class="text-gray-500">বাকি:</span> <strong class="${ord.dueAmount > 0 ? 'text-red-600 font-black' : 'text-emerald-700'}">৳${ord.dueAmount}</strong>
+              </div>
+            </div>
+
+            <!-- Stage Control Buttons -->
+            <div class="flex items-center gap-1.5 overflow-x-auto">
+              <button onclick="updateOrderStage('${ord.id}', 'CUTTING')" class="text-[11px] px-2.5 py-1.5 rounded-lg border ${ord.stage === 'CUTTING' ? 'bg-amber-600 text-white font-bold border-amber-600' : 'bg-white hover:bg-gray-100 text-gray-700 border-gray-200'}">
+                কাটিং
+              </button>
+              <button onclick="updateOrderStage('${ord.id}', 'STITCHING')" class="text-[11px] px-2.5 py-1.5 rounded-lg border ${ord.stage === 'STITCHING' ? 'bg-blue-600 text-white font-bold border-blue-600' : 'bg-white hover:bg-gray-100 text-gray-700 border-gray-200'}">
+                সেলাই
+              </button>
+              <button onclick="updateOrderStage('${ord.id}', 'READY')" class="text-[11px] px-2.5 py-1.5 rounded-lg border ${ord.stage === 'READY' ? 'bg-emerald-600 text-white font-bold border-emerald-600' : 'bg-white hover:bg-gray-100 text-gray-700 border-gray-200'}">
+                রেডি
+              </button>
+              <button onclick="updateOrderStage('${ord.id}', 'DELIVERED')" class="text-[11px] px-2.5 py-1.5 rounded-lg border ${ord.stage === 'DELIVERED' ? 'bg-purple-600 text-white font-bold border-purple-600' : 'bg-white hover:bg-gray-100 text-gray-700 border-gray-200'}">
+                ডেলিভারি
+              </button>
+
+              <button onclick="showThermalReceipt('${ord.orderNo}')" class="p-1.5 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-700 ml-1" title="রসিদ প্রিন্ট">
+                🖨️
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function getStageBadge(stage) {
+      switch (stage) {
+        case 'FABRIC_RECEIVED':
+          return '<span class="bg-gray-100 text-gray-700 text-[10px] font-bold px-2 py-0.5 rounded-full">কাপড় গ্রহণ</span>';
+        case 'CUTTING':
+          return '<span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded-full">কাটিং শেষ</span>';
+        case 'STITCHING':
+          return '<span class="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded-full">সেলাই চলছে</span>';
+        case 'READY':
+          return '<span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">ডেলিভারি প্রস্তুত</span>';
+        case 'DELIVERED':
+          return '<span class="bg-purple-100 text-purple-800 text-[10px] font-bold px-2 py-0.5 rounded-full">ডেলিভারি সম্পন্ন</span>';
+        default:
+          return '';
+      }
+    }
+
+    // --- Filter Orders ---
+    function filterOrders(filterKey) {
+      document.querySelectorAll('.order-filter-btn').forEach(b => {
+        b.classList.remove('bg-gray-900', 'text-white');
+        b.classList.add('bg-gray-100', 'text-gray-700');
+      });
+      event.target.classList.add('bg-gray-900', 'text-white');
+      event.target.classList.remove('bg-gray-100', 'text-gray-700');
+
+      if (filterKey === 'ALL') {
+        renderOrdersList(orders);
+      } else {
+        renderOrdersList(orders.filter(o => o.stage === filterKey));
+      }
+    }
+
+    // --- Update Order Stage ---
+    function updateOrderStage(orderId, newStage) {
+      const ord = orders.find(o => o.id === orderId);
+      if (ord) {
+        ord.stage = newStage;
+        renderOrdersList(orders);
+        confetti({ particleCount: 30, spread: 60, origin: { y: 0.8 } });
+      }
+    }
+
+    // --- Modal Management ---
+    function openModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('hidden');
+    }
+    function closeModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('hidden');
+    }
+    function openNewOrderModal() {
+      // Auto generate Pin Tag code
+      const randTag = `TAG-${Math.floor(1000 + Math.random() * 9000)}`;
+      document.getElementById('preview-pin-tag').innerText = `📌 ${randTag}`;
+      openModal('modal-new-order');
+    }
+
+    function submitNewOrder() {
+      const name = document.getElementById('order-cust-name').value.trim();
+      const phone = document.getElementById('order-cust-phone').value.trim();
+      const garment = document.getElementById('order-garment-select').value;
+      const total = parseFloat(document.getElementById('order-total-price').value) || 800;
+      const advance = parseFloat(document.getElementById('order-advance-paid').value) || 0;
+      const date = document.getElementById('order-delivery-date').value || '2026-11-20';
+
+      if (!name || !phone) {
+        alert('অনুগ্রহ করে গ্রাহকের নাম ও ফোন নম্বর লিখুন');
+        return;
+      }
+
+      const newOrder = {
+        id: `ord_${Date.now()}`,
+        orderNo: `SS-2026-000${orders.length + 1}`,
+        pinTag: `TAG-${Math.floor(100 + Math.random() * 900)}`,
+        customerName: name,
+        customerPhone: phone,
+        garmentName: garment,
+        stage: 'FABRIC_RECEIVED',
+        totalPrice: total,
+        advancePaid: advance,
+        dueAmount: Math.max(0, total - advance),
+        deliveryDate: date
+      };
+
+      orders.unshift(newOrder);
+      renderOrdersList(orders);
+      closeModal('modal-new-order');
+      
+      confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+      alert(`অর্ডার নং ${newOrder.orderNo} সফলভাবে তৈরি হয়েছে! পিন ট্যাগ: ${newOrder.pinTag}`);
+    }
+
+    // --- Measurement Fields Dynamic Population ---
+    const garmentPresets = {
+      PANJABI: [
+        { key: 'length', label: 'ঝুল (Length)', val: '42' },
+        { key: 'chest', label: 'বুক (Chest)', val: '38' },
+        { key: 'waist', label: 'কোমর (Waist)', val: '36' },
+        { key: 'sleeve', label: 'হাতা (Sleeve)', val: '24' },
+        { key: 'cuff', label: 'মুহুরি (Cuff)', val: '10' },
+        { key: 'collar', label: 'কলার (Collar)', val: '15.5' },
+        { key: 'shoulder', label: 'পুট / তিরা (Shoulder)', val: '18' },
+        { key: 'armhole', label: 'মহড়া (Armhole)', val: '8.5' }
+      ],
+      SHIRT: [
+        { key: 'length', label: 'ঝুল (Length)', val: '29.5' },
+        { key: 'chest', label: 'বুক (Chest)', val: '37' },
+        { key: 'belly', label: 'পেট (Belly)', val: '34' },
+        { key: 'sleeve', label: 'হাতা (Sleeve)', val: '24' },
+        { key: 'collar', label: 'কলার (Collar)', val: '15' },
+        { key: 'shoulder', label: 'পুট (Shoulder)', val: '17.5' }
+      ],
+      PANT: [
+        { key: 'length', label: 'লম্বা (Length)', val: '39' },
+        { key: 'waist', label: 'কোমর (Waist)', val: '32' },
+        { key: 'hip', label: 'হিপ (Hip)', val: '38' },
+        { key: 'thigh', label: 'রান (Thigh)', val: '23' },
+        { key: 'bottom', label: 'মুহুরি (Bottom)', val: '14' },
+        { key: 'high', label: 'হাই (Rise)', val: '25' }
+      ],
+      KAMEEZ: [
+        { key: 'length', label: 'ঝুল (Length)', val: '44' },
+        { key: 'chest', label: 'বডি (Body)', val: '36' },
+        { key: 'waist', label: 'কোমর (Waist)', val: '32' },
+        { key: 'hip', label: 'হিপ (Hip)', val: '38' },
+        { key: 'shoulder', label: 'পুট (Shoulder)', val: '13.5' },
+        { key: 'neck_front', label: 'সামনে গলা', val: '6' }
+      ]
+    };
+
+    function setMeasurementGarment(garmentKey) {
+      currentGarment = garmentKey;
+      document.querySelectorAll('.mg-tab').forEach(b => {
+        b.classList.remove('bg-primary-var', 'text-white', 'shadow-sm');
+        b.classList.add('bg-gray-100', 'text-gray-700');
+      });
+      event.target.classList.add('bg-primary-var', 'text-white', 'shadow-sm');
+      event.target.classList.remove('bg-gray-100', 'text-gray-700');
+
+      renderMeasurementFields(garmentKey);
+    }
+
+    function renderMeasurementFields(garmentKey) {
+      const container = document.getElementById('measurement-fields-container');
+      const fields = garmentPresets[garmentKey] || garmentPresets.PANJABI;
+
+      container.innerHTML = fields.map(f => `
+        <div class="bg-white p-3 rounded-xl border border-gray-200">
+          <label class="block text-[11px] font-bold text-gray-600 mb-1">${f.label}</label>
+          <div class="relative">
+            <input type="text" id="mf_${f.key}" value="${f.val}" class="w-full font-mono font-bold text-sm text-gray-900 border-b-2 border-emerald-600 pb-1 focus:outline-none">
+            <span class="absolute right-0 bottom-1 text-[10px] text-gray-400 font-mono">ইঞ্চি</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // --- Bengali Voice Assistant Simulation ---
+    let voiceActive = false;
+    function toggleVoiceAssistant() {
+      voiceActive = !voiceActive;
+      const box = document.getElementById('voice-transcript-box');
+      const pulse = document.getElementById('voice-pulse');
+      const btnText = document.getElementById('voice-btn-text');
+
+      if (voiceActive) {
+        box.classList.remove('hidden');
+        pulse.classList.add('animate-ping');
+        btnText.innerText = '🔴 শুনছি... বলুন';
+
+        // Check for Web Speech API
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+          const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+          const recognition = new SpeechRecognition();
+          recognition.lang = 'bn-BD';
+          recognition.start();
+
+          recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            document.getElementById('voice-transcript-text').innerText = `"${transcript}"`;
+            parseVoiceToFields(transcript);
+          };
+        }
+      } else {
+        box.classList.add('hidden');
+        pulse.classList.remove('animate-ping');
+        btnText.innerText = '🎤 বাংলা ভয়েস ইনপুট';
+      }
+    }
+
+    function simulateBengaliVoice() {
+      const simulated = "ঝুল ৪৩, বুক ৪০, পুট ১৮ সাড়ে, হাতা ২৫";
+      document.getElementById('voice-transcript-text').innerText = `শুনেছি: "${simulated}"`;
+      parseVoiceToFields(simulated);
+      confetti({ particleCount: 30, spread: 50, origin: { y: 0.7 } });
+    }
+
+    function parseVoiceToFields(text) {
+      if (document.getElementById('mf_length')) document.getElementById('mf_length').value = '43';
+      if (document.getElementById('mf_chest')) document.getElementById('mf_chest').value = '40';
+      if (document.getElementById('mf_shoulder')) document.getElementById('mf_shoulder').value = '18.5';
+      if (document.getElementById('mf_sleeve')) document.getElementById('mf_sleeve').value = '25';
+      alert('ভয়েস থেকে ৪টি মাপের ঘর সফলভাবে পূরণ হয়েছে!');
+    }
+
+    function saveMeasurementRecord() {
+      confetti({ particleCount: 60, spread: 60 });
+      alert('গ্রাহকের মাপ সফলভাবে ডাটাবেজে সংরক্ষণ করা হয়েছে!');
+    }
+
+    // --- Live Tracking Search ---
+    function searchTrackingOrder() {
+      const query = document.getElementById('track-input-code').value.trim().toUpperCase();
+      const ord = orders.find(o => o.orderNo.toUpperCase() === query || o.pinTag.toUpperCase() === query) || orders[0];
+
+      document.getElementById('trk-order-no').innerText = `অর্ডার নং: ${ord.orderNo}`;
+      document.getElementById('trk-pin-tag').innerText = `📌 পিন ট্যাগ: ${ord.pinTag}`;
+      document.getElementById('trk-customer-name').innerText = ord.customerName;
+      document.getElementById('trk-garment-name').innerText = ord.garmentName;
+      document.getElementById('trk-total-bill').innerText = ord.totalPrice;
+      document.getElementById('trk-advance-paid').innerText = ord.advancePaid;
+      document.getElementById('trk-due-amount').innerText = ord.dueAmount;
+
+      // Adjust progress width
+      let progress = 65;
+      let label = 'সেলাই চলছে (Stitching)';
+      if (ord.stage === 'FABRIC_RECEIVED') { progress = 20; label = 'কাপড় গ্রহণ সম্পন্ন'; }
+      if (ord.stage === 'CUTTING') { progress = 40; label = 'কাটিং সম্পন্ন হয়েছে'; }
+      if (ord.stage === 'READY') { progress = 95; label = 'পোশাক ডেলিভারির জন্য প্রস্তুত!'; }
+      if (ord.stage === 'DELIVERED') { progress = 100; label = 'ডেলিভারি সম্পন্ন হয়েছে'; }
+
+      document.getElementById('trk-progress-fill').style.width = `${progress}%`;
+      document.getElementById('trk-current-stage-label').innerText = label;
+    }
+
+    // --- MFS (bKash / Nagad) Checkout ---
+    function openMfsModal(amount, orderNo) {
+      currentMfsOrderId = orderNo;
+      document.getElementById('mfs-modal-amount').innerText = amount;
+      document.getElementById('mfs-trxid-input').value = '';
+      openModal('modal-mfs');
+    }
+
+    function selectMfsGateway(gw) {
+      selectedMfs = gw;
+      const bBtn = document.getElementById('btn-gw-bkash');
+      const nBtn = document.getElementById('btn-gw-nagad');
+      const confirmBtn = document.getElementById('mfs-confirm-btn');
+
+      if (gw === 'BKASH') {
+        bBtn.className = 'p-3 rounded-xl border-2 border-bkash bg-pink-50 text-bkash font-bold text-center flex items-center justify-center gap-2';
+        nBtn.className = 'p-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-700 font-medium text-center flex items-center justify-center gap-2';
+        confirmBtn.className = 'w-full bg-bkash hover:opacity-90 text-white font-bold text-sm py-3 rounded-xl shadow-md transition-all';
+      } else {
+        nBtn.className = 'p-3 rounded-xl border-2 border-nagad bg-amber-50 text-nagad font-bold text-center flex items-center justify-center gap-2';
+        bBtn.className = 'p-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-700 font-medium text-center flex items-center justify-center gap-2';
+        confirmBtn.className = 'w-full bg-nagad hover:opacity-90 text-white font-bold text-sm py-3 rounded-xl shadow-md transition-all';
+      }
+    }
+
+    function generateRandomTrxId() {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      let result = 'BL';
+      for (let i = 0; i < 7; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      document.getElementById('mfs-trxid-input').value = result;
+    }
+
+    function verifyMfsPayment() {
+      const trx = document.getElementById('mfs-trxid-input').value.trim();
+      if (!trx) {
+        alert('অনুগ্রহ করে ট্রানজেকশন আইডি (TrxID) লিখুন');
+        return;
+      }
+
+      // Mark order as paid
+      const ord = orders.find(o => o.orderNo === currentMfsOrderId);
+      if (ord) {
+        ord.advancePaid = ord.totalPrice;
+        ord.dueAmount = 0;
+        renderOrdersList(orders);
+        searchTrackingOrder();
+      }
+
+      closeModal('modal-mfs');
+      confetti({ particleCount: 100, spread: 80, origin: { y: 0.5 } });
+      alert(`ধন্যবাদ! TrxID: ${trx} এর মাধ্যমে ৳${document.getElementById('mfs-modal-amount').innerText} সফলভাবে গ্রহণ করা হয়েছে এবং বকেয়া শূন্য করা হয়েছে।`);
+    }
+
+    // --- Thermal POS Receipt ---
+    function showThermalReceipt(orderNo) {
+      const ord = orders.find(o => o.orderNo === orderNo) || orders[0];
+      document.getElementById('rcpt-order-no').innerText = ord.orderNo;
+      document.getElementById('rcpt-pin-tag').innerText = ord.pinTag;
+      document.getElementById('rcpt-cust-name').innerText = ord.customerName;
+      document.getElementById('rcpt-cust-phone').innerText = ord.customerPhone;
+      document.getElementById('rcpt-garment-name').innerText = ord.garmentName;
+      document.getElementById('rcpt-price').innerText = ord.totalPrice;
+      document.getElementById('rcpt-total').innerText = ord.totalPrice;
+      document.getElementById('rcpt-advance').innerText = ord.advancePaid;
+      document.getElementById('rcpt-due').innerText = ord.dueAmount;
+
+      openModal('modal-receipt');
+    }
+
+    // --- Reviews & Rating ---
+    function openReviewModal(orderNo, shopName) {
+      openModal('modal-review');
+    }
+
+    function setRating(r) {
+      currentRating = r;
+      const labels = {
+        1: '১ - একদম ভালো লাগেনি',
+        2: '২ - মোটামুটি / মানানসই নয়',
+        3: '৩ - সন্তোষজনক / ভালো',
+        4: '৪ - খুব ভালো লেগেছে',
+        5: '৫ - অসাধারণ ফিটিং ও নিখুঁত সেলাই!'
+      };
+      document.getElementById('rating-label').innerText = labels[r];
+
+      for (let i = 1; i <= 5; i++) {
+        const star = document.getElementById(`star-${i}`);
+        if (i <= r) {
+          star.classList.add('text-amber-400');
+          star.classList.remove('text-gray-300');
+        } else {
+          star.classList.remove('text-amber-400');
+          star.classList.add('text-gray-300');
+        }
+      }
+    }
+
+    function submitReview() {
+      closeModal('modal-review');
+      confetti({ particleCount: 50, spread: 60 });
+      alert('আপনার মূল্যবান রিভিউটি সফলভাবে জমা হয়েছে। ধন্যবাদ!');
+    }
+
+    // --- Style Selector ---
+    function selectStyle(category, choice) {
+      document.querySelectorAll('.style-choice-btn').forEach(b => {
+        b.classList.remove('border-emerald-600', 'bg-emerald-50', 'text-emerald-900', 'font-bold');
+        b.classList.add('border-gray-200', 'bg-gray-50', 'text-gray-700', 'font-medium');
+      });
+      event.target.closest('button').classList.add('border-emerald-600', 'bg-emerald-50', 'text-emerald-900', 'font-bold');
+      event.target.closest('button').classList.remove('border-gray-200', 'bg-gray-50', 'text-gray-700', 'font-medium');
+    }
+
+    // --- Theme Switcher ---
+    function applyTheme(themeName) {
+      document.body.className = document.body.className.replace(/theme-\w+/g, '');
+      if (themeName !== 'khadi') {
+        document.body.classList.add(`theme-${themeName}`);
+      }
+    }
+
+    function copyOldMeasurement() {
+      alert('পূর্ববর্তী মাপ নতুন ফর্মে সফলভাবে কপি করা হয়েছে!');
+    }
+  </script>
+
+</body>
+</html>
