@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   Alert,
   Share,
-  Linking,
+  ActionSheetIOS,
+  Platform,
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { colors } from '../../../src/theme/colors.js';
@@ -18,6 +19,7 @@ import { Badge } from '../../../src/components/ui/Badge.js';
 import { Button } from '../../../src/components/ui/Button.js';
 import { ReceiptModal } from '../../../src/components/printer/ReceiptModal.js';
 import api from '../../../src/services/api.js';
+import whatsappHelper from '../../../src/utils/whatsappHelper.js';
 
 export default function OrderDetailScreen() {
   const router = useRouter();
@@ -96,57 +98,120 @@ export default function OrderDetailScreen() {
     } catch {}
   };
 
+  const handleWhatsAppAction = () => {
+    if (!order) return;
+
+    Alert.alert(
+      'হোয়াটসঅ্যাপ মেসেজ পাঠান',
+      'কোন মেসেজটি পাঠাতে চান নির্বাচন করুন:',
+      [
+        {
+          text: '📋 অর্ডার ইনভয়েস ও ট্র্যাকিং',
+          onPress: () => {
+            whatsappHelper.sendOrderConfirmation({
+              shopName: order.tailor?.shopName || 'টেইলার্স শপ',
+              customerName: order.customer?.name || 'সম্মানিত গ্রাহক',
+              customerPhone: order.customer?.phone || '',
+              orderNo: order.orderNo,
+              fabricPinTag: order.fabricTagCode,
+              items: (order.items || []).map((it: any) => ({
+                name: it.garmentType?.nameBn || 'পোশাক',
+                qty: it.quantity,
+              })),
+              totalPrice: Number(order.totalPrice || 0),
+              advancePaid: Number(order.totalPaid || 0),
+              dueAmount: Number(order.dueAmount || 0),
+              deliveryDate: order.deliveryDate,
+              trackingUrl: order.trackingUrl,
+            });
+          },
+        },
+        {
+          text: '🎉 পোশাক রেডি মেসেজ',
+          onPress: () => {
+            whatsappHelper.sendOrderReady({
+              shopName: order.tailor?.shopName || 'টেইলার্স শপ',
+              customerName: order.customer?.name || 'সম্মানিত গ্রাহক',
+              customerPhone: order.customer?.phone || '',
+              orderNo: order.orderNo,
+              dueAmount: Number(order.dueAmount || 0),
+              trackingUrl: order.trackingUrl,
+            });
+          },
+        },
+        {
+          text: '💰 বকেয়া টাকার তাগাদা',
+          onPress: () => {
+            whatsappHelper.sendDueReminder({
+              shopName: order.tailor?.shopName || 'টেইলার্স শপ',
+              customerName: order.customer?.name || 'সম্মানিত গ্রাহক',
+              customerPhone: order.customer?.phone || '',
+              orderNo: order.orderNo,
+              dueAmount: Number(order.dueAmount || 0),
+              mfsNumber: order.tailor?.user?.phone,
+            });
+          },
+        },
+        { text: 'বাতিল', style: 'cancel' },
+      ]
+    );
+  };
+
   if (!order) {
     return (
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.center}>
-          <Text style={styles.loadingText}>অর্ডারের তথ্য লোড হচ্ছে...</Text>
+          <Text style={styles.emptyText}>অর্ডারের তথ্য লোড হচ্ছে...</Text>
         </View>
       </SafeAreaView>
     );
   }
 
+  // Prepared data for 58mm POS receipt
   const receiptData = {
-    shopName: order.tailor?.shopName || 'টেইলার্স শপ',
-    shopAddress: order.tailor?.address || 'ঢাকা, বাংলাদেশ',
-    shopPhone: order.tailor?.user?.phone || '017XXXXXXXX',
+    shopName: order.tailor?.shopName || 'সেলাই সাথী পার্টনার',
+    address: order.tailor?.address || 'বাংলাদেশ',
+    phone: order.tailor?.user?.phone || '০১৭০০০০০০০০',
     orderNo: order.orderNo,
-    fabricTagCode: order.fabricTagCode || 'TAG-001',
-    customerName: order.customer?.name || 'গ্রাহক',
+    fabricTagCode: order.fabricTagCode,
+    customerName: order.customer?.name || 'সম্মানিত গ্রাহক',
     customerPhone: order.customer?.phone || '',
     deliveryDate: order.deliveryDate,
-    items: order.items?.map((i: any) => ({
-      name: i.garmentType?.nameBn || 'পোশাক',
-      quantity: i.quantity || 1,
-      price: Number(i.price || 0),
-    })) || [],
+    items: (order.items || []).map((it: any) => ({
+      name: it.garmentType?.nameBn || 'আইটেম',
+      quantity: it.quantity || 1,
+      price: Number(it.price || 0),
+    })),
     totalPrice: Number(order.totalPrice || 0),
     advancePaid: Number(order.totalPaid || 0),
     dueAmount: Number(order.dueAmount || 0),
-    trackingUrl: order.trackingUrl || `https://selaisathi.com/track/${order.trackingToken}`,
+    trackingUrl: order.trackingUrl,
   };
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.container}>
-        {/* Header Bar */}
+        {/* Header Summary */}
         <View style={styles.header}>
           <View>
             <Text style={styles.orderNo}>{order.orderNo}</Text>
-            <Text style={styles.fabricTag}>📌 {order.fabricTagCode}</Text>
+            {order.fabricTagCode && (
+              <View style={styles.tagBadge}>
+                <Text style={styles.tagText}>📌 পিন ট্যাগ: {order.fabricTagCode}</Text>
+              </View>
+            )}
           </View>
-          <Badge label={order.status} variant={order.status === 'DELIVERED' ? 'success' : 'primary'} />
+          <Badge label={order.status} stage={order.status} />
         </View>
 
-        {/* Customer Card with Quick Call & WhatsApp & Chat */}
+        {/* Customer Info Card */}
         <Card>
-          <Text style={styles.sectionTitle}>কাস্টমারের তথ্য ও যোগাযোগ</Text>
-          <Text style={styles.customerName}>{order.customer?.name}</Text>
-          <Text style={styles.customerPhone}>{order.customer?.phone}</Text>
+          <Text style={styles.customerName}>গ্রাহক: {order.customer?.name}</Text>
+          <Text style={styles.customerPhone}>মোবাইল: {order.customer?.phone}</Text>
 
-          <View style={styles.btnRow}>
+          <View style={styles.customerActionRow}>
             <TouchableOpacity
-              onPress={() => Linking.openURL(`tel:${order.customer?.phone}`)}
+              onPress={() => Alert.alert('কল', `${order.customer?.phone} এ ডায়াল হচ্ছে`)}
               style={[styles.smallBtn, { backgroundColor: colors.primaryLight }]}
             >
               <Text style={[styles.smallBtnText, { color: colors.primary }]}>
@@ -155,15 +220,11 @@ export default function OrderDetailScreen() {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() =>
-                Linking.openURL(
-                  `whatsapp://send?phone=${order.customer?.phone?.replace('+', '')}`
-                )
-              }
+              onPress={handleWhatsAppAction}
               style={[styles.smallBtn, { backgroundColor: '#E8F5E9' }]}
             >
               <Text style={[styles.smallBtnText, { color: '#2E7D32' }]}>
-                💬 হোয়াটসঅ্যাপ
+                💬 হোয়াটসঅ্যাপ মেনু
               </Text>
             </TouchableOpacity>
 
@@ -275,56 +336,53 @@ const styles = StyleSheet.create({
   },
   center: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
   },
-  loadingText: {
+  emptyText: {
     ...typography.body,
     color: colors.textSecondary,
   },
   header: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: colors.surface,
-    padding: 16,
-    borderRadius: 14,
-    marginBottom: 14,
-    borderWidth: 1,
-    borderColor: colors.border,
+    alignItems: 'flex-start',
+    marginBottom: 16,
   },
   orderNo: {
     ...typography.h2,
-    color: colors.primary,
+    color: colors.text,
   },
-  fabricTag: {
+  tagBadge: {
+    backgroundColor: colors.accentLight,
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 6,
+    marginTop: 4,
+    alignSelf: 'flex-start',
+  },
+  tagText: {
     ...typography.caption,
     fontWeight: '700',
     color: colors.accent,
-    marginTop: 4,
-  },
-  sectionTitle: {
-    ...typography.bodyLarge,
-    fontWeight: '700',
-    color: colors.text,
-    marginBottom: 8,
   },
   customerName: {
     ...typography.h3,
     color: colors.text,
   },
   customerPhone: {
-    ...typography.body,
-    color: colors.textMuted,
-    marginBottom: 12,
+    ...typography.bodySmall,
+    color: colors.textSecondary,
+    marginTop: 2,
   },
-  btnRow: {
+  customerActionRow: {
     flexDirection: 'row',
     gap: 8,
+    marginTop: 12,
   },
   smallBtn: {
     flex: 1,
-    paddingVertical: 10,
+    paddingVertical: 8,
     borderRadius: 8,
     alignItems: 'center',
   },
@@ -332,26 +390,30 @@ const styles = StyleSheet.create({
     ...typography.caption,
     fontWeight: '700',
   },
+  sectionTitle: {
+    ...typography.h3,
+    color: colors.text,
+    marginBottom: 12,
+  },
   itemBox: {
-    borderTopWidth: 1,
-    borderTopColor: colors.border,
-    paddingTop: 12,
-    marginTop: 8,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
   },
   itemHeader: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 8,
   },
   itemName: {
     ...typography.bodyLarge,
-    fontWeight: '600',
+    fontWeight: '700',
     color: colors.text,
   },
   stageChangerLabel: {
     ...typography.caption,
-    color: colors.textSecondary,
+    color: colors.textMuted,
     marginBottom: 6,
   },
   stageButtonGrid: {
@@ -360,12 +422,12 @@ const styles = StyleSheet.create({
   },
   stagePill: {
     flex: 1,
-    paddingVertical: 8,
-    borderRadius: 8,
+    paddingVertical: 6,
+    borderRadius: 6,
     backgroundColor: colors.surfaceAlt,
+    alignItems: 'center',
     borderWidth: 1,
     borderColor: colors.border,
-    alignItems: 'center',
   },
   stagePillCurrent: {
     backgroundColor: colors.primary,
@@ -373,11 +435,12 @@ const styles = StyleSheet.create({
   },
   stagePillText: {
     ...typography.caption,
-    fontWeight: '700',
+    fontWeight: '600',
     color: colors.textSecondary,
   },
   stagePillTextCurrent: {
     color: '#fff',
+    fontWeight: '700',
   },
   financeRow: {
     flexDirection: 'row',
@@ -396,23 +459,21 @@ const styles = StyleSheet.create({
   dueRow: {
     borderTopWidth: 1,
     borderTopColor: colors.border,
-    marginTop: 6,
     paddingTop: 8,
+    marginTop: 6,
   },
   dueLabel: {
     fontWeight: '700',
-    color: colors.text,
+    color: colors.danger,
   },
   dueAmount: {
-    fontSize: 18,
-    fontWeight: '700',
+    ...typography.h3,
     color: colors.danger,
   },
   printBtn: {
-    marginTop: 14,
-    marginBottom: 8,
+    marginBottom: 10,
   },
   shareBtn: {
-    marginBottom: 10,
+    marginBottom: 20,
   },
 });

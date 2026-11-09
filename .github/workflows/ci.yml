@@ -1,0 +1,35 @@
+name: SelaiSathi CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend-check:
+    name: Backend Build & Typecheck
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: server/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ./server
+        run: npm ci
+
+      - name: Validate Prisma schema & generate client
+        working-directory: ./server
+        run: npx prisma generate
+
+      - name: Build TypeScript
+        working-directory: ./server
+        run: npm run build
