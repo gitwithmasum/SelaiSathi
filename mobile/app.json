@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "সেলাই সাথী (SelaiSathi)",
+    "slug": "selaisathi",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "selaisathi",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0F5132"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.selaisathi.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0F5132"
+      },
+      "package": "com.selaisathi.app"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

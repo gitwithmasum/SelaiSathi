@@ -1,0 +1,79 @@
+{
+  "app_name": "সেলাই সাথী",
+  "tagline": "মাপ থেকে ডেলিভারি, সব এক অ্যাপে",
+  "common": {
+    "save": "সংরক্ষণ করুন",
+    "cancel": "বাতিল",
+    "confirm": "নিশ্চিত করুন",
+    "back": "ফিরে যান",
+    "next": "পরবর্তী",
+    "search": "সার্চ করুন...",
+    "loading": "অপেক্ষা করুন...",
+    "error": "সমস্যা হয়েছে",
+    "success": "সফল হয়েছে",
+    "taka": "৳",
+    "call": "সরাসরি কল",
+    "whatsapp": "হোয়াটসঅ্যাপ",
+    "share": "শেয়ার করুন"
+  },
+  "auth": {
+    "welcome": "স্বাগতম সেলাই সাথীতে",
+    "phone_subtitle": "লগইন বা সাইন আপ করতে আপনার মোবাইল নম্বর দিন",
+    "phone_placeholder": "০১XXXXXXXXX",
+    "send_otp": "ওটিপি (OTP) পাঠান",
+    "otp_title": "ভেরিফিকেশন কোড",
+    "otp_subtitle": "{{phone}} নম্বরে পাঠানো ৬ সংখ্যার কোড দিন",
+    "verify_otp": "যাচাই করুন",
+    "resend_otp": "পুনরায় ওটিপি পাঠান",
+    "role_title": "আপনি কোন রোলে ব্যবহার করবেন?",
+    "role_tailor_title": "আমি টেইলার (দর্জি)",
+    "role_tailor_desc": "আমার দোকান আছে, মাপ, কারিগর ও অর্ডার পরিচালনা করতে চাই",
+    "role_customer_title": "আমি কাস্টমার",
+    "role_customer_desc": "আমার জামা-কাপড়ের মাপ ও অর্ডার ট্র্যাক করতে চাই",
+    "setup_shop": "দোকানের প্রোফাইল সেটআপ",
+    "shop_name": "দোকানের নাম",
+    "shop_address": "দোকানের সম্পূর্ণ ঠিকানা",
+    "daily_limit": "দৈনিক ডেলিভারি সীমা (পিস)"
+  },
+  "dashboard": {
+    "today_deliveries": "আজকের ডেলিভারি",
+    "delayed_orders": "দেরি হওয়া অর্ডার",
+    "new_orders": "নতুন অর্ডার",
+    "today_income": "আজকের আয়",
+    "total_due": "মোট বকেয়া",
+    "quick_actions": "দ্রুত কাজ",
+    "btn_new_order": "নতুন অর্ডার",
+    "btn_new_customer": "নতুন কাস্টমার",
+    "btn_take_measurement": "মাপ নিন",
+    "upcoming_workload": "আগামী ৭ দিনের কাজের চাপ"
+  },
+  "stages": {
+    "FABRIC_RECEIVED": "কাপড় গ্রহণ",
+    "CUTTING": "কাটিং",
+    "STITCHING": "সেলাই",
+    "FINISHING_IRONING": "ফিনিশিং ও ইস্ত্রি",
+    "TRIAL": "ট্রায়াল",
+    "READY": "ডেলিভারি রেডি",
+    "DELIVERED": "ডেলিভারি সম্পন্ন",
+    "CANCELLED": "বাতিল"
+  },
+  "orders": {
+    "order_no": "অর্ডার নং",
+    "customer": "কাস্টমার",
+    "delivery_date": "ডেলিভারি তারিখ",
+    "total_price": "মোট মূল্য",
+    "advance_paid": "অগ্রিম জমা",
+    "due_amount": "বাকি টাকা",
+    "fabric_tag": "কাপড়ের পিন ট্যাগ",
+    "change_stage": "কাজের স্টেজ বদলান",
+    "postpone": "তারিখ পেছান",
+    "urgent": "জরুরি"
+  },
+  "measurements": {
+    "title": "ডিজিটাল মাপের খাতা",
+    "version": "ভার্সন",
+    "inch": "ইঞ্চি",
+    "cm": "সেমি",
+    "notes": "বিশেষ নোট (যেমন: ডান কাঁধ ঢালু)"
+  }
+}

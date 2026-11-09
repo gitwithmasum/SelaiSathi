@@ -1,0 +1,79 @@
+{
+  "app_name": "SelaiSathi",
+  "tagline": "From Measurement to Delivery, All in One App",
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "search": "Search...",
+    "loading": "Loading...",
+    "error": "Error occurred",
+    "success": "Success",
+    "taka": "BDT ",
+    "call": "Call Now",
+    "whatsapp": "WhatsApp",
+    "share": "Share"
+  },
+  "auth": {
+    "welcome": "Welcome to SelaiSathi",
+    "phone_subtitle": "Enter your mobile number to login or sign up",
+    "phone_placeholder": "01XXXXXXXXX",
+    "send_otp": "Send OTP",
+    "otp_title": "Verification Code",
+    "otp_subtitle": "Enter the 6-digit code sent to {{phone}}",
+    "verify_otp": "Verify OTP",
+    "resend_otp": "Resend OTP",
+    "role_title": "Select your role to continue",
+    "role_tailor_title": "I am a Tailor",
+    "role_tailor_desc": "I run a tailor shop and manage orders, measurements, and workers",
+    "role_customer_title": "I am a Customer",
+    "role_customer_desc": "I want to track my tailoring orders and view measurements",
+    "setup_shop": "Setup Shop Profile",
+    "shop_name": "Shop Name",
+    "shop_address": "Shop Address",
+    "daily_limit": "Daily Order Capacity"
+  },
+  "dashboard": {
+    "today_deliveries": "Today's Deliveries",
+    "delayed_orders": "Delayed Orders",
+    "new_orders": "New Orders",
+    "today_income": "Today's Income",
+    "total_due": "Total Pending Due",
+    "quick_actions": "Quick Actions",
+    "btn_new_order": "New Order",
+    "btn_new_customer": "New Customer",
+    "btn_take_measurement": "Take Measurement",
+    "upcoming_workload": "Upcoming 7 Days Workload"
+  },
+  "stages": {
+    "FABRIC_RECEIVED": "Fabric Received",
+    "CUTTING": "Cutting Done",
+    "STITCHING": "Stitching",
+    "FINISHING_IRONING": "Finishing & Iron",
+    "TRIAL": "Ready for Trial",
+    "READY": "Ready for Delivery",
+    "DELIVERED": "Delivered",
+    "CANCELLED": "Cancelled"
+  },
+  "orders": {
+    "order_no": "Order No",
+    "customer": "Customer",
+    "delivery_date": "Delivery Date",
+    "total_price": "Total Price",
+    "advance_paid": "Advance Paid",
+    "due_amount": "Due Amount",
+    "fabric_tag": "Fabric Pin Tag",
+    "change_stage": "Change Item Stage",
+    "postpone": "Postpone Delivery",
+    "urgent": "Urgent"
+  },
+  "measurements": {
+    "title": "Digital Measurement Book",
+    "version": "Version",
+    "inch": "inch",
+    "cm": "cm",
+    "notes": "Custom Notes"
+  }
+}
