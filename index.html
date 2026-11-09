@@ -505,372 +505,55 @@
       <!-- VIEW 1: INVENTORY (iPhone Bento Grid System)         -->
       <!-- ==================================================== -->
       <section id="view-inventory" class="app-view space-y-6">
-        
-        <!-- Page Title & Top Actions Bar -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <div class="flex items-center gap-2">
-              <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-emerald-100 text-emerald-800">FABRICS & MATERIALS</span>
-              <span class="text-xs text-ios-subtext">Live Stock Engine</span>
-            </div>
-            <h1 class="text-3xl font-black text-ios-text tracking-tight mt-1" data-i18n="inv_title">Inventory</h1>
-            <p class="text-xs text-ios-subtext mt-1">
-              Fabric and materials · total stock value: <strong class="text-gray-900 font-mono text-sm bg-gray-100 px-2 py-0.5 rounded-md">৳476,499</strong>
-            </p>
-          </div>
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+    <div>
+      <div class="text-xs font-mono font-bold tracking-widest text-cyan-300">STOCK CONTROL CENTER</div>
+      <h1 class="text-3xl font-black mt-1">Inventory</h1>
+      <p class="text-sm text-gray-400 mt-1">Live stock levels connected to Fabrics & Materials. Changes are saved in this browser.</p>
+    </div>
+    <div class="flex flex-wrap gap-2">
+      <button onclick="exportInventoryCSV()" class="px-4 py-2.5 rounded-xl border border-slate-600 text-xs font-bold">↓ Export CSV</button>
+      <button onclick="openDataModal('fabric')" class="px-4 py-2.5 rounded-xl border border-cyan-500/30 text-cyan-200 text-xs font-bold">＋ Add item</button>
+      <button onclick="recordInventoryMovement('in')" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-xs font-bold">＋ Stock in</button>
+      <button onclick="recordInventoryMovement('out')" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-rose-600 to-orange-600 text-white text-xs font-bold">− Stock out</button>
+    </div>
+  </div>
 
-          <!-- Action Buttons -->
-          <div class="flex items-center gap-2.5">
-            <button onclick="alert('Exporting Excel spreadsheet...')" class="flex items-center gap-2 px-4 py-2.5 bg-white border border-ios-border rounded-2xl text-xs font-bold text-gray-700 hover:bg-gray-50 shadow-ios-card transition-all active:scale-95">
-              <span>📄</span> Export Excel
-            </button>
-            <button onclick="alert('Add Item modal opened')" class="flex items-center gap-2 px-4 py-2.5 bg-white border border-ios-border rounded-2xl text-xs font-bold text-gray-700 hover:bg-gray-50 shadow-ios-card transition-all active:scale-95">
-              <span>➕</span> Add item
-            </button>
-            <button onclick="alert('Stock In registered')" class="flex items-center gap-2 px-5 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl text-xs font-bold shadow-md shadow-emerald-700/20 transition-all active:scale-95">
-              <span>📥</span> Stock in
-            </button>
-          </div>
-        </div>
+  <div class="grid grid-cols-2 xl:grid-cols-4 gap-3">
+    <div class="bento-card p-5"><div class="text-xs text-gray-400">Items tracked</div><div id="inv-items" class="text-3xl font-black mt-1">0</div><div class="text-[11px] text-cyan-300 mt-1">Materials in register</div></div>
+    <div class="bento-card p-5"><div class="text-xs text-gray-400">Low-stock alerts</div><div id="inv-low" class="text-3xl font-black mt-1 text-amber-300">0</div><div class="text-[11px] text-gray-400 mt-1">At or below reorder level</div></div>
+    <div class="bento-card p-5"><div class="text-xs text-gray-400">Current stock value</div><div id="inv-value" class="text-2xl font-black mt-2">৳0</div><div class="text-[11px] text-gray-400 mt-1">Quantity × unit cost</div></div>
+    <div class="bento-card p-5"><div class="text-xs text-gray-400">This month · Stock in</div><div id="inv-purchased" class="text-2xl font-black mt-2 text-emerald-300">৳0</div><div class="text-[11px] text-gray-400 mt-1">Recorded purchases</div></div>
+  </div>
 
-        <!-- 4 Bento Metric Cards (Multi-Color Palette) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          
-          <!-- Card 1: Cyan / Emerald Accent -->
-          <div class="bento-card p-5 relative overflow-hidden group">
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-xs text-ios-subtext font-bold uppercase tracking-wider">Items tracked</span>
-              <div class="w-9 h-9 rounded-2xl bg-cyan-50 text-cyan-600 flex items-center justify-center font-bold text-sm shadow-sm group-hover:scale-110 transition-transform">
-                📦
-              </div>
-            </div>
-            <div class="text-3xl font-black text-ios-text font-mono">14</div>
-            <div class="text-[11px] text-cyan-700 font-semibold mt-1">5 categories tracked</div>
-          </div>
+  <div class="grid grid-cols-1 xl:grid-cols-3 gap-5">
+    <div class="xl:col-span-2 bento-card p-5 space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div><h2 class="font-bold text-lg">Stock register</h2><p class="text-xs text-gray-400 mt-1">The same material records appear in Fabrics & Materials.</p></div>
+        <input id="inventory-search" oninput="renderInventory()" class="w-full sm:max-w-xs px-3 py-2 text-xs rounded-xl" placeholder="Search item or SKU...">
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <button id="inv-filter-all" onclick="setInventoryFilter('all')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-cyan-500/15 text-cyan-200 border border-cyan-400/30">All items</button>
+        <button id="inv-filter-low" onclick="setInventoryFilter('low')" class="px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-600 text-gray-300">Low stock only</button>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full min-w-[650px] text-left text-xs">
+          <thead><tr class="border-b border-slate-700 text-gray-400"><th class="p-3">Material</th><th class="p-3">SKU</th><th class="p-3">Available</th><th class="p-3">Reorder at</th><th class="p-3">Unit value</th><th class="p-3">Status</th><th class="p-3">Actions</th></tr></thead>
+          <tbody id="inventory-table"></tbody>
+        </table>
+      </div>
+      <div id="inventory-empty" class="hidden text-center py-8 text-sm text-gray-400">No matching stock items. Add a material to get started.</div>
+    </div>
 
-          <!-- Card 2: Sunset Red / Coral Accent (Low stock alert) -->
-          <div class="bento-card p-5 relative overflow-hidden group bg-gradient-to-br from-white via-white to-red-50/40 border-red-100">
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-xs text-red-600 font-bold uppercase tracking-wider flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
-                Low stock
-              </span>
-              <div class="w-9 h-9 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center font-bold text-sm shadow-sm group-hover:scale-110 transition-transform">
-                ⚠️
-              </div>
-            </div>
-            <div class="text-3xl font-black text-red-600 font-mono">2</div>
-            <div class="text-[11px] text-red-600/80 font-bold mt-1">at or below reorder level</div>
-          </div>
+    <div class="bento-card p-5 space-y-4">
+      <div class="flex items-center justify-between"><div><h2 class="font-bold text-lg">Stock movement</h2><p class="text-xs text-gray-400 mt-1">Latest stock-in and stock-out records</p></div><span class="text-xs text-cyan-300">LIVE LOG</span></div>
+      <div id="inventory-movements" class="space-y-3"></div>
+      <div id="inventory-movements-empty" class="hidden text-center py-7 text-xs text-gray-400">No stock movements recorded yet.</div>
+    </div>
+  </div>
+</section>
 
-          <!-- Card 3: Indigo / Violet Accent -->
-          <div class="bento-card p-5 relative overflow-hidden group">
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-xs text-ios-subtext font-bold uppercase tracking-wider">Used this month</span>
-              <div class="w-9 h-9 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-sm shadow-sm group-hover:scale-110 transition-transform">
-                📉
-              </div>
-            </div>
-            <div class="text-3xl font-black text-ios-text font-mono">৳11,325</div>
-            <div class="text-[11px] text-indigo-600 font-semibold mt-1">at cost price</div>
-          </div>
-
-          <!-- Card 4: Amber / Gold Accent -->
-          <div class="bento-card p-5 relative overflow-hidden group">
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-xs text-ios-subtext font-bold uppercase tracking-wider">Purchased this month</span>
-              <div class="w-9 h-9 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-sm shadow-sm group-hover:scale-110 transition-transform">
-                🛒
-              </div>
-            </div>
-            <div class="text-3xl font-black text-ios-text font-mono">৳0</div>
-            <div class="text-[11px] text-amber-700 font-semibold mt-1">0 new stock-ins</div>
-          </div>
-
-        </div>
-
-        <!-- Main Bento Grid: Stock Table (Left) + Recent Movement (Right) -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          
-          <!-- Left 2 Cols: Stock Bento Card Table -->
-          <div class="lg:col-span-2 bento-card p-6 space-y-5">
-            
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div class="flex items-center gap-2">
-                <h2 class="text-lg font-black text-ios-text tracking-tight">Stock Inventory</h2>
-                <span class="text-xs font-mono font-bold bg-gray-100 text-gray-700 px-2 py-0.5 rounded-lg">Realtime</span>
-              </div>
-              
-              <!-- Search inside stock -->
-              <div class="relative w-72">
-                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400 text-xs">🔍</span>
-                <input type="text" placeholder="Search material or SKU..." class="w-full pl-9 pr-3.5 py-2 bg-gray-100/70 border border-transparent rounded-2xl text-xs focus:outline-none focus:border-ios-blue focus:bg-white transition-all">
-              </div>
-            </div>
-
-            <!-- Apple-Style Filter Pills -->
-            <div class="flex flex-wrap items-center gap-1.5 p-1 bg-gray-100/70 rounded-2xl border border-gray-200/60 w-fit">
-              <button class="px-3.5 py-1.5 bg-white text-gray-900 rounded-xl text-xs font-bold shadow-xs">All</button>
-              <button class="px-3 py-1.5 text-gray-600 hover:text-gray-900 rounded-xl text-xs font-medium">Button</button>
-              <button class="px-3 py-1.5 text-gray-600 hover:text-gray-900 rounded-xl text-xs font-medium">Fabric</button>
-              <button class="px-3 py-1.5 text-gray-600 hover:text-gray-900 rounded-xl text-xs font-medium">Interlining</button>
-              <button class="px-3 py-1.5 text-gray-600 hover:text-gray-900 rounded-xl text-xs font-medium">Thread</button>
-              <button class="px-3 py-1.5 text-gray-600 hover:text-gray-900 rounded-xl text-xs font-medium">Trims</button>
-              <button class="px-3 py-1.5 bg-red-100 text-red-700 font-bold rounded-xl text-xs">Low stock 2</button>
-            </div>
-
-            <!-- Stock Table with Multi-Color Progress Rings/Bars -->
-            <div class="overflow-x-auto">
-              <table class="w-full text-left text-xs">
-                <thead>
-                  <tr class="text-[11px] text-ios-subtext border-b border-ios-border uppercase tracking-wider">
-                    <th class="pb-3.5 font-bold">Material</th>
-                    <th class="pb-3.5 font-bold">Stock in</th>
-                    <th class="pb-3.5 font-bold">Used</th>
-                    <th class="pb-3.5 font-bold">In stock now</th>
-                    <th class="pb-3.5 font-bold">Reorder at</th>
-                    <th class="pb-3.5 font-bold">Status</th>
-                    <th class="pb-3.5 font-bold text-right"></th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-100">
-                  
-                  <!-- Row 1: Panjabi buttons -->
-                  <tr class="hover:bg-gray-50/80 transition-colors group">
-                    <td class="py-3.5">
-                      <div class="font-extrabold text-gray-900 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                        Panjabi buttons (metal)
-                      </div>
-                      <div class="text-[10px] text-gray-400 font-mono pl-4">Button · BUT-8517</div>
-                    </td>
-                    <td class="py-3.5 font-mono font-semibold text-gray-700">1,935 pcs</td>
-                    <td class="py-3.5 font-mono text-gray-400">0 pcs</td>
-                    <td class="py-3.5">
-                      <div class="flex items-center gap-3">
-                        <div class="w-20 h-2 bg-gray-100 rounded-full overflow-hidden">
-                          <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full" style="width: 90%;"></div>
-                        </div>
-                        <span class="font-mono font-bold text-gray-900">1,935 pcs</span>
-                      </div>
-                    </td>
-                    <td class="py-3.5 font-mono text-gray-500">200 pcs</td>
-                    <td class="py-3.5">
-                      <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full">● In stock</span>
-                    </td>
-                    <td class="py-3.5 text-right text-gray-400 font-bold group-hover:text-gray-900 cursor-pointer">···</td>
-                  </tr>
-
-                  <!-- Row 2: Shirt buttons -->
-                  <tr class="hover:bg-gray-50/80 transition-colors group">
-                    <td class="py-3.5">
-                      <div class="font-extrabold text-gray-900 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-cyan-500"></span>
-                        Shirt buttons 14L
-                      </div>
-                      <div class="text-[10px] text-gray-400 font-mono pl-4">Button · BUT-7109</div>
-                    </td>
-                    <td class="py-3.5 font-mono font-semibold text-gray-700">1,344 pcs</td>
-                    <td class="py-3.5 font-mono text-gray-400">0 pcs</td>
-                    <td class="py-3.5">
-                      <div class="flex items-center gap-3">
-                        <div class="w-20 h-2 bg-gray-100 rounded-full overflow-hidden">
-                          <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full" style="width: 85%;"></div>
-                        </div>
-                        <span class="font-mono font-bold text-gray-900">1,344 pcs</span>
-                      </div>
-                    </td>
-                    <td class="py-3.5 font-mono text-gray-500">300 pcs</td>
-                    <td class="py-3.5">
-                      <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full">● In stock</span>
-                    </td>
-                    <td class="py-3.5 text-right text-gray-400 font-bold group-hover:text-gray-900 cursor-pointer">···</td>
-                  </tr>
-
-                  <!-- Row 3: Cotton panjabi -->
-                  <tr class="hover:bg-gray-50/80 transition-colors group">
-                    <td class="py-3.5">
-                      <div class="font-extrabold text-gray-900 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
-                        Cotton panjabi off-white
-                      </div>
-                      <div class="text-[10px] text-gray-400 font-mono pl-4">Fabric · FAB-4688</div>
-                    </td>
-                    <td class="py-3.5 font-mono font-semibold text-gray-700">276 yd</td>
-                    <td class="py-3.5 font-mono text-gray-500">71.7 yd</td>
-                    <td class="py-3.5">
-                      <div class="flex items-center gap-3">
-                        <div class="w-20 h-2 bg-gray-100 rounded-full overflow-hidden">
-                          <div class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full" style="width: 74%;"></div>
-                        </div>
-                        <span class="font-mono font-bold text-gray-900">204.3 yd</span>
-                      </div>
-                    </td>
-                    <td class="py-3.5 font-mono text-gray-500">40 yd</td>
-                    <td class="py-3.5">
-                      <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full">● In stock</span>
-                    </td>
-                    <td class="py-3.5 text-right text-gray-400 font-bold group-hover:text-gray-900 cursor-pointer">···</td>
-                  </tr>
-
-                  <!-- Row 4: Cotton sky blue -->
-                  <tr class="hover:bg-gray-50/80 transition-colors group">
-                    <td class="py-3.5">
-                      <div class="font-extrabold text-gray-900 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-teal-500"></span>
-                        Cotton sky blue (shirting)
-                      </div>
-                      <div class="text-[10px] text-gray-400 font-mono pl-4">Fabric · FAB-5287</div>
-                    </td>
-                    <td class="py-3.5 font-mono font-semibold text-gray-700">261 yd</td>
-                    <td class="py-3.5 font-mono text-gray-500">124.2 yd</td>
-                    <td class="py-3.5">
-                      <div class="flex items-center gap-3">
-                        <div class="w-20 h-2 bg-gray-100 rounded-full overflow-hidden">
-                          <div class="h-full bg-gradient-to-r from-teal-500 to-emerald-400 rounded-full" style="width: 52%;"></div>
-                        </div>
-                        <span class="font-mono font-bold text-gray-900">136.8 yd</span>
-                      </div>
-                    </td>
-                    <td class="py-3.5 font-mono text-gray-500">40 yd</td>
-                    <td class="py-3.5">
-                      <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full">● In stock</span>
-                    </td>
-                    <td class="py-3.5 text-right text-gray-400 font-bold group-hover:text-gray-900 cursor-pointer">···</td>
-                  </tr>
-
-                  <!-- Row 5 (Low stock alert) -->
-                  <tr class="bg-red-50/30 hover:bg-red-50/60 transition-colors group">
-                    <td class="py-3.5">
-                      <div class="font-extrabold text-gray-900 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-red-500"></span>
-                        Cotton white (shirting)
-                      </div>
-                      <div class="text-[10px] text-gray-400 font-mono pl-4">Fabric · FAB-1758</div>
-                    </td>
-                    <td class="py-3.5 font-mono font-semibold text-gray-700">87 yd</td>
-                    <td class="py-3.5 font-mono text-gray-500">63.6 yd</td>
-                    <td class="py-3.5">
-                      <div class="flex items-center gap-3">
-                        <div class="w-20 h-2 bg-gray-100 rounded-full overflow-hidden">
-                          <div class="h-full bg-gradient-to-r from-red-500 to-rose-400 rounded-full" style="width: 26%;"></div>
-                        </div>
-                        <span class="font-mono font-bold text-red-600">23.4 yd</span>
-                      </div>
-                    </td>
-                    <td class="py-3.5 font-mono text-gray-500">50 yd</td>
-                    <td class="py-3.5">
-                      <span class="bg-red-100 text-red-700 border border-red-200 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full">● Low stock</span>
-                    </td>
-                    <td class="py-3.5 text-right text-gray-400 font-bold group-hover:text-gray-900 cursor-pointer">···</td>
-                  </tr>
-
-                  <!-- Row 6 (Low stock alert) -->
-                  <tr class="bg-red-50/30 hover:bg-red-50/60 transition-colors group">
-                    <td class="py-3.5">
-                      <div class="font-extrabold text-gray-900 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-red-500"></span>
-                        Gabardine black (pant)
-                      </div>
-                      <div class="text-[10px] text-gray-400 font-mono pl-4">Fabric · FAB-9171</div>
-                    </td>
-                    <td class="py-3.5 font-mono font-semibold text-gray-700">90 yd</td>
-                    <td class="py-3.5 font-mono text-gray-500">56.4 yd</td>
-                    <td class="py-3.5">
-                      <div class="flex items-center gap-3">
-                        <div class="w-20 h-2 bg-gray-100 rounded-full overflow-hidden">
-                          <div class="h-full bg-gradient-to-r from-red-500 to-rose-400 rounded-full" style="width: 37%;"></div>
-                        </div>
-                        <span class="font-mono font-bold text-red-600">33.6 yd</span>
-                      </div>
-                    </td>
-                    <td class="py-3.5 font-mono text-gray-500">40 yd</td>
-                    <td class="py-3.5">
-                      <span class="bg-red-100 text-red-700 border border-red-200 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full">● Low stock</span>
-                    </td>
-                    <td class="py-3.5 text-right text-gray-400 font-bold group-hover:text-gray-900 cursor-pointer">···</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-          </div>
-
-          <!-- Right 1 Col: Recent Movement Bento Card -->
-          <div class="bento-card p-6 space-y-4">
-            <div class="flex items-center justify-between pb-3 border-b border-ios-border">
-              <div class="flex items-center gap-2">
-                <span class="text-base">⚡</span>
-                <h2 class="text-base font-black text-ios-text tracking-tight">Recent movement</h2>
-              </div>
-              <button class="text-xs text-ios-blue font-bold hover:underline">View all</button>
-            </div>
-
-            <!-- iOS List Items with Soft Gradient Badges -->
-            <div class="space-y-3">
-              <div class="flex items-start gap-3 p-3 bg-gray-50/70 hover:bg-gray-100/70 rounded-2xl border border-gray-100 transition-all">
-                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-red-500 to-rose-600 text-white flex items-center justify-center font-bold text-xs shadow-sm shadow-red-500/20">
-                  ↗
-                </div>
-                <div class="flex-1 min-w-0">
-                  <div class="font-bold text-xs text-gray-900 truncate">Georgette printed</div>
-                  <div class="text-[10px] text-gray-400 font-mono">ORD-2610-0023 · Oct 6, 10:17 PM</div>
-                </div>
-                <div class="font-mono font-extrabold text-red-600 text-xs bg-red-50 px-2 py-0.5 rounded-lg">-3 yd</div>
-              </div>
-
-              <div class="flex items-start gap-3 p-3 bg-gray-50/70 hover:bg-gray-100/70 rounded-2xl border border-gray-100 transition-all">
-                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-red-500 to-rose-600 text-white flex items-center justify-center font-bold text-xs shadow-sm shadow-red-500/20">
-                  ↗
-                </div>
-                <div class="flex-1 min-w-0">
-                  <div class="font-bold text-xs text-gray-900 truncate">Cotton white (shirting)</div>
-                  <div class="text-[10px] text-gray-400 font-mono">ORD-2610-0020 · Oct 6, 1:34 AM</div>
-                </div>
-                <div class="font-mono font-extrabold text-red-600 text-xs bg-red-50 px-2 py-0.5 rounded-lg">-1.5 yd</div>
-              </div>
-
-              <div class="flex items-start gap-3 p-3 bg-gray-50/70 hover:bg-gray-100/70 rounded-2xl border border-gray-100 transition-all">
-                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-red-500 to-rose-600 text-white flex items-center justify-center font-bold text-xs shadow-sm shadow-red-500/20">
-                  ↗
-                </div>
-                <div class="flex-1 min-w-0">
-                  <div class="font-bold text-xs text-gray-900 truncate">Cotton sky blue (shirting)</div>
-                  <div class="text-[10px] text-gray-400 font-mono">ORD-2610-0021 · Oct 5, 6:59 PM</div>
-                </div>
-                <div class="font-mono font-extrabold text-red-600 text-xs bg-red-50 px-2 py-0.5 rounded-lg">-3 yd</div>
-              </div>
-
-              <div class="flex items-start gap-3 p-3 bg-gray-50/70 hover:bg-gray-100/70 rounded-2xl border border-gray-100 transition-all">
-                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-red-500 to-rose-600 text-white flex items-center justify-center font-bold text-xs shadow-sm shadow-red-500/20">
-                  ↗
-                </div>
-                <div class="flex-1 min-w-0">
-                  <div class="font-bold text-xs text-gray-900 truncate">Linen beige</div>
-                  <div class="text-[10px] text-gray-400 font-mono">ORD-2610-0019 · Oct 5, 6:43 PM</div>
-                </div>
-                <div class="font-mono font-extrabold text-red-600 text-xs bg-red-50 px-2 py-0.5 rounded-lg">-1.5 yd</div>
-              </div>
-
-              <div class="flex items-start gap-3 p-3 bg-gray-50/70 hover:bg-gray-100/70 rounded-2xl border border-gray-100 transition-all">
-                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-red-500 to-rose-600 text-white flex items-center justify-center font-bold text-xs shadow-sm shadow-red-500/20">
-                  ↗
-                </div>
-                <div class="flex-1 min-w-0">
-                  <div class="font-bold text-xs text-gray-900 truncate">Silk cream (panjabi)</div>
-                  <div class="text-[10px] text-gray-400 font-mono">ORD-2610-0015 · Oct 5, 2:11 AM</div>
-                </div>
-                <div class="font-mono font-extrabold text-red-600 text-xs bg-red-50 px-2 py-0.5 rounded-lg">-2.4 yd</div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- ==================================================== -->
-      <!-- VIEW 2: DASHBOARD (Multi-Color Bento Architecture)   -->
+<!-- VIEW 2: DASHBOARD (Multi-Color Bento Architecture)   -->
       <!-- ==================================================== -->
       <section id="view-dashboard" class="app-view hidden space-y-6">
         
@@ -1919,6 +1602,7 @@
 
       if (viewId === 'orders') renderOrdersTable();
       if (['customers','staff','fabrics'].includes(viewId)) renderWorkspacePages();
+      if (viewId === 'inventory') renderInventory();
     }
 
     const ordersData = [
@@ -2119,6 +1803,76 @@
       item.stock=String(Number(item.stock)+change);persistSsRecords();renderFabrics();
     }
     function renderWorkspacePages(){renderCustomers();renderStaff();renderFabrics();}
+
+    // Inventory uses the same fabric/material records as the Fabrics page.
+    const ssMovementKey = 'selaisathi_inventory_movements_v1';
+    let inventoryFilter = 'all';
+    let ssMovements = (() => { try { const v=JSON.parse(localStorage.getItem(ssMovementKey)||'[]'); return Array.isArray(v)?v:[]; } catch(e) { return []; } })();
+    function persistInventoryMovements(){ try { localStorage.setItem(ssMovementKey,JSON.stringify(ssMovements)); } catch(e) { alert('Could not save stock history in this browser.'); } }
+    function setInventoryFilter(filter){
+      inventoryFilter=filter;
+      const all=document.getElementById('inv-filter-all'), low=document.getElementById('inv-filter-low');
+      if(all&&low){
+        all.className='px-3 py-1.5 rounded-lg text-xs font-bold '+(filter==='all'?'bg-cyan-500/15 text-cyan-200 border border-cyan-400/30':'border border-slate-600 text-gray-300');
+        low.className='px-3 py-1.5 rounded-lg text-xs font-bold '+(filter==='low'?'bg-amber-500/15 text-amber-200 border border-amber-400/30':'border border-slate-600 text-gray-300');
+      }
+      renderInventory();
+    }
+    function renderInventory(){
+      const body=document.getElementById('inventory-table'); if(!body)return;
+      const q=(document.getElementById('inventory-search')?.value||'').trim().toLowerCase();
+      const all=ssRecords.fabrics;
+      const items=all.filter(x=>(String(x.name)+' '+String(x.sku)).toLowerCase().includes(q))
+        .filter(x=>inventoryFilter!=='low'||Number(x.stock)<=Number(x.minimum));
+      const low=all.filter(x=>Number(x.stock)<=Number(x.minimum));
+      document.getElementById('inv-items').textContent=all.length;
+      document.getElementById('inv-low').textContent=low.length;
+      document.getElementById('inv-value').textContent=moneyBDT(all.reduce((sum,x)=>sum+(Number(x.stock)||0)*(Number(x.cost)||0),0));
+      const monthKey=new Date().toISOString().slice(0,7);
+      const purchased=ssMovements.filter(m=>m.type==='in'&&String(m.date).slice(0,7)===monthKey).reduce((sum,m)=>sum+(Number(m.quantity)||0)*(Number(m.cost)||0),0);
+      document.getElementById('inv-purchased').textContent=moneyBDT(purchased);
+      body.innerHTML=items.map(x=>{
+        const isLow=Number(x.stock)<=Number(x.minimum);
+        return '<tr class="border-b border-slate-700/60"><td class="p-3 font-semibold">'+safeText(x.name)+'</td><td class="p-3 font-mono text-gray-400">'+safeText(x.sku)+'</td><td class="p-3 font-mono">'+safeText(x.stock)+' '+safeText(x.unit)+'</td><td class="p-3">'+safeText(x.minimum)+' '+safeText(x.unit)+'</td><td class="p-3">'+moneyBDT(x.cost)+'</td><td class="p-3">'+(isLow?'<span class="text-amber-300">Low stock</span>':'<span class="text-emerald-300">In stock</span>')+'</td><td class="p-3 whitespace-nowrap"><button onclick="recordInventoryMovement(\'in\',\''+x.id+'\')" class="text-emerald-300 mr-2">In</button><button onclick="recordInventoryMovement(\'out\',\''+x.id+'\')" class="text-rose-300 mr-2">Out</button><button onclick="editDataRecord(\'fabric\',\''+x.id+'\')" class="text-cyan-300">Edit</button></td></tr>';
+      }).join('');
+      document.getElementById('inventory-empty').classList.toggle('hidden',items.length!==0);
+      const log=document.getElementById('inventory-movements');
+      const recent=ssMovements.slice().reverse().slice(0,8);
+      log.innerHTML=recent.map(m=>'<div class="flex items-start gap-3 border-b border-slate-700/60 pb-3"><span class="w-8 h-8 rounded-lg flex items-center justify-center '+(m.type==='in'?'bg-emerald-500/15 text-emerald-300':'bg-rose-500/15 text-rose-300')+'">'+(m.type==='in'?'↓':'↑')+'</span><div class="min-w-0 flex-1"><div class="text-xs font-semibold truncate">'+safeText(m.name)+'</div><div class="text-[10px] text-gray-500">'+safeText(m.note|| (m.type==='in'?'Stock received':'Stock used'))+' · '+safeText(m.date||'')+'</div></div><div class="text-xs font-mono font-bold '+(m.type==='in'?'text-emerald-300':'text-rose-300')+'">'+(m.type==='in'?'+':'−')+safeText(m.quantity)+' '+safeText(m.unit)+'</div></div>').join('');
+      document.getElementById('inventory-movements-empty').classList.toggle('hidden',recent.length!==0);
+    }
+    function recordInventoryMovement(type,knownId){
+      if(!ssRecords.fabrics.length){alert('Add a material first from Add item.');return;}
+      let item=knownId?ssRecords.fabrics.find(x=>x.id===knownId):null;
+      if(!item){
+        const menu=ssRecords.fabrics.map((x,i)=>(i+1)+'. '+x.name+' ('+x.stock+' '+x.unit+')').join('\n');
+        const choice=prompt('Choose a material by number:\n'+menu,'1');
+        if(choice===null)return;
+        const index=Number(choice)-1;
+        if(!Number.isInteger(index)||index<0||index>=ssRecords.fabrics.length){alert('Invalid material selection.');return;}
+        item=ssRecords.fabrics[index];
+      }
+      const quantityRaw=prompt((type==='in'?'Quantity received':'Quantity used')+' for '+item.name+' ('+item.unit+'):','1');
+      if(quantityRaw===null)return;
+      const quantity=Number(quantityRaw);
+      if(!Number.isFinite(quantity)||quantity<=0){alert('Enter a quantity greater than zero.');return;}
+      if(type==='out'&&quantity>Number(item.stock)){alert('Not enough stock. Available: '+item.stock+' '+item.unit);return;}
+      const note=prompt('Optional note / reference (e.g. supplier or order ID):','')||'';
+      item.stock=String(Number(item.stock)+(type==='in'?quantity:-quantity));
+      const now=new Date();
+      ssMovements.push({id:'MOV-'+Date.now(),itemId:item.id,name:item.name,type,quantity,unit:item.unit,cost:Number(item.cost)||0,note,date:now.toISOString().slice(0,10),createdAt:now.toISOString()});
+      persistSsRecords();persistInventoryMovements();renderInventory();renderFabrics();
+    }
+    function exportInventoryCSV(){
+      const rows=[['Material','SKU','Stock','Unit','Unit cost BDT','Reorder level','Status']];
+      ssRecords.fabrics.forEach(x=>rows.push([x.name,x.sku,x.stock,x.unit,x.cost,x.minimum,Number(x.stock)<=Number(x.minimum)?'Low stock':'In stock']));
+      const csv=rows.map(row=>row.map(value=>'"'+String(value??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');
+      const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+      const url=URL.createObjectURL(blob),link=document.createElement('a');
+      link.href=url;link.download='selaisathi-inventory-'+new Date().toISOString().slice(0,10)+'.csv';
+      document.body.appendChild(link);link.click();link.remove();URL.revokeObjectURL(url);
+    }
+
 
   </script>
 
