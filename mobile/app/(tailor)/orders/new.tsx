@@ -13,6 +13,7 @@ import { useRouter } from 'expo-router';
 import { Button } from '../../../src/components/ui/Button.js';
 import { Input } from '../../../src/components/ui/Input.js';
 import { Card } from '../../../src/components/ui/Card.js';
+import { StyleSelector } from '../../../src/components/garment/StyleSelector.js';
 import { colors } from '../../../src/theme/colors.js';
 import { typography } from '../../../src/theme/typography.js';
 import api from '../../../src/services/api.js';
@@ -24,6 +25,12 @@ export default function NewOrderScreen() {
   const [garmentTypes, setGarmentTypes] = useState<any[]>([]);
   const [selectedCustomerId, setSelectedCustomerId] = useState('');
   const [selectedGarmentId, setSelectedGarmentId] = useState('');
+
+  const [selectedStyles, setSelectedStyles] = useState<Record<string, string>>({
+    collar: 'band',
+    pocket: 'both_sides',
+    cuff: 'open',
+  });
 
   const [quantity, setQuantity] = useState('1');
   const [price, setPrice] = useState('800');
@@ -82,6 +89,7 @@ export default function NewOrderScreen() {
             quantity: parseInt(quantity, 10) || 1,
             price: parseFloat(price) || 0,
             fabricSource: 'CUSTOMER',
+            selectedStyles: selectedStyles,
           },
         ],
       };
@@ -216,9 +224,20 @@ export default function NewOrderScreen() {
           </View>
         </Card>
 
+        {/* Visual Style Selector */}
+        <Card>
+          <Text style={styles.sectionLabel}>৩. স্টাইল ও ডিজাইন সিলেক্টর (Visual Customizer)</Text>
+          <StyleSelector
+            selectedStyles={selectedStyles}
+            onSelectStyle={(cat, id) =>
+              setSelectedStyles((prev) => ({ ...prev, [cat]: id }))
+            }
+          />
+        </Card>
+
         {/* Financials & Quantity */}
         <Card>
-          <Text style={styles.sectionLabel}>৩. দাম ও অগ্রিম হিসাব</Text>
+          <Text style={styles.sectionLabel}>৪. দাম ও অগ্রিম হিসাব</Text>
           <View style={styles.row}>
             <View style={{ flex: 1, marginRight: 8 }}>
               <Input
@@ -271,7 +290,7 @@ export default function NewOrderScreen() {
 
           <Input
             label="ডিজাইন বা বিশেষ নোট"
-            placeholder="যেমন: ব্যান্ড কলার, বুক পকেট, ডাবল কাফ"
+            placeholder="যেমন: ডান পকেটে চেইন, লুজ ফিট"
             value={notes}
             onChangeText={setNotes}
           />

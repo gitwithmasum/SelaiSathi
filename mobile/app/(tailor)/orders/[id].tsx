@@ -16,6 +16,7 @@ import { typography } from '../../../src/theme/typography.js';
 import { Card } from '../../../src/components/ui/Card.js';
 import { Badge } from '../../../src/components/ui/Badge.js';
 import { Button } from '../../../src/components/ui/Button.js';
+import { ReceiptModal } from '../../../src/components/printer/ReceiptModal.js';
 import api from '../../../src/services/api.js';
 
 export default function OrderDetailScreen() {
@@ -24,6 +25,7 @@ export default function OrderDetailScreen() {
 
   const [order, setOrder] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showReceipt, setShowReceipt] = useState(false);
 
   const fetchOrder = async () => {
     try {
@@ -46,6 +48,11 @@ export default function OrderDetailScreen() {
         dueAmount: 550,
         trackingUrl: 'https://selaisathi.com/track/xyz123',
         customer: { name: 'রফিকুল ইসলাম', phone: '01711223344' },
+        tailor: {
+          shopName: 'নিউ ফ্যাশন টেইলার্স',
+          address: 'দোকান ১২, নিউমার্কেট, ঢাকা',
+          user: { phone: '01700000000' },
+        },
         items: [
           {
             id: 'item1',
@@ -99,6 +106,26 @@ export default function OrderDetailScreen() {
     );
   }
 
+  const receiptData = {
+    shopName: order.tailor?.shopName || 'টেইলার্স শপ',
+    shopAddress: order.tailor?.address || 'ঢাকা, বাংলাদেশ',
+    shopPhone: order.tailor?.user?.phone || '017XXXXXXXX',
+    orderNo: order.orderNo,
+    fabricTagCode: order.fabricTagCode || 'TAG-001',
+    customerName: order.customer?.name || 'গ্রাহক',
+    customerPhone: order.customer?.phone || '',
+    deliveryDate: order.deliveryDate,
+    items: order.items?.map((i: any) => ({
+      name: i.garmentType?.nameBn || 'পোশাক',
+      quantity: i.quantity || 1,
+      price: Number(i.price || 0),
+    })) || [],
+    totalPrice: Number(order.totalPrice || 0),
+    advancePaid: Number(order.totalPaid || 0),
+    dueAmount: Number(order.dueAmount || 0),
+    trackingUrl: order.trackingUrl || `https://selaisathi.com/track/${order.trackingToken}`,
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.container}>
@@ -111,9 +138,9 @@ export default function OrderDetailScreen() {
           <Badge label={order.status} variant={order.status === 'DELIVERED' ? 'success' : 'primary'} />
         </View>
 
-        {/* Customer Card with Quick Call & WhatsApp */}
+        {/* Customer Card with Quick Call & WhatsApp & Chat */}
         <Card>
-          <Text style={styles.sectionTitle}>কাস্টমারের তথ্য</Text>
+          <Text style={styles.sectionTitle}>কাস্টমারের তথ্য ও যোগাযোগ</Text>
           <Text style={styles.customerName}>{order.customer?.name}</Text>
           <Text style={styles.customerPhone}>{order.customer?.phone}</Text>
 
@@ -123,7 +150,7 @@ export default function OrderDetailScreen() {
               style={[styles.smallBtn, { backgroundColor: colors.primaryLight }]}
             >
               <Text style={[styles.smallBtnText, { color: colors.primary }]}>
-                📞 সরাসরি কল
+                📞 কল
               </Text>
             </TouchableOpacity>
 
@@ -137,6 +164,15 @@ export default function OrderDetailScreen() {
             >
               <Text style={[styles.smallBtnText, { color: '#2E7D32' }]}>
                 💬 হোয়াটসঅ্যাপ
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => router.push(`/(tailor)/orders/chat/${order.id}` as any)}
+              style={[styles.smallBtn, { backgroundColor: '#E7F5FF' }]}
+            >
+              <Text style={[styles.smallBtnText, { color: '#1864AB' }]}>
+                🎙️ ইন-অ্যাপ চ্যাট
               </Text>
             </TouchableOpacity>
           </View>
@@ -203,11 +239,25 @@ export default function OrderDetailScreen() {
           </View>
         </Card>
 
-        {/* Public Tracking Share Button */}
+        {/* Action Buttons: Print Slip & Share Link */}
+        <Button
+          title="৫৮মিমি থার্মাল মেমো ও প্রিন্ট স্লিপ 🖨️"
+          onPress={() => setShowReceipt(true)}
+          variant="secondary"
+          style={styles.printBtn}
+        />
+
         <Button
           title="কাস্টমারকে ট্র্যাকিং লিংক শেয়ার করুন 📲"
           onPress={handleShareTracking}
           style={styles.shareBtn}
+        />
+
+        {/* 58mm POS Receipt Modal */}
+        <ReceiptModal
+          visible={showReceipt}
+          onClose={() => setShowReceipt(false)}
+          data={receiptData}
         />
       </ScrollView>
     </SafeAreaView>
@@ -270,7 +320,7 @@ const styles = StyleSheet.create({
   },
   btnRow: {
     flexDirection: 'row',
-    gap: 10,
+    gap: 8,
   },
   smallBtn: {
     flex: 1,
@@ -279,7 +329,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   smallBtnText: {
-    ...typography.bodySmall,
+    ...typography.caption,
     fontWeight: '700',
   },
   itemBox: {
@@ -358,7 +408,11 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: colors.danger,
   },
+  printBtn: {
+    marginTop: 14,
+    marginBottom: 8,
+  },
   shareBtn: {
-    marginTop: 10,
+    marginBottom: 10,
   },
 });

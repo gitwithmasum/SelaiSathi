@@ -8,6 +8,8 @@ import paymentsRoutes from './modules/payments/payments.routes.js';
 import workersRoutes from './modules/workers/workers.routes.js';
 import customerPortalRoutes from './modules/customerPortal/customerPortal.routes.js';
 import publicRoutes from './modules/public/public.routes.js';
+import chatRoutes from './modules/chat/chat.routes.js';
+import calendarRoutes from './modules/calendar/calendar.routes.js';
 
 const router = Router();
 
@@ -31,5 +33,7 @@ router.use('/payments', paymentsRoutes);
 router.use('/workers', workersRoutes);
 router.use('/portal', customerPortalRoutes);
 router.use('/public', publicRoutes);
+router.use('/chat', chatRoutes);
+router.use('/calendar', calendarRoutes);
 
 export default router;

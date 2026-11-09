@@ -109,7 +109,7 @@ export default function TailorDashboardScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* 3 Large Action Buttons */}
+        {/* 3 Primary Action Buttons */}
         <Text style={styles.sectionTitle}>দ্রুত কাজ (Quick Actions)</Text>
         <View style={styles.actionRow}>
           <TouchableOpacity
@@ -137,6 +137,33 @@ export default function TailorDashboardScreen() {
           >
             <Text style={styles.actionIcon}>👥</Text>
             <Text style={styles.actionText}>কাস্টমার</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* 2 Operations Shortcuts: Calendar & Workers */}
+        <View style={styles.shortcutRow}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => router.push('/(tailor)/calendar')}
+            style={styles.shortcutBtn}
+          >
+            <Text style={styles.shortcutIcon}>📅</Text>
+            <View>
+              <Text style={styles.shortcutTitle}>ডেলিভারি ক্যালেন্ডার</Text>
+              <Text style={styles.shortcutSubtitle}>তারিখভিত্তিক কাজের চাপ</Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => router.push('/(tailor)/workers')}
+            style={styles.shortcutBtn}
+          >
+            <Text style={styles.shortcutIcon}>✂️</Text>
+            <View>
+              <Text style={styles.shortcutTitle}>কারিগর খাতা</Text>
+              <Text style={styles.shortcutSubtitle}>মজুরি ও খোরাকি হিসাব</Text>
+            </View>
           </TouchableOpacity>
         </View>
 
@@ -178,30 +205,40 @@ export default function TailorDashboardScreen() {
         </View>
 
         {/* Eid / Rush Mode Capacity Radar */}
-        <Card style={styles.rushCard}>
-          <View style={styles.rushHeader}>
-            <Text style={styles.rushEmoji}>⚡</Text>
-            <View>
-              <Text style={styles.rushTitle}>ঈদ / সিজন রাশ ক্যাপাসিটি</Text>
-              <Text style={styles.rushSubtitle}>
-                দৈনিক সর্বোচ্চ অর্ডার সীমা: {shop?.dailyOrderLimit || 15} টি
-              </Text>
+        <TouchableOpacity
+          activeOpacity={0.9}
+          onPress={() => router.push('/(tailor)/calendar')}
+        >
+          <Card style={styles.rushCard}>
+            <View style={styles.rushHeader}>
+              <Text style={styles.rushEmoji}>⚡</Text>
+              <View>
+                <Text style={styles.rushTitle}>ঈদ / সিজন রাশ ক্যাপাসিটি</Text>
+                <Text style={styles.rushSubtitle}>
+                  দৈনিক সর্বোচ্চ অর্ডার সীমা: {shop?.dailyOrderLimit || 15} টি (ক্যালেন্ডার দেখতে ট্যাপ করুন)
+                </Text>
+              </View>
             </View>
-          </View>
-          <View style={styles.progressBarBg}>
-            <View
-              style={[
-                styles.progressBarFill,
-                { width: `${Math.min(100, (stats.todayDeliveries / (shop?.dailyOrderLimit || 15)) * 100)}%` },
-              ]}
-            />
-          </View>
-          <Text style={styles.rushStatus}>
-            {stats.todayDeliveries >= (shop?.dailyOrderLimit || 15)
-              ? '⚠️ আজকের ডেলিভারি স্লট ফুল! নতুন ডেলিভারি সাবধানে নিন।'
-              : '✅ কাজের চাপ স্বাভাবিক সীমায় রয়েছে।'}
-          </Text>
-        </Card>
+            <View style={styles.progressBarBg}>
+              <View
+                style={[
+                  styles.progressBarFill,
+                  {
+                    width: `${Math.min(
+                      100,
+                      (stats.todayDeliveries / (shop?.dailyOrderLimit || 15)) * 100
+                    )}%`,
+                  },
+                ]}
+              />
+            </View>
+            <Text style={styles.rushStatus}>
+              {stats.todayDeliveries >= (shop?.dailyOrderLimit || 15)
+                ? '⚠️ আজকের ডেলিভারি স্লট ফুল! নতুন ডেলিভারি সাবধানে নিন।'
+                : '✅ কাজের চাপ স্বাভাবিক সীমায় রয়েছে।'}
+            </Text>
+          </Card>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
@@ -269,7 +306,7 @@ const styles = StyleSheet.create({
   actionRow: {
     flexDirection: 'row',
     gap: 10,
-    marginBottom: 24,
+    marginBottom: 12,
   },
   actionBtn: {
     flex: 1,
@@ -287,6 +324,35 @@ const styles = StyleSheet.create({
     ...typography.button,
     color: '#fff',
     fontSize: 14,
+  },
+  shortcutRow: {
+    flexDirection: 'row',
+    gap: 10,
+    marginBottom: 20,
+  },
+  shortcutBtn: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
+    padding: 12,
+    borderRadius: 12,
+  },
+  shortcutIcon: {
+    fontSize: 24,
+    marginRight: 8,
+  },
+  shortcutTitle: {
+    ...typography.bodySmall,
+    fontWeight: '700',
+    color: colors.text,
+  },
+  shortcutSubtitle: {
+    ...typography.caption,
+    fontSize: 10,
+    color: colors.textMuted,
   },
   grid: {
     flexDirection: 'row',
