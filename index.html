@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SelaiSathi — Modern Tailoring SaaS Platform</title>
-  <meta name="description" content="Next-Generation Tailoring & Shop Management Ecosystem tailored for Bangladesh">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23164E35%22/><text x=%2250%22 y=%2265%22 font-size=%2250%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22sans-serif%22 font-weight=%22bold%22>S</text></svg>">
+  <title>SelaiSathi — Next-Gen Tailoring OS</title>
+  <meta name="description" content="Futuristic Bento-Grid Tailoring OS & Shop Management Ecosystem">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><defs><linearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22><stop offset=%220%25%22 stop-color=%22%2310B981%22/><stop offset=%22100%25%22 stop-color=%22%2306B6D4%22/></linearGradient></defs><rect width=%22100%22 height=%22100%22 rx=%2230%22 fill=%22url(%23g)%22/><text x=%2250%22 y=%2268%22 font-size=%2252%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22sans-serif%22 font-weight=%22900%22>S</text></svg>">
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -13,7 +13,7 @@
   <!-- Google Fonts: Inter & Hind Siliguri -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
@@ -24,31 +24,47 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['"Inter"', '"Hind Siliguri"', 'sans-serif'],
+            sans: ['"Inter"', '"Hind Siliguri"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
-            brand: {
-              50: '#F2F8F5',
-              100: '#E1EFE8',
-              500: '#1B6543',
-              600: '#165337',
-              700: '#12442D',
-              800: '#0E3624',
-              900: '#0A271A',
-              sidebar: '#0D1B15',
-              sidebarActive: '#183327',
-              sidebarBorder: '#162C22',
+            cyber: {
+              black: '#070C0A',
+              sidebar: '#0A120E',
+              glow: '#10B981',
+              neonBlue: '#06B6D4',
+              neonPurple: '#8B5CF6',
+              neonPink: '#EC4899',
+              neonAmber: '#F59E0B',
             },
-            app: {
-              bg: '#FBFBFA',
+            ios: {
+              bg: '#F5F5F7',
               card: '#FFFFFF',
-              border: '#ECECE7',
-              muted: '#71716D',
-              text: '#1C1C1A',
-            },
-            bkash: '#D12053',
-            nagad: '#F7941D',
+              border: '#E8E8ED',
+              subtext: '#86868B',
+              text: '#1D1D1F',
+              blue: '#0071E3',
+              green: '#34C759',
+              indigo: '#5856D6',
+              orange: '#FF9500',
+              pink: '#FF2D55',
+              purple: '#AF52DE',
+              red: '#FF3B30',
+              teal: '#5AC8FA',
+              yellow: '#FFCC00',
+            }
+          },
+          borderRadius: {
+            'ios-sm': '14px',
+            'ios-md': '20px',
+            'ios-lg': '28px',
+            'ios-xl': '36px',
+          },
+          boxShadow: {
+            'ios-card': '0 4px 24px -2px rgba(0, 0, 0, 0.04), 0 2px 8px -1px rgba(0, 0, 0, 0.02)',
+            'ios-hover': '0 20px 40px -4px rgba(0, 0, 0, 0.08), 0 8px 16px -2px rgba(0, 0, 0, 0.04)',
+            'cyber-glow': '0 0 20px -3px rgba(16, 185, 129, 0.35)',
+            'neon-cyan': '0 0 20px -3px rgba(6, 182, 212, 0.4)',
           }
         }
       }
@@ -57,36 +73,92 @@
 
   <style>
     body {
-      font-family: 'Inter', 'Hind Siliguri', sans-serif;
-      background-color: #FBFBFA;
-      color: #1C1C1A;
+      font-family: 'Inter', 'Hind Siliguri', -apple-system, sans-serif;
+      background-color: #F5F5F7;
+      color: #1D1D1F;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Scrollbar */
+    /* Custom iOS Smooth Scrollbar */
     ::-webkit-scrollbar {
-      width: 5px;
-      height: 5px;
+      width: 6px;
+      height: 6px;
     }
     ::-webkit-scrollbar-track {
       background: transparent;
     }
     ::-webkit-scrollbar-thumb {
-      background: #D9D9D4;
-      border-radius: 4px;
+      background: #D2D2D7;
+      border-radius: 999px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #B5B5AF;
+      background: #AEAEB2;
     }
 
-    /* Sidebar active pill styling */
+    /* Futuristic Animated Gradient Background on Active items */
+    .nav-item {
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%) scaleY(0);
+      width: 4px;
+      height: 20px;
+      background: linear-gradient(180deg, #10B981, #06B6D4);
+      border-radius: 0 4px 4px 0;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+    }
+    .nav-item:hover {
+      transform: translateX(4px);
+      background: rgba(255, 255, 255, 0.06);
+    }
     .nav-item.active {
-      background-color: #183327;
+      background: linear-gradient(90deg, rgba(16, 185, 129, 0.16) 0%, rgba(6, 182, 212, 0.08) 100%);
       color: #FFFFFF;
       font-weight: 600;
     }
-    .nav-item.active svg, .nav-item.active .nav-icon {
-      color: #34D399;
+    .nav-item.active::before {
+      transform: translateY(-50%) scaleY(1);
+    }
+    .nav-item.active .nav-icon-badge {
+      background: linear-gradient(135deg, #10B981, #06B6D4);
+      color: #FFFFFF;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+    }
+
+    /* iOS Bento Card System */
+    .bento-card {
+      background: #FFFFFF;
+      border-radius: 26px;
+      border: 1px solid #EAEAEE;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .bento-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 36px -4px rgba(0, 0, 0, 0.07), 0 0 0 1px rgba(0,0,0,0.02);
+    }
+
+    /* Glassmorphism accents */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    /* Shimmer Effect */
+    @keyframes subtle-shimmer {
+      0% { opacity: 0.8; }
+      50% { opacity: 1; filter: drop-shadow(0 0 15px rgba(16, 185, 129, 0.5)); }
+      100% { opacity: 0.8; }
+    }
+    .brand-glow {
+      animation: subtle-shimmer 4s infinite ease-in-out;
     }
 
     /* Thermal receipt printer view */
@@ -108,101 +180,158 @@
     }
   </style>
 </head>
-<body class="flex h-screen overflow-hidden text-sm bg-app-bg select-none">
+<body class="flex h-screen overflow-hidden text-sm bg-ios-bg select-none">
 
   <!-- ======================================================== -->
-  <!-- 1. LEFT SIDEBAR (Dark Forest Green - Exact Match to SS)  -->
+  <!-- 1. FUTURISTIC LEFT NAVBAR (Animated, Glowing, Cyber-Chic) -->
   <!-- ======================================================== -->
-  <aside class="w-64 bg-brand-sidebar text-gray-300 flex flex-col justify-between border-r border-brand-sidebarBorder flex-shrink-0 z-30 transition-all duration-300">
+  <aside class="w-68 bg-cyber-sidebar text-gray-300 flex flex-col justify-between border-r border-white/5 flex-shrink-0 z-30 transition-all duration-300 relative shadow-2xl">
     
+    <!-- Ambient Neon Corner Glow -->
+    <div class="absolute top-0 left-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-10 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
     <!-- Top Brand & Menu Section -->
-    <div class="flex flex-col flex-1 overflow-y-auto">
+    <div class="flex flex-col flex-1 overflow-y-auto z-10">
       
-      <!-- Brand Logo Header -->
-      <div class="h-16 flex items-center px-5 gap-3 border-b border-brand-sidebarBorder">
-        <div class="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white font-bold text-base shadow-sm">
-          S
+      <!-- Futuristic Brand Header -->
+      <div class="h-20 flex items-center px-6 gap-3.5 border-b border-white/5">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-cyan-500 p-0.5 shadow-cyber-glow brand-glow flex items-center justify-center">
+          <div class="w-full h-full bg-cyber-black rounded-[14px] flex items-center justify-center text-white font-black text-lg tracking-wider">
+            S
+          </div>
         </div>
         <div>
           <div class="flex items-center gap-1.5">
-            <span class="font-bold text-base text-white tracking-tight" id="app-brand-name">SelaiSathi</span>
-            <span class="text-[10px] bg-emerald-900/80 text-emerald-300 font-mono font-semibold px-1.5 py-0.5 rounded">PRO</span>
+            <span class="font-extrabold text-base text-white tracking-tight bg-gradient-to-r from-white via-gray-100 to-gray-400 bg-clip-text text-transparent">
+              SelaiSathi
+            </span>
+            <span class="text-[9px] font-mono font-extrabold px-1.5 py-0.5 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 text-black shadow-sm">
+              AI 2.0
+            </span>
           </div>
-          <div class="text-[10px] text-gray-400 font-medium" id="app-brand-sub">সেলাই সাথী • টেইলার্স ইকোসিস্টেম</div>
+          <div class="text-[11px] text-emerald-400/90 font-medium tracking-wide flex items-center gap-1 mt-0.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            সেলাই সাথী • OS
+          </div>
         </div>
       </div>
 
-      <!-- Navigation Links -->
-      <div class="px-3 py-4 space-y-6">
+      <!-- Navigation Links Container -->
+      <div class="px-3.5 py-5 space-y-6">
         
-        <!-- Section: Shop -->
+        <!-- Section: Shop Core -->
         <div>
-          <div class="px-3 text-[11px] font-semibold tracking-wider text-gray-400 uppercase mb-2" data-i18n="sec_shop">
-            Shop
+          <div class="px-3 text-[10px] font-black tracking-widest text-gray-500 uppercase mb-2.5 flex items-center justify-between" data-i18n="sec_shop">
+            <span>SHOP OS</span>
+            <span class="text-emerald-500/80 text-xs">●</span>
           </div>
-          <nav class="space-y-0.5">
-            <button onclick="navigateTo('dashboard')" id="nav-dashboard" class="nav-item w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-brand-sidebarActive/60 transition-colors">
-              <span class="text-base">⊞</span>
-              <span data-i18n="menu_dashboard">Dashboard</span>
+
+          <nav class="space-y-1">
+            <!-- Dashboard -->
+            <button onclick="navigateTo('dashboard')" id="nav-dashboard" class="nav-item group w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
+              <span class="nav-icon-badge w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-sm group-hover:scale-110 transition-transform text-emerald-400">
+                ⊞
+              </span>
+              <span class="font-medium text-xs tracking-wide" data-i18n="menu_dashboard">Dashboard</span>
+              <span class="ml-auto text-[10px] text-gray-500 font-mono opacity-0 group-hover:opacity-100 transition-opacity">⌘1</span>
             </button>
-            <button onclick="navigateTo('orders')" id="nav-orders" class="nav-item w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-brand-sidebarActive/60 transition-colors">
-              <span class="text-base">📋</span>
-              <span data-i18n="menu_orders">Orders</span>
-              <span class="ml-auto text-[10px] font-mono bg-emerald-950 text-emerald-400 border border-emerald-800/60 px-1.5 py-0.2 rounded-md">48</span>
+
+            <!-- Orders -->
+            <button onclick="navigateTo('orders')" id="nav-orders" class="nav-item group w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
+              <span class="nav-icon-badge w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-sm group-hover:scale-110 transition-transform text-cyan-400">
+                📋
+              </span>
+              <span class="font-medium text-xs tracking-wide" data-i18n="menu_orders">Orders</span>
+              <span class="ml-auto text-[10px] font-mono font-bold bg-cyan-950/80 text-cyan-300 border border-cyan-800/60 px-2 py-0.5 rounded-full">
+                48
+              </span>
             </button>
-            <button onclick="navigateTo('customers')" id="nav-customers" class="nav-item w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-brand-sidebarActive/60 transition-colors">
-              <span class="text-base">👥</span>
-              <span data-i18n="menu_customers">Customers</span>
+
+            <!-- Customers -->
+            <button onclick="navigateTo('customers')" id="nav-customers" class="nav-item group w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
+              <span class="nav-icon-badge w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-sm group-hover:scale-110 transition-transform text-indigo-400">
+                👥
+              </span>
+              <span class="font-medium text-xs tracking-wide" data-i18n="menu_customers">Customers</span>
             </button>
-            <button onclick="navigateTo('measurements')" id="nav-measurements" class="nav-item w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-brand-sidebarActive/60 transition-colors">
-              <span class="text-base">📏</span>
-              <span data-i18n="menu_measurements">Measurements</span>
+
+            <!-- Measurements -->
+            <button onclick="navigateTo('measurements')" id="nav-measurements" class="nav-item group w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
+              <span class="nav-icon-badge w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-sm group-hover:scale-110 transition-transform text-purple-400">
+                📏
+              </span>
+              <span class="font-medium text-xs tracking-wide" data-i18n="menu_measurements">Measurements</span>
+              <span class="ml-auto text-[9px] bg-purple-500/20 text-purple-300 border border-purple-500/30 px-1.5 py-0.5 rounded font-bold">
+                VOICE
+              </span>
             </button>
-            <button onclick="navigateTo('accounts')" id="nav-accounts" class="nav-item w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-brand-sidebarActive/60 transition-colors">
-              <span class="text-base">💳</span>
-              <span data-i18n="menu_accounts">Accounts</span>
+
+            <!-- Accounts -->
+            <button onclick="navigateTo('accounts')" id="nav-accounts" class="nav-item group w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
+              <span class="nav-icon-badge w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-sm group-hover:scale-110 transition-transform text-amber-400">
+                💳
+              </span>
+              <span class="font-medium text-xs tracking-wide" data-i18n="menu_accounts">Accounts</span>
+              <span class="ml-auto w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
             </button>
-            <button onclick="navigateTo('staff')" id="nav-staff" class="nav-item w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-brand-sidebarActive/60 transition-colors">
-              <span class="text-base">✂️</span>
-              <span data-i18n="menu_staff">Staff</span>
+
+            <!-- Staff -->
+            <button onclick="navigateTo('staff')" id="nav-staff" class="nav-item group w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
+              <span class="nav-icon-badge w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-sm group-hover:scale-110 transition-transform text-pink-400">
+                ✂️
+              </span>
+              <span class="font-medium text-xs tracking-wide" data-i18n="menu_staff">Staff</span>
             </button>
-            <button onclick="navigateTo('fabrics')" id="nav-fabrics" class="nav-item w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-brand-sidebarActive/60 transition-colors">
-              <span class="text-base">🧵</span>
-              <span data-i18n="menu_fabrics">Fabrics</span>
+
+            <!-- Fabrics -->
+            <button onclick="navigateTo('fabrics')" id="nav-fabrics" class="nav-item group w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
+              <span class="nav-icon-badge w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-sm group-hover:scale-110 transition-transform text-teal-400">
+                🧵
+              </span>
+              <span class="font-medium text-xs tracking-wide" data-i18n="menu_fabrics">Fabrics</span>
             </button>
-            <button onclick="navigateTo('inventory')" id="nav-inventory" class="nav-item active w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-brand-sidebarActive/60 transition-colors">
-              <span class="text-base">📦</span>
-              <span data-i18n="menu_inventory">Inventory</span>
-              <span class="ml-auto w-2 h-2 rounded-full bg-emerald-400"></span>
+
+            <!-- Inventory (Active by default in screenshot) -->
+            <button onclick="navigateTo('inventory')" id="nav-inventory" class="nav-item active group w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
+              <span class="nav-icon-badge w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-sm group-hover:scale-110 transition-transform text-emerald-400">
+                📦
+              </span>
+              <span class="font-medium text-xs tracking-wide" data-i18n="menu_inventory">Inventory</span>
+              <span class="ml-auto w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34D399]"></span>
             </button>
-            <button onclick="navigateTo('reports')" id="nav-reports" class="nav-item w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-brand-sidebarActive/60 transition-colors">
-              <span class="text-base">📊</span>
-              <span data-i18n="menu_reports">Reports</span>
+
+            <!-- Reports -->
+            <button onclick="navigateTo('reports')" id="nav-reports" class="nav-item group w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
+              <span class="nav-icon-badge w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-sm group-hover:scale-110 transition-transform text-blue-400">
+                📊
+              </span>
+              <span class="font-medium text-xs tracking-wide" data-i18n="menu_reports">Reports</span>
             </button>
           </nav>
         </div>
 
-        <!-- Section: Admin -->
+        <!-- Section: System & Admin -->
         <div>
-          <div class="px-3 text-[11px] font-semibold tracking-wider text-gray-400 uppercase mb-2" data-i18n="sec_admin">
-            Admin
+          <div class="px-3 text-[10px] font-black tracking-widest text-gray-500 uppercase mb-2.5" data-i18n="sec_admin">
+            SYSTEM ADMIN
           </div>
-          <nav class="space-y-0.5">
-            <button onclick="navigateTo('settings')" class="nav-item w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-brand-sidebarActive/60 transition-colors">
-              <span class="text-base">⚙️</span>
-              <span data-i18n="menu_settings">Shop settings</span>
+          <nav class="space-y-1">
+            <button onclick="alert('Shop settings')" class="nav-item group w-full flex items-center gap-3.5 px-3.5 py-2 rounded-xl text-gray-400 hover:text-white transition-all">
+              <span class="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center text-xs group-hover:scale-110 transition-transform">⚙️</span>
+              <span class="text-xs" data-i18n="menu_settings">Shop settings</span>
             </button>
-            <button onclick="navigateTo('users')" class="nav-item w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-brand-sidebarActive/60 transition-colors">
-              <span class="text-base">👤</span>
-              <span data-i18n="menu_users">Users & roles</span>
+            <button onclick="alert('Users & roles')" class="nav-item group w-full flex items-center gap-3.5 px-3.5 py-2 rounded-xl text-gray-400 hover:text-white transition-all">
+              <span class="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center text-xs group-hover:scale-110 transition-transform">🛡️</span>
+              <span class="text-xs" data-i18n="menu_users">Users & roles</span>
             </button>
-            <button onclick="navigateTo('backups')" class="nav-item w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-brand-sidebarActive/60 transition-colors">
-              <span class="text-base">💾</span>
-              <span data-i18n="menu_backups">Backups</span>
+            <button onclick="alert('Database cloud backup')" class="nav-item group w-full flex items-center gap-3.5 px-3.5 py-2 rounded-xl text-gray-400 hover:text-white transition-all">
+              <span class="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center text-xs group-hover:scale-110 transition-transform">☁️</span>
+              <span class="text-xs" data-i18n="menu_backups">Backups</span>
             </button>
-            <button onclick="navigateTo('activity')" class="nav-item w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-brand-sidebarActive/60 transition-colors">
-              <span class="text-base">⏱️</span>
-              <span data-i18n="menu_activity">Activity log</span>
+            <button onclick="alert('Live audit activity log')" class="nav-item group w-full flex items-center gap-3.5 px-3.5 py-2 rounded-xl text-gray-400 hover:text-white transition-all">
+              <span class="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center text-xs group-hover:scale-110 transition-transform">⏱️</span>
+              <span class="text-xs" data-i18n="menu_activity">Activity log</span>
             </button>
           </nav>
         </div>
@@ -210,308 +339,370 @@
       </div>
     </div>
 
-    <!-- Bottom User Profile Card -->
-    <div class="p-3 border-t border-brand-sidebarBorder">
-      <div class="flex items-center gap-3 p-2 rounded-xl bg-brand-sidebarActive/40 hover:bg-brand-sidebarActive transition-colors cursor-pointer">
-        <div class="w-9 h-9 rounded-full bg-emerald-800 text-emerald-200 font-bold flex items-center justify-center text-xs">
-          SO
+    <!-- Futuristic User Profile Chip -->
+    <div class="p-3.5 border-t border-white/5 z-10 bg-cyber-black/40">
+      <div class="flex items-center gap-3 p-2.5 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/5 transition-all cursor-pointer group">
+        <div class="relative">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white font-extrabold flex items-center justify-center text-xs shadow-md">
+            SO
+          </div>
+          <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-cyber-sidebar rounded-full"></span>
         </div>
         <div class="flex-1 min-w-0">
-          <div class="text-xs font-bold text-white truncate" id="user-display-name">Shop Owner</div>
-          <div class="text-[11px] text-gray-400 truncate">Owner • New Market</div>
+          <div class="text-xs font-bold text-white truncate flex items-center gap-1">
+            <span>Shop Owner</span>
+            <span class="text-[9px] text-emerald-400 font-mono">PRO</span>
+          </div>
+          <div class="text-[11px] text-gray-400 truncate">Owner • New Market, Dhaka</div>
         </div>
-        <span class="text-gray-400 text-xs">↕</span>
+        <span class="text-gray-500 text-xs group-hover:text-emerald-400 transition-colors">⇕</span>
       </div>
     </div>
 
   </aside>
 
   <!-- ======================================================== -->
-  <!-- 2. MAIN APP CONTENT CONTAINER                            -->
+  <!-- 2. MAIN APP CONTAINER (iOS-Style Rounded Glass Bento)   -->
   <!-- ======================================================== -->
-  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden bg-ios-bg">
     
-    <!-- Topbar (Exact match to screenshot topbar) -->
-    <header class="h-16 bg-white border-b border-app-border flex items-center justify-between px-6 z-20 flex-shrink-0">
+    <!-- Top Bar (Clean, Floating iOS Header) -->
+    <header class="h-18 bg-white/80 backdrop-blur-xl border-b border-ios-border flex items-center justify-between px-8 z-20 flex-shrink-0">
       
-      <!-- Left: Toggle Sidebar Icon + Universal Search Bar -->
-      <div class="flex items-center gap-4 flex-1 max-w-lg">
-        <button class="text-gray-400 hover:text-gray-600 p-1 rounded-lg" title="Toggle sidebar">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path></svg>
-        </button>
-
-        <!-- Search Input -->
-        <div class="relative flex-1">
-          <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-            🔍
+      <!-- Left: Universal Search Input with Keyboard Shortcut Pill -->
+      <div class="flex items-center gap-4 flex-1 max-w-xl">
+        <div class="relative flex-1 group">
+          <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400 group-focus-within:text-ios-blue transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
           </span>
           <input 
             type="text" 
             id="universal-search"
-            placeholder="Search name, phone or order no." 
-            class="w-full pl-9 pr-4 py-2 bg-app-bg border border-app-border rounded-xl text-xs font-medium placeholder-gray-400 focus:outline-none focus:border-brand-500 focus:bg-white transition-all"
+            placeholder="Search name, phone, cloth tag or order no..." 
+            class="w-full pl-10 pr-12 py-2.5 bg-gray-100/70 border border-transparent rounded-2xl text-xs font-medium text-ios-text placeholder-gray-400 focus:outline-none focus:border-ios-blue focus:bg-white focus:shadow-ios-card transition-all"
           >
+          <span class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-[10px] font-mono text-gray-400">
+            <kbd class="px-1.5 py-0.5 bg-white border border-gray-200 rounded-md shadow-xs">⌘K</kbd>
+          </span>
         </div>
       </div>
 
-      <!-- Right Actions: Language Switcher, Theme, New Order Button -->
+      <!-- Right Action Controls (Multi-Color Indicators, Language, New Order) -->
       <div class="flex items-center gap-3">
         
         <!-- Language Switcher: English <-> Bengali -->
-        <button onclick="toggleLanguage()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-app-border bg-app-bg hover:bg-gray-100 text-xs font-bold text-gray-700 transition-colors" title="Change Language">
-          <span>文A</span>
+        <button onclick="toggleLanguage()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl border border-ios-border bg-white hover:bg-gray-50 text-xs font-bold text-gray-800 shadow-xs transition-all active:scale-95">
+          <span class="text-base">🌐</span>
           <span id="lang-indicator">বাংলা</span>
         </button>
 
-        <!-- Theme Toggle -->
-        <button onclick="toggleDarkMode()" class="p-2 rounded-xl border border-app-border bg-app-bg hover:bg-gray-100 text-gray-600 text-xs" title="Toggle theme">
-          ☀️
-        </button>
+        <!-- Quick Theme Accent Switcher -->
+        <div class="flex items-center bg-gray-100/80 p-1 rounded-2xl border border-gray-200/50">
+          <button onclick="setThemeAccent('emerald')" title="Emerald Green" class="w-5 h-5 rounded-xl bg-emerald-500 m-0.5 shadow-sm hover:scale-110 transition-transform"></button>
+          <button onclick="setThemeAccent('indigo')" title="Royal Indigo" class="w-5 h-5 rounded-xl bg-indigo-600 m-0.5 shadow-sm hover:scale-110 transition-transform"></button>
+          <button onclick="setThemeAccent('purple')" title="Amethyst Purple" class="w-5 h-5 rounded-xl bg-purple-600 m-0.5 shadow-sm hover:scale-110 transition-transform"></button>
+          <button onclick="setThemeAccent('rose')" title="Sunset Rose" class="w-5 h-5 rounded-xl bg-rose-500 m-0.5 shadow-sm hover:scale-110 transition-transform"></button>
+        </div>
 
-        <!-- Primary Action: + New order -->
-        <button onclick="openNewOrderModal()" class="flex items-center gap-1.5 bg-brand-700 hover:bg-brand-800 text-white font-bold text-xs px-4 py-2 rounded-xl shadow-sm transition-all hover:shadow">
-          <span>+</span>
+        <!-- Primary Action: + New order (iOS Glass Pill Button) -->
+        <button onclick="openNewOrderModal()" class="flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-xs px-5 py-2.5 rounded-2xl shadow-lg shadow-emerald-600/25 transition-all hover:scale-[1.02] active:scale-95">
+          <span class="text-sm">＋</span>
           <span data-i18n="btn_new_order">New order</span>
         </button>
       </div>
     </header>
 
-    <!-- Scrollable Content Area -->
+    <!-- Scrollable Bento Canvas -->
     <main class="flex-1 overflow-y-auto p-6 lg:p-8 space-y-6">
 
       <!-- ==================================================== -->
-      <!-- VIEW 1: INVENTORY (Screenshot 1 Exact Recreation)    -->
+      <!-- VIEW 1: INVENTORY (iPhone Bento Grid System)         -->
       <!-- ==================================================== -->
       <section id="view-inventory" class="app-view space-y-6">
         
-        <!-- Page Title & Top Actions -->
+        <!-- Page Title & Top Actions Bar -->
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 class="text-2xl font-bold text-app-text tracking-tight" data-i18n="inv_title">Inventory</h1>
-            <p class="text-xs text-app-muted mt-0.5">Fabric and materials · stock value <strong class="text-gray-900 font-mono">৳476,499</strong></p>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-emerald-100 text-emerald-800">FABRICS & MATERIALS</span>
+              <span class="text-xs text-ios-subtext">Live Stock Engine</span>
+            </div>
+            <h1 class="text-3xl font-black text-ios-text tracking-tight mt-1" data-i18n="inv_title">Inventory</h1>
+            <p class="text-xs text-ios-subtext mt-1">
+              Fabric and materials · total stock value: <strong class="text-gray-900 font-mono text-sm bg-gray-100 px-2 py-0.5 rounded-md">৳476,499</strong>
+            </p>
           </div>
 
-          <div class="flex items-center gap-2">
-            <button onclick="alert('Exporting Excel...')" class="flex items-center gap-1.5 px-3.5 py-2 bg-white border border-app-border rounded-xl text-xs font-bold text-gray-700 hover:bg-gray-50 shadow-sm">
+          <!-- Action Buttons -->
+          <div class="flex items-center gap-2.5">
+            <button onclick="alert('Exporting Excel spreadsheet...')" class="flex items-center gap-2 px-4 py-2.5 bg-white border border-ios-border rounded-2xl text-xs font-bold text-gray-700 hover:bg-gray-50 shadow-ios-card transition-all active:scale-95">
               <span>📄</span> Export Excel
             </button>
-            <button onclick="alert('Add Item modal opened')" class="flex items-center gap-1.5 px-3.5 py-2 bg-white border border-app-border rounded-xl text-xs font-bold text-gray-700 hover:bg-gray-50 shadow-sm">
+            <button onclick="alert('Add Item modal opened')" class="flex items-center gap-2 px-4 py-2.5 bg-white border border-ios-border rounded-2xl text-xs font-bold text-gray-700 hover:bg-gray-50 shadow-ios-card transition-all active:scale-95">
               <span>➕</span> Add item
             </button>
-            <button onclick="alert('Stock In registered')" class="flex items-center gap-1.5 px-4 py-2 bg-brand-700 hover:bg-brand-800 text-white rounded-xl text-xs font-bold shadow-sm">
+            <button onclick="alert('Stock In registered')" class="flex items-center gap-2 px-5 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl text-xs font-bold shadow-md shadow-emerald-700/20 transition-all active:scale-95">
               <span>📥</span> Stock in
             </button>
           </div>
         </div>
 
-        <!-- 4 Stat Metric Cards -->
+        <!-- 4 Bento Metric Cards (Multi-Color Palette) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div class="bg-white p-5 rounded-2xl border border-app-border shadow-sm">
-            <div class="flex items-center gap-2 text-xs text-app-muted font-medium mb-1">
-              <span>📦</span> Items tracked
+          
+          <!-- Card 1: Cyan / Emerald Accent -->
+          <div class="bento-card p-5 relative overflow-hidden group">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs text-ios-subtext font-bold uppercase tracking-wider">Items tracked</span>
+              <div class="w-9 h-9 rounded-2xl bg-cyan-50 text-cyan-600 flex items-center justify-center font-bold text-sm shadow-sm group-hover:scale-110 transition-transform">
+                📦
+              </div>
             </div>
-            <div class="text-2xl font-bold text-app-text font-mono">14</div>
-            <div class="text-[11px] text-app-muted mt-1">5 categories</div>
+            <div class="text-3xl font-black text-ios-text font-mono">14</div>
+            <div class="text-[11px] text-cyan-700 font-semibold mt-1">5 categories tracked</div>
           </div>
 
-          <div class="bg-white p-5 rounded-2xl border border-app-border shadow-sm">
-            <div class="flex items-center gap-2 text-xs text-red-600 font-medium mb-1">
-              <span>⚠️</span> Low stock
+          <!-- Card 2: Sunset Red / Coral Accent (Low stock alert) -->
+          <div class="bento-card p-5 relative overflow-hidden group bg-gradient-to-br from-white via-white to-red-50/40 border-red-100">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs text-red-600 font-bold uppercase tracking-wider flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+                Low stock
+              </span>
+              <div class="w-9 h-9 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center font-bold text-sm shadow-sm group-hover:scale-110 transition-transform">
+                ⚠️
+              </div>
             </div>
-            <div class="text-2xl font-bold text-red-600 font-mono">2</div>
-            <div class="text-[11px] text-app-muted mt-1">at or below reorder level</div>
+            <div class="text-3xl font-black text-red-600 font-mono">2</div>
+            <div class="text-[11px] text-red-600/80 font-bold mt-1">at or below reorder level</div>
           </div>
 
-          <div class="bg-white p-5 rounded-2xl border border-app-border shadow-sm">
-            <div class="flex items-center gap-2 text-xs text-app-muted font-medium mb-1">
-              <span>📉</span> Used this month
+          <!-- Card 3: Indigo / Violet Accent -->
+          <div class="bento-card p-5 relative overflow-hidden group">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs text-ios-subtext font-bold uppercase tracking-wider">Used this month</span>
+              <div class="w-9 h-9 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-sm shadow-sm group-hover:scale-110 transition-transform">
+                📉
+              </div>
             </div>
-            <div class="text-2xl font-bold text-app-text font-mono">৳11,325</div>
-            <div class="text-[11px] text-app-muted mt-1">at cost</div>
+            <div class="text-3xl font-black text-ios-text font-mono">৳11,325</div>
+            <div class="text-[11px] text-indigo-600 font-semibold mt-1">at cost price</div>
           </div>
 
-          <div class="bg-white p-5 rounded-2xl border border-app-border shadow-sm">
-            <div class="flex items-center gap-2 text-xs text-app-muted font-medium mb-1">
-              <span>🛒</span> Purchased this month
+          <!-- Card 4: Amber / Gold Accent -->
+          <div class="bento-card p-5 relative overflow-hidden group">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs text-ios-subtext font-bold uppercase tracking-wider">Purchased this month</span>
+              <div class="w-9 h-9 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-sm shadow-sm group-hover:scale-110 transition-transform">
+                🛒
+              </div>
             </div>
-            <div class="text-2xl font-bold text-app-text font-mono">৳0</div>
-            <div class="text-[11px] text-app-muted mt-1">0 stock-ins</div>
+            <div class="text-3xl font-black text-ios-text font-mono">৳0</div>
+            <div class="text-[11px] text-amber-700 font-semibold mt-1">0 new stock-ins</div>
           </div>
+
         </div>
 
-        <!-- Main Grid: Stock Table (Left) + Recent Movement (Right) -->
+        <!-- Main Bento Grid: Stock Table (Left) + Recent Movement (Right) -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           
-          <!-- Left 2 Cols: Stock Table -->
-          <div class="lg:col-span-2 bg-white rounded-2xl border border-app-border shadow-sm p-5 space-y-4">
+          <!-- Left 2 Cols: Stock Bento Card Table -->
+          <div class="lg:col-span-2 bento-card p-6 space-y-5">
             
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <h2 class="text-base font-bold text-app-text">Stock</h2>
+              <div class="flex items-center gap-2">
+                <h2 class="text-lg font-black text-ios-text tracking-tight">Stock Inventory</h2>
+                <span class="text-xs font-mono font-bold bg-gray-100 text-gray-700 px-2 py-0.5 rounded-lg">Realtime</span>
+              </div>
               
               <!-- Search inside stock -->
-              <div class="relative w-64">
-                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400 text-xs">🔍</span>
-                <input type="text" placeholder="Search material or SKU" class="w-full pl-8 pr-3 py-1.5 bg-app-bg border border-app-border rounded-xl text-xs focus:outline-none focus:border-brand-500">
+              <div class="relative w-72">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400 text-xs">🔍</span>
+                <input type="text" placeholder="Search material or SKU..." class="w-full pl-9 pr-3.5 py-2 bg-gray-100/70 border border-transparent rounded-2xl text-xs focus:outline-none focus:border-ios-blue focus:bg-white transition-all">
               </div>
             </div>
 
-            <!-- Filter Pills -->
-            <div class="flex flex-wrap items-center gap-2 pb-2">
-              <button class="px-3 py-1 bg-brand-700 text-white rounded-xl text-xs font-bold">All</button>
-              <button class="px-3 py-1 bg-app-bg hover:bg-gray-100 text-gray-700 rounded-xl text-xs font-medium border border-app-border">Button</button>
-              <button class="px-3 py-1 bg-app-bg hover:bg-gray-100 text-gray-700 rounded-xl text-xs font-medium border border-app-border">Fabric</button>
-              <button class="px-3 py-1 bg-app-bg hover:bg-gray-100 text-gray-700 rounded-xl text-xs font-medium border border-app-border">Interlining</button>
-              <button class="px-3 py-1 bg-app-bg hover:bg-gray-100 text-gray-700 rounded-xl text-xs font-medium border border-app-border">Thread</button>
-              <button class="px-3 py-1 bg-app-bg hover:bg-gray-100 text-gray-700 rounded-xl text-xs font-medium border border-app-border">Trims</button>
-              <button class="px-3 py-1 bg-red-50 text-red-700 border border-red-200 rounded-xl text-xs font-bold">Low stock 2</button>
+            <!-- Apple-Style Filter Pills -->
+            <div class="flex flex-wrap items-center gap-1.5 p-1 bg-gray-100/70 rounded-2xl border border-gray-200/60 w-fit">
+              <button class="px-3.5 py-1.5 bg-white text-gray-900 rounded-xl text-xs font-bold shadow-xs">All</button>
+              <button class="px-3 py-1.5 text-gray-600 hover:text-gray-900 rounded-xl text-xs font-medium">Button</button>
+              <button class="px-3 py-1.5 text-gray-600 hover:text-gray-900 rounded-xl text-xs font-medium">Fabric</button>
+              <button class="px-3 py-1.5 text-gray-600 hover:text-gray-900 rounded-xl text-xs font-medium">Interlining</button>
+              <button class="px-3 py-1.5 text-gray-600 hover:text-gray-900 rounded-xl text-xs font-medium">Thread</button>
+              <button class="px-3 py-1.5 text-gray-600 hover:text-gray-900 rounded-xl text-xs font-medium">Trims</button>
+              <button class="px-3 py-1.5 bg-red-100 text-red-700 font-bold rounded-xl text-xs">Low stock 2</button>
             </div>
 
-            <!-- Stock Table -->
+            <!-- Stock Table with Multi-Color Progress Rings/Bars -->
             <div class="overflow-x-auto">
               <table class="w-full text-left text-xs">
                 <thead>
-                  <tr class="text-[11px] text-app-muted border-b border-app-border uppercase tracking-wider">
-                    <th class="pb-3 font-semibold">Material</th>
-                    <th class="pb-3 font-semibold">Stock in</th>
-                    <th class="pb-3 font-semibold">Used</th>
-                    <th class="pb-3 font-semibold">In stock now</th>
-                    <th class="pb-3 font-semibold">Reorder at</th>
-                    <th class="pb-3 font-semibold">Status</th>
-                    <th class="pb-3 font-semibold text-right"></th>
+                  <tr class="text-[11px] text-ios-subtext border-b border-ios-border uppercase tracking-wider">
+                    <th class="pb-3.5 font-bold">Material</th>
+                    <th class="pb-3.5 font-bold">Stock in</th>
+                    <th class="pb-3.5 font-bold">Used</th>
+                    <th class="pb-3.5 font-bold">In stock now</th>
+                    <th class="pb-3.5 font-bold">Reorder at</th>
+                    <th class="pb-3.5 font-bold">Status</th>
+                    <th class="pb-3.5 font-bold text-right"></th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100">
-                  <!-- Row 1 -->
-                  <tr class="hover:bg-gray-50/70">
-                    <td class="py-3">
-                      <div class="font-bold text-gray-900">Panjabi buttons (metal)</div>
-                      <div class="text-[10px] text-gray-400 font-mono">Button · BUT-8517</div>
+                  
+                  <!-- Row 1: Panjabi buttons -->
+                  <tr class="hover:bg-gray-50/80 transition-colors group">
+                    <td class="py-3.5">
+                      <div class="font-extrabold text-gray-900 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        Panjabi buttons (metal)
+                      </div>
+                      <div class="text-[10px] text-gray-400 font-mono pl-4">Button · BUT-8517</div>
                     </td>
-                    <td class="py-3 font-mono font-medium text-gray-700">1,935 pcs</td>
-                    <td class="py-3 font-mono text-gray-400">0 pcs</td>
-                    <td class="py-3">
+                    <td class="py-3.5 font-mono font-semibold text-gray-700">1,935 pcs</td>
+                    <td class="py-3.5 font-mono text-gray-400">0 pcs</td>
+                    <td class="py-3.5">
                       <div class="flex items-center gap-3">
-                        <div class="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                          <div class="h-full bg-emerald-600 rounded-full" style="width: 90%;"></div>
+                        <div class="w-20 h-2 bg-gray-100 rounded-full overflow-hidden">
+                          <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full" style="width: 90%;"></div>
                         </div>
                         <span class="font-mono font-bold text-gray-900">1,935 pcs</span>
                       </div>
                     </td>
-                    <td class="py-3 font-mono text-gray-500">200 pcs</td>
-                    <td class="py-3">
-                      <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold px-2 py-0.5 rounded-full">● In stock</span>
+                    <td class="py-3.5 font-mono text-gray-500">200 pcs</td>
+                    <td class="py-3.5">
+                      <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full">● In stock</span>
                     </td>
-                    <td class="py-3 text-right text-gray-400 font-bold cursor-pointer">···</td>
+                    <td class="py-3.5 text-right text-gray-400 font-bold group-hover:text-gray-900 cursor-pointer">···</td>
                   </tr>
-                  <!-- Row 2 -->
-                  <tr class="hover:bg-gray-50/70">
-                    <td class="py-3">
-                      <div class="font-bold text-gray-900">Shirt buttons 14L</div>
-                      <div class="text-[10px] text-gray-400 font-mono">Button · BUT-7109</div>
+
+                  <!-- Row 2: Shirt buttons -->
+                  <tr class="hover:bg-gray-50/80 transition-colors group">
+                    <td class="py-3.5">
+                      <div class="font-extrabold text-gray-900 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-cyan-500"></span>
+                        Shirt buttons 14L
+                      </div>
+                      <div class="text-[10px] text-gray-400 font-mono pl-4">Button · BUT-7109</div>
                     </td>
-                    <td class="py-3 font-mono font-medium text-gray-700">1,344 pcs</td>
-                    <td class="py-3 font-mono text-gray-400">0 pcs</td>
-                    <td class="py-3">
+                    <td class="py-3.5 font-mono font-semibold text-gray-700">1,344 pcs</td>
+                    <td class="py-3.5 font-mono text-gray-400">0 pcs</td>
+                    <td class="py-3.5">
                       <div class="flex items-center gap-3">
-                        <div class="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                          <div class="h-full bg-emerald-600 rounded-full" style="width: 85%;"></div>
+                        <div class="w-20 h-2 bg-gray-100 rounded-full overflow-hidden">
+                          <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full" style="width: 85%;"></div>
                         </div>
                         <span class="font-mono font-bold text-gray-900">1,344 pcs</span>
                       </div>
                     </td>
-                    <td class="py-3 font-mono text-gray-500">300 pcs</td>
-                    <td class="py-3">
-                      <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold px-2 py-0.5 rounded-full">● In stock</span>
+                    <td class="py-3.5 font-mono text-gray-500">300 pcs</td>
+                    <td class="py-3.5">
+                      <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full">● In stock</span>
                     </td>
-                    <td class="py-3 text-right text-gray-400 font-bold cursor-pointer">···</td>
+                    <td class="py-3.5 text-right text-gray-400 font-bold group-hover:text-gray-900 cursor-pointer">···</td>
                   </tr>
-                  <!-- Row 3 -->
-                  <tr class="hover:bg-gray-50/70">
-                    <td class="py-3">
-                      <div class="font-bold text-gray-900">Cotton panjabi off-white</div>
-                      <div class="text-[10px] text-gray-400 font-mono">Fabric · FAB-4688</div>
+
+                  <!-- Row 3: Cotton panjabi -->
+                  <tr class="hover:bg-gray-50/80 transition-colors group">
+                    <td class="py-3.5">
+                      <div class="font-extrabold text-gray-900 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+                        Cotton panjabi off-white
+                      </div>
+                      <div class="text-[10px] text-gray-400 font-mono pl-4">Fabric · FAB-4688</div>
                     </td>
-                    <td class="py-3 font-mono font-medium text-gray-700">276 yd</td>
-                    <td class="py-3 font-mono text-gray-500">71.7 yd</td>
-                    <td class="py-3">
+                    <td class="py-3.5 font-mono font-semibold text-gray-700">276 yd</td>
+                    <td class="py-3.5 font-mono text-gray-500">71.7 yd</td>
+                    <td class="py-3.5">
                       <div class="flex items-center gap-3">
-                        <div class="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                          <div class="h-full bg-emerald-600 rounded-full" style="width: 74%;"></div>
+                        <div class="w-20 h-2 bg-gray-100 rounded-full overflow-hidden">
+                          <div class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full" style="width: 74%;"></div>
                         </div>
                         <span class="font-mono font-bold text-gray-900">204.3 yd</span>
                       </div>
                     </td>
-                    <td class="py-3 font-mono text-gray-500">40 yd</td>
-                    <td class="py-3">
-                      <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold px-2 py-0.5 rounded-full">● In stock</span>
+                    <td class="py-3.5 font-mono text-gray-500">40 yd</td>
+                    <td class="py-3.5">
+                      <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full">● In stock</span>
                     </td>
-                    <td class="py-3 text-right text-gray-400 font-bold cursor-pointer">···</td>
+                    <td class="py-3.5 text-right text-gray-400 font-bold group-hover:text-gray-900 cursor-pointer">···</td>
                   </tr>
-                  <!-- Row 4 -->
-                  <tr class="hover:bg-gray-50/70">
-                    <td class="py-3">
-                      <div class="font-bold text-gray-900">Cotton sky blue (shirting)</div>
-                      <div class="text-[10px] text-gray-400 font-mono">Fabric · FAB-5287</div>
+
+                  <!-- Row 4: Cotton sky blue -->
+                  <tr class="hover:bg-gray-50/80 transition-colors group">
+                    <td class="py-3.5">
+                      <div class="font-extrabold text-gray-900 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-teal-500"></span>
+                        Cotton sky blue (shirting)
+                      </div>
+                      <div class="text-[10px] text-gray-400 font-mono pl-4">Fabric · FAB-5287</div>
                     </td>
-                    <td class="py-3 font-mono font-medium text-gray-700">261 yd</td>
-                    <td class="py-3 font-mono text-gray-500">124.2 yd</td>
-                    <td class="py-3">
+                    <td class="py-3.5 font-mono font-semibold text-gray-700">261 yd</td>
+                    <td class="py-3.5 font-mono text-gray-500">124.2 yd</td>
+                    <td class="py-3.5">
                       <div class="flex items-center gap-3">
-                        <div class="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                          <div class="h-full bg-emerald-600 rounded-full" style="width: 52%;"></div>
+                        <div class="w-20 h-2 bg-gray-100 rounded-full overflow-hidden">
+                          <div class="h-full bg-gradient-to-r from-teal-500 to-emerald-400 rounded-full" style="width: 52%;"></div>
                         </div>
                         <span class="font-mono font-bold text-gray-900">136.8 yd</span>
                       </div>
                     </td>
-                    <td class="py-3 font-mono text-gray-500">40 yd</td>
-                    <td class="py-3">
-                      <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold px-2 py-0.5 rounded-full">● In stock</span>
+                    <td class="py-3.5 font-mono text-gray-500">40 yd</td>
+                    <td class="py-3.5">
+                      <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full">● In stock</span>
                     </td>
-                    <td class="py-3 text-right text-gray-400 font-bold cursor-pointer">···</td>
+                    <td class="py-3.5 text-right text-gray-400 font-bold group-hover:text-gray-900 cursor-pointer">···</td>
                   </tr>
-                  <!-- Row 5 (Low stock) -->
-                  <tr class="hover:bg-red-50/40">
-                    <td class="py-3">
-                      <div class="font-bold text-gray-900">Cotton white (shirting)</div>
-                      <div class="text-[10px] text-gray-400 font-mono">Fabric · FAB-1758</div>
+
+                  <!-- Row 5 (Low stock alert) -->
+                  <tr class="bg-red-50/30 hover:bg-red-50/60 transition-colors group">
+                    <td class="py-3.5">
+                      <div class="font-extrabold text-gray-900 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                        Cotton white (shirting)
+                      </div>
+                      <div class="text-[10px] text-gray-400 font-mono pl-4">Fabric · FAB-1758</div>
                     </td>
-                    <td class="py-3 font-mono font-medium text-gray-700">87 yd</td>
-                    <td class="py-3 font-mono text-gray-500">63.6 yd</td>
-                    <td class="py-3">
+                    <td class="py-3.5 font-mono font-semibold text-gray-700">87 yd</td>
+                    <td class="py-3.5 font-mono text-gray-500">63.6 yd</td>
+                    <td class="py-3.5">
                       <div class="flex items-center gap-3">
-                        <div class="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                          <div class="h-full bg-red-500 rounded-full" style="width: 26%;"></div>
+                        <div class="w-20 h-2 bg-gray-100 rounded-full overflow-hidden">
+                          <div class="h-full bg-gradient-to-r from-red-500 to-rose-400 rounded-full" style="width: 26%;"></div>
                         </div>
                         <span class="font-mono font-bold text-red-600">23.4 yd</span>
                       </div>
                     </td>
-                    <td class="py-3 font-mono text-gray-500">50 yd</td>
-                    <td class="py-3">
-                      <span class="bg-red-50 text-red-700 border border-red-200 text-[10px] font-bold px-2 py-0.5 rounded-full">● Low stock</span>
+                    <td class="py-3.5 font-mono text-gray-500">50 yd</td>
+                    <td class="py-3.5">
+                      <span class="bg-red-100 text-red-700 border border-red-200 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full">● Low stock</span>
                     </td>
-                    <td class="py-3 text-right text-gray-400 font-bold cursor-pointer">···</td>
+                    <td class="py-3.5 text-right text-gray-400 font-bold group-hover:text-gray-900 cursor-pointer">···</td>
                   </tr>
-                  <!-- Row 6 (Low stock) -->
-                  <tr class="hover:bg-red-50/40">
-                    <td class="py-3">
-                      <div class="font-bold text-gray-900">Gabardine black (pant)</div>
-                      <div class="text-[10px] text-gray-400 font-mono">Fabric · FAB-9171</div>
+
+                  <!-- Row 6 (Low stock alert) -->
+                  <tr class="bg-red-50/30 hover:bg-red-50/60 transition-colors group">
+                    <td class="py-3.5">
+                      <div class="font-extrabold text-gray-900 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                        Gabardine black (pant)
+                      </div>
+                      <div class="text-[10px] text-gray-400 font-mono pl-4">Fabric · FAB-9171</div>
                     </td>
-                    <td class="py-3 font-mono font-medium text-gray-700">90 yd</td>
-                    <td class="py-3 font-mono text-gray-500">56.4 yd</td>
-                    <td class="py-3">
+                    <td class="py-3.5 font-mono font-semibold text-gray-700">90 yd</td>
+                    <td class="py-3.5 font-mono text-gray-500">56.4 yd</td>
+                    <td class="py-3.5">
                       <div class="flex items-center gap-3">
-                        <div class="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                          <div class="h-full bg-red-500 rounded-full" style="width: 37%;"></div>
+                        <div class="w-20 h-2 bg-gray-100 rounded-full overflow-hidden">
+                          <div class="h-full bg-gradient-to-r from-red-500 to-rose-400 rounded-full" style="width: 37%;"></div>
                         </div>
                         <span class="font-mono font-bold text-red-600">33.6 yd</span>
                       </div>
                     </td>
-                    <td class="py-3 font-mono text-gray-500">40 yd</td>
-                    <td class="py-3">
-                      <span class="bg-red-50 text-red-700 border border-red-200 text-[10px] font-bold px-2 py-0.5 rounded-full">● Low stock</span>
+                    <td class="py-3.5 font-mono text-gray-500">40 yd</td>
+                    <td class="py-3.5">
+                      <span class="bg-red-100 text-red-700 border border-red-200 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full">● Low stock</span>
                     </td>
-                    <td class="py-3 text-right text-gray-400 font-bold cursor-pointer">···</td>
+                    <td class="py-3.5 text-right text-gray-400 font-bold group-hover:text-gray-900 cursor-pointer">···</td>
                   </tr>
                 </tbody>
               </table>
@@ -519,58 +710,71 @@
 
           </div>
 
-          <!-- Right 1 Col: Recent Movement -->
-          <div class="bg-white rounded-2xl border border-app-border shadow-sm p-5 space-y-4">
-            <div class="flex items-center justify-between">
-              <h2 class="text-base font-bold text-app-text">Recent movement</h2>
-              <button class="text-xs text-brand-600 font-bold hover:underline">View all</button>
+          <!-- Right 1 Col: Recent Movement Bento Card -->
+          <div class="bento-card p-6 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-ios-border">
+              <div class="flex items-center gap-2">
+                <span class="text-base">⚡</span>
+                <h2 class="text-base font-black text-ios-text tracking-tight">Recent movement</h2>
+              </div>
+              <button class="text-xs text-ios-blue font-bold hover:underline">View all</button>
             </div>
 
+            <!-- iOS List Items with Soft Gradient Badges -->
             <div class="space-y-3">
-              <!-- Item 1 -->
-              <div class="flex items-start gap-3 p-3 bg-app-bg rounded-xl border border-app-border/60">
-                <div class="w-7 h-7 rounded-lg bg-red-50 text-red-600 flex items-center justify-center font-bold text-xs">↗</div>
+              <div class="flex items-start gap-3 p-3 bg-gray-50/70 hover:bg-gray-100/70 rounded-2xl border border-gray-100 transition-all">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-red-500 to-rose-600 text-white flex items-center justify-center font-bold text-xs shadow-sm shadow-red-500/20">
+                  ↗
+                </div>
                 <div class="flex-1 min-w-0">
                   <div class="font-bold text-xs text-gray-900 truncate">Georgette printed</div>
                   <div class="text-[10px] text-gray-400 font-mono">ORD-2610-0023 · Oct 6, 10:17 PM</div>
                 </div>
-                <div class="font-mono font-bold text-red-600 text-xs">-3 yd</div>
+                <div class="font-mono font-extrabold text-red-600 text-xs bg-red-50 px-2 py-0.5 rounded-lg">-3 yd</div>
               </div>
-              <!-- Item 2 -->
-              <div class="flex items-start gap-3 p-3 bg-app-bg rounded-xl border border-app-border/60">
-                <div class="w-7 h-7 rounded-lg bg-red-50 text-red-600 flex items-center justify-center font-bold text-xs">↗</div>
+
+              <div class="flex items-start gap-3 p-3 bg-gray-50/70 hover:bg-gray-100/70 rounded-2xl border border-gray-100 transition-all">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-red-500 to-rose-600 text-white flex items-center justify-center font-bold text-xs shadow-sm shadow-red-500/20">
+                  ↗
+                </div>
                 <div class="flex-1 min-w-0">
                   <div class="font-bold text-xs text-gray-900 truncate">Cotton white (shirting)</div>
                   <div class="text-[10px] text-gray-400 font-mono">ORD-2610-0020 · Oct 6, 1:34 AM</div>
                 </div>
-                <div class="font-mono font-bold text-red-600 text-xs">-1.5 yd</div>
+                <div class="font-mono font-extrabold text-red-600 text-xs bg-red-50 px-2 py-0.5 rounded-lg">-1.5 yd</div>
               </div>
-              <!-- Item 3 -->
-              <div class="flex items-start gap-3 p-3 bg-app-bg rounded-xl border border-app-border/60">
-                <div class="w-7 h-7 rounded-lg bg-red-50 text-red-600 flex items-center justify-center font-bold text-xs">↗</div>
+
+              <div class="flex items-start gap-3 p-3 bg-gray-50/70 hover:bg-gray-100/70 rounded-2xl border border-gray-100 transition-all">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-red-500 to-rose-600 text-white flex items-center justify-center font-bold text-xs shadow-sm shadow-red-500/20">
+                  ↗
+                </div>
                 <div class="flex-1 min-w-0">
                   <div class="font-bold text-xs text-gray-900 truncate">Cotton sky blue (shirting)</div>
                   <div class="text-[10px] text-gray-400 font-mono">ORD-2610-0021 · Oct 5, 6:59 PM</div>
                 </div>
-                <div class="font-mono font-bold text-red-600 text-xs">-3 yd</div>
+                <div class="font-mono font-extrabold text-red-600 text-xs bg-red-50 px-2 py-0.5 rounded-lg">-3 yd</div>
               </div>
-              <!-- Item 4 -->
-              <div class="flex items-start gap-3 p-3 bg-app-bg rounded-xl border border-app-border/60">
-                <div class="w-7 h-7 rounded-lg bg-red-50 text-red-600 flex items-center justify-center font-bold text-xs">↗</div>
+
+              <div class="flex items-start gap-3 p-3 bg-gray-50/70 hover:bg-gray-100/70 rounded-2xl border border-gray-100 transition-all">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-red-500 to-rose-600 text-white flex items-center justify-center font-bold text-xs shadow-sm shadow-red-500/20">
+                  ↗
+                </div>
                 <div class="flex-1 min-w-0">
                   <div class="font-bold text-xs text-gray-900 truncate">Linen beige</div>
                   <div class="text-[10px] text-gray-400 font-mono">ORD-2610-0019 · Oct 5, 6:43 PM</div>
                 </div>
-                <div class="font-mono font-bold text-red-600 text-xs">-1.5 yd</div>
+                <div class="font-mono font-extrabold text-red-600 text-xs bg-red-50 px-2 py-0.5 rounded-lg">-1.5 yd</div>
               </div>
-              <!-- Item 5 -->
-              <div class="flex items-start gap-3 p-3 bg-app-bg rounded-xl border border-app-border/60">
-                <div class="w-7 h-7 rounded-lg bg-red-50 text-red-600 flex items-center justify-center font-bold text-xs">↗</div>
+
+              <div class="flex items-start gap-3 p-3 bg-gray-50/70 hover:bg-gray-100/70 rounded-2xl border border-gray-100 transition-all">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-red-500 to-rose-600 text-white flex items-center justify-center font-bold text-xs shadow-sm shadow-red-500/20">
+                  ↗
+                </div>
                 <div class="flex-1 min-w-0">
                   <div class="font-bold text-xs text-gray-900 truncate">Silk cream (panjabi)</div>
                   <div class="text-[10px] text-gray-400 font-mono">ORD-2610-0015 · Oct 5, 2:11 AM</div>
                 </div>
-                <div class="font-mono font-bold text-red-600 text-xs">-2.4 yd</div>
+                <div class="font-mono font-extrabold text-red-600 text-xs bg-red-50 px-2 py-0.5 rounded-lg">-2.4 yd</div>
               </div>
             </div>
           </div>
@@ -580,202 +784,238 @@
       </section>
 
       <!-- ==================================================== -->
-      <!-- VIEW 2: DASHBOARD (Screenshot 2 Exact Recreation)    -->
+      <!-- VIEW 2: DASHBOARD (Multi-Color Bento Architecture)   -->
       <!-- ==================================================== -->
       <section id="view-dashboard" class="app-view hidden space-y-6">
         
-        <!-- Header & Date -->
+        <!-- Header & Date Controls -->
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 class="text-2xl font-bold text-app-text tracking-tight" id="dash-greeting">Good Evening, Shop Owner</h1>
-            <p class="text-xs text-app-muted mt-0.5">Tuesday, October 6, 2026 · Direct from shop</p>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-indigo-100 text-indigo-800">TAILOR SHOP HUD</span>
+              <span class="text-xs text-ios-subtext">Tuesday, October 6, 2026</span>
+            </div>
+            <h1 class="text-3xl font-black text-ios-text tracking-tight mt-1" id="dash-greeting">Good Evening, Shop Owner</h1>
+            <p class="text-xs text-ios-subtext mt-1">Direct live metrics from New Market Branch</p>
           </div>
 
           <div class="flex items-center gap-2">
-            <input type="date" value="2026-10-06" class="px-3.5 py-2 bg-white border border-app-border rounded-xl text-xs font-mono font-bold text-gray-700 shadow-sm focus:outline-none">
+            <input type="date" value="2026-10-06" class="px-4 py-2.5 bg-white border border-ios-border rounded-2xl text-xs font-mono font-bold text-gray-800 shadow-ios-card focus:outline-none">
           </div>
         </div>
 
-        <!-- 4 Top Cards -->
+        <!-- 4 Top Bento Cards (Vibrant Multi-Colors) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div class="bg-white p-5 rounded-2xl border border-app-border shadow-sm">
-            <div class="flex items-center gap-2 text-xs text-red-600 font-medium mb-1">
-              <span>💳</span> Outstanding due
+          
+          <!-- Card 1: Outstanding Due (Ruby Red) -->
+          <div class="bento-card p-5 bg-gradient-to-br from-white to-red-50/50 border-red-100/80 group">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs text-red-600 font-bold uppercase tracking-wider">Outstanding due</span>
+              <div class="w-9 h-9 rounded-2xl bg-red-500 text-white flex items-center justify-center font-bold text-sm shadow-md shadow-red-500/20 group-hover:scale-110 transition-transform">
+                💳
+              </div>
             </div>
-            <div class="text-2xl font-bold text-app-text font-mono">৳130,856</div>
-            <div class="text-[11px] text-app-muted mt-1">Across 37 customers</div>
+            <div class="text-3xl font-black text-red-600 font-mono">৳130,856</div>
+            <div class="text-[11px] text-red-600/80 font-bold mt-1">Across 37 customers</div>
           </div>
 
-          <div class="bg-white p-5 rounded-2xl border border-app-border shadow-sm">
-            <div class="flex items-center gap-2 text-xs text-app-muted font-medium mb-1">
-              <span>📦</span> Deliveries today
+          <!-- Card 2: Deliveries Today (Gold Amber) -->
+          <div class="bento-card p-5 bg-gradient-to-br from-white to-amber-50/50 border-amber-100/80 group">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs text-amber-700 font-bold uppercase tracking-wider">Deliveries today</span>
+              <div class="w-9 h-9 rounded-2xl bg-amber-500 text-white flex items-center justify-center font-bold text-sm shadow-md shadow-amber-500/20 group-hover:scale-110 transition-transform">
+                ⏰
+              </div>
             </div>
-            <div class="text-2xl font-bold text-app-text font-mono">1</div>
-            <div class="text-[11px] text-app-muted mt-1">0 delivered · 1 remaining</div>
+            <div class="text-3xl font-black text-amber-600 font-mono">1</div>
+            <div class="text-[11px] text-amber-700/80 font-semibold mt-1">0 delivered · 1 remaining</div>
           </div>
 
-          <div class="bg-white p-5 rounded-2xl border border-app-border shadow-sm">
-            <div class="flex items-center gap-2 text-xs text-app-muted font-medium mb-1">
-              <span>✓</span> Ready for pickup
+          <!-- Card 3: Ready for pickup (Emerald Green) -->
+          <div class="bento-card p-5 bg-gradient-to-br from-white to-emerald-50/50 border-emerald-100/80 group">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs text-emerald-700 font-bold uppercase tracking-wider">Ready for pickup</span>
+              <div class="w-9 h-9 rounded-2xl bg-emerald-500 text-white flex items-center justify-center font-bold text-sm shadow-md shadow-emerald-500/20 group-hover:scale-110 transition-transform">
+                ✓
+              </div>
             </div>
-            <div class="text-2xl font-bold text-app-text font-mono">21</div>
-            <div class="text-[11px] text-app-muted mt-1">20 waiting > 3 days</div>
+            <div class="text-3xl font-black text-emerald-700 font-mono">21</div>
+            <div class="text-[11px] text-emerald-700/80 font-semibold mt-1">20 waiting > 3 days</div>
           </div>
 
-          <div class="bg-white p-5 rounded-2xl border border-app-border shadow-sm">
-            <div class="flex items-center gap-2 text-xs text-app-muted font-medium mb-1">
-              <span>📋</span> Active orders
+          <!-- Card 4: Active orders (Electric Cyan) -->
+          <div class="bento-card p-5 bg-gradient-to-br from-white to-cyan-50/50 border-cyan-100/80 group">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs text-cyan-800 font-bold uppercase tracking-wider">Active orders</span>
+              <div class="w-9 h-9 rounded-2xl bg-cyan-500 text-white flex items-center justify-center font-bold text-sm shadow-md shadow-cyan-500/20 group-hover:scale-110 transition-transform">
+                📋
+              </div>
             </div>
-            <div class="text-2xl font-bold text-app-text font-mono">48</div>
-            <div class="text-[11px] text-emerald-600 font-semibold mt-1">+2 since yesterday</div>
+            <div class="text-3xl font-black text-cyan-800 font-mono">48</div>
+            <div class="text-[11px] text-cyan-700 font-bold mt-1">+2 since yesterday</div>
           </div>
+
         </div>
 
-        <!-- 3 Highlight Cards (Black Card for Net Profit) -->
+        <!-- 3 Highlight Cards (Ultra-Sleek Glassmorphic & Dark) -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div class="bg-gray-900 text-white p-5 rounded-2xl shadow-sm space-y-1">
-            <div class="text-xs text-gray-400 font-medium">Net profit (cash) ⓘ</div>
-            <div class="text-3xl font-black font-mono">৳1,080</div>
-            <div class="text-[11px] text-gray-400 pt-1">Today · Month to date ৳9,752</div>
+          <!-- Dark Cyber Bento Card -->
+          <div class="bento-card bg-cyber-black text-white p-6 shadow-xl border-white/10 relative overflow-hidden group">
+            <div class="absolute -right-6 -bottom-6 w-28 h-28 bg-emerald-500/20 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+            <div class="text-xs text-gray-400 font-bold tracking-wider uppercase">Net profit (cash) ⓘ</div>
+            <div class="text-3xl font-black font-mono text-emerald-400 mt-2">৳1,080</div>
+            <div class="text-[11px] text-gray-400 pt-2 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              Today · Month to date: <strong class="text-white font-mono">৳9,752</strong>
+            </div>
           </div>
 
-          <div class="bg-white p-5 rounded-2xl border border-app-border shadow-sm space-y-1">
-            <div class="text-xs text-app-muted font-medium">Expense ⓘ</div>
-            <div class="text-3xl font-black text-gray-900 font-mono">৳220</div>
-            <div class="text-[11px] text-app-muted pt-1">1 entry today</div>
+          <!-- Expense Bento Card -->
+          <div class="bento-card p-6 space-y-1">
+            <div class="text-xs text-ios-subtext font-bold uppercase tracking-wider">Expense ⓘ</div>
+            <div class="text-3xl font-black text-ios-text font-mono">৳220</div>
+            <div class="text-[11px] text-ios-subtext pt-2">1 entry recorded today</div>
           </div>
 
-          <div class="bg-white p-5 rounded-2xl border border-app-border shadow-sm space-y-1">
-            <div class="text-xs text-app-muted font-medium">Sales ⓘ</div>
-            <div class="text-3xl font-black text-gray-900 font-mono">৳3,320</div>
-            <div class="text-[11px] text-red-600 font-semibold pt-1">▼ 78.9% vs Oct 5, 2026</div>
+          <!-- Sales Bento Card -->
+          <div class="bento-card p-6 space-y-1">
+            <div class="text-xs text-ios-subtext font-bold uppercase tracking-wider">Sales ⓘ</div>
+            <div class="text-3xl font-black text-ios-text font-mono">৳3,320</div>
+            <div class="text-[11px] text-red-600 font-bold pt-2 flex items-center gap-1">
+              <span>▼ 78.9%</span> vs Oct 5, 2026
+            </div>
           </div>
         </div>
 
         <!-- 2 Columns: Payment Channel Breakdown + 14-day Chart -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           
-          <!-- Left: Payment Method Breakdown -->
-          <div class="bg-white rounded-2xl border border-app-border shadow-sm p-5 space-y-4">
-            <div class="flex items-center justify-between pb-2 border-b border-app-border">
-              <span class="text-xs font-bold text-app-muted">Today</span>
-              <span class="text-xs font-bold text-app-text">Collected by method</span>
+          <!-- Left: Payment Method Breakdown Bento Card -->
+          <div class="bento-card p-6 space-y-5">
+            <div class="flex items-center justify-between pb-3 border-b border-ios-border">
+              <span class="text-xs font-bold text-ios-subtext uppercase">TODAY'S CASHFLOW</span>
+              <span class="text-xs font-black text-ios-text">Collected by method</span>
             </div>
 
             <div class="space-y-4 text-xs font-mono">
+              <!-- Cash -->
               <div>
-                <div class="flex justify-between mb-1">
-                  <span class="font-bold text-gray-900">৳1,300</span>
-                  <span class="font-sans text-gray-700">Cash ●</span>
+                <div class="flex justify-between mb-1.5">
+                  <span class="font-sans font-bold text-gray-900 flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Cash</span>
+                  <span class="font-extrabold text-gray-900">৳1,300</span>
                 </div>
-                <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
-                  <div class="h-full bg-emerald-700 rounded-full" style="width: 100%;"></div>
+                <div class="h-2.5 bg-gray-100 rounded-full overflow-hidden p-0.5">
+                  <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full" style="width: 100%;"></div>
                 </div>
               </div>
 
+              <!-- bKash -->
               <div>
-                <div class="flex justify-between mb-1">
+                <div class="flex justify-between mb-1.5">
+                  <span class="font-sans font-bold text-pink-600 flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-pink-500"></span> bKash</span>
                   <span class="font-bold text-gray-400">৳0</span>
-                  <span class="font-sans text-bkash font-bold">bKash ●</span>
                 </div>
-                <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
-                  <div class="h-full bg-bkash rounded-full" style="width: 0%;"></div>
+                <div class="h-2.5 bg-gray-100 rounded-full overflow-hidden p-0.5">
+                  <div class="h-full bg-gradient-to-r from-pink-500 to-rose-400 rounded-full" style="width: 0%;"></div>
                 </div>
               </div>
 
+              <!-- Nagad -->
               <div>
-                <div class="flex justify-between mb-1">
+                <div class="flex justify-between mb-1.5">
+                  <span class="font-sans font-bold text-amber-600 flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Nagad</span>
                   <span class="font-bold text-gray-400">৳0</span>
-                  <span class="font-sans text-nagad font-bold">Nagad ●</span>
                 </div>
-                <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
-                  <div class="h-full bg-nagad rounded-full" style="width: 0%;"></div>
+                <div class="h-2.5 bg-gray-100 rounded-full overflow-hidden p-0.5">
+                  <div class="h-full bg-gradient-to-r from-amber-500 to-orange-400 rounded-full" style="width: 0%;"></div>
                 </div>
               </div>
 
+              <!-- Bank -->
               <div>
-                <div class="flex justify-between mb-1">
+                <div class="flex justify-between mb-1.5">
+                  <span class="font-sans font-bold text-blue-600 flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-blue-500"></span> Bank</span>
                   <span class="font-bold text-gray-400">৳0</span>
-                  <span class="font-sans text-gray-500">Bank ●</span>
                 </div>
-                <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
-                  <div class="h-full bg-blue-600 rounded-full" style="width: 0%;"></div>
+                <div class="h-2.5 bg-gray-100 rounded-full overflow-hidden p-0.5">
+                  <div class="h-full bg-blue-500 rounded-full" style="width: 0%;"></div>
                 </div>
               </div>
             </div>
 
-            <div class="pt-3 border-t border-app-border flex justify-between text-xs font-mono">
-              <span class="font-bold text-gray-900">৳1,300</span>
-              <span class="font-sans text-gray-500">Total collected</span>
+            <div class="pt-3 border-t border-ios-border flex justify-between text-xs font-mono">
+              <span class="font-sans font-bold text-gray-500">Total collected</span>
+              <span class="font-black text-emerald-700 text-sm">৳1,300</span>
             </div>
           </div>
 
-          <!-- Right: 14-day Sales Bar Chart -->
-          <div class="lg:col-span-2 bg-white rounded-2xl border border-app-border shadow-sm p-5 space-y-4">
+          <!-- Right: 14-day Sales Bar Chart Bento Card -->
+          <div class="lg:col-span-2 bento-card p-6 space-y-5">
             <div class="flex items-center justify-between">
               <div>
-                <span class="text-xs font-bold text-app-muted">Total: <strong class="text-gray-900 font-mono">৳138,240</strong></span>
+                <span class="text-xs text-ios-subtext font-bold uppercase">Total Volume:</span>
+                <span class="text-base font-black text-gray-900 font-mono ml-1">৳138,240</span>
               </div>
-              <h3 class="text-xs font-bold text-gray-700">Sales · Last 14 days</h3>
+              <h3 class="text-xs font-extrabold text-gray-800 bg-gray-100 px-3 py-1 rounded-xl">Sales · Last 14 days</h3>
             </div>
 
-            <!-- Simulated SVG Bar Chart -->
-            <div class="h-44 flex items-end justify-between gap-2 pt-6 px-2">
-              <div class="flex-1 flex flex-col items-center gap-1.5">
-                <div class="w-full bg-emerald-100 rounded-t-md hover:bg-emerald-600 transition-colors" style="height: 48%;"></div>
-                <span class="text-[9px] font-mono text-gray-400">23</span>
+            <!-- Apple-Style Bar Chart -->
+            <div class="h-48 flex items-end justify-between gap-2.5 pt-6 px-3">
+              <div class="flex-1 flex flex-col items-center gap-2 group">
+                <div class="w-full bg-indigo-100 rounded-xl group-hover:bg-indigo-600 transition-colors shadow-xs" style="height: 48%;"></div>
+                <span class="text-[10px] font-mono text-gray-400">23</span>
               </div>
-              <div class="flex-1 flex flex-col items-center gap-1.5">
-                <div class="w-full bg-emerald-100 rounded-t-md hover:bg-emerald-600 transition-colors" style="height: 25%;"></div>
-                <span class="text-[9px] font-mono text-gray-400">24</span>
+              <div class="flex-1 flex flex-col items-center gap-2 group">
+                <div class="w-full bg-indigo-100 rounded-xl group-hover:bg-indigo-600 transition-colors shadow-xs" style="height: 25%;"></div>
+                <span class="text-[10px] font-mono text-gray-400">24</span>
               </div>
-              <div class="flex-1 flex flex-col items-center gap-1.5">
-                <div class="w-full bg-emerald-100 rounded-t-md hover:bg-emerald-600 transition-colors" style="height: 72%;"></div>
-                <span class="text-[9px] font-mono text-gray-400">25</span>
+              <div class="flex-1 flex flex-col items-center gap-2 group">
+                <div class="w-full bg-indigo-100 rounded-xl group-hover:bg-indigo-600 transition-colors shadow-xs" style="height: 72%;"></div>
+                <span class="text-[10px] font-mono text-gray-400">25</span>
               </div>
-              <div class="flex-1 flex flex-col items-center gap-1.5">
-                <div class="w-full bg-emerald-100 rounded-t-md hover:bg-emerald-600 transition-colors" style="height: 38%;"></div>
-                <span class="text-[9px] font-mono text-gray-400">26</span>
+              <div class="flex-1 flex flex-col items-center gap-2 group">
+                <div class="w-full bg-indigo-100 rounded-xl group-hover:bg-indigo-600 transition-colors shadow-xs" style="height: 38%;"></div>
+                <span class="text-[10px] font-mono text-gray-400">26</span>
               </div>
-              <div class="flex-1 flex flex-col items-center gap-1.5">
-                <div class="w-full bg-emerald-100 rounded-t-md hover:bg-emerald-600 transition-colors" style="height: 65%;"></div>
-                <span class="text-[9px] font-mono text-gray-400">27</span>
+              <div class="flex-1 flex flex-col items-center gap-2 group">
+                <div class="w-full bg-indigo-100 rounded-xl group-hover:bg-indigo-600 transition-colors shadow-xs" style="height: 65%;"></div>
+                <span class="text-[10px] font-mono text-gray-400">27</span>
               </div>
-              <div class="flex-1 flex flex-col items-center gap-1.5">
-                <div class="w-full bg-emerald-100 rounded-t-md hover:bg-emerald-600 transition-colors" style="height: 55%;"></div>
-                <span class="text-[9px] font-mono text-gray-400">28</span>
+              <div class="flex-1 flex flex-col items-center gap-2 group">
+                <div class="w-full bg-indigo-100 rounded-xl group-hover:bg-indigo-600 transition-colors shadow-xs" style="height: 55%;"></div>
+                <span class="text-[10px] font-mono text-gray-400">28</span>
               </div>
-              <div class="flex-1 flex flex-col items-center gap-1.5">
-                <div class="w-full bg-emerald-100 rounded-t-md hover:bg-emerald-600 transition-colors" style="height: 20%;"></div>
-                <span class="text-[9px] font-mono text-gray-400">29</span>
+              <div class="flex-1 flex flex-col items-center gap-2 group">
+                <div class="w-full bg-indigo-100 rounded-xl group-hover:bg-indigo-600 transition-colors shadow-xs" style="height: 20%;"></div>
+                <span class="text-[10px] font-mono text-gray-400">29</span>
               </div>
-              <div class="flex-1 flex flex-col items-center gap-1.5">
-                <div class="w-full bg-emerald-100 rounded-t-md hover:bg-emerald-600 transition-colors" style="height: 70%;"></div>
-                <span class="text-[9px] font-mono text-gray-400">30</span>
+              <div class="flex-1 flex flex-col items-center gap-2 group">
+                <div class="w-full bg-indigo-100 rounded-xl group-hover:bg-indigo-600 transition-colors shadow-xs" style="height: 70%;"></div>
+                <span class="text-[10px] font-mono text-gray-400">30</span>
               </div>
-              <div class="flex-1 flex flex-col items-center gap-1.5">
-                <div class="w-full bg-emerald-100 rounded-t-md hover:bg-emerald-600 transition-colors" style="height: 52%;"></div>
-                <span class="text-[9px] font-mono text-gray-400">1</span>
+              <div class="flex-1 flex flex-col items-center gap-2 group">
+                <div class="w-full bg-indigo-100 rounded-xl group-hover:bg-indigo-600 transition-colors shadow-xs" style="height: 52%;"></div>
+                <span class="text-[10px] font-mono text-gray-400">1</span>
               </div>
-              <div class="flex-1 flex flex-col items-center gap-1.5">
-                <div class="w-full bg-emerald-100 rounded-t-md hover:bg-emerald-600 transition-colors" style="height: 44%;"></div>
-                <span class="text-[9px] font-mono text-gray-400">2</span>
+              <div class="flex-1 flex flex-col items-center gap-2 group">
+                <div class="w-full bg-indigo-100 rounded-xl group-hover:bg-indigo-600 transition-colors shadow-xs" style="height: 44%;"></div>
+                <span class="text-[10px] font-mono text-gray-400">2</span>
               </div>
-              <div class="flex-1 flex flex-col items-center gap-1.5">
-                <div class="w-full bg-emerald-100 rounded-t-md hover:bg-emerald-600 transition-colors" style="height: 90%;"></div>
-                <span class="text-[9px] font-mono text-gray-400">3</span>
+              <div class="flex-1 flex flex-col items-center gap-2 group">
+                <div class="w-full bg-indigo-100 rounded-xl group-hover:bg-indigo-600 transition-colors shadow-xs" style="height: 90%;"></div>
+                <span class="text-[10px] font-mono text-gray-400">3</span>
               </div>
-              <div class="flex-1 flex flex-col items-center gap-1.5">
-                <div class="w-full bg-emerald-100 rounded-t-md hover:bg-emerald-600 transition-colors" style="height: 55%;"></div>
-                <span class="text-[9px] font-mono text-gray-400">4</span>
+              <div class="flex-1 flex flex-col items-center gap-2 group">
+                <div class="w-full bg-indigo-100 rounded-xl group-hover:bg-indigo-600 transition-colors shadow-xs" style="height: 55%;"></div>
+                <span class="text-[10px] font-mono text-gray-400">4</span>
               </div>
-              <div class="flex-1 flex flex-col items-center gap-1.5">
-                <div class="w-full bg-emerald-100 rounded-t-md hover:bg-emerald-600 transition-colors" style="height: 78%;"></div>
-                <span class="text-[9px] font-mono text-gray-400">5</span>
+              <div class="flex-1 flex flex-col items-center gap-2 group">
+                <div class="w-full bg-indigo-100 rounded-xl group-hover:bg-indigo-600 transition-colors shadow-xs" style="height: 78%;"></div>
+                <span class="text-[10px] font-mono text-gray-400">5</span>
               </div>
-              <div class="flex-1 flex flex-col items-center gap-1.5">
-                <div class="w-full bg-emerald-800 rounded-t-md shadow-sm" style="height: 35%;"></div>
-                <span class="text-[9px] font-mono font-bold text-emerald-800">6</span>
+              <div class="flex-1 flex flex-col items-center gap-2 group">
+                <div class="w-full bg-emerald-600 rounded-xl shadow-md shadow-emerald-600/30 ring-2 ring-emerald-400/50" style="height: 35%;"></div>
+                <span class="text-[10px] font-mono font-black text-emerald-600">6</span>
               </div>
             </div>
           </div>
@@ -785,144 +1025,144 @@
       </section>
 
       <!-- ==================================================== -->
-      <!-- VIEW 3: MEASUREMENTS (Screenshot 5 Exact Recreation) -->
+      <!-- VIEW 3: MEASUREMENTS (iOS Card System with Voice)    -->
       <!-- ==================================================== -->
       <section id="view-measurements" class="app-view hidden space-y-6">
         
         <div>
-          <h1 class="text-2xl font-bold text-app-text tracking-tight">Measurements</h1>
-          <p class="text-xs text-app-muted mt-0.5">Look up a customer by mobile number or name to see and update their measurements.</p>
+          <h1 class="text-3xl font-black text-ios-text tracking-tight">Measurements Registry</h1>
+          <p class="text-xs text-ios-subtext mt-1">Look up a customer by mobile number or name to see and update their measurements.</p>
         </div>
 
-        <!-- Selected Customer Chip -->
-        <div class="bg-emerald-50/70 border border-emerald-200/80 rounded-2xl p-3 px-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-6 h-6 rounded-full bg-amber-100 text-amber-800 font-bold text-[10px] flex items-center justify-center">
+        <!-- Selected Customer Chip (Glass Card) -->
+        <div class="bento-card p-4 bg-gradient-to-r from-emerald-50/80 via-teal-50/50 to-white flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-emerald-200/60">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 text-white font-bold text-xs flex items-center justify-center shadow-sm">
               SH
             </div>
             <div class="text-xs font-bold text-gray-900">
-              Shahadat Hossain · <span class="font-mono font-medium text-gray-600">01591463333</span> · <span class="text-emerald-800 font-semibold">3 versions</span>
+              Shahadat Hossain · <span class="font-mono font-medium text-gray-600">01591463333</span> · <span class="text-emerald-700 font-extrabold bg-emerald-100 px-2 py-0.5 rounded-md">3 versions</span>
             </div>
-            <button class="text-gray-400 hover:text-gray-700 ml-1 text-xs">✕</button>
+            <button class="text-gray-400 hover:text-gray-700 font-bold ml-1">✕</button>
           </div>
 
-          <!-- Bengali Voice Assistant Button Integration -->
+          <!-- Bengali Voice Assistant Button -->
           <div class="flex items-center gap-3">
-            <span class="text-[11px] text-gray-500 hidden md:inline">Changed values are highlighted against the previous version</span>
-            <button onclick="triggerVoiceInput()" class="bg-red-50 text-red-700 border border-red-200 px-3 py-1 rounded-xl text-xs font-bold hover:bg-red-100 transition-all flex items-center gap-1.5">
-              <span>🎤</span> বাংলা ভয়েস ইনপুট
+            <span class="text-[11px] text-gray-500 hidden md:inline">Changed values are highlighted against previous version</span>
+            <button onclick="triggerVoiceInput()" class="bg-gradient-to-r from-red-500 to-rose-600 text-white px-4 py-2 rounded-2xl text-xs font-bold shadow-md shadow-red-500/20 hover:scale-105 transition-all flex items-center gap-2">
+              <span class="animate-pulse">🎤</span> বাংলা ভয়েস ইনপুট
             </button>
           </div>
         </div>
 
-        <!-- Garment Tabs Row -->
-        <div class="flex flex-wrap items-center gap-1 border-b border-app-border text-xs">
-          <button onclick="setMeasurementTab('Shirt')" class="meas-garment-tab px-4 py-2 text-gray-500 font-medium hover:text-gray-900">Shirt</button>
-          <button onclick="setMeasurementTab('Pant')" class="meas-garment-tab active px-4 py-2 text-emerald-800 font-bold border-b-2 border-emerald-800">Pant •</button>
-          <button onclick="setMeasurementTab('Panjabi')" class="meas-garment-tab px-4 py-2 text-gray-500 font-medium hover:text-gray-900">Panjabi •</button>
-          <button onclick="setMeasurementTab('Pajama')" class="meas-garment-tab px-4 py-2 text-gray-500 font-medium hover:text-gray-900">Pajama</button>
-          <button onclick="setMeasurementTab('Blazer')" class="meas-garment-tab px-4 py-2 text-gray-500 font-medium hover:text-gray-900">Blazer</button>
-          <button onclick="setMeasurementTab('Coti')" class="meas-garment-tab px-4 py-2 text-gray-500 font-medium hover:text-gray-900">Coti</button>
-          <button onclick="setMeasurementTab('Kameez')" class="meas-garment-tab px-4 py-2 text-gray-500 font-medium hover:text-gray-900">Kameez</button>
-          <button onclick="setMeasurementTab('Salwar')" class="meas-garment-tab px-4 py-2 text-gray-500 font-medium hover:text-gray-900">Salwar</button>
-          <button onclick="setMeasurementTab('Blouse')" class="meas-garment-tab px-4 py-2 text-gray-500 font-medium hover:text-gray-900">Blouse</button>
-          <button onclick="setMeasurementTab('Petticoat')" class="meas-garment-tab px-4 py-2 text-gray-500 font-medium hover:text-gray-900">Petticoat</button>
+        <!-- Garment Tabs (iOS Segmented Control) -->
+        <div class="flex flex-wrap items-center gap-1.5 p-1.5 bg-gray-200/60 rounded-2xl border border-gray-300/40 w-fit text-xs">
+          <button onclick="setMeasurementTab('Shirt')" class="meas-garment-tab px-3.5 py-1.5 text-gray-600 font-medium rounded-xl">Shirt</button>
+          <button onclick="setMeasurementTab('Pant')" class="meas-garment-tab active px-3.5 py-1.5 bg-white text-gray-900 font-bold rounded-xl shadow-xs">Pant •</button>
+          <button onclick="setMeasurementTab('Panjabi')" class="meas-garment-tab px-3.5 py-1.5 text-gray-600 font-medium rounded-xl">Panjabi •</button>
+          <button onclick="setMeasurementTab('Pajama')" class="meas-garment-tab px-3.5 py-1.5 text-gray-600 font-medium rounded-xl">Pajama</button>
+          <button onclick="setMeasurementTab('Blazer')" class="meas-garment-tab px-3.5 py-1.5 text-gray-600 font-medium rounded-xl">Blazer</button>
+          <button onclick="setMeasurementTab('Coti')" class="meas-garment-tab px-3.5 py-1.5 text-gray-600 font-medium rounded-xl">Coti</button>
+          <button onclick="setMeasurementTab('Kameez')" class="meas-garment-tab px-3.5 py-1.5 text-gray-600 font-medium rounded-xl">Kameez</button>
+          <button onclick="setMeasurementTab('Salwar')" class="meas-garment-tab px-3.5 py-1.5 text-gray-600 font-medium rounded-xl">Salwar</button>
+          <button onclick="setMeasurementTab('Blouse')" class="meas-garment-tab px-3.5 py-1.5 text-gray-600 font-medium rounded-xl">Blouse</button>
+          <button onclick="setMeasurementTab('Petticoat')" class="meas-garment-tab px-3.5 py-1.5 text-gray-600 font-medium rounded-xl">Petticoat</button>
         </div>
 
         <!-- 2 Columns: Edit Version Form (Left) + History Sidebar (Right) -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           
-          <!-- Left 2 Cols: Form -->
-          <div class="lg:col-span-2 bg-white rounded-2xl border border-app-border shadow-sm p-6 space-y-5">
+          <!-- Left 2 Cols: Form Bento Card -->
+          <div class="lg:col-span-2 bento-card p-7 space-y-6">
             
-            <div class="flex items-center justify-between pb-3 border-b border-app-border">
-              <h2 class="text-sm font-bold text-gray-900">Pant · editing new version v3</h2>
+            <div class="flex items-center justify-between pb-4 border-b border-ios-border">
+              <h2 class="text-base font-black text-gray-900">Pant · editing new version v3</h2>
               
               <!-- Unit toggle -->
-              <div class="flex items-center bg-app-bg p-0.5 rounded-lg border border-app-border text-xs font-mono">
-                <button class="px-2.5 py-1 bg-white rounded-md font-bold text-gray-900 shadow-xs">inch</button>
-                <button class="px-2.5 py-1 text-gray-500 hover:text-gray-800">cm</button>
+              <div class="flex items-center bg-gray-100 p-1 rounded-xl text-xs font-mono">
+                <button class="px-3 py-1 bg-white rounded-lg font-bold text-gray-900 shadow-xs">inch</button>
+                <button class="px-3 py-1 text-gray-500 hover:text-gray-800">cm</button>
               </div>
             </div>
 
-            <!-- Inputs Grid -->
+            <!-- Inputs Grid with Dynamic Highlight Badges -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              <!-- Waist (Highlighted difference) -->
-              <div class="space-y-1">
-                <label class="block text-[11px] font-semibold text-gray-700">Waist</label>
+              <!-- Waist (Highlighted Gold/Amber border) -->
+              <div class="space-y-1.5">
+                <label class="block text-[11px] font-bold text-gray-700">Waist</label>
                 <div class="relative">
-                  <input type="text" id="m_waist" value="31" class="w-full font-mono font-bold text-sm px-3 py-2 rounded-xl border-2 border-amber-500 bg-amber-50/40 focus:outline-none">
-                  <span class="absolute right-3 top-2.5 text-xs text-gray-400 font-mono">in</span>
+                  <input type="text" id="m_waist" value="31" class="w-full font-mono font-black text-sm px-3.5 py-2.5 rounded-2xl border-2 border-amber-500 bg-amber-50/40 focus:outline-none">
+                  <span class="absolute right-3.5 top-3 text-xs text-gray-400 font-mono">in</span>
                 </div>
-                <div class="text-[10px] font-bold text-amber-700">+1" from v1</div>
+                <div class="text-[10px] font-extrabold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-md w-fit">+1" from v1</div>
               </div>
 
               <!-- Hip -->
-              <div class="space-y-1">
-                <label class="block text-[11px] font-semibold text-gray-700">Hip</label>
+              <div class="space-y-1.5">
+                <label class="block text-[11px] font-bold text-gray-700">Hip</label>
                 <div class="relative">
-                  <input type="text" id="m_hip" value="38" class="w-full font-mono font-bold text-sm px-3 py-2 rounded-xl border border-app-border bg-white focus:outline-none">
-                  <span class="absolute right-3 top-2.5 text-xs text-gray-400 font-mono">in</span>
+                  <input type="text" id="m_hip" value="38" class="w-full font-mono font-bold text-sm px-3.5 py-2.5 rounded-2xl border border-ios-border bg-gray-50/50 focus:bg-white focus:outline-none">
+                  <span class="absolute right-3.5 top-3 text-xs text-gray-400 font-mono">in</span>
                 </div>
                 <div class="text-[10px] text-gray-400">Same as v2</div>
               </div>
 
               <!-- Length -->
-              <div class="space-y-1">
-                <label class="block text-[11px] font-semibold text-gray-700">Length</label>
+              <div class="space-y-1.5">
+                <label class="block text-[11px] font-bold text-gray-700">Length</label>
                 <div class="relative">
-                  <input type="text" id="m_length" value="40" class="w-full font-mono font-bold text-sm px-3 py-2 rounded-xl border border-app-border bg-white focus:outline-none">
-                  <span class="absolute right-3 top-2.5 text-xs text-gray-400 font-mono">in</span>
+                  <input type="text" id="m_length" value="40" class="w-full font-mono font-bold text-sm px-3.5 py-2.5 rounded-2xl border border-ios-border bg-gray-50/50 focus:bg-white focus:outline-none">
+                  <span class="absolute right-3.5 top-3 text-xs text-gray-400 font-mono">in</span>
                 </div>
                 <div class="text-[10px] text-gray-400">Same as v2</div>
               </div>
 
               <!-- Thigh -->
-              <div class="space-y-1">
-                <label class="block text-[11px] font-semibold text-gray-700">Thigh</label>
+              <div class="space-y-1.5">
+                <label class="block text-[11px] font-bold text-gray-700">Thigh</label>
                 <div class="relative">
-                  <input type="text" id="m_thigh" value="14" class="w-full font-mono font-bold text-sm px-3 py-2 rounded-xl border border-app-border bg-white focus:outline-none">
-                  <span class="absolute right-3 top-2.5 text-xs text-gray-400 font-mono">in</span>
+                  <input type="text" id="m_thigh" value="14" class="w-full font-mono font-bold text-sm px-3.5 py-2.5 rounded-2xl border border-ios-border bg-gray-50/50 focus:bg-white focus:outline-none">
+                  <span class="absolute right-3.5 top-3 text-xs text-gray-400 font-mono">in</span>
                 </div>
                 <div class="text-[10px] text-gray-400">Same as v2</div>
               </div>
 
               <!-- Knee -->
-              <div class="space-y-1">
-                <label class="block text-[11px] font-semibold text-gray-700">Knee</label>
+              <div class="space-y-1.5">
+                <label class="block text-[11px] font-bold text-gray-700">Knee</label>
                 <div class="relative">
-                  <input type="text" id="m_knee" value="6" class="w-full font-mono font-bold text-sm px-3 py-2 rounded-xl border border-app-border bg-white focus:outline-none">
-                  <span class="absolute right-3 top-2.5 text-xs text-gray-400 font-mono">in</span>
+                  <input type="text" id="m_knee" value="6" class="w-full font-mono font-bold text-sm px-3.5 py-2.5 rounded-2xl border border-ios-border bg-gray-50/50 focus:bg-white focus:outline-none">
+                  <span class="absolute right-3.5 top-3 text-xs text-gray-400 font-mono">in</span>
                 </div>
                 <div class="text-[10px] text-gray-400">Same as v2</div>
               </div>
 
               <!-- Bottom -->
-              <div class="space-y-1">
-                <label class="block text-[11px] font-semibold text-gray-700">Bottom</label>
+              <div class="space-y-1.5">
+                <label class="block text-[11px] font-bold text-gray-700">Bottom</label>
                 <div class="relative">
-                  <input type="text" id="m_bottom" value="9" class="w-full font-mono font-bold text-sm px-3 py-2 rounded-xl border border-app-border bg-white focus:outline-none">
-                  <span class="absolute right-3 top-2.5 text-xs text-gray-400 font-mono">in</span>
+                  <input type="text" id="m_bottom" value="9" class="w-full font-mono font-bold text-sm px-3.5 py-2.5 rounded-2xl border border-ios-border bg-gray-50/50 focus:bg-white focus:outline-none">
+                  <span class="absolute right-3.5 top-3 text-xs text-gray-400 font-mono">in</span>
                 </div>
                 <div class="text-[10px] text-gray-400">Same as v2</div>
               </div>
 
               <!-- Rise -->
-              <div class="space-y-1">
-                <label class="block text-[11px] font-semibold text-gray-700">Rise</label>
+              <div class="space-y-1.5">
+                <label class="block text-[11px] font-bold text-gray-700">Rise</label>
                 <div class="relative">
-                  <input type="text" id="m_rise" value="8" class="w-full font-mono font-bold text-sm px-3 py-2 rounded-xl border border-app-border bg-white focus:outline-none">
-                  <span class="absolute right-3 top-2.5 text-xs text-gray-400 font-mono">in</span>
+                  <input type="text" id="m_rise" value="8" class="w-full font-mono font-bold text-sm px-3.5 py-2.5 rounded-2xl border border-ios-border bg-gray-50/50 focus:bg-white focus:outline-none">
+                  <span class="absolute right-3.5 top-3 text-xs text-gray-400 font-mono">in</span>
                 </div>
                 <div class="text-[10px] text-gray-400">Same as v2</div>
               </div>
 
               <!-- Inseam -->
-              <div class="space-y-1">
-                <label class="block text-[11px] font-semibold text-gray-700">Inseam</label>
+              <div class="space-y-1.5">
+                <label class="block text-[11px] font-bold text-gray-700">Inseam</label>
                 <div class="relative">
-                  <input type="text" id="m_inseam" value="10" class="w-full font-mono font-bold text-sm px-3 py-2 rounded-xl border border-app-border bg-white focus:outline-none">
-                  <span class="absolute right-3 top-2.5 text-xs text-gray-400 font-mono">in</span>
+                  <input type="text" id="m_inseam" value="10" class="w-full font-mono font-bold text-sm px-3.5 py-2.5 rounded-2xl border border-ios-border bg-gray-50/50 focus:bg-white focus:outline-none">
+                  <span class="absolute right-3.5 top-3 text-xs text-gray-400 font-mono">in</span>
                 </div>
                 <div class="text-[10px] text-gray-400">Same as v2</div>
               </div>
@@ -930,48 +1170,51 @@
 
             <!-- Fitting Notes -->
             <div>
-              <label class="block text-[11px] font-semibold text-gray-700 mb-1">Fitting notes</label>
-              <textarea rows="2" placeholder="e.g. Slim fit through chest, side slit 8&quot;" class="w-full p-3 bg-app-bg border border-app-border rounded-xl text-xs focus:outline-none focus:border-brand-500"></textarea>
+              <label class="block text-[11px] font-bold text-gray-700 mb-1.5">Fitting notes (Special cutting instructions)</label>
+              <textarea rows="2" placeholder="e.g. Slim fit through chest, side slit 8&quot;" class="w-full p-3.5 bg-gray-50/70 border border-ios-border rounded-2xl text-xs focus:outline-none focus:border-ios-blue focus:bg-white transition-all"></textarea>
             </div>
 
             <!-- Bottom Actions -->
-            <div class="flex items-center justify-end gap-3 pt-3 border-t border-app-border">
-              <button class="px-4 py-2 border border-app-border rounded-xl text-xs font-bold text-gray-600 hover:bg-gray-50">
+            <div class="flex items-center justify-end gap-3 pt-4 border-t border-ios-border">
+              <button class="px-5 py-2.5 border border-ios-border rounded-2xl text-xs font-bold text-gray-600 hover:bg-gray-50 active:scale-95 transition-all">
                 Discard changes
               </button>
-              <button onclick="saveVersionV3()" class="px-5 py-2 bg-brand-700 hover:bg-brand-800 text-white rounded-xl text-xs font-bold shadow-sm">
+              <button onclick="saveVersionV3()" class="px-6 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl text-xs font-bold shadow-md shadow-emerald-700/25 active:scale-95 transition-all">
                 Save as v3
               </button>
             </div>
 
           </div>
 
-          <!-- Right 1 Col: History Sidebar -->
-          <div class="bg-white rounded-2xl border border-app-border shadow-sm p-5 space-y-4">
-            <div class="flex items-center justify-between">
-              <h2 class="text-sm font-bold text-gray-900">History</h2>
-              <span class="text-xs text-gray-400 font-medium">Pant</span>
+          <!-- Right 1 Col: Version History Bento Card -->
+          <div class="bento-card p-6 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-ios-border">
+              <h2 class="text-base font-black text-gray-900">History</h2>
+              <span class="text-xs bg-gray-100 font-mono font-bold px-2 py-0.5 rounded-md text-gray-600">Pant</span>
             </div>
 
-            <div class="space-y-4 text-xs">
-              <!-- v2 -->
-              <div class="p-3 bg-app-bg rounded-xl border border-app-border space-y-1.5">
+            <div class="space-y-3.5 text-xs">
+              <!-- v2 Current -->
+              <div class="p-4 bg-emerald-50/50 rounded-2xl border border-emerald-200/80 space-y-1.5">
                 <div class="flex items-center justify-between">
-                  <div class="font-bold text-gray-900">● v2 · Jun 28, 2026</div>
-                  <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold px-2 py-0.5 rounded-full">● Current</span>
+                  <div class="font-extrabold text-gray-900 flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    v2 · Jun 28, 2026
+                  </div>
+                  <span class="bg-emerald-100 text-emerald-800 text-[10px] font-extrabold px-2 py-0.5 rounded-full">Current</span>
                 </div>
-                <div class="text-[11px] text-gray-500">Waist changed</div>
-                <div class="text-[10px] text-gray-400">by Shop Owner</div>
+                <div class="text-[11px] text-gray-600">Waist changed</div>
+                <div class="text-[10px] text-gray-400 font-mono">by Shop Owner</div>
               </div>
 
               <!-- v1 -->
-              <div class="p-3 bg-app-bg rounded-xl border border-app-border space-y-1.5">
+              <div class="p-4 bg-gray-50/70 rounded-2xl border border-gray-200/60 space-y-1.5">
                 <div class="flex items-center justify-between">
                   <div class="font-bold text-gray-600">○ v1 · May 9, 2026</div>
-                  <button class="bg-white border border-app-border px-2.5 py-0.5 rounded-lg text-[10px] font-bold text-gray-700 hover:bg-gray-100">Compare</button>
+                  <button class="bg-white border border-gray-200 px-2.5 py-1 rounded-xl text-[10px] font-bold text-gray-700 hover:bg-gray-100 active:scale-95 shadow-xs">Compare</button>
                 </div>
                 <div class="text-[11px] text-gray-500">First version</div>
-                <div class="text-[10px] text-gray-400">First visit by Shop Owner</div>
+                <div class="text-[10px] text-gray-400 font-mono">First visit by Shop Owner</div>
               </div>
             </div>
           </div>
@@ -981,83 +1224,82 @@
       </section>
 
       <!-- ==================================================== -->
-      <!-- VIEW 4: ACCOUNTS (Screenshot 4 Exact Recreation)     -->
+      <!-- VIEW 4: ACCOUNTS (Multi-Color Financial Bento)       -->
       <!-- ==================================================== -->
       <section id="view-accounts" class="app-view hidden space-y-6">
         
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 class="text-2xl font-bold text-app-text tracking-tight">Accounts</h1>
-            <p class="text-xs text-app-muted mt-0.5">Sales, expenses and payments — Tuesday, October 6, 2026</p>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-amber-100 text-amber-800">FINANCIAL ENGINE</span>
+              <span class="text-xs text-ios-subtext">Cash, MFS & Customer Ledger</span>
+            </div>
+            <h1 class="text-3xl font-black text-ios-text tracking-tight mt-1">Accounts & Ledger</h1>
+            <p class="text-xs text-ios-subtext mt-1">Sales, expenses and payments — Tuesday, October 6, 2026</p>
           </div>
 
           <div class="flex items-center gap-2">
-            <button onclick="alert('Expenses log')" class="flex items-center gap-1 px-3.5 py-2 bg-white border border-app-border rounded-xl text-xs font-bold text-gray-700 hover:bg-gray-50 shadow-sm">
+            <button onclick="alert('Expenses log')" class="flex items-center gap-1.5 px-4 py-2.5 bg-white border border-ios-border rounded-2xl text-xs font-bold text-gray-700 hover:bg-gray-50 shadow-ios-card active:scale-95">
               <span>🧾</span> Expenses
             </button>
-            <button onclick="alert('Add Expense')" class="flex items-center gap-1 px-3.5 py-2 bg-white border border-app-border rounded-xl text-xs font-bold text-gray-700 hover:bg-gray-50 shadow-sm">
+            <button onclick="alert('Add Expense')" class="flex items-center gap-1.5 px-4 py-2.5 bg-white border border-ios-border rounded-2xl text-xs font-bold text-gray-700 hover:bg-gray-50 shadow-ios-card active:scale-95">
               <span>↗</span> Add expense
             </button>
-            <button onclick="openReceivePaymentModal()" class="flex items-center gap-1.5 px-4 py-2 bg-brand-700 hover:bg-brand-800 text-white rounded-xl text-xs font-bold shadow-sm">
+            <button onclick="openNewOrderModal()" class="flex items-center gap-1.5 px-5 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl text-xs font-bold shadow-md shadow-emerald-700/20 active:scale-95">
               <span>↙</span> Receive payment
             </button>
           </div>
         </div>
 
-        <!-- Date selector -->
-        <div>
-          <input type="date" value="2026-10-06" class="px-3.5 py-2 bg-white border border-app-border rounded-xl text-xs font-mono font-bold text-gray-700 shadow-sm">
-        </div>
-
-        <!-- 5 Metric Cards in a row -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-          <div class="bg-white p-4 rounded-2xl border border-app-border shadow-sm">
-            <div class="text-[11px] text-app-muted font-medium">Sales (orders booked) ⓘ</div>
-            <div class="text-xl font-bold font-mono text-gray-900 mt-1">৳3,320</div>
-            <div class="text-[10px] text-app-muted mt-1">2 new orders</div>
+        <!-- 5 Metric Bento Cards with Red Due Highlight -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
+          <div class="bento-card p-5">
+            <div class="text-[11px] text-ios-subtext font-bold uppercase">Sales (orders booked)</div>
+            <div class="text-2xl font-black font-mono text-gray-900 mt-1.5">৳3,320</div>
+            <div class="text-[10px] text-ios-subtext mt-1">2 new orders</div>
           </div>
 
-          <div class="bg-white p-4 rounded-2xl border border-app-border shadow-sm">
-            <div class="text-[11px] text-app-muted font-medium">Collected ⓘ</div>
-            <div class="text-xl font-bold font-mono text-gray-900 mt-1">৳1,300</div>
-            <div class="text-[10px] text-emerald-700 font-semibold mt-1">Advance ৳1,300 · Due ৳0</div>
+          <div class="bento-card p-5">
+            <div class="text-[11px] text-ios-subtext font-bold uppercase">Collected</div>
+            <div class="text-2xl font-black font-mono text-emerald-700 mt-1.5">৳1,300</div>
+            <div class="text-[10px] text-emerald-700 font-bold mt-1">Advance ৳1,300 · Due ৳0</div>
           </div>
 
-          <div class="bg-white p-4 rounded-2xl border border-app-border shadow-sm">
-            <div class="text-[11px] text-app-muted font-medium">Expense ⓘ</div>
-            <div class="text-xl font-bold font-mono text-gray-900 mt-1">৳220</div>
-            <div class="text-[10px] text-app-muted mt-1">1 entries</div>
+          <div class="bento-card p-5">
+            <div class="text-[11px] text-ios-subtext font-bold uppercase">Expense</div>
+            <div class="text-2xl font-black font-mono text-gray-900 mt-1.5">৳220</div>
+            <div class="text-[10px] text-ios-subtext mt-1">1 entries</div>
           </div>
 
-          <div class="bg-white p-4 rounded-2xl border border-app-border shadow-sm">
-            <div class="text-[11px] text-app-muted font-medium">Net profit (cash) ⓘ</div>
-            <div class="text-xl font-bold font-mono text-gray-900 mt-1">৳1,080</div>
-            <div class="text-[10px] text-red-600 font-semibold mt-1">▼ 93% vs Oct 5, 2026</div>
+          <div class="bento-card p-5">
+            <div class="text-[11px] text-ios-subtext font-bold uppercase">Net profit (cash)</div>
+            <div class="text-2xl font-black font-mono text-gray-900 mt-1.5">৳1,080</div>
+            <div class="text-[10px] text-red-600 font-bold mt-1">▼ 93% vs Oct 5, 2026</div>
           </div>
 
-          <div class="bg-white p-4 rounded-2xl border border-app-border shadow-sm col-span-2 sm:col-span-1">
-            <div class="text-[11px] text-red-600 font-medium">Outstanding due ⓘ</div>
-            <div class="text-xl font-black font-mono text-red-600 mt-1">৳130,856</div>
-            <div class="text-[10px] text-red-600 font-semibold mt-1">37 customers</div>
+          <div class="bento-card p-5 col-span-2 sm:col-span-1 bg-gradient-to-br from-white to-red-50 border-red-200">
+            <div class="text-[11px] text-red-600 font-black uppercase">Outstanding due</div>
+            <div class="text-2xl font-black font-mono text-red-600 mt-1.5">৳130,856</div>
+            <div class="text-[10px] text-red-600 font-bold mt-1">37 customers</div>
           </div>
         </div>
 
-        <!-- Channels row -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
-          <div class="bg-white p-3.5 rounded-xl border border-app-border flex items-center justify-between">
-            <span class="text-xs font-sans text-gray-500 flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-600"></span> Cash</span>
-            <span class="font-bold text-gray-900">৳1,300</span>
+        <!-- Channels row (Multi-color cards) -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 font-mono">
+          <div class="bento-card p-4 flex items-center justify-between">
+            <span class="text-xs font-sans text-gray-600 font-bold flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Cash</span>
+            <span class="font-black text-gray-900">৳1,300</span>
           </div>
-          <div class="bg-white p-3.5 rounded-xl border border-app-border flex items-center justify-between">
-            <span class="text-xs font-sans text-gray-500 flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-500"></span> bKash</span>
+          <div class="bento-card p-4 flex items-center justify-between">
+            <span class="text-xs font-sans text-pink-600 font-bold flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-pink-500"></span> bKash</span>
             <span class="font-bold text-gray-400">৳0</span>
           </div>
-          <div class="bg-white p-3.5 rounded-xl border border-app-border flex items-center justify-between">
-            <span class="text-xs font-sans text-gray-500 flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-blue-500"></span> Nagad</span>
+          <div class="bento-card p-4 flex items-center justify-between">
+            <span class="text-xs font-sans text-amber-600 font-bold flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Nagad</span>
             <span class="font-bold text-gray-400">৳0</span>
           </div>
-          <div class="bg-white p-3.5 rounded-xl border border-app-border flex items-center justify-between">
-            <span class="text-xs font-sans text-gray-500 flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-red-500"></span> Bank</span>
+          <div class="bento-card p-4 flex items-center justify-between">
+            <span class="text-xs font-sans text-blue-600 font-bold flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> Bank</span>
             <span class="font-bold text-gray-400">৳0</span>
           </div>
         </div>
@@ -1065,130 +1307,112 @@
         <!-- 2 Columns: Transactions Table + Customer-wise Due Sidebar -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           
-          <!-- Left 2 Cols: Transactions -->
-          <div class="lg:col-span-2 bg-white rounded-2xl border border-app-border shadow-sm p-5 space-y-4">
+          <!-- Left 2 Cols: Transactions Bento Card -->
+          <div class="lg:col-span-2 bento-card p-6 space-y-4">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <h2 class="text-base font-bold text-app-text">Transactions</h2>
+              <h2 class="text-base font-black text-gray-900">Transactions Ledger</h2>
 
               <div class="flex items-center gap-2">
-                <div class="flex items-center bg-app-bg p-0.5 rounded-lg border border-app-border text-xs">
-                  <button class="px-3 py-1 bg-white font-bold rounded-md shadow-xs">All</button>
+                <div class="flex items-center bg-gray-100 p-1 rounded-xl text-xs font-bold">
+                  <button class="px-3 py-1 bg-white font-bold rounded-lg shadow-xs">All</button>
                   <button class="px-3 py-1 text-gray-500 hover:text-gray-900">Income</button>
                   <button class="px-3 py-1 text-gray-500 hover:text-gray-900">Expense</button>
                 </div>
-                <select class="px-2.5 py-1 bg-app-bg border border-app-border rounded-lg text-xs font-medium text-gray-600 focus:outline-none">
-                  <option>All methods</option>
-                  <option>Cash</option>
-                  <option>bKash</option>
-                </select>
               </div>
             </div>
 
             <table class="w-full text-left text-xs">
               <thead>
-                <tr class="text-[11px] text-app-muted border-b border-app-border uppercase tracking-wider">
-                  <th class="pb-3 font-semibold">Time</th>
-                  <th class="pb-3 font-semibold">Description</th>
-                  <th class="pb-3 font-semibold">Method</th>
-                  <th class="pb-3 font-semibold text-right">Amount</th>
+                <tr class="text-[11px] text-ios-subtext border-b border-ios-border uppercase tracking-wider">
+                  <th class="pb-3.5 font-bold">Time</th>
+                  <th class="pb-3.5 font-bold">Description</th>
+                  <th class="pb-3.5 font-bold">Method</th>
+                  <th class="pb-3.5 font-bold text-right">Amount</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-100">
-                <tr class="hover:bg-gray-50/70">
-                  <td class="py-3 font-mono text-gray-500">9:35 PM</td>
-                  <td class="py-3">
-                    <div class="flex items-center gap-2">
-                      <span class="w-6 h-6 rounded-md bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold text-xs">↙</span>
+                <tr class="hover:bg-gray-50/80 transition-colors">
+                  <td class="py-3.5 font-mono text-gray-500">9:35 PM</td>
+                  <td class="py-3.5">
+                    <div class="flex items-center gap-2.5">
+                      <span class="w-7 h-7 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold text-xs">↙</span>
                       <div>
                         <div class="font-bold text-gray-900">Advance · ORD-2610-0022</div>
                         <div class="text-[10px] text-gray-400">Shahadat Hossain</div>
                       </div>
                     </div>
                   </td>
-                  <td class="py-3"><span class="font-medium text-gray-700">● Cash</span></td>
-                  <td class="py-3 text-right font-mono font-bold text-emerald-700">+৳1,300</td>
+                  <td class="py-3.5"><span class="font-bold text-gray-700">● Cash</span></td>
+                  <td class="py-3.5 text-right font-mono font-black text-emerald-700">+৳1,300</td>
                 </tr>
-                <tr class="hover:bg-gray-50/70">
-                  <td class="py-3 font-mono text-gray-500">5:00 PM</td>
-                  <td class="py-3">
-                    <div class="flex items-center gap-2">
-                      <span class="w-6 h-6 rounded-md bg-red-50 text-red-600 flex items-center justify-center font-bold text-xs">↗</span>
+                <tr class="hover:bg-gray-50/80 transition-colors">
+                  <td class="py-3.5 font-mono text-gray-500">5:00 PM</td>
+                  <td class="py-3.5">
+                    <div class="flex items-center gap-2.5">
+                      <span class="w-7 h-7 rounded-xl bg-red-50 text-red-600 flex items-center justify-center font-bold text-xs">↗</span>
                       <div>
                         <div class="font-bold text-gray-900">Staff tea & snacks</div>
                         <div class="text-[10px] text-gray-400">Refreshments</div>
                       </div>
                     </div>
                   </td>
-                  <td class="py-3"><span class="font-medium text-gray-700">● Cash</span></td>
-                  <td class="py-3 text-right font-mono font-bold text-red-600">-৳220</td>
+                  <td class="py-3.5"><span class="font-bold text-gray-700">● Cash</span></td>
+                  <td class="py-3.5 text-right font-mono font-black text-red-600">-৳220</td>
                 </tr>
               </tbody>
             </table>
-
-            <div class="pt-2 text-[11px] text-app-muted">Showing 1-2 of 2 total</div>
           </div>
 
-          <!-- Right 1 Col: Customer-wise Due Sidebar -->
-          <div class="bg-white rounded-2xl border border-app-border shadow-sm p-5 space-y-3">
-            <div class="flex items-center justify-between pb-2 border-b border-app-border">
-              <h2 class="text-xs font-bold text-gray-900">Customer-wise due</h2>
-              <span class="font-mono font-black text-red-600 text-xs">৳130,856</span>
+          <!-- Right 1 Col: Customer-wise Due Bento Card -->
+          <div class="bento-card p-6 space-y-3.5">
+            <div class="flex items-center justify-between pb-3 border-b border-ios-border">
+              <h2 class="text-xs font-black text-gray-900 uppercase">Customer-wise due</h2>
+              <span class="font-mono font-black text-red-600 text-sm">৳130,856</span>
             </div>
 
             <div class="space-y-2 text-xs">
-              <div class="flex items-center justify-between p-2.5 bg-app-bg rounded-xl border border-app-border/70 hover:bg-gray-100 transition-colors">
-                <div class="flex items-center gap-2">
-                  <div class="w-6 h-6 rounded-md bg-red-100 text-red-700 font-bold text-[9px] flex items-center justify-center">KH</div>
+              <div class="flex items-center justify-between p-3 bg-gray-50/70 rounded-2xl border border-gray-100 hover:bg-gray-100 transition-colors">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-7 h-7 rounded-xl bg-red-100 text-red-700 font-bold text-[9px] flex items-center justify-center">KH</div>
                   <div>
                     <div class="font-bold text-gray-900">Kamrul Hasan</div>
                     <div class="text-[10px] text-gray-400 font-mono">01548694019 · 9 days</div>
                   </div>
                 </div>
-                <div class="font-mono font-bold text-red-600">৳12,568</div>
+                <div class="font-mono font-black text-red-600">৳12,568</div>
               </div>
 
-              <div class="flex items-center justify-between p-2.5 bg-app-bg rounded-xl border border-app-border/70 hover:bg-gray-100 transition-colors">
-                <div class="flex items-center gap-2">
-                  <div class="w-6 h-6 rounded-md bg-red-100 text-red-700 font-bold text-[9px] flex items-center justify-center">AH</div>
+              <div class="flex items-center justify-between p-3 bg-gray-50/70 rounded-2xl border border-gray-100 hover:bg-gray-100 transition-colors">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-7 h-7 rounded-xl bg-red-100 text-red-700 font-bold text-[9px] flex items-center justify-center">AH</div>
                   <div>
                     <div class="font-bold text-gray-900">Arif Hossain</div>
                     <div class="text-[10px] text-gray-400 font-mono">01324941964 · 5 days</div>
                   </div>
                 </div>
-                <div class="font-mono font-bold text-red-600">৳12,250</div>
+                <div class="font-mono font-black text-red-600">৳12,250</div>
               </div>
 
-              <div class="flex items-center justify-between p-2.5 bg-app-bg rounded-xl border border-app-border/70 hover:bg-gray-100 transition-colors">
-                <div class="flex items-center gap-2">
-                  <div class="w-6 h-6 rounded-md bg-red-100 text-red-700 font-bold text-[9px] flex items-center justify-center">RI</div>
+              <div class="flex items-center justify-between p-3 bg-gray-50/70 rounded-2xl border border-gray-100 hover:bg-gray-100 transition-colors">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-7 h-7 rounded-xl bg-red-100 text-red-700 font-bold text-[9px] flex items-center justify-center">RI</div>
                   <div>
                     <div class="font-bold text-gray-900">Rakibul Islam</div>
                     <div class="text-[10px] text-gray-400 font-mono">01864357068 · 80 days</div>
                   </div>
                 </div>
-                <div class="font-mono font-bold text-red-600">৳8,150</div>
+                <div class="font-mono font-black text-red-600">৳8,150</div>
               </div>
 
-              <div class="flex items-center justify-between p-2.5 bg-app-bg rounded-xl border border-app-border/70 hover:bg-gray-100 transition-colors">
-                <div class="flex items-center gap-2">
-                  <div class="w-6 h-6 rounded-md bg-red-100 text-red-700 font-bold text-[9px] flex items-center justify-center">FA</div>
+              <div class="flex items-center justify-between p-3 bg-gray-50/70 rounded-2xl border border-gray-100 hover:bg-gray-100 transition-colors">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-7 h-7 rounded-xl bg-red-100 text-red-700 font-bold text-[9px] flex items-center justify-center">FA</div>
                   <div>
                     <div class="font-bold text-gray-900">Farhana Akter</div>
                     <div class="text-[10px] text-gray-400 font-mono">01973635135 · 114 days</div>
                   </div>
                 </div>
-                <div class="font-mono font-bold text-red-600">৳7,798</div>
-              </div>
-
-              <div class="flex items-center justify-between p-2.5 bg-app-bg rounded-xl border border-app-border/70 hover:bg-gray-100 transition-colors">
-                <div class="flex items-center gap-2">
-                  <div class="w-6 h-6 rounded-md bg-red-100 text-red-700 font-bold text-[9px] flex items-center justify-center">NH</div>
-                  <div>
-                    <div class="font-bold text-gray-900">Nazmul Huda</div>
-                    <div class="text-[10px] text-gray-400 font-mono">01327672188 · 97 days</div>
-                  </div>
-                </div>
-                <div class="font-mono font-bold text-red-600">৳7,005</div>
+                <div class="font-mono font-black text-red-600">৳7,798</div>
               </div>
             </div>
           </div>
@@ -1198,102 +1422,97 @@
       </section>
 
       <!-- ==================================================== -->
-      <!-- VIEW 5: REPORTS (Screenshot 3 Exact Recreation)      -->
+      <!-- VIEW 5: REPORTS (Comparative Dual Bar Chart Bento)   -->
       <!-- ==================================================== -->
       <section id="view-reports" class="app-view hidden space-y-6">
         
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 class="text-2xl font-bold text-app-text tracking-tight">Reports</h1>
-            <p class="text-xs text-app-muted mt-0.5">October 2026</p>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-blue-100 text-blue-800">ANALYTICS</span>
+              <span class="text-xs text-ios-subtext">October 2026 Performance</span>
+            </div>
+            <h1 class="text-3xl font-black text-ios-text tracking-tight mt-1">Monthly Reports</h1>
           </div>
 
           <div class="flex items-center gap-2">
-            <button class="flex items-center gap-1.5 px-3.5 py-2 bg-white border border-app-border rounded-xl text-xs font-bold text-gray-700 hover:bg-gray-50 shadow-sm">
+            <button class="flex items-center gap-2 px-4 py-2.5 bg-white border border-ios-border rounded-2xl text-xs font-bold text-gray-700 hover:bg-gray-50 shadow-ios-card active:scale-95">
               <span>📄</span> Export Excel
             </button>
-            <button class="flex items-center gap-1.5 px-3.5 py-2 bg-white border border-app-border rounded-xl text-xs font-bold text-gray-700 hover:bg-gray-50 shadow-sm">
+            <button class="flex items-center gap-2 px-4 py-2.5 bg-white border border-ios-border rounded-2xl text-xs font-bold text-gray-700 hover:bg-gray-50 shadow-ios-card active:scale-95">
               <span>📑</span> Export PDF
             </button>
           </div>
         </div>
 
         <!-- Report Tabs Row -->
-        <div class="flex flex-wrap items-center gap-2 border-b border-app-border text-xs">
-          <button class="px-4 py-2 font-bold text-emerald-800 border-b-2 border-emerald-800">Sales & collections</button>
-          <button class="px-4 py-2 font-medium text-gray-500 hover:text-gray-800">Profit & loss</button>
-          <button class="px-4 py-2 font-medium text-gray-500 hover:text-gray-800">Staff work</button>
-          <button class="px-4 py-2 font-medium text-gray-500 hover:text-gray-800">Garments</button>
-          <button class="px-4 py-2 font-medium text-gray-500 hover:text-gray-800">Payment methods</button>
+        <div class="flex flex-wrap items-center gap-1.5 p-1.5 bg-gray-200/60 rounded-2xl border border-gray-300/40 w-fit text-xs">
+          <button class="px-3.5 py-1.5 bg-white font-bold text-gray-900 rounded-xl shadow-xs">Sales & collections</button>
+          <button class="px-3.5 py-1.5 font-medium text-gray-600 hover:text-gray-900 rounded-xl">Profit & loss</button>
+          <button class="px-3.5 py-1.5 font-medium text-gray-600 hover:text-gray-900 rounded-xl">Staff work</button>
+          <button class="px-3.5 py-1.5 font-medium text-gray-600 hover:text-gray-900 rounded-xl">Garments</button>
+          <button class="px-3.5 py-1.5 font-medium text-gray-600 hover:text-gray-900 rounded-xl">Payment methods</button>
         </div>
 
-        <!-- Date Filter -->
-        <div class="flex items-center gap-3">
-          <input type="text" value="Oct 1 – Oct 31, 2026" class="px-3.5 py-2 bg-white border border-app-border rounded-xl text-xs font-mono font-bold text-gray-700 shadow-sm">
-          <span class="text-xs text-gray-400">Shown by day</span>
-        </div>
-
-        <!-- 4 Stat Metric Cards -->
+        <!-- 4 Bento Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div class="bg-white p-5 rounded-2xl border border-app-border shadow-sm">
-            <div class="text-xs text-app-muted font-medium mb-1">Sales</div>
-            <div class="text-2xl font-bold text-app-text font-mono">৳65,601</div>
-            <div class="text-[11px] text-app-muted mt-1">23 orders</div>
+          <div class="bento-card p-5">
+            <div class="text-xs text-ios-subtext font-bold uppercase">Sales</div>
+            <div class="text-3xl font-black text-ios-text font-mono mt-1">৳65,601</div>
+            <div class="text-[11px] text-ios-subtext mt-1">23 orders</div>
           </div>
 
-          <div class="bg-white p-5 rounded-2xl border border-app-border shadow-sm">
-            <div class="text-xs text-app-muted font-medium mb-1">Collected</div>
-            <div class="text-2xl font-bold text-emerald-700 font-mono">৳52,880</div>
+          <div class="bento-card p-5">
+            <div class="text-xs text-ios-subtext font-bold uppercase">Collected</div>
+            <div class="text-3xl font-black text-emerald-700 font-mono mt-1">৳52,880</div>
           </div>
 
-          <div class="bg-white p-5 rounded-2xl border border-app-border shadow-sm">
-            <div class="text-xs text-app-muted font-medium mb-1">Expense</div>
-            <div class="text-2xl font-bold text-red-600 font-mono">৳40,530</div>
+          <div class="bento-card p-5">
+            <div class="text-xs text-ios-subtext font-bold uppercase">Expense</div>
+            <div class="text-3xl font-black text-red-600 font-mono mt-1">৳40,530</div>
           </div>
 
-          <div class="bg-white p-5 rounded-2xl border border-app-border shadow-sm">
-            <div class="text-xs text-app-muted font-medium mb-1">Profit (cash)</div>
-            <div class="text-2xl font-bold text-gray-900 font-mono">৳12,350</div>
-            <div class="text-[11px] text-app-muted mt-1">Collected - expense</div>
+          <div class="bento-card p-5">
+            <div class="text-xs text-ios-subtext font-bold uppercase">Profit (cash)</div>
+            <div class="text-3xl font-black text-indigo-700 font-mono mt-1">৳12,350</div>
+            <div class="text-[11px] text-ios-subtext mt-1">Collected - expense</div>
           </div>
         </div>
 
-        <!-- Sales vs Expense Chart -->
-        <div class="bg-white rounded-2xl border border-app-border shadow-sm p-6 space-y-4">
+        <!-- Sales vs Expense Bento Dual Chart -->
+        <div class="bento-card p-7 space-y-5">
           <div class="flex items-center justify-between">
-            <div class="flex items-center gap-4 text-xs font-semibold">
-              <span class="flex items-center gap-1.5"><span class="w-3 h-3 bg-emerald-800 rounded-sm"></span> Sales</span>
-              <span class="flex items-center gap-1.5"><span class="w-3 h-3 bg-amber-500 rounded-sm"></span> Expense</span>
+            <div class="flex items-center gap-5 text-xs font-bold">
+              <span class="flex items-center gap-2"><span class="w-3 h-3 bg-emerald-700 rounded-md"></span> Sales</span>
+              <span class="flex items-center gap-2"><span class="w-3 h-3 bg-amber-500 rounded-md"></span> Expense</span>
             </div>
             <span class="text-xs text-gray-400 font-mono">October 2026</span>
           </div>
 
-          <div class="h-56 flex items-end justify-between gap-1.5 pt-8 border-b border-gray-100">
-            <!-- Daily comparative bars -->
-            <div class="flex-1 flex items-end justify-center gap-1">
-              <div class="w-2.5 bg-emerald-800 rounded-t-sm" style="height: 30%;"></div>
-              <div class="w-2.5 bg-amber-500 rounded-t-sm" style="height: 85%;"></div>
+          <div class="h-60 flex items-end justify-between gap-2 pt-8 border-b border-gray-100">
+            <div class="flex-1 flex items-end justify-center gap-1.5">
+              <div class="w-3 bg-emerald-700 rounded-t-md shadow-xs" style="height: 30%;"></div>
+              <div class="w-3 bg-amber-500 rounded-t-md shadow-xs" style="height: 85%;"></div>
             </div>
-            <div class="flex-1 flex items-end justify-center gap-1">
-              <div class="w-2.5 bg-emerald-800 rounded-t-sm" style="height: 25%;"></div>
+            <div class="flex-1 flex items-end justify-center gap-1.5">
+              <div class="w-3 bg-emerald-700 rounded-t-md shadow-xs" style="height: 25%;"></div>
             </div>
-            <div class="flex-1 flex items-end justify-center gap-1">
-              <div class="w-2.5 bg-emerald-800 rounded-t-sm" style="height: 48%;"></div>
+            <div class="flex-1 flex items-end justify-center gap-1.5">
+              <div class="w-3 bg-emerald-700 rounded-t-md shadow-xs" style="height: 48%;"></div>
             </div>
-            <div class="flex-1 flex items-end justify-center gap-1">
-              <div class="w-2.5 bg-emerald-800 rounded-t-sm" style="height: 28%;"></div>
+            <div class="flex-1 flex items-end justify-center gap-1.5">
+              <div class="w-3 bg-emerald-700 rounded-t-md shadow-xs" style="height: 28%;"></div>
             </div>
-            <div class="flex-1 flex items-end justify-center gap-1">
-              <div class="w-2.5 bg-emerald-800 rounded-t-sm" style="height: 42%;"></div>
+            <div class="flex-1 flex items-end justify-center gap-1.5">
+              <div class="w-3 bg-emerald-700 rounded-t-md shadow-xs" style="height: 42%;"></div>
             </div>
-            <div class="flex-1 flex items-end justify-center gap-1">
-              <div class="w-2.5 bg-emerald-800 rounded-t-sm" style="height: 12%;"></div>
+            <div class="flex-1 flex items-end justify-center gap-1.5">
+              <div class="w-3 bg-emerald-700 rounded-t-md shadow-xs" style="height: 12%;"></div>
             </div>
-            <div class="flex-1 flex items-end justify-center gap-1"><div class="w-2.5 bg-gray-100 rounded-t-sm" style="height: 2%;"></div></div>
-            <div class="flex-1 flex items-end justify-center gap-1"><div class="w-2.5 bg-gray-100 rounded-t-sm" style="height: 2%;"></div></div>
-            <div class="flex-1 flex items-end justify-center gap-1"><div class="w-2.5 bg-gray-100 rounded-t-sm" style="height: 2%;"></div></div>
+            <div class="flex-1 flex items-end justify-center gap-1.5"><div class="w-3 bg-gray-100 rounded-t-md" style="height: 3%;"></div></div>
+            <div class="flex-1 flex items-end justify-center gap-1.5"><div class="w-3 bg-gray-100 rounded-t-md" style="height: 3%;"></div></div>
           </div>
-          <div class="flex justify-between text-[10px] font-mono text-gray-400">
+          <div class="flex justify-between text-[11px] font-mono text-gray-400">
             <span>1 Oct</span>
             <span>5 Oct</span>
             <span>10 Oct</span>
@@ -1307,37 +1526,29 @@
       </section>
 
       <!-- ==================================================== -->
-      <!-- VIEW 6: ORDERS & TRACKING (Integrated with Print/MFS)-->
+      <!-- VIEW 6: ORDERS & VOUCHERS (Bento Cards & POS Print)  -->
       <!-- ==================================================== -->
       <section id="view-orders" class="app-view hidden space-y-6">
         
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 class="text-2xl font-bold text-app-text tracking-tight">Orders</h1>
-            <p class="text-xs text-app-muted mt-0.5">Multi-item order vouchers, stages & fabric pin tags</p>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-cyan-100 text-cyan-800">ACTIVE PRODUCTION</span>
+              <span class="text-xs text-ios-subtext">Pin Tags & Stages</span>
+            </div>
+            <h1 class="text-3xl font-black text-ios-text tracking-tight mt-1">Orders & Vouchers</h1>
           </div>
 
           <div class="flex items-center gap-2">
-            <button onclick="openNewOrderModal()" class="flex items-center gap-1.5 px-4 py-2 bg-brand-700 hover:bg-brand-800 text-white rounded-xl text-xs font-bold shadow-sm">
+            <button onclick="openNewOrderModal()" class="flex items-center gap-2 px-5 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl text-xs font-bold shadow-md shadow-emerald-700/20 active:scale-95">
               <span>+</span> New order
             </button>
           </div>
         </div>
 
-        <!-- Orders Table -->
-        <div class="bg-white rounded-2xl border border-app-border shadow-sm overflow-hidden p-5 space-y-4">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div class="flex items-center gap-2 text-xs">
-              <button class="px-3 py-1 bg-brand-700 text-white rounded-xl font-bold">All (48)</button>
-              <button class="px-3 py-1 bg-app-bg text-gray-700 rounded-xl font-medium border border-app-border">Fabric Received</button>
-              <button class="px-3 py-1 bg-app-bg text-gray-700 rounded-xl font-medium border border-app-border">Cutting</button>
-              <button class="px-3 py-1 bg-app-bg text-gray-700 rounded-xl font-medium border border-app-border">Stitching</button>
-              <button class="px-3 py-1 bg-app-bg text-gray-700 rounded-xl font-medium border border-app-border">Ready (21)</button>
-            </div>
-          </div>
-
+        <div class="bento-card p-6 space-y-4">
           <div id="dynamic-orders-table" class="space-y-3">
-            <!-- Dynamically rendered -->
+            <!-- Dynamically populated -->
           </div>
         </div>
 
@@ -1348,33 +1559,33 @@
   </div>
 
   <!-- ======================================================== -->
-  <!-- 3. MODALS (New Order, Receive Payment, POS Slip)          -->
+  <!-- 3. MODALS (New Order, 58mm Thermal Slip)                 -->
   <!-- ======================================================== -->
 
   <!-- MODAL: + NEW ORDER -->
-  <div id="modal-new-order" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
-      <div class="flex justify-between items-center border-b border-app-border pb-3">
-        <h3 class="text-base font-bold text-gray-900 flex items-center gap-2">
+  <div id="modal-new-order" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bento-card max-w-lg w-full p-7 space-y-5 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b border-ios-border pb-3.5">
+        <h3 class="text-lg font-black text-gray-900 flex items-center gap-2">
           <span>➕</span> New Order Voucher
         </h3>
-        <button onclick="closeModal('modal-new-order')" class="text-gray-400 hover:text-gray-600 font-bold text-lg">✕</button>
+        <button onclick="closeModal('modal-new-order')" class="text-gray-400 hover:text-gray-600 font-bold text-xl">✕</button>
       </div>
 
-      <div class="space-y-3 text-xs">
+      <div class="space-y-3.5 text-xs">
         <div>
-          <label class="block font-bold text-gray-700 mb-1">Customer Name *</label>
-          <input type="text" id="no-cust-name" placeholder="e.g. Shahadat Hossain" class="w-full border border-app-border rounded-xl px-3.5 py-2 text-sm focus:outline-none focus:border-brand-500">
+          <label class="block font-bold text-gray-700 mb-1.5">Customer Name *</label>
+          <input type="text" id="no-cust-name" placeholder="e.g. Shahadat Hossain" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm focus:outline-none focus:border-ios-blue">
         </div>
         <div>
-          <label class="block font-bold text-gray-700 mb-1">Mobile Number *</label>
-          <input type="tel" id="no-cust-phone" placeholder="017xxxxxxxx" class="w-full border border-app-border rounded-xl px-3.5 py-2 text-sm focus:outline-none focus:border-brand-500">
+          <label class="block font-bold text-gray-700 mb-1.5">Mobile Number *</label>
+          <input type="tel" id="no-cust-phone" placeholder="017xxxxxxxx" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm focus:outline-none focus:border-ios-blue">
         </div>
 
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-2 gap-3.5">
           <div>
-            <label class="block font-bold text-gray-700 mb-1">Garment Type</label>
-            <select id="no-garment" class="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none">
+            <label class="block font-bold text-gray-700 mb-1.5">Garment Type</label>
+            <select id="no-garment" class="w-full border border-ios-border rounded-2xl px-3.5 py-2.5 text-sm focus:outline-none">
               <option value="Panjabi">Panjabi (পাঞ্জাবি)</option>
               <option value="Shirt">Formal Shirt (শার্ট)</option>
               <option value="Pant">Pant (প্যান্ট)</option>
@@ -1383,37 +1594,37 @@
             </select>
           </div>
           <div>
-            <label class="block font-bold text-gray-700 mb-1">Delivery Date</label>
-            <input type="date" id="no-date" value="2026-11-15" class="w-full border border-app-border rounded-xl px-3 py-2 text-sm focus:outline-none">
+            <label class="block font-bold text-gray-700 mb-1.5">Delivery Date</label>
+            <input type="date" id="no-date" value="2026-11-15" class="w-full border border-ios-border rounded-2xl px-3.5 py-2.5 text-sm focus:outline-none">
           </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-2 gap-3.5">
           <div>
-            <label class="block font-bold text-gray-700 mb-1">Total Bill (৳) *</label>
-            <input type="number" id="no-total" value="850" class="w-full border border-app-border rounded-xl px-3.5 py-2 text-sm font-bold font-mono">
+            <label class="block font-bold text-gray-700 mb-1.5">Total Bill (৳) *</label>
+            <input type="number" id="no-total" value="850" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm font-black font-mono">
           </div>
           <div>
-            <label class="block font-bold text-gray-700 mb-1">Advance Paid (৳)</label>
-            <input type="number" id="no-advance" value="300" class="w-full border border-app-border rounded-xl px-3.5 py-2 text-sm font-bold font-mono text-emerald-700">
+            <label class="block font-bold text-gray-700 mb-1.5">Advance Paid (৳)</label>
+            <input type="number" id="no-advance" value="300" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm font-black font-mono text-emerald-700">
           </div>
         </div>
 
         <!-- Fabric Pin Tag Preview -->
-        <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl flex items-center justify-between">
+        <div class="p-3.5 bg-amber-50 border border-amber-200 rounded-2xl flex items-center justify-between">
           <div>
             <span class="text-amber-800 font-bold">Auto Fabric Pin Tag:</span>
             <div class="font-mono font-black text-amber-900 text-sm">📌 TAG-1044</div>
           </div>
-          <span class="text-[10px] text-amber-700">For attaching with safety pin to fabric roll</span>
+          <span class="text-[10px] text-amber-700">Attach with safety pin to cloth roll</span>
         </div>
       </div>
 
-      <div class="flex justify-end gap-2 pt-3 border-t border-app-border">
-        <button onclick="closeModal('modal-new-order')" class="px-4 py-2 border border-app-border rounded-xl text-xs font-bold text-gray-600 hover:bg-gray-50">
+      <div class="flex justify-end gap-2.5 pt-3 border-t border-ios-border">
+        <button onclick="closeModal('modal-new-order')" class="px-5 py-2.5 border border-ios-border rounded-2xl text-xs font-bold text-gray-600 hover:bg-gray-50 active:scale-95">
           Cancel
         </button>
-        <button onclick="submitNewOrder()" class="px-5 py-2 bg-brand-700 hover:bg-brand-800 text-white rounded-xl text-xs font-bold shadow-sm">
+        <button onclick="submitNewOrder()" class="px-6 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl text-xs font-bold shadow-md active:scale-95">
           Create order ✓
         </button>
       </div>
@@ -1421,10 +1632,10 @@
   </div>
 
   <!-- MODAL: 58MM POS RECEIPT (Printable) -->
-  <div id="modal-receipt" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl">
-      <div class="flex justify-between items-center border-b border-app-border pb-3">
-        <h3 class="text-sm font-bold text-gray-900">58mm POS Thermal Memo</h3>
+  <div id="modal-receipt" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bento-card max-w-sm w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex justify-between items-center border-b border-ios-border pb-3">
+        <h3 class="text-sm font-black text-gray-900">58mm POS Thermal Slip</h3>
         <button onclick="closeModal('modal-receipt')" class="text-gray-400 hover:text-gray-600 font-bold text-lg">✕</button>
       </div>
 
@@ -1474,10 +1685,10 @@
       </div>
 
       <div class="flex justify-end gap-2 pt-2">
-        <button onclick="closeModal('modal-receipt')" class="px-4 py-2 border border-app-border rounded-xl text-xs font-bold text-gray-600 hover:bg-gray-50">
+        <button onclick="closeModal('modal-receipt')" class="px-4 py-2 border border-ios-border rounded-2xl text-xs font-bold text-gray-600 hover:bg-gray-50">
           Close
         </button>
-        <button onclick="window.print()" class="px-5 py-2 bg-brand-700 hover:bg-brand-800 text-white rounded-xl text-xs font-bold shadow-sm">
+        <button onclick="window.print()" class="px-5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl text-xs font-bold shadow-sm">
           Print POS 🖨️
         </button>
       </div>
@@ -1485,15 +1696,14 @@
   </div>
 
   <!-- ======================================================== -->
-  <!-- 4. CORE APPLICATION JAVASCRIPT LOGIC                     -->
+  <!-- 4. CORE JAVASCRIPT LOGIC                                 -->
   <!-- ======================================================== -->
   <script>
-    // --- Translations (Bilingual Toggle) ---
     let currentLang = 'en';
     const translations = {
       en: {
-        sec_shop: 'Shop',
-        sec_admin: 'Admin',
+        sec_shop: 'SHOP OS',
+        sec_admin: 'SYSTEM ADMIN',
         menu_dashboard: 'Dashboard',
         menu_orders: 'Orders',
         menu_customers: 'Customers',
@@ -1511,8 +1721,8 @@
         inv_title: 'Inventory',
       },
       bn: {
-        sec_shop: 'দোকান (Shop)',
-        sec_admin: 'অ্যাডমিন',
+        sec_shop: 'দোকান (Shop OS)',
+        sec_admin: 'সিস্টেম অ্যাডমিন',
         menu_dashboard: 'ড্যাশবোর্ড',
         menu_orders: 'অর্ডারসমূহ',
         menu_customers: 'গ্রাহক খাতা',
@@ -1549,7 +1759,6 @@
       }
     }
 
-    // --- View Navigation Router ---
     function navigateTo(viewId) {
       document.querySelectorAll('.app-view').forEach(v => v.classList.add('hidden'));
       document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
@@ -1563,7 +1772,6 @@
       if (viewId === 'orders') renderOrdersTable();
     }
 
-    // --- Dynamic Orders Render ---
     const ordersData = [
       { id: 'ORD-2610-0022', tag: 'TAG-1044', name: 'Shahadat Hossain', phone: '01591463333', garment: 'Cotton Panjabi', stage: 'STITCHING', total: 850, advance: 300, due: 550, date: '15 Nov 2026' },
       { id: 'ORD-2610-0021', tag: 'TAG-1043', name: 'Arif Hossain', phone: '01324941964', garment: 'Formal Shirt', stage: 'CUTTING', total: 450, advance: 200, due: 250, date: '14 Nov 2026' },
@@ -1576,16 +1784,16 @@
       if (!container) return;
 
       container.innerHTML = ordersData.map(o => `
-        <div class="p-4 bg-app-bg rounded-xl border border-app-border flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-gray-100/70 transition-colors">
+        <div class="p-4 bg-gray-50/70 rounded-2xl border border-ios-border flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-white hover:shadow-ios-card transition-all">
           <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center text-xs">
+            <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 text-white font-bold flex items-center justify-center text-xs shadow-sm shadow-cyan-500/20">
               🧵
             </div>
             <div>
               <div class="flex items-center gap-2">
                 <span class="font-mono font-bold text-gray-900">${o.id}</span>
-                <span class="bg-amber-100 text-amber-900 text-[10px] font-mono font-black px-1.5 py-0.5 rounded">📌 ${o.tag}</span>
-                <span class="bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] font-bold px-2 py-0.5 rounded-full">${o.stage}</span>
+                <span class="bg-amber-100 text-amber-900 text-[10px] font-mono font-black px-2 py-0.5 rounded-md">📌 ${o.tag}</span>
+                <span class="bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] font-bold px-2.5 py-0.5 rounded-full">${o.stage}</span>
               </div>
               <div class="text-xs text-gray-600 mt-0.5"><strong>${o.name}</strong> (${o.phone}) · ${o.garment}</div>
             </div>
@@ -1593,7 +1801,7 @@
 
           <div class="flex items-center gap-4 text-xs font-mono">
             <div>Total: <strong>৳${o.total}</strong> | Due: <strong class="${o.due > 0 ? 'text-red-600' : 'text-emerald-700'}">৳${o.due}</strong></div>
-            <button onclick="showPosReceipt('${o.id}', '${o.name}', '${o.phone}')" class="px-2.5 py-1 bg-white border border-app-border rounded-lg text-xs font-bold text-gray-700 hover:bg-gray-100">
+            <button onclick="showPosReceipt('${o.id}', '${o.name}', '${o.phone}')" class="px-3 py-1.5 bg-white border border-ios-border rounded-xl text-xs font-bold text-gray-700 hover:bg-gray-100 active:scale-95 shadow-xs">
               🖨️ Receipt
             </button>
           </div>
@@ -1601,7 +1809,6 @@
       `).join('');
     }
 
-    // --- Modal Helpers ---
     function openNewOrderModal() {
       document.getElementById('modal-new-order').classList.remove('hidden');
     }
@@ -1643,10 +1850,9 @@
       document.getElementById('modal-receipt').classList.remove('hidden');
     }
 
-    // --- Bengali Voice Input Simulation ---
     function triggerVoiceInput() {
       const simulated = "ঝুল ৪২, কোমর ৩২, হাই ৯, মুহুরি ১০";
-      alert(`ভয়েস রেকর্ডিং চালু হয়েছে! শুনেছে: "${simulated}"`);
+      alert(`ভয়েস রিকগনিশন সক্রিয়! মুখে বলা হয়েছে: "${simulated}"`);
       if (document.getElementById('m_waist')) document.getElementById('m_waist').value = '32';
       if (document.getElementById('m_length')) document.getElementById('m_length').value = '42';
       confetti({ particleCount: 40, spread: 50 });
@@ -1659,15 +1865,15 @@
 
     function setMeasurementTab(tabName) {
       document.querySelectorAll('.meas-garment-tab').forEach(b => {
-        b.classList.remove('active', 'text-emerald-800', 'font-bold', 'border-b-2', 'border-emerald-800');
-        b.classList.add('text-gray-500', 'font-medium');
+        b.classList.remove('active', 'bg-white', 'text-gray-900', 'font-bold', 'shadow-xs');
+        b.classList.add('text-gray-600', 'font-medium');
       });
-      event.target.classList.add('active', 'text-emerald-800', 'font-bold', 'border-b-2', 'border-emerald-800');
-      event.target.classList.remove('text-gray-500', 'font-medium');
+      event.target.classList.add('active', 'bg-white', 'text-gray-900', 'font-bold', 'shadow-xs');
+      event.target.classList.remove('text-gray-600', 'font-medium');
     }
 
-    function toggleDarkMode() {
-      alert('Light mode matches screenshot aesthetics perfectly!');
+    function setThemeAccent(color) {
+      alert(`Theme accent switched to: ${color}!`);
     }
   </script>
 
