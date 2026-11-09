@@ -15,6 +15,7 @@ import { typography } from '../../src/theme/typography.js';
 import { Card } from '../../src/components/ui/Card.js';
 import { Badge } from '../../src/components/ui/Badge.js';
 import api from '../../src/services/api.js';
+import { MfsCheckoutModal } from '../../src/components/payments/MfsCheckoutModal.js';
 
 export default function PublicOrderTrackScreen() {
   const { token } = useLocalSearchParams<{ token: string }>();
@@ -22,10 +23,11 @@ export default function PublicOrderTrackScreen() {
   const [order, setOrder] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [mfsModalVisible, setMfsModalVisible] = useState(false);
 
-  useEffect(() => {
+  const fetchOrder = () => {
     if (!token) return;
-
+    setLoading(true);
     api
       .get(`/public/track/${token}`)
       .then((res) => {
@@ -39,6 +41,10 @@ export default function PublicOrderTrackScreen() {
         setError(err.response?.data?.error?.message || 'অর্ডার লোড করা যায়নি');
       })
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    fetchOrder();
   }, [token]);
 
   if (loading) {
@@ -63,6 +69,8 @@ export default function PublicOrderTrackScreen() {
       </SafeAreaView>
     );
   }
+
+  const dueAmount = Number(order.financials?.dueAmount || 0);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -162,11 +170,36 @@ export default function PublicOrderTrackScreen() {
               বাকি টাকা:
             </Text>
             <Text style={[styles.financeVal, styles.dueVal]}>
-              ৳ {order.financials?.dueAmount}
+              ৳ {dueAmount}
             </Text>
           </View>
+
+          {dueAmount > 0 && (
+            <TouchableOpacity
+              style={styles.mfsPayBtn}
+              onPress={() => setMfsModalVisible(true)}
+            >
+              <Text style={styles.mfsPayBtnText}>
+                💳 বিকাশ বা নগদে বকেয়া পরিশোধ করুন
+              </Text>
+            </TouchableOpacity>
+          )}
         </Card>
       </ScrollView>
+
+      {/* MFS Checkout Modal */}
+      {order && (
+        <MfsCheckoutModal
+          visible={mfsModalVisible}
+          onClose={() => setMfsModalVisible(false)}
+          orderId={order.id}
+          orderNo={order.orderNo}
+          dueAmount={dueAmount}
+          onSuccess={() => {
+            fetchOrder();
+          }}
+        />
+      )}
     </SafeAreaView>
   );
 }
@@ -343,5 +376,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '800',
     color: colors.danger,
+  },
+  mfsPayBtn: {
+    backgroundColor: '#D12053',
+    paddingVertical: 12,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginTop: 14,
+  },
+  mfsPayBtnText: {
+    ...typography.body,
+    fontWeight: '700',
+    color: '#FFFFFF',
   },
 });

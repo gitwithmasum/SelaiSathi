@@ -14,10 +14,17 @@ import { typography } from '../../src/theme/typography.js';
 import { Card } from '../../src/components/ui/Card.js';
 import { Badge } from '../../src/components/ui/Badge.js';
 import api from '../../src/services/api.js';
+import { MfsCheckoutModal } from '../../src/components/payments/MfsCheckoutModal.js';
+import { ReviewModal } from '../../src/components/reviews/ReviewModal.js';
 
 export default function CustomerOrdersScreen() {
   const [orders, setOrders] = useState<any[]>([]);
   const [refreshing, setRefreshing] = useState(false);
+
+  // Modals state
+  const [mfsModalVisible, setMfsModalVisible] = useState(false);
+  const [reviewModalVisible, setReviewModalVisible] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState<any | null>(null);
 
   const fetchOrders = async () => {
     try {
@@ -44,6 +51,25 @@ export default function CustomerOrdersScreen() {
             {
               garmentType: { nameBn: 'পাঞ্জাবি' },
               stage: 'STITCHING',
+            },
+          ],
+        },
+        {
+          id: 'ord2',
+          orderNo: 'SS-2026-0002',
+          totalPrice: 1200,
+          advancePaid: 1200,
+          status: 'DELIVERED',
+          deliveryDate: new Date(Date.now() - 86400000 * 2).toISOString(),
+          tailor: {
+            shopName: 'রয়েল টেইলার্স',
+            address: 'ধানমন্ডি, ঢাকা',
+            shopCode: 'SS-1008',
+          },
+          items: [
+            {
+              garmentType: { nameBn: 'স্যুট / ব্লেজার' },
+              stage: 'DELIVERED',
             },
           ],
         },
@@ -80,6 +106,16 @@ export default function CustomerOrdersScreen() {
     }
   };
 
+  const openMfsCheckout = (order: any) => {
+    setSelectedOrder(order);
+    setMfsModalVisible(true);
+  };
+
+  const openReview = (order: any) => {
+    setSelectedOrder(order);
+    setReviewModalVisible(true);
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.header}>
@@ -106,6 +142,7 @@ export default function CustomerOrdersScreen() {
           const due = Math.max(0, total - advance);
           const mainItem = item.items?.[0] || {};
           const currentStage = mainItem.stage || 'FABRIC_RECEIVED';
+          const isDelivered = item.status === 'DELIVERED' || currentStage === 'DELIVERED';
           const progress = getProgressPercent(currentStage);
 
           return (
@@ -128,6 +165,7 @@ export default function CustomerOrdersScreen() {
                   <Text style={styles.stageName}>কাটিং</Text>
                   <Text style={styles.stageName}>সেলাই</Text>
                   <Text style={styles.stageName}>রেডি</Text>
+                  <Text style={styles.stageName}>ডেলিভারি</Text>
                 </View>
               </View>
 
@@ -138,13 +176,27 @@ export default function CustomerOrdersScreen() {
                 </Text>
               </View>
 
-              <View style={styles.footerRow}>
-                <View>
-                  <Text style={styles.dueLabel}>
-                    বকেয়া: <Text style={styles.dueAmount}>৳ {due}</Text>
+              {/* Finance summary */}
+              <View style={styles.financeRow}>
+                <Text style={styles.dueLabel}>
+                  মোট বিল: ৳{total} | বকেয়া:{' '}
+                  <Text style={[styles.dueAmount, due > 0 ? styles.dueTextDanger : styles.dueTextPaid]}>
+                    ৳{due}
                   </Text>
-                </View>
+                </Text>
 
+                {due > 0 && (
+                  <TouchableOpacity
+                    style={styles.payOnlineBtn}
+                    onPress={() => openMfsCheckout(item)}
+                  >
+                    <Text style={styles.payOnlineText}>💳 বিকাশ/নগদে পরিশোধ</Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+
+              {/* Action Buttons Row */}
+              <View style={styles.footerRow}>
                 <TouchableOpacity
                   onPress={() =>
                     Linking.openURL(
@@ -155,11 +207,48 @@ export default function CustomerOrdersScreen() {
                 >
                   <Text style={styles.chatBtnText}>দোকানে মেসেজ 💬</Text>
                 </TouchableOpacity>
+
+                {isDelivered && (
+                  <TouchableOpacity
+                    style={styles.reviewBtn}
+                    onPress={() => openReview(item)}
+                  >
+                    <Text style={styles.reviewBtnText}>⭐ রিভিউ দিন</Text>
+                  </TouchableOpacity>
+                )}
               </View>
             </Card>
           );
         }}
       />
+
+      {/* MFS Checkout Modal */}
+      {selectedOrder && (
+        <MfsCheckoutModal
+          visible={mfsModalVisible}
+          onClose={() => setMfsModalVisible(false)}
+          orderId={selectedOrder.id}
+          orderNo={selectedOrder.orderNo}
+          dueAmount={Math.max(0, Number(selectedOrder.totalPrice || 0) - Number(selectedOrder.advancePaid || 0))}
+          onSuccess={() => {
+            fetchOrders();
+          }}
+        />
+      )}
+
+      {/* Review Modal */}
+      {selectedOrder && (
+        <ReviewModal
+          visible={reviewModalVisible}
+          onClose={() => setReviewModalVisible(false)}
+          orderId={selectedOrder.id}
+          orderNo={selectedOrder.orderNo}
+          tailorName={selectedOrder.tailor?.shopName}
+          onSuccess={() => {
+            fetchOrders();
+          }}
+        />
+      )}
     </SafeAreaView>
   );
 }
@@ -241,13 +330,13 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: colors.text,
   },
-  footerRow: {
+  financeRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    paddingVertical: 8,
     borderTopWidth: 1,
     borderTopColor: colors.border,
-    paddingTop: 10,
   },
   dueLabel: {
     ...typography.bodySmall,
@@ -255,18 +344,56 @@ const styles = StyleSheet.create({
   },
   dueAmount: {
     fontWeight: '700',
+  },
+  dueTextDanger: {
     color: colors.danger,
+  },
+  dueTextPaid: {
+    color: colors.success,
+  },
+  payOnlineBtn: {
+    backgroundColor: '#D12053',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 8,
+  },
+  payOnlineText: {
+    ...typography.caption,
+    fontWeight: '700',
+    color: '#FFFFFF',
+  },
+  footerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
+    paddingTop: 10,
+    marginTop: 4,
   },
   chatBtn: {
     backgroundColor: colors.primaryLight,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
     borderRadius: 8,
   },
   chatBtnText: {
     ...typography.caption,
     fontWeight: '700',
     color: colors.primary,
+  },
+  reviewBtn: {
+    backgroundColor: '#FEF3C7',
+    borderWidth: 1,
+    borderColor: '#F59E0B',
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 8,
+  },
+  reviewBtnText: {
+    ...typography.caption,
+    fontWeight: '700',
+    color: '#B45309',
   },
   emptyContainer: {
     alignItems: 'center',

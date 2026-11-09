@@ -11,6 +11,11 @@ import {
 
 const router = Router();
 
+// MFS routes (Can be called by authenticated users or public tracking callbacks)
+router.post('/mfs/initiate', paymentsController.initiateMfs);
+router.post('/mfs/verify', paymentsController.verifyMfs);
+
+// Authenticated tailor routes
 router.use(authenticate);
 router.use(requireRole(Role.TAILOR));
 

@@ -31,6 +31,13 @@ export default function CustomerTabsLayout() {
         }}
       />
       <Tabs.Screen
+        name="gallery"
+        options={{
+          title: 'ডিজাইন ক্যাটালগ',
+          tabBarIcon: ({ color }) => <Text style={{ fontSize: 20, color }}>✨</Text>,
+        }}
+      />
+      <Tabs.Screen
         name="measurements"
         options={{
           title: 'আমার মাপ',

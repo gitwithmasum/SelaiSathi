@@ -10,6 +10,8 @@ import customerPortalRoutes from './modules/customerPortal/customerPortal.routes
 import publicRoutes from './modules/public/public.routes.js';
 import chatRoutes from './modules/chat/chat.routes.js';
 import calendarRoutes from './modules/calendar/calendar.routes.js';
+import galleryRoutes from './modules/gallery/gallery.routes.js';
+import reviewsRoutes from './modules/reviews/reviews.routes.js';
 
 const router = Router();
 
@@ -35,5 +37,7 @@ router.use('/portal', customerPortalRoutes);
 router.use('/public', publicRoutes);
 router.use('/chat', chatRoutes);
 router.use('/calendar', calendarRoutes);
+router.use('/gallery', galleryRoutes);
+router.use('/reviews', reviewsRoutes);
 
 export default router;
