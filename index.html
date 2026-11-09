@@ -216,6 +216,31 @@
     body > aside .nav-item.active { background: linear-gradient(100deg,rgba(34,211,238,.15),rgba(139,92,246,.13)) !important; border: 1px solid rgba(34,211,238,.22); box-shadow: inset 0 0 18px rgba(34,211,238,.035),0 5px 18px rgba(0,0,0,.12); }
     body > aside .nav-item.active::before { background: linear-gradient(180deg,var(--ss-cyan),var(--ss-violet)); box-shadow: 0 0 12px rgba(34,211,238,.55); }
     body > aside .nav-icon-badge { background: rgba(148,163,184,.09) !important; border: 1px solid rgba(148,163,184,.12); }
+
+    /* Workflow-first sidebar inspired by modern tailoring management apps */
+    body > aside .ss-nav-shell { display: flex; flex-direction: column; gap: 22px !important; }
+    body > aside .ss-nav-group { min-width: 0; }
+    body > aside .ss-nav-heading { display:flex; align-items:center; gap:9px; padding:0 12px; margin:0 0 9px; color:#71839c; font-size:9px; font-weight:800; letter-spacing:.16em; }
+    body > aside .ss-nav-dot { width:5px; height:5px; border-radius:50%; background:var(--ss-cyan); box-shadow:0 0 9px rgba(34,211,238,.7); }
+    body > aside .nav-item { min-height:43px; border-radius:11px !important; gap:12px !important; padding:6px 10px !important; }
+    body > aside .nav-icon-badge { width:31px !important; height:31px !important; flex:0 0 31px; display:grid; place-items:center; border-radius:9px !important; color:#a9bfd7; font-size:16px; font-weight:700; }
+    body > aside .nav-item.active .nav-icon-badge { color:#071321 !important; background:linear-gradient(135deg,#67e8f9,#a78bfa) !important; border-color:transparent; }
+    body > aside .ss-nav-label { min-width:0; flex:1; text-align:left; font-size:12px; font-weight:550; letter-spacing:.005em; }
+    body > aside .ss-nav-shortcut { color:#64748b; font:10px ui-monospace,monospace; opacity:0; transition:opacity .2s; }
+    body > aside .nav-item:hover .ss-nav-shortcut { opacity:1; }
+    body > aside .ss-nav-count { padding:3px 7px; border-radius:7px; color:#a5f3fc; background:rgba(8,145,178,.15); border:1px solid rgba(34,211,238,.18); font:10px ui-monospace,monospace; }
+    body > aside .ss-nav-soon { padding:3px 5px; border:1px solid rgba(148,163,184,.14); border-radius:5px; color:#71839c; font:8px ui-monospace,monospace; letter-spacing:.08em; }
+    body > aside .nav-item-soon { opacity:.58; cursor:not-allowed; }
+    body > aside .nav-item-soon:hover { transform:none !important; background:transparent !important; border-color:transparent !important; }
+    body > aside .ss-nav-admin { padding-top:15px; border-top:1px solid var(--ss-border); }
+    @media (max-width:640px) {
+      body > aside .ss-nav-shell { gap:15px !important; padding:14px 6px !important; }
+      body > aside .ss-nav-heading { justify-content:center; font-size:0; padding:0; margin-bottom:7px; }
+      body > aside .ss-nav-heading:after { content:''; width:17px; height:1px; background:rgba(148,163,184,.28); }
+      body > aside .nav-item { position:relative; }
+      body > aside .nav-item[title]:hover:after { content:attr(title); position:absolute; left:58px; top:50%; transform:translateY(-50%); z-index:60; white-space:nowrap; padding:7px 10px; border:1px solid rgba(34,211,238,.2); border-radius:8px; color:#e8f0fb; background:#101827; box-shadow:0 8px 24px rgba(0,0,0,.35); font-size:11px; }
+    }
+
     body > aside .border-white\/5 { border-color: var(--ss-border) !important; }
     body > aside .bg-cyber-black\/40 { background: rgba(5,10,19,.7) !important; }
 
@@ -347,125 +372,62 @@
         </div>
       </div>
 
-      <!-- Navigation Links Container -->
-      <div class="px-3.5 py-5 space-y-6">
-        
-        <!-- Section: Shop Core -->
-        <div>
-          <div class="px-3 text-[10px] font-black tracking-widest text-gray-500 uppercase mb-2.5 flex items-center justify-between" data-i18n="sec_shop">
-            <span>SHOP OS</span>
-            <span class="text-emerald-500/80 text-xs">●</span>
-          </div>
-
-          <nav class="space-y-1">
-            <!-- Dashboard -->
-            <button onclick="navigateTo('dashboard')" id="nav-dashboard" class="nav-item group w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
-              <span class="nav-icon-badge w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-sm group-hover:scale-110 transition-transform text-emerald-400">
-                ⊞
-              </span>
-              <span class="font-medium text-xs tracking-wide" data-i18n="menu_dashboard">Dashboard</span>
-              <span class="ml-auto text-[10px] text-gray-500 font-mono opacity-0 group-hover:opacity-100 transition-opacity">⌘1</span>
+      <!-- Navigation: workflow-first tailoring workspace -->
+      <div class="ss-nav-shell px-3.5 py-5 space-y-5">
+        <div class="ss-nav-group">
+          <div class="ss-nav-heading"><span>WORKSPACE</span><span class="ss-nav-dot"></span></div>
+          <nav class="space-y-1" aria-label="Main navigation">
+            <button onclick="navigateTo('dashboard')" id="nav-dashboard" title="Dashboard" aria-label="Dashboard" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
+              <span class="nav-icon-badge"><span>⌂</span></span><span class="ss-nav-label" data-i18n="menu_dashboard">Dashboard</span><span class="ss-nav-shortcut">⌘1</span>
             </button>
-
-            <!-- Orders -->
-            <button onclick="navigateTo('orders')" id="nav-orders" class="nav-item group w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
-              <span class="nav-icon-badge w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-sm group-hover:scale-110 transition-transform text-cyan-400">
-                📋
-              </span>
-              <span class="font-medium text-xs tracking-wide" data-i18n="menu_orders">Orders</span>
-              <span class="ml-auto text-[10px] font-mono font-bold bg-cyan-950/80 text-cyan-300 border border-cyan-800/60 px-2 py-0.5 rounded-full">
-                48
-              </span>
-            </button>
-
-            <!-- Customers -->
-            <button onclick="navigateTo('customers')" id="nav-customers" class="nav-item group w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
-              <span class="nav-icon-badge w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-sm group-hover:scale-110 transition-transform text-indigo-400">
-                👥
-              </span>
-              <span class="font-medium text-xs tracking-wide" data-i18n="menu_customers">Customers</span>
-            </button>
-
-            <!-- Measurements -->
-            <button onclick="navigateTo('measurements')" id="nav-measurements" class="nav-item group w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
-              <span class="nav-icon-badge w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-sm group-hover:scale-110 transition-transform text-purple-400">
-                📏
-              </span>
-              <span class="font-medium text-xs tracking-wide" data-i18n="menu_measurements">Measurements</span>
-              <span class="ml-auto text-[9px] bg-purple-500/20 text-purple-300 border border-purple-500/30 px-1.5 py-0.5 rounded font-bold">
-                VOICE
-              </span>
-            </button>
-
-            <!-- Accounts -->
-            <button onclick="navigateTo('accounts')" id="nav-accounts" class="nav-item group w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
-              <span class="nav-icon-badge w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-sm group-hover:scale-110 transition-transform text-amber-400">
-                💳
-              </span>
-              <span class="font-medium text-xs tracking-wide" data-i18n="menu_accounts">Accounts</span>
-              <span class="ml-auto w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
-            </button>
-
-            <!-- Staff -->
-            <button onclick="navigateTo('staff')" id="nav-staff" class="nav-item group w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
-              <span class="nav-icon-badge w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-sm group-hover:scale-110 transition-transform text-pink-400">
-                ✂️
-              </span>
-              <span class="font-medium text-xs tracking-wide" data-i18n="menu_staff">Staff</span>
-            </button>
-
-            <!-- Fabrics -->
-            <button onclick="navigateTo('fabrics')" id="nav-fabrics" class="nav-item group w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
-              <span class="nav-icon-badge w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-sm group-hover:scale-110 transition-transform text-teal-400">
-                🧵
-              </span>
-              <span class="font-medium text-xs tracking-wide" data-i18n="menu_fabrics">Fabrics</span>
-            </button>
-
-            <!-- Inventory (Active by default in screenshot) -->
-            <button onclick="navigateTo('inventory')" id="nav-inventory" class="nav-item active group w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
-              <span class="nav-icon-badge w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-sm group-hover:scale-110 transition-transform text-emerald-400">
-                📦
-              </span>
-              <span class="font-medium text-xs tracking-wide" data-i18n="menu_inventory">Inventory</span>
-              <span class="ml-auto w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34D399]"></span>
-            </button>
-
-            <!-- Reports -->
-            <button onclick="navigateTo('reports')" id="nav-reports" class="nav-item group w-full flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
-              <span class="nav-icon-badge w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-sm group-hover:scale-110 transition-transform text-blue-400">
-                📊
-              </span>
-              <span class="font-medium text-xs tracking-wide" data-i18n="menu_reports">Reports</span>
+            <button onclick="navigateTo('orders')" id="nav-orders" title="Orders" aria-label="Orders" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
+              <span class="nav-icon-badge"><span>▤</span></span><span class="ss-nav-label" data-i18n="menu_orders">Orders</span><span class="ss-nav-count">48</span>
             </button>
           </nav>
         </div>
 
-        <!-- Section: System & Admin -->
-        <div>
-          <div class="px-3 text-[10px] font-black tracking-widest text-gray-500 uppercase mb-2.5" data-i18n="sec_admin">
-            SYSTEM ADMIN
-          </div>
-          <nav class="space-y-1">
-            <button onclick="alert('Shop settings')" class="nav-item group w-full flex items-center gap-3.5 px-3.5 py-2 rounded-xl text-gray-400 hover:text-white transition-all">
-              <span class="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center text-xs group-hover:scale-110 transition-transform">⚙️</span>
-              <span class="text-xs" data-i18n="menu_settings">Shop settings</span>
+        <div class="ss-nav-group">
+          <div class="ss-nav-heading"><span>CLIENT & WORKSHOP</span></div>
+          <nav class="space-y-1" aria-label="Client and workshop">
+            <button type="button" id="nav-customers" title="Customers — coming soon" aria-label="Customers — coming soon" aria-disabled="true" class="nav-item nav-item-soon group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300">
+              <span class="nav-icon-badge"><span>♙</span></span><span class="ss-nav-label" data-i18n="menu_customers">Customers</span><span class="ss-nav-soon">SOON</span>
             </button>
-            <button onclick="alert('Users & roles')" class="nav-item group w-full flex items-center gap-3.5 px-3.5 py-2 rounded-xl text-gray-400 hover:text-white transition-all">
-              <span class="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center text-xs group-hover:scale-110 transition-transform">🛡️</span>
-              <span class="text-xs" data-i18n="menu_users">Users & roles</span>
+            <button onclick="navigateTo('measurements')" id="nav-measurements" title="Measurements" aria-label="Measurements" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
+              <span class="nav-icon-badge"><span>⌗</span></span><span class="ss-nav-label" data-i18n="menu_measurements">Measurements</span>
             </button>
-            <button onclick="alert('Database cloud backup')" class="nav-item group w-full flex items-center gap-3.5 px-3.5 py-2 rounded-xl text-gray-400 hover:text-white transition-all">
-              <span class="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center text-xs group-hover:scale-110 transition-transform">☁️</span>
-              <span class="text-xs" data-i18n="menu_backups">Backups</span>
-            </button>
-            <button onclick="alert('Live audit activity log')" class="nav-item group w-full flex items-center gap-3.5 px-3.5 py-2 rounded-xl text-gray-400 hover:text-white transition-all">
-              <span class="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center text-xs group-hover:scale-110 transition-transform">⏱️</span>
-              <span class="text-xs" data-i18n="menu_activity">Activity log</span>
+            <button type="button" id="nav-staff" title="Staff — coming soon" aria-label="Staff — coming soon" aria-disabled="true" class="nav-item nav-item-soon group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300">
+              <span class="nav-icon-badge"><span>✂</span></span><span class="ss-nav-label" data-i18n="menu_staff">Staff</span><span class="ss-nav-soon">SOON</span>
             </button>
           </nav>
         </div>
 
+        <div class="ss-nav-group">
+          <div class="ss-nav-heading"><span>BUSINESS</span></div>
+          <nav class="space-y-1" aria-label="Business management">
+            <button onclick="navigateTo('accounts')" id="nav-accounts" title="Accounts" aria-label="Accounts" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
+              <span class="nav-icon-badge"><span>৳</span></span><span class="ss-nav-label" data-i18n="menu_accounts">Accounts</span>
+            </button>
+            <button type="button" id="nav-fabrics" title="Fabrics — coming soon" aria-label="Fabrics — coming soon" aria-disabled="true" class="nav-item nav-item-soon group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300">
+              <span class="nav-icon-badge"><span>▧</span></span><span class="ss-nav-label" data-i18n="menu_fabrics">Fabrics</span><span class="ss-nav-soon">SOON</span>
+            </button>
+            <button onclick="navigateTo('inventory')" id="nav-inventory" title="Inventory" aria-label="Inventory" class="nav-item active group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
+              <span class="nav-icon-badge"><span>▦</span></span><span class="ss-nav-label" data-i18n="menu_inventory">Inventory</span>
+            </button>
+            <button onclick="navigateTo('reports')" id="nav-reports" title="Reports" aria-label="Reports" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
+              <span class="nav-icon-badge"><span>▥</span></span><span class="ss-nav-label" data-i18n="menu_reports">Reports</span>
+            </button>
+          </nav>
+        </div>
+
+        <div class="ss-nav-group ss-nav-admin">
+          <div class="ss-nav-heading"><span>SYSTEM</span></div>
+          <nav class="space-y-1" aria-label="System tools">
+            <button onclick="alert('Shop settings')" class="nav-item group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all"><span class="nav-icon-badge"><span>⚙</span></span><span class="ss-nav-label text-xs" data-i18n="menu_settings">Shop settings</span></button>
+            <button onclick="alert('Users & roles')" class="nav-item group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all"><span class="nav-icon-badge"><span>♧</span></span><span class="ss-nav-label text-xs" data-i18n="menu_users">Users & roles</span></button>
+            <button onclick="alert('Database cloud backup')" class="nav-item group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all"><span class="nav-icon-badge"><span>☁</span></span><span class="ss-nav-label text-xs" data-i18n="menu_backups">Backups</span></button>
+            <button onclick="alert('Live audit activity log')" class="nav-item group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all"><span class="nav-icon-badge"><span>◷</span></span><span class="ss-nav-label text-xs" data-i18n="menu_activity">Activity log</span></button>
+          </nav>
+        </div>
       </div>
     </div>
 
