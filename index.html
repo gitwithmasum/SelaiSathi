@@ -323,8 +323,8 @@
     body:not(.theme-white) .app-view button { transition: background .2s ease,border-color .2s ease,transform .2s ease,box-shadow .2s ease; }
     body:not(.theme-white) .app-view button:focus-visible, body:not(.theme-white) header button:focus-visible, body:not(.theme-white) .nav-item:focus-visible { outline: 2px solid var(--ss-cyan); outline-offset: 3px; }
     body:not(.theme-white) .app-view .bg-gradient-to-br, body:not(.theme-white) .app-view .bg-gradient-to-r { border-color: var(--ss-border); }
-    body:not(.theme-white) #modal-new-order .bento-card, body:not(.theme-white) #modal-receipt .bento-card, body:not(.theme-white) #modal-data-entry .bento-card { background: #111d30 !important; }
-    body:not(.theme-white) #modal-new-order label, body:not(.theme-white) #modal-receipt h3, body:not(.theme-white) #modal-data-entry label { color: #dce8f7 !important; }
+    body:not(.theme-white) #modal-new-order .bento-card, body:not(.theme-white) #modal-edit-order .bento-card, body:not(.theme-white) #modal-receipt .bento-card, body:not(.theme-white) #modal-data-entry .bento-card { background: #111d30 !important; }
+    body:not(.theme-white) #modal-new-order label, body:not(.theme-white) #modal-edit-order label, body:not(.theme-white) #modal-receipt h3, body:not(.theme-white) #modal-data-entry label { color: #dce8f7 !important; }
 
     /* Common layout utilities */
     main { padding: 28px clamp(16px,2.4vw,36px) 42px !important; }
@@ -796,6 +796,8 @@
     body.theme-white .app-view textarea,
     body.theme-white #modal-new-order input,
     body.theme-white #modal-new-order select,
+    body.theme-white #modal-edit-order input,
+    body.theme-white #modal-edit-order select,
     body.theme-white #modal-data-entry input {
       background: #FFFFFF !important;
       color: #25332C !important;
@@ -807,6 +809,7 @@
     body.theme-white .app-view input::placeholder,
     body.theme-white .app-view textarea::placeholder,
     body.theme-white #modal-new-order input::placeholder,
+    body.theme-white #modal-edit-order input::placeholder,
     body.theme-white #modal-data-entry input::placeholder {
       color: #718078 !important;
       opacity: 1 !important;
@@ -816,6 +819,8 @@
     body.theme-white .app-view textarea:focus,
     body.theme-white #modal-new-order input:focus,
     body.theme-white #modal-new-order select:focus,
+    body.theme-white #modal-edit-order input:focus,
+    body.theme-white #modal-edit-order select:focus,
     body.theme-white #modal-data-entry input:focus {
       outline: none !important;
       border-color: #347451 !important;
@@ -995,6 +1000,7 @@
 
     /* Modals */
     body.theme-white #modal-new-order,
+    body.theme-white #modal-edit-order,
     body.theme-white #modal-receipt,
     body.theme-white #modal-data-entry {
       background: rgba(18, 30, 24, 0.45) !important;
@@ -1002,6 +1008,7 @@
       -webkit-backdrop-filter: blur(8px) !important;
     }
     body.theme-white #modal-new-order .bento-card,
+    body.theme-white #modal-edit-order .bento-card,
     body.theme-white #modal-receipt .bento-card,
     body.theme-white #modal-data-entry .bento-card {
       background: #FFFFFF !important;
@@ -1010,11 +1017,13 @@
       box-shadow: 0 24px 64px -12px rgba(20, 35, 25, 0.18) !important;
     }
     body.theme-white #modal-new-order h3,
+    body.theme-white #modal-edit-order h3,
     body.theme-white #modal-receipt h3,
     body.theme-white #modal-data-entry h3 {
       color: #25332C !important;
     }
     body.theme-white #modal-new-order label,
+    body.theme-white #modal-edit-order label,
     body.theme-white #modal-data-entry label {
       color: #25332C !important;
       font-weight: 700 !important;
@@ -2807,22 +2816,112 @@
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div class="flex items-center gap-2">
-              <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-cyan-100 text-cyan-800">ACTIVE PRODUCTION</span>
-              <span class="text-xs text-ios-subtext">Pin Tags & Stages</span>
+              <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">ACTIVE PRODUCTION</span>
+              <span class="text-xs text-ios-subtext">Pin Tags & Workshop Stages</span>
             </div>
             <h1 class="text-3xl font-black text-ios-text tracking-tight mt-1">Orders & Vouchers</h1>
+            <p class="text-xs text-ios-subtext mt-1">Manage tailor orders, update production stages, print receipts and track dues.</p>
           </div>
 
-          <div class="flex items-center gap-2">
-            <button onclick="openNewOrderModal()" class="flex items-center gap-2 px-5 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl text-xs font-bold shadow-md shadow-emerald-700/20 active:scale-95">
-              <span>+</span> New order
+          <div class="flex flex-wrap items-center gap-2.5">
+            <button onclick="exportOrdersCSV()" class="px-4 py-2.5 rounded-xl text-xs font-bold border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 active:scale-95 flex items-center gap-1.5 transition-colors">
+              <span>↓</span> <span>Export CSV</span>
+            </button>
+            <button onclick="openNewOrderModal()" class="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-700/20 active:scale-95 transition-all">
+              <span>+</span> New Order
             </button>
           </div>
         </div>
 
+        <!-- 4 Order Summary KPI Metric Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bento-card p-5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-gray-400 font-bold uppercase tracking-wider">Total Orders</span>
+              <span class="text-lg">📋</span>
+            </div>
+            <div class="text-2xl sm:text-3xl font-black font-mono text-ios-text mt-2" id="orders-kpi-total">0</div>
+            <div class="text-[11px] text-gray-500 mt-1">All recorded vouchers</div>
+          </div>
+
+          <div class="bento-card p-5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-amber-500 font-bold uppercase tracking-wider">In Production</span>
+              <span class="text-lg">✂️</span>
+            </div>
+            <div class="text-2xl sm:text-3xl font-black font-mono text-amber-500 mt-2" id="orders-kpi-production">0</div>
+            <div class="text-[11px] text-gray-500 mt-1">Cutting, Stitching, Finishing</div>
+          </div>
+
+          <div class="bento-card p-5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-emerald-500 font-bold uppercase tracking-wider">Ready / Delivered</span>
+              <span class="text-lg">✨</span>
+            </div>
+            <div class="text-2xl sm:text-3xl font-black font-mono text-emerald-500 mt-2" id="orders-kpi-ready">0</div>
+            <div class="text-[11px] text-gray-500 mt-1">Ready for pickup or delivered</div>
+          </div>
+
+          <div class="bento-card p-5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-rose-500 font-bold uppercase tracking-wider">Outstanding Due</span>
+              <span class="text-lg">💳</span>
+            </div>
+            <div class="text-2xl sm:text-3xl font-black font-mono text-rose-500 mt-2" id="orders-kpi-due">৳0</div>
+            <div class="text-[11px] text-gray-500 mt-1" id="orders-kpi-due-count">0 orders with due</div>
+          </div>
+        </div>
+
+        <!-- Filter & Search Toolbar Bento Card -->
+        <div class="bento-card p-5 space-y-3.5">
+          <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
+            <!-- Search -->
+            <div class="relative flex-1">
+              <input type="text" id="order-search-input" oninput="filterOrders()" placeholder="Search by customer name, phone, order ID or Tag..." class="w-full px-4 py-2.5 pl-10 text-xs rounded-xl border border-ios-border bg-white/60 dark:bg-slate-900/60 focus:outline-none">
+              <span class="absolute left-3.5 top-2.5 text-gray-400 text-sm">🔍</span>
+            </div>
+
+            <!-- Filters -->
+            <div class="flex flex-wrap items-center gap-2 text-xs">
+              <!-- Stage Filter -->
+              <select id="order-filter-stage" onchange="filterOrders()" class="px-3 py-2 rounded-xl border border-ios-border bg-white/60 dark:bg-slate-900/60 text-xs font-bold focus:outline-none">
+                <option value="ALL">All Stages (সব স্টেজ)</option>
+                <option value="CUTTING">✂️ CUTTING</option>
+                <option value="STITCHING">🪡 STITCHING</option>
+                <option value="FINISHING">👔 FINISHING</option>
+                <option value="READY">✨ READY</option>
+                <option value="DELIVERED">📦 DELIVERED</option>
+              </select>
+
+              <!-- Due Filter -->
+              <select id="order-filter-due" onchange="filterOrders()" class="px-3 py-2 rounded-xl border border-ios-border bg-white/60 dark:bg-slate-900/60 text-xs font-bold focus:outline-none">
+                <option value="ALL">All Payments (সব পেমেন্ট)</option>
+                <option value="DUE">বকেয়া আছে (Due Only)</option>
+                <option value="PAID">পরিশোধিত (Fully Paid)</option>
+              </select>
+
+              <!-- Garment Filter -->
+              <select id="order-filter-garment" onchange="filterOrders()" class="px-3 py-2 rounded-xl border border-ios-border bg-white/60 dark:bg-slate-900/60 text-xs font-bold focus:outline-none">
+                <option value="ALL">All Garments (সব পোশাক)</option>
+                <option value="Panjabi">Panjabi (পাঞ্জাবি)</option>
+                <option value="Shirt">Shirt (শার্ট)</option>
+                <option value="Pant">Pant (প্যান্ট)</option>
+                <option value="Blazer">Blazer (ব্লেজার)</option>
+                <option value="Salwar">Salwar Kameez</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Orders Table / Cards Container -->
         <div class="bento-card p-6 space-y-4">
           <div id="dynamic-orders-table" class="space-y-3">
-            <!-- Dynamically populated -->
+            <!-- Dynamically populated via renderOrdersTable() -->
+          </div>
+          <div id="orders-empty-state" class="hidden text-center py-10 space-y-2">
+            <span class="text-3xl">🔍</span>
+            <div class="text-sm font-bold text-ios-text">কোনো অর্ডার পাওয়া যায়নি</div>
+            <p class="text-xs text-gray-400">ফিল্টার রিসেট করুন অথবা নতুন অর্ডার তৈরি করুন।</p>
           </div>
         </div>
 
@@ -2895,8 +2994,105 @@
   </div>
 
   <!-- ======================================================== -->
-  <!-- 3. MODALS (New Order, 58mm Thermal Slip)                 -->
+  <!-- 3. MODALS (New Order, Edit Order, 58mm Thermal Slip)     -->
   <!-- ======================================================== -->
+
+  <!-- MODAL: EDIT ORDER -->
+  <div id="modal-edit-order" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bento-card max-w-lg w-full p-7 space-y-5 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b border-ios-border pb-3.5">
+        <h3 class="text-lg font-black text-gray-900 flex items-center gap-2">
+          <span>✏️</span> Edit Order (<span id="eo-order-id-display" class="font-mono text-cyan-400">ORD-XXXX</span>)
+        </h3>
+        <button onclick="closeModal('modal-edit-order')" class="text-gray-400 hover:text-gray-600 font-bold text-xl">✕</button>
+      </div>
+
+      <input type="hidden" id="eo-order-id">
+      
+      <div class="space-y-3.5 text-xs">
+        <div class="grid grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-bold text-gray-700 mb-1.5">Fabric Pin Tag</label>
+            <input type="text" id="eo-tag" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm font-mono font-bold bg-amber-500/10 text-amber-400" readonly>
+          </div>
+          <div>
+            <label class="block font-bold text-gray-700 mb-1.5">Production Stage</label>
+            <select id="eo-stage" class="w-full border border-ios-border rounded-2xl px-3.5 py-2.5 text-sm focus:outline-none font-bold">
+              <option value="CUTTING">✂️ CUTTING (কাটিং)</option>
+              <option value="STITCHING">🪡 STITCHING (সেলাই)</option>
+              <option value="FINISHING">👔 FINISHING (ফিনিশিং)</option>
+              <option value="READY">✨ READY (প্রস্তুত)</option>
+              <option value="DELIVERED">📦 DELIVERED (ডেলিভার্ড)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-gray-700 mb-1.5">Customer Name *</label>
+          <input type="text" id="eo-cust-name" placeholder="Customer Name" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm focus:outline-none focus:border-ios-blue">
+        </div>
+        <div>
+          <label class="block font-bold text-gray-700 mb-1.5">Mobile Number *</label>
+          <input type="tel" id="eo-cust-phone" placeholder="017xxxxxxxx" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm focus:outline-none focus:border-ios-blue">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-bold text-gray-700 mb-1.5">Garment Type</label>
+            <select id="eo-garment" class="w-full border border-ios-border rounded-2xl px-3.5 py-2.5 text-sm focus:outline-none">
+              <option value="Cotton Panjabi">Cotton Panjabi (পাঞ্জাবি)</option>
+              <option value="Formal Shirt">Formal Shirt (শার্ট)</option>
+              <option value="Gabardine Pant">Gabardine Pant (প্যান্ট)</option>
+              <option value="Salwar Kameez">Salwar Kameez (কামিজ)</option>
+              <option value="Royal Blazer">Royal Blazer / Suit (ব্লেজার)</option>
+              <option value="Kurti">Kurti / Tunics</option>
+              <option value="Sherwani">Sherwani (শেরওয়ানি)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-gray-700 mb-1.5">Delivery Date</label>
+            <div class="cyber-date-trigger w-full justify-between" id="eo-date-trigger" data-cyber-target="eo-date" data-mode="date" title="Select Delivery Date">
+              <div class="flex items-center gap-2">
+                <span class="cyber-date-icon">📅</span>
+                <span class="cyber-date-label" id="eo-date-label">15 Nov 2026</span>
+              </div>
+              <span class="text-[11px] font-mono text-cyan-400 font-bold tracking-wider">CHANGE ▾</span>
+              <input type="hidden" id="eo-date" value="2026-11-15" data-cyber-date="true">
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3.5">
+          <div>
+            <label class="block font-bold text-gray-700 mb-1.5">Total Bill (৳) *</label>
+            <input type="number" id="eo-total" oninput="calculateEditDue()" class="w-full border border-ios-border rounded-2xl px-3 py-2.5 text-sm font-black font-mono">
+          </div>
+          <div>
+            <label class="block font-bold text-gray-700 mb-1.5">Advance (৳)</label>
+            <input type="number" id="eo-advance" oninput="calculateEditDue()" class="w-full border border-ios-border rounded-2xl px-3 py-2.5 text-sm font-black font-mono text-emerald-600">
+          </div>
+          <div>
+            <label class="block font-bold text-gray-700 mb-1.5">Due Amount (৳)</label>
+            <input type="number" id="eo-due" readonly class="w-full border border-ios-border rounded-2xl px-3 py-2.5 text-sm font-black font-mono text-red-500 bg-red-500/10">
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center pt-3 border-t border-ios-border">
+        <button onclick="deleteOrder(document.getElementById('eo-order-id').value)" type="button" class="px-4 py-2 rounded-xl text-xs font-bold text-rose-500 hover:bg-rose-500/10 border border-rose-500/30">
+          🗑️ Delete Order
+        </button>
+        <div class="flex items-center gap-2">
+          <button onclick="closeModal('modal-edit-order')" class="px-5 py-2.5 border border-ios-border rounded-2xl text-xs font-bold text-gray-600 hover:bg-gray-50 active:scale-95">
+            Cancel
+          </button>
+          <button onclick="saveEditOrder()" class="px-6 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl text-xs font-bold shadow-md active:scale-95">
+            Save Changes ✓
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- MODAL: + NEW ORDER -->
   <div id="modal-new-order" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
@@ -3175,41 +3371,288 @@
       if (viewId === 'reports') renderReports();
     }
 
-    const ordersData = [
+    let ordersData = [
       { id: 'ORD-2610-0022', tag: 'TAG-1044', name: 'Shahadat Hossain', phone: '01591463333', garment: 'Cotton Panjabi', stage: 'STITCHING', total: 850, advance: 300, due: 550, date: '15 Nov 2026' },
       { id: 'ORD-2610-0021', tag: 'TAG-1043', name: 'Arif Hossain', phone: '01324941964', garment: 'Formal Shirt', stage: 'CUTTING', total: 450, advance: 200, due: 250, date: '14 Nov 2026' },
       { id: 'ORD-2610-0020', tag: 'TAG-1042', name: 'Kamrul Hasan', phone: '01548694019', garment: 'Gabardine Pant', stage: 'READY', total: 550, advance: 550, due: 0, date: '12 Nov 2026' },
       { id: 'ORD-2610-0019', tag: 'TAG-1041', name: 'Rakibul Islam', phone: '01864357068', garment: 'Royal Blazer', stage: 'DELIVERED', total: 2200, advance: 2200, due: 0, date: '10 Nov 2026' },
     ];
 
+    let orderSearchQuery = '';
+    let orderFilterStage = 'ALL';
+    let orderFilterDue = 'ALL';
+    let orderFilterGarment = 'ALL';
+
+    function filterOrders() {
+      orderSearchQuery = document.getElementById('order-search-input')?.value.toLowerCase().trim() || '';
+      orderFilterStage = document.getElementById('order-filter-stage')?.value || 'ALL';
+      orderFilterDue = document.getElementById('order-filter-due')?.value || 'ALL';
+      orderFilterGarment = document.getElementById('order-filter-garment')?.value || 'ALL';
+      renderOrdersTable();
+    }
+
+    function updateOrdersKPI() {
+      const total = ordersData.length;
+      const inProd = ordersData.filter(o => ['CUTTING', 'STITCHING', 'FINISHING'].includes(o.stage)).length;
+      const ready = ordersData.filter(o => ['READY', 'DELIVERED'].includes(o.stage)).length;
+      const dueOrders = ordersData.filter(o => Number(o.due) > 0);
+      const totalDue = dueOrders.reduce((sum, o) => sum + (Number(o.due) || 0), 0);
+
+      const elTotal = document.getElementById('orders-kpi-total');
+      const elProd = document.getElementById('orders-kpi-production');
+      const elReady = document.getElementById('orders-kpi-ready');
+      const elDue = document.getElementById('orders-kpi-due');
+      const elDueCount = document.getElementById('orders-kpi-due-count');
+
+      if (elTotal) elTotal.textContent = total;
+      if (elProd) elProd.textContent = inProd;
+      if (elReady) elReady.textContent = ready;
+      if (elDue) elDue.textContent = `৳${totalDue.toLocaleString()}`;
+      if (elDueCount) elDueCount.textContent = `${dueOrders.length} orders with due`;
+    }
+
     function renderOrdersTable() {
+      updateOrdersKPI();
       const container = document.getElementById('dynamic-orders-table');
+      const emptyState = document.getElementById('orders-empty-state');
       if (!container) return;
 
-      container.innerHTML = ordersData.map(o => `
-        <div class="p-4 bg-gray-50/70 rounded-2xl border border-ios-border flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-white hover:shadow-ios-card transition-all">
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 text-white font-bold flex items-center justify-center text-xs shadow-sm shadow-cyan-500/20">
+      let filtered = ordersData.filter(o => {
+        if (orderSearchQuery) {
+          const matchName = (o.name || '').toLowerCase().includes(orderSearchQuery);
+          const matchPhone = (o.phone || '').toLowerCase().includes(orderSearchQuery);
+          const matchId = (o.id || '').toLowerCase().includes(orderSearchQuery);
+          const matchTag = (o.tag || '').toLowerCase().includes(orderSearchQuery);
+          const matchGarment = (o.garment || '').toLowerCase().includes(orderSearchQuery);
+          if (!matchName && !matchPhone && !matchId && !matchTag && !matchGarment) return false;
+        }
+        if (orderFilterStage !== 'ALL' && o.stage !== orderFilterStage) return false;
+        if (orderFilterDue === 'DUE' && Number(o.due) <= 0) return false;
+        if (orderFilterDue === 'PAID' && Number(o.due) > 0) return false;
+        if (orderFilterGarment !== 'ALL' && !(o.garment || '').toLowerCase().includes(orderFilterGarment.toLowerCase())) return false;
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = '';
+        if (emptyState) emptyState.classList.remove('hidden');
+        return;
+      }
+
+      if (emptyState) emptyState.classList.add('hidden');
+
+      const stageColors = {
+        'CUTTING': 'bg-indigo-500/20 text-indigo-400 border-indigo-500/40',
+        'STITCHING': 'bg-amber-500/20 text-amber-400 border-amber-500/40',
+        'FINISHING': 'bg-purple-500/20 text-purple-400 border-purple-500/40',
+        'READY': 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40',
+        'DELIVERED': 'bg-slate-500/20 text-slate-400 border-slate-500/40'
+      };
+
+      container.innerHTML = filtered.map(o => `
+        <div class="p-4 bg-gray-50/70 dark:bg-slate-900/40 rounded-2xl border border-ios-border flex flex-col lg:flex-row lg:items-center justify-between gap-4 hover:shadow-ios-card transition-all">
+          <div class="flex items-start sm:items-center gap-3.5 flex-1">
+            <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 text-white font-bold flex items-center justify-center text-sm shadow-sm shrink-0">
               🧵
             </div>
-            <div>
-              <div class="flex items-center gap-2">
-                <span class="font-mono font-bold text-gray-900">${o.id}</span>
-                <span class="bg-amber-100 text-amber-900 text-[10px] font-mono font-black px-2 py-0.5 rounded-md">📌 ${o.tag}</span>
-                <span class="bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] font-bold px-2.5 py-0.5 rounded-full">${o.stage}</span>
+            <div class="space-y-1">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="font-mono font-bold text-ios-text text-sm">${o.id}</span>
+                <span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[10px] font-mono font-black px-2 py-0.5 rounded-md">📌 ${o.tag}</span>
+                
+                <!-- Quick Stage Selector -->
+                <select onchange="updateOrderStage('${o.id}', this.value)" class="text-[10px] font-bold px-2 py-0.5 rounded-full border cursor-pointer focus:outline-none ${stageColors[o.stage] || 'bg-cyan-500/20 text-cyan-400'}">
+                  <option value="CUTTING" ${o.stage === 'CUTTING' ? 'selected' : ''}>✂️ CUTTING</option>
+                  <option value="STITCHING" ${o.stage === 'STITCHING' ? 'selected' : ''}>🪡 STITCHING</option>
+                  <option value="FINISHING" ${o.stage === 'FINISHING' ? 'selected' : ''}>👔 FINISHING</option>
+                  <option value="READY" ${o.stage === 'READY' ? 'selected' : ''}>✨ READY</option>
+                  <option value="DELIVERED" ${o.stage === 'DELIVERED' ? 'selected' : ''}>📦 DELIVERED</option>
+                </select>
+
+                <span class="text-[10px] font-mono text-gray-400">📅 ${o.date || '15 Nov 2026'}</span>
               </div>
-              <div class="text-xs text-gray-600 mt-0.5"><strong>${o.name}</strong> (${o.phone}) · ${o.garment}</div>
+              <div class="text-xs text-gray-500 dark:text-gray-400">
+                <strong class="text-ios-text font-bold">${o.name}</strong> (${o.phone}) · <span class="text-cyan-400 font-medium">${o.garment}</span>
+              </div>
             </div>
           </div>
 
-          <div class="flex items-center gap-4 text-xs font-mono">
-            <div>Total: <strong>৳${o.total}</strong> | Due: <strong class="${o.due > 0 ? 'text-red-600' : 'text-emerald-700'}">৳${o.due}</strong></div>
-            <button onclick="showPosReceipt('${o.id}', '${o.name}', '${o.phone}')" class="px-3 py-1.5 bg-white border border-ios-border rounded-xl text-xs font-bold text-gray-700 hover:bg-gray-100 active:scale-95 shadow-xs">
-              🖨️ Receipt
-            </button>
+          <div class="flex flex-wrap items-center justify-between lg:justify-end gap-3 text-xs font-mono pt-2 lg:pt-0 border-t lg:border-t-0 border-ios-border">
+            <div class="flex items-center gap-2.5">
+              <span>Total: <strong class="text-ios-text">৳${o.total}</strong></span>
+              <span class="text-gray-400">|</span>
+              <span>Due: <strong class="${o.due > 0 ? 'text-rose-500 font-bold' : 'text-emerald-500 font-bold'}">৳${o.due}</strong></span>
+            </div>
+
+            <div class="flex items-center gap-1.5">
+              <!-- POS Receipt Button -->
+              <button onclick="showPosReceipt('${o.id}', '${o.name}', '${o.phone}')" title="Print 58mm Thermal POS Receipt" class="px-2.5 py-1.5 bg-white dark:bg-slate-800 border border-ios-border rounded-xl text-xs font-bold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 active:scale-95 shadow-xs flex items-center gap-1 transition-all">
+                <span>🖨️</span> <span>Receipt</span>
+              </button>
+
+              <!-- Edit Order Button -->
+              <button onclick="openEditOrderModal('${o.id}')" title="Edit Customer, Garment, Stage & Financials" class="px-2.5 py-1.5 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 rounded-xl text-xs font-bold active:scale-95 shadow-xs flex items-center gap-1 transition-all">
+                <span>✏️</span> <span>Edit</span>
+              </button>
+
+              <!-- SMS/WhatsApp Direct Button -->
+              <button onclick="sendDirectSms('${o.name}', '${o.phone}')" title="Send SMS/WhatsApp Status Notification" class="px-2 py-1.5 bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 border border-purple-500/30 rounded-xl text-xs font-bold active:scale-95 shadow-xs flex items-center transition-all">
+                <span>💬</span>
+              </button>
+
+              <!-- Delete Order Button -->
+              <button onclick="deleteOrder('${o.id}')" title="Delete Order Voucher" class="px-2 py-1.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded-xl text-xs font-bold active:scale-95 shadow-xs flex items-center transition-all">
+                <span>🗑️</span>
+              </button>
+            </div>
           </div>
         </div>
       `).join('');
+    }
+
+    function openEditOrderModal(orderId) {
+      const order = ordersData.find(o => o.id === orderId);
+      if (!order) {
+        alert('Order not found!');
+        return;
+      }
+      document.getElementById('eo-order-id').value = order.id;
+      document.getElementById('eo-order-id-display').textContent = order.id;
+      document.getElementById('eo-tag').value = order.tag || 'TAG-XXXX';
+      document.getElementById('eo-cust-name').value = order.name || '';
+      document.getElementById('eo-cust-phone').value = order.phone || '';
+      
+      const garmentEl = document.getElementById('eo-garment');
+      if (garmentEl) {
+        let found = false;
+        for (let opt of garmentEl.options) {
+          if (opt.value === order.garment || opt.textContent.includes(order.garment)) {
+            opt.selected = true;
+            found = true;
+            break;
+          }
+        }
+        if (!found) {
+          const opt = new Option(order.garment, order.garment, true, true);
+          garmentEl.add(opt);
+        }
+      }
+
+      const stageEl = document.getElementById('eo-stage');
+      if (stageEl) stageEl.value = order.stage || 'CUTTING';
+
+      document.getElementById('eo-total').value = order.total || 0;
+      document.getElementById('eo-advance').value = order.advance || 0;
+      document.getElementById('eo-due').value = order.due !== undefined ? order.due : Math.max(0, (order.total || 0) - (order.advance || 0));
+
+      const dateVal = order.date || '15 Nov 2026';
+      const dateHidden = document.getElementById('eo-date');
+      const dateLabel = document.getElementById('eo-date-label');
+      if (dateHidden) dateHidden.value = dateVal;
+      if (dateLabel) dateLabel.textContent = dateVal;
+
+      document.getElementById('modal-edit-order').classList.remove('hidden');
+    }
+
+    function calculateEditDue() {
+      const total = parseFloat(document.getElementById('eo-total').value) || 0;
+      const adv = parseFloat(document.getElementById('eo-advance').value) || 0;
+      document.getElementById('eo-due').value = Math.max(0, total - adv);
+    }
+
+    function saveEditOrder() {
+      const orderId = document.getElementById('eo-order-id').value;
+      const idx = ordersData.findIndex(o => o.id === orderId);
+      if (idx === -1) {
+        alert('Order could not be found to update');
+        return;
+      }
+
+      const name = document.getElementById('eo-cust-name').value.trim();
+      const phone = document.getElementById('eo-cust-phone').value.trim();
+      if (!name || !phone) {
+        alert('Please enter customer name and phone');
+        return;
+      }
+
+      const total = parseFloat(document.getElementById('eo-total').value) || 0;
+      const advance = parseFloat(document.getElementById('eo-advance').value) || 0;
+      const due = Math.max(0, total - advance);
+      const stage = document.getElementById('eo-stage').value;
+      const garment = document.getElementById('eo-garment').value;
+      const date = document.getElementById('eo-date-label')?.textContent || document.getElementById('eo-date')?.value || ordersData[idx].date;
+
+      ordersData[idx] = {
+        ...ordersData[idx],
+        name,
+        phone,
+        total,
+        advance,
+        due,
+        stage,
+        garment,
+        date
+      };
+
+      closeModal('modal-edit-order');
+      confetti({ particleCount: 50, spread: 55 });
+      renderOrdersTable();
+      if (typeof renderReports === 'function') renderReports();
+      alert(`অর্ডার ${orderId} সফলভাবে আপডেট করা হয়েছে!`);
+    }
+
+    function deleteOrder(orderId) {
+      const order = ordersData.find(o => o.id === orderId);
+      if (!order) return;
+
+      const confirmMsg = `আপনি কি নিশ্চিত যে অর্ডার "${order.id} (${order.name}) - ${order.garment}" মুছে ফেলতে চান?`;
+      if (!confirm(confirmMsg)) return;
+
+      const idx = ordersData.findIndex(o => o.id === orderId);
+      if (idx !== -1) {
+        ordersData.splice(idx, 1);
+      }
+
+      closeModal('modal-edit-order');
+      renderOrdersTable();
+      if (typeof renderReports === 'function') renderReports();
+      alert(`অর্ডার ${orderId} মুছে ফেলা হয়েছে।`);
+    }
+
+    function updateOrderStage(orderId, newStage) {
+      const order = ordersData.find(o => o.id === orderId);
+      if (!order) return;
+      order.stage = newStage;
+      renderOrdersTable();
+      confetti({ particleCount: 30, spread: 45 });
+    }
+
+    function exportOrdersCSV() {
+      if (!ordersData.length) {
+        alert('No orders to export');
+        return;
+      }
+      const headers = ['Order ID', 'Pin Tag', 'Customer Name', 'Phone', 'Garment', 'Stage', 'Total', 'Advance', 'Due', 'Delivery Date'];
+      const rows = ordersData.map(o => [
+        `"${o.id}"`,
+        `"${o.tag}"`,
+        `"${o.name}"`,
+        `"${o.phone}"`,
+        `"${o.garment}"`,
+        `"${o.stage}"`,
+        o.total,
+        o.advance,
+        o.due,
+        `"${o.date}"`
+      ]);
+      const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', `selaisathi_orders_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
 
     function openNewOrderModal() {
