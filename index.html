@@ -1305,7 +1305,7 @@
           <!-- Circular Slider Thumb (Knob) -->
           <div 
             id="theme-slider-thumb"
-            class="w-6 h-6 rounded-full transform translate-x-[44px] transition-all duration-300 ease-out z-10"
+            class="w-6 h-6 rounded-full transform translate-x-[44px] transition-all duration-300 ease-out z-10 pointer-events-none"
           ></div>
         </div>
 
@@ -2650,16 +2650,11 @@
     }
 
     function handleTrackClick(event) {
-      const track = document.getElementById('theme-slider-track');
-      if (!track) {
-        toggleThemeSlider();
-        return;
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
       }
-      const rect = track.getBoundingClientRect();
-      const clickX = event.clientX - rect.left;
-      const targetSide = clickX < rect.width / 2 ? 'white' : 'current';
-      // Left half always selects White; right half always selects Current.
-      setThemeMode(targetSide);
+      toggleThemeSlider();
     }
 
     // Auto initialize on load
