@@ -1011,6 +1011,48 @@
 
 
     /* =========================================================
+       WHITE THEME VERTICAL ALIGNMENT FIX — WHITE THEME ONLY
+       Keep the app shell anchored to the viewport and add safe
+       breathing room above the page content.
+       ========================================================= */
+    body.theme-white {
+      height: 100vh !important;
+      min-height: 100vh !important;
+      align-items: stretch !important;
+    }
+    body.theme-white > div.flex-1 {
+      min-height: 0 !important;
+      height: 100vh !important;
+    }
+    body.theme-white > div.flex-1 > header {
+      flex: 0 0 auto !important;
+    }
+    body.theme-white > div.flex-1 > main {
+      flex: 1 1 auto !important;
+      min-height: 0 !important;
+      box-sizing: border-box !important;
+      padding-top: 36px !important;
+      scroll-padding-top: 16px !important;
+    }
+    @media (max-width: 900px) {
+      body.theme-white > div.flex-1 > main {
+        padding-top: 28px !important;
+      }
+    }
+    @media (max-width: 640px) {
+      body.theme-white {
+        height: 100dvh !important;
+        min-height: 100dvh !important;
+      }
+      body.theme-white > div.flex-1 {
+        height: 100dvh !important;
+      }
+      body.theme-white > div.flex-1 > main {
+        padding-top: 22px !important;
+      }
+    }
+
+    /* =========================================================
        WHITE THEME ACCESSIBILITY POLISH — WHITE THEME ONLY
        ========================================================= */
     body.theme-white {
