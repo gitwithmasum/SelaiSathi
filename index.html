@@ -266,6 +266,19 @@
     body:not(.theme-white) header input:focus { border-color: rgba(34,211,238,.55) !important; box-shadow: 0 0 0 3px rgba(34,211,238,.08) !important; }
     body:not(.theme-white) header button:not(:last-child) { color: #d5e1f0 !important; border-color: var(--ss-border) !important; background: rgba(255,255,255,.045) !important; }
     body:not(.theme-white) header button:last-child { background: linear-gradient(110deg,#0891b2,#6366f1) !important; box-shadow: 0 8px 24px rgba(34,211,238,.16) !important; }
+    body:not(.theme-white) #theme-slider-track {
+      background: linear-gradient(135deg, #090e1a 0%, #111a33 50%, #1e1b4b 100%) !important;
+      border: 1px solid rgba(34, 211, 238, 0.4) !important;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6), 0 0 14px rgba(34, 211, 238, 0.2) !important;
+    }
+    body:not(.theme-white) #theme-slider-track:hover {
+      border-color: rgba(34, 211, 238, 0.7) !important;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6), 0 0 18px rgba(34, 211, 238, 0.35) !important;
+    }
+    body:not(.theme-white) #theme-slider-thumb {
+      background: linear-gradient(135deg, #00D2FF 0%, #0072FF 100%) !important;
+      box-shadow: 0 0 14px rgba(0, 210, 255, 0.85), 0 2px 6px rgba(0, 0, 0, 0.4) !important;
+    }
 
     body:not(.theme-white) main { background: transparent !important; }
     body:not(.theme-white) .app-view h1 { color: #f1f6ff !important; letter-spacing: -.035em !important; }
@@ -578,6 +591,19 @@
     }
     body.theme-white header button:last-child:hover {
       background: linear-gradient(135deg, #2B6244, #1E4A32) !important;
+    }
+    body.theme-white #theme-slider-track {
+      background: #E8EFEB !important;
+      border: 1px solid #DCE5DF !important;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+    }
+    body.theme-white #theme-slider-track:hover {
+      background: #DEE7E2 !important;
+      border-color: #CAD5CE !important;
+    }
+    body.theme-white #theme-slider-thumb {
+      background: #1E88E5 !important;
+      box-shadow: 0 2px 6px rgba(30, 136, 229, 0.35) !important;
     }
 
     /* Bento Cards & Surfaces */
@@ -1268,18 +1294,18 @@
           <span id="lang-indicator">বাংলা</span>
         </button>
 
-        <!-- Standalone iOS Pill Slider Switch (Identical to user image: Left = White, Right = Current) -->
+        <!-- Standalone iOS Pill Slider Switch: Left = White, Right = Galaxy -->
         <div 
           id="theme-slider-track"
           onclick="handleTrackClick(event)"
-          class="relative w-[76px] h-[32px] bg-white hover:bg-gray-100 rounded-full p-[4px] cursor-pointer shadow-inner flex items-center transition-all duration-300 select-none border border-white/80 shrink-0"
+          class="relative w-[76px] h-[32px] rounded-full p-[4px] cursor-pointer flex items-center transition-all duration-300 select-none border shrink-0"
           data-theme-track
-          title="Theme Toggle: Left = White, Right = Current"
+          title="Theme Toggle: Left = White, Right = Galaxy"
         >
-          <!-- Blue Circular Slider Thumb (Knob from screenshot) -->
+          <!-- Circular Slider Thumb (Knob) -->
           <div 
             id="theme-slider-thumb"
-            class="w-6 h-6 rounded-full bg-[#1E88E5] shadow-md shadow-blue-500/40 transform translate-x-[44px] transition-transform duration-300 ease-out z-10"
+            class="w-6 h-6 rounded-full transform translate-x-[44px] transition-all duration-300 ease-out z-10"
           ></div>
         </div>
 
@@ -2593,18 +2619,20 @@
         }
         if (thumb) {
           thumb.style.transform = 'translateX(0px)';
-          thumb.className = 'w-6 h-6 rounded-full bg-[#1E88E5] shadow-md shadow-blue-500/40 transform translate-x-0 transition-transform duration-300 ease-out z-10';
+          thumb.style.background = '#1E88E5';
+          thumb.style.boxShadow = '0 2px 6px rgba(30, 136, 229, 0.35)';
         }
       } else {
         document.body.classList.remove('theme-white');
         if (track) {
-          track.style.background = '#FFFFFF';
-          track.style.borderColor = '#E5E7EB';
-          track.style.boxShadow = 'inset 0 1px 4px rgba(15,23,42,.12), 0 1px 5px rgba(255,255,255,.12)';
+          track.style.background = 'linear-gradient(135deg, #090e1a 0%, #111a33 50%, #1e1b4b 100%)';
+          track.style.borderColor = 'rgba(34, 211, 238, 0.4)';
+          track.style.boxShadow = 'inset 0 2px 6px rgba(0, 0, 0, 0.6), 0 0 14px rgba(34, 211, 238, 0.2)';
         }
         if (thumb) {
           thumb.style.transform = 'translateX(44px)';
-          thumb.className = 'w-6 h-6 rounded-full bg-[#1E88E5] shadow-md shadow-blue-500/50 transform translate-x-[44px] transition-transform duration-300 ease-out z-10';
+          thumb.style.background = 'linear-gradient(135deg, #00D2FF 0%, #0072FF 100%)';
+          thumb.style.boxShadow = '0 0 14px rgba(0, 210, 255, 0.85), 0 2px 6px rgba(0, 0, 0, 0.4)';
         }
       }
     }
