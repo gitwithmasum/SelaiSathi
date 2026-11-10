@@ -933,6 +933,103 @@
       }
     }
 
+
+    /* =========================================================
+       WHITE THEME ACCESSIBILITY POLISH — WHITE THEME ONLY
+       ========================================================= */
+    body.theme-white {
+      --ss-text-muted: #66756D;
+    }
+    body.theme-white .text-gray-500,
+    body.theme-white .text-gray-400,
+    body.theme-white .text-slate-400,
+    body.theme-white .text-ios-subtext,
+    body.theme-white aside .ss-nav-shortcut,
+    body.theme-white aside .ss-nav-soon {
+      color: #66756D !important;
+    }
+    body.theme-white input::placeholder,
+    body.theme-white textarea::placeholder,
+    body.theme-white select:invalid,
+    body.theme-white .placeholder-gray-400::placeholder {
+      color: #66756D !important;
+      opacity: 1 !important;
+    }
+
+    /* Consistent semantic status chips across dynamic views */
+    body.theme-white .bg-emerald-50,
+    body.theme-white .bg-emerald-100,
+    body.theme-white .bg-green-50,
+    body.theme-white .bg-green-100 {
+      background-color: #E8F5EE !important;
+      border-color: #C5E6D2 !important;
+      color: #185C36 !important;
+    }
+    body.theme-white .bg-rose-50,
+    body.theme-white .bg-rose-100,
+    body.theme-white .bg-red-50,
+    body.theme-white .bg-red-100 {
+      background-color: #FCEBED !important;
+      border-color: #F3C7CE !important;
+      color: #922B3E !important;
+    }
+    body.theme-white .bg-amber-50,
+    body.theme-white .bg-amber-100,
+    body.theme-white .bg-yellow-50,
+    body.theme-white .bg-yellow-100 {
+      background-color: #FFF5D9 !important;
+      border-color: #F1D99A !important;
+      color: #79500B !important;
+    }
+    body.theme-white .bg-cyan-50,
+    body.theme-white .bg-cyan-100,
+    body.theme-white .bg-sky-50,
+    body.theme-white .bg-sky-100,
+    body.theme-white .bg-blue-50,
+    body.theme-white .bg-blue-100 {
+      background-color: #E8F3F8 !important;
+      border-color: #C5DFEA !important;
+      color: #15536B !important;
+    }
+    body.theme-white .bg-violet-50,
+    body.theme-white .bg-violet-100,
+    body.theme-white .bg-indigo-50,
+    body.theme-white .bg-indigo-100 {
+      background-color: #EEF0F8 !important;
+      border-color: #D5D9EA !important;
+      color: #414D78 !important;
+    }
+
+    /* Keep colored status text readable on pale status surfaces */
+    body.theme-white .text-emerald-700,
+    body.theme-white .text-green-700 { color: #185C36 !important; }
+    body.theme-white .text-rose-700,
+    body.theme-white .text-red-700 { color: #922B3E !important; }
+    body.theme-white .text-amber-700,
+    body.theme-white .text-yellow-700 { color: #79500B !important; }
+    body.theme-white .text-cyan-700,
+    body.theme-white .text-sky-700,
+    body.theme-white .text-blue-700 { color: #15536B !important; }
+    body.theme-white .text-violet-700,
+    body.theme-white .text-indigo-700 { color: #414D78 !important; }
+
+    /* Table controls and disabled states */
+    body.theme-white table td,
+    body.theme-white table th { color: inherit; }
+    body.theme-white button:disabled,
+    body.theme-white input:disabled,
+    body.theme-white select:disabled,
+    body.theme-white textarea:disabled {
+      opacity: 0.62 !important;
+      cursor: not-allowed !important;
+    }
+    body.theme-white .app-view a:not([class*="bg-"]) {
+      color: #245E40;
+    }
+    body.theme-white .app-view a:not([class*="bg-"]):hover {
+      color: #17452D;
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body class="flex h-screen overflow-hidden text-sm bg-ios-bg select-none">
