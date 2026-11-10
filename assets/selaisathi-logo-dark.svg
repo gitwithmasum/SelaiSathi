@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#062B26"/><stop offset="0.55" stop-color="#0B5A4A"/><stop offset="1" stop-color="#14B88A"/></linearGradient>
+<linearGradient id="ribbon" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#BFFBE6"/></linearGradient>
+<radialGradient id="shine" cx="0.25" cy="0.15" r="0.9"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.22"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>
+<filter id="glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="1200" height="400" fill="#04140F"/>
+<g transform="translate(110 100) scale(0.4)">
+<rect width="512" height="512" rx="116" fill="url(#bg)"/><rect width="512" height="512" rx="116" fill="url(#shine)"/>
+<path id="s" d="M352 150 C330 112 290 104 256 104 C200 104 164 134 164 172 C164 214 200 232 256 248 C316 264 348 284 348 332 C348 376 308 408 256 408 C212 408 178 390 160 358" fill="none" stroke="url(#ribbon)" stroke-width="46" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+<path d="M352 150 C330 112 290 104 256 104 C200 104 164 134 164 172 C164 214 200 232 256 248 C316 264 348 284 348 332 C348 376 308 408 256 408 C212 408 178 390 160 358" fill="none" stroke="#0B5A4A" stroke-opacity="0.7" stroke-width="5" stroke-dasharray="13 13" stroke-linecap="butt"/>
+<circle cx="352" cy="150" r="10" fill="#0B5A4A"/><circle cx="352" cy="150" r="10" fill="none" stroke="#7CFFCB" stroke-width="3"/>
+<path d="M160 358 C146 334 120 330 104 346" fill="none" stroke="#7CFFCB" stroke-width="6" stroke-linecap="round" stroke-dasharray="2 12" filter="url(#glow)"/>
+</g>
+<text x="350" y="222" font-family="Poppins, Inter, sans-serif" font-weight="700" font-size="104" letter-spacing="-2" fill="#FFFFFF">Selai<tspan fill="#7CFFCB" font-weight="500">Sathi</tspan></text>
+<text x="354" y="272" font-family="Poppins, Inter, sans-serif" font-weight="400" font-size="27" letter-spacing="7" fill="#8FB5AA">MEASURE · STITCH · DELIVER</text>
+</svg>
