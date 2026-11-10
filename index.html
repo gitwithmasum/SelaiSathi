@@ -334,222 +334,204 @@
     }
 
     /* =========================================================
-       WHITE THEME OVERRIDES (Left = White Theme, Right = Current Theme)
+       WHITE THEME — COHESIVE LIGHT DESIGN SYSTEM
        ========================================================= */
     body.theme-white {
       color-scheme: light !important;
-      --ss-bg: #EEF0F1 !important;
-      --ss-panel: #F4F4F1 !important;
-      --ss-panel-2: #EAECED !important;
-      --ss-panel-3: #E3E6E6 !important;
-      --ss-border: #E3E5E5 !important;
-      --ss-text: #303943 !important;
-      --ss-muted: #78818A !important;
-      background: #EEF0F1 !important;
+      --ss-bg: #F6F8F7 !important;
+      --ss-panel: #FFFFFF !important;
+      --ss-panel-2: #F1F5F2 !important;
+      --ss-panel-3: #E8EFEB !important;
+      --ss-border: #DCE5DF !important;
+      --ss-text: #25332C !important;
+      --ss-muted: #66756D !important;
+      background: #F6F8F7 !important;
       background-image: none !important;
-      color: #303943 !important;
+      color: #25332C !important;
     }
-    body.theme-white body > aside,
+    body.theme-white main { background: #F6F8F7 !important; }
     body.theme-white aside {
-      background: #F1F2F1 !important;
-      border-right: 1px solid #E3E5E5 !important;
-      color: #59636D !important;
-      box-shadow: 4px 0 24px rgba(0,0,0,.04) !important;
+      background: #F0F4F1 !important;
+      border-right: 1px solid #DCE5DF !important;
+      color: #46564D !important;
+      box-shadow: 3px 0 18px rgba(35,55,43,.035) !important;
     }
     body.theme-white aside .brand-glow > div {
-      background-color: #315B43 !important;
-      color: #FFFFFF !important;
+      background: #FFFFFF !important;
+      color: #24543A !important;
     }
     body.theme-white aside #app-brand-name {
       background: none !important;
-      -webkit-text-fill-color: #303943 !important;
-      color: #303943 !important;
+      -webkit-text-fill-color: #25332C !important;
+      color: #25332C !important;
     }
-    body.theme-white aside #app-brand-sub {
-      color: #78818A !important;
-    }
-    body.theme-white aside .ss-nav-heading {
-      color: #92999F !important;
-    }
-    body.theme-white aside .nav-item {
-      color: #626C75 !important;
-    }
+    body.theme-white aside #app-brand-sub { color: #65766B !important; }
+    body.theme-white aside .ss-nav-heading { color: #718078 !important; }
+    body.theme-white aside .nav-item { color: #46564D !important; }
     body.theme-white aside .nav-item:hover {
-      background: #EAECED !important;
-      color: #303943 !important;
+      background: #E6EEE8 !important;
+      color: #25332C !important;
     }
     body.theme-white aside .nav-item.active {
-      background: #E7EEE9 !important;
-      color: #315B43 !important;
+      background: #DDEBE1 !important;
+      color: #24543A !important;
+      border-color: #C6D9CC !important;
       font-weight: 700 !important;
-      border-color: #D0DED4 !important;
     }
     body.theme-white aside .nav-item.active::before {
-      background: #0F5132 !important;
-      box-shadow: 0 0 10px rgba(15, 81, 50, 0.4) !important;
+      background: #347451 !important;
+      box-shadow: 0 0 7px rgba(52,116,81,.18) !important;
     }
     body.theme-white aside .nav-icon-badge {
-      background: #EAECED !important;
-      color: #626C75 !important;
-      border-color: #E3E5E5 !important;
+      background: #E6EEE8 !important;
+      color: #53675B !important;
+      border-color: #DCE5DF !important;
     }
     body.theme-white aside .nav-item.active .nav-icon-badge {
-      background: #0F5132 !important;
+      background: #347451 !important;
       color: #FFFFFF !important;
     }
-    body.theme-white aside .ss-nav-admin {
-      border-top-color: #E5E7EB !important;
-    }
-    body.theme-white aside .bg-cyber-black\/40 {
-      background: #F0F1F0 !important;
-      border-top: 1px solid #E3E5E5 !important;
-    }
+    body.theme-white aside .ss-nav-admin { border-top-color: #DCE5DF !important; }
+    body.theme-white aside .bg-cyber-black\/40,
     body.theme-white aside .bg-white\/\[0\.04\] {
-      background: #F4F4F1 !important;
-      border: 1px solid #E3E5E5 !important;
+      background: #EAF0EC !important;
+      border-color: #DCE5DF !important;
     }
-    body.theme-white aside .text-white {
-      color: #303943 !important;
-    }
-    body.theme-white aside .text-gray-400 {
-      color: #78818A !important;
-    }
-    body.theme-white aside .text-gray-300 {
-      color: #626C75 !important;
-    }
+    body.theme-white aside .text-white { color: #25332C !important; }
+    body.theme-white aside .text-gray-400 { color: #718078 !important; }
+    body.theme-white aside .text-gray-300 { color: #53635A !important; }
     body.theme-white aside .ss-nav-count {
-      background: #E0F2FE !important;
-      color: #0369A1 !important;
-      border-color: #BAE6FD !important;
+      background: #E2EDF7 !important;
+      color: #285A83 !important;
+      border-color: #CDDFEE !important;
     }
     body.theme-white header {
-      background: rgba(242, 243, 242, 0.97) !important;
-      border-bottom: 1px solid #E1E5E9 !important;
+      background: rgba(249,251,249,.97) !important;
+      border-bottom: 1px solid #DCE5DF !important;
+      color: #25332C !important;
     }
     body.theme-white header input {
-      background: #EAECED !important;
-      color: #303943 !important;
-      border-color: #E3E5E5 !important;
+      background: #FFFFFF !important;
+      color: #25332C !important;
+      border-color: #D7E1DA !important;
     }
-    body.theme-white header input::placeholder {
-      color: #92999F !important;
-    }
+    body.theme-white header input::placeholder { color: #78867E !important; }
     body.theme-white header button:not(:last-child) {
-      background: #EAECED !important;
-      border-color: #E3E5E5 !important;
-      color: #59636D !important;
-    }
-    body.theme-white .bento-card,
-    body.theme-white .ss-panel,
-    body.theme-white [class*="bg-slate-"],
-    body.theme-white [class*="bg-gray-900"] {
-      background: #F4F4F1 !important;
-      color: #303943 !important;
-      border-color: #E3E5E5 !important;
-      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.035) !important;
-    }
-    body.theme-white .text-gray-400,
-    body.theme-white .text-gray-500,
-    body.theme-white .text-slate-400 {
-      color: #78818A !important;
-    }
-    body.theme-white .text-white,
-    body.theme-white .text-slate-100,
-    body.theme-white .text-slate-200 {
-      color: #303943 !important;
+      background: #EDF2EE !important;
+      border-color: #DCE5DF !important;
+      color: #46564D !important;
     }
 
-    /* =========================================================
-       WHITE THEME — ACCESSIBLE SOFT LIGHT SURFACES
-       Keep the interface bright without harsh pure-white glare,
-       while strengthening text contrast for comfortable reading.
-       ========================================================= */
-    body.theme-white {
-      --ss-bg: #F7F8F8 !important;
-      --ss-panel: #FFFFFF !important;
-      --ss-panel-2: #F2F4F5 !important;
-      --ss-panel-3: #EAEDEF !important;
-      --ss-border: #DFE4E7 !important;
-      --ss-text: #202A34 !important;
-      --ss-muted: #65717C !important;
-      background: #F7F8F8 !important;
-      color: #202A34 !important;
+    /* Main typography: override the dark Aurora typography rules. */
+    body.theme-white .app-view h1,
+    body.theme-white .app-view h2,
+    body.theme-white .app-view h3,
+    body.theme-white .app-view h4,
+    body.theme-white .app-view .text-ios-text,
+    body.theme-white .app-view .text-gray-900,
+    body.theme-white .app-view .text-gray-800,
+    body.theme-white .app-view .text-gray-700,
+    body.theme-white .app-view .text-slate-900,
+    body.theme-white .app-view .text-slate-800,
+    body.theme-white .app-view .text-slate-700 {
+      color: #25332C !important;
+      -webkit-text-fill-color: #25332C !important;
     }
-    body.theme-white aside {
-      background: #F5F7F7 !important;
-      border-right-color: #DFE4E7 !important;
-      color: #46525D !important;
+    body.theme-white .app-view p,
+    body.theme-white .app-view label,
+    body.theme-white .app-view td,
+    body.theme-white .app-view th,
+    body.theme-white .app-view li,
+    body.theme-white .app-view .text-gray-600,
+    body.theme-white .app-view .text-gray-500,
+    body.theme-white .app-view .text-gray-400,
+    body.theme-white .app-view .text-slate-600,
+    body.theme-white .app-view .text-slate-500,
+    body.theme-white .app-view .text-slate-400,
+    body.theme-white .app-view .text-ios-subtext {
+      color: #66756D !important;
+      -webkit-text-fill-color: #66756D !important;
     }
-    body.theme-white aside .ss-nav-heading {
-      color: #687580 !important;
-    }
-    body.theme-white aside .nav-item {
-      color: #46525D !important;
-    }
-    body.theme-white aside .nav-item:hover {
-      background: #E9EEF0 !important;
-      color: #202A34 !important;
-    }
-    body.theme-white aside .nav-item.active {
-      background: #E5EEE8 !important;
-      color: #24543A !important;
-      border-color: #C9D9CE !important;
-    }
-    body.theme-white header {
-      background: rgba(248, 249, 249, 0.98) !important;
-      border-bottom-color: #DFE4E7 !important;
-    }
-    body.theme-white header input,
-    body.theme-white input:not([type="checkbox"]):not([type="radio"]),
-    body.theme-white select,
-    body.theme-white textarea {
-      background-color: #FFFFFF !important;
-      color: #202A34 !important;
-      border-color: #D7DEE3 !important;
-    }
-    body.theme-white input::placeholder,
-    body.theme-white textarea::placeholder {
-      color: #77838D !important;
-      opacity: 1 !important;
-    }
+
+    /* Cards and nested neutral surfaces. */
     body.theme-white .bento-card,
+    body.theme-white .glass-card,
     body.theme-white .ss-panel,
-    body.theme-white [class*="bg-slate-"],
-    body.theme-white [class*="bg-gray-900"] {
-      background-color: #FFFFFF !important;
-      color: #202A34 !important;
-      border-color: #DFE4E7 !important;
-      box-shadow: 0 2px 12px rgba(31, 41, 51, 0.045) !important;
+    body.theme-white .app-view [class*="bg-slate-"],
+    body.theme-white .app-view [class*="bg-gray-900"],
+    body.theme-white .app-view [class*="bg-gray-800"] {
+      background: #FFFFFF !important;
+      color: #25332C !important;
+      border-color: #DCE5DF !important;
+      box-shadow: 0 3px 16px rgba(35,55,43,.045) !important;
     }
-    body.theme-white .text-gray-300,
-    body.theme-white .text-gray-400,
-    body.theme-white .text-gray-500,
-    body.theme-white .text-slate-300,
-    body.theme-white .text-slate-400,
-    body.theme-white .text-slate-500 {
-      color: #65717C !important;
+    body.theme-white .app-view .bg-white,
+    body.theme-white .app-view .bg-white\/80,
+    body.theme-white .app-view .bg-white\/70,
+    body.theme-white .app-view .bg-gray-50,
+    body.theme-white .app-view .bg-gray-50\/50,
+    body.theme-white .app-view .bg-gray-50\/70,
+    body.theme-white .app-view .bg-gray-100,
+    body.theme-white .app-view .bg-gray-100\/70,
+    body.theme-white .app-view .bg-gray-200\/60 {
+      background: #F1F5F2 !important;
+      color: #35443B !important;
     }
-    body.theme-white .text-gray-700,
-    body.theme-white .text-gray-800,
-    body.theme-white .text-gray-900,
-    body.theme-white .text-slate-700,
-    body.theme-white .text-slate-800,
-    body.theme-white .text-slate-900 {
-      color: #202A34 !important;
+    body.theme-white .app-view .border-ios-border,
+    body.theme-white .app-view [class*="border-gray-"],
+    body.theme-white .app-view [class*="border-slate-"],
+    body.theme-white .app-view .divide-gray-100 > :not([hidden]) ~ :not([hidden]) {
+      border-color: #DCE5DF !important;
     }
-    body.theme-white table th {
-      color: #3C4853 !important;
-      background-color: #F2F4F5 !important;
+    body.theme-white .app-view table thead tr,
+    body.theme-white .app-view table th {
+      background: #EDF3EF !important;
+      color: #35443B !important;
     }
-    body.theme-white table td {
-      color: #35414C !important;
-      border-color: #E5E9EC !important;
+    body.theme-white .app-view table tbody tr { border-color: #E2E9E4 !important; }
+    body.theme-white .app-view table tbody tr:hover { background: #F1F6F2 !important; }
+
+    /* Form controls. */
+    body.theme-white .app-view input:not([type="checkbox"]):not([type="radio"]),
+    body.theme-white .app-view select,
+    body.theme-white .app-view textarea,
+    body.theme-white header input {
+      background: #FFFFFF !important;
+      color: #25332C !important;
+      border-color: #CDDAD1 !important;
+      box-shadow: none !important;
     }
-    body.theme-white hr {
-      border-color: #E1E6E9 !important;
+    body.theme-white .app-view input::placeholder,
+    body.theme-white .app-view textarea::placeholder { color: #78867E !important; }
+    body.theme-white .app-view input:focus,
+    body.theme-white .app-view select:focus,
+    body.theme-white .app-view textarea:focus {
+      border-color: #5B9270 !important;
+      box-shadow: 0 0 0 3px rgba(91,146,112,.13) !important;
     }
-    body.theme-white :focus-visible {
-      outline-color: #438A68 !important;
+    body.theme-white .app-view hr { border-color: #DCE5DF !important; }
+    body.theme-white .app-view :focus-visible { outline-color: #438A68 !important; }
+
+    /* Preserve white labels on genuinely colored action buttons. */
+    body.theme-white .app-view button[class*="bg-emerald-"],
+    body.theme-white .app-view button[class*="bg-green-"],
+    body.theme-white .app-view button[class*="bg-blue-"],
+    body.theme-white .app-view button[class*="bg-indigo-"],
+    body.theme-white .app-view button[class*="bg-cyan-"],
+    body.theme-white .app-view button[class*="bg-violet-"],
+    body.theme-white .app-view button[class*="bg-gradient-"] {
+      color: #FFFFFF !important;
+      -webkit-text-fill-color: #FFFFFF !important;
+    }
+    body.theme-white .app-view button[class*="bg-emerald-"] *,
+    body.theme-white .app-view button[class*="bg-green-"] *,
+    body.theme-white .app-view button[class*="bg-blue-"] *,
+    body.theme-white .app-view button[class*="bg-indigo-"] *,
+    body.theme-white .app-view button[class*="bg-cyan-"] *,
+    body.theme-white .app-view button[class*="bg-violet-"] *,
+    body.theme-white .app-view button[class*="bg-gradient-"] * {
+      color: #FFFFFF !important;
+      -webkit-text-fill-color: #FFFFFF !important;
     }
 
   </style>
