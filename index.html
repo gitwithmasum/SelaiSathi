@@ -1157,6 +1157,474 @@
       color: #17452D;
       text-decoration: underline;
     }
+
+    /* ======================================================== */
+    /* FUTURISTIC CYBER-GLASS CALENDAR & PICKER SYSTEM          */
+    /* ======================================================== */
+    input[type="date"]::-webkit-calendar-picker-indicator,
+    input[type="month"]::-webkit-calendar-picker-indicator {
+      display: none !important;
+      opacity: 0 !important;
+      -webkit-appearance: none;
+      pointer-events: none;
+    }
+
+    /* Cyber Date Trigger Pills */
+    .cyber-date-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      border-radius: 14px;
+      background: rgba(14, 23, 42, 0.65);
+      border: 1px solid rgba(34, 211, 238, 0.3);
+      color: #e2e8f0;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+    .cyber-date-trigger:hover,
+    .cyber-date-trigger.is-active {
+      border-color: rgba(34, 211, 238, 0.7);
+      background: rgba(14, 23, 42, 0.9);
+      box-shadow: 0 0 18px rgba(34, 211, 238, 0.25), 0 4px 14px rgba(0, 0, 0, 0.35);
+      transform: translateY(-1px);
+    }
+    .cyber-date-trigger .cyber-date-icon {
+      font-size: 14px;
+      line-height: 1;
+      filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.4));
+    }
+    .cyber-date-trigger .cyber-date-label {
+      letter-spacing: 0.02em;
+    }
+
+    /* White Theme Trigger */
+    body.theme-white .cyber-date-trigger {
+      background: #FFFFFF !important;
+      border: 1px solid #DCE5DF !important;
+      color: #25332C !important;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+    }
+    body.theme-white .cyber-date-trigger:hover,
+    body.theme-white .cyber-date-trigger.is-active {
+      border-color: #10B981 !important;
+      background: #F9FBFA !important;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06) !important;
+    }
+    body.theme-white .cyber-date-trigger .cyber-date-icon {
+      filter: none;
+    }
+
+    /* Cyber Calendar Popover Base */
+    .cyber-cal-popover {
+      position: fixed;
+      z-index: 999999;
+      width: 330px;
+      max-width: 92vw;
+      background: linear-gradient(165deg, rgba(13, 22, 41, 0.96) 0%, rgba(6, 12, 24, 0.98) 100%);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid rgba(34, 211, 238, 0.35);
+      border-radius: 22px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(34, 211, 238, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      padding: 16px;
+      color: #f1f6ff;
+      font-family: Inter, "Hind Siliguri", sans-serif;
+      user-select: none;
+      animation: cyberCalendarFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes cyberCalendarFadeIn {
+      from { opacity: 0; transform: scale(0.96) translateY(-4px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    @keyframes cyberPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(1.25); }
+    }
+
+    /* Popover Top Bar */
+    .cyber-cal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(34, 211, 238, 0.18);
+    }
+    .cyber-cal-pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22d3ee;
+      box-shadow: 0 0 10px #22d3ee;
+      display: inline-block;
+      animation: cyberPulse 1.8s infinite;
+    }
+    .cyber-cal-badge {
+      color: #22d3ee;
+      letter-spacing: 0.12em;
+      font-size: 10px;
+      font-weight: 800;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+      text-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+    }
+    .cyber-cal-mode-btn {
+      font-size: 11px;
+      font-weight: 700;
+      font-family: ui-monospace, SFMono-Regular, monospace;
+      padding: 3px 8px;
+      border-radius: 8px;
+      background: rgba(34, 211, 238, 0.1);
+      border: 1px solid rgba(34, 211, 238, 0.3);
+      color: #38bdf8;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .cyber-cal-mode-btn:hover {
+      background: rgba(34, 211, 238, 0.2);
+      border-color: rgba(34, 211, 238, 0.6);
+      color: #ffffff;
+    }
+    .cyber-cal-close-btn {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 2px 6px;
+      border-radius: 6px;
+      transition: color 0.15s;
+    }
+    .cyber-cal-close-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* Month & Year Navigation Row */
+    .cyber-cal-nav-btn {
+      width: 30px;
+      height: 30px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 1;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .cyber-cal-nav-btn:hover {
+      background: rgba(34, 211, 238, 0.16);
+      border-color: rgba(34, 211, 238, 0.5);
+      color: #38bdf8;
+      box-shadow: 0 0 12px rgba(34, 211, 238, 0.3);
+    }
+    .cyber-cal-title-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      padding: 4px 10px;
+      color: #f8fafc;
+      font-size: 13px;
+      font-weight: 800;
+      font-family: ui-monospace, SFMono-Regular, monospace;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .cyber-cal-title-btn:hover {
+      background: rgba(34, 211, 238, 0.1);
+      border-color: rgba(34, 211, 238, 0.35);
+      color: #22d3ee;
+      text-shadow: 0 0 8px rgba(34, 211, 238, 0.4);
+    }
+
+    /* Weekday Headers */
+    .cyber-weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 3px;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+    .cyber-weekday {
+      font-size: 10px;
+      font-weight: 800;
+      font-family: ui-monospace, SFMono-Regular, monospace;
+      color: #38bdf8;
+      letter-spacing: 0.08em;
+      padding: 3px 0;
+    }
+
+    /* Day Cells Grid */
+    .cyber-days-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 3px;
+      text-align: center;
+    }
+    .cyber-day-cell {
+      height: 34px;
+      width: 34px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #e2e8f0;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .cyber-day-cell:hover {
+      background: rgba(34, 211, 238, 0.18);
+      border-color: rgba(34, 211, 238, 0.45);
+      color: #38bdf8;
+      box-shadow: 0 0 14px rgba(34, 211, 238, 0.28);
+      transform: scale(1.1);
+    }
+    .cyber-day-cell.is-dimmed {
+      color: rgba(148, 163, 184, 0.28);
+    }
+    .cyber-day-cell.is-dimmed:hover {
+      color: #94a3b8;
+    }
+    .cyber-day-cell.is-today {
+      box-shadow: 0 0 0 1.5px #22d3ee, 0 0 12px rgba(34, 211, 238, 0.4);
+      color: #38bdf8;
+      font-weight: 800;
+    }
+    .cyber-day-cell.is-selected {
+      background: linear-gradient(135deg, #06B6D4 0%, #10B981 100%) !important;
+      color: #ffffff !important;
+      font-weight: 900 !important;
+      border-color: #22d3ee !important;
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.75), 0 2px 8px rgba(0,0,0,0.4) !important;
+      transform: scale(1.06);
+    }
+
+    /* Month Selector Grid */
+    .cyber-months-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      text-align: center;
+      padding: 4px 0;
+    }
+    .cyber-month-tile {
+      padding: 10px 4px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: ui-monospace, SFMono-Regular, monospace;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .cyber-month-tile:hover {
+      background: rgba(34, 211, 238, 0.16);
+      border-color: rgba(34, 211, 238, 0.45);
+      color: #38bdf8;
+      box-shadow: 0 0 14px rgba(34, 211, 238, 0.25);
+    }
+    .cyber-month-tile.is-selected {
+      background: linear-gradient(135deg, #06B6D4 0%, #10B981 100%) !important;
+      color: #ffffff !important;
+      border-color: #22d3ee !important;
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.7) !important;
+    }
+
+    /* Cyber Footer Chips */
+    .cyber-cal-footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(34, 211, 238, 0.18);
+    }
+    .cyber-chip {
+      padding: 4px 9px;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: ui-monospace, SFMono-Regular, monospace;
+      border-radius: 8px;
+      background: rgba(34, 211, 238, 0.08);
+      border: 1px solid rgba(34, 211, 238, 0.25);
+      color: #38bdf8;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .cyber-chip:hover {
+      background: rgba(34, 211, 238, 0.22);
+      border-color: rgba(34, 211, 238, 0.6);
+      box-shadow: 0 0 12px rgba(34, 211, 238, 0.3);
+      color: #ffffff;
+    }
+    .cyber-chip-clear {
+      padding: 4px 9px;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: ui-monospace, SFMono-Regular, monospace;
+      border-radius: 8px;
+      background: rgba(244, 63, 94, 0.08);
+      border: 1px solid rgba(244, 63, 94, 0.25);
+      color: #fb7185;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .cyber-chip-clear:hover {
+      background: rgba(244, 63, 94, 0.22);
+      border-color: rgba(244, 63, 94, 0.6);
+      box-shadow: 0 0 12px rgba(244, 63, 94, 0.3);
+      color: #ffffff;
+    }
+
+    /* ======================================================== */
+    /* WHITE THEME SCOPED OVERRIDES FOR CYBER-GLASS CALENDAR    */
+    /* ======================================================== */
+    body.theme-white .cyber-cal-popover {
+      background: rgba(255, 255, 255, 0.98) !important;
+      backdrop-filter: blur(24px) !important;
+      -webkit-backdrop-filter: blur(24px) !important;
+      border: 1px solid #DCE5DF !important;
+      box-shadow: 0 20px 50px rgba(37, 51, 44, 0.14), 0 4px 12px rgba(0, 0, 0, 0.04) !important;
+      color: #25332C !important;
+    }
+    body.theme-white .cyber-cal-header {
+      border-bottom-color: #DCE5DF !important;
+    }
+    body.theme-white .cyber-cal-pulse-dot {
+      background: #10B981 !important;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.6) !important;
+    }
+    body.theme-white .cyber-cal-badge {
+      color: #347451 !important;
+      text-shadow: none !important;
+    }
+    body.theme-white .cyber-cal-mode-btn {
+      background: #F1F5F2 !important;
+      border-color: #DCE5DF !important;
+      color: #347451 !important;
+    }
+    body.theme-white .cyber-cal-mode-btn:hover {
+      background: #E8EFEB !important;
+      border-color: #10B981 !important;
+      color: #1A5438 !important;
+    }
+    body.theme-white .cyber-cal-close-btn {
+      color: #718078 !important;
+    }
+    body.theme-white .cyber-cal-close-btn:hover {
+      color: #25332C !important;
+      background: #F1F5F2 !important;
+    }
+    body.theme-white .cyber-cal-nav-btn {
+      background: #F1F5F2 !important;
+      border-color: #DCE5DF !important;
+      color: #56665D !important;
+    }
+    body.theme-white .cyber-cal-nav-btn:hover {
+      background: #E8EFEB !important;
+      border-color: #10B981 !important;
+      color: #10B981 !important;
+      box-shadow: none !important;
+    }
+    body.theme-white .cyber-cal-title-btn {
+      color: #25332C !important;
+    }
+    body.theme-white .cyber-cal-title-btn:hover {
+      background: #F1F5F2 !important;
+      border-color: #DCE5DF !important;
+      color: #10B981 !important;
+      text-shadow: none !important;
+    }
+    body.theme-white .cyber-weekday {
+      color: #718078 !important;
+    }
+    body.theme-white .cyber-day-cell {
+      color: #25332C !important;
+    }
+    body.theme-white .cyber-day-cell:hover {
+      background: #E8EFEB !important;
+      border-color: #DCE5DF !important;
+      color: #1A5438 !important;
+      box-shadow: none !important;
+    }
+    body.theme-white .cyber-day-cell.is-dimmed {
+      color: #B4C2BA !important;
+    }
+    body.theme-white .cyber-day-cell.is-dimmed:hover {
+      color: #718078 !important;
+    }
+    body.theme-white .cyber-day-cell.is-today {
+      box-shadow: 0 0 0 1.5px #10B981 !important;
+      color: #10B981 !important;
+      font-weight: 800 !important;
+    }
+    body.theme-white .cyber-day-cell.is-selected {
+      background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important;
+      color: #ffffff !important;
+      border-color: #10B981 !important;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35) !important;
+    }
+    body.theme-white .cyber-month-tile {
+      background: #F1F5F2 !important;
+      border-color: #DCE5DF !important;
+      color: #25332C !important;
+    }
+    body.theme-white .cyber-month-tile:hover {
+      background: #E8EFEB !important;
+      border-color: #10B981 !important;
+      color: #10B981 !important;
+      box-shadow: none !important;
+    }
+    body.theme-white .cyber-month-tile.is-selected {
+      background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important;
+      color: #ffffff !important;
+      border-color: #10B981 !important;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35) !important;
+    }
+    body.theme-white .cyber-cal-footer {
+      border-top-color: #DCE5DF !important;
+    }
+    body.theme-white .cyber-chip {
+      background: #F1F5F2 !important;
+      border-color: #DCE5DF !important;
+      color: #347451 !important;
+    }
+    body.theme-white .cyber-chip:hover {
+      background: #DDEBE1 !important;
+      border-color: #10B981 !important;
+      color: #1A5438 !important;
+      box-shadow: none !important;
+    }
+    body.theme-white .cyber-chip-clear {
+      background: #FEF2F2 !important;
+      border-color: #FECACA !important;
+      color: #DC2626 !important;
+    }
+    body.theme-white .cyber-chip-clear:hover {
+      background: #FEE2E2 !important;
+      border-color: #F87171 !important;
+      color: #B91C1C !important;
+      box-shadow: none !important;
+    }
   </style>
 </head>
 <body class="flex h-screen overflow-hidden text-sm bg-ios-bg select-none">
@@ -1392,7 +1860,11 @@
           </div>
 
           <div class="flex items-center gap-2">
-            <input type="date" value="2026-10-06" class="px-4 py-2.5 bg-white border border-ios-border rounded-2xl text-xs font-mono font-bold text-gray-800 shadow-ios-card focus:outline-none">
+            <div class="cyber-date-trigger" id="dash-date-trigger" data-cyber-target="dash-date" data-mode="date" title="Select Dashboard Date">
+              <span class="cyber-date-icon">📅</span>
+              <span class="cyber-date-label" id="dash-date-label">11 Nov 2026</span>
+              <input type="hidden" id="dash-date" value="2026-11-11" data-cyber-date="true">
+            </div>
           </div>
         </div>
 
@@ -1853,8 +2325,12 @@
       <p class="text-sm text-gray-400 mt-1">Review sales, cash flow, expenses and stock performance.</p>
     </div>
     <div class="flex flex-wrap items-center gap-2">
-      <label class="text-xs text-gray-400" for="report-month">Reporting month</label>
-      <input id="report-month" type="month" class="px-3 py-2 text-sm rounded-xl border" onchange="renderReports()" />
+      <label class="text-xs text-gray-400">Reporting month</label>
+      <div class="cyber-date-trigger" id="report-month-trigger" data-cyber-target="report-month" data-mode="month" title="Select Reporting Month">
+        <span class="cyber-date-icon">📅</span>
+        <span class="cyber-date-label" id="report-month-label">Nov 2026</span>
+        <input id="report-month" type="hidden" value="2026-11" data-cyber-month="true" onchange="renderReports()" />
+      </div>
       <button onclick="exportReportsCSV()" class="px-4 py-2.5 rounded-xl text-xs font-bold border border-cyan-400/25 bg-cyan-500/10 text-cyan-200 hover:bg-cyan-500/20">↓ Export report CSV</button>
     </div>
   </div>
@@ -2031,7 +2507,14 @@
           </div>
           <div>
             <label class="block font-bold text-gray-700 mb-1.5">Delivery Date</label>
-            <input type="date" id="no-date" value="2026-11-15" class="w-full border border-ios-border rounded-2xl px-3.5 py-2.5 text-sm focus:outline-none">
+            <div class="cyber-date-trigger w-full justify-between" id="no-date-trigger" data-cyber-target="no-date" data-mode="date" title="Select Delivery Date">
+              <div class="flex items-center gap-2">
+                <span class="cyber-date-icon">📅</span>
+                <span class="cyber-date-label" id="no-date-label">15 Nov 2026</span>
+              </div>
+              <span class="text-[11px] font-mono text-cyan-400 font-bold tracking-wider">SELECT ▾</span>
+              <input type="hidden" id="no-date" value="2026-11-15" data-cyber-date="true">
+            </div>
           </div>
         </div>
 
@@ -2127,6 +2610,65 @@
         <button onclick="window.print()" class="px-5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl text-xs font-bold shadow-sm">
           Print POS 🖨️
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- FUTURISTIC CYBER-GLASS CALENDAR POPOVER                  -->
+  <!-- ======================================================== -->
+  <div id="cyber-calendar-popover" class="cyber-cal-popover hidden" role="dialog" aria-modal="true" aria-label="Futuristic Calendar">
+    <!-- Cyber Status Header -->
+    <div class="cyber-cal-header">
+      <div class="flex items-center gap-2">
+        <span class="cyber-cal-pulse-dot"></span>
+        <span class="cyber-cal-badge">CHRONO OS 2.6</span>
+      </div>
+      <div class="flex items-center gap-1.5">
+        <button type="button" class="cyber-cal-mode-btn" id="cyber-cal-mode-toggle" title="Switch between Date and Month view">📅 DATE</button>
+        <button type="button" class="cyber-cal-close-btn" id="cyber-cal-close" title="Close Calendar">✕</button>
+      </div>
+    </div>
+
+    <!-- Month & Year Navigation -->
+    <div class="flex items-center justify-between mb-3 px-0.5">
+      <button type="button" class="cyber-cal-nav-btn" id="cyber-cal-prev" title="Previous Month">‹</button>
+      <button type="button" class="cyber-cal-title-btn" id="cyber-cal-title">NOVEMBER 2026</button>
+      <button type="button" class="cyber-cal-nav-btn" id="cyber-cal-next" title="Next Month">›</button>
+    </div>
+
+    <!-- Date View -->
+    <div id="cyber-cal-date-view">
+      <div class="cyber-weekdays">
+        <span class="cyber-weekday">SU</span>
+        <span class="cyber-weekday">MO</span>
+        <span class="cyber-weekday">TU</span>
+        <span class="cyber-weekday">WE</span>
+        <span class="cyber-weekday">TH</span>
+        <span class="cyber-weekday">FR</span>
+        <span class="cyber-weekday">SA</span>
+      </div>
+      <div class="cyber-days-grid" id="cyber-cal-days">
+        <!-- Day cells dynamically rendered -->
+      </div>
+    </div>
+
+    <!-- Month Picker View -->
+    <div id="cyber-cal-month-view" class="hidden">
+      <div class="cyber-months-grid" id="cyber-cal-months">
+        <!-- Month tiles dynamically rendered -->
+      </div>
+    </div>
+
+    <!-- Quick Action Chips -->
+    <div class="cyber-cal-footer">
+      <div class="flex items-center gap-1">
+        <button type="button" class="cyber-chip" id="cyber-chip-today" title="Select Today">⚡ Today</button>
+        <button type="button" class="cyber-chip" id="cyber-chip-plus1" title="Select Tomorrow">+1D</button>
+        <button type="button" class="cyber-chip" id="cyber-chip-plus7" title="Select +7 Days">+7D</button>
+      </div>
+      <div class="flex items-center gap-1">
+        <button type="button" class="cyber-chip-clear" id="cyber-chip-clear" title="Clear Date">Clear</button>
       </div>
     </div>
   </div>
@@ -2271,7 +2813,7 @@
         total: parseFloat(document.getElementById('no-total').value) || 850,
         advance: parseFloat(document.getElementById('no-advance').value) || 300,
         due: Math.max(0, (parseFloat(document.getElementById('no-total').value) || 850) - (parseFloat(document.getElementById('no-advance').value) || 300)),
-        date: '18 Nov 2026'
+        date: (window.CyberCalendar && document.getElementById('no-date')?.value) ? CyberCalendar.formatHuman(document.getElementById('no-date').value) : '18 Nov 2026'
       });
 
       closeModal('modal-new-order');
@@ -2661,11 +3203,417 @@
       toggleThemeSlider();
     }
 
+    /* ======================================================== */
+    /* FUTURISTIC CYBER-GLASS CALENDAR ENGINE                   */
+    /* ======================================================== */
+    const CyberCalendar = {
+      popover: null,
+      activeTrigger: null,
+      activeInput: null,
+      activeMode: 'date',
+      viewYear: 2026,
+      viewMonth: 10,
+      selectedDate: '2026-11-11',
+      isOpen: false,
+
+      monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      monthShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+
+      init() {
+        this.popover = document.getElementById('cyber-calendar-popover');
+        if (!this.popover) return;
+
+        // Nav buttons
+        document.getElementById('cyber-cal-prev')?.addEventListener('click', (e) => { e.stopPropagation(); this.prev(); });
+        document.getElementById('cyber-cal-next')?.addEventListener('click', (e) => { e.stopPropagation(); this.next(); });
+        document.getElementById('cyber-cal-close')?.addEventListener('click', (e) => { e.stopPropagation(); this.close(); });
+        document.getElementById('cyber-cal-title')?.addEventListener('click', (e) => { e.stopPropagation(); this.toggleMode(); });
+        document.getElementById('cyber-cal-mode-toggle')?.addEventListener('click', (e) => { e.stopPropagation(); this.toggleMode(); });
+
+        // Quick action chips
+        document.getElementById('cyber-chip-today')?.addEventListener('click', (e) => { e.stopPropagation(); this.selectToday(); });
+        document.getElementById('cyber-chip-plus1')?.addEventListener('click', (e) => { e.stopPropagation(); this.addDays(1); });
+        document.getElementById('cyber-chip-plus7')?.addEventListener('click', (e) => { e.stopPropagation(); this.addDays(7); });
+        document.getElementById('cyber-chip-clear')?.addEventListener('click', (e) => { e.stopPropagation(); this.clear(); });
+
+        // Close on outside pointer click
+        document.addEventListener('pointerdown', (e) => {
+          if (!this.isOpen) return;
+          if (this.popover && !this.popover.contains(e.target) && (!this.activeTrigger || !this.activeTrigger.contains(e.target))) {
+            this.close();
+          }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && this.isOpen) this.close();
+        });
+
+        // Reposition on window resize
+        window.addEventListener('resize', () => {
+          if (this.isOpen && this.activeTrigger) this.position(this.activeTrigger);
+        });
+
+        // Bind all cyber date triggers
+        document.querySelectorAll('.cyber-date-trigger').forEach(trigger => {
+          this.bindTrigger(trigger);
+        });
+
+        // Intercept any native date/month inputs
+        this.enhanceNativeInputs();
+      },
+
+      bindTrigger(trigger) {
+        if (trigger._cyberBound) return;
+        trigger._cyberBound = true;
+        trigger.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const targetId = trigger.dataset.cyberTarget;
+          const input = targetId ? document.getElementById(targetId) : trigger.querySelector('input');
+          const mode = trigger.dataset.mode || (input?.type === 'month' ? 'month' : 'date');
+          if (this.isOpen && this.activeTrigger === trigger) {
+            this.close();
+          } else {
+            this.open(trigger, input, mode);
+          }
+        });
+      },
+
+      enhanceNativeInputs() {
+        document.querySelectorAll('input[type="date"], input[type="month"]').forEach(input => {
+          if (input.closest('.cyber-date-trigger')) return;
+          input.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const mode = input.type === 'month' ? 'month' : 'date';
+            this.open(input, input, mode);
+          });
+          input.addEventListener('focus', (e) => {
+            e.preventDefault();
+          });
+        });
+      },
+
+      open(triggerEl, inputEl, mode = 'date') {
+        this.activeTrigger = triggerEl;
+        this.activeInput = inputEl;
+        this.activeMode = mode;
+        this.isOpen = true;
+
+        triggerEl.classList.add('is-active');
+
+        const val = inputEl?.value || '';
+        if (val) {
+          this.selectedDate = val;
+          const parts = val.split('-');
+          if (parts.length >= 2) {
+            this.viewYear = parseInt(parts[0], 10) || 2026;
+            this.viewMonth = (parseInt(parts[1], 10) - 1);
+            if (isNaN(this.viewMonth) || this.viewMonth < 0 || this.viewMonth > 11) this.viewMonth = 10;
+          }
+        } else {
+          this.viewYear = 2026;
+          this.viewMonth = 10;
+        }
+
+        this.setMode(mode, false);
+        this.render();
+        this.position(triggerEl);
+        this.popover.classList.remove('hidden');
+      },
+
+      close() {
+        if (!this.isOpen) return;
+        this.isOpen = false;
+        this.popover?.classList.add('hidden');
+        if (this.activeTrigger) {
+          this.activeTrigger.classList.remove('is-active');
+        }
+        this.activeTrigger = null;
+        this.activeInput = null;
+      },
+
+      position(targetEl) {
+        if (!this.popover || !targetEl) return;
+        const rect = targetEl.getBoundingClientRect();
+        const popoverWidth = Math.min(330, window.innerWidth - 24);
+        const popoverHeight = 360;
+
+        let top = rect.bottom + 8;
+        if (top + popoverHeight > window.innerHeight) {
+          top = Math.max(12, rect.top - popoverHeight - 8);
+        }
+
+        let left = rect.left;
+        if (left + popoverWidth > window.innerWidth - 12) {
+          left = Math.max(12, window.innerWidth - popoverWidth - 12);
+        }
+
+        this.popover.style.top = `${Math.round(top)}px`;
+        this.popover.style.left = `${Math.round(left)}px`;
+      },
+
+      setMode(mode, reRender = true) {
+        this.activeMode = mode;
+        const dateView = document.getElementById('cyber-cal-date-view');
+        const monthView = document.getElementById('cyber-cal-month-view');
+        const modeBtn = document.getElementById('cyber-cal-mode-toggle');
+
+        if (mode === 'month') {
+          dateView?.classList.add('hidden');
+          monthView?.classList.remove('hidden');
+          if (modeBtn) modeBtn.textContent = '📅 MONTH';
+        } else {
+          dateView?.classList.remove('hidden');
+          monthView?.classList.add('hidden');
+          if (modeBtn) modeBtn.textContent = '📅 DATE';
+        }
+        if (reRender) this.render();
+      },
+
+      toggleMode() {
+        this.setMode(this.activeMode === 'date' ? 'month' : 'date');
+      },
+
+      prev() {
+        if (this.activeMode === 'month') {
+          this.viewYear--;
+        } else {
+          this.viewMonth--;
+          if (this.viewMonth < 0) {
+            this.viewMonth = 11;
+            this.viewYear--;
+          }
+        }
+        this.render();
+      },
+
+      next() {
+        if (this.activeMode === 'month') {
+          this.viewYear++;
+        } else {
+          this.viewMonth++;
+          if (this.viewMonth > 11) {
+            this.viewMonth = 0;
+            this.viewYear++;
+          }
+        }
+        this.render();
+      },
+
+      render() {
+        const titleBtn = document.getElementById('cyber-cal-title');
+        if (this.activeMode === 'month') {
+          if (titleBtn) titleBtn.textContent = `YEAR ${this.viewYear}`;
+          this.renderMonths();
+        } else {
+          if (titleBtn) titleBtn.textContent = `${this.monthNames[this.viewMonth].toUpperCase()} ${this.viewYear}`;
+          this.renderDays();
+        }
+      },
+
+      renderDays() {
+        const container = document.getElementById('cyber-cal-days');
+        if (!container) return;
+        container.innerHTML = '';
+
+        const firstDayIndex = new Date(this.viewYear, this.viewMonth, 1).getDay();
+        const lastDate = new Date(this.viewYear, this.viewMonth + 1, 0).getDate();
+        const prevLastDate = new Date(this.viewYear, this.viewMonth, 0).getDate();
+
+        const today = new Date();
+        const todayISO = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+
+        // Previous month padding days
+        for (let i = firstDayIndex - 1; i >= 0; i--) {
+          const day = prevLastDate - i;
+          const m = this.viewMonth === 0 ? 11 : this.viewMonth - 1;
+          const y = this.viewMonth === 0 ? this.viewYear - 1 : this.viewYear;
+
+          const cell = document.createElement('div');
+          cell.className = 'cyber-day-cell is-dimmed';
+          cell.textContent = day;
+          cell.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.selectDate(y, m, day, cell);
+          });
+          container.appendChild(cell);
+        }
+
+        // Current month days
+        for (let day = 1; day <= lastDate; day++) {
+          const iso = `${this.viewYear}-${String(this.viewMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+          const isToday = iso === todayISO || iso === '2026-11-11';
+          const isSelected = iso === this.selectedDate;
+
+          const cell = document.createElement('div');
+          cell.className = 'cyber-day-cell' + (isToday ? ' is-today' : '') + (isSelected ? ' is-selected' : '');
+          cell.textContent = day;
+          cell.dataset.iso = iso;
+          cell.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.selectDate(this.viewYear, this.viewMonth, day, cell);
+          });
+          container.appendChild(cell);
+        }
+
+        // Next month padding days to complete grid
+        const totalCells = firstDayIndex + lastDate;
+        const nextDays = (totalCells % 7 === 0) ? 0 : 7 - (totalCells % 7);
+        for (let day = 1; day <= nextDays; day++) {
+          const m = this.viewMonth === 11 ? 0 : this.viewMonth + 1;
+          const y = this.viewMonth === 11 ? this.viewYear + 1 : this.viewYear;
+          const cell = document.createElement('div');
+          cell.className = 'cyber-day-cell is-dimmed';
+          cell.textContent = day;
+          cell.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.selectDate(y, m, day, cell);
+          });
+          container.appendChild(cell);
+        }
+      },
+
+      renderMonths() {
+        const container = document.getElementById('cyber-cal-months');
+        if (!container) return;
+        container.innerHTML = '';
+
+        const currentSelectedYM = this.selectedDate ? this.selectedDate.slice(0, 7) : '';
+
+        for (let m = 0; m < 12; m++) {
+          const ym = `${this.viewYear}-${String(m + 1).padStart(2, '0')}`;
+          const isSelected = ym === currentSelectedYM;
+
+          const tile = document.createElement('div');
+          tile.className = 'cyber-month-tile' + (isSelected ? ' is-selected' : '');
+          tile.textContent = this.monthShort[m];
+          tile.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.selectMonth(this.viewYear, m);
+          });
+          container.appendChild(tile);
+        }
+      },
+
+      selectDate(year, month, day, cellEl) {
+        const iso = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        this.selectedDate = iso;
+
+        // Update target input
+        if (this.activeInput) {
+          this.activeInput.value = iso;
+          this.activeInput.dispatchEvent(new Event('input', { bubbles: true }));
+          this.activeInput.dispatchEvent(new Event('change', { bubbles: true }));
+          if (typeof this.activeInput.onchange === 'function') {
+            this.activeInput.onchange();
+          }
+        }
+
+        // Update trigger display label
+        if (this.activeTrigger) {
+          const label = this.activeTrigger.querySelector('.cyber-date-label') || this.activeTrigger;
+          if (label && label !== this.activeTrigger) {
+            label.textContent = this.formatHuman(iso);
+          }
+        }
+
+        // Highlight selected cell
+        document.querySelectorAll('#cyber-cal-days .cyber-day-cell').forEach(c => c.classList.remove('is-selected'));
+        cellEl?.classList.add('is-selected');
+
+        setTimeout(() => this.close(), 160);
+      },
+
+      selectMonth(year, month) {
+        const ym = `${year}-${String(month + 1).padStart(2, '0')}`;
+        this.selectedDate = ym;
+        this.viewYear = year;
+        this.viewMonth = month;
+
+        if (this.activeTrigger?.dataset.mode === 'month' || this.activeInput?.dataset.cyberMonth) {
+          if (this.activeInput) {
+            this.activeInput.value = ym;
+            this.activeInput.dispatchEvent(new Event('input', { bubbles: true }));
+            this.activeInput.dispatchEvent(new Event('change', { bubbles: true }));
+            if (typeof this.activeInput.onchange === 'function') {
+              this.activeInput.onchange();
+            }
+          }
+          if (this.activeTrigger) {
+            const label = this.activeTrigger.querySelector('.cyber-date-label') || this.activeTrigger;
+            if (label && label !== this.activeTrigger) {
+              label.textContent = `${this.monthShort[month]} ${year}`;
+            }
+          }
+          setTimeout(() => this.close(), 160);
+        } else {
+          this.setMode('date');
+        }
+      },
+
+      selectToday() {
+        const today = new Date();
+        const y = today.getFullYear();
+        const m = today.getMonth();
+        const d = today.getDate();
+        this.viewYear = y;
+        this.viewMonth = m;
+        this.selectDate(y, m, d);
+      },
+
+      addDays(n) {
+        let base = new Date();
+        if (this.selectedDate) {
+          const parts = this.selectedDate.split('-');
+          if (parts.length === 3) {
+            base = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+          }
+        }
+        base.setDate(base.getDate() + n);
+        this.viewYear = base.getFullYear();
+        this.viewMonth = base.getMonth();
+        this.selectDate(base.getFullYear(), base.getMonth(), base.getDate());
+      },
+
+      clear() {
+        if (this.activeInput) {
+          this.activeInput.value = '';
+          this.activeInput.dispatchEvent(new Event('input', { bubbles: true }));
+          this.activeInput.dispatchEvent(new Event('change', { bubbles: true }));
+          if (typeof this.activeInput.onchange === 'function') {
+            this.activeInput.onchange();
+          }
+        }
+        if (this.activeTrigger) {
+          const label = this.activeTrigger.querySelector('.cyber-date-label') || this.activeTrigger;
+          if (label && label !== this.activeTrigger) {
+            label.textContent = 'Select Date';
+          }
+        }
+        this.selectedDate = '';
+        this.close();
+      },
+
+      formatHuman(iso) {
+        if (!iso) return 'Select Date';
+        const parts = iso.split('-');
+        if (parts.length < 3) return iso;
+        const y = parts[0];
+        const m = parseInt(parts[1], 10) - 1;
+        const d = parseInt(parts[2], 10);
+        return `${d} ${this.monthShort[m] || ''} ${y}`;
+      }
+    };
+
     // Auto initialize on load
     document.addEventListener('DOMContentLoaded', () => {
       applyThemeSliderState();
+      CyberCalendar.init();
     });
     applyThemeSliderState();
+    CyberCalendar.init();
   </script>
 
 </body>
