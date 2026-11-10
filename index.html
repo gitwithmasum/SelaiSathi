@@ -333,6 +333,132 @@
       *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
     }
 
+    /* =========================================================
+       WHITE THEME OVERRIDES (Left = White Theme, Right = Current Theme)
+       ========================================================= */
+    body.theme-white {
+      color-scheme: light !important;
+      --ss-bg: #F8F9FA !important;
+      --ss-panel: #FFFFFF !important;
+      --ss-panel-2: #F3F4F6 !important;
+      --ss-panel-3: #E5E7EB !important;
+      --ss-border: #E5E7EB !important;
+      --ss-text: #111827 !important;
+      --ss-muted: #6B7280 !important;
+      background: #F8F9FB !important;
+      background-image: none !important;
+      color: #111827 !important;
+    }
+    body.theme-white body > aside,
+    body.theme-white aside {
+      background: #FFFFFF !important;
+      border-right: 1px solid #E5E7EB !important;
+      color: #374151 !important;
+      box-shadow: 4px 0 24px rgba(0,0,0,.04) !important;
+    }
+    body.theme-white aside .brand-glow > div {
+      background-color: #0F5132 !important;
+      color: #FFFFFF !important;
+    }
+    body.theme-white aside #app-brand-name {
+      background: none !important;
+      -webkit-text-fill-color: #111827 !important;
+      color: #111827 !important;
+    }
+    body.theme-white aside #app-brand-sub {
+      color: #6B7280 !important;
+    }
+    body.theme-white aside .ss-nav-heading {
+      color: #9CA3AF !important;
+    }
+    body.theme-white aside .nav-item {
+      color: #4B5563 !important;
+    }
+    body.theme-white aside .nav-item:hover {
+      background: #F3F4F6 !important;
+      color: #111827 !important;
+    }
+    body.theme-white aside .nav-item.active {
+      background: #E8F5E9 !important;
+      color: #0F5132 !important;
+      font-weight: 700 !important;
+      border-color: #A7F3D0 !important;
+    }
+    body.theme-white aside .nav-item.active::before {
+      background: #0F5132 !important;
+      box-shadow: 0 0 10px rgba(15, 81, 50, 0.4) !important;
+    }
+    body.theme-white aside .nav-icon-badge {
+      background: #F3F4F6 !important;
+      color: #4B5563 !important;
+      border-color: #E5E7EB !important;
+    }
+    body.theme-white aside .nav-item.active .nav-icon-badge {
+      background: #0F5132 !important;
+      color: #FFFFFF !important;
+    }
+    body.theme-white aside .ss-nav-admin {
+      border-top-color: #E5E7EB !important;
+    }
+    body.theme-white aside .bg-cyber-black\/40 {
+      background: #F9FAFB !important;
+      border-top: 1px solid #E5E7EB !important;
+    }
+    body.theme-white aside .bg-white\/\[0\.04\] {
+      background: #FFFFFF !important;
+      border: 1px solid #E5E7EB !important;
+    }
+    body.theme-white aside .text-white {
+      color: #111827 !important;
+    }
+    body.theme-white aside .text-gray-400 {
+      color: #6B7280 !important;
+    }
+    body.theme-white aside .text-gray-300 {
+      color: #4B5563 !important;
+    }
+    body.theme-white aside .ss-nav-count {
+      background: #E0F2FE !important;
+      color: #0369A1 !important;
+      border-color: #BAE6FD !important;
+    }
+    body.theme-white header {
+      background: rgba(255, 255, 255, 0.95) !important;
+      border-bottom: 1px solid #E5E7EB !important;
+    }
+    body.theme-white header input {
+      background: #F3F4F6 !important;
+      color: #111827 !important;
+      border-color: #E5E7EB !important;
+    }
+    body.theme-white header input::placeholder {
+      color: #9CA3AF !important;
+    }
+    body.theme-white header button:not(:last-child) {
+      background: #F3F4F6 !important;
+      border-color: #E5E7EB !important;
+      color: #374151 !important;
+    }
+    body.theme-white .bento-card,
+    body.theme-white .ss-panel,
+    body.theme-white [class*="bg-slate-"],
+    body.theme-white [class*="bg-gray-900"] {
+      background: #FFFFFF !important;
+      color: #111827 !important;
+      border-color: #E5E7EB !important;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04) !important;
+    }
+    body.theme-white .text-gray-400,
+    body.theme-white .text-gray-500,
+    body.theme-white .text-slate-400 {
+      color: #6B7280 !important;
+    }
+    body.theme-white .text-white,
+    body.theme-white .text-slate-100,
+    body.theme-white .text-slate-200 {
+      color: #111827 !important;
+    }
+
   </style>
 </head>
 <body class="flex h-screen overflow-hidden text-sm bg-ios-bg select-none">
@@ -482,12 +608,51 @@
           <span id="lang-indicator">বাংলা</span>
         </button>
 
-        <!-- Quick Theme Accent Switcher -->
-        <div class="flex items-center bg-gray-100/80 p-1 rounded-2xl border border-gray-200/50">
-          <button onclick="setThemeAccent('emerald')" title="Emerald Green" class="w-5 h-5 rounded-xl bg-emerald-500 m-0.5 shadow-sm hover:scale-110 transition-transform"></button>
-          <button onclick="setThemeAccent('indigo')" title="Royal Indigo" class="w-5 h-5 rounded-xl bg-indigo-600 m-0.5 shadow-sm hover:scale-110 transition-transform"></button>
-          <button onclick="setThemeAccent('purple')" title="Amethyst Purple" class="w-5 h-5 rounded-xl bg-purple-600 m-0.5 shadow-sm hover:scale-110 transition-transform"></button>
-          <button onclick="setThemeAccent('rose')" title="Sunset Rose" class="w-5 h-5 rounded-xl bg-rose-500 m-0.5 shadow-sm hover:scale-110 transition-transform"></button>
+        <!-- iOS Style Capsule Theme Slider (Matching User Screenshot: Left = White, Right = Current) -->
+        <div class="flex items-center gap-2 bg-gray-100/90 px-3 py-1.5 rounded-2xl border border-gray-200/70 shadow-xs">
+          <!-- Left Label: White Theme -->
+          <button 
+            type="button"
+            onclick="setThemeMode('white')"
+            class="text-[11px] font-bold text-gray-500 hover:text-gray-900 transition-colors cursor-pointer flex items-center gap-1 select-none"
+            title="Switch to White Theme (Left)"
+          >
+            <span>⚪</span>
+            <span class="hidden sm:inline">White</span>
+          </button>
+
+          <!-- The Custom Pill Slider Switch (Identical to user image) -->
+          <div 
+            id="theme-slider-track"
+            onclick="toggleThemeSlider()"
+            class="relative w-[76px] h-[32px] bg-[#CFD3DA] hover:bg-[#C5C9D1] rounded-full p-[4px] cursor-pointer shadow-inner flex items-center transition-all select-none border border-[#BFC3CB]"
+            title="Click to toggle: Left = White Theme, Right = Current Theme"
+          >
+            <!-- 4 Subtle Slot Indicators (Matching image) -->
+            <div class="absolute inset-0 flex items-center justify-between px-3 pointer-events-none opacity-30">
+              <div class="w-3.5 h-3.5 rounded-full border border-gray-600 bg-gray-400"></div>
+              <div class="w-3.5 h-3.5 rounded-full border border-gray-600 bg-gray-400"></div>
+              <div class="w-3.5 h-3.5 rounded-full border border-gray-600 bg-gray-400"></div>
+              <div class="w-3.5 h-3.5 rounded-full border border-gray-600 bg-gray-400"></div>
+            </div>
+
+            <!-- Blue Circular Slider Thumb (Knob from image) -->
+            <div 
+              id="theme-slider-thumb"
+              class="w-6 h-6 rounded-full bg-[#1E88E5] shadow-md shadow-blue-500/40 transform translate-x-[44px] transition-transform duration-300 ease-out z-10"
+            ></div>
+          </div>
+
+          <!-- Right Label: Current Theme -->
+          <button 
+            type="button"
+            onclick="setThemeMode('current')"
+            class="text-[11px] font-bold text-emerald-800 hover:text-emerald-950 transition-colors cursor-pointer flex items-center gap-1 select-none"
+            title="Switch to Current Theme (Right)"
+          >
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+            <span class="hidden sm:inline">Current</span>
+          </button>
         </div>
 
         <!-- Primary Action: + New order (iOS Glass Pill Button) -->
@@ -1790,7 +1955,43 @@
       document.body.appendChild(link);link.click();link.remove();URL.revokeObjectURL(url);
     }
 
+    // --- iOS Style Theme Slider (Left = White Theme, Right = Current Theme) ---
+    let currentThemeMode = localStorage.getItem('selaisathi_theme_mode') || 'current';
 
+    function applyThemeSliderState() {
+      const thumb = document.getElementById('theme-slider-thumb');
+      if (currentThemeMode === 'white') {
+        document.body.classList.add('theme-white');
+        if (thumb) {
+          thumb.style.transform = 'translateX(0px)';
+          thumb.className = 'w-6 h-6 rounded-full bg-gray-900 shadow-md shadow-black/30 transform translate-x-0 transition-transform duration-300 ease-out z-10';
+        }
+      } else {
+        document.body.classList.remove('theme-white');
+        if (thumb) {
+          thumb.style.transform = 'translateX(44px)';
+          thumb.className = 'w-6 h-6 rounded-full bg-[#1E88E5] shadow-md shadow-blue-500/50 transform translate-x-[44px] transition-transform duration-300 ease-out z-10';
+        }
+      }
+    }
+
+    function setThemeMode(mode) {
+      currentThemeMode = mode;
+      localStorage.setItem('selaisathi_theme_mode', currentThemeMode);
+      applyThemeSliderState();
+      confetti({ particleCount: 25, spread: 45, origin: { y: 0.15 } });
+    }
+
+    function toggleThemeSlider() {
+      const nextMode = currentThemeMode === 'current' ? 'white' : 'current';
+      setThemeMode(nextMode);
+    }
+
+    // Auto initialize on load
+    document.addEventListener('DOMContentLoaded', () => {
+      applyThemeSliderState();
+    });
+    applyThemeSliderState();
   </script>
 
 </body>
