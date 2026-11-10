@@ -476,28 +476,16 @@
     <div class="flex flex-col flex-1 overflow-y-auto z-10">
       
       <!-- Futuristic Brand Header -->
-      <div class="h-20 flex items-center px-6 gap-3.5 border-b border-white/5">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-cyan-500 p-0.5 shadow-cyber-glow brand-glow flex items-center justify-center">
-          <div class="w-full h-full bg-cyber-black rounded-[14px] flex items-center justify-center text-white font-black text-lg tracking-wider">
-            S
-          </div>
-        </div>
-        <div>
-          <div class="flex items-center gap-1.5">
-            <span class="font-extrabold text-base text-white tracking-tight bg-gradient-to-r from-white via-gray-100 to-gray-400 bg-clip-text text-transparent">
-              SelaiSathi
-            </span>
-            <span class="text-[9px] font-mono font-extrabold px-1.5 py-0.5 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 text-black shadow-sm">
-              AI 2.0
-            </span>
-          </div>
-          <div class="text-[11px] text-emerald-400/90 font-medium tracking-wide flex items-center gap-1 mt-0.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            সেলাই সাথী • OS
-          </div>
-        </div>
+      <div class="h-20 flex items-center px-5 border-b border-white/5">
+        <img
+          id="app-brand-logo"
+          src="assets/selaisathi-logo-dark.svg"
+          data-dark-logo="assets/selaisathi-logo-dark.svg"
+          data-light-logo="assets/selaisathi-logo-light.svg"
+          alt="SelaiSathi"
+          class="w-full max-w-[218px] h-auto object-contain brand-glow"
+        >
       </div>
-
       <!-- Navigation: workflow-first tailoring workspace -->
       <div class="ss-nav-shell px-3.5 py-5 space-y-5">
         <div class="ss-nav-group">
@@ -997,8 +985,7 @@
             <!-- Inputs Grid with Dynamic Highlight Badges -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
               <!-- Waist (Highlighted Gold/Amber border) -->
-              <div class="space-y-1.5">
-                <label class="block text-[11px] font-bold text-gray-700">Waist</label>
+              <div class="space-y-1.5">                <label class="block text-[11px] font-bold text-gray-700">Waist</label>
                 <div class="relative">
                   <input type="text" id="m_waist" value="31" class="w-full font-mono font-black text-sm px-3.5 py-2.5 rounded-2xl border-2 border-amber-500 bg-amber-50/40 focus:outline-none">
                   <span class="absolute right-3.5 top-3 text-xs text-gray-400 font-mono">in</span>
@@ -1497,8 +1484,7 @@
       }
     };
 
-    function toggleLanguage() {
-      currentLang = currentLang === 'en' ? 'bn' : 'en';
+    function toggleLanguage() {      currentLang = currentLang === 'en' ? 'bn' : 'en';
       document.getElementById('lang-indicator').innerText = currentLang === 'en' ? 'বাংলা' : 'English';
       
       document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -1935,6 +1921,12 @@
 
     function applyThemeSliderState() {
       const thumb = document.getElementById('theme-slider-thumb');
+      const brandLogo = document.getElementById('app-brand-logo');
+      if (brandLogo) {
+        brandLogo.src = currentThemeMode === 'white'
+          ? brandLogo.dataset.lightLogo
+          : brandLogo.dataset.darkLogo;
+      }
       if (currentThemeMode === 'white') {
         document.body.classList.add('theme-white');
         if (thumb) {
