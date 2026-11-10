@@ -256,6 +256,15 @@
 
     body:not(.theme-white) > aside .border-white\/5 { border-color: var(--ss-border) !important; }
     body:not(.theme-white) > aside .bg-cyber-black\/40 { background: rgba(5,10,19,.7) !important; }
+    body:not(.theme-white) aside .brand-selai {
+      color: #FFFFFF !important;
+      -webkit-text-fill-color: #FFFFFF !important;
+    }
+    body:not(.theme-white) aside .brand-sathi {
+      color: #76F7C7 !important;
+      -webkit-text-fill-color: #76F7C7 !important;
+      text-shadow: 0 0 12px rgba(118, 247, 199, 0.45);
+    }
 
     body:not(.theme-white) > div.flex-1 { background: transparent !important; }
     body:not(.theme-white) header {
@@ -428,11 +437,13 @@
       border-color: rgba(46, 108, 75, 0.2) !important;
       animation: none !important;
     }
-    body.theme-white aside #app-brand-name,
-    body.theme-white aside span.font-extrabold {
-      background: none !important;
-      -webkit-text-fill-color: #25332C !important;
-      color: #25332C !important;
+    body.theme-white aside .brand-selai {
+      color: #062B26 !important;
+      -webkit-text-fill-color: #062B26 !important;
+    }
+    body.theme-white aside .brand-sathi {
+      color: #14B88A !important;
+      -webkit-text-fill-color: #14B88A !important;
     }
     body.theme-white aside #app-brand-sub,
     body.theme-white aside .text-emerald-400\/90 {
@@ -1169,8 +1180,8 @@
         </div>
         <div>
           <div class="flex items-center">
-            <span class="font-extrabold text-base text-white tracking-tight bg-gradient-to-r from-white via-gray-100 to-gray-400 bg-clip-text text-transparent">
-              SelaiSathi
+            <span class="font-extrabold text-[17px] tracking-tight leading-none select-none">
+              <span class="brand-selai">Selai</span><span class="brand-sathi">Sathi</span>
             </span>
           </div>
           <div class="text-[11px] text-emerald-400/90 font-medium tracking-wide flex items-center gap-1 mt-0.5">
