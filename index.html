@@ -476,15 +476,16 @@
     <div class="flex flex-col flex-1 overflow-y-auto z-10">
       
       <!-- Futuristic Brand Header -->
-      <div class="h-20 flex items-center px-5 border-b border-white/5">
+      <div class="h-20 flex flex-col items-start justify-center px-5 border-b border-white/5">
         <img
           id="app-brand-logo"
           src="assets/selaisathi-logo-dark.svg"
           data-dark-logo="assets/selaisathi-logo-dark.svg"
           data-light-logo="assets/selaisathi-logo-light.svg"
           alt="SelaiSathi"
-          class="w-full max-w-[218px] h-auto object-contain brand-glow"
+          class="w-full max-w-[180px] h-auto object-contain brand-glow"
         >
+        <div class="text-[10px] text-emerald-400/90 font-medium tracking-wide mt-0.5">সেলাই সাথী • OS</div>
       </div>
       <!-- Navigation: workflow-first tailoring workspace -->
       <div class="ss-nav-shell px-3.5 py-5 space-y-5">
@@ -497,8 +498,7 @@
             <button onclick="navigateTo('orders')" id="nav-orders" title="Orders" aria-label="Orders" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
               <span class="nav-icon-badge"><span>▤</span></span><span class="ss-nav-label" data-i18n="menu_orders">Orders</span><span class="ss-nav-count">48</span>
             </button>
-          </nav>
-        </div>
+          </nav>        </div>
 
         <div class="ss-nav-group">
           <div class="ss-nav-heading"><span>CLIENT & WORKSHOP</span></div>
@@ -997,8 +997,7 @@
               <div class="space-y-1.5">
                 <label class="block text-[11px] font-bold text-gray-700">Hip</label>
                 <div class="relative">
-                  <input type="text" id="m_hip" value="38" class="w-full font-mono font-bold text-sm px-3.5 py-2.5 rounded-2xl border border-ios-border bg-gray-50/50 focus:bg-white focus:outline-none">
-                  <span class="absolute right-3.5 top-3 text-xs text-gray-400 font-mono">in</span>
+                  <input type="text" id="m_hip" value="38" class="w-full font-mono font-bold text-sm px-3.5 py-2.5 rounded-2xl border border-ios-border bg-gray-50/50 focus:bg-white focus:outline-none">                  <span class="absolute right-3.5 top-3 text-xs text-gray-400 font-mono">in</span>
                 </div>
                 <div class="text-[10px] text-gray-400">Same as v2</div>
               </div>
@@ -1497,8 +1496,7 @@
       if (currentLang === 'bn') {
         document.getElementById('dash-greeting').innerText = 'শুভ অপরাহ্ন, শপ ওনার';
       } else {
-        document.getElementById('dash-greeting').innerText = 'Good Evening, Shop Owner';
-      }
+        document.getElementById('dash-greeting').innerText = 'Good Evening, Shop Owner';      }
     }
 
     function navigateTo(viewId) {
