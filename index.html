@@ -1026,105 +1026,58 @@
 <!-- VIEW 5: REPORTS (Comparative Dual Bar Chart Bento)   -->
       <!-- ==================================================== -->
       <section id="view-reports" class="app-view hidden space-y-6">
-        
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <div class="flex items-center gap-2">
-              <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-blue-100 text-blue-800">ANALYTICS</span>
-              <span class="text-xs text-ios-subtext">October 2026 Performance</span>
-            </div>
-            <h1 class="text-3xl font-black text-ios-text tracking-tight mt-1">Monthly Reports</h1>
-          </div>
-
-          <div class="flex items-center gap-2">
-            <button class="flex items-center gap-2 px-4 py-2.5 bg-white border border-ios-border rounded-2xl text-xs font-bold text-gray-700 hover:bg-gray-50 shadow-ios-card active:scale-95">
-              <span>📄</span> Export Excel
-            </button>
-            <button class="flex items-center gap-2 px-4 py-2.5 bg-white border border-ios-border rounded-2xl text-xs font-bold text-gray-700 hover:bg-gray-50 shadow-ios-card active:scale-95">
-              <span>📑</span> Export PDF
-            </button>
-          </div>
-        </div>
-
-        <!-- Report Tabs Row -->
-        <div class="flex flex-wrap items-center gap-1.5 p-1.5 bg-gray-200/60 rounded-2xl border border-gray-300/40 w-fit text-xs">
-          <button class="px-3.5 py-1.5 bg-white font-bold text-gray-900 rounded-xl shadow-xs">Sales & collections</button>
-          <button class="px-3.5 py-1.5 font-medium text-gray-600 hover:text-gray-900 rounded-xl">Profit & loss</button>
-          <button class="px-3.5 py-1.5 font-medium text-gray-600 hover:text-gray-900 rounded-xl">Staff work</button>
-          <button class="px-3.5 py-1.5 font-medium text-gray-600 hover:text-gray-900 rounded-xl">Garments</button>
-          <button class="px-3.5 py-1.5 font-medium text-gray-600 hover:text-gray-900 rounded-xl">Payment methods</button>
-        </div>
-
-        <!-- 4 Bento Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div class="bento-card p-5">
-            <div class="text-xs text-ios-subtext font-bold uppercase">Sales</div>
-            <div class="text-3xl font-black text-ios-text font-mono mt-1">৳65,601</div>
-            <div class="text-[11px] text-ios-subtext mt-1">23 orders</div>
-          </div>
-
-          <div class="bento-card p-5">
-            <div class="text-xs text-ios-subtext font-bold uppercase">Collected</div>
-            <div class="text-3xl font-black text-emerald-700 font-mono mt-1">৳52,880</div>
-          </div>
-
-          <div class="bento-card p-5">
-            <div class="text-xs text-ios-subtext font-bold uppercase">Expense</div>
-            <div class="text-3xl font-black text-red-600 font-mono mt-1">৳40,530</div>
-          </div>
-
-          <div class="bento-card p-5">
-            <div class="text-xs text-ios-subtext font-bold uppercase">Profit (cash)</div>
-            <div class="text-3xl font-black text-indigo-700 font-mono mt-1">৳12,350</div>
-            <div class="text-[11px] text-ios-subtext mt-1">Collected - expense</div>
-          </div>
-        </div>
-
-        <!-- Sales vs Expense Bento Dual Chart -->
-        <div class="bento-card p-7 space-y-5">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-5 text-xs font-bold">
-              <span class="flex items-center gap-2"><span class="w-3 h-3 bg-emerald-700 rounded-md"></span> Sales</span>
-              <span class="flex items-center gap-2"><span class="w-3 h-3 bg-amber-500 rounded-md"></span> Expense</span>
-            </div>
-            <span class="text-xs text-gray-400 font-mono">October 2026</span>
-          </div>
-
-          <div class="h-60 flex items-end justify-between gap-2 pt-8 border-b border-gray-100">
-            <div class="flex-1 flex items-end justify-center gap-1.5">
-              <div class="w-3 bg-emerald-700 rounded-t-md shadow-xs" style="height: 30%;"></div>
-              <div class="w-3 bg-amber-500 rounded-t-md shadow-xs" style="height: 85%;"></div>
-            </div>
-            <div class="flex-1 flex items-end justify-center gap-1.5">
-              <div class="w-3 bg-emerald-700 rounded-t-md shadow-xs" style="height: 25%;"></div>
-            </div>
-            <div class="flex-1 flex items-end justify-center gap-1.5">
-              <div class="w-3 bg-emerald-700 rounded-t-md shadow-xs" style="height: 48%;"></div>
-            </div>
-            <div class="flex-1 flex items-end justify-center gap-1.5">
-              <div class="w-3 bg-emerald-700 rounded-t-md shadow-xs" style="height: 28%;"></div>
-            </div>
-            <div class="flex-1 flex items-end justify-center gap-1.5">
-              <div class="w-3 bg-emerald-700 rounded-t-md shadow-xs" style="height: 42%;"></div>
-            </div>
-            <div class="flex-1 flex items-end justify-center gap-1.5">
-              <div class="w-3 bg-emerald-700 rounded-t-md shadow-xs" style="height: 12%;"></div>
-            </div>
-            <div class="flex-1 flex items-end justify-center gap-1.5"><div class="w-3 bg-gray-100 rounded-t-md" style="height: 3%;"></div></div>
-            <div class="flex-1 flex items-end justify-center gap-1.5"><div class="w-3 bg-gray-100 rounded-t-md" style="height: 3%;"></div></div>
-          </div>
-          <div class="flex justify-between text-[11px] font-mono text-gray-400">
-            <span>1 Oct</span>
-            <span>5 Oct</span>
-            <span>10 Oct</span>
-            <span>15 Oct</span>
-            <span>20 Oct</span>
-            <span>25 Oct</span>
-            <span>31 Oct</span>
-          </div>
-        </div>
-
-      </section>
+  <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
+    <div>
+      <div class="text-[10px] font-mono font-bold tracking-[.2em] text-cyan-300">BUSINESS INTELLIGENCE / REPORTS</div>
+      <h1 class="text-3xl font-black tracking-tight mt-2">Reports & Analytics</h1>
+      <p class="text-sm text-gray-400 mt-1">Review sales, cash flow, expenses and stock performance.</p>
+    </div>
+    <div class="flex flex-wrap items-center gap-2">
+      <label class="text-xs text-gray-400" for="report-month">Reporting month</label>
+      <input id="report-month" type="month" class="px-3 py-2 text-sm rounded-xl border" onchange="renderReports()" />
+      <button onclick="exportReportsCSV()" class="px-4 py-2.5 rounded-xl text-xs font-bold border border-cyan-400/25 bg-cyan-500/10 text-cyan-200 hover:bg-cyan-500/20">↓ Export report CSV</button>
+    </div>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+    <article class="bento-card p-5"><div class="text-xs text-gray-400 font-bold uppercase tracking-wider">Sales in selected month</div><div id="report-sales" class="text-2xl sm:text-3xl font-black font-mono mt-2">৳0</div><div id="report-order-count" class="text-xs text-gray-500 mt-2">0 orders</div></article>
+    <article class="bento-card p-5"><div class="text-xs text-gray-400 font-bold uppercase tracking-wider">Collected / advances</div><div id="report-collected" class="text-2xl sm:text-3xl font-black font-mono text-emerald-300 mt-2">৳0</div><div class="text-xs text-gray-500 mt-2">Order advances + other income</div></article>
+    <article class="bento-card p-5"><div class="text-xs text-gray-400 font-bold uppercase tracking-wider">Expenses this month</div><div id="report-expenses" class="text-2xl sm:text-3xl font-black font-mono text-rose-300 mt-2">৳0</div><div id="report-expense-count" class="text-xs text-gray-500 mt-2">0 transactions</div></article>
+    <article class="bento-card p-5"><div class="text-xs text-gray-400 font-bold uppercase tracking-wider">Cash result</div><div id="report-net" class="text-2xl sm:text-3xl font-black font-mono mt-2">৳0</div><div class="text-xs text-gray-500 mt-2">Collected minus expenses</div></article>
+  </div>
+  <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
+    <article class="bento-card p-5">
+      <div class="flex items-center justify-between gap-3 mb-4"><div><h2 class="font-bold">Sales performance</h2><p class="text-xs text-gray-500 mt-1">Orders recorded in the selected month</p></div><span class="text-xl">↗</span></div>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="rounded-xl bg-slate-900/40 border border-slate-700/60 p-4"><div class="text-[10px] uppercase tracking-wider text-gray-500">Average order value</div><div id="report-aov" class="font-mono text-xl font-bold mt-2">৳0</div></div>
+        <div class="rounded-xl bg-slate-900/40 border border-slate-700/60 p-4"><div class="text-[10px] uppercase tracking-wider text-gray-500">Outstanding due</div><div id="report-due" class="font-mono text-xl font-bold text-amber-300 mt-2">৳0</div><div id="report-due-count" class="text-[10px] text-gray-500 mt-1">0 orders</div></div>
+      </div>
+      <div class="mt-5"><div class="flex justify-between text-xs text-gray-400 mb-2"><span>Sales vs collected</span><span id="report-collection-rate">0% collected</span></div><div class="h-2.5 rounded-full bg-slate-700/70 overflow-hidden"><div id="report-collection-bar" class="h-full rounded-full bg-gradient-to-r from-cyan-400 to-violet-400" style="width:0%"></div></div></div>
+      <div id="report-sales-empty" class="hidden text-xs text-gray-500 text-center py-5">No orders found for this month.</div>
+    </article>
+    <article class="bento-card p-5">
+      <div class="flex items-center justify-between mb-4"><div><h2 class="font-bold">Expense breakdown</h2><p class="text-xs text-gray-500 mt-1">Grouped by category</p></div><span class="text-xl">◉</span></div>
+      <div id="report-expense-categories" class="space-y-3"></div>
+      <div id="report-expense-empty" class="text-xs text-gray-500 text-center py-5">No expense entries for this month.</div>
+    </article>
+  </div>
+  <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
+    <article class="bento-card p-5">
+      <div class="flex items-center justify-between mb-4"><div><h2 class="font-bold">Orders in selected month</h2><p class="text-xs text-gray-500 mt-1">Order value and remaining due</p></div><span class="text-xs text-gray-500">SALES</span></div>
+      <div class="overflow-x-auto"><table class="w-full text-left text-xs min-w-[480px]"><thead><tr class="border-b border-slate-700 text-gray-400"><th class="p-3">Order / Customer</th><th class="p-3">Date</th><th class="p-3 text-right">Total</th><th class="p-3 text-right">Due</th></tr></thead><tbody id="report-orders-table"></tbody></table></div>
+      <div id="report-orders-empty" class="hidden text-xs text-gray-500 text-center py-5">No matching orders.</div>
+    </article>
+    <article class="bento-card p-5">
+      <div class="flex items-center justify-between mb-4"><div><h2 class="font-bold">Inventory snapshot</h2><p class="text-xs text-gray-500 mt-1">Current stock position</p></div><span class="text-xs text-gray-500">STOCK</span></div>
+      <div class="grid grid-cols-2 gap-3 mb-4">
+        <div class="rounded-xl bg-slate-900/40 border border-slate-700/60 p-4"><div class="text-[10px] text-gray-500 uppercase">Stock items</div><div id="report-stock-count" class="font-mono text-xl font-bold mt-2">0</div></div>
+        <div class="rounded-xl bg-slate-900/40 border border-slate-700/60 p-4"><div class="text-[10px] text-gray-500 uppercase">Stock value</div><div id="report-stock-value" class="font-mono text-xl font-bold mt-2">৳0</div></div>
+      </div>
+      <div class="flex items-center justify-between gap-3"><div><div class="text-xs text-gray-400">Low-stock materials</div><div id="report-low-stock" class="text-2xl font-black text-amber-300 mt-1">0</div></div><div class="text-right"><div class="text-xs text-gray-400">Stock movements this month</div><div id="report-movements" class="text-2xl font-black mt-1">0</div></div></div>
+      <p class="text-[10px] text-gray-500 mt-4">Stock valuation uses current quantity × unit cost; it is not a historical month-end valuation.</p>
+    </article>
+  </div>
+  <div class="bento-card p-4 text-xs text-gray-400 leading-relaxed">Reporting notes: sales are grouped by order date. Expense and standalone-income entries use their transaction dates. Order advances are cumulative because the current Orders data does not store individual payment dates. Cash result is a cash-flow indicator, not formal accrual-basis profit. Orders currently remain in memory and may reset after reload; ledger, materials and stock movements are stored in this browser only. Cloud sync is not connected.</div>
+</section>
 
       <!-- ==================================================== -->
       <!-- VIEW 6: ORDERS & VOUCHERS (Bento Cards & POS Print)  -->
@@ -1436,6 +1389,7 @@
       if (['customers','staff','fabrics'].includes(viewId)) renderWorkspacePages();
       if (viewId === 'inventory') renderInventory();
       if (viewId === 'accounts') renderLedger();
+      if (viewId === 'reports') renderReports();
     }
 
     const ordersData = [
@@ -1705,6 +1659,67 @@
       a.href=url;a.download='selaisathi-ledger-'+new Date().toISOString().slice(0,10)+'.csv';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
     }
 
+
+    // Reports: month-filtered view across orders, ledger and inventory.
+    function reportDateMonth(value){
+      if(!value)return '';
+      const d=new Date(value);
+      return Number.isNaN(d.getTime())?'':d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+    }
+    function reportMonthValue(){
+      const input=document.getElementById('report-month');
+      if(input&&!input.value){const now=new Date();input.value=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');}
+      return input?.value||'';
+    }
+    function renderReports(){
+      const table=document.getElementById('report-orders-table');if(!table)return;
+      const month=reportMonthValue();
+      const monthOrders=ordersData.filter(o=>reportDateMonth(o.date)===month);
+      const sales=monthOrders.reduce((n,o)=>n+(Number(o.total)||0),0);
+      const allAdvances=ordersData.reduce((n,o)=>n+(Number(o.advance)||0),0);
+      const otherIncome=ssLedgerTransactions.filter(t=>t.type==='income'&&!t.orderId&&String(t.date||'').slice(0,7)===month).reduce((n,t)=>n+(Number(t.amount)||0),0);
+      const collected=allAdvances+otherIncome;
+      const monthExpenses=ssLedgerTransactions.filter(t=>t.type==='expense'&&String(t.date||'').slice(0,7)===month);
+      const expenses=monthExpenses.reduce((n,t)=>n+(Number(t.amount)||0),0);
+      const due=ordersData.reduce((n,o)=>n+(Number(o.due)||0),0);
+      const dueCount=ordersData.filter(o=>Number(o.due)>0).length;
+      const set=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value;};
+      set('report-sales',moneyBDT(sales));set('report-order-count',monthOrders.length+' orders');
+      set('report-collected',moneyBDT(collected));set('report-expenses',moneyBDT(expenses));
+      set('report-expense-count',monthExpenses.length+' transactions');set('report-net',moneyBDT(collected-expenses));
+      set('report-aov',moneyBDT(monthOrders.length?sales/monthOrders.length:0));
+      set('report-due',moneyBDT(due));set('report-due-count',dueCount+' orders');
+      const rate=sales>0?Math.min(100,Math.round((collected/sales)*100)):0;
+      set('report-collection-rate',rate+'% collected');
+      const bar=document.getElementById('report-collection-bar');if(bar)bar.style.width=rate+'%';
+      document.getElementById('report-sales-empty')?.classList.toggle('hidden',monthOrders.length!==0);
+      table.innerHTML=monthOrders.map(o=>'<tr class="border-b border-slate-700/60"><td class="p-3"><div class="font-semibold">'+safeText(o.id)+'</div><div class="text-[10px] text-gray-500">'+safeText(o.name)+'</div></td><td class="p-3 whitespace-nowrap text-gray-400">'+safeText(o.date)+'</td><td class="p-3 text-right font-mono">'+moneyBDT(o.total)+'</td><td class="p-3 text-right font-mono text-amber-300">'+moneyBDT(o.due)+'</td></tr>').join('');
+      document.getElementById('report-orders-empty')?.classList.toggle('hidden',monthOrders.length!==0);
+      const groups={};monthExpenses.forEach(t=>{const key=t.category||'General';groups[key]=(groups[key]||0)+(Number(t.amount)||0);});
+      const cats=Object.entries(groups).sort((a,b)=>b[1]-a[1]);
+      const catBox=document.getElementById('report-expense-categories');
+      if(catBox)catBox.innerHTML=cats.map(([name,value])=>'<div><div class="flex justify-between gap-3 text-xs mb-1"><span class="text-gray-300">'+safeText(name)+'</span><strong class="font-mono">'+moneyBDT(value)+'</strong></div><div class="h-1.5 rounded-full bg-slate-700/70 overflow-hidden"><div class="h-full rounded-full bg-gradient-to-r from-rose-400 to-violet-400" style="width:'+Math.max(2,expenses?value/expenses*100:0)+'%"></div></div></div>').join('');
+      document.getElementById('report-expense-empty')?.classList.toggle('hidden',cats.length!==0);
+      const stock=ssRecords.fabrics||[];
+      set('report-stock-count',stock.length);
+      set('report-stock-value',moneyBDT(stock.reduce((n,x)=>n+(Number(x.stock)||0)*(Number(x.cost)||0),0)));
+      set('report-low-stock',stock.filter(x=>Number(x.stock)<=Number(x.minimum)).length);
+      set('report-movements',(ssMovements||[]).filter(m=>String(m.date||'').slice(0,7)===month).length);
+    }
+    function exportReportsCSV(){
+      const month=reportMonthValue();
+      const monthOrders=ordersData.filter(o=>reportDateMonth(o.date)===month);
+      const monthTransactions=ssLedgerTransactions.filter(t=>String(t.date||'').slice(0,7)===month);
+      const rows=[['Report month',month],[],['Orders','Customer','Date','Sales BDT','Advance BDT','Due BDT']];
+      monthOrders.forEach(o=>rows.push([o.id,o.name,o.date,o.total,o.advance,o.due]));
+      rows.push([],['Transactions','Type','Category','Date','Method','Amount BDT']);
+      monthTransactions.forEach(t=>rows.push([t.description,t.type,t.category||'',t.date,t.method||'',t.amount]));
+      rows.push([],['Inventory','SKU','Stock','Unit','Unit cost BDT','Current value BDT','Reorder level']);
+      (ssRecords.fabrics||[]).forEach(x=>rows.push([x.name,x.sku,x.stock,x.unit,x.cost,(Number(x.stock)||0)*(Number(x.cost)||0),x.minimum]));
+      const csv=rows.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\\r\\n');
+      const blob=new Blob(['\\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+      a.href=url;a.download='selaisathi-report-'+(month||'all')+'.csv';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+    }
 
     // Inventory uses the same fabric/material records as the Fabrics page.
     const ssMovementKey = 'selaisathi_inventory_movements_v1';
