@@ -1715,6 +1715,140 @@
       background: #FFF1F2 !important;
       border-color: #FECDD3 !important;
     }
+
+    /* ======================================================== */
+    /* FUTURISTIC CYBER-DROPDOWN & SELECT SYSTEM                */
+    /* ======================================================== */
+    .cyber-select-trigger {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 7px 13px;
+      border-radius: 12px;
+      background: rgba(14, 23, 42, 0.65);
+      border: 1px solid rgba(34, 211, 238, 0.28);
+      color: #e2e8f0;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+    .cyber-select-trigger:hover,
+    .cyber-select-trigger.is-active {
+      border-color: rgba(34, 211, 238, 0.7);
+      background: rgba(14, 23, 42, 0.9);
+      box-shadow: 0 0 16px rgba(34, 211, 238, 0.22), 0 4px 14px rgba(0, 0, 0, 0.35);
+      transform: translateY(-1px);
+    }
+    .cyber-select-trigger .cyber-select-chevron {
+      font-size: 10px;
+      color: #22d3ee;
+      transition: transform 0.2s;
+    }
+    .cyber-select-trigger.is-active .cyber-select-chevron {
+      transform: rotate(180deg);
+    }
+
+    /* Cyber Dropdown Popover (Singleton Menu) */
+    .cyber-dropdown-popover {
+      position: fixed;
+      z-index: 9999999;
+      min-width: 190px;
+      max-width: 330px;
+      max-height: 380px;
+      overflow-y: auto;
+      background: linear-gradient(165deg, rgba(13, 22, 41, 0.96) 0%, rgba(6, 12, 24, 0.98) 100%);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid rgba(34, 211, 238, 0.35);
+      border-radius: 18px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85), 0 0 30px rgba(34, 211, 238, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      padding: 7px;
+      color: #f1f6ff;
+      font-family: Inter, "Hind Siliguri", sans-serif;
+      user-select: none;
+      animation: cyberDropdownFadeIn 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes cyberDropdownFadeIn {
+      from { opacity: 0; transform: scale(0.95) translateY(-6px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .cyber-dropdown-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 11px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #cbd5e1;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .cyber-dropdown-item:hover {
+      background: rgba(34, 211, 238, 0.15);
+      border-color: rgba(34, 211, 238, 0.35);
+      color: #38bdf8;
+      transform: translateX(3px);
+    }
+    .cyber-dropdown-item.is-selected {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.22), rgba(16, 185, 129, 0.22));
+      border-color: rgba(34, 211, 238, 0.6);
+      color: #ffffff;
+      font-weight: 800;
+    }
+    .cyber-dropdown-check {
+      font-size: 12px;
+      color: #22d3ee;
+      font-weight: bold;
+    }
+
+    /* White Theme Overrides */
+    body.theme-white .cyber-select-trigger {
+      background: #FFFFFF !important;
+      border: 1px solid #DCE5DF !important;
+      color: #25332C !important;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+    }
+    body.theme-white .cyber-select-trigger:hover,
+    body.theme-white .cyber-select-trigger.is-active {
+      border-color: #10B981 !important;
+      background: #F9FBFA !important;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06) !important;
+    }
+    body.theme-white .cyber-select-trigger .cyber-select-chevron {
+      color: #10B981 !important;
+    }
+    body.theme-white .cyber-dropdown-popover {
+      background: rgba(255, 255, 255, 0.98) !important;
+      backdrop-filter: blur(24px) !important;
+      -webkit-backdrop-filter: blur(24px) !important;
+      border: 1px solid #DCE5DF !important;
+      box-shadow: 0 20px 48px rgba(37, 51, 44, 0.14), 0 4px 12px rgba(0, 0, 0, 0.04) !important;
+      color: #25332C !important;
+    }
+    body.theme-white .cyber-dropdown-item {
+      color: #25332C !important;
+    }
+    body.theme-white .cyber-dropdown-item:hover {
+      background: #E8EFEB !important;
+      border-color: #DCE5DF !important;
+      color: #1A5438 !important;
+    }
+    body.theme-white .cyber-dropdown-item.is-selected {
+      background: #DDEBE1 !important;
+      border-color: #10B981 !important;
+      color: #047857 !important;
+      font-weight: 800 !important;
+    }
+    body.theme-white .cyber-dropdown-check {
+      color: #10B981 !important;
+    }
   </style>
 </head>
 <body class="flex h-screen overflow-hidden text-sm bg-ios-bg select-none">
@@ -2884,31 +3018,49 @@
             <!-- Filters -->
             <div class="flex flex-wrap items-center gap-2 text-xs">
               <!-- Stage Filter -->
-              <select id="order-filter-stage" onchange="filterOrders()" class="px-3 py-2 rounded-xl border border-ios-border bg-white/60 dark:bg-slate-900/60 text-xs font-bold focus:outline-none">
-                <option value="ALL">All Stages (সব স্টেজ)</option>
-                <option value="CUTTING">✂️ CUTTING</option>
-                <option value="STITCHING">🪡 STITCHING</option>
-                <option value="FINISHING">👔 FINISHING</option>
-                <option value="READY">✨ READY</option>
-                <option value="DELIVERED">📦 DELIVERED</option>
-              </select>
+              <div class="relative">
+                <button type="button" class="cyber-select-trigger" id="order-filter-stage-btn" onclick="CyberSelect.openForSelect(this, 'order-filter-stage')">
+                  <span id="order-filter-stage-label">All Stages (সব স্টেজ)</span>
+                  <span class="cyber-select-chevron">▾</span>
+                </button>
+                <select id="order-filter-stage" onchange="filterOrders()" class="sr-only">
+                  <option value="ALL">All Stages (সব স্টেজ)</option>
+                  <option value="CUTTING">✂️ CUTTING</option>
+                  <option value="STITCHING">🪡 STITCHING</option>
+                  <option value="FINISHING">👔 FINISHING</option>
+                  <option value="READY">✨ READY</option>
+                  <option value="DELIVERED">📦 DELIVERED</option>
+                </select>
+              </div>
 
               <!-- Due Filter -->
-              <select id="order-filter-due" onchange="filterOrders()" class="px-3 py-2 rounded-xl border border-ios-border bg-white/60 dark:bg-slate-900/60 text-xs font-bold focus:outline-none">
-                <option value="ALL">All Payments (সব পেমেন্ট)</option>
-                <option value="DUE">বকেয়া আছে (Due Only)</option>
-                <option value="PAID">পরিশোধিত (Fully Paid)</option>
-              </select>
+              <div class="relative">
+                <button type="button" class="cyber-select-trigger" id="order-filter-due-btn" onclick="CyberSelect.openForSelect(this, 'order-filter-due')">
+                  <span id="order-filter-due-label">All Payments (সব পেমেন্ট)</span>
+                  <span class="cyber-select-chevron">▾</span>
+                </button>
+                <select id="order-filter-due" onchange="filterOrders()" class="sr-only">
+                  <option value="ALL">All Payments (সব পেমেন্ট)</option>
+                  <option value="DUE">বকেয়া আছে (Due Only)</option>
+                  <option value="PAID">পরিশোধিত (Fully Paid)</option>
+                </select>
+              </div>
 
               <!-- Garment Filter -->
-              <select id="order-filter-garment" onchange="filterOrders()" class="px-3 py-2 rounded-xl border border-ios-border bg-white/60 dark:bg-slate-900/60 text-xs font-bold focus:outline-none">
-                <option value="ALL">All Garments (সব পোশাক)</option>
-                <option value="Panjabi">Panjabi (পাঞ্জাবি)</option>
-                <option value="Shirt">Shirt (শার্ট)</option>
-                <option value="Pant">Pant (প্যান্ট)</option>
-                <option value="Blazer">Blazer (ব্লেজার)</option>
-                <option value="Salwar">Salwar Kameez</option>
-              </select>
+              <div class="relative">
+                <button type="button" class="cyber-select-trigger" id="order-filter-garment-btn" onclick="CyberSelect.openForSelect(this, 'order-filter-garment')">
+                  <span id="order-filter-garment-label">All Garments (সব পোশাক)</span>
+                  <span class="cyber-select-chevron">▾</span>
+                </button>
+                <select id="order-filter-garment" onchange="filterOrders()" class="sr-only">
+                  <option value="ALL">All Garments (সব পোশাক)</option>
+                  <option value="Panjabi">Panjabi (পাঞ্জাবি)</option>
+                  <option value="Shirt">Shirt (শার্ট)</option>
+                  <option value="Pant">Pant (প্যান্ট)</option>
+                  <option value="Blazer">Blazer (ব্লেজার)</option>
+                  <option value="Salwar">Salwar Kameez</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
@@ -3017,13 +3169,19 @@
           </div>
           <div>
             <label class="block font-bold text-gray-700 mb-1.5">Production Stage</label>
-            <select id="eo-stage" class="w-full border border-ios-border rounded-2xl px-3.5 py-2.5 text-sm focus:outline-none font-bold">
-              <option value="CUTTING">✂️ CUTTING (কাটিং)</option>
-              <option value="STITCHING">🪡 STITCHING (সেলাই)</option>
-              <option value="FINISHING">👔 FINISHING (ফিনিশিং)</option>
-              <option value="READY">✨ READY (প্রস্তুত)</option>
-              <option value="DELIVERED">📦 DELIVERED (ডেলিভার্ড)</option>
-            </select>
+            <div class="relative">
+              <button type="button" class="cyber-select-trigger w-full !py-2.5 !rounded-2xl" id="eo-stage-btn" onclick="CyberSelect.openForSelect(this, 'eo-stage')">
+                <span id="eo-stage-label">✂️ CUTTING (কাটিং)</span>
+                <span class="cyber-select-chevron">▾</span>
+              </button>
+              <select id="eo-stage" class="sr-only font-bold">
+                <option value="CUTTING">✂️ CUTTING (কাটিং)</option>
+                <option value="STITCHING">🪡 STITCHING (সেলাই)</option>
+                <option value="FINISHING">👔 FINISHING (ফিনিশিং)</option>
+                <option value="READY">✨ READY (প্রস্তুত)</option>
+                <option value="DELIVERED">📦 DELIVERED (ডেলিভার্ড)</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -3039,15 +3197,21 @@
         <div class="grid grid-cols-2 gap-3.5">
           <div>
             <label class="block font-bold text-gray-700 mb-1.5">Garment Type</label>
-            <select id="eo-garment" class="w-full border border-ios-border rounded-2xl px-3.5 py-2.5 text-sm focus:outline-none">
-              <option value="Cotton Panjabi">Cotton Panjabi (পাঞ্জাবি)</option>
-              <option value="Formal Shirt">Formal Shirt (শার্ট)</option>
-              <option value="Gabardine Pant">Gabardine Pant (প্যান্ট)</option>
-              <option value="Salwar Kameez">Salwar Kameez (কামিজ)</option>
-              <option value="Royal Blazer">Royal Blazer / Suit (ব্লেজার)</option>
-              <option value="Kurti">Kurti / Tunics</option>
-              <option value="Sherwani">Sherwani (শেরওয়ানি)</option>
-            </select>
+            <div class="relative">
+              <button type="button" class="cyber-select-trigger w-full !py-2.5 !rounded-2xl" id="eo-garment-btn" onclick="CyberSelect.openForSelect(this, 'eo-garment')">
+                <span id="eo-garment-label">Cotton Panjabi (পাঞ্জাবি)</span>
+                <span class="cyber-select-chevron">▾</span>
+              </button>
+              <select id="eo-garment" class="sr-only">
+                <option value="Cotton Panjabi">Cotton Panjabi (পাঞ্জাবি)</option>
+                <option value="Formal Shirt">Formal Shirt (শার্ট)</option>
+                <option value="Gabardine Pant">Gabardine Pant (প্যান্ট)</option>
+                <option value="Salwar Kameez">Salwar Kameez (কামিজ)</option>
+                <option value="Royal Blazer">Royal Blazer / Suit (ব্লেজার)</option>
+                <option value="Kurti">Kurti / Tunics</option>
+                <option value="Sherwani">Sherwani (শেরওয়ানি)</option>
+              </select>
+            </div>
           </div>
           <div>
             <label class="block font-bold text-gray-700 mb-1.5">Delivery Date</label>
@@ -3117,13 +3281,19 @@
         <div class="grid grid-cols-2 gap-3.5">
           <div>
             <label class="block font-bold text-gray-700 mb-1.5">Garment Type</label>
-            <select id="no-garment" class="w-full border border-ios-border rounded-2xl px-3.5 py-2.5 text-sm focus:outline-none">
-              <option value="Panjabi">Panjabi (পাঞ্জাবি)</option>
-              <option value="Shirt">Formal Shirt (শার্ট)</option>
-              <option value="Pant">Pant (প্যান্ট)</option>
-              <option value="Salwar Kameez">Salwar Kameez (কামিজ)</option>
-              <option value="Blazer">Blazer / Suit (ব্লেজার)</option>
-            </select>
+            <div class="relative">
+              <button type="button" class="cyber-select-trigger w-full !py-2.5 !rounded-2xl" id="no-garment-btn" onclick="CyberSelect.openForSelect(this, 'no-garment')">
+                <span id="no-garment-label">Panjabi (পাঞ্জাবি)</span>
+                <span class="cyber-select-chevron">▾</span>
+              </button>
+              <select id="no-garment" class="sr-only">
+                <option value="Panjabi">Panjabi (পাঞ্জাবি)</option>
+                <option value="Shirt">Formal Shirt (শার্ট)</option>
+                <option value="Pant">Pant (প্যান্ট)</option>
+                <option value="Salwar Kameez">Salwar Kameez (কামিজ)</option>
+                <option value="Blazer">Blazer / Suit (ব্লেজার)</option>
+              </select>
+            </div>
           </div>
           <div>
             <label class="block font-bold text-gray-700 mb-1.5">Delivery Date</label>
@@ -3294,6 +3464,13 @@
   </div>
 
   <!-- ======================================================== -->
+  <!-- FUTURISTIC CYBER-DROPDOWN POPOVER (Singleton Menu)       -->
+  <!-- ======================================================== -->
+  <div id="cyber-dropdown-popover" class="cyber-dropdown-popover hidden" role="dialog" aria-modal="true" aria-label="Cyber Dropdown Menu">
+    <!-- Populated dynamically via CyberSelect.open -->
+  </div>
+
+  <!-- ======================================================== -->
   <!-- 4. CORE JAVASCRIPT LOGIC                                 -->
   <!-- ======================================================== -->
   <script>
@@ -3442,11 +3619,19 @@
       if (emptyState) emptyState.classList.add('hidden');
 
       const stageColors = {
-        'CUTTING': 'bg-indigo-500/20 text-indigo-400 border-indigo-500/40',
-        'STITCHING': 'bg-amber-500/20 text-amber-400 border-amber-500/40',
-        'FINISHING': 'bg-purple-500/20 text-purple-400 border-purple-500/40',
-        'READY': 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40',
-        'DELIVERED': 'bg-slate-500/20 text-slate-400 border-slate-500/40'
+        'CUTTING': 'bg-indigo-500/20 text-indigo-400 border-indigo-500/40 hover:bg-indigo-500/30',
+        'STITCHING': 'bg-amber-500/20 text-amber-400 border-amber-500/40 hover:bg-amber-500/30',
+        'FINISHING': 'bg-purple-500/20 text-purple-400 border-purple-500/40 hover:bg-purple-500/30',
+        'READY': 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40 hover:bg-emerald-500/30',
+        'DELIVERED': 'bg-slate-500/20 text-slate-400 border-slate-500/40 hover:bg-slate-500/30'
+      };
+
+      const stageLabels = {
+        'CUTTING': '✂️ CUTTING',
+        'STITCHING': '🪡 STITCHING',
+        'FINISHING': '👔 FINISHING',
+        'READY': '✨ READY',
+        'DELIVERED': '📦 DELIVERED'
       };
 
       container.innerHTML = filtered.map(o => `
@@ -3460,14 +3645,11 @@
                 <span class="font-mono font-bold text-ios-text text-sm">${o.id}</span>
                 <span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[10px] font-mono font-black px-2 py-0.5 rounded-md">📌 ${o.tag}</span>
                 
-                <!-- Quick Stage Selector -->
-                <select onchange="updateOrderStage('${o.id}', this.value)" class="text-[10px] font-bold px-2 py-0.5 rounded-full border cursor-pointer focus:outline-none ${stageColors[o.stage] || 'bg-cyan-500/20 text-cyan-400'}">
-                  <option value="CUTTING" ${o.stage === 'CUTTING' ? 'selected' : ''}>✂️ CUTTING</option>
-                  <option value="STITCHING" ${o.stage === 'STITCHING' ? 'selected' : ''}>🪡 STITCHING</option>
-                  <option value="FINISHING" ${o.stage === 'FINISHING' ? 'selected' : ''}>👔 FINISHING</option>
-                  <option value="READY" ${o.stage === 'READY' ? 'selected' : ''}>✨ READY</option>
-                  <option value="DELIVERED" ${o.stage === 'DELIVERED' ? 'selected' : ''}>📦 DELIVERED</option>
-                </select>
+                <!-- Futuristic Cyber Stage Selector Button -->
+                <button type="button" onclick="CyberSelect.openOrderStage(this, '${o.id}', '${o.stage}')" title="Change Production Stage" class="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full border cursor-pointer hover:scale-105 transition-all flex items-center gap-1.5 ${stageColors[o.stage] || 'bg-cyan-500/20 text-cyan-400'}">
+                  <span>${stageLabels[o.stage] || o.stage}</span>
+                  <span class="text-[8px] opacity-70">▾</span>
+                </button>
 
                 <span class="text-[10px] font-mono text-gray-400">📅 ${o.date || '15 Nov 2026'}</span>
               </div>
@@ -3540,6 +3722,11 @@
 
       const stageEl = document.getElementById('eo-stage');
       if (stageEl) stageEl.value = order.stage || 'CUTTING';
+
+      if (window.CyberSelect) {
+        CyberSelect.syncTrigger('eo-stage');
+        CyberSelect.syncTrigger('eo-garment');
+      }
 
       document.getElementById('eo-total').value = order.total || 0;
       document.getElementById('eo-advance').value = order.advance || 0;
@@ -4475,6 +4662,161 @@
     };
 
     /* ======================================================== */
+    /* FUTURISTIC CYBER-DROPDOWN & SELECT SYSTEM ENGINE         */
+    /* ======================================================== */
+    const CyberSelect = {
+      popover: null,
+      activeTrigger: null,
+      isOpen: false,
+
+      init() {
+        this.popover = document.getElementById('cyber-dropdown-popover');
+        if (!this.popover) return;
+
+        // Close on outside pointer click
+        document.addEventListener('pointerdown', (e) => {
+          if (!this.isOpen) return;
+          if (this.popover && !this.popover.contains(e.target) && (!this.activeTrigger || !this.activeTrigger.contains(e.target))) {
+            this.close();
+          }
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && this.isOpen) this.close();
+        });
+
+        // Reposition on window resize
+        window.addEventListener('resize', () => {
+          if (this.isOpen && this.activeTrigger) this.position(this.activeTrigger);
+        });
+
+        // Sync initial labels for all registered cyber selects
+        ['order-filter-stage', 'order-filter-due', 'order-filter-garment', 'eo-stage', 'eo-garment', 'no-garment'].forEach(id => {
+          this.syncTrigger(id);
+        });
+      },
+
+      syncTrigger(selectId) {
+        const selectEl = document.getElementById(selectId);
+        if (!selectEl) return;
+        const triggerLabel = document.getElementById(`${selectId}-label`);
+        if (triggerLabel && selectEl.selectedIndex >= 0) {
+          triggerLabel.textContent = selectEl.options[selectEl.selectedIndex].textContent;
+        }
+      },
+
+      openForSelect(triggerEl, selectId) {
+        const selectEl = document.getElementById(selectId);
+        if (!selectEl) return;
+
+        if (this.isOpen && this.activeTrigger === triggerEl) {
+          this.close();
+          return;
+        }
+
+        const options = Array.from(selectEl.options).map(opt => ({
+          value: opt.value,
+          label: opt.textContent,
+          selected: opt.value === selectEl.value
+        }));
+
+        this.open(triggerEl, options, (val, label) => {
+          selectEl.value = val;
+          const labelSpan = triggerEl.querySelector('span:first-child') || document.getElementById(`${selectId}-label`);
+          if (labelSpan) labelSpan.textContent = label;
+          selectEl.dispatchEvent(new Event('input', { bubbles: true }));
+          selectEl.dispatchEvent(new Event('change', { bubbles: true }));
+          if (typeof selectEl.onchange === 'function') selectEl.onchange();
+        });
+      },
+
+      openOrderStage(triggerEl, orderId, currentStage) {
+        if (this.isOpen && this.activeTrigger === triggerEl) {
+          this.close();
+          return;
+        }
+
+        const stages = [
+          { value: 'CUTTING', label: '✂️ CUTTING (কাটিং)' },
+          { value: 'STITCHING', label: '🪡 STITCHING (সেলাই)' },
+          { value: 'FINISHING', label: '👔 FINISHING (ফিনিশিং)' },
+          { value: 'READY', label: '✨ READY (প্রস্তুত)' },
+          { value: 'DELIVERED', label: '📦 DELIVERED (ডেলিভার্ড)' }
+        ];
+
+        const options = stages.map(s => ({
+          value: s.value,
+          label: s.label,
+          selected: s.value === currentStage
+        }));
+
+        this.open(triggerEl, options, (val) => {
+          updateOrderStage(orderId, val);
+        });
+      },
+
+      open(triggerEl, options, onSelectCallback) {
+        if (!this.popover) this.init();
+        if (!this.popover) return;
+
+        if (this.activeTrigger) this.activeTrigger.classList.remove('is-active');
+        this.activeTrigger = triggerEl;
+        this.isOpen = true;
+        triggerEl.classList.add('is-active');
+
+        this.popover.innerHTML = '';
+        const list = document.createElement('div');
+        list.className = 'space-y-1';
+
+        options.forEach(opt => {
+          const item = document.createElement('div');
+          item.className = 'cyber-dropdown-item' + (opt.selected ? ' is-selected' : '');
+          item.innerHTML = `<span class="flex items-center gap-2 truncate">${opt.label}</span>${opt.selected ? '<span class="cyber-dropdown-check">✓</span>' : ''}`;
+          item.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (typeof onSelectCallback === 'function') onSelectCallback(opt.value, opt.label);
+            this.close();
+          });
+          list.appendChild(item);
+        });
+
+        this.popover.appendChild(list);
+        this.popover.classList.remove('hidden');
+        this.position(triggerEl);
+      },
+
+      close() {
+        if (!this.isOpen) return;
+        this.isOpen = false;
+        this.popover?.classList.add('hidden');
+        if (this.activeTrigger) this.activeTrigger.classList.remove('is-active');
+        this.activeTrigger = null;
+      },
+
+      position(targetEl) {
+        if (!this.popover || !targetEl) return;
+        const rect = targetEl.getBoundingClientRect();
+        const popoverWidth = Math.max(rect.width, 210);
+        this.popover.style.width = `${Math.min(popoverWidth, 340)}px`;
+
+        const popoverHeight = Math.min(this.popover.scrollHeight || 240, 360);
+        let top = rect.bottom + 6;
+        if (top + popoverHeight > window.innerHeight) {
+          top = Math.max(12, rect.top - popoverHeight - 6);
+        }
+
+        let left = rect.left;
+        if (left + popoverWidth > window.innerWidth - 12) {
+          left = Math.max(12, window.innerWidth - popoverWidth - 12);
+        }
+
+        this.popover.style.top = `${Math.round(top)}px`;
+        this.popover.style.left = `${Math.round(left)}px`;
+      }
+    };
+
+    /* ======================================================== */
     /* DASHBOARD INTERACTIVE ACTIONS                            */
     /* ======================================================== */
     function sendQuickDeliverySms() {
@@ -4522,9 +4864,11 @@
     document.addEventListener('DOMContentLoaded', () => {
       applyThemeSliderState();
       CyberCalendar.init();
+      CyberSelect.init();
     });
     applyThemeSliderState();
     CyberCalendar.init();
+    CyberSelect.init();
   </script>
 
 </body>
