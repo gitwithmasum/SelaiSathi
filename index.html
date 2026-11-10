@@ -459,6 +459,99 @@
       color: #303943 !important;
     }
 
+    /* =========================================================
+       WHITE THEME — ACCESSIBLE SOFT LIGHT SURFACES
+       Keep the interface bright without harsh pure-white glare,
+       while strengthening text contrast for comfortable reading.
+       ========================================================= */
+    body.theme-white {
+      --ss-bg: #F7F8F8 !important;
+      --ss-panel: #FFFFFF !important;
+      --ss-panel-2: #F2F4F5 !important;
+      --ss-panel-3: #EAEDEF !important;
+      --ss-border: #DFE4E7 !important;
+      --ss-text: #202A34 !important;
+      --ss-muted: #65717C !important;
+      background: #F7F8F8 !important;
+      color: #202A34 !important;
+    }
+    body.theme-white aside {
+      background: #F5F7F7 !important;
+      border-right-color: #DFE4E7 !important;
+      color: #46525D !important;
+    }
+    body.theme-white aside .ss-nav-heading {
+      color: #687580 !important;
+    }
+    body.theme-white aside .nav-item {
+      color: #46525D !important;
+    }
+    body.theme-white aside .nav-item:hover {
+      background: #E9EEF0 !important;
+      color: #202A34 !important;
+    }
+    body.theme-white aside .nav-item.active {
+      background: #E5EEE8 !important;
+      color: #24543A !important;
+      border-color: #C9D9CE !important;
+    }
+    body.theme-white header {
+      background: rgba(248, 249, 249, 0.98) !important;
+      border-bottom-color: #DFE4E7 !important;
+    }
+    body.theme-white header input,
+    body.theme-white input:not([type="checkbox"]):not([type="radio"]),
+    body.theme-white select,
+    body.theme-white textarea {
+      background-color: #FFFFFF !important;
+      color: #202A34 !important;
+      border-color: #D7DEE3 !important;
+    }
+    body.theme-white input::placeholder,
+    body.theme-white textarea::placeholder {
+      color: #77838D !important;
+      opacity: 1 !important;
+    }
+    body.theme-white .bento-card,
+    body.theme-white .ss-panel,
+    body.theme-white [class*="bg-slate-"],
+    body.theme-white [class*="bg-gray-900"] {
+      background-color: #FFFFFF !important;
+      color: #202A34 !important;
+      border-color: #DFE4E7 !important;
+      box-shadow: 0 2px 12px rgba(31, 41, 51, 0.045) !important;
+    }
+    body.theme-white .text-gray-300,
+    body.theme-white .text-gray-400,
+    body.theme-white .text-gray-500,
+    body.theme-white .text-slate-300,
+    body.theme-white .text-slate-400,
+    body.theme-white .text-slate-500 {
+      color: #65717C !important;
+    }
+    body.theme-white .text-gray-700,
+    body.theme-white .text-gray-800,
+    body.theme-white .text-gray-900,
+    body.theme-white .text-slate-700,
+    body.theme-white .text-slate-800,
+    body.theme-white .text-slate-900 {
+      color: #202A34 !important;
+    }
+    body.theme-white table th {
+      color: #3C4853 !important;
+      background-color: #F2F4F5 !important;
+    }
+    body.theme-white table td {
+      color: #35414C !important;
+      border-color: #E5E9EC !important;
+    }
+    body.theme-white hr {
+      border-color: #E1E6E9 !important;
+    }
+    body.theme-white :focus-visible {
+      outline-color: #438A68 !important;
+    }
+
   </style>
 </head>
 <body class="flex h-screen overflow-hidden text-sm bg-ios-bg select-none">
