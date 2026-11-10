@@ -609,7 +609,8 @@
         <div 
           id="theme-slider-track"
           onclick="handleTrackClick(event)"
-          class="relative w-[76px] h-[32px] bg-[#CFD3DA] hover:bg-[#C5C9D1] rounded-full p-[4px] cursor-pointer shadow-inner flex items-center transition-all select-none border border-[#BFC3CB] shrink-0"
+          class="relative w-[76px] h-[32px] bg-white hover:bg-gray-100 rounded-full p-[4px] cursor-pointer shadow-inner flex items-center transition-all duration-300 select-none border border-white/80 shrink-0"
+          data-theme-track
           title="Theme Toggle: Left = White, Right = Current"
         >
           <!-- Blue Circular Slider Thumb (Knob from screenshot) -->
@@ -1919,14 +1920,27 @@
 
     function applyThemeSliderState() {
       const thumb = document.getElementById('theme-slider-thumb');
+      const track = document.getElementById('theme-slider-track');
       if (currentThemeMode === 'white') {
         document.body.classList.add('theme-white');
+        // White app theme: show the dark Aurora/Galaxy palette inside the toggle.
+        if (track) {
+          track.style.background = 'linear-gradient(110deg, #080d18 0%, #17233a 55%, #30245a 100%)';
+          track.style.borderColor = 'rgba(34,211,238,.55)';
+          track.style.boxShadow = 'inset 0 1px 5px rgba(0,0,0,.55), 0 0 12px rgba(34,211,238,.12)';
+        }
         if (thumb) {
           thumb.style.transform = 'translateX(0px)';
           thumb.className = 'w-6 h-6 rounded-full bg-[#1E88E5] shadow-md shadow-blue-500/40 transform translate-x-0 transition-transform duration-300 ease-out z-10';
         }
       } else {
         document.body.classList.remove('theme-white');
+        // Aurora/Galaxy app theme: show a clean white toggle track.
+        if (track) {
+          track.style.background = '#FFFFFF';
+          track.style.borderColor = '#E5E7EB';
+          track.style.boxShadow = 'inset 0 1px 4px rgba(15,23,42,.12), 0 1px 5px rgba(255,255,255,.12)';
+        }
         if (thumb) {
           thumb.style.transform = 'translateX(44px)';
           thumb.className = 'w-6 h-6 rounded-full bg-[#1E88E5] shadow-md shadow-blue-500/50 transform translate-x-[44px] transition-transform duration-300 ease-out z-10';
