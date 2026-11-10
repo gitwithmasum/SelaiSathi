@@ -612,14 +612,6 @@
           class="relative w-[76px] h-[32px] bg-[#CFD3DA] hover:bg-[#C5C9D1] rounded-full p-[4px] cursor-pointer shadow-inner flex items-center transition-all select-none border border-[#BFC3CB] shrink-0"
           title="Theme Toggle: Left = White, Right = Current"
         >
-          <!-- 4 Subtle Slot Indicators (Matching image) -->
-          <div class="absolute inset-0 flex items-center justify-between px-3 pointer-events-none opacity-30">
-            <div class="w-3.5 h-3.5 rounded-full border border-gray-600 bg-gray-400"></div>
-            <div class="w-3.5 h-3.5 rounded-full border border-gray-600 bg-gray-400"></div>
-            <div class="w-3.5 h-3.5 rounded-full border border-gray-600 bg-gray-400"></div>
-            <div class="w-3.5 h-3.5 rounded-full border border-gray-600 bg-gray-400"></div>
-          </div>
-
           <!-- Blue Circular Slider Thumb (Knob from screenshot) -->
           <div 
             id="theme-slider-thumb"
@@ -1922,7 +1914,8 @@
     }
 
     // --- iOS Style Theme Slider (Left = White Theme, Right = Current Theme) ---
-    let currentThemeMode = localStorage.getItem('selaisathi_theme_mode') || 'current';
+    const savedThemeMode = localStorage.getItem('selaisathi_theme_mode');
+    let currentThemeMode = savedThemeMode === 'white' ? 'white' : 'current';
 
     function applyThemeSliderState() {
       const thumb = document.getElementById('theme-slider-thumb');
@@ -1962,11 +1955,8 @@
       const rect = track.getBoundingClientRect();
       const clickX = event.clientX - rect.left;
       const targetSide = clickX < rect.width / 2 ? 'white' : 'current';
-      if (targetSide === currentThemeMode) {
-        toggleThemeSlider();
-      } else {
-        setThemeMode(targetSide);
-      }
+      // Left half always selects White; right half always selects Current.
+      setThemeMode(targetSide);
     }
 
     // Auto initialize on load
