@@ -4281,7 +4281,9 @@
             <div class="flex items-center gap-2.5">
               <span>Total: <strong class="text-ios-text">৳${o.total}</strong></span>
               <span class="text-gray-400">|</span>
-              <span>Due: <strong class="${o.due > 0 ? 'text-rose-500 font-bold' : 'text-emerald-500 font-bold'}">৳${o.due}</strong></span>
+              ${Number(o.due) <= 0
+                ? '<span class="inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-[10px] font-extrabold tracking-wide text-emerald-500"><span>✓</span><span>PAID</span></span>'
+                : '<span>Due: <strong class="text-rose-500 font-bold">৳' + (o.due || 0) + '</strong></span>'}
             </div>
 
             <div class="flex items-center gap-1.5">
