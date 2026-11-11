@@ -2211,6 +2211,52 @@
     body.theme-white #dynamic-orders-table .order-record-card .text-gray-400,
     body.theme-white #dynamic-orders-table .order-list-row .text-gray-400 { color:#718078 !important; }
 
+
+    /* Production progress tracker — shared structure, theme-aware surfaces */
+    #dynamic-orders-table .order-progress-track {
+      padding:8px 9px 7px; border-radius:9px;
+      background:rgba(100,116,139,.075); border:1px solid rgba(148,163,184,.14);
+    }
+    #dynamic-orders-table .order-progress-caption {
+      font-size:8px; letter-spacing:.13em; font-weight:800; opacity:.68;
+    }
+    #dynamic-orders-table .order-progress-value {
+      font-family:ui-monospace,monospace; font-size:9px; font-weight:900;
+    }
+    #dynamic-orders-table .order-progress-rail {
+      height:5px; border-radius:99px; overflow:hidden; background:rgba(148,163,184,.2);
+    }
+    #dynamic-orders-table .order-progress-fill {
+      display:block; height:100%; border-radius:inherit;
+      background:linear-gradient(90deg,#22d3ee,#8b5cf6);
+      box-shadow:0 0 9px rgba(34,211,238,.32);
+      transition:width .35s ease;
+    }
+    #dynamic-orders-table .order-progress-steps {
+      display:flex; justify-content:space-between; gap:2px; margin-top:5px;
+      font-size:7px; font-weight:700; opacity:.58; letter-spacing:.015em;
+    }
+    #dynamic-orders-table .order-progress-track-list {
+      max-width:240px; margin-top:7px; padding:6px 8px;
+    }
+    body.theme-white #dynamic-orders-table .order-progress-track {
+      background:#F1F6F3; border-color:#E2EBE5;
+    }
+    body.theme-white #dynamic-orders-table .order-progress-rail { background:#DDE8E1; }
+    body.theme-white #dynamic-orders-table .order-progress-fill {
+      background:linear-gradient(90deg,#10B981,#0D9488);
+      box-shadow:0 0 8px rgba(16,185,129,.2);
+    }
+    body.theme-white #dynamic-orders-table .order-progress-caption { color:#607268; opacity:1; }
+    body.theme-white #dynamic-orders-table .order-progress-value { color:#087F5B; }
+    body:not(.theme-white) #dynamic-orders-table .order-progress-track {
+      background:rgba(5,13,27,.48); border-color:rgba(148,163,184,.13);
+    }
+    body:not(.theme-white) #dynamic-orders-table .order-progress-value { color:#67E8F9; }
+    @media (max-width:639px) {
+      #dynamic-orders-table .order-progress-track-list { max-width:none; }
+    }
+
   </style>
 </head>
 <body class="flex h-screen overflow-hidden text-sm bg-ios-bg select-none">
@@ -4100,6 +4146,18 @@
               </button>
             </div>
 
+            <!-- Production Progress Tracker -->
+            <div class="order-progress-track" aria-label="Production progress">
+              <div class="flex items-center justify-between mb-1">
+                <span class="order-progress-caption">PRODUCTION PROGRESS</span>
+                <span class="order-progress-value">${({CUTTING:20,STITCHING:40,FINISHING:60,READY:80,DELIVERED:100}[o.stage] || 0)}%</span>
+              </div>
+              <div class="order-progress-rail">
+                <span class="order-progress-fill" style="width:${({CUTTING:20,STITCHING:40,FINISHING:60,READY:80,DELIVERED:100}[o.stage] || 0)}%"></span>
+              </div>
+              <div class="order-progress-steps"><span>Cut</span><span>Stitch</span><span>Finish</span><span>Ready</span><span>Done</span></div>
+            </div>
+
             <!-- Customer & Garment Section -->
             <div class="order-customer-panel bg-white/60 dark:bg-slate-800/40 p-2.5 rounded-lg border border-ios-border/60 space-y-1">
               <div class="flex items-center justify-between gap-2">
@@ -4169,6 +4227,15 @@
               </div>
               <div class="text-xs text-gray-500 dark:text-gray-400">
                 <strong class="text-ios-text font-bold">${o.name}</strong> (${o.phone}) · <span class="text-cyan-400 font-medium">${o.garment}</span>
+              </div>
+              <div class="order-progress-track order-progress-track-list" aria-label="Production progress">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="order-progress-caption">PRODUCTION</span>
+                  <span class="order-progress-value">${({CUTTING:20,STITCHING:40,FINISHING:60,READY:80,DELIVERED:100}[o.stage] || 0)}%</span>
+                </div>
+                <div class="order-progress-rail">
+                  <span class="order-progress-fill" style="width:${({CUTTING:20,STITCHING:40,FINISHING:60,READY:80,DELIVERED:100}[o.stage] || 0)}%"></span>
+                </div>
               </div>
             </div>
           </div>
