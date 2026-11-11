@@ -2347,6 +2347,22 @@
     @media (max-width:1023px) { #view-customers .customer-card-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; } }
     @media (max-width:639px) { #view-customers .customer-card-grid { grid-template-columns:minmax(0,1fr) !important; } #view-customers .customer-record-card { padding:12px !important; } #view-customers .customer-export-btn { flex:1 1 auto; justify-content:center; } }
 
+/* Customer grid spacing + theme-safe card surfaces */
+#view-customers .customer-card-grid { display:grid !important; grid-template-columns:repeat(4,minmax(0,1fr)) !important; column-gap:16px !important; row-gap:18px !important; align-items:stretch; }
+#view-customers .customer-record-card { height:100%; min-width:0; padding:16px !important; gap:13px !important; }
+#view-customers .customer-contact-pill, #view-customers .customer-financial-strip { min-height:44px; border-radius:12px !important; }
+body:not(.theme-white) #view-customers .customer-contact-pill { background:linear-gradient(110deg,#0c192b,#12243a) !important; border:1px solid rgba(34,211,238,.18) !important; color:#e8f0fb !important; box-shadow:inset 0 1px 0 rgba(255,255,255,.025); }
+body:not(.theme-white) #view-customers .customer-contact-pill .text-ios-text { color:#e8f0fb !important; }
+body:not(.theme-white) #view-customers .customer-financial-strip { background:linear-gradient(110deg,#0c192b,#12243a) !important; border:1px solid rgba(148,163,184,.18) !important; }
+body:not(.theme-white) #view-customers .customer-financial-strip .text-gray-400 { color:#91a2b8 !important; }
+body:not(.theme-white) #view-customers .customer-financial-strip .text-ios-text { color:#e8f0fb !important; }
+body.theme-white #view-customers .customer-contact-pill { background:#F3F7F4 !important; border:1px solid #DFE8E2 !important; color:#263B30 !important; }
+body.theme-white #view-customers .customer-contact-pill .text-ios-text { color:#263B30 !important; }
+body.theme-white #view-customers .customer-financial-strip { background:#F3F7F4 !important; border:1px solid #DFE8E2 !important; }
+@media (max-width:1279px) { #view-customers .customer-card-grid { grid-template-columns:repeat(3,minmax(0,1fr)) !important; } }
+@media (max-width:1023px) { #view-customers .customer-card-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; } }
+@media (max-width:639px) { #view-customers .customer-card-grid { grid-template-columns:minmax(0,1fr) !important; row-gap:14px !important; } }
+
 /* Customer 360 profile — futuristic CRM workspace */
 #modal-customer-profile { background:rgba(3,9,20,.78) !important; backdrop-filter:blur(14px) saturate(135%) !important; }
 #modal-customer-profile > .bento-card {
@@ -5294,13 +5310,13 @@ body.theme-white #view-measurements #meas-quick-matrix {
 
       if (customerViewMode === 'grid') {
         container.innerHTML = `
-          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4.5">
+          <div class="customer-card-grid grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
             ${filtered.map(c => {
               const initials = (c.name || 'C').split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase();
               const cleanPhone = (c.phone || '').replace(/\D/g, '');
               const waUrl = `https://wa.me/88${cleanPhone}?text=${encodeURIComponent('আসসালামু আলাইকুম ' + c.name + ', সেলাই সাথী টেইলার্স থেকে যোগাযোগ করা হচ্ছে।')}`;
               return `
-                <div class="p-5 bg-gray-50/70 dark:bg-slate-900/50 rounded-2xl border border-ios-border flex flex-col justify-between gap-4 hover:shadow-ios-card hover:border-cyan-500/40 transition-all relative group">
+                <div class="customer-record-card p-5 bg-gray-50/70 dark:bg-slate-900/50 rounded-2xl border border-ios-border flex flex-col justify-between gap-4 hover:shadow-ios-card hover:border-cyan-500/40 transition-all relative group">
                   <!-- Header -->
                   <div class="flex items-start justify-between gap-3">
                     <div class="flex items-center gap-3">
@@ -5334,7 +5350,7 @@ body.theme-white #view-measurements #meas-quick-matrix {
                   </div>
 
                   <!-- Contact Pill -->
-                  <div class="bg-white/60 dark:bg-slate-800/40 p-2.5 rounded-xl border border-ios-border/60 flex items-center justify-between text-xs font-mono">
+                  <div class="customer-contact-pill bg-white/60 dark:bg-slate-800/40 p-2.5 rounded-xl border border-ios-border/60 flex items-center justify-between text-xs font-mono">
                     <span class="text-ios-text font-bold">📞 ${safeText(c.phone)}</span>
                     <div class="flex items-center gap-1.5">
                       <a href="tel:${safeText(c.phone)}" title="Direct Phone Call" class="px-2 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-cyan-300 border border-cyan-500/30 text-[11px] flex items-center gap-1">
@@ -5348,13 +5364,13 @@ body.theme-white #view-measurements #meas-quick-matrix {
 
                   <!-- Style Notes Pill if present -->
                   ${c.notes ? `
-                    <div class="text-[11px] text-gray-400 bg-cyan-500/5 px-2.5 py-1.5 rounded-lg border border-cyan-500/10 truncate">
+                    <div class="customer-notes-pill text-[11px] text-gray-400 bg-cyan-500/5 px-2.5 py-1.5 rounded-lg border border-cyan-500/10 truncate">
                       💡 ${safeText(c.notes)}
                     </div>
                   ` : ''}
 
                   <!-- 3-Column Financials Strip -->
-                  <div class="grid grid-cols-3 gap-2 text-center text-xs font-mono p-2.5 rounded-xl bg-gray-100/60 dark:bg-slate-800/25 border border-ios-border/40">
+                  <div class="customer-financial-strip grid grid-cols-3 gap-2 text-center text-xs font-mono p-2.5 rounded-xl bg-gray-100/60 dark:bg-slate-800/25 border border-ios-border/40">
                     <div>
                       <div class="text-[10px] text-gray-400 uppercase tracking-wider">Orders</div>
                       <div class="font-extrabold text-ios-text mt-0.5">${c.orderCount}</div>
@@ -5370,7 +5386,7 @@ body.theme-white #view-measurements #meas-quick-matrix {
                   </div>
 
                   <!-- Action Buttons Footer -->
-                  <div class="flex items-center justify-between gap-1.5 pt-2 border-t border-ios-border">
+                  <div class="customer-card-actions flex items-center justify-between gap-1.5 pt-2 border-t border-ios-border">
                     <button onclick="openCustomerProfile('${c.id}')" title="View 360° Profile & Measurements" class="flex-1 py-1.5 bg-white dark:bg-slate-800 border border-ios-border rounded-xl text-xs font-bold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 active:scale-95 shadow-xs flex items-center justify-center gap-1 transition-all">
                       <span>👤</span> Profile
                     </button>
