@@ -2588,6 +2588,39 @@ body.theme-white #view-measurements #meas-quick-matrix {
   #view-measurements .meas-garment-tab { padding-left:11px; padding-right:11px; font-size:11px; }
   #view-measurements > div:first-child h1 { font-size:26px; }
 }
+/* Measurements contrast guard — explicit readable text tokens in both themes.
+   Scoped only to this workspace; avoids opacity/filter-based text fading. */
+#view-measurements,
+#view-measurements label,
+#view-measurements p,
+#view-measurements li,
+#view-measurements th,
+#view-measurements td { text-shadow:none; -webkit-text-fill-color:currentColor; }
+body:not(.theme-white) #view-measurements { color:#e6edf7 !important; }
+body:not(.theme-white) #view-measurements :is(.text-gray-950,.text-gray-900,.text-gray-800,.text-gray-700,.text-ios-text) { color:#eaf2ff !important; }
+body:not(.theme-white) #view-measurements :is(.text-gray-600,.text-gray-500,.text-ios-subtext) { color:#b5c4d6 !important; }
+body:not(.theme-white) #view-measurements :is(.text-gray-400,.text-gray-300) { color:#91a5bc !important; }
+body:not(.theme-white) #view-measurements :is(input,textarea,select) { color:#f1f6ff !important; caret-color:#67e8f9; }
+body:not(.theme-white) #view-measurements :is(input,textarea,select)::placeholder { color:#9aacc1 !important; opacity:1 !important; }
+body:not(.theme-white) #view-measurements :is(.text-emerald-300,.text-emerald-400,.text-green-300) { color:#6ee7b7 !important; }
+body:not(.theme-white) #view-measurements :is(.text-cyan-300,.text-cyan-400,.text-sky-300,.text-sky-400) { color:#67e8f9 !important; }
+body:not(.theme-white) #view-measurements :is(.text-amber-300,.text-yellow-300) { color:#fcd34d !important; }
+body:not(.theme-white) #view-measurements :is(.text-rose-300,.text-red-300) { color:#fda4af !important; }
+
+body.theme-white #view-measurements { color:#263746 !important; }
+body.theme-white #view-measurements :is(h1,h2,h3,h4,h5,h6,strong,b,label,th) { color:#203346 !important; }
+body.theme-white #view-measurements :is(p,li,td,small,.text-gray-950,.text-gray-900,.text-gray-800,.text-gray-700,.text-ios-text) { color:#34495b !important; }
+body.theme-white #view-measurements :is(.text-gray-600,.text-gray-500,.text-ios-subtext) { color:#526779 !important; }
+body.theme-white #view-measurements :is(.text-gray-400,.text-gray-300) { color:#687d8e !important; }
+body.theme-white #view-measurements :is(input,textarea,select) { color:#243747 !important; background-color:#fff !important; caret-color:#087e91; }
+body.theme-white #view-measurements :is(input,textarea,select)::placeholder { color:#718596 !important; opacity:1 !important; }
+body.theme-white #view-measurements :is(.text-emerald-300,.text-emerald-400,.text-green-300) { color:#08784f !important; }
+body.theme-white #view-measurements :is(.text-cyan-300,.text-cyan-400,.text-sky-300,.text-sky-400) { color:#087e91 !important; }
+body.theme-white #view-measurements :is(.text-amber-300,.text-yellow-300) { color:#946000 !important; }
+body.theme-white #view-measurements :is(.text-rose-300,.text-red-300) { color:#b4233c !important; }
+body.theme-white #view-measurements .meas-garment-tab.active { color:#073344 !important; }
+#view-measurements :is(button,a,[role="button"]):focus-visible { outline:2px solid #22d3ee; outline-offset:2px; }
+
 </style>
 </head>
 <body class="flex h-screen overflow-hidden text-sm bg-ios-bg select-none">
