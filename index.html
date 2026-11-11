@@ -410,6 +410,161 @@
       background: #BAC7BF !important;
     }
 
+    /* ============================================================
+       UNIVERSAL THEME CONTRAST SYSTEM (GALAXY & WHITE THEMES)
+       ============================================================ */
+    /* 1. GALAXY / DARK THEME: Ensure all black/dark fonts become crisp white */
+    body:not(.theme-white) .text-black,
+    body:not(.theme-white) .text-gray-950,
+    body:not(.theme-white) .text-slate-950,
+    body:not(.theme-white) .text-zinc-950,
+    body:not(.theme-white) .text-neutral-950,
+    body:not(.theme-white) .text-gray-900,
+    body:not(.theme-white) .text-slate-900,
+    body:not(.theme-white) .text-zinc-900,
+    body:not(.theme-white) .text-neutral-900,
+    body:not(.theme-white) .text-gray-800,
+    body:not(.theme-white) .text-slate-800,
+    body:not(.theme-white) .text-zinc-800,
+    body:not(.theme-white) .text-gray-700,
+    body:not(.theme-white) .text-slate-700,
+    body:not(.theme-white) .text-zinc-700 {
+      color: #FFFFFF !important;
+    }
+
+    /* Modals & Popovers in Galaxy Theme */
+    body:not(.theme-white) [id^="modal-"] h1,
+    body:not(.theme-white) [id^="modal-"] h2,
+    body:not(.theme-white) [id^="modal-"] h3,
+    body:not(.theme-white) [id^="modal-"] h4,
+    body:not(.theme-white) [id^="modal-"] label,
+    body:not(.theme-white) .bento-card h1,
+    body:not(.theme-white) .bento-card h2,
+    body:not(.theme-white) .bento-card h3,
+    body:not(.theme-white) .bento-card h4 {
+      color: #FFFFFF !important;
+    }
+    body:not(.theme-white) [id^="modal-"] label,
+    body:not(.theme-white) .bento-card label {
+      color: #F8FAFC !important;
+    }
+
+    /* Form controls in Galaxy Theme (except printable receipt) */
+    body:not(.theme-white) input:not([type="checkbox"]):not([type="radio"]):not(#printable-receipt *),
+    body:not(.theme-white) textarea:not(#printable-receipt *),
+    body:not(.theme-white) select:not(#printable-receipt *) {
+      color: #FFFFFF !important;
+    }
+
+    /* Active measurement tab and unit in Galaxy theme */
+    body:not(.theme-white) .meas-garment-tab.active,
+    body:not(.theme-white) #meas-unit-inch.active,
+    body:not(.theme-white) #meas-unit-cm.active {
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%) !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4) !important;
+    }
+    body:not(.theme-white) .meas-garment-tab:not(.active) {
+      color: #94A3B8 !important;
+      background: transparent !important;
+    }
+    body:not(.theme-white) .meas-garment-tab:not(.active):hover {
+      color: #FFFFFF !important;
+    }
+
+    /* 2. WHITE THEME: Ensure all white fonts on light surfaces become dark slate/black */
+    body.theme-white .text-white:not(button):not([class*="bg-cyan-"]):not([class*="bg-emerald-"]):not([class*="bg-violet-"]):not([class*="bg-rose-"]):not([class*="bg-blue-"]):not([class*="bg-gradient-"]):not(.order-view-check):not(#sp-avatar):not(#cp-avatar):not(.dash-ai-tag):not(.cyber-badge-solid),
+    body.theme-white .text-slate-100:not(button):not([class*="bg-"]),
+    body.theme-white .text-gray-100:not(button):not([class*="bg-"]),
+    body.theme-white .text-slate-50:not(button):not([class*="bg-"]),
+    body.theme-white .text-gray-50:not(button):not([class*="bg-"]) {
+      color: #0F172A !important;
+    }
+
+    /* Headings, labels, and table cells in White Theme */
+    body.theme-white .bento-card h1,
+    body.theme-white .bento-card h2,
+    body.theme-white .bento-card h3,
+    body.theme-white .bento-card h4,
+    body.theme-white [id^="modal-"] h1,
+    body.theme-white [id^="modal-"] h2,
+    body.theme-white [id^="modal-"] h3,
+    body.theme-white [id^="modal-"] h4,
+    body.theme-white [id^="modal-"] label,
+    body.theme-white .bento-card label,
+    body.theme-white label.text-gray-300,
+    body.theme-white label.text-gray-400,
+    body.theme-white strong.text-white,
+    body.theme-white .dash-ai-card .dash-ai-text strong {
+      color: #0F172A !important;
+    }
+
+    /* All form inputs and textareas in White Theme */
+    body.theme-white input:not([type="checkbox"]):not([type="radio"]),
+    body.theme-white textarea,
+    body.theme-white select {
+      color: #0F172A !important;
+      background-color: #FFFFFF !important;
+      border-color: #CBD5E1 !important;
+    }
+    body.theme-white input::placeholder,
+    body.theme-white textarea::placeholder {
+      color: #94A3B8 !important;
+    }
+
+    /* Tables in White Theme */
+    body.theme-white table td,
+    body.theme-white #meas-quick-matrix td,
+    body.theme-white #modal-measurement-diff td {
+      color: #0F172A !important;
+    }
+
+    /* Active measurement tab and unit in White theme */
+    body.theme-white .meas-garment-tab.active,
+    body.theme-white #meas-unit-inch.active,
+    body.theme-white #meas-unit-cm.active {
+      background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25) !important;
+    }
+    body.theme-white .meas-garment-tab:not(.active) {
+      color: #475569 !important;
+      background: transparent !important;
+    }
+    body.theme-white .meas-garment-tab:not(.active):hover {
+      color: #0F172A !important;
+    }
+
+    /* Dropdowns in White Theme */
+    body.theme-white #meas-customer-dropdown {
+      background: #FFFFFF !important;
+      border-color: #CBD5E1 !important;
+      color: #0F172A !important;
+    }
+    body.theme-white #meas-customer-dropdown > div:hover {
+      background: #F1F5F9 !important;
+    }
+    body.theme-white #meas-customer-dropdown .text-white {
+      color: #0F172A !important;
+    }
+
+    /* PRESERVE WHITE TEXT ON SOLID/GRADIENT ACTION BUTTONS IN WHITE THEME */
+    body.theme-white button[class*="bg-cyan-"],
+    body.theme-white button[class*="bg-emerald-"],
+    body.theme-white button[class*="bg-violet-"],
+    body.theme-white button[class*="bg-rose-"],
+    body.theme-white button[class*="bg-blue-"],
+    body.theme-white button[class*="bg-gradient-"],
+    body.theme-white .cyber-btn-primary,
+    body.theme-white .cyber-btn-danger,
+    body.theme-white .order-view-btn.is-active,
+    body.theme-white .staff-role-pill.active,
+    body.theme-white #sp-avatar,
+    body.theme-white #cp-avatar,
+    body.theme-white .dash-ai-card button[class*="bg-cyan-"] {
+      color: #FFFFFF !important;
+    }
+
     /* Main Container */
     body.theme-white > div.flex-1 {
       background: #F6F8F7 !important;
@@ -2815,7 +2970,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <div class="flex items-center gap-3">
         
         <!-- Language Switcher: English <-> Bengali -->
-        <button onclick="toggleLanguage()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl border border-ios-border bg-white hover:bg-gray-50 text-xs font-bold text-gray-800 shadow-xs transition-all active:scale-95">
+        <button onclick="toggleLanguage()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl border border-ios-border bg-white/10 hover:bg-white/20 text-xs font-bold text-ios-text shadow-xs transition-all active:scale-95">
           <span class="text-base">🌐</span>
           <span id="lang-indicator">বাংলা</span>
         </button>
@@ -2953,7 +3108,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
               </div>
               <p class="dash-ai-text text-xs text-gray-200 mt-0.5 font-medium">
-                আগামীকাল <strong class="text-white font-mono">৩টি পাঞ্জাবি</strong> ও <strong class="text-white font-mono">১টি ব্লেজার</strong> ডেলিভারির সময়। কাটিং ও সুইং সম্পন্ন করার তাগাদা দিন। এছাড়া <strong class="text-amber-300 font-mono">৳২৩,৫০০</strong> বকেয়া কালেকশনের জন্য SMS পাঠানো প্রস্তুত।
+                আগামীকাল <strong class="text-ios-text font-mono font-bold">৩টি পাঞ্জাবি</strong> ও <strong class="text-ios-text font-mono font-bold">১টি ব্লেজার</strong> ডেলিভারির সময়। কাটিং ও সুইং সম্পন্ন করার তাগাদা দিন। এছাড়া <strong class="text-amber-300 font-mono">৳২৩,৫০০</strong> বকেয়া কালেকশনের জন্য SMS পাঠানো প্রস্তুত।
               </p>
             </div>
           </div>
@@ -3536,7 +3691,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <div class="relative flex-1 max-w-md">
               <div class="relative">
                 <span class="absolute left-3 top-2.5 text-xs text-gray-400">🔍</span>
-                <input type="text" id="meas-customer-search" oninput="searchMeasurementCustomers(this.value)" placeholder="Search customer by name or phone..." class="w-full pl-8 pr-8 py-2 rounded-xl text-xs bg-slate-900/60 border border-slate-700/80 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition-all">
+                <input type="text" id="meas-customer-search" oninput="searchMeasurementCustomers(this.value)" placeholder="Search customer by name or phone..." class="w-full pl-8 pr-8 py-2 rounded-xl text-xs bg-slate-900/60 border border-slate-700/80 text-ios-text placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition-all">
                 <button onclick="clearMeasurementCustomerSearch()" class="absolute right-2.5 top-2.5 text-gray-500 hover:text-white text-xs">✕</button>
               </div>
               <!-- Floating Dropdown -->
@@ -3573,7 +3728,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <!-- Garment Tabs (iOS Cyber Segmented Control) -->
         <div class="flex flex-wrap items-center gap-1.5 p-1.5 bg-slate-900/60 rounded-2xl border border-slate-800 w-fit text-xs">
           <button onclick="setMeasurementTab('Shirt')" class="meas-garment-tab px-3.5 py-1.5 text-gray-400 hover:text-white font-medium rounded-xl transition-all" data-garment="Shirt">👔 Shirt (শার্ট)</button>
-          <button onclick="setMeasurementTab('Pant')" class="meas-garment-tab active px-3.5 py-1.5 bg-white text-gray-900 font-bold rounded-xl shadow-xs transition-all" data-garment="Pant">👖 Pant (প্যান্ট)</button>
+          <button onclick="setMeasurementTab('Pant')" class="meas-garment-tab active px-3.5 py-1.5 font-bold rounded-xl shadow-xs transition-all" data-garment="Pant">👖 Pant (প্যান্ট)</button>
           <button onclick="setMeasurementTab('Panjabi')" class="meas-garment-tab px-3.5 py-1.5 text-gray-400 hover:text-white font-medium rounded-xl transition-all" data-garment="Panjabi">🥻 Panjabi (পাঞ্জাবি)</button>
           <button onclick="setMeasurementTab('Pajama')" class="meas-garment-tab px-3.5 py-1.5 text-gray-400 hover:text-white font-medium rounded-xl transition-all" data-garment="Pajama">🩳 Pajama (পায়জামা)</button>
           <button onclick="setMeasurementTab('Blazer')" class="meas-garment-tab px-3.5 py-1.5 text-gray-400 hover:text-white font-medium rounded-xl transition-all" data-garment="Blazer">🧥 Blazer (ব্লেজার)</button>
@@ -3598,7 +3753,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               
               <!-- Unit toggle -->
               <div class="flex items-center bg-slate-800/80 p-1 rounded-xl text-xs font-mono border border-slate-700/60 self-start sm:self-auto">
-                <button id="meas-unit-inch" onclick="toggleMeasurementUnit('inch')" class="px-3 py-1 bg-white text-gray-900 rounded-lg font-bold shadow-xs transition-all">inch</button>
+                <button id="meas-unit-inch" onclick="toggleMeasurementUnit('inch')" class="px-3 py-1 active rounded-lg font-bold shadow-xs transition-all">inch</button>
                 <button id="meas-unit-cm" onclick="toggleMeasurementUnit('cm')" class="px-3 py-1 text-gray-400 hover:text-white transition-all">cm</button>
               </div>
             </div>
@@ -3631,7 +3786,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <!-- Fitting Notes -->
             <div>
               <label class="block text-xs font-bold text-gray-300 mb-1.5">Master Cutting Notes (কাটিং মাস্টারের বিশেষ নির্দেশনা)</label>
-              <textarea id="meas-fitting-notes" rows="2" placeholder="e.g. ডান কাঁধ ১ সুতা ঢালু, সামনে ডাবল প্লিট, ডান পাশে মোবাইল সিক্রেট পকেট..." class="w-full p-3.5 bg-slate-900/60 border border-slate-700/80 rounded-2xl text-xs focus:outline-none focus:border-cyan-400 text-white placeholder-gray-500 transition-all"></textarea>
+              <textarea id="meas-fitting-notes" rows="2" placeholder="e.g. ডান কাঁধ ১ সুতা ঢালু, সামনে ডাবল প্লিট, ডান পাশে মোবাইল সিক্রেট পকেট..." class="w-full p-3.5 bg-slate-900/60 border border-slate-700/80 rounded-2xl text-xs focus:outline-none focus:border-cyan-400 text-ios-text placeholder-gray-500 transition-all"></textarea>
             </div>
 
             <!-- Bottom Actions -->
@@ -4138,7 +4293,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <!-- Search Box -->
               <div class="staff-search-wrap relative w-full sm:w-64">
                 <span class="absolute left-3.5 top-2.5 text-xs text-gray-400">🔍</span>
-                <input type="text" id="staff-search" oninput="renderStaff()" placeholder="Search karigar by name, phone or skill..." class="w-full pl-9 pr-3 py-2 rounded-xl text-xs bg-slate-900/60 border border-slate-700/80 text-white placeholder-gray-500 focus:outline-none focus:border-violet-400 transition-all">
+                <input type="text" id="staff-search" oninput="renderStaff()" placeholder="Search karigar by name, phone or skill..." class="w-full pl-9 pr-3 py-2 rounded-xl text-xs bg-slate-900/60 border border-slate-700/80 text-ios-text placeholder-gray-500 focus:outline-none focus:border-violet-400 transition-all">
               </div>
 
               <!-- Role Filter Segmented Control -->
@@ -4539,7 +4694,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
         <div>
           <label class="block text-gray-300 font-bold mb-1">Amount (টাকার পরিমাণ ৳)</label>
-          <input type="number" id="payout-amount" placeholder="e.g. 1000" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/70 border border-slate-700 text-white font-mono text-sm font-bold focus:outline-none focus:border-violet-400">
+          <input type="number" id="payout-amount" placeholder="e.g. 1000" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/70 border border-slate-700 text-ios-text font-mono text-sm font-bold focus:outline-none focus:border-violet-400">
         </div>
 
         <div>
@@ -4560,7 +4715,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
         <div>
           <label class="block text-gray-300 font-bold mb-1">Notes / Remarks (বিবরণ)</label>
-          <input type="text" id="payout-notes" placeholder="e.g. Weekly food allowance / Panjabi stitching wage" class="w-full px-3.5 py-2 rounded-xl bg-slate-950/70 border border-slate-700 text-white placeholder-gray-500 focus:outline-none focus:border-violet-400">
+          <input type="text" id="payout-notes" placeholder="e.g. Weekly food allowance / Panjabi stitching wage" class="w-full px-3.5 py-2 rounded-xl bg-slate-950/70 border border-slate-700 text-ios-text placeholder-gray-500 focus:outline-none focus:border-violet-400">
         </div>
       </div>
 
@@ -4614,7 +4769,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
   <div id="modal-edit-order" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bento-card max-w-lg w-full p-7 space-y-5 shadow-2xl max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center border-b border-ios-border pb-3.5">
-        <h3 class="text-lg font-black text-gray-900 flex items-center gap-2">
+        <h3 class="text-lg font-black text-ios-text flex items-center gap-2">
           <span>✏️</span> Edit Order (<span id="eo-order-id-display" class="font-mono text-cyan-400">ORD-XXXX</span>)
         </h3>
         <button onclick="closeModal('modal-edit-order')" class="text-gray-400 hover:text-gray-600 font-bold text-xl">✕</button>
@@ -4625,11 +4780,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <div class="space-y-3.5 text-xs">
         <div class="grid grid-cols-2 gap-3.5">
           <div>
-            <label class="block font-bold text-gray-700 mb-1.5">Fabric Pin Tag</label>
+            <label class="block font-bold text-ios-text mb-1.5">Fabric Pin Tag</label>
             <input type="text" id="eo-tag" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm font-mono font-bold bg-amber-500/10 text-amber-400" readonly>
           </div>
           <div>
-            <label class="block font-bold text-gray-700 mb-1.5">Production Stage</label>
+            <label class="block font-bold text-ios-text mb-1.5">Production Stage</label>
             <div class="relative">
               <button type="button" class="cyber-select-trigger w-full !py-2.5 !rounded-2xl" id="eo-stage-btn" onclick="CyberSelect.openForSelect(this, 'eo-stage')">
                 <span id="eo-stage-label">✂️ CUTTING (কাটিং)</span>
@@ -4647,17 +4802,17 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         </div>
 
         <div>
-          <label class="block font-bold text-gray-700 mb-1.5">Customer Name *</label>
-          <input type="text" id="eo-cust-name" placeholder="Customer Name" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm focus:outline-none focus:border-ios-blue">
+          <label class="block font-bold text-ios-text mb-1.5">Customer Name *</label>
+          <input type="text" id="eo-cust-name" placeholder="Customer Name" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm focus:outline-none focus:border-ios-blue text-ios-text bg-white/70 dark:bg-slate-900/70">
         </div>
         <div>
-          <label class="block font-bold text-gray-700 mb-1.5">Mobile Number *</label>
-          <input type="tel" id="eo-cust-phone" placeholder="017xxxxxxxx" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm focus:outline-none focus:border-ios-blue">
+          <label class="block font-bold text-ios-text mb-1.5">Mobile Number *</label>
+          <input type="tel" id="eo-cust-phone" placeholder="017xxxxxxxx" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm focus:outline-none focus:border-ios-blue text-ios-text bg-white/70 dark:bg-slate-900/70">
         </div>
 
         <div class="grid grid-cols-2 gap-3.5">
           <div>
-            <label class="block font-bold text-gray-700 mb-1.5">Garment Type</label>
+            <label class="block font-bold text-ios-text mb-1.5">Garment Type</label>
             <div class="relative">
               <button type="button" class="cyber-select-trigger w-full !py-2.5 !rounded-2xl" id="eo-garment-btn" onclick="CyberSelect.openForSelect(this, 'eo-garment')">
                 <span id="eo-garment-label">Cotton Panjabi (পাঞ্জাবি)</span>
@@ -4675,7 +4830,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             </div>
           </div>
           <div>
-            <label class="block font-bold text-gray-700 mb-1.5">Delivery Date</label>
+            <label class="block font-bold text-ios-text mb-1.5">Delivery Date</label>
             <div class="cyber-date-trigger w-full justify-between" id="eo-date-trigger" data-cyber-target="eo-date" data-mode="date" title="Select Delivery Date">
               <div class="flex items-center gap-2">
                 <span class="cyber-date-icon">📅</span>
@@ -4689,15 +4844,15 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
         <div class="grid grid-cols-3 gap-3.5">
           <div>
-            <label class="block font-bold text-gray-700 mb-1.5">Total Bill (৳) *</label>
-            <input type="number" id="eo-total" oninput="calculateEditDue()" class="w-full border border-ios-border rounded-2xl px-3 py-2.5 text-sm font-black font-mono">
+            <label class="block font-bold text-ios-text mb-1.5">Total Bill (৳) *</label>
+            <input type="number" id="eo-total" oninput="calculateEditDue()" class="w-full border border-ios-border rounded-2xl px-3 py-2.5 text-sm font-black font-mono text-ios-text bg-white/70 dark:bg-slate-900/70">
           </div>
           <div>
-            <label class="block font-bold text-gray-700 mb-1.5">Advance (৳)</label>
-            <input type="number" id="eo-advance" oninput="calculateEditDue()" class="w-full border border-ios-border rounded-2xl px-3 py-2.5 text-sm font-black font-mono text-emerald-600">
+            <label class="block font-bold text-ios-text mb-1.5">Advance (৳)</label>
+            <input type="number" id="eo-advance" oninput="calculateEditDue()" class="w-full border border-ios-border rounded-2xl px-3 py-2.5 text-sm font-black font-mono text-emerald-600 bg-white/70 dark:bg-slate-900/70">
           </div>
           <div>
-            <label class="block font-bold text-gray-700 mb-1.5">Due Amount (৳)</label>
+            <label class="block font-bold text-ios-text mb-1.5">Due Amount (৳)</label>
             <input type="number" id="eo-due" readonly class="w-full border border-ios-border rounded-2xl px-3 py-2.5 text-sm font-black font-mono text-red-500 bg-red-500/10">
           </div>
         </div>
@@ -4723,25 +4878,25 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
   <div id="modal-new-order" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bento-card max-w-lg w-full p-7 space-y-5 shadow-2xl max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center border-b border-ios-border pb-3.5">
-        <h3 class="text-lg font-black text-gray-900 flex items-center gap-2">
+        <h3 class="text-lg font-black text-ios-text flex items-center gap-2">
           <span>➕</span> New Order Voucher
         </h3>
-        <button onclick="closeModal('modal-new-order')" class="text-gray-400 hover:text-gray-600 font-bold text-xl">✕</button>
+        <button onclick="closeModal('modal-new-order')" class="text-gray-400 hover:text-ios-text font-bold text-xl">✕</button>
       </div>
 
       <div class="space-y-3.5 text-xs">
         <div>
-          <label class="block font-bold text-gray-700 mb-1.5">Customer Name *</label>
-          <input type="text" id="no-cust-name" placeholder="e.g. Shahadat Hossain" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm focus:outline-none focus:border-ios-blue">
+          <label class="block font-bold text-ios-text mb-1.5">Customer Name *</label>
+          <input type="text" id="no-cust-name" placeholder="e.g. Shahadat Hossain" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm focus:outline-none focus:border-ios-blue text-ios-text bg-white/70 dark:bg-slate-900/70">
         </div>
         <div>
-          <label class="block font-bold text-gray-700 mb-1.5">Mobile Number *</label>
-          <input type="tel" id="no-cust-phone" placeholder="017xxxxxxxx" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm focus:outline-none focus:border-ios-blue">
+          <label class="block font-bold text-ios-text mb-1.5">Mobile Number *</label>
+          <input type="tel" id="no-cust-phone" placeholder="017xxxxxxxx" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm focus:outline-none focus:border-ios-blue text-ios-text bg-white/70 dark:bg-slate-900/70">
         </div>
 
         <div class="grid grid-cols-2 gap-3.5">
           <div>
-            <label class="block font-bold text-gray-700 mb-1.5">Garment Type</label>
+            <label class="block font-bold text-ios-text mb-1.5">Garment Type</label>
             <div class="relative">
               <button type="button" class="cyber-select-trigger w-full !py-2.5 !rounded-2xl" id="no-garment-btn" onclick="CyberSelect.openForSelect(this, 'no-garment')">
                 <span id="no-garment-label">Panjabi (পাঞ্জাবি)</span>
@@ -4757,7 +4912,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             </div>
           </div>
           <div>
-            <label class="block font-bold text-gray-700 mb-1.5">Delivery Date</label>
+            <label class="block font-bold text-ios-text mb-1.5">Delivery Date</label>
             <div class="cyber-date-trigger w-full justify-between" id="no-date-trigger" data-cyber-target="no-date" data-mode="date" title="Select Delivery Date">
               <div class="flex items-center gap-2">
                 <span class="cyber-date-icon">📅</span>
@@ -4771,27 +4926,27 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
         <div class="grid grid-cols-2 gap-3.5">
           <div>
-            <label class="block font-bold text-gray-700 mb-1.5">Total Bill (৳) *</label>
-            <input type="number" id="no-total" value="850" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm font-black font-mono">
+            <label class="block font-bold text-ios-text mb-1.5">Total Bill (৳) *</label>
+            <input type="number" id="no-total" value="850" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm font-black font-mono text-ios-text bg-white/70 dark:bg-slate-900/70">
           </div>
           <div>
-            <label class="block font-bold text-gray-700 mb-1.5">Advance Paid (৳)</label>
-            <input type="number" id="no-advance" value="300" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm font-black font-mono text-emerald-700">
+            <label class="block font-bold text-ios-text mb-1.5">Advance Paid (৳)</label>
+            <input type="number" id="no-advance" value="300" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm font-black font-mono text-emerald-600 bg-white/70 dark:bg-slate-900/70">
           </div>
         </div>
 
         <!-- Fabric Pin Tag Preview -->
-        <div class="p-3.5 bg-amber-50 border border-amber-200 rounded-2xl flex items-center justify-between">
+        <div class="p-3.5 bg-amber-500/10 border border-amber-500/30 rounded-2xl flex items-center justify-between">
           <div>
-            <span class="text-amber-800 font-bold">Auto Fabric Pin Tag:</span>
-            <div class="font-mono font-black text-amber-900 text-sm">📌 TAG-1044</div>
+            <span class="text-amber-400 font-bold">Auto Fabric Pin Tag:</span>
+            <div class="font-mono font-black text-amber-300 text-sm">📌 TAG-1044</div>
           </div>
-          <span class="text-[10px] text-amber-700">Attach with safety pin to cloth roll</span>
+          <span class="text-[10px] text-amber-300/80">Attach with safety pin to cloth roll</span>
         </div>
       </div>
 
       <div class="flex justify-end gap-2.5 pt-3 border-t border-ios-border">
-        <button onclick="closeModal('modal-new-order')" class="px-5 py-2.5 border border-ios-border rounded-2xl text-xs font-bold text-gray-600 hover:bg-gray-50 active:scale-95">
+        <button onclick="closeModal('modal-new-order')" class="px-5 py-2.5 border border-ios-border rounded-2xl text-xs font-bold text-ios-subtext hover:bg-white/10 active:scale-95">
           Cancel
         </button>
         <button onclick="submitNewOrder()" class="px-6 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl text-xs font-bold shadow-md active:scale-95">
@@ -4805,8 +4960,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
   <div id="modal-receipt" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bento-card max-w-sm w-full p-6 space-y-4 shadow-2xl">
       <div class="flex justify-between items-center border-b border-ios-border pb-3">
-        <h3 class="text-sm font-black text-gray-900">58mm POS Thermal Slip</h3>
-        <button onclick="closeModal('modal-receipt')" class="text-gray-400 hover:text-gray-600 font-bold text-lg">✕</button>
+        <h3 class="text-sm font-black text-ios-text">58mm POS Thermal Slip</h3>
+        <button onclick="closeModal('modal-receipt')" class="text-gray-400 hover:text-ios-text font-bold text-lg">✕</button>
       </div>
 
       <!-- Slip -->
@@ -5232,7 +5387,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
             <!-- Actions Bar -->
             <div class="flex items-center justify-between gap-2 pt-2 border-t border-ios-border">
-              <button onclick="showPosReceipt('${o.id}', '${o.name}', '${o.phone}')" title="Print 58mm Thermal POS Receipt" class="flex-1 py-1.5 bg-white dark:bg-slate-800 border border-ios-border rounded-xl text-xs font-bold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 active:scale-95 shadow-xs flex items-center justify-center gap-1.5 transition-all">
+              <button onclick="showPosReceipt('${o.id}', '${o.name}', '${o.phone}')" title="Print 58mm Thermal POS Receipt" class="flex-1 py-1.5 bg-white/10 hover:bg-white/20 border border-ios-border rounded-xl text-xs font-bold text-ios-text active:scale-95 shadow-xs flex items-center justify-center gap-1.5 transition-all">
                 <span>🖨️</span> <span>Receipt</span>
               </button>
 
@@ -5293,7 +5448,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
             <div class="flex items-center gap-1.5">
               <!-- POS Receipt Button -->
-              <button onclick="showPosReceipt('${o.id}', '${o.name}', '${o.phone}')" title="Print 58mm Thermal POS Receipt" class="px-2.5 py-1.5 bg-white dark:bg-slate-800 border border-ios-border rounded-xl text-xs font-bold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 active:scale-95 shadow-xs flex items-center gap-1 transition-all">
+              <button onclick="showPosReceipt('${o.id}', '${o.name}', '${o.phone}')" title="Print 58mm Thermal POS Receipt" class="px-2.5 py-1.5 bg-white/10 hover:bg-white/20 border border-ios-border rounded-xl text-xs font-bold text-ios-text active:scale-95 shadow-xs flex items-center gap-1 transition-all">
                 <span>🖨️</span> <span>Receipt</span>
               </button>
 
@@ -5859,7 +6014,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
                   <!-- Action Buttons Footer -->
                   <div class="customer-card-actions flex items-center justify-between gap-1.5 pt-2 border-t border-ios-border">
-                    <button onclick="openCustomerProfile('${c.id}')" title="View 360° Profile & Measurements" class="flex-1 py-1.5 bg-white dark:bg-slate-800 border border-ios-border rounded-xl text-xs font-bold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 active:scale-95 shadow-xs flex items-center justify-center gap-1 transition-all">
+                    <button onclick="openCustomerProfile('${c.id}')" title="View 360° Profile & Measurements" class="flex-1 py-1.5 bg-white/10 hover:bg-white/20 border border-ios-border rounded-xl text-xs font-bold text-ios-text active:scale-95 shadow-xs flex items-center justify-center gap-1 transition-all">
                       <span>👤</span> Profile
                     </button>
                     <button onclick="quickCreateOrderForCustomer('${safeText(c.phone)}', '${safeText(c.name)}')" title="Create New Order for this Customer" class="flex-1 py-1.5 bg-emerald-600/15 hover:bg-emerald-600/25 text-emerald-400 border border-emerald-500/30 rounded-xl text-xs font-bold active:scale-95 shadow-xs flex items-center justify-center gap-1 transition-all">
@@ -7416,7 +7571,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       document.querySelectorAll('.meas-garment-tab').forEach(b => {
         const g = b.getAttribute('data-garment');
         if (g === activeMeasurementGarment) {
-          b.className = 'meas-garment-tab active px-3.5 py-1.5 bg-white text-gray-900 font-bold rounded-xl shadow-xs transition-all';
+          b.className = 'meas-garment-tab active px-3.5 py-1.5 font-bold rounded-xl shadow-xs transition-all';
         } else {
           b.className = 'meas-garment-tab px-3.5 py-1.5 text-gray-400 hover:text-white font-medium rounded-xl transition-all';
         }
@@ -7439,10 +7594,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const unitCmBtn = document.getElementById('meas-unit-cm');
       if (unitInchBtn && unitCmBtn) {
         if (activeMeasurementUnit === 'inch') {
-          unitInchBtn.className = 'px-3 py-1 bg-white text-gray-900 rounded-lg font-bold shadow-xs transition-all';
+          unitInchBtn.className = 'px-3 py-1 active rounded-lg font-bold shadow-xs transition-all';
           unitCmBtn.className = 'px-3 py-1 text-gray-400 hover:text-white transition-all';
         } else {
-          unitCmBtn.className = 'px-3 py-1 bg-white text-gray-900 rounded-lg font-bold shadow-xs transition-all';
+          unitCmBtn.className = 'px-3 py-1 active rounded-lg font-bold shadow-xs transition-all';
           unitInchBtn.className = 'px-3 py-1 text-gray-400 hover:text-white transition-all';
         }
       }
@@ -7531,7 +7686,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             </div>
             
             <div class="relative">
-              <input type="text" id="meas_input_${f.key}" data-field="${f.key}" data-baseline="${baselineVal}" value="${val}" oninput="updateMeasurementDiffs()" class="w-full font-mono font-black text-sm px-3.5 py-2 rounded-xl border border-slate-700 bg-slate-950/70 text-white focus:outline-none focus:border-cyan-400 transition-all">
+              <input type="text" id="meas_input_${f.key}" data-field="${f.key}" data-baseline="${baselineVal}" value="${val}" oninput="updateMeasurementDiffs()" class="w-full font-mono font-black text-sm px-3.5 py-2 rounded-xl border border-slate-700 bg-slate-950/70 text-ios-text focus:outline-none focus:border-cyan-400 transition-all">
               <span class="absolute right-3 top-2.5 text-xs text-gray-400 font-mono">${unitSuffix}</span>
             </div>
 
@@ -7799,7 +7954,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <tr class="hover:bg-slate-800/40">
             <td class="p-3 font-semibold text-ios-text">${f.labelEn} <span class="text-gray-400 text-[10px]">(${f.labelBn})</span></td>
             <td class="p-3 text-center text-gray-400">${baseVal}"</td>
-            <td class="p-3 text-center font-bold text-white">${curVal}"</td>
+            <td class="p-3 text-center font-bold text-ios-text">${curVal}"</td>
             <td class="p-3 text-right">${diffBadge}</td>
           </tr>
         `;
@@ -7830,13 +7985,13 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       }
 
       dropdown.innerHTML = matches.map(c => `
-        <div onclick="selectMeasurementCustomer('${c.id}')" class="p-2.5 hover:bg-slate-800 cursor-pointer flex items-center justify-between transition-colors">
+        <div onclick="selectMeasurementCustomer('${c.id}')" class="p-2.5 hover:bg-slate-800/50 cursor-pointer flex items-center justify-between transition-colors">
           <div class="flex items-center gap-2.5">
             <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-cyan-600 to-blue-600 text-white font-black text-[10px] flex items-center justify-center shrink-0">
               ${(c.name || 'C').slice(0, 2).toUpperCase()}
             </div>
             <div>
-              <div class="font-bold text-xs text-white">${safeText(c.name)}</div>
+              <div class="font-bold text-xs text-ios-text">${safeText(c.name)}</div>
               <div class="text-[10px] text-gray-400 font-mono">📞 ${safeText(c.phone)} · ${safeText(c.address || 'Dhaka')}</div>
             </div>
           </div>
