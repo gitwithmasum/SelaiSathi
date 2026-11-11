@@ -132,6 +132,27 @@
       box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
     }
 
+    /* Customer CRM navigation — premium futuristic treatment */
+    aside .customer-nav-item { overflow:hidden; isolation:isolate; }
+    aside .customer-nav-item::after { content:''; position:absolute; inset:0; pointer-events:none; opacity:0; background:linear-gradient(105deg,transparent 18%,rgba(34,211,238,.10) 48%,rgba(139,92,246,.08) 72%,transparent 100%); transform:translateX(-35%); transition:opacity .25s,transform .45s; z-index:-1; }
+    aside .customer-nav-item:hover::after, aside .customer-nav-item.active::after { opacity:1; transform:translateX(0); }
+    aside .customer-nav-icon { position:relative; overflow:hidden; }
+    aside .customer-nav-icon::after { content:''; position:absolute; width:5px; height:5px; right:3px; bottom:3px; border-radius:50%; background:#34d399; box-shadow:0 0 7px currentColor; }
+    aside .customer-nav-mark { margin-left:auto; padding:2px 5px; border-radius:5px; font:800 8px ui-monospace,monospace; letter-spacing:.08em; color:#67e8f9; background:rgba(34,211,238,.08); border:1px solid rgba(34,211,238,.16); transition:all .2s; }
+    body:not(.theme-white) > aside .customer-nav-item { border-color:rgba(34,211,238,.10); background:linear-gradient(105deg,rgba(34,211,238,.045),rgba(139,92,246,.035)); }
+    body:not(.theme-white) > aside .customer-nav-item:hover { border-color:rgba(34,211,238,.28); box-shadow:0 5px 18px rgba(34,211,238,.07); }
+    body:not(.theme-white) > aside .customer-nav-item.active { border-color:rgba(34,211,238,.32); box-shadow:inset 0 0 20px rgba(34,211,238,.055),0 5px 20px rgba(34,211,238,.08); }
+    body:not(.theme-white) > aside .customer-nav-item.active .customer-nav-icon { background:linear-gradient(135deg,#67e8f9,#8b5cf6) !important; color:#071321 !important; box-shadow:0 0 15px rgba(34,211,238,.28); }
+    body:not(.theme-white) > aside .customer-nav-item.active .customer-nav-mark { color:#dbeafe; border-color:rgba(103,232,249,.3); background:rgba(34,211,238,.13); }
+    body.theme-white aside .customer-nav-item { background:linear-gradient(105deg,#F3F8F5,#F5F6FA) !important; border-color:#E0EAE3 !important; }
+    body.theme-white aside .customer-nav-item:hover { background:linear-gradient(105deg,#EAF4EE,#F0F2F8) !important; border-color:#C8DDD0 !important; box-shadow:0 3px 12px rgba(46,108,75,.07); }
+    body.theme-white aside .customer-nav-item.active { background:linear-gradient(105deg,#E5F2E9,#EEF0F8) !important; border-color:#BFD8C8 !important; box-shadow:inset 0 0 0 1px rgba(46,108,75,.035),0 3px 12px rgba(46,108,75,.08) !important; }
+    body.theme-white aside .customer-nav-icon { background:#E6F0EA !important; color:#286044 !important; border-color:#CDDED3 !important; }
+    body.theme-white aside .customer-nav-icon::after { background:#2E9B67; }
+    body.theme-white aside .customer-nav-item.active .customer-nav-icon { background:linear-gradient(135deg,#2E6C4B,#4D8B6A) !important; color:#fff !important; border-color:transparent !important; }
+    body.theme-white aside .customer-nav-mark { color:#376B50; background:#E8F2EB; border-color:#D1E2D6; }
+    @media (max-width:640px) { aside .customer-nav-mark { display:none; } }
+
     /* iOS Bento Card System */
     .bento-card {
       background: #FFFFFF;
@@ -2344,7 +2365,7 @@
         <div class="ss-nav-group">
           <div class="ss-nav-heading"><span>CLIENT & WORKSHOP</span></div>
           <nav class="space-y-1" aria-label="Client and workshop">
-            <button onclick="navigateTo('customers')" id="nav-customers" title="Customers" aria-label="Customers" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all"><span class="nav-icon-badge"><span>♙</span></span><span class="ss-nav-label" data-i18n="menu_customers">Customers</span></button>
+            <button onclick="navigateTo('customers')" id="nav-customers" title="Customers" aria-label="Customers" class="nav-item customer-nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all"><span class="nav-icon-badge customer-nav-icon"><span>♙</span></span><span class="ss-nav-label" data-i18n="menu_customers">Customers</span><span class="customer-nav-mark" aria-hidden="true">CRM</span></button>
             <button onclick="navigateTo('measurements')" id="nav-measurements" title="Measurements" aria-label="Measurements" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
               <span class="nav-icon-badge"><span>⌗</span></span><span class="ss-nav-label" data-i18n="menu_measurements">Measurements</span>
             </button>
