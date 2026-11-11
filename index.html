@@ -2605,6 +2605,40 @@ body.theme-white #view-measurements #meas-quick-matrix {
   #view-measurements > div:first-child h1 { font-size:26px; }
 }
 
+/* STAFF / KARIGAR PAGE — responsive refinement, isolated from all other pages */
+#view-staff .staff-card-grid{align-items:stretch;gap:18px!important}
+#view-staff .staff-card-grid>article{min-width:0;min-height:100%;padding:18px!important;border-radius:19px!important;display:flex;flex-direction:column;gap:14px!important}
+#view-staff .staff-card-grid>article>div:first-child{flex:1 1 auto}
+#view-staff .staff-card-grid article .staff-actions{padding-top:12px;border-top:1px solid rgba(148,163,184,.18);gap:8px;align-items:center}
+#view-staff .staff-card-grid article button,#view-staff .staff-card-grid article a{white-space:nowrap}
+#view-staff #staff-search,#view-staff #staff-attendance-filter{min-height:40px}
+#view-staff .staff-role-pill{min-height:32px;border:1px solid transparent}
+#view-staff .staff-role-pill.active{box-shadow:0 4px 14px rgba(124,58,237,.22)}
+#view-staff #staff-display-container table{min-width:980px}
+#view-staff #staff-display-container thead{position:sticky;top:0;z-index:2}
+#view-staff #staff-display-container tbody tr{transition:background .18s ease}
+#view-staff .staff-page-header h1{background:linear-gradient(100deg,#e9d5ff,#a5f3fc 55%,#c4b5fd);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+body.theme-white #view-staff .staff-page-header h1{background:linear-gradient(100deg,#6d28d9,#0e7490 55%,#7c3aed);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+body.theme-white #view-staff .staff-card-grid>article{background:linear-gradient(145deg,#fff,#f7f8fc)!important;border:1px solid #e2e7f0!important;box-shadow:0 8px 22px rgba(31,41,55,.055)!important}
+body.theme-white #view-staff .staff-card-grid article .bg-slate-900\/50,body.theme-white #view-staff .staff-card-grid article .bg-slate-950\/40,body.theme-white #view-staff .staff-card-grid article .bg-violet-500\/5{background:#f1f3f9!important;border-color:#e0e5ef!important}
+body.theme-white #view-staff .staff-card-grid article .text-gray-300,body.theme-white #view-staff .staff-card-grid article .text-gray-400,body.theme-white #view-staff .staff-card-grid article .text-gray-500{color:#596579!important}
+body.theme-white #view-staff .staff-card-grid article .text-ios-text{color:#172033!important}
+body.theme-white #view-staff .staff-card-grid article .text-violet-300,body.theme-white #view-staff .staff-card-grid article .text-violet-400{color:#6d28d9!important}
+body.theme-white #view-staff .staff-card-grid article .text-cyan-300,body.theme-white #view-staff .staff-card-grid article .text-cyan-400{color:#0e7490!important}
+body.theme-white #view-staff .staff-card-grid article .text-emerald-300,body.theme-white #view-staff .staff-card-grid article .text-emerald-400{color:#047857!important}
+body.theme-white #view-staff .staff-card-grid article .text-amber-300,body.theme-white #view-staff .staff-card-grid article .text-amber-400{color:#a16207!important}
+body.theme-white #view-staff .staff-card-grid article .staff-actions{border-color:#e0e5ef!important}
+body.theme-white #view-staff #staff-search,body.theme-white #view-staff #staff-attendance-filter{color:#263247!important;background:#fff!important;border-color:#d8dfeb!important}
+body.theme-white #view-staff #staff-search::placeholder{color:#8792a4!important}
+body.theme-white #view-staff .staff-role-pill:not(.active){color:#536176!important}
+body.theme-white #view-staff .staff-role-pill:not(.active):hover{background:#ede9fe!important;color:#5b21b6!important}
+body.theme-white #view-staff #staff-display-container .bento-card{background:#fff!important;border-color:#e1e6ef!important}
+body.theme-white #view-staff #staff-display-container thead tr{background:#f2f4f9!important;color:#536176!important}
+body.theme-white #view-staff #staff-display-container tbody tr:hover{background:#f5f7fc!important}
+#view-staff button:focus-visible,#view-staff a:focus-visible,#view-staff input:focus-visible,#view-staff select:focus-visible{outline:2px solid #22d3ee;outline-offset:2px}
+@media(max-width:1279px){#view-staff .staff-card-grid{gap:14px!important}}
+@media(max-width:639px){#view-staff .staff-card-grid>article{padding:15px!important}#view-staff .staff-page-header-actions{width:100%}#view-staff .staff-page-header-actions button{flex:1 1 auto;justify-content:center}#view-staff .staff-filter-right{width:100%;flex-wrap:wrap}#view-staff #staff-attendance-filter{flex:1 1 150px;min-width:0}}
+
 </style>
 </head>
 <body class="flex h-screen overflow-hidden text-sm bg-ios-bg select-none">
@@ -2829,7 +2863,7 @@ body.theme-white #view-measurements #meas-quick-matrix {
       <section id="view-dashboard" class="app-view hidden space-y-6">
         
         <!-- Header & Date Controls -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="staff-page-header flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div class="flex items-center gap-2">
               <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-indigo-100 text-indigo-800">TAILOR SHOP HUD</span>
@@ -3427,7 +3461,7 @@ body.theme-white #view-measurements #meas-quick-matrix {
             <p class="text-xs text-ios-subtext mt-1">Customer bespoke measurements, live version comparison, master cutting slip generator, and Bengali speech input.</p>
           </div>
 
-          <div class="flex flex-wrap items-center gap-2.5">
+          <div class="staff-page-header-actions flex flex-wrap items-center gap-2.5">
             <button onclick="printMasterCuttingSlip()" class="px-4 py-2.5 rounded-xl text-xs font-bold border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 active:scale-95 flex items-center gap-1.5 transition-all">
               <span>🖨️</span> <span>Print Cutting Slip</span>
             </button>
@@ -4070,7 +4104,7 @@ body.theme-white #view-measurements #meas-quick-matrix {
               <!-- Role Filter Segmented Control -->
               <div class="flex flex-wrap items-center gap-1 p-1 bg-slate-900/70 border border-slate-800 rounded-xl text-xs">
                 <button onclick="setStaffRoleFilter('ALL')" class="staff-role-pill active px-3 py-1 rounded-lg text-xs font-bold bg-violet-600 text-white transition-all" data-role="ALL">All Roles</button>
-                <button onclick="setStaffRoleFilter('Master Tailor')" class="staff-role-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all" data-role="Master Tailor">✂️ Master Cutter</button>
+                <button onclick="setStaffRoleFilter('Master Tailor')" class="staff-role-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all" data-role="Master Tailor">✂️ Master Tailor</button>
                 <button onclick="setStaffRoleFilter('Cutter')" class="staff-role-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all" data-role="Cutter">📐 Cutter</button>
                 <button onclick="setStaffRoleFilter('Stitcher')" class="staff-role-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all" data-role="Stitcher">🧵 Stitcher</button>
                 <button onclick="setStaffRoleFilter('Finishing & Press')" class="staff-role-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all" data-role="Finishing & Press">👔 Finishing</button>
