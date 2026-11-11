@@ -6313,7 +6313,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (staffViewMode === 'grid') {
         // RENDER GRID CARDS VIEW
         container.innerHTML = `
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="staff-card-grid grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
             ${filtered.map(s => {
               const fin = calculateStaffFinancials(s);
               const initials = (s.name || 'ST').split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase();
