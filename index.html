@@ -73,6 +73,16 @@
   </script>
 
   <style>
+    .hidden {
+      display: none !important;
+    }
+    .cyber-dialog-overlay.hidden,
+    .cyber-cal-popover.hidden,
+    .cyber-dropdown-popover.hidden,
+    .app-view.hidden {
+      display: none !important;
+    }
+
     body {
       font-family: 'Inter', 'Hind Siliguri', -apple-system, sans-serif;
       background-color: #F5F5F7;
@@ -1273,6 +1283,9 @@
       user-select: none;
       animation: cyberCalendarFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
     }
+    .cyber-cal-popover.hidden {
+      display: none !important;
+    }
     @keyframes cyberCalendarFadeIn {
       from { opacity: 0; transform: scale(0.96) translateY(-4px); }
       to { opacity: 1; transform: scale(1) translateY(0); }
@@ -1798,6 +1811,9 @@
       user-select: none;
       animation: cyberDropdownFadeIn 0.15s cubic-bezier(0.16, 1, 0.3, 1);
     }
+    .cyber-dropdown-popover.hidden {
+      display: none !important;
+    }
     @keyframes cyberDropdownFadeIn {
       from { opacity: 0; transform: scale(0.95) translateY(-6px); }
       to { opacity: 1; transform: scale(1) translateY(0); }
@@ -1891,6 +1907,9 @@
       justify-content: center;
       padding: 16px;
       animation: cyberDialogBackdropIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .cyber-dialog-overlay.hidden {
+      display: none !important;
     }
     @keyframes cyberDialogBackdropIn {
       from { opacity: 0; }
@@ -4675,14 +4694,16 @@
       const orderId = document.getElementById('eo-order-id').value;
       const idx = ordersData.findIndex(o => o.id === orderId);
       if (idx === -1) {
-        alert('Order could not be found to update');
+        if (window.CyberDialog) CyberDialog.alert('Order could not be found to update', { icon: '⚠️', title: 'NOT FOUND' });
+        else alert('Order could not be found to update');
         return;
       }
 
       const name = document.getElementById('eo-cust-name').value.trim();
       const phone = document.getElementById('eo-cust-phone').value.trim();
       if (!name || !phone) {
-        alert('Please enter customer name and phone');
+        if (window.CyberDialog) CyberDialog.alert('Please enter customer name and phone', { icon: '⚠️', title: 'REQUIRED FIELD' });
+        else alert('Please enter customer name and phone');
         return;
       }
 
@@ -4709,7 +4730,8 @@
       confetti({ particleCount: 50, spread: 55 });
       renderOrdersTable();
       if (typeof renderReports === 'function') renderReports();
-      alert(`অর্ডার ${orderId} সফলভাবে আপডেট করা হয়েছে!`);
+      if (window.CyberDialog) CyberDialog.alert(`অর্ডার ${orderId} সফলভাবে আপডেট করা হয়েছে!`, { icon: '✨', title: 'ORDER UPDATED' });
+      else alert(`অর্ডার ${orderId} সফলভাবে আপডেট করা হয়েছে!`);
     }
 
     function deleteOrder(orderId) {
@@ -4799,7 +4821,7 @@
       const esc=v=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
       const rows=getOrdersExportRows().map(row=>'<tr>'+row.map(v=>'<td>'+esc(v)+'</td>').join('')+'</tr>').join('');
       const w=window.open('','_blank');if(!w){alert('Please allow pop-ups to print or save the orders PDF.');return;}
-      w.document.write('<!doctype html><html><head><meta charset="utf-8"><title>SelaiSathi Orders</title><style>body{font:12px Arial,sans-serif;color:#17212b;padding:24px}h1{font-size:22px}p{color:#64748b}table{width:100%;border-collapse:collapse;font-size:10px}th,td{border:1px solid #d7dee7;padding:7px 5px;text-align:left;overflow-wrap:anywhere}th{background:#eaf0f5}tr{page-break-inside:avoid}@page{size:landscape;margin:12mm}@media print{body{padding:0}}</style></head><body><h1>SelaiSathi - Orders Report</h1><p>Exported: '+esc(new Date().toLocaleString())+' | Total orders: '+ordersData.length+'</p><table><thead><tr>'+headers.map(h=>'<th>'+esc(h)+'</th>').join('')+'</tr></thead><tbody>'+rows+'</tbody></table><script>window.onload=function(){window.print();};<\\/script></body></html>');w.document.close();
+      w.document.write('<!doctype html><html><head><meta charset="utf-8"><title>SelaiSathi Orders</title><style>body{font:12px Arial,sans-serif;color:#17212b;padding:24px}h1{font-size:22px}p{color:#64748b}table{width:100%;border-collapse:collapse;font-size:10px}th,td{border:1px solid #d7dee7;padding:7px 5px;text-align:left;overflow-wrap:anywhere}th{background:#eaf0f5}tr{page-break-inside:avoid}@page{size:landscape;margin:12mm}@media print{body{padding:0}}</style></head><body><h1>SelaiSathi - Orders Report</h1><p>Exported: '+esc(new Date().toLocaleString())+' | Total orders: '+ordersData.length+'</p><table><thead><tr>'+headers.map(h=>'<th>'+esc(h)+'</th>').join('')+'</tr></thead><tbody>'+rows+'</tbody></table><' + 'script>window.onload=function(){window.print();};<' + '/script></body></html>');w.document.close();
     }
 
     function openNewOrderModal() {
@@ -4813,7 +4835,8 @@
       const name = document.getElementById('no-cust-name').value.trim();
       const phone = document.getElementById('no-cust-phone').value.trim();
       if (!name || !phone) {
-        alert('Please enter customer name and phone');
+        if (window.CyberDialog) CyberDialog.alert('Please enter customer name and phone', { icon: '⚠️', title: 'REQUIRED FIELD' });
+        else alert('Please enter customer name and phone');
         return;
       }
 
@@ -4832,7 +4855,8 @@
 
       closeModal('modal-new-order');
       confetti({ particleCount: 70, spread: 60 });
-      alert('Order successfully created with Fabric Pin Tag!');
+      if (window.CyberDialog) CyberDialog.alert('Order successfully created with Fabric Pin Tag!', { icon: '🎉', title: 'ORDER CREATED' });
+      else alert('Order successfully created with Fabric Pin Tag!');
       renderOrdersTable();
     }
 
