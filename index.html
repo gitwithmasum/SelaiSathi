@@ -3135,7 +3135,69 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
  #view-staff .staff-card-grid>article{padding:14px!important}
 }
 
-</style>
+
+    /* Universal Select Option & Input High-Contrast Styling */
+    body:not(.theme-white) select,
+    body:not(.theme-white) select option,
+    body:not(.theme-white) datalist option {
+      background-color: #0b1220 !important;
+      color: #f8fafc !important;
+      border-color: #334155 !important;
+    }
+    body:not(.theme-white) select option:checked,
+    body:not(.theme-white) select option:hover,
+    body:not(.theme-white) select option:focus {
+      background-color: #1e293b !important;
+      color: #38bdf8 !important;
+    }
+
+    /* Modal Cash Close Dark Inputs */
+    body:not(.theme-white) #modal-cash-close input,
+    body:not(.theme-white) #modal-cash-close textarea,
+    body:not(.theme-white) #modal-fabric-entry input,
+    body:not(.theme-white) #modal-fabric-entry select,
+    body:not(.theme-white) #modal-fabric-stock-op input {
+      background: #090e1a !important;
+      color: #ffffff !important;
+      border: 1px solid #334155 !important;
+    }
+    body:not(.theme-white) #modal-cash-close input::placeholder,
+    body:not(.theme-white) #modal-cash-close textarea::placeholder {
+      color: #64748b !important;
+    }
+
+    /* Due Aging Filter Bar in White Theme */
+    body.theme-white .due-aging-container,
+    body.theme-white #due-aging-filters {
+      background: #EBF2ED !important;
+      border: 1px solid #CBD5E1 !important;
+    }
+    body.theme-white .due-aging-pill:not(.active) {
+      color: #1E293B !important;
+      font-weight: 700 !important;
+    }
+    body.theme-white .due-aging-pill:not(.active):hover {
+      background: #DEEAE1 !important;
+      color: #0F172A !important;
+    }
+
+    /* Due Card Action Buttons in White Theme */
+    body.theme-white button[onclick*="sendDueWhatsApp"],
+    body.theme-white .btn-due-whatsapp {
+      background: #ECFDF5 !important;
+      color: #047857 !important;
+      border: 1px solid #6EE7B7 !important;
+      font-weight: 800 !important;
+    }
+    body.theme-white button[onclick*="openDueCollectModal"],
+    body.theme-white .btn-due-collect {
+      background: #FFFBEB !important;
+      color: #B45309 !important;
+      border: 1px solid #FCD34D !important;
+      font-weight: 800 !important;
+    }
+
+  </style>
 </head>
 <body class="flex h-screen overflow-hidden text-sm bg-ios-bg select-none">
 
@@ -3173,7 +3235,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <div class="ss-nav-group">
           <div class="ss-nav-heading"><span>WORKSPACE</span><span class="ss-nav-dot"></span></div>
           <nav class="space-y-1" aria-label="Main navigation">
-            <button onclick="navigateTo('dashboard')" id="nav-dashboard" title="Dashboard" aria-label="Dashboard" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
+            <button onclick="navigateTo('dashboard')" id="nav-dashboard" title="Dashboard" aria-label="Dashboard" class="nav-item active group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
               <span class="nav-icon-badge"><span>⌂</span></span><span class="ss-nav-label" data-i18n="menu_dashboard">Dashboard</span><span class="ss-nav-shortcut">⌘1</span>
             </button>
             <button onclick="navigateTo('orders')" id="nav-orders" title="Orders" aria-label="Orders" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
@@ -3198,7 +3260,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <span class="nav-icon-badge"><span>৳</span></span><span class="ss-nav-label" data-i18n="menu_accounts">Accounts</span>
             </button>
             <button onclick="navigateTo('fabrics')" id="nav-fabrics" title="Fabrics" aria-label="Fabrics" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all"><span class="nav-icon-badge"><span>▧</span></span><span class="ss-nav-label" data-i18n="menu_fabrics">Fabrics</span></button>
-            <button onclick="navigateTo('inventory')" id="nav-inventory" title="Inventory" aria-label="Inventory" class="nav-item active group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
+            <button onclick="navigateTo('inventory')" id="nav-inventory" title="Inventory" aria-label="Inventory" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
               <span class="nav-icon-badge"><span>▦</span></span><span class="ss-nav-label" data-i18n="menu_inventory">Inventory</span>
             </button>
             <button onclick="navigateTo('reports')" id="nav-reports" title="Reports" aria-label="Reports" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
@@ -3305,8 +3367,20 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <!-- ==================================================== -->
       <!-- VIEW 1: INVENTORY (iPhone Bento Grid System)         -->
       <!-- ==================================================== -->
-      <section id="view-inventory" class="app-view space-y-6">
-  <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <section id="view-inventory" class="app-view hidden space-y-6">
+  <div id="fabrics-hub-banner" class="p-3.5 rounded-2xl bg-cyan-500/10 border border-cyan-500/25 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="flex items-center gap-2.5">
+          <span class="text-xl">🧵</span>
+          <div>
+            <div class="text-xs font-black text-cyan-300">আধুনিক কাপড় ও থান রেজিস্ট্রি (Fabrics Hub 2.0) চালু করা হয়েছে</div>
+            <div class="text-[11px] text-ios-subtext">থান ও রোল ট্র্যাকিং, বারকোড পিন ট্যাগ, কালার সোয়াচ এবং পোশাক কাটিং ক্যালকুলেটর দেখতে এখানে যান।</div>
+          </div>
+        </div>
+        <button onclick="navigateTo('fabrics')" class="px-4 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:brightness-110 text-white rounded-xl text-xs font-bold shrink-0 shadow-sm active:scale-95 transition-all">
+          Fabrics Hub খুলুন ↗
+        </button>
+      </div>
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
     <div>
       <div class="text-xs font-mono font-bold tracking-widest text-cyan-300">STOCK CONTROL CENTER</div>
       <h1 class="text-3xl font-black mt-1">Inventory</h1>
@@ -3356,7 +3430,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
 <!-- VIEW 2: DASHBOARD (Multi-Color Bento Architecture)   -->
       <!-- ==================================================== -->
-      <section id="view-dashboard" class="app-view hidden space-y-6">
+      <section id="view-dashboard" class="app-view space-y-6">
         
         <!-- Header & Date Controls -->
         <div class="staff-page-header flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -3392,8 +3466,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <button onclick="sendQuickDeliverySms()" class="dash-quick-btn dash-quick-btn-subtle bg-slate-900/60 text-purple-300 border border-purple-500/30 hover:border-purple-400 hover:bg-purple-500/10">
             <span>💬</span> <span>রেডি SMS পাঠান (Ready SMS)</span>
           </button>
-          <button onclick="navigateTo('inventory')" class="dash-quick-btn dash-quick-btn-subtle bg-slate-900/60 text-rose-300 border border-rose-500/30 hover:border-rose-400 hover:bg-rose-500/10">
-            <span>🧵</span> <span>কাপড় স্টক (Fabric In/Out)</span>
+          <button onclick="navigateTo('fabrics')" class="dash-quick-btn dash-quick-btn-subtle bg-slate-900/60 text-cyan-300 border border-cyan-500/30 hover:border-cyan-400 hover:bg-cyan-500/10">
+            <span>🧵</span> <span>কাপড় ও থান স্টক (Fabrics Hub)</span>
           </button>
         </div>
 
@@ -3729,7 +3803,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                   <span class="text-base">🧵</span>
                   <h3 class="text-xs font-bold text-ios-subtext uppercase">লো-স্টক অ্যালার্ট</h3>
                 </div>
-                <button onclick="navigateTo('inventory')" class="text-[11px] text-cyan-400 hover:underline font-bold">ইনভেন্টরি ↗</button>
+                <button onclick="navigateTo('fabrics')" class="text-[11px] text-cyan-400 hover:underline font-bold">কাপড় ও থান রেজিস্ট্রি ↗</button>
               </div>
 
               <div class="space-y-2.5">
