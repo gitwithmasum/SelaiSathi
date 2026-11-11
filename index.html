@@ -2387,6 +2387,108 @@
     @media (max-width:1023px) { #view-customers .customer-card-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; } }
     @media (max-width:639px) { #view-customers .customer-card-grid { grid-template-columns:minmax(0,1fr) !important; } #view-customers .customer-record-card { padding:12px !important; } #view-customers .customer-export-btn { flex:1 1 auto; justify-content:center; } }
 
+/* Customer 360 profile — futuristic CRM workspace */
+#modal-customer-profile { background:rgba(3,9,20,.78) !important; backdrop-filter:blur(14px) saturate(135%) !important; }
+#modal-customer-profile > .bento-card {
+  width:min(920px,100%) !important; max-width:920px !important; padding:clamp(14px,2.5vw,26px) !important;
+  border-radius:24px !important; border:1px solid rgba(34,211,238,.25) !important;
+  background:linear-gradient(145deg,rgba(13,27,46,.98),rgba(8,17,31,.99)) !important;
+  box-shadow:0 28px 90px rgba(0,0,0,.48),0 0 34px rgba(34,211,238,.08),inset 0 1px 0 rgba(255,255,255,.06) !important;
+  scrollbar-width:thin; scrollbar-color:rgba(34,211,238,.35) transparent;
+}
+#modal-customer-profile > .bento-card > div:first-child {
+  position:relative; padding:15px 16px 18px !important; margin:-2px -2px 0;
+  border:1px solid rgba(34,211,238,.2); border-radius:18px;
+  background:linear-gradient(110deg,rgba(8,145,178,.15),rgba(99,102,241,.09) 58%,rgba(15,23,42,.12));
+}
+#modal-customer-profile #cp-avatar {
+  width:58px !important; height:58px !important; border-radius:18px !important;
+  outline:2px solid rgba(103,232,249,.45); outline-offset:3px;
+  box-shadow:0 0 24px rgba(34,211,238,.24) !important; letter-spacing:.04em;
+}
+#modal-customer-profile #cp-name { letter-spacing:-.035em; line-height:1.2; overflow-wrap:anywhere; }
+#modal-customer-profile #cp-id { padding:3px 8px; border-radius:7px; background:rgba(34,211,238,.1); border:1px solid rgba(34,211,238,.2); }
+#modal-customer-profile #cp-vip-badge { box-shadow:0 0 14px rgba(245,158,11,.12); }
+#modal-customer-profile > .bento-card > div:nth-child(2) { padding:2px 0 4px; gap:8px !important; }
+#modal-customer-profile #cp-call-btn,
+#modal-customer-profile #cp-wa-btn,
+#modal-customer-profile #cp-sms-btn,
+#modal-customer-profile #cp-new-order-btn {
+  min-height:36px; border-radius:11px !important; padding:8px 12px !important;
+  transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
+}
+#modal-customer-profile #cp-call-btn:hover,
+#modal-customer-profile #cp-wa-btn:hover,
+#modal-customer-profile #cp-sms-btn:hover,
+#modal-customer-profile #cp-new-order-btn:hover { transform:translateY(-2px); box-shadow:0 7px 18px rgba(0,0,0,.18); }
+#modal-customer-profile #cp-notes {
+  padding:10px 12px; border-radius:10px; background:rgba(34,211,238,.045);
+  border:1px solid rgba(34,211,238,.1); line-height:1.65; overflow-wrap:anywhere;
+}
+#modal-customer-profile > .bento-card > div:nth-child(4) {
+  gap:9px !important; padding:12px !important; border-radius:17px !important;
+  background:linear-gradient(110deg,rgba(8,145,178,.12),rgba(30,41,59,.38)) !important;
+  border:1px solid rgba(148,163,184,.17) !important;
+}
+#modal-customer-profile > .bento-card > div:nth-child(4) > div {
+  padding:8px 5px; border-radius:12px; background:rgba(2,8,23,.2);
+}
+#modal-customer-profile > .bento-card > div:nth-child(4) > div + div { border-left:1px solid rgba(148,163,184,.16); }
+#modal-customer-profile > .bento-card > div:nth-child(4) [id^="cp-total-"] { font-size:clamp(15px,2vw,20px) !important; letter-spacing:-.03em; }
+#modal-customer-profile h4 { letter-spacing:.055em; }
+#modal-customer-profile #cp-meas-view > div {
+  min-width:0; padding:10px 5px !important; border-radius:12px !important;
+  border:1px solid rgba(34,211,238,.16) !important; background:rgba(8,145,178,.07) !important;
+  transition:transform .18s ease,border-color .18s ease;
+}
+#modal-customer-profile #cp-meas-view > div:hover { transform:translateY(-2px); border-color:rgba(34,211,238,.42) !important; }
+#modal-customer-profile #cp-meas-edit { border-radius:15px !important; background:rgba(8,20,36,.82) !important; }
+#modal-customer-profile #cp-meas-edit input { min-height:34px; border-radius:8px !important; }
+#modal-customer-profile .overflow-x-auto:has(#cp-orders-tbody) {
+  border-radius:14px !important; border-color:rgba(148,163,184,.2) !important;
+  background:rgba(2,8,23,.2);
+}
+#modal-customer-profile #cp-orders-tbody tr { transition:background .18s ease; }
+#modal-customer-profile #cp-orders-tbody tr:hover { background:rgba(34,211,238,.07); }
+#modal-customer-profile #cp-orders-tbody td,
+#modal-customer-profile #cp-orders-tbody th { white-space:nowrap; }
+#modal-customer-profile > .bento-card > div:last-child { padding-top:12px !important; }
+body.theme-white #modal-customer-profile { background:rgba(31,45,37,.34) !important; }
+body.theme-white #modal-customer-profile > .bento-card {
+  background:linear-gradient(145deg,#FFFFFF,#F5F8F5) !important;
+  border:1px solid #DCE9E0 !important; box-shadow:0 24px 70px rgba(37,63,46,.2),0 0 0 1px rgba(255,255,255,.65) inset !important;
+}
+body.theme-white #modal-customer-profile > .bento-card > div:first-child {
+  background:linear-gradient(110deg,#EAF5EF,#F1F4FB 62%,#F8FAF8) !important;
+  border-color:#DCE9E0 !important;
+}
+body.theme-white #modal-customer-profile #cp-name,
+body.theme-white #modal-customer-profile h4 { color:#24382C !important; }
+body.theme-white #modal-customer-profile .text-gray-400 { color:#718176 !important; }
+body.theme-white #modal-customer-profile #cp-id { color:#087E83 !important; background:#E4F4F1 !important; border-color:#C9E8DF !important; }
+body.theme-white #modal-customer-profile > .bento-card > div:nth-child(4) {
+  background:linear-gradient(110deg,#EDF6F1,#F1F5FA) !important; border-color:#DCE9E0 !important;
+}
+body.theme-white #modal-customer-profile > .bento-card > div:nth-child(4) > div { background:rgba(255,255,255,.72); }
+body.theme-white #modal-customer-profile #cp-notes { background:#F0F7F3; border-color:#DCEBE1; color:#34483B; }
+body.theme-white #modal-customer-profile #cp-meas-view > div { background:#F0F7F3 !important; border-color:#DCEBE1 !important; }
+body.theme-white #modal-customer-profile #cp-meas-edit { background:#F1F6F2 !important; border-color:#CFE2D5 !important; }
+body.theme-white #modal-customer-profile #cp-meas-edit input { background:#FFFFFF !important; color:#263A2D !important; border-color:#D4E2D8 !important; }
+body.theme-white #modal-customer-profile .overflow-x-auto:has(#cp-orders-tbody) { background:#FFFFFF; border-color:#DFE8E1 !important; }
+body.theme-white #modal-customer-profile #cp-orders-tbody tr:hover { background:#F0F7F3; }
+body.theme-white #modal-customer-profile thead { background:#EDF4EF !important; }
+@media (max-width:640px) {
+  #modal-customer-profile { padding:8px !important; }
+  #modal-customer-profile > .bento-card { max-height:96vh !important; border-radius:18px !important; gap:14px !important; }
+  #modal-customer-profile > .bento-card > div:first-child { padding:12px !important; }
+  #modal-customer-profile #cp-avatar { width:48px !important; height:48px !important; }
+  #modal-customer-profile #cp-name { font-size:16px !important; }
+  #modal-customer-profile > .bento-card > div:nth-child(4) { gap:4px !important; padding:8px !important; }
+  #modal-customer-profile > .bento-card > div:nth-child(4) > div { padding:7px 2px; }
+  #modal-customer-profile #cp-meas-view { grid-template-columns:repeat(3,minmax(0,1fr)) !important; }
+}
+
+
 </style>
 </head>
 <body class="flex h-screen overflow-hidden text-sm bg-ios-bg select-none">
@@ -5491,107 +5593,6 @@
       if (!w) { alert('Please allow pop-ups to print or save the customer PDF.'); return; }
       const report = '<!doctype html><html><head><meta charset="utf-8"><title>SelaiSathi Customers</title>' +
         '<style>body{font:12px Arial,sans-serif;color:#17212b;padding:24px}h1{font-size:22px}p{color:#64748b}table{width:100%;border-collapse:collapse;font-size:10px}th,td{border:1px solid #d7dee7;padding:7px 5px;text-align:left;overflow-wrap:anywhere}th{background:#eaf0f5}tr{page-break-inside:avoid}@page{size:landscape;margin:12mm}@media print{body{padding:0}}
-/* Customer 360 profile — futuristic CRM workspace */
-#modal-customer-profile { background:rgba(3,9,20,.78) !important; backdrop-filter:blur(14px) saturate(135%) !important; }
-#modal-customer-profile > .bento-card {
-  width:min(920px,100%) !important; max-width:920px !important; padding:clamp(14px,2.5vw,26px) !important;
-  border-radius:24px !important; border:1px solid rgba(34,211,238,.25) !important;
-  background:linear-gradient(145deg,rgba(13,27,46,.98),rgba(8,17,31,.99)) !important;
-  box-shadow:0 28px 90px rgba(0,0,0,.48),0 0 34px rgba(34,211,238,.08),inset 0 1px 0 rgba(255,255,255,.06) !important;
-  scrollbar-width:thin; scrollbar-color:rgba(34,211,238,.35) transparent;
-}
-#modal-customer-profile > .bento-card > div:first-child {
-  position:relative; padding:15px 16px 18px !important; margin:-2px -2px 0;
-  border:1px solid rgba(34,211,238,.2); border-radius:18px;
-  background:linear-gradient(110deg,rgba(8,145,178,.15),rgba(99,102,241,.09) 58%,rgba(15,23,42,.12));
-}
-#modal-customer-profile #cp-avatar {
-  width:58px !important; height:58px !important; border-radius:18px !important;
-  outline:2px solid rgba(103,232,249,.45); outline-offset:3px;
-  box-shadow:0 0 24px rgba(34,211,238,.24) !important; letter-spacing:.04em;
-}
-#modal-customer-profile #cp-name { letter-spacing:-.035em; line-height:1.2; overflow-wrap:anywhere; }
-#modal-customer-profile #cp-id { padding:3px 8px; border-radius:7px; background:rgba(34,211,238,.1); border:1px solid rgba(34,211,238,.2); }
-#modal-customer-profile #cp-vip-badge { box-shadow:0 0 14px rgba(245,158,11,.12); }
-#modal-customer-profile > .bento-card > div:nth-child(2) { padding:2px 0 4px; gap:8px !important; }
-#modal-customer-profile #cp-call-btn,
-#modal-customer-profile #cp-wa-btn,
-#modal-customer-profile #cp-sms-btn,
-#modal-customer-profile #cp-new-order-btn {
-  min-height:36px; border-radius:11px !important; padding:8px 12px !important;
-  transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
-}
-#modal-customer-profile #cp-call-btn:hover,
-#modal-customer-profile #cp-wa-btn:hover,
-#modal-customer-profile #cp-sms-btn:hover,
-#modal-customer-profile #cp-new-order-btn:hover { transform:translateY(-2px); box-shadow:0 7px 18px rgba(0,0,0,.18); }
-#modal-customer-profile #cp-notes {
-  padding:10px 12px; border-radius:10px; background:rgba(34,211,238,.045);
-  border:1px solid rgba(34,211,238,.1); line-height:1.65; overflow-wrap:anywhere;
-}
-#modal-customer-profile > .bento-card > div:nth-child(4) {
-  gap:9px !important; padding:12px !important; border-radius:17px !important;
-  background:linear-gradient(110deg,rgba(8,145,178,.12),rgba(30,41,59,.38)) !important;
-  border:1px solid rgba(148,163,184,.17) !important;
-}
-#modal-customer-profile > .bento-card > div:nth-child(4) > div {
-  padding:8px 5px; border-radius:12px; background:rgba(2,8,23,.2);
-}
-#modal-customer-profile > .bento-card > div:nth-child(4) > div + div { border-left:1px solid rgba(148,163,184,.16); }
-#modal-customer-profile > .bento-card > div:nth-child(4) [id^="cp-total-"] { font-size:clamp(15px,2vw,20px) !important; letter-spacing:-.03em; }
-#modal-customer-profile h4 { letter-spacing:.055em; }
-#modal-customer-profile #cp-meas-view > div {
-  min-width:0; padding:10px 5px !important; border-radius:12px !important;
-  border:1px solid rgba(34,211,238,.16) !important; background:rgba(8,145,178,.07) !important;
-  transition:transform .18s ease,border-color .18s ease;
-}
-#modal-customer-profile #cp-meas-view > div:hover { transform:translateY(-2px); border-color:rgba(34,211,238,.42) !important; }
-#modal-customer-profile #cp-meas-edit { border-radius:15px !important; background:rgba(8,20,36,.82) !important; }
-#modal-customer-profile #cp-meas-edit input { min-height:34px; border-radius:8px !important; }
-#modal-customer-profile .overflow-x-auto:has(#cp-orders-tbody) {
-  border-radius:14px !important; border-color:rgba(148,163,184,.2) !important;
-  background:rgba(2,8,23,.2);
-}
-#modal-customer-profile #cp-orders-tbody tr { transition:background .18s ease; }
-#modal-customer-profile #cp-orders-tbody tr:hover { background:rgba(34,211,238,.07); }
-#modal-customer-profile #cp-orders-tbody td,
-#modal-customer-profile #cp-orders-tbody th { white-space:nowrap; }
-#modal-customer-profile > .bento-card > div:last-child { padding-top:12px !important; }
-body.theme-white #modal-customer-profile { background:rgba(31,45,37,.34) !important; }
-body.theme-white #modal-customer-profile > .bento-card {
-  background:linear-gradient(145deg,#FFFFFF,#F5F8F5) !important;
-  border:1px solid #DCE9E0 !important; box-shadow:0 24px 70px rgba(37,63,46,.2),0 0 0 1px rgba(255,255,255,.65) inset !important;
-}
-body.theme-white #modal-customer-profile > .bento-card > div:first-child {
-  background:linear-gradient(110deg,#EAF5EF,#F1F4FB 62%,#F8FAF8) !important;
-  border-color:#DCE9E0 !important;
-}
-body.theme-white #modal-customer-profile #cp-name,
-body.theme-white #modal-customer-profile h4 { color:#24382C !important; }
-body.theme-white #modal-customer-profile .text-gray-400 { color:#718176 !important; }
-body.theme-white #modal-customer-profile #cp-id { color:#087E83 !important; background:#E4F4F1 !important; border-color:#C9E8DF !important; }
-body.theme-white #modal-customer-profile > .bento-card > div:nth-child(4) {
-  background:linear-gradient(110deg,#EDF6F1,#F1F5FA) !important; border-color:#DCE9E0 !important;
-}
-body.theme-white #modal-customer-profile > .bento-card > div:nth-child(4) > div { background:rgba(255,255,255,.72); }
-body.theme-white #modal-customer-profile #cp-notes { background:#F0F7F3; border-color:#DCEBE1; color:#34483B; }
-body.theme-white #modal-customer-profile #cp-meas-view > div { background:#F0F7F3 !important; border-color:#DCEBE1 !important; }
-body.theme-white #modal-customer-profile #cp-meas-edit { background:#F1F6F2 !important; border-color:#CFE2D5 !important; }
-body.theme-white #modal-customer-profile #cp-meas-edit input { background:#FFFFFF !important; color:#263A2D !important; border-color:#D4E2D8 !important; }
-body.theme-white #modal-customer-profile .overflow-x-auto:has(#cp-orders-tbody) { background:#FFFFFF; border-color:#DFE8E1 !important; }
-body.theme-white #modal-customer-profile #cp-orders-tbody tr:hover { background:#F0F7F3; }
-body.theme-white #modal-customer-profile thead { background:#EDF4EF !important; }
-@media (max-width:640px) {
-  #modal-customer-profile { padding:8px !important; }
-  #modal-customer-profile > .bento-card { max-height:96vh !important; border-radius:18px !important; gap:14px !important; }
-  #modal-customer-profile > .bento-card > div:first-child { padding:12px !important; }
-  #modal-customer-profile #cp-avatar { width:48px !important; height:48px !important; }
-  #modal-customer-profile #cp-name { font-size:16px !important; }
-  #modal-customer-profile > .bento-card > div:nth-child(4) { gap:4px !important; padding:8px !important; }
-  #modal-customer-profile > .bento-card > div:nth-child(4) > div { padding:7px 2px; }
-  #modal-customer-profile #cp-meas-view { grid-template-columns:repeat(3,minmax(0,1fr)) !important; }
-}
-
 </style>' +
         '</head><body><h1>SelaiSathi - Customer Directory</h1><p>Exported: ' + esc(new Date().toLocaleString()) + ' | Total customers: ' + rows.length + '</p>' +
         '<table><thead><tr>' + headers.map(h => '<th>' + esc(h) + '</th>').join('') + '</tr></thead><tbody>' + body + '</tbody></table>' +
