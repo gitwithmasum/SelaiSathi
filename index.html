@@ -2068,6 +2068,78 @@
       background: #E5EDE8 !important;
       color: #1A2E22 !important;
     }
+
+    /* ======================================================== */
+    /* SEGMENTED VIEW-TOGGLE PILL (List vs Grid View)           */
+    /* ======================================================== */
+    .order-view-toggle-pill {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(10, 16, 30, 0.95);
+      border: 1.5px solid rgba(255, 255, 255, 0.28);
+      border-radius: 9999px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+      user-select: none;
+      height: 34px;
+    }
+    .order-view-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 6px 14px;
+      height: 100%;
+      background: transparent;
+      color: #cbd5e1;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      border: none;
+      outline: none;
+    }
+    .order-view-btn:hover:not(.is-active) {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+    }
+    .order-view-btn.is-active {
+      background: linear-gradient(135deg, #025992 0%, #0369a1 100%);
+      color: #ffffff;
+      font-weight: 800;
+      box-shadow: inset 0 0 10px rgba(56, 189, 248, 0.35);
+    }
+    .order-view-btn .order-view-check {
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .order-view-divider {
+      width: 1.5px;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    /* White Theme Segmented Pill Overrides */
+    body.theme-white .order-view-toggle-pill {
+      background: #FFFFFF !important;
+      border: 1.5px solid #DCE5DF !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+    }
+    body.theme-white .order-view-divider {
+      background: #DCE5DF !important;
+    }
+    body.theme-white .order-view-btn {
+      color: #556B5F !important;
+    }
+    body.theme-white .order-view-btn:hover:not(.is-active) {
+      background: #F1F5F2 !important;
+      color: #1A2E22 !important;
+    }
+    body.theme-white .order-view-btn.is-active {
+      background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important;
+      color: #ffffff !important;
+      box-shadow: 0 2px 10px rgba(16, 185, 129, 0.35) !important;
+    }
   </style>
 </head>
 <body class="flex h-screen overflow-hidden text-sm bg-ios-bg select-none">
@@ -3280,6 +3352,19 @@
                   <option value="Salwar">Salwar Kameez</option>
                 </select>
               </div>
+
+              <!-- Segmented View Mode Toggle Pill (List vs Grid) -->
+              <div class="order-view-toggle-pill ml-auto sm:ml-0" id="order-view-toggle" title="Switch Order Display View">
+                <button type="button" class="order-view-btn is-active" id="btn-view-list" onclick="setOrderViewMode('list')" title="List View (লিস্ট ভিউ)">
+                  <span class="order-view-check" id="check-view-list">✓</span>
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+                <div class="order-view-divider"></div>
+                <button type="button" class="order-view-btn" id="btn-view-grid" onclick="setOrderViewMode('grid')" title="Grid / Card View (গ্রিড / কার্ড ভিউ)">
+                  <span class="order-view-check hidden" id="check-view-grid">✓</span>
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -3811,6 +3896,37 @@
     let orderFilterStage = 'ALL';
     let orderFilterDue = 'ALL';
     let orderFilterGarment = 'ALL';
+    let orderViewMode = 'list';
+    try {
+      orderViewMode = localStorage.getItem('selaisathi_order_view_mode') || 'list';
+    } catch(e) {}
+
+    function setOrderViewMode(mode) {
+      orderViewMode = mode;
+      try { localStorage.setItem('selaisathi_order_view_mode', mode); } catch(e){}
+      updateOrderViewToggleUI();
+      renderOrdersTable();
+    }
+
+    function updateOrderViewToggleUI() {
+      const btnList = document.getElementById('btn-view-list');
+      const btnGrid = document.getElementById('btn-view-grid');
+      const checkList = document.getElementById('check-view-list');
+      const checkGrid = document.getElementById('check-view-grid');
+      if (!btnList || !btnGrid) return;
+
+      if (orderViewMode === 'grid') {
+        btnList.classList.remove('is-active');
+        btnGrid.classList.add('is-active');
+        checkList?.classList.add('hidden');
+        checkGrid?.classList.remove('hidden');
+      } else {
+        btnGrid.classList.remove('is-active');
+        btnList.classList.add('is-active');
+        checkGrid?.classList.add('hidden');
+        checkList?.classList.remove('hidden');
+      }
+    }
 
     function filterOrders() {
       orderSearchQuery = document.getElementById('order-search-input')?.value.toLowerCase().trim() || '';
@@ -3842,6 +3958,7 @@
 
     function renderOrdersTable() {
       updateOrdersKPI();
+      updateOrderViewToggleUI();
       const container = document.getElementById('dynamic-orders-table');
       const emptyState = document.getElementById('orders-empty-state');
       if (!container) return;
@@ -3886,7 +4003,81 @@
         'DELIVERED': '📦 DELIVERED'
       };
 
-      container.innerHTML = filtered.map(o => `
+      if (orderViewMode === 'grid') {
+        container.className = 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4.5';
+        container.innerHTML = filtered.map(o => `
+          <div class="p-5 bg-gray-50/70 dark:bg-slate-900/50 rounded-2xl border border-ios-border flex flex-col justify-between gap-4 hover:shadow-ios-card hover:border-cyan-500/40 transition-all relative group">
+            <!-- Card Header: ID, Tag & Stage -->
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-2.5">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 text-white font-bold flex items-center justify-center text-sm shadow-sm shrink-0">
+                  🧵
+                </div>
+                <div>
+                  <div class="flex items-center gap-1.5 flex-wrap">
+                    <span class="font-mono font-black text-ios-text text-sm">${o.id}</span>
+                    <span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[10px] font-mono font-black px-1.5 py-0.5 rounded-md">📌 ${o.tag}</span>
+                  </div>
+                  <div class="text-[11px] font-mono text-gray-400 mt-0.5">📅 ${o.date || '15 Nov 2026'}</div>
+                </div>
+              </div>
+
+              <!-- Cyber Stage Selector Button -->
+              <button type="button" onclick="CyberSelect.openOrderStage(this, '${o.id}', '${o.stage}')" title="Change Production Stage" class="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full border cursor-pointer hover:scale-105 transition-all flex items-center gap-1.5 shrink-0 ${stageColors[o.stage] || 'bg-cyan-500/20 text-cyan-400'}">
+                <span>${stageLabels[o.stage] || o.stage}</span>
+                <span class="text-[8px] opacity-70">▾</span>
+              </button>
+            </div>
+
+            <!-- Customer & Garment Section -->
+            <div class="bg-white/60 dark:bg-slate-800/40 p-3.5 rounded-xl border border-ios-border/60 space-y-1.5">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-sm font-bold text-ios-text truncate">${o.name}</span>
+                <span class="text-[11px] font-semibold text-cyan-400 px-2 py-0.5 rounded-md bg-cyan-500/10 border border-cyan-500/20 shrink-0">${o.garment}</span>
+              </div>
+              <div class="text-xs text-gray-500 dark:text-gray-400 font-mono flex items-center justify-between">
+                <span>📞 ${o.phone}</span>
+                <button onclick="sendDirectSms('${o.name}', '${o.phone}')" title="Send WhatsApp/SMS" class="text-purple-400 hover:text-purple-300 hover:underline flex items-center gap-1 text-[11px]">
+                  <span>💬</span> <span>SMS</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Financials Bento Strip -->
+            <div class="grid grid-cols-3 gap-2 text-center text-xs font-mono p-2.5 rounded-xl bg-gray-100/60 dark:bg-slate-800/25 border border-ios-border/40">
+              <div>
+                <div class="text-[10px] text-gray-400 uppercase tracking-wider">Total</div>
+                <div class="font-extrabold text-ios-text mt-0.5">৳${o.total}</div>
+              </div>
+              <div>
+                <div class="text-[10px] text-gray-400 uppercase tracking-wider">Advance</div>
+                <div class="font-bold text-emerald-500 mt-0.5">৳${o.advance || 0}</div>
+              </div>
+              <div>
+                <div class="text-[10px] text-gray-400 uppercase tracking-wider">Due</div>
+                <div class="font-black ${o.due > 0 ? 'text-rose-500' : 'text-emerald-500'} mt-0.5">৳${o.due}</div>
+              </div>
+            </div>
+
+            <!-- Actions Bar -->
+            <div class="flex items-center justify-between gap-2 pt-2 border-t border-ios-border">
+              <button onclick="showPosReceipt('${o.id}', '${o.name}', '${o.phone}')" title="Print 58mm Thermal POS Receipt" class="flex-1 py-1.5 bg-white dark:bg-slate-800 border border-ios-border rounded-xl text-xs font-bold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 active:scale-95 shadow-xs flex items-center justify-center gap-1.5 transition-all">
+                <span>🖨️</span> <span>Receipt</span>
+              </button>
+
+              <button onclick="openEditOrderModal('${o.id}')" title="Edit Order" class="flex-1 py-1.5 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 rounded-xl text-xs font-bold active:scale-95 shadow-xs flex items-center justify-center gap-1 transition-all">
+                <span>✏️</span> <span>Edit</span>
+              </button>
+
+              <button onclick="deleteOrder('${o.id}')" title="Delete Order" class="px-2.5 py-1.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded-xl text-xs font-bold active:scale-95 shadow-xs flex items-center justify-center transition-all">
+                <span>🗑️</span>
+              </button>
+            </div>
+          </div>
+        `).join('');
+      } else {
+        container.className = 'space-y-3';
+        container.innerHTML = filtered.map(o => `
         <div class="p-4 bg-gray-50/70 dark:bg-slate-900/40 rounded-2xl border border-ios-border flex flex-col lg:flex-row lg:items-center justify-between gap-4 hover:shadow-ios-card transition-all">
           <div class="flex items-start sm:items-center gap-3.5 flex-1">
             <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 text-white font-bold flex items-center justify-center text-sm shadow-sm shrink-0">
@@ -3942,6 +4133,7 @@
           </div>
         </div>
       `).join('');
+      }
     }
 
     function openEditOrderModal(orderId) {
@@ -5303,11 +5495,13 @@
       CyberDialog.init();
       CyberCalendar.init();
       CyberSelect.init();
+      updateOrderViewToggleUI();
     });
     applyThemeSliderState();
     CyberDialog.init();
     CyberCalendar.init();
     CyberSelect.init();
+    updateOrderViewToggleUI();
   </script>
 
 </body>
