@@ -2140,6 +2140,77 @@
       color: #ffffff !important;
       box-shadow: 0 2px 10px rgba(16, 185, 129, 0.35) !important;
     }
+
+    /* SELAISATHI ORDERS — compact futuristic list + 4-column grid */
+    #dynamic-orders-table.orders-grid { align-items: stretch; }
+    #dynamic-orders-table .order-record-card,
+    #dynamic-orders-table .order-list-row {
+      min-width:0; position:relative; overflow:hidden; border-radius:14px !important;
+      transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease,background .22s ease;
+    }
+    #dynamic-orders-table .order-record-card::before,
+    #dynamic-orders-table .order-list-row::before {
+      content:""; position:absolute; inset:0 auto 0 0; width:2px;
+      background:linear-gradient(180deg,#22d3ee,#8b5cf6); opacity:.8; pointer-events:none;
+    }
+    #dynamic-orders-table .order-record-card:hover,
+    #dynamic-orders-table .order-list-row:hover { transform:translateY(-2px); border-color:rgba(34,211,238,.42) !important; }
+    #dynamic-orders-table .order-record-card > div,
+    #dynamic-orders-table .order-list-row > div { min-width:0; }
+    #dynamic-orders-table .order-record-card .font-mono.font-black,
+    #dynamic-orders-table .order-record-card .font-mono.font-bold { overflow-wrap:anywhere; font-size:11px !important; }
+    #dynamic-orders-table .order-record-card .order-customer-panel > div:first-child { align-items:flex-start; flex-direction:column; }
+    #dynamic-orders-table .order-record-card .order-customer-panel > div:first-child > span:last-child {
+      max-width:100%; overflow:hidden; text-overflow:ellipsis;
+    }
+    #dynamic-orders-table .order-record-card .order-customer-panel > div:last-child { gap:5px; flex-wrap:wrap; font-size:10px; }
+    #dynamic-orders-table .order-record-card .grid.grid-cols-3 > div { min-width:0; }
+    #dynamic-orders-table .order-record-card .grid.grid-cols-3 > div > div:last-child { font-size:11px; overflow-wrap:anywhere; }
+    #dynamic-orders-table .order-record-card > div:last-child button {
+      min-width:0; padding:6px 5px !important; font-size:10px !important; border-radius:8px !important;
+    }
+    #dynamic-orders-table .order-list-row { background-image:linear-gradient(105deg,rgba(34,211,238,.035),transparent 42%); }
+    @media (min-width:1280px) {
+      #dynamic-orders-table.orders-grid { grid-template-columns:repeat(4,minmax(0,1fr)) !important; }
+    }
+    @media (max-width:639px) {
+      #dynamic-orders-table .order-record-card { padding:11px !important; }
+    }
+
+    /* Galaxy theme */
+    body:not(.theme-white) #dynamic-orders-table .order-record-card,
+    body:not(.theme-white) #dynamic-orders-table .order-list-row {
+      background:linear-gradient(145deg,rgba(20,31,49,.96),rgba(12,21,36,.98)) !important;
+      border-color:rgba(148,163,184,.17) !important;
+      box-shadow:0 8px 22px rgba(0,0,0,.14),inset 0 1px 0 rgba(255,255,255,.025);
+    }
+    body:not(.theme-white) #dynamic-orders-table .order-record-card:hover,
+    body:not(.theme-white) #dynamic-orders-table .order-list-row:hover {
+      border-color:rgba(34,211,238,.4) !important;
+      box-shadow:0 12px 28px rgba(0,0,0,.2),0 0 18px rgba(34,211,238,.045);
+    }
+    body:not(.theme-white) #dynamic-orders-table .order-customer-panel {
+      background:rgba(8,17,31,.72) !important; border-color:rgba(148,163,184,.15) !important;
+    }
+
+    /* White theme */
+    body.theme-white #dynamic-orders-table .order-record-card,
+    body.theme-white #dynamic-orders-table .order-list-row {
+      color:#25352D !important; background:linear-gradient(145deg,#FFFFFF,#F7FAF8) !important;
+      border-color:#E1E9E4 !important; box-shadow:0 3px 12px rgba(27,55,39,.045);
+    }
+    body.theme-white #dynamic-orders-table .order-record-card:hover,
+    body.theme-white #dynamic-orders-table .order-list-row:hover {
+      border-color:rgba(16,185,129,.42) !important; box-shadow:0 9px 22px rgba(27,90,55,.085);
+    }
+    body.theme-white #dynamic-orders-table .order-record-card::before,
+    body.theme-white #dynamic-orders-table .order-list-row::before { background:linear-gradient(180deg,#10B981,#0EA5A4); }
+    body.theme-white #dynamic-orders-table .order-customer-panel { background:#F2F7F4 !important; border-color:#E1EAE4 !important; }
+    body.theme-white #dynamic-orders-table .order-record-card .text-ios-text,
+    body.theme-white #dynamic-orders-table .order-list-row .text-ios-text { color:#26382E !important; }
+    body.theme-white #dynamic-orders-table .order-record-card .text-gray-400,
+    body.theme-white #dynamic-orders-table .order-list-row .text-gray-400 { color:#718078 !important; }
+
   </style>
 </head>
 <body class="flex h-screen overflow-hidden text-sm bg-ios-bg select-none">
@@ -4004,13 +4075,13 @@
       };
 
       if (orderViewMode === 'grid') {
-        container.className = 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4.5';
+        container.className = 'orders-grid grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3';
         container.innerHTML = filtered.map(o => `
-          <div class="p-5 bg-gray-50/70 dark:bg-slate-900/50 rounded-2xl border border-ios-border flex flex-col justify-between gap-4 hover:shadow-ios-card hover:border-cyan-500/40 transition-all relative group">
+          <div class="order-record-card p-3 bg-gray-50/70 dark:bg-slate-900/50 rounded-xl border border-ios-border flex flex-col justify-between gap-2.5 hover:shadow-ios-card hover:border-cyan-500/40 transition-all relative group">
             <!-- Card Header: ID, Tag & Stage -->
             <div class="flex items-start justify-between gap-2">
               <div class="flex items-center gap-2.5">
-                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 text-white font-bold flex items-center justify-center text-sm shadow-sm shrink-0">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 text-white font-bold flex items-center justify-center text-xs shadow-sm shrink-0">
                   🧵
                 </div>
                 <div>
@@ -4030,7 +4101,7 @@
             </div>
 
             <!-- Customer & Garment Section -->
-            <div class="bg-white/60 dark:bg-slate-800/40 p-3.5 rounded-xl border border-ios-border/60 space-y-1.5">
+            <div class="order-customer-panel bg-white/60 dark:bg-slate-800/40 p-2.5 rounded-lg border border-ios-border/60 space-y-1">
               <div class="flex items-center justify-between gap-2">
                 <span class="text-sm font-bold text-ios-text truncate">${o.name}</span>
                 <span class="text-[11px] font-semibold text-cyan-400 px-2 py-0.5 rounded-md bg-cyan-500/10 border border-cyan-500/20 shrink-0">${o.garment}</span>
@@ -4044,7 +4115,7 @@
             </div>
 
             <!-- Financials Bento Strip -->
-            <div class="grid grid-cols-3 gap-2 text-center text-xs font-mono p-2.5 rounded-xl bg-gray-100/60 dark:bg-slate-800/25 border border-ios-border/40">
+            <div class="grid grid-cols-3 gap-1.5 text-center text-[11px] font-mono p-2 rounded-lg bg-gray-100/60 dark:bg-slate-800/25 border border-ios-border/40">
               <div>
                 <div class="text-[10px] text-gray-400 uppercase tracking-wider">Total</div>
                 <div class="font-extrabold text-ios-text mt-0.5">৳${o.total}</div>
@@ -4076,9 +4147,9 @@
           </div>
         `).join('');
       } else {
-        container.className = 'space-y-3';
+        container.className = 'orders-list space-y-2';
         container.innerHTML = filtered.map(o => `
-        <div class="p-4 bg-gray-50/70 dark:bg-slate-900/40 rounded-2xl border border-ios-border flex flex-col lg:flex-row lg:items-center justify-between gap-4 hover:shadow-ios-card transition-all">
+        <div class="order-list-row p-3 bg-gray-50/70 dark:bg-slate-900/40 rounded-xl border border-ios-border flex flex-col lg:flex-row lg:items-center justify-between gap-3 hover:shadow-ios-card transition-all">
           <div class="flex items-start sm:items-center gap-3.5 flex-1">
             <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 text-white font-bold flex items-center justify-center text-sm shadow-sm shrink-0">
               🧵
