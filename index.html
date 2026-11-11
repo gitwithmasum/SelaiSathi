@@ -2639,6 +2639,46 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 @media(max-width:1279px){#view-staff .staff-card-grid{gap:14px!important}}
 @media(max-width:639px){#view-staff .staff-card-grid>article{padding:15px!important}#view-staff .staff-page-header-actions{width:100%}#view-staff .staff-page-header-actions button{flex:1 1 auto;justify-content:center}#view-staff .staff-filter-right{width:100%;flex-wrap:wrap}#view-staff #staff-attendance-filter{flex:1 1 150px;min-width:0}}
 
+
+/* Staff page zoom resilience: fluid columns based on available CSS width */
+#view-staff #staff-display-container .staff-card-grid{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr))!important;
+  gap:clamp(12px,1.25vw,20px)!important;
+  align-items:stretch;
+}
+#view-staff #staff-display-container .staff-card-grid>article{width:100%;min-width:0}
+#view-staff .staff-kpi-grid{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,205px),1fr))!important;
+  gap:clamp(10px,1vw,16px)!important;
+}
+#view-staff .staff-page-header,
+#view-staff .staff-filter-controls,
+#view-staff .staff-filter-main,
+#view-staff .staff-filter-right{min-width:0;flex-wrap:wrap}
+#view-staff .staff-page-header-actions{display:flex;flex-wrap:wrap;max-width:100%}
+#view-staff .staff-page-header-actions button{max-width:100%;white-space:normal}
+#view-staff .staff-filter-controls{align-items:flex-start}
+#view-staff .staff-filter-main{flex:1 1 520px}
+#view-staff .staff-filter-right{flex:1 1 260px;justify-content:flex-end}
+#view-staff .staff-role-filter{max-width:100%}
+#view-staff #staff-search{width:clamp(180px,22vw,280px);max-width:100%}
+#view-staff #staff-display-container{min-width:0;width:100%}
+#view-staff #staff-display-container .overflow-x-auto{max-width:100%;overscroll-behavior-x:contain}
+@media(max-width:760px){
+ #view-staff .staff-filter-main,#view-staff .staff-filter-right{flex-basis:100%;width:100%}
+ #view-staff .staff-filter-right{justify-content:space-between}
+ #view-staff #staff-search{width:100%}
+ #view-staff .staff-search-wrap{flex:1 1 100%;width:100%}
+ #view-staff .staff-role-filter{width:100%}
+}
+@media(max-width:420px){
+ #view-staff .staff-page-header-actions{display:grid;grid-template-columns:1fr;width:100%}
+ #view-staff .staff-page-header-actions button{width:100%}
+ #view-staff .staff-card-grid>article{padding:14px!important}
+}
+
 </style>
 </head>
 <body class="flex h-screen overflow-hidden text-sm bg-ios-bg select-none">
@@ -2926,7 +2966,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         </div>
 
         <!-- 4 Top Bento Cards (Vibrant Multi-Colors) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="staff-kpi-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           
           <!-- Card 1: Outstanding Due (Ruby Red) -->
           <div class="bento-card p-5 bg-gradient-to-br from-white to-red-50/50 border-red-100/80 group">
@@ -3451,7 +3491,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <section id="view-measurements" class="app-view hidden space-y-6">
         
         <!-- Header Strip -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="staff-page-header flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div class="flex items-center gap-2">
               <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">BESPOKE ATELIER CAD</span>
@@ -3765,7 +3805,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <p class="text-xs text-ios-subtext mt-1">Manage tailor orders, update production stages, print receipts and track dues.</p>
           </div>
 
-          <div class="flex flex-wrap items-center gap-2.5">
+          <div class="staff-page-header-actions flex flex-wrap items-center gap-2.5">
             <button onclick="exportOrdersCSV()" class="px-4 py-2.5 rounded-xl text-xs font-bold border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 active:scale-95 flex items-center gap-1.5 transition-colors">
               <span>↓</span> <span>Export CSV</span>
             </button>
@@ -4091,18 +4131,18 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
         <!-- Filter, Attendance, Search & Dual View Toggle Bar -->
         <div class="bento-card p-4 space-y-3.5">
-          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3.5">
+          <div class="staff-filter-controls flex flex-col lg:flex-row lg:items-center justify-between gap-3.5">
             
             <!-- Search & Role Filter Pills -->
-            <div class="flex flex-wrap items-center gap-2 flex-1">
+            <div class="staff-filter-main flex flex-wrap items-center gap-2 flex-1">
               <!-- Search Box -->
-              <div class="relative w-full sm:w-64">
+              <div class="staff-search-wrap relative w-full sm:w-64">
                 <span class="absolute left-3.5 top-2.5 text-xs text-gray-400">🔍</span>
                 <input type="text" id="staff-search" oninput="renderStaff()" placeholder="Search karigar by name, phone or skill..." class="w-full pl-9 pr-3 py-2 rounded-xl text-xs bg-slate-900/60 border border-slate-700/80 text-white placeholder-gray-500 focus:outline-none focus:border-violet-400 transition-all">
               </div>
 
               <!-- Role Filter Segmented Control -->
-              <div class="flex flex-wrap items-center gap-1 p-1 bg-slate-900/70 border border-slate-800 rounded-xl text-xs">
+              <div class="staff-role-filter flex flex-wrap items-center gap-1 p-1 bg-slate-900/70 border border-slate-800 rounded-xl text-xs">
                 <button onclick="setStaffRoleFilter('ALL')" class="staff-role-pill active px-3 py-1 rounded-lg text-xs font-bold bg-violet-600 text-white transition-all" data-role="ALL">All Roles</button>
                 <button onclick="setStaffRoleFilter('Master Tailor')" class="staff-role-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all" data-role="Master Tailor">✂️ Master Tailor</button>
                 <button onclick="setStaffRoleFilter('Cutter')" class="staff-role-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all" data-role="Cutter">📐 Cutter</button>
@@ -4112,7 +4152,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             </div>
 
             <!-- Right Controls: Attendance Status Filter & Dual View Toggle (Grid / List) -->
-            <div class="flex items-center gap-3 self-end lg:self-auto">
+            <div class="staff-filter-right flex items-center gap-3 self-end lg:self-auto">
               <!-- Attendance Status Filter -->
               <select id="staff-attendance-filter" onchange="renderStaff()" class="px-3 py-2 rounded-xl text-xs bg-slate-900/60 border border-slate-700/80 text-gray-300 focus:outline-none focus:border-violet-400">
                 <option value="ALL">All Attendance (সবাই)</option>
