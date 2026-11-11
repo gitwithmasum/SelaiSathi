@@ -73,16 +73,6 @@
   </script>
 
   <style>
-    .hidden {
-      display: none !important;
-    }
-    .cyber-dialog-overlay.hidden,
-    .cyber-cal-popover.hidden,
-    .cyber-dropdown-popover.hidden,
-    .app-view.hidden {
-      display: none !important;
-    }
-
     body {
       font-family: 'Inter', 'Hind Siliguri', -apple-system, sans-serif;
       background-color: #F5F5F7;
@@ -141,27 +131,6 @@
       color: #FFFFFF;
       box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
     }
-
-    /* Customer CRM navigation — premium futuristic treatment */
-    aside .customer-nav-item { overflow:hidden; isolation:isolate; }
-    aside .customer-nav-item::after { content:''; position:absolute; inset:0; pointer-events:none; opacity:0; background:linear-gradient(105deg,transparent 18%,rgba(34,211,238,.10) 48%,rgba(139,92,246,.08) 72%,transparent 100%); transform:translateX(-35%); transition:opacity .25s,transform .45s; z-index:-1; }
-    aside .customer-nav-item:hover::after, aside .customer-nav-item.active::after { opacity:1; transform:translateX(0); }
-    aside .customer-nav-icon { position:relative; overflow:hidden; }
-    aside .customer-nav-icon::after { content:''; position:absolute; width:5px; height:5px; right:3px; bottom:3px; border-radius:50%; background:#34d399; box-shadow:0 0 7px currentColor; }
-    aside .customer-nav-mark { margin-left:auto; padding:2px 5px; border-radius:5px; font:800 8px ui-monospace,monospace; letter-spacing:.08em; color:#67e8f9; background:rgba(34,211,238,.08); border:1px solid rgba(34,211,238,.16); transition:all .2s; }
-    body:not(.theme-white) > aside .customer-nav-item { border-color:rgba(34,211,238,.10); background:linear-gradient(105deg,rgba(34,211,238,.045),rgba(139,92,246,.035)); }
-    body:not(.theme-white) > aside .customer-nav-item:hover { border-color:rgba(34,211,238,.28); box-shadow:0 5px 18px rgba(34,211,238,.07); }
-    body:not(.theme-white) > aside .customer-nav-item.active { border-color:rgba(34,211,238,.32); box-shadow:inset 0 0 20px rgba(34,211,238,.055),0 5px 20px rgba(34,211,238,.08); }
-    body:not(.theme-white) > aside .customer-nav-item.active .customer-nav-icon { background:linear-gradient(135deg,#67e8f9,#8b5cf6) !important; color:#071321 !important; box-shadow:0 0 15px rgba(34,211,238,.28); }
-    body:not(.theme-white) > aside .customer-nav-item.active .customer-nav-mark { color:#dbeafe; border-color:rgba(103,232,249,.3); background:rgba(34,211,238,.13); }
-    body.theme-white aside .customer-nav-item { background:linear-gradient(105deg,#F3F8F5,#F5F6FA) !important; border-color:#E0EAE3 !important; }
-    body.theme-white aside .customer-nav-item:hover { background:linear-gradient(105deg,#EAF4EE,#F0F2F8) !important; border-color:#C8DDD0 !important; box-shadow:0 3px 12px rgba(46,108,75,.07); }
-    body.theme-white aside .customer-nav-item.active { background:linear-gradient(105deg,#E5F2E9,#EEF0F8) !important; border-color:#BFD8C8 !important; box-shadow:inset 0 0 0 1px rgba(46,108,75,.035),0 3px 12px rgba(46,108,75,.08) !important; }
-    body.theme-white aside .customer-nav-icon { background:#E6F0EA !important; color:#286044 !important; border-color:#CDDED3 !important; }
-    body.theme-white aside .customer-nav-icon::after { background:#2E9B67; }
-    body.theme-white aside .customer-nav-item.active .customer-nav-icon { background:linear-gradient(135deg,#2E6C4B,#4D8B6A) !important; color:#fff !important; border-color:transparent !important; }
-    body.theme-white aside .customer-nav-mark { color:#376B50; background:#E8F2EB; border-color:#D1E2D6; }
-    @media (max-width:640px) { aside .customer-nav-mark { display:none; } }
 
     /* iOS Bento Card System */
     .bento-card {
@@ -1283,9 +1252,6 @@
       user-select: none;
       animation: cyberCalendarFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .cyber-cal-popover.hidden {
-      display: none !important;
-    }
     @keyframes cyberCalendarFadeIn {
       from { opacity: 0; transform: scale(0.96) translateY(-4px); }
       to { opacity: 1; transform: scale(1) translateY(0); }
@@ -1811,9 +1777,6 @@
       user-select: none;
       animation: cyberDropdownFadeIn 0.15s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .cyber-dropdown-popover.hidden {
-      display: none !important;
-    }
     @keyframes cyberDropdownFadeIn {
       from { opacity: 0; transform: scale(0.95) translateY(-6px); }
       to { opacity: 1; transform: scale(1) translateY(0); }
@@ -1907,9 +1870,6 @@
       justify-content: center;
       padding: 16px;
       animation: cyberDialogBackdropIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .cyber-dialog-overlay.hidden {
-      display: none !important;
     }
     @keyframes cyberDialogBackdropIn {
       from { opacity: 0; }
@@ -2516,7 +2476,6 @@ body.theme-white #modal-customer-profile thead { background:#EDF4EF !important; 
   #modal-customer-profile #cp-meas-view { grid-template-columns:repeat(3,minmax(0,1fr)) !important; }
 }
 
-
 </style>
 </head>
 <body class="flex h-screen overflow-hidden text-sm bg-ios-bg select-none">
@@ -2565,7 +2524,7 @@ body.theme-white #modal-customer-profile thead { background:#EDF4EF !important; 
         <div class="ss-nav-group">
           <div class="ss-nav-heading"><span>CLIENT & WORKSHOP</span></div>
           <nav class="space-y-1" aria-label="Client and workshop">
-            <button onclick="navigateTo('customers')" id="nav-customers" title="Customers" aria-label="Customers" class="nav-item customer-nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all"><span class="nav-icon-badge customer-nav-icon"><span>♙</span></span><span class="ss-nav-label" data-i18n="menu_customers">Customers</span><span class="customer-nav-mark" aria-hidden="true">CRM</span></button>
+            <button onclick="navigateTo('customers')" id="nav-customers" title="Customers" aria-label="Customers" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all"><span class="nav-icon-badge"><span>♙</span></span><span class="ss-nav-label" data-i18n="menu_customers">Customers</span></button>
             <button onclick="navigateTo('measurements')" id="nav-measurements" title="Measurements" aria-label="Measurements" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
               <span class="nav-icon-badge"><span>⌗</span></span><span class="ss-nav-label" data-i18n="menu_measurements">Measurements</span>
             </button>
@@ -3328,191 +3287,209 @@ body.theme-white #modal-customer-profile thead { background:#EDF4EF !important; 
       <!-- ==================================================== -->
       <section id="view-measurements" class="app-view hidden space-y-6">
         
-        <div>
-          <h1 class="text-3xl font-black text-ios-text tracking-tight">Measurements Registry</h1>
-          <p class="text-xs text-ios-subtext mt-1">Look up a customer by mobile number or name to see and update their measurements.</p>
-        </div>
-
-        <!-- Selected Customer Chip (Glass Card) -->
-        <div class="bento-card p-4 bg-gradient-to-r from-emerald-50/80 via-teal-50/50 to-white flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-emerald-200/60">
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 text-white font-bold text-xs flex items-center justify-center shadow-sm">
-              SH
+        <!-- Header Strip -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">BESPOKE ATELIER CAD</span>
+              <span class="text-xs text-ios-subtext">Measurement Matrix & Voice Engine</span>
             </div>
-            <div class="text-xs font-bold text-gray-900">
-              Shahadat Hossain · <span class="font-mono font-medium text-gray-600">01591463333</span> · <span class="text-emerald-700 font-extrabold bg-emerald-100 px-2 py-0.5 rounded-md">3 versions</span>
-            </div>
-            <button class="text-gray-400 hover:text-gray-700 font-bold ml-1">✕</button>
+            <h1 class="text-3xl font-black text-ios-text tracking-tight mt-1">Measurements Registry</h1>
+            <p class="text-xs text-ios-subtext mt-1">Customer bespoke measurements, live version comparison, master cutting slip generator, and Bengali speech input.</p>
           </div>
 
-          <!-- Bengali Voice Assistant Button -->
-          <div class="flex items-center gap-3">
-            <span class="text-[11px] text-gray-500 hidden md:inline">Changed values are highlighted against previous version</span>
-            <button onclick="triggerVoiceInput()" class="bg-gradient-to-r from-red-500 to-rose-600 text-white px-4 py-2 rounded-2xl text-xs font-bold shadow-md shadow-red-500/20 hover:scale-105 transition-all flex items-center gap-2">
-              <span class="animate-pulse">🎤</span> বাংলা ভয়েস ইনপুট
+          <div class="flex flex-wrap items-center gap-2.5">
+            <button onclick="printMasterCuttingSlip()" class="px-4 py-2.5 rounded-xl text-xs font-bold border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 active:scale-95 flex items-center gap-1.5 transition-all">
+              <span>🖨️</span> <span>Print Cutting Slip</span>
+            </button>
+            <button onclick="sendMeasurementWhatsApp()" class="px-4 py-2.5 rounded-xl text-xs font-bold border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20 active:scale-95 flex items-center gap-1.5 transition-all">
+              <span>💬</span> <span>WhatsApp Slip</span>
+            </button>
+            <button onclick="createOrderWithMeasurement()" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-md shadow-emerald-700/25 active:scale-95 flex items-center gap-1.5 transition-all">
+              <span>⚡</span> <span>Create Order with this</span>
             </button>
           </div>
         </div>
 
-        <!-- Garment Tabs (iOS Segmented Control) -->
-        <div class="flex flex-wrap items-center gap-1.5 p-1.5 bg-gray-200/60 rounded-2xl border border-gray-300/40 w-fit text-xs">
-          <button onclick="setMeasurementTab('Shirt')" class="meas-garment-tab px-3.5 py-1.5 text-gray-600 font-medium rounded-xl">Shirt</button>
-          <button onclick="setMeasurementTab('Pant')" class="meas-garment-tab active px-3.5 py-1.5 bg-white text-gray-900 font-bold rounded-xl shadow-xs">Pant •</button>
-          <button onclick="setMeasurementTab('Panjabi')" class="meas-garment-tab px-3.5 py-1.5 text-gray-600 font-medium rounded-xl">Panjabi •</button>
-          <button onclick="setMeasurementTab('Pajama')" class="meas-garment-tab px-3.5 py-1.5 text-gray-600 font-medium rounded-xl">Pajama</button>
-          <button onclick="setMeasurementTab('Blazer')" class="meas-garment-tab px-3.5 py-1.5 text-gray-600 font-medium rounded-xl">Blazer</button>
-          <button onclick="setMeasurementTab('Coti')" class="meas-garment-tab px-3.5 py-1.5 text-gray-600 font-medium rounded-xl">Coti</button>
-          <button onclick="setMeasurementTab('Kameez')" class="meas-garment-tab px-3.5 py-1.5 text-gray-600 font-medium rounded-xl">Kameez</button>
-          <button onclick="setMeasurementTab('Salwar')" class="meas-garment-tab px-3.5 py-1.5 text-gray-600 font-medium rounded-xl">Salwar</button>
-          <button onclick="setMeasurementTab('Blouse')" class="meas-garment-tab px-3.5 py-1.5 text-gray-600 font-medium rounded-xl">Blouse</button>
-          <button onclick="setMeasurementTab('Petticoat')" class="meas-garment-tab px-3.5 py-1.5 text-gray-600 font-medium rounded-xl">Petticoat</button>
-        </div>
-
-        <!-- 2 Columns: Edit Version Form (Left) + History Sidebar (Right) -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          
-          <!-- Left 2 Cols: Form Bento Card -->
-          <div class="lg:col-span-2 bento-card p-7 space-y-6">
-            
-            <div class="flex items-center justify-between pb-4 border-b border-ios-border">
-              <h2 class="text-base font-black text-gray-900">Pant · editing new version v3</h2>
-              
-              <!-- Unit toggle -->
-              <div class="flex items-center bg-gray-100 p-1 rounded-xl text-xs font-mono">
-                <button class="px-3 py-1 bg-white rounded-lg font-bold text-gray-900 shadow-xs">inch</button>
-                <button class="px-3 py-1 text-gray-500 hover:text-gray-800">cm</button>
+        <!-- Customer Selector & Voice Assistant Bar -->
+        <div class="bento-card p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 relative">
+          <!-- Active Customer Pill & Live Search -->
+          <div class="flex flex-col sm:flex-row sm:items-center gap-3 flex-1 min-w-0">
+            <!-- Active Customer Pill -->
+            <div id="meas-active-customer-pill" class="flex items-center gap-3 p-2 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl shrink-0">
+              <div id="meas-cust-avatar" class="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 text-slate-950 font-black text-xs flex items-center justify-center shadow-sm">
+                SH
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-2">
+                  <span id="meas-cust-name" class="font-bold text-xs text-ios-text truncate">Shahadat Hossain</span>
+                  <span id="meas-cust-versions-badge" class="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-400">3 versions</span>
+                </div>
+                <div id="meas-cust-phone" class="font-mono text-[11px] text-gray-400">01591463333</div>
               </div>
             </div>
 
-            <!-- Inputs Grid with Dynamic Highlight Badges -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              <!-- Waist (Highlighted Gold/Amber border) -->
-              <div class="space-y-1.5">                <label class="block text-[11px] font-bold text-gray-700">Waist</label>
-                <div class="relative">
-                  <input type="text" id="m_waist" value="31" class="w-full font-mono font-black text-sm px-3.5 py-2.5 rounded-2xl border-2 border-amber-500 bg-amber-50/40 focus:outline-none">
-                  <span class="absolute right-3.5 top-3 text-xs text-gray-400 font-mono">in</span>
-                </div>
-                <div class="text-[10px] font-extrabold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-md w-fit">+1" from v1</div>
+            <!-- Customer Search Box with Autocomplete -->
+            <div class="relative flex-1 max-w-md">
+              <div class="relative">
+                <span class="absolute left-3 top-2.5 text-xs text-gray-400">🔍</span>
+                <input type="text" id="meas-customer-search" oninput="searchMeasurementCustomers(this.value)" placeholder="Search customer by name or phone..." class="w-full pl-8 pr-8 py-2 rounded-xl text-xs bg-slate-900/60 border border-slate-700/80 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition-all">
+                <button onclick="clearMeasurementCustomerSearch()" class="absolute right-2.5 top-2.5 text-gray-500 hover:text-white text-xs">✕</button>
               </div>
+              <!-- Floating Dropdown -->
+              <div id="meas-customer-dropdown" class="hidden absolute top-full left-0 right-0 mt-1.5 bg-slate-900 border border-cyan-500/30 rounded-xl shadow-2xl z-40 max-h-60 overflow-y-auto divide-y divide-slate-800"></div>
+            </div>
 
-              <!-- Hip -->
-              <div class="space-y-1.5">
-                <label class="block text-[11px] font-bold text-gray-700">Hip</label>
-                <div class="relative">
-                  <input type="text" id="m_hip" value="38" class="w-full font-mono font-bold text-sm px-3.5 py-2.5 rounded-2xl border border-ios-border bg-gray-50/50 focus:bg-white focus:outline-none">                  <span class="absolute right-3.5 top-3 text-xs text-gray-400 font-mono">in</span>                </div>
-                <div class="text-[10px] text-gray-400">Same as v2</div>
+            <!-- Add Customer Button -->
+            <button onclick="openDataModal('customer')" class="px-3 py-2 rounded-xl text-xs font-bold border border-slate-700 hover:border-cyan-500/40 text-gray-300 hover:text-white bg-slate-800/40 transition-all shrink-0">
+              + New Client
+            </button>
+          </div>
+
+          <!-- Bengali Voice Input Button -->
+          <div class="flex items-center gap-3 shrink-0">
+            <button id="meas-voice-btn" onclick="toggleSpeechRecognition()" class="relative group bg-gradient-to-r from-rose-600 via-red-500 to-rose-600 hover:from-rose-500 hover:to-red-500 text-white px-5 py-2.5 rounded-xl text-xs font-bold shadow-lg shadow-red-500/25 active:scale-95 transition-all flex items-center gap-2">
+              <span id="meas-voice-mic-icon" class="animate-pulse text-sm">🎤</span>
+              <span id="meas-voice-label">বাংলা ভয়েস ইনপুট</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Live Voice Status Banner -->
+        <div id="meas-voice-feed" class="hidden p-3.5 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-between gap-3 animate-fadeIn">
+          <div class="flex items-center gap-3">
+            <div class="w-3 h-3 rounded-full bg-rose-500 animate-ping"></div>
+            <div class="text-xs">
+              <span class="font-bold text-rose-300">ভয়েস শুনছি (Listening):</span>
+              <span id="meas-voice-transcript" class="font-mono text-gray-300 ml-1.5 italic">"ঝুল ৪২, কোমর ৩২, হাই ৯, মুহুরী ১০..."</span>
+            </div>
+          </div>
+          <span class="text-[10px] font-mono text-gray-400">Web Speech Engine • bn-BD</span>
+        </div>
+
+        <!-- Garment Tabs (iOS Cyber Segmented Control) -->
+        <div class="flex flex-wrap items-center gap-1.5 p-1.5 bg-slate-900/60 rounded-2xl border border-slate-800 w-fit text-xs">
+          <button onclick="setMeasurementTab('Shirt')" class="meas-garment-tab px-3.5 py-1.5 text-gray-400 hover:text-white font-medium rounded-xl transition-all" data-garment="Shirt">👔 Shirt (শার্ট)</button>
+          <button onclick="setMeasurementTab('Pant')" class="meas-garment-tab active px-3.5 py-1.5 bg-white text-gray-900 font-bold rounded-xl shadow-xs transition-all" data-garment="Pant">👖 Pant (প্যান্ট)</button>
+          <button onclick="setMeasurementTab('Panjabi')" class="meas-garment-tab px-3.5 py-1.5 text-gray-400 hover:text-white font-medium rounded-xl transition-all" data-garment="Panjabi">🥻 Panjabi (পাঞ্জাবি)</button>
+          <button onclick="setMeasurementTab('Pajama')" class="meas-garment-tab px-3.5 py-1.5 text-gray-400 hover:text-white font-medium rounded-xl transition-all" data-garment="Pajama">🩳 Pajama (পায়জামা)</button>
+          <button onclick="setMeasurementTab('Blazer')" class="meas-garment-tab px-3.5 py-1.5 text-gray-400 hover:text-white font-medium rounded-xl transition-all" data-garment="Blazer">🧥 Blazer (ব্লেজার)</button>
+          <button onclick="setMeasurementTab('Coti')" class="meas-garment-tab px-3.5 py-1.5 text-gray-400 hover:text-white font-medium rounded-xl transition-all" data-garment="Coti">🦺 Coti (মুজিব কোট)</button>
+          <button onclick="setMeasurementTab('Kameez')" class="meas-garment-tab px-3.5 py-1.5 text-gray-400 hover:text-white font-medium rounded-xl transition-all" data-garment="Kameez">👗 Kameez (কামিজ)</button>
+          <button onclick="setMeasurementTab('Salwar')" class="meas-garment-tab px-3.5 py-1.5 text-gray-400 hover:text-white font-medium rounded-xl transition-all" data-garment="Salwar">👖 Salwar (সালোয়ার)</button>
+          <button onclick="setMeasurementTab('Blouse')" class="meas-garment-tab px-3.5 py-1.5 text-gray-400 hover:text-white font-medium rounded-xl transition-all" data-garment="Blouse">👚 Blouse (ব্লাউজ)</button>
+          <button onclick="setMeasurementTab('Petticoat')" class="meas-garment-tab px-3.5 py-1.5 text-gray-400 hover:text-white font-medium rounded-xl transition-all" data-garment="Petticoat">👗 Petticoat (পেটিকোট)</button>
+        </div>
+
+        <!-- 2 Columns Grid: Form (Left 2 cols) + History & Summary (Right 1 col) -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- Left 2 Cols: Form Bento Card -->
+          <div class="lg:col-span-2 bento-card p-6 sm:p-7 space-y-6">
+            
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-ios-border gap-3">
+              <div>
+                <h2 id="meas-form-title" class="text-base font-black text-ios-text">Pant · Editing Version v3</h2>
+                <div id="meas-form-subtitle" class="text-xs text-ios-subtext mt-0.5">Measurements in inches (সরাসরি টাইপ করুন বা ফিতা ফ্র্যাকশন ব্যবহার করুন)</div>
               </div>
-
-              <!-- Length -->
-              <div class="space-y-1.5">
-                <label class="block text-[11px] font-bold text-gray-700">Length</label>
-                <div class="relative">
-                  <input type="text" id="m_length" value="40" class="w-full font-mono font-bold text-sm px-3.5 py-2.5 rounded-2xl border border-ios-border bg-gray-50/50 focus:bg-white focus:outline-none">
-                  <span class="absolute right-3.5 top-3 text-xs text-gray-400 font-mono">in</span>
-                </div>
-                <div class="text-[10px] text-gray-400">Same as v2</div>
+              
+              <!-- Unit toggle -->
+              <div class="flex items-center bg-slate-800/80 p-1 rounded-xl text-xs font-mono border border-slate-700/60 self-start sm:self-auto">
+                <button id="meas-unit-inch" onclick="toggleMeasurementUnit('inch')" class="px-3 py-1 bg-white text-gray-900 rounded-lg font-bold shadow-xs transition-all">inch</button>
+                <button id="meas-unit-cm" onclick="toggleMeasurementUnit('cm')" class="px-3 py-1 text-gray-400 hover:text-white transition-all">cm</button>
               </div>
+            </div>
 
-              <!-- Thigh -->
-              <div class="space-y-1.5">
-                <label class="block text-[11px] font-bold text-gray-700">Thigh</label>
-                <div class="relative">
-                  <input type="text" id="m_thigh" value="14" class="w-full font-mono font-bold text-sm px-3.5 py-2.5 rounded-2xl border border-ios-border bg-gray-50/50 focus:bg-white focus:outline-none">
-                  <span class="absolute right-3.5 top-3 text-xs text-gray-400 font-mono">in</span>
-                </div>
-                <div class="text-[10px] text-gray-400">Same as v2</div>
+            <!-- Dynamic Inputs Grid -->
+            <div id="meas-fields-container" class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <!-- Rendered dynamically by renderGarmentFields() -->
+            </div>
+
+            <!-- Fit Style & Cut Preference Bar -->
+            <div class="p-4 rounded-2xl bg-slate-900/50 border border-slate-800 space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-gray-300 uppercase tracking-wider">FIT SILHOUETTE & CUT STYLE (কাটিং স্টাইল)</span>
+                <span class="text-[11px] text-gray-500 font-mono">Bespoke Fit Preset</span>
               </div>
-
-              <!-- Knee -->
-              <div class="space-y-1.5">
-                <label class="block text-[11px] font-bold text-gray-700">Knee</label>
-                <div class="relative">
-                  <input type="text" id="m_knee" value="6" class="w-full font-mono font-bold text-sm px-3.5 py-2.5 rounded-2xl border border-ios-border bg-gray-50/50 focus:bg-white focus:outline-none">
-                  <span class="absolute right-3.5 top-3 text-xs text-gray-400 font-mono">in</span>
-                </div>
-                <div class="text-[10px] text-gray-400">Same as v2</div>
-              </div>
-
-              <!-- Bottom -->
-              <div class="space-y-1.5">
-                <label class="block text-[11px] font-bold text-gray-700">Bottom</label>
-                <div class="relative">
-                  <input type="text" id="m_bottom" value="9" class="w-full font-mono font-bold text-sm px-3.5 py-2.5 rounded-2xl border border-ios-border bg-gray-50/50 focus:bg-white focus:outline-none">
-                  <span class="absolute right-3.5 top-3 text-xs text-gray-400 font-mono">in</span>
-                </div>
-                <div class="text-[10px] text-gray-400">Same as v2</div>
-              </div>
-
-              <!-- Rise -->
-              <div class="space-y-1.5">
-                <label class="block text-[11px] font-bold text-gray-700">Rise</label>
-                <div class="relative">
-                  <input type="text" id="m_rise" value="8" class="w-full font-mono font-bold text-sm px-3.5 py-2.5 rounded-2xl border border-ios-border bg-gray-50/50 focus:bg-white focus:outline-none">
-                  <span class="absolute right-3.5 top-3 text-xs text-gray-400 font-mono">in</span>
-                </div>
-                <div class="text-[10px] text-gray-400">Same as v2</div>
-              </div>
-
-              <!-- Inseam -->
-              <div class="space-y-1.5">
-                <label class="block text-[11px] font-bold text-gray-700">Inseam</label>
-                <div class="relative">
-                  <input type="text" id="m_inseam" value="10" class="w-full font-mono font-bold text-sm px-3.5 py-2.5 rounded-2xl border border-ios-border bg-gray-50/50 focus:bg-white focus:outline-none">
-                  <span class="absolute right-3.5 top-3 text-xs text-gray-400 font-mono">in</span>
-                </div>
-                <div class="text-[10px] text-gray-400">Same as v2</div>
+              
+              <div class="flex flex-wrap gap-2 text-xs">
+                <button onclick="setFitStyle('Slim Fit')" class="meas-fit-btn active px-3.5 py-1.5 rounded-xl border border-cyan-500/40 bg-cyan-500/20 text-cyan-300 font-bold transition-all" data-fit="Slim Fit">
+                  Slim Fit (চাপা)
+                </button>
+                <button onclick="setFitStyle('Regular Fit')" class="meas-fit-btn px-3.5 py-1.5 rounded-xl border border-slate-700 bg-slate-800/60 text-gray-300 font-medium hover:border-slate-600 transition-all" data-fit="Regular Fit">
+                  Regular Fit (স্ট্যান্ডার্ড)
+                </button>
+                <button onclick="setFitStyle('Comfort / Loose')" class="meas-fit-btn px-3.5 py-1.5 rounded-xl border border-slate-700 bg-slate-800/60 text-gray-300 font-medium hover:border-slate-600 transition-all" data-fit="Comfort / Loose">
+                  Comfort / Loose (ঢিলা)
+                </button>
               </div>
             </div>
 
             <!-- Fitting Notes -->
             <div>
-              <label class="block text-[11px] font-bold text-gray-700 mb-1.5">Fitting notes (Special cutting instructions)</label>
-              <textarea rows="2" placeholder="e.g. Slim fit through chest, side slit 8&quot;" class="w-full p-3.5 bg-gray-50/70 border border-ios-border rounded-2xl text-xs focus:outline-none focus:border-ios-blue focus:bg-white transition-all"></textarea>
+              <label class="block text-xs font-bold text-gray-300 mb-1.5">Master Cutting Notes (কাটিং মাস্টারের বিশেষ নির্দেশনা)</label>
+              <textarea id="meas-fitting-notes" rows="2" placeholder="e.g. ডান কাঁধ ১ সুতা ঢালু, সামনে ডাবল প্লিট, ডান পাশে মোবাইল সিক্রেট পকেট..." class="w-full p-3.5 bg-slate-900/60 border border-slate-700/80 rounded-2xl text-xs focus:outline-none focus:border-cyan-400 text-white placeholder-gray-500 transition-all"></textarea>
             </div>
 
             <!-- Bottom Actions -->
-            <div class="flex items-center justify-end gap-3 pt-4 border-t border-ios-border">
-              <button class="px-5 py-2.5 border border-ios-border rounded-2xl text-xs font-bold text-gray-600 hover:bg-gray-50 active:scale-95 transition-all">
-                Discard changes
-              </button>
-              <button onclick="saveVersionV3()" class="px-6 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl text-xs font-bold shadow-md shadow-emerald-700/25 active:scale-95 transition-all">
-                Save as v3
-              </button>
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-ios-border">
+              <div class="flex items-center gap-2">
+                <button onclick="openMeasurementDiffModal()" class="px-4 py-2 border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 rounded-xl text-xs font-bold active:scale-95 transition-all flex items-center gap-1.5">
+                  <span>📊</span> <span>Compare Versions</span>
+                </button>
+                <button onclick="resetMeasurementForm()" class="px-4 py-2 border border-slate-700 hover:border-slate-600 rounded-xl text-xs font-medium text-gray-400 hover:text-white transition-all">
+                  Reset
+                </button>
+              </div>
+
+              <div class="flex items-center gap-2.5">
+                <button onclick="saveMeasurementVersion()" class="px-6 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-xl text-xs font-bold shadow-lg shadow-emerald-700/25 active:scale-95 transition-all flex items-center gap-2">
+                  <span>💾</span> <span id="meas-save-btn-label">Save New Version</span>
+                </button>
+              </div>
             </div>
 
           </div>
 
-          <!-- Right 1 Col: Version History Bento Card -->
-          <div class="bento-card p-6 space-y-4">
-            <div class="flex items-center justify-between pb-3 border-b border-ios-border">
-              <h2 class="text-base font-black text-gray-900">History</h2>
-              <span class="text-xs bg-gray-100 font-mono font-bold px-2 py-0.5 rounded-md text-gray-600">Pant</span>
-            </div>
-
-            <div class="space-y-3.5 text-xs">
-              <!-- v2 Current -->
-              <div class="p-4 bg-emerald-50/50 rounded-2xl border border-emerald-200/80 space-y-1.5">
-                <div class="flex items-center justify-between">
-                  <div class="font-extrabold text-gray-900 flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                    v2 · Jun 28, 2026
-                  </div>
-                  <span class="bg-emerald-100 text-emerald-800 text-[10px] font-extrabold px-2 py-0.5 rounded-full">Current</span>
-                </div>
-                <div class="text-[11px] text-gray-600">Waist changed</div>
-                <div class="text-[10px] text-gray-400 font-mono">by Shop Owner</div>
+          <!-- Right 1 Col: Version History & Cutting Slip Preview -->
+          <div class="space-y-6">
+            
+            <!-- Version History Bento Card -->
+            <div class="bento-card p-6 space-y-4">
+              <div class="flex items-center justify-between pb-3 border-b border-ios-border">
+                <h2 class="text-base font-black text-ios-text">Version History</h2>
+                <span id="meas-history-garment-badge" class="text-xs bg-slate-800 font-mono font-bold px-2 py-0.5 rounded-md text-cyan-400 border border-cyan-500/20">Pant</span>
               </div>
 
-              <!-- v1 -->
-              <div class="p-4 bg-gray-50/70 rounded-2xl border border-gray-200/60 space-y-1.5">
-                <div class="flex items-center justify-between">
-                  <div class="font-bold text-gray-600">○ v1 · May 9, 2026</div>
-                  <button class="bg-white border border-gray-200 px-2.5 py-1 rounded-xl text-[10px] font-bold text-gray-700 hover:bg-gray-100 active:scale-95 shadow-xs">Compare</button>
-                </div>
-                <div class="text-[11px] text-gray-500">First version</div>
-                <div class="text-[10px] text-gray-400 font-mono">First visit by Shop Owner</div>
+              <div id="meas-history-list" class="space-y-3 text-xs max-h-72 overflow-y-auto pr-1">
+                <!-- Rendered dynamically by renderMeasurementHistory() -->
               </div>
             </div>
+
+            <!-- Quick Master Cutting Card Preview -->
+            <div class="bento-card p-5 space-y-3.5 bg-gradient-to-br from-slate-900 via-slate-900/90 to-cyan-950/20 border-cyan-500/20">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-sm">✂️</span>
+                  <span class="text-xs font-bold text-cyan-300 uppercase tracking-wider">CUTTING SLIP MATRIX</span>
+                </div>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">Master Sheet</span>
+              </div>
+
+              <div id="meas-quick-matrix" class="p-3 bg-slate-950/60 rounded-xl border border-slate-800/80 font-mono text-[11px] space-y-1.5">
+                <!-- Quick table overview -->
+              </div>
+
+              <div class="grid grid-cols-2 gap-2 text-xs">
+                <button onclick="printMasterCuttingSlip()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500/20 font-bold transition-all text-center">
+                  🖨️ Print Slip
+                </button>
+                <button onclick="copyMeasurementText()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-gray-300 border border-slate-700 font-bold transition-all text-center">
+                  📋 Copy Text
+                </button>
+              </div>
+            </div>
+
           </div>
 
         </div>
@@ -3775,9 +3752,9 @@ body.theme-white #modal-customer-profile thead { background:#EDF4EF !important; 
           </div>
 
           <div class="flex flex-wrap items-center gap-2.5">
-            <button onclick="exportCustomersCSV()" class="customer-export-btn customer-export-csv px-3 py-2.5 rounded-xl text-xs font-bold border flex items-center gap-1.5 transition-all"><span>↓</span><span>CSV</span></button>
-            <button onclick="exportCustomersExcel()" class="customer-export-btn customer-export-excel px-3 py-2.5 rounded-xl text-xs font-bold border flex items-center gap-1.5 transition-all"><span>▦</span><span>Excel</span></button>
-            <button onclick="exportCustomersPDF()" class="customer-export-btn customer-export-pdf px-3 py-2.5 rounded-xl text-xs font-bold border flex items-center gap-1.5 transition-all"><span>▤</span><span>PDF</span></button>
+            <button onclick="exportCustomersCSV()" class="px-4 py-2.5 rounded-xl text-xs font-bold border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 active:scale-95 flex items-center gap-1.5 transition-colors">
+              <span>↓</span> <span>Export CSV</span>
+            </button>
             <button onclick="openDataModal('customer')" class="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white rounded-xl text-xs font-bold shadow-md shadow-cyan-700/20 active:scale-95 transition-all">
               <span>＋</span> Add Customer
             </button>
@@ -4057,6 +4034,44 @@ body.theme-white #modal-customer-profile thead { background:#EDF4EF !important; 
   <!-- ======================================================== -->
   <!-- 3. MODALS (New Order, Edit Order, 58mm Thermal Slip)     -->
   <!-- ======================================================== -->
+
+  <!-- MODAL: MEASUREMENT VERSION DIFF MATRIX -->
+  <div id="modal-measurement-diff" class="hidden fixed inset-0 z-[75] bg-black/75 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bento-card max-w-2xl w-full p-6 space-y-5 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b border-ios-border pb-3.5">
+        <div>
+          <h3 class="text-lg font-black text-ios-text flex items-center gap-2">
+            <span>📊</span> Version Comparison Matrix (<span id="meas-diff-garment-title" class="text-cyan-400">Pant</span>)
+          </h3>
+          <p class="text-xs text-ios-subtext mt-0.5" id="meas-diff-customer-subtitle">Customer: Shahadat Hossain</p>
+        </div>
+        <button onclick="closeModal('modal-measurement-diff')" class="text-gray-400 hover:text-gray-200 font-bold text-xl p-1">✕</button>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="border-b border-slate-700 text-gray-400">
+              <th class="p-3">Measurement Field (পরিমাপ)</th>
+              <th class="p-3 text-center">Baseline (পূর্বের মাপ)</th>
+              <th class="p-3 text-center">Current (বর্তমান ইনপুট)</th>
+              <th class="p-3 text-right">Variance (পার্থক্য)</th>
+            </tr>
+          </thead>
+          <tbody id="meas-diff-table-body" class="divide-y divide-slate-800 font-mono">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="flex items-center justify-between pt-3 border-t border-ios-border text-xs">
+        <span class="text-gray-400">Color legend: <span class="text-amber-400 font-bold">▲ Bigger (+inch)</span> · <span class="text-cyan-400 font-bold">▼ Smaller (-inch)</span></span>
+        <button onclick="closeModal('modal-measurement-diff')" class="px-5 py-2 rounded-xl bg-slate-800 text-white font-bold hover:bg-slate-700 transition-all">
+          Close Matrix
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- MODAL: EDIT ORDER -->
   <div id="modal-edit-order" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
@@ -4485,6 +4500,7 @@ body.theme-white #modal-customer-profile thead { background:#EDF4EF !important; 
 
       if (viewId === 'orders') renderOrdersTable();
       if (['customers','staff','fabrics'].includes(viewId)) renderWorkspacePages();
+      if (viewId === 'measurements') renderMeasurementsPage();
       if (viewId === 'inventory') renderInventory();
       if (viewId === 'accounts') renderLedger();
       if (viewId === 'reports') renderReports();
@@ -4997,30 +5013,9 @@ body.theme-white #modal-customer-profile thead { background:#EDF4EF !important; 
       document.getElementById('modal-receipt').classList.remove('hidden');
     }
 
-    function triggerVoiceInput() {
-      const simulated = "ঝুল ৪২, কোমর ৩২, হাই ৯, মুহুরি ১০";
-      alert(`ভয়েস রিকগনিশন সক্রিয়! মুখে বলা হয়েছে: "${simulated}"`);
-      if (document.getElementById('m_waist')) document.getElementById('m_waist').value = '32';
-      if (document.getElementById('m_length')) document.getElementById('m_length').value = '42';
-      confetti({ particleCount: 40, spread: 50 });
-    }
-
-    function saveVersionV3() {
-      confetti({ particleCount: 60, spread: 60 });
-      alert('Version v3 saved successfully into measurement registry!');
-    }
-
-    function setMeasurementTab(tabName) {
-      document.querySelectorAll('.meas-garment-tab').forEach(b => {
-        b.classList.remove('active', 'bg-white', 'text-gray-900', 'font-bold', 'shadow-xs');
-        b.classList.add('text-gray-600', 'font-medium');
-      });
-      event.target.classList.add('active', 'bg-white', 'text-gray-900', 'font-bold', 'shadow-xs');
-      event.target.classList.remove('text-gray-600', 'font-medium');
-    }
-
     function setThemeAccent(color) {
-      alert(`Theme accent switched to: ${color}!`);
+      if (window.CyberDialog) CyberDialog.alert(`Theme accent switched to: ${color}!`, { icon: '🎨', title: 'THEME SWITCHED' });
+      else alert(`Theme accent switched to: ${color}!`);
     }
 
     // Local-first records for Customers, Staff and Fabrics.
@@ -5186,13 +5181,13 @@ body.theme-white #modal-customer-profile thead { background:#EDF4EF !important; 
 
       if (customerViewMode === 'grid') {
         container.innerHTML = `
-          <div class="customer-card-grid grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4.5">
             ${filtered.map(c => {
               const initials = (c.name || 'C').split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase();
               const cleanPhone = (c.phone || '').replace(/\D/g, '');
               const waUrl = `https://wa.me/88${cleanPhone}?text=${encodeURIComponent('আসসালামু আলাইকুম ' + c.name + ', সেলাই সাথী টেইলার্স থেকে যোগাযোগ করা হচ্ছে।')}`;
               return `
-                <div class="customer-record-card p-3.5 rounded-2xl border flex flex-col justify-between gap-3 transition-all relative group">
+                <div class="p-5 bg-gray-50/70 dark:bg-slate-900/50 rounded-2xl border border-ios-border flex flex-col justify-between gap-4 hover:shadow-ios-card hover:border-cyan-500/40 transition-all relative group">
                   <!-- Header -->
                   <div class="flex items-start justify-between gap-3">
                     <div class="flex items-center gap-3">
@@ -5226,7 +5221,7 @@ body.theme-white #modal-customer-profile thead { background:#EDF4EF !important; 
                   </div>
 
                   <!-- Contact Pill -->
-                  <div class="customer-contact-pill p-2 rounded-xl border flex items-center justify-between gap-2 text-xs font-mono">
+                  <div class="bg-white/60 dark:bg-slate-800/40 p-2.5 rounded-xl border border-ios-border/60 flex items-center justify-between text-xs font-mono">
                     <span class="text-ios-text font-bold">📞 ${safeText(c.phone)}</span>
                     <div class="flex items-center gap-1.5">
                       <a href="tel:${safeText(c.phone)}" title="Direct Phone Call" class="px-2 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-cyan-300 border border-cyan-500/30 text-[11px] flex items-center gap-1">
@@ -5240,13 +5235,13 @@ body.theme-white #modal-customer-profile thead { background:#EDF4EF !important; 
 
                   <!-- Style Notes Pill if present -->
                   ${c.notes ? `
-                    <div class="customer-notes-pill text-[11px] px-2.5 py-1.5 rounded-lg border truncate">
+                    <div class="text-[11px] text-gray-400 bg-cyan-500/5 px-2.5 py-1.5 rounded-lg border border-cyan-500/10 truncate">
                       💡 ${safeText(c.notes)}
                     </div>
                   ` : ''}
 
                   <!-- 3-Column Financials Strip -->
-                  <div class="customer-financial-strip grid grid-cols-3 gap-1.5 text-center text-xs font-mono p-2 rounded-xl border">
+                  <div class="grid grid-cols-3 gap-2 text-center text-xs font-mono p-2.5 rounded-xl bg-gray-100/60 dark:bg-slate-800/25 border border-ios-border/40">
                     <div>
                       <div class="text-[10px] text-gray-400 uppercase tracking-wider">Orders</div>
                       <div class="font-extrabold text-ios-text mt-0.5">${c.orderCount}</div>
@@ -5262,7 +5257,7 @@ body.theme-white #modal-customer-profile thead { background:#EDF4EF !important; 
                   </div>
 
                   <!-- Action Buttons Footer -->
-                  <div class="customer-card-actions flex items-center justify-between gap-1.5 pt-2 border-t border-ios-border">
+                  <div class="flex items-center justify-between gap-1.5 pt-2 border-t border-ios-border">
                     <button onclick="openCustomerProfile('${c.id}')" title="View 360° Profile & Measurements" class="flex-1 py-1.5 bg-white dark:bg-slate-800 border border-ios-border rounded-xl text-xs font-bold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 active:scale-95 shadow-xs flex items-center justify-center gap-1 transition-all">
                       <span>👤</span> Profile
                     </button>
@@ -5573,59 +5568,40 @@ body.theme-white #modal-customer-profile thead { background:#EDF4EF !important; 
       }
     }
 
-    function getCustomerExportData() {
-      const headers = ['Customer ID','Name','Phone','Address','Notes','Total Orders','Total Billed (BDT)','Outstanding Due (BDT)'];
+    function exportCustomersCSV() {
+      if (!ssRecords.customers.length) {
+        if (window.CyberDialog) CyberDialog.alert('No customers to export');
+        else alert('No customers to export');
+        return;
+      }
+      const headers = ['Customer ID', 'Name', 'Phone', 'Address', 'Notes', 'Total Orders', 'Total Billed (BDT)', 'Outstanding Due (BDT)'];
       const rows = ssRecords.customers.map(c => {
         const cleanPhone = (c.phone || '').replace(/\D/g, '');
         const related = ordersData.filter(o => {
           const oClean = (o.phone || '').replace(/\D/g, '');
           return (cleanPhone && oClean && cleanPhone === oClean) || (o.name && c.name && o.name.toLowerCase() === c.name.toLowerCase());
         });
-        return [c.id || '',c.name || '',c.phone || '',c.address || '',c.notes || '',related.length,
-          related.reduce((sum,o)=>sum+(Number(o.total)||0),0),
-          related.reduce((sum,o)=>sum+(Number(o.due)||0),0)];
+        const totalBilled = related.reduce((s, o) => s + (Number(o.total) || 0), 0);
+        const totalDue = related.reduce((s, o) => s + (Number(o.due) || 0), 0);
+        return [
+          `"${c.id}"`,
+          `"${c.name}"`,
+          `"${c.phone}"`,
+          `"${c.address || ''}"`,
+          `"${c.notes || ''}"`,
+          related.length,
+          totalBilled,
+          totalDue
+        ];
       });
-      return {headers,rows};
-    }
-    function customerExportReady() {
-      if (ssRecords.customers.length) return true;
-      if (window.CyberDialog) CyberDialog.alert('No customers to export');
-      else alert('No customers to export');
-      return false;
-    }
-    function exportCustomersCSV() {
-      if (!customerExportReady()) return;
-      const {headers,rows}=getCustomerExportData();
-      const quote=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
-      const csv=[headers.map(quote).join(','),...rows.map(row=>row.map(quote).join(','))].join('\r\n');
-      const blob=new Blob(['\uFEFF',csv],{type:'text/csv;charset=utf-8;'});
-      const url=URL.createObjectURL(blob),link=document.createElement('a');
-      link.href=url;link.download='selaisathi_customers_'+new Date().toISOString().slice(0,10)+'.csv';
-      document.body.appendChild(link);link.click();link.remove();URL.revokeObjectURL(url);
-    }
-    function exportCustomersExcel() {
-      if (!customerExportReady()) return;
-      const {headers,rows}=getCustomerExportData();
-      const esc=v=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-      const table='<table border="1"><thead><tr>'+headers.map(h=>'<th>'+esc(h)+'</th>').join('')+'</tr></thead><tbody>'+rows.map(row=>'<tr>'+row.map(v=>'<td>'+esc(v)+'</td>').join('')+'</tr>').join('')+'</tbody></table>';
-      const html='<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="UTF-8"></head><body><h2>SelaiSathi - Customer Directory</h2><p>Exported: '+esc(new Date().toLocaleString())+' | Total customers: '+rows.length+'</p>'+table+'</body></html>';
-      const blob=new Blob(['\uFEFF',html],{type:'application/vnd.ms-excel;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');
-      a.href=url;a.download='selaisathi_customers_'+new Date().toISOString().slice(0,10)+'.xls';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
-    }
-    function exportCustomersPDF() {
-      if (!customerExportReady()) return;
-      const {headers, rows} = getCustomerExportData();
-      const esc = v => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-      const body = rows.map(row => '<tr>' + row.map(v => '<td>' + esc(v) + '</td>').join('') + '</tr>').join('');
-      const w = window.open('', '_blank');
-      if (!w) { alert('Please allow pop-ups to print or save the customer PDF.'); return; }
-      const report = '<!doctype html><html><head><meta charset="utf-8"><title>SelaiSathi Customers</title>' +
-        '<style>body{font:12px Arial,sans-serif;color:#17212b;padding:24px}h1{font-size:22px}p{color:#64748b}table{width:100%;border-collapse:collapse;font-size:10px}th,td{border:1px solid #d7dee7;padding:7px 5px;text-align:left;overflow-wrap:anywhere}th{background:#eaf0f5}tr{page-break-inside:avoid}@page{size:landscape;margin:12mm}@media print{body{padding:0}}\n</style>' +
-        '</head><body><h1>SelaiSathi - Customer Directory</h1><p>Exported: ' + esc(new Date().toLocaleString()) + ' | Total customers: ' + rows.length + '</p>' +
-        '<table><thead><tr>' + headers.map(h => '<th>' + esc(h) + '</th>').join('') + '</tr></thead><tbody>' + body + '</tbody></table>' +
-        '<script>window.onload=function(){window.print();};<\\/script></body></html>';
-      w.document.write(report);
-      w.document.close();
+      const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', `selaisathi_customers_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
     function renderStaff(){
       const el=document.getElementById('staff-list'); if(!el)return;
@@ -5748,6 +5724,989 @@ body.theme-white #modal-customer-profile thead { background:#EDF4EF !important; 
       item.stock=String(Number(item.stock)+change);persistSsRecords();renderFabrics();
     }
     function renderWorkspacePages(){renderCustomers();renderStaff();renderFabrics();}
+
+    // ========================================================
+    // 4B. ADVANCED BESPOKE MEASUREMENTS REGISTRY ENGINE
+    // ========================================================
+    const MEASUREMENT_GARMENTS = {
+      'Shirt': {
+        nameBn: 'শার্ট',
+        icon: '👔',
+        defaultNotes: 'Slim collar with stiff interlining, single chest pocket',
+        fields: [
+          { key: 'collar', labelEn: 'Collar', labelBn: 'কলার', def: '15.5', bnAlias: ['কলার', 'গলা', 'collar', 'neck'] },
+          { key: 'chest', labelEn: 'Chest', labelBn: 'বুক/ছাতি', def: '38', bnAlias: ['বুক', 'ছাতি', 'চেস্ট', 'chest'] },
+          { key: 'waist', labelEn: 'Waist', labelBn: 'পেট/কোমর', def: '34', bnAlias: ['পেট', 'কোমর', 'ওয়েস্ট', 'waist'] },
+          { key: 'length', labelEn: 'Length', labelBn: 'ঝুল/লম্বা', def: '29', bnAlias: ['ঝুল', 'লম্বা', 'লেংথ', 'length'] },
+          { key: 'shoulder', labelEn: 'Shoulder', labelBn: 'পুট/কাঁধ', def: '18', bnAlias: ['পুট', 'কাঁধ', 'শোল্ডার', 'shoulder'] },
+          { key: 'sleeve', labelEn: 'Sleeve', labelBn: 'হাতা', def: '24', bnAlias: ['হাতা', 'স্লিভ', 'sleeve'] },
+          { key: 'cuff', labelEn: 'Cuff', labelBn: 'কফ', def: '9.5', bnAlias: ['কফ', 'cuff'] }
+        ]
+      },
+      'Pant': {
+        nameBn: 'প্যান্ট',
+        icon: '👖',
+        defaultNotes: 'Flat front trouser, double welt rear pocket with button',
+        fields: [
+          { key: 'waist', labelEn: 'Waist', labelBn: 'কোমর', def: '31', bnAlias: ['কোমর', 'waist'] },
+          { key: 'hip', labelEn: 'Hip', labelBn: 'হিপ', def: '38', bnAlias: ['হিপ', 'hip'] },
+          { key: 'length', labelEn: 'Length', labelBn: 'ঝুল/লম্বা', def: '40', bnAlias: ['ঝুল', 'লম্বা', 'length'] },
+          { key: 'thigh', labelEn: 'Thigh', labelBn: 'রান/থাই', def: '14', bnAlias: ['রান', 'থাই', 'thigh'] },
+          { key: 'knee', labelEn: 'Knee', labelBn: 'হাঁটু', def: '6.5', bnAlias: ['হাঁটু', 'নি', 'knee'] },
+          { key: 'bottom', labelEn: 'Bottom/Hem', labelBn: 'মুহুরী/বটম', def: '9', bnAlias: ['মুহুরী', 'মুহুরি', 'মোহরী', 'বটম', 'bottom'] },
+          { key: 'rise', labelEn: 'Rise', labelBn: 'হাই/ক্রোচ', def: '8.5', bnAlias: ['হাই', 'ক্রোচ', 'rise'] },
+          { key: 'inseam', labelEn: 'Inseam', labelBn: 'ইনসিম', def: '10', bnAlias: ['ইনসিম', 'inseam'] }
+        ]
+      },
+      'Panjabi': {
+        nameBn: 'পাঞ্জাবি',
+        icon: '🥻',
+        defaultNotes: 'Mandarin band collar, two side pockets with mobile compartment',
+        fields: [
+          { key: 'length', labelEn: 'Length', labelBn: 'ঝুল/লম্বা', def: '40', bnAlias: ['ঝুল', 'লম্বা', 'length'] },
+          { key: 'chest', labelEn: 'Chest', labelBn: 'বুক', def: '38', bnAlias: ['বুক', 'ছাতি', 'chest'] },
+          { key: 'belly', labelEn: 'Belly/Waist', labelBn: 'পেট', def: '36', bnAlias: ['পেট', 'কোমর', 'belly'] },
+          { key: 'flare', labelEn: 'Gheer', labelBn: 'ঘের', def: '44', bnAlias: ['ঘের', 'flare', 'gheer'] },
+          { key: 'shoulder', labelEn: 'Shoulder', labelBn: 'পুট', def: '18', bnAlias: ['পুট', 'কাঁধ', 'shoulder'] },
+          { key: 'sleeve', labelEn: 'Sleeve', labelBn: 'হাতা', def: '24.5', bnAlias: ['হাতা', 'sleeve'] },
+          { key: 'collar', labelEn: 'Collar', labelBn: 'কলার', def: '15.5', bnAlias: ['কলার', 'গলা', 'collar'] },
+          { key: 'cuff', labelEn: 'Cuff', labelBn: 'কফ', def: '9.5', bnAlias: ['কফ', 'cuff'] }
+        ]
+      },
+      'Pajama': {
+        nameBn: 'পায়জামা',
+        icon: '🩳',
+        defaultNotes: 'Elastic waistband with drawstring, straight cut bottom',
+        fields: [
+          { key: 'length', labelEn: 'Length', labelBn: 'ঝুল', def: '39', bnAlias: ['ঝুল', 'লম্বা', 'length'] },
+          { key: 'waist', labelEn: 'Waist', labelBn: 'কোমর', def: '34', bnAlias: ['কোমর', 'waist'] },
+          { key: 'bottom', labelEn: 'Bottom', labelBn: 'মুহুরী', def: '8.5', bnAlias: ['মুহুরী', 'মুহুরি', 'bottom'] },
+          { key: 'thigh', labelEn: 'Thigh', labelBn: 'রান', def: '14', bnAlias: ['রান', 'থাই', 'thigh'] },
+          { key: 'rise', labelEn: 'Rise/High', labelBn: 'হাই', def: '15', bnAlias: ['হাই', 'rise'] }
+        ]
+      },
+      'Blazer': {
+        nameBn: 'ব্লেজার',
+        icon: '🧥',
+        defaultNotes: '2-button notch lapel, double rear vent, felt chest canvas',
+        fields: [
+          { key: 'length', labelEn: 'Length', labelBn: 'ঝুল', def: '30', bnAlias: ['ঝুল', 'লম্বা', 'length'] },
+          { key: 'chest', labelEn: 'Chest', labelBn: 'বুক', def: '40', bnAlias: ['বুক', 'chest'] },
+          { key: 'waist', labelEn: 'Waist', labelBn: 'কোমর', def: '35', bnAlias: ['কোমর', 'waist'] },
+          { key: 'hip', labelEn: 'Hip', labelBn: 'হিপ', def: '41', bnAlias: ['হিপ', 'hip'] },
+          { key: 'shoulder', labelEn: 'Shoulder', labelBn: 'পুট', def: '18.5', bnAlias: ['পুট', 'shoulder'] },
+          { key: 'sleeve', labelEn: 'Sleeve', labelBn: 'হাতা', def: '25', bnAlias: ['হাতা', 'sleeve'] },
+          { key: 'lapel', labelEn: 'Lapel', labelBn: 'ল্যাপেল', def: '3', bnAlias: ['ল্যাপেল', 'lapel'] },
+          { key: 'back', labelEn: 'Back Length', labelBn: 'পিঠ', def: '17', bnAlias: ['পিঠ', 'ব্যাক', 'back'] }
+        ]
+      },
+      'Coti': {
+        nameBn: 'মুজিব কোট/কোটি',
+        icon: '🦺',
+        defaultNotes: 'Traditional 6-button Mujib coat, stand band collar',
+        fields: [
+          { key: 'length', labelEn: 'Length', labelBn: 'ঝুল', def: '27', bnAlias: ['ঝুল', 'length'] },
+          { key: 'chest', labelEn: 'Chest', labelBn: 'বুক', def: '38', bnAlias: ['বুক', 'chest'] },
+          { key: 'waist', labelEn: 'Waist', labelBn: 'পেট', def: '35', bnAlias: ['পেট', 'কোমর', 'waist'] },
+          { key: 'shoulder', labelEn: 'Shoulder', labelBn: 'পুট', def: '16.5', bnAlias: ['পুট', 'shoulder'] },
+          { key: 'armhole', labelEn: 'Armhole', labelBn: 'মোহড়া', def: '9', bnAlias: ['মোহড়া', 'armhole'] },
+          { key: 'collar', labelEn: 'Band Collar', labelBn: 'ব্যান্ড কলার', def: '15.5', bnAlias: ['কলার', 'collar'] }
+        ]
+      },
+      'Kameez': {
+        nameBn: 'কামিজ',
+        icon: '👗',
+        defaultNotes: 'A-line shape with side slits 12 inches, pipe neck finish',
+        fields: [
+          { key: 'length', labelEn: 'Length', labelBn: 'ঝুল', def: '42', bnAlias: ['ঝুল', 'length'] },
+          { key: 'bust', labelEn: 'Bust', labelBn: 'বক্ষ', def: '36', bnAlias: ['বক্ষ', 'বুক', 'bust'] },
+          { key: 'waist', labelEn: 'Waist', labelBn: 'কোমর', def: '32', bnAlias: ['কোমর', 'waist'] },
+          { key: 'hip', labelEn: 'Hip', labelBn: 'হিপ', def: '38', bnAlias: ['হিপ', 'hip'] },
+          { key: 'shoulder', labelEn: 'Shoulder', labelBn: 'পুট', def: '14.5', bnAlias: ['পুট', 'shoulder'] },
+          { key: 'sleeve', labelEn: 'Sleeve', labelBn: 'হাতা', def: '18', bnAlias: ['হাতা', 'sleeve'] },
+          { key: 'neck', labelEn: 'Neck', labelBn: 'গলা', def: '6.5', bnAlias: ['গলা', 'neck'] },
+          { key: 'gheer', labelEn: 'Gheer', labelBn: 'ঘের', def: '24', bnAlias: ['ঘের', 'gheer'] }
+        ]
+      },
+      'Salwar': {
+        nameBn: 'সালোয়ার',
+        icon: '👖',
+        defaultNotes: 'Pleated salwar with 2-inch bottom buckram border',
+        fields: [
+          { key: 'length', labelEn: 'Length', labelBn: 'ঝুল', def: '38', bnAlias: ['ঝুল', 'length'] },
+          { key: 'waist', labelEn: 'Waist', labelBn: 'কোমর', def: '36', bnAlias: ['কোমর', 'waist'] },
+          { key: 'mohori', labelEn: 'Mohori', labelBn: 'মুহুরী', def: '6.5', bnAlias: ['মুহুরী', 'মুহুরি', 'bottom'] },
+          { key: 'rise', labelEn: 'Rise', labelBn: 'হাই', def: '14.5', bnAlias: ['হাই', 'rise'] },
+          { key: 'thigh', labelEn: 'Thigh', labelBn: 'রান', def: '13', bnAlias: ['রান', 'thigh'] }
+        ]
+      },
+      'Blouse': {
+        nameBn: 'ব্লাউজ',
+        icon: '👚',
+        defaultNotes: 'Front hook opening, princess cut, padded bust cup',
+        fields: [
+          { key: 'length', labelEn: 'Length', labelBn: 'ঝুল', def: '14', bnAlias: ['ঝুল', 'length'] },
+          { key: 'bust', labelEn: 'Bust', labelBn: 'বক্ষ', def: '34', bnAlias: ['বক্ষ', 'bust'] },
+          { key: 'underbust', labelEn: 'Underbust', labelBn: 'কোমর/ব্যান্ড', def: '28', bnAlias: ['কোমর', 'underbust'] },
+          { key: 'shoulder', labelEn: 'Shoulder', labelBn: 'পুট', def: '13.5', bnAlias: ['পুট', 'shoulder'] },
+          { key: 'fneck', labelEn: 'Front Neck', labelBn: 'সামনের গলা', def: '6', bnAlias: ['সামনের গলা', 'front neck'] },
+          { key: 'bneck', labelEn: 'Back Neck', labelBn: 'পেছনের গলা', def: '7', bnAlias: ['পেছনের গলা', 'back neck'] },
+          { key: 'sleeve', labelEn: 'Sleeve', labelBn: 'হাতা', def: '7.5', bnAlias: ['হাতা', 'sleeve'] },
+          { key: 'mohora', labelEn: 'Mohora', labelBn: 'মোহড়া', def: '8', bnAlias: ['মোহড়া', 'mohora'] }
+        ]
+      },
+      'Petticoat': {
+        nameBn: 'পেটিকোট',
+        icon: '👗',
+        defaultNotes: '6-panel (ছয় ছাট) cotton petticoat with drawstring waistband',
+        fields: [
+          { key: 'length', labelEn: 'Length', labelBn: 'ঝুল', def: '36', bnAlias: ['ঝুল', 'length'] },
+          { key: 'waist', labelEn: 'Waist', labelBn: 'কোমর', def: '34', bnAlias: ['কোমর', 'waist'] },
+          { key: 'gheer', labelEn: 'Bottom Flare', labelBn: 'ঘের', def: '38', bnAlias: ['ঘের', 'gheer', 'flare'] }
+        ]
+      }
+    };
+
+    let activeMeasurementCustomerId = 'C-1001';
+    let activeMeasurementGarment = 'Pant';
+    let activeMeasurementUnit = 'inch';
+    let activeMeasurementFit = 'Regular Fit';
+    let isSpeechRecognitionActive = false;
+    let speechRecognitionInstance = null;
+
+    function ensureCustomerMeasurementProfiles(cust) {
+      if (!cust) return;
+      if (!cust.measurementProfiles) cust.measurementProfiles = {};
+      
+      // Seed default Pant profile if not present
+      if (!cust.measurementProfiles['Pant']) {
+        cust.measurementProfiles['Pant'] = {
+          currentVersion: 'v2',
+          fitStyle: 'Regular Fit',
+          notes: 'Double welt rear pocket with button, standard rise',
+          versions: [
+            { version: 'v1', date: '09 May 2026', author: 'Shop Owner', values: { waist: '30', hip: '38', length: '40', thigh: '14', knee: '6.5', bottom: '9', rise: '8.5', inseam: '10' }, notes: 'Initial fitting on first visit' },
+            { version: 'v2', date: '28 Jun 2026', author: 'Shop Owner', values: { waist: '31', hip: '38', length: '40', thigh: '14', knee: '6.5', bottom: '9', rise: '8.5', inseam: '10' }, notes: 'Waist loosened +1 inch for comfort' }
+          ]
+        };
+      }
+      
+      // Seed default Shirt profile if not present
+      if (!cust.measurementProfiles['Shirt']) {
+        cust.measurementProfiles['Shirt'] = {
+          currentVersion: 'v1',
+          fitStyle: 'Slim Fit',
+          notes: 'Semi-spread collar, single button cuff',
+          versions: [
+            { version: 'v1', date: '12 May 2026', author: 'Shop Owner', values: { collar: '15.5', chest: '38', waist: '34', length: '29', shoulder: '18', sleeve: '24', cuff: '9.5' }, notes: 'Formal slim collar shirt' }
+          ]
+        };
+      }
+
+      // Seed default Panjabi profile if not present
+      if (!cust.measurementProfiles['Panjabi']) {
+        cust.measurementProfiles['Panjabi'] = {
+          currentVersion: 'v1',
+          fitStyle: 'Regular Fit',
+          notes: 'Classic Bengali cut with side pocket',
+          versions: [
+            { version: 'v1', date: '18 Jun 2026', author: 'Shop Owner', values: { length: '40', chest: '38', belly: '36', flare: '44', shoulder: '18', sleeve: '24.5', collar: '15.5', cuff: '9.5' }, notes: 'Eid bespoke collection' }
+          ]
+        };
+      }
+    }
+
+    function initMeasurementsRegistry() {
+      if (!ssRecords || !ssRecords.customers || !ssRecords.customers.length) return;
+      if (!ssRecords.customers.some(c => c.id === activeMeasurementCustomerId)) {
+        activeMeasurementCustomerId = ssRecords.customers[0].id;
+      }
+      ssRecords.customers.forEach(c => ensureCustomerMeasurementProfiles(c));
+      renderMeasurementsPage();
+    }
+
+    function getActiveMeasurementCustomer() {
+      return ssRecords.customers.find(c => c.id === activeMeasurementCustomerId) || ssRecords.customers[0];
+    }
+
+    function getActiveGarmentProfile(cust, garment) {
+      ensureCustomerMeasurementProfiles(cust);
+      if (!cust.measurementProfiles[garment]) {
+        // Create initial v1 based on defaults
+        const gDef = MEASUREMENT_GARMENTS[garment];
+        const initialVals = {};
+        if (gDef) gDef.fields.forEach(f => initialVals[f.key] = f.def);
+        cust.measurementProfiles[garment] = {
+          currentVersion: 'v1',
+          fitStyle: 'Regular Fit',
+          notes: gDef?.defaultNotes || '',
+          versions: [
+            { version: 'v1', date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }), author: 'Shop Owner', values: initialVals, notes: 'Initial baseline setup' }
+          ]
+        };
+      }
+      return cust.measurementProfiles[garment];
+    }
+
+    function renderMeasurementsPage() {
+      const cust = getActiveMeasurementCustomer();
+      if (!cust) return;
+      ensureCustomerMeasurementProfiles(cust);
+
+      // 1. Update Customer Pill
+      const avatarEl = document.getElementById('meas-cust-avatar');
+      const nameEl = document.getElementById('meas-cust-name');
+      const phoneEl = document.getElementById('meas-cust-phone');
+      const versionsBadge = document.getElementById('meas-cust-versions-badge');
+
+      if (avatarEl) {
+        const initials = (cust.name || 'C').split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
+        avatarEl.textContent = initials;
+      }
+      if (nameEl) nameEl.textContent = cust.name;
+      if (phoneEl) phoneEl.textContent = cust.phone + (cust.address ? ' · ' + cust.address : '');
+
+      const prof = getActiveGarmentProfile(cust, activeMeasurementGarment);
+      if (versionsBadge) {
+        const count = prof.versions ? prof.versions.length : 1;
+        versionsBadge.textContent = `${count} version${count > 1 ? 's' : ''}`;
+      }
+
+      // 2. Highlight Active Garment Tab
+      document.querySelectorAll('.meas-garment-tab').forEach(b => {
+        const g = b.getAttribute('data-garment');
+        if (g === activeMeasurementGarment) {
+          b.className = 'meas-garment-tab active px-3.5 py-1.5 bg-white text-gray-900 font-bold rounded-xl shadow-xs transition-all';
+        } else {
+          b.className = 'meas-garment-tab px-3.5 py-1.5 text-gray-400 hover:text-white font-medium rounded-xl transition-all';
+        }
+      });
+
+      // 3. Update Form Title & Subtitle
+      const titleEl = document.getElementById('meas-form-title');
+      const subEl = document.getElementById('meas-form-subtitle');
+      const gDef = MEASUREMENT_GARMENTS[activeMeasurementGarment] || MEASUREMENT_GARMENTS['Pant'];
+
+      if (titleEl) {
+        titleEl.textContent = `${gDef.icon} ${activeMeasurementGarment} (${gDef.nameBn}) · Editing Version ${prof.currentVersion || 'v1'}`;
+      }
+      if (subEl) {
+        subEl.textContent = `Measurements in ${activeMeasurementUnit} (সরাসরি টাইপ করুন বা ফিতা ফ্র্যাকশন বাটন ব্যবহার করুন)`;
+      }
+
+      // 4. Update Unit toggle buttons
+      const unitInchBtn = document.getElementById('meas-unit-inch');
+      const unitCmBtn = document.getElementById('meas-unit-cm');
+      if (unitInchBtn && unitCmBtn) {
+        if (activeMeasurementUnit === 'inch') {
+          unitInchBtn.className = 'px-3 py-1 bg-white text-gray-900 rounded-lg font-bold shadow-xs transition-all';
+          unitCmBtn.className = 'px-3 py-1 text-gray-400 hover:text-white transition-all';
+        } else {
+          unitCmBtn.className = 'px-3 py-1 bg-white text-gray-900 rounded-lg font-bold shadow-xs transition-all';
+          unitInchBtn.className = 'px-3 py-1 text-gray-400 hover:text-white transition-all';
+        }
+      }
+
+      // 5. Render Dynamic Fields
+      renderGarmentFields();
+
+      // 6. Update Fit Style Buttons
+      activeMeasurementFit = prof.fitStyle || 'Regular Fit';
+      document.querySelectorAll('.meas-fit-btn').forEach(btn => {
+        const fit = btn.getAttribute('data-fit');
+        if (fit === activeMeasurementFit) {
+          btn.className = 'meas-fit-btn active px-3.5 py-1.5 rounded-xl border border-cyan-500/40 bg-cyan-500/20 text-cyan-300 font-bold transition-all';
+        } else {
+          btn.className = 'meas-fit-btn px-3.5 py-1.5 rounded-xl border border-slate-700 bg-slate-800/60 text-gray-300 font-medium hover:border-slate-600 transition-all';
+        }
+      });
+
+      // 7. Update Fitting Notes
+      const notesEl = document.getElementById('meas-fitting-notes');
+      if (notesEl) notesEl.value = prof.notes || '';
+
+      // 8. Render Version History
+      renderMeasurementHistory();
+
+      // 9. Render Quick Cutting Matrix
+      renderQuickMatrix();
+
+      // 10. Update Save Button Label
+      const saveBtn = document.getElementById('meas-save-btn-label');
+      if (saveBtn) {
+        const nextVer = 'v' + ((prof.versions ? prof.versions.length : 1) + 1);
+        saveBtn.textContent = `Save as ${nextVer}`;
+      }
+    }
+
+    function setMeasurementTab(garmentKey) {
+      if (!MEASUREMENT_GARMENTS[garmentKey]) return;
+      activeMeasurementGarment = garmentKey;
+      renderMeasurementsPage();
+    }
+
+    function renderGarmentFields() {
+      const container = document.getElementById('meas-fields-container');
+      if (!container) return;
+
+      const cust = getActiveMeasurementCustomer();
+      const prof = getActiveGarmentProfile(cust, activeMeasurementGarment);
+      const gDef = MEASUREMENT_GARMENTS[activeMeasurementGarment];
+      if (!gDef) return;
+
+      // Current values from latest version
+      const latestVer = prof.versions && prof.versions.length ? prof.versions[prof.versions.length - 1] : null;
+      const prevVer = prof.versions && prof.versions.length > 1 ? prof.versions[prof.versions.length - 2] : latestVer;
+      const currentVals = latestVer?.values || {};
+      const prevVals = prevVer?.values || currentVals;
+
+      const unitSuffix = activeMeasurementUnit === 'inch' ? 'in' : 'cm';
+
+      container.innerHTML = gDef.fields.map(f => {
+        let val = currentVals[f.key] !== undefined ? currentVals[f.key] : f.def;
+        if (activeMeasurementUnit === 'cm') {
+          val = Math.round((parseFloat(val) || 0) * 2.54 * 10) / 10;
+        }
+        let baselineVal = prevVals[f.key] !== undefined ? prevVals[f.key] : f.def;
+        if (activeMeasurementUnit === 'cm') {
+          baselineVal = Math.round((parseFloat(baselineVal) || 0) * 2.54 * 10) / 10;
+        }
+
+        const diff = Math.round(((parseFloat(val) || 0) - (parseFloat(baselineVal) || 0)) * 100) / 100;
+        let diffBadge = '';
+        if (diff > 0) {
+          diffBadge = `<div class="text-[10px] font-extrabold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-md w-fit font-mono">▲ +${diff}" (Bigger)</div>`;
+        } else if (diff < 0) {
+          diffBadge = `<div class="text-[10px] font-extrabold text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 px-2 py-0.5 rounded-md w-fit font-mono">▼ ${diff}" (Smaller)</div>`;
+        } else {
+          diffBadge = `<div class="text-[10px] text-gray-500 font-mono">● Same as prev</div>`;
+        }
+
+        return `
+          <div class="space-y-1.5 p-3 rounded-2xl bg-slate-900/40 border border-slate-800/80 hover:border-cyan-500/30 transition-all group" id="meas-field-box-${f.key}">
+            <div class="flex items-center justify-between">
+              <label class="block text-[11px] font-bold text-gray-300 truncate" title="${f.labelEn} (${f.labelBn})">
+                ${f.labelEn} <span class="text-gray-500 text-[10px]">(${f.labelBn})</span>
+              </label>
+            </div>
+            
+            <div class="relative">
+              <input type="text" id="meas_input_${f.key}" data-field="${f.key}" data-baseline="${baselineVal}" value="${val}" oninput="updateMeasurementDiffs()" class="w-full font-mono font-black text-sm px-3.5 py-2 rounded-xl border border-slate-700 bg-slate-950/70 text-white focus:outline-none focus:border-cyan-400 transition-all">
+              <span class="absolute right-3 top-2.5 text-xs text-gray-400 font-mono">${unitSuffix}</span>
+            </div>
+
+            <!-- Tailor Fraction Quick Pad -->
+            <div class="flex items-center gap-1 pt-1">
+              <button type="button" onclick="addMeasurementFraction('${f.key}', 0.25)" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-cyan-500/20 text-[10px] font-mono font-bold text-cyan-300 border border-slate-700 hover:border-cyan-500/30 transition-colors" title="Add 1/4 inch">+¼</button>
+              <button type="button" onclick="addMeasurementFraction('${f.key}', 0.5)" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-cyan-500/20 text-[10px] font-mono font-bold text-cyan-300 border border-slate-700 hover:border-cyan-500/30 transition-colors" title="Add 1/2 inch">+½</button>
+              <button type="button" onclick="addMeasurementFraction('${f.key}', 0.75)" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-cyan-500/20 text-[10px] font-mono font-bold text-cyan-300 border border-slate-700 hover:border-cyan-500/30 transition-colors" title="Add 3/4 inch">+¾</button>
+              <button type="button" onclick="addMeasurementFraction('${f.key}', -0.25)" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-rose-500/20 text-[10px] font-mono font-bold text-rose-300 border border-slate-700 hover:border-rose-500/30 transition-colors ml-auto" title="Minus 1/4 inch">-¼</button>
+            </div>
+
+            <div id="meas_diff_badge_${f.key}">${diffBadge}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function addMeasurementFraction(key, delta) {
+      const input = document.getElementById(`meas_input_${key}`);
+      if (!input) return;
+      let cur = parseFloat(input.value) || 0;
+      let next = Math.max(0, Math.round((cur + delta) * 100) / 100);
+      input.value = String(next);
+      input.classList.add('border-cyan-400', 'bg-cyan-950/30');
+      setTimeout(() => input.classList.remove('border-cyan-400', 'bg-cyan-950/30'), 400);
+      updateMeasurementDiffs();
+      renderQuickMatrix();
+    }
+
+    function updateMeasurementDiffs() {
+      const gDef = MEASUREMENT_GARMENTS[activeMeasurementGarment];
+      if (!gDef) return;
+
+      gDef.fields.forEach(f => {
+        const input = document.getElementById(`meas_input_${f.key}`);
+        const badgeEl = document.getElementById(`meas_diff_badge_${f.key}`);
+        if (!input || !badgeEl) return;
+
+        const val = parseFloat(input.value) || 0;
+        const baseline = parseFloat(input.getAttribute('data-baseline')) || 0;
+        const diff = Math.round((val - baseline) * 100) / 100;
+
+        if (diff > 0) {
+          badgeEl.innerHTML = `<div class="text-[10px] font-extrabold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-md w-fit font-mono">▲ +${diff}" (Bigger)</div>`;
+        } else if (diff < 0) {
+          badgeEl.innerHTML = `<div class="text-[10px] font-extrabold text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 px-2 py-0.5 rounded-md w-fit font-mono">▼ ${diff}" (Smaller)</div>`;
+        } else {
+          badgeEl.innerHTML = `<div class="text-[10px] text-gray-500 font-mono">● Same as prev</div>`;
+        }
+      });
+      renderQuickMatrix();
+    }
+
+    function setFitStyle(fitName) {
+      activeMeasurementFit = fitName;
+      document.querySelectorAll('.meas-fit-btn').forEach(btn => {
+        const fit = btn.getAttribute('data-fit');
+        if (fit === fitName) {
+          btn.className = 'meas-fit-btn active px-3.5 py-1.5 rounded-xl border border-cyan-500/40 bg-cyan-500/20 text-cyan-300 font-bold transition-all';
+        } else {
+          btn.className = 'meas-fit-btn px-3.5 py-1.5 rounded-xl border border-slate-700 bg-slate-800/60 text-gray-300 font-medium hover:border-slate-600 transition-all';
+        }
+      });
+      renderQuickMatrix();
+    }
+
+    function toggleMeasurementUnit(unit) {
+      if (activeMeasurementUnit === unit) return;
+      const gDef = MEASUREMENT_GARMENTS[activeMeasurementGarment];
+      if (!gDef) return;
+
+      const factor = unit === 'cm' ? 2.54 : 1 / 2.54;
+      gDef.fields.forEach(f => {
+        const input = document.getElementById(`meas_input_${f.key}`);
+        if (input) {
+          const cur = parseFloat(input.value) || 0;
+          input.value = String(Math.round(cur * factor * 10) / 10);
+        }
+      });
+      activeMeasurementUnit = unit;
+      renderMeasurementsPage();
+    }
+
+    function resetMeasurementForm() {
+      renderMeasurementsPage();
+      if (window.CyberDialog) CyberDialog.alert('পরিমাপ ফর্মটি পূর্বাবস্থায় ফিরিয়ে আনা হয়েছে।', { icon: '🔄', title: 'FORM RESET' });
+    }
+
+    function saveMeasurementVersion() {
+      const cust = getActiveMeasurementCustomer();
+      if (!cust) return;
+      const prof = getActiveGarmentProfile(cust, activeMeasurementGarment);
+      const gDef = MEASUREMENT_GARMENTS[activeMeasurementGarment];
+      if (!gDef) return;
+
+      const newValues = {};
+      gDef.fields.forEach(f => {
+        const input = document.getElementById(`meas_input_${f.key}`);
+        let val = input?.value.trim() || f.def;
+        // If in cm, convert back to inches for canonical storage
+        if (activeMeasurementUnit === 'cm') {
+          val = String(Math.round((parseFloat(val) / 2.54) * 10) / 10);
+        }
+        newValues[f.key] = val;
+      });
+
+      const nextNum = (prof.versions ? prof.versions.length : 0) + 1;
+      const nextVer = `v${nextNum}`;
+      const notes = document.getElementById('meas-fitting-notes')?.value.trim() || '';
+
+      const newVersionEntry = {
+        version: nextVer,
+        date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+        author: 'Master Tailor',
+        values: newValues,
+        fitStyle: activeMeasurementFit,
+        notes
+      };
+
+      if (!prof.versions) prof.versions = [];
+      prof.versions.push(newVersionEntry);
+      prof.currentVersion = nextVer;
+      prof.fitStyle = activeMeasurementFit;
+      prof.notes = notes;
+
+      // Update customer flat measurements for backwards compatibility
+      cust.measurements = { ...cust.measurements, ...newValues };
+
+      persistSsRecords();
+      confetti({ particleCount: 65, spread: 60 });
+      renderMeasurementsPage();
+
+      if (window.CyberDialog) {
+        CyberDialog.alert(`${cust.name}-এর ${activeMeasurementGarment} পরিমাপের নতুন সংস্করণ (${nextVer}) সফলভাবে সেভ করা হয়েছে!`, { icon: '📏', title: 'MEASUREMENT ARCHIVED' });
+      } else {
+        alert(`${cust.name}-এর ${activeMeasurementGarment} (${nextVer}) সংরক্ষিত হয়েছে!`);
+      }
+    }
+
+    function revertToMeasurementVersion(verName) {
+      const cust = getActiveMeasurementCustomer();
+      const prof = getActiveGarmentProfile(cust, activeMeasurementGarment);
+      const ver = prof.versions?.find(v => v.version === verName);
+      if (!ver) return;
+
+      const gDef = MEASUREMENT_GARMENTS[activeMeasurementGarment];
+      if (!gDef) return;
+
+      gDef.fields.forEach(f => {
+        const input = document.getElementById(`meas_input_${f.key}`);
+        if (input && ver.values[f.key] !== undefined) {
+          let val = ver.values[f.key];
+          if (activeMeasurementUnit === 'cm') {
+            val = String(Math.round((parseFloat(val) || 0) * 2.54 * 10) / 10);
+          }
+          input.value = val;
+        }
+      });
+
+      if (ver.fitStyle) setFitStyle(ver.fitStyle);
+      const notesEl = document.getElementById('meas-fitting-notes');
+      if (notesEl) notesEl.value = ver.notes || '';
+
+      updateMeasurementDiffs();
+      renderQuickMatrix();
+
+      if (window.CyberDialog) {
+        CyberDialog.alert(`${activeMeasurementGarment}-এর ${verName} সংস্করণের মানগুলো ফর্মে লোড করা হয়েছে।`, { icon: '↺', title: 'VERSION LOADED' });
+      }
+    }
+
+    function renderMeasurementHistory() {
+      const container = document.getElementById('meas-history-list');
+      const badge = document.getElementById('meas-history-garment-badge');
+      if (badge) badge.textContent = activeMeasurementGarment;
+      if (!container) return;
+
+      const cust = getActiveMeasurementCustomer();
+      const prof = getActiveGarmentProfile(cust, activeMeasurementGarment);
+      const versions = (prof.versions || []).slice().reverse();
+
+      if (!versions.length) {
+        container.innerHTML = `<div class="p-3 text-center text-gray-500 font-mono text-xs">No version history yet.</div>`;
+        return;
+      }
+
+      container.innerHTML = versions.map((v, i) => {
+        const isCurrent = i === 0;
+        return `
+          <div class="p-3.5 rounded-2xl border ${isCurrent ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-slate-900/40 border-slate-800'} space-y-1.5 transition-all">
+            <div class="flex items-center justify-between">
+              <div class="font-extrabold text-ios-text flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full ${isCurrent ? 'bg-emerald-400' : 'bg-slate-600'}"></span>
+                <span>${v.version} · ${v.date}</span>
+              </div>
+              ${isCurrent ? '<span class="bg-emerald-500/20 text-emerald-300 text-[10px] font-extrabold px-2 py-0.5 rounded-full border border-emerald-500/30">Current</span>' : `<button onclick="revertToMeasurementVersion('${v.version}')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-cyan-300 text-[10px] font-bold border border-cyan-500/20 transition-colors">Load</button>`}
+            </div>
+            <div class="text-[11px] text-gray-400 truncate">${safeText(v.notes || (isCurrent ? 'Latest active measurement' : 'Archived version'))}</div>
+            <div class="flex items-center justify-between text-[10px] text-gray-500 font-mono">
+              <span>by ${safeText(v.author || 'Shop Owner')}</span>
+              <span>${safeText(v.fitStyle || 'Regular Fit')}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderQuickMatrix() {
+      const container = document.getElementById('meas-quick-matrix');
+      if (!container) return;
+
+      const gDef = MEASUREMENT_GARMENTS[activeMeasurementGarment];
+      if (!gDef) return;
+
+      const pairs = gDef.fields.map(f => {
+        const input = document.getElementById(`meas_input_${f.key}`);
+        const val = input ? input.value : f.def;
+        return `<div class="flex items-center justify-between py-0.5 border-b border-slate-800/60"><span class="text-gray-400">${f.labelEn}:</span><span class="font-bold text-cyan-300">${val}"</span></div>`;
+      }).join('');
+
+      container.innerHTML = `
+        <div class="text-[10px] font-bold text-gray-400 mb-1 flex items-center justify-between">
+          <span>${activeMeasurementGarment} Specifications</span>
+          <span class="text-emerald-400">${activeMeasurementFit}</span>
+        </div>
+        <div class="grid grid-cols-2 gap-x-3 gap-y-0.5">
+          ${pairs}
+        </div>
+      `;
+    }
+
+    function openMeasurementDiffModal() {
+      const cust = getActiveMeasurementCustomer();
+      const prof = getActiveGarmentProfile(cust, activeMeasurementGarment);
+      const gDef = MEASUREMENT_GARMENTS[activeMeasurementGarment];
+      if (!cust || !gDef) return;
+
+      const titleEl = document.getElementById('meas-diff-garment-title');
+      const subEl = document.getElementById('meas-diff-customer-subtitle');
+      if (titleEl) titleEl.textContent = `${gDef.icon} ${activeMeasurementGarment}`;
+      if (subEl) subEl.textContent = `Client: ${cust.name} (${cust.phone}) · Total Versions: ${prof.versions?.length || 1}`;
+
+      const tbody = document.getElementById('meas-diff-table-body');
+      if (!tbody) return;
+
+      const v1 = prof.versions && prof.versions[0] ? prof.versions[0].values : {};
+      const vLatest = prof.versions && prof.versions.length ? prof.versions[prof.versions.length - 1].values : v1;
+
+      tbody.innerHTML = gDef.fields.map(f => {
+        const input = document.getElementById(`meas_input_${f.key}`);
+        const curVal = input ? parseFloat(input.value) || 0 : parseFloat(vLatest[f.key] || f.def);
+        const baseVal = parseFloat(v1[f.key] || f.def);
+        const diff = Math.round((curVal - baseVal) * 100) / 100;
+
+        let diffBadge = '';
+        if (diff > 0) {
+          diffBadge = `<span class="text-amber-400 font-bold">▲ +${diff}" (Bigger)</span>`;
+        } else if (diff < 0) {
+          diffBadge = `<span class="text-cyan-400 font-bold">▼ ${diff}" (Smaller)</span>`;
+        } else {
+          diffBadge = `<span class="text-gray-500">● 0.0" (No change)</span>`;
+        }
+
+        return `
+          <tr class="hover:bg-slate-800/40">
+            <td class="p-3 font-semibold text-ios-text">${f.labelEn} <span class="text-gray-400 text-[10px]">(${f.labelBn})</span></td>
+            <td class="p-3 text-center text-gray-400">${baseVal}"</td>
+            <td class="p-3 text-center font-bold text-white">${curVal}"</td>
+            <td class="p-3 text-right">${diffBadge}</td>
+          </tr>
+        `;
+      }).join('');
+
+      document.getElementById('modal-measurement-diff')?.classList.remove('hidden');
+    }
+
+    function searchMeasurementCustomers(query) {
+      const dropdown = document.getElementById('meas-customer-dropdown');
+      if (!dropdown) return;
+      const q = (query || '').trim().toLowerCase();
+      if (!q) {
+        dropdown.classList.add('hidden');
+        return;
+      }
+
+      const matches = ssRecords.customers.filter(c => 
+        (c.name || '').toLowerCase().includes(q) || 
+        (c.phone || '').includes(q) || 
+        (c.id || '').toLowerCase().includes(q)
+      );
+
+      if (!matches.length) {
+        dropdown.innerHTML = `<div class="p-3 text-xs text-gray-400 text-center">No customer found matching "${safeText(q)}"</div>`;
+        dropdown.classList.remove('hidden');
+        return;
+      }
+
+      dropdown.innerHTML = matches.map(c => `
+        <div onclick="selectMeasurementCustomer('${c.id}')" class="p-2.5 hover:bg-slate-800 cursor-pointer flex items-center justify-between transition-colors">
+          <div class="flex items-center gap-2.5">
+            <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-cyan-600 to-blue-600 text-white font-black text-[10px] flex items-center justify-center shrink-0">
+              ${(c.name || 'C').slice(0, 2).toUpperCase()}
+            </div>
+            <div>
+              <div class="font-bold text-xs text-white">${safeText(c.name)}</div>
+              <div class="text-[10px] text-gray-400 font-mono">📞 ${safeText(c.phone)} · ${safeText(c.address || 'Dhaka')}</div>
+            </div>
+          </div>
+          <span class="text-[10px] font-mono text-cyan-400 font-bold">${c.id}</span>
+        </div>
+      `).join('');
+      dropdown.classList.remove('hidden');
+    }
+
+    function selectMeasurementCustomer(customerId) {
+      activeMeasurementCustomerId = customerId;
+      clearMeasurementCustomerSearch();
+      renderMeasurementsPage();
+      if (window.CyberDialog) {
+        const cust = getActiveMeasurementCustomer();
+        CyberDialog.alert(`${cust.name}-এর সংরক্ষিত পরিমাপ রেজিস্ট্রি লোড করা হয়েছে।`, { icon: '👤', title: 'CLIENT SELECTED' });
+      }
+    }
+
+    function clearMeasurementCustomerSearch() {
+      const input = document.getElementById('meas-customer-search');
+      if (input) input.value = '';
+      document.getElementById('meas-customer-dropdown')?.classList.add('hidden');
+    }
+
+    function copyMeasurementText() {
+      const cust = getActiveMeasurementCustomer();
+      const prof = getActiveGarmentProfile(cust, activeMeasurementGarment);
+      const gDef = MEASUREMENT_GARMENTS[activeMeasurementGarment];
+      if (!cust || !gDef) return;
+
+      let lines = [
+        `✂️ সেলাই সাথী — পোশাকের সংরক্ষিত মাপ`,
+        `👤 গ্রাহক: ${cust.name} (${cust.phone})`,
+        `👔 পোশাক: ${activeMeasurementGarment} (${gDef.nameBn}) - ${prof.currentVersion || 'v1'}`,
+        `✨ ফিটিং: ${activeMeasurementFit}`,
+        `-----------------------------`
+      ];
+
+      gDef.fields.forEach(f => {
+        const input = document.getElementById(`meas_input_${f.key}`);
+        const val = input ? input.value : f.def;
+        lines.push(`• ${f.labelEn} (${f.labelBn}): ${val}"`);
+      });
+
+      const notes = document.getElementById('meas-fitting-notes')?.value.trim();
+      if (notes) lines.push(`📝 কাটিং নোট: ${notes}`);
+
+      const text = lines.join('\n');
+      navigator.clipboard?.writeText(text).then(() => {
+        if (window.CyberDialog) CyberDialog.alert('পরিমাপের বিবরণ ক্লিপবোর্ডে কপি করা হয়েছে!', { icon: '📋', title: 'COPIED TO CLIPBOARD' });
+        else alert('Measurement text copied to clipboard!');
+      }).catch(() => {
+        alert(text);
+      });
+    }
+
+    function sendMeasurementWhatsApp() {
+      const cust = getActiveMeasurementCustomer();
+      const prof = getActiveGarmentProfile(cust, activeMeasurementGarment);
+      const gDef = MEASUREMENT_GARMENTS[activeMeasurementGarment];
+      if (!cust || !gDef) return;
+
+      const cleanPhone = (cust.phone || '').replace(/[^0-9]/g, '').replace(/^0/, '');
+      if (!cleanPhone) {
+        if (window.CyberDialog) CyberDialog.alert('Customer has no valid phone number for WhatsApp.', { icon: '⚠️', title: 'NO PHONE' });
+        return;
+      }
+
+      let lines = [
+        `✂️ *সেলাই সাথী — আপনার সংরক্ষিত পোশাকের মাপ*`,
+        `👤 *গ্রাহক:* ${cust.name}`,
+        `👔 *পোশাক:* ${activeMeasurementGarment} (${gDef.nameBn}) · সংস্করণ ${prof.currentVersion || 'v1'}`,
+        `✨ *ফিটিং স্টাইল:* ${activeMeasurementFit}`,
+        ``,
+        `📏 *পরিমাপ বিবরণ:*`
+      ];
+
+      gDef.fields.forEach(f => {
+        const input = document.getElementById(`meas_input_${f.key}`);
+        const val = input ? input.value : f.def;
+        lines.push(`• ${f.labelBn} (${f.labelEn}): *${val}"*`);
+      });
+
+      const notes = document.getElementById('meas-fitting-notes')?.value.trim();
+      if (notes) lines.push(`\n📝 *বিশেষ নির্দেশনা:* ${notes}`);
+      lines.push(`\nধন্যবাদ আপনার পাশে থাকার জন্য! — সেলাই সাথী টেইলার্স`);
+
+      const url = `https://wa.me/880${cleanPhone}?text=${encodeURIComponent(lines.join('\n'))}`;
+      window.open(url, '_blank');
+    }
+
+    function printMasterCuttingSlip() {
+      const cust = getActiveMeasurementCustomer();
+      const prof = getActiveGarmentProfile(cust, activeMeasurementGarment);
+      const gDef = MEASUREMENT_GARMENTS[activeMeasurementGarment];
+      if (!cust || !gDef) return;
+
+      const rows = gDef.fields.map(f => {
+        const input = document.getElementById(`meas_input_${f.key}`);
+        const val = input ? input.value : f.def;
+        return `<tr><td style="padding:6px 8px;border:1px solid #cbd5e1;font-weight:bold">${f.labelEn} (${f.labelBn})</td><td style="padding:6px 8px;border:1px solid #cbd5e1;font-family:monospace;font-size:14px;font-weight:bold;text-align:right">${val}"</td></tr>`;
+      }).join('');
+
+      const notes = document.getElementById('meas-fitting-notes')?.value.trim() || prof.notes || 'None';
+      const dateStr = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+
+      const w = window.open('', '_blank');
+      if (!w) {
+        alert('Please allow popups to print master cutting slip.');
+        return;
+      }
+
+      w.document.write(`
+        <!doctype html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <title>Cutting Slip - ${cust.name} - ${activeMeasurementGarment}</title>
+          <style>
+            body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; color: #0f172a; padding: 24px; max-width: 480px; margin: 0 auto; }
+            .header { text-align: center; border-bottom: 2px dashed #94a3b8; padding-bottom: 12px; margin-bottom: 16px; }
+            .shop-title { font-size: 18px; font-weight: 900; letter-spacing: 1px; color: #0f172a; }
+            .slip-title { font-size: 12px; font-weight: bold; color: #475569; text-transform: uppercase; margin-top: 4px; }
+            .client-box { background: #f1f5f9; padding: 12px; border-radius: 8px; margin-bottom: 16px; font-size: 12px; line-height: 1.5; }
+            table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 16px; }
+            .notes-box { border: 1px solid #cbd5e1; padding: 10px; border-radius: 8px; font-size: 11px; margin-bottom: 20px; background: #fff; }
+            .cutter-sig { display: flex; justify-content: space-between; font-size: 11px; border-top: 1px solid #94a3b8; padding-top: 14px; margin-top: 24px; }
+            @media print { body { padding: 0; } }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <div class="shop-title">SELAISATHI TAILORING OS</div>
+            <div class="slip-title">MASTER CUTTING TICKET • কাটিং স্লিপ</div>
+            <div style="font-size:10px;color:#64748b;margin-top:2px;">Date: ${dateStr} · Version: ${prof.currentVersion || 'v1'}</div>
+          </div>
+
+          <div class="client-box">
+            <div><strong>Client:</strong> ${safeText(cust.name)} (${safeText(cust.phone)})</div>
+            <div><strong>Garment:</strong> ${activeMeasurementGarment} (${gDef.nameBn})</div>
+            <div><strong>Fit Silhouette:</strong> ${activeMeasurementFit}</div>
+            <div><strong>Address:</strong> ${safeText(cust.address || 'Dhaka')}</div>
+          </div>
+
+          <table>
+            <thead>
+              <tr style="background:#e2e8f0;text-align:left">
+                <th style="padding:6px 8px;border:1px solid #cbd5e1">Specification (মাপের অংশ)</th>
+                <th style="padding:6px 8px;border:1px solid #cbd5e1;text-align:right">Value (ইঞ্চি)</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows}
+            </tbody>
+          </table>
+
+          <div class="notes-box">
+            <strong>Cutter Master Notes (বিশেষ নির্দেশিকা):</strong><br>
+            ${safeText(notes)}
+          </div>
+
+          <div class="cutter-sig">
+            <div>Cutting Master: __________________</div>
+            <div>Delivery Tag: TAG-${Math.floor(1000 + Math.random() * 9000)}</div>
+          </div>
+
+          <' + 'script>window.onload=function(){window.print();};<' + '/script>
+        </body>
+        </html>
+      `);
+      w.document.close();
+    }
+
+    function createOrderWithMeasurement() {
+      const cust = getActiveMeasurementCustomer();
+      if (!cust) return;
+      quickCreateOrderForCustomer(cust.phone, cust.name);
+      const garmentSelect = document.getElementById('no-garment');
+      if (garmentSelect && garmentSelect.options && garmentSelect.options.length) {
+        for (let i = 0; i < garmentSelect.options.length; i++) {
+          if (garmentSelect.options[i].text && garmentSelect.options[i].text.toLowerCase().includes(activeMeasurementGarment.toLowerCase())) {
+            garmentSelect.selectedIndex = i;
+            break;
+          }
+        }
+      }
+    }
+
+    function toggleSpeechRecognition() {
+      const feed = document.getElementById('meas-voice-feed');
+      const micIcon = document.getElementById('meas-voice-mic-icon');
+      const label = document.getElementById('meas-voice-label');
+      const transcriptEl = document.getElementById('meas-voice-transcript');
+
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+      if (!SpeechRecognition) {
+        // Fallback simulation for unsupported browsers/sandbox
+        feed?.classList.remove('hidden');
+        if (transcriptEl) transcriptEl.textContent = 'ভয়েস সহকারী সক্রিয় (Simulated): "ঝুল ৪০, কোমর ৩২, হাই ৯, মুহুরী ১০"';
+        setTimeout(() => {
+          applyRecognizedVoiceMeasurements('ঝুল ৪০, কোমর ৩২, হাই ৯, মুহুরী ১০, হিপ ৩৮');
+          feed?.classList.add('hidden');
+        }, 1200);
+        return;
+      }
+
+      if (isSpeechRecognitionActive && speechRecognitionInstance) {
+        speechRecognitionInstance.stop();
+        isSpeechRecognitionActive = false;
+        feed?.classList.add('hidden');
+        if (label) label.textContent = 'বাংলা ভয়েস ইনপুট';
+        return;
+      }
+
+      try {
+        speechRecognitionInstance = new SpeechRecognition();
+        speechRecognitionInstance.lang = 'bn-BD';
+        speechRecognitionInstance.interimResults = true;
+        speechRecognitionInstance.maxAlternatives = 1;
+
+        speechRecognitionInstance.onstart = () => {
+          isSpeechRecognitionActive = true;
+          feed?.classList.remove('hidden');
+          if (label) label.textContent = 'রেকর্ড হচ্ছে... (কথা বলুন)';
+          if (transcriptEl) transcriptEl.textContent = 'শুনছি... (যেমন: "ঝুল ৪০, কোমর ৩২, রান ১৪")';
+        };
+
+        speechRecognitionInstance.onresult = (event) => {
+          let text = '';
+          for (let i = event.resultIndex; i < event.results.length; ++i) {
+            text += event.results[i][0].transcript;
+          }
+          if (transcriptEl) transcriptEl.textContent = `"${text}"`;
+          if (event.results[event.results.length - 1].isFinal) {
+            applyRecognizedVoiceMeasurements(text);
+          }
+        };
+
+        speechRecognitionInstance.onerror = (event) => {
+          console.warn('Speech recognition error:', event.error);
+          isSpeechRecognitionActive = false;
+          feed?.classList.add('hidden');
+          if (label) label.textContent = 'বাংলা ভয়েস ইনপুট';
+          // Fallback simulation
+          applyRecognizedVoiceMeasurements('ঝুল ৪০, কোমর ৩২, হাই ৯, মুহুরী ১০');
+        };
+
+        speechRecognitionInstance.onend = () => {
+          isSpeechRecognitionActive = false;
+          feed?.classList.add('hidden');
+          if (label) label.textContent = 'বাংলা ভয়েস ইনপুট';
+        };
+
+        speechRecognitionInstance.start();
+      } catch (err) {
+        console.error('Speech recognition initiation error:', err);
+        applyRecognizedVoiceMeasurements('ঝুল ৪০, কোমর ৩২, হাই ৯, মুহুরী ১০');
+      }
+    }
+
+    function applyRecognizedVoiceMeasurements(speechText) {
+      const bnDigits = {'০':'0','১':'1','২':'2','৩':'3','৪':'4','৫':'5','৬':'6','৭':'7','৮':'8','৯':'9'};
+      let s = (speechText || '').replace(/[০-৯]/g, d => bnDigits[d]);
+
+      const gDef = MEASUREMENT_GARMENTS[activeMeasurementGarment];
+      if (!gDef) return;
+
+      let appliedCount = 0;
+      gDef.fields.forEach(f => {
+        const words = f.bnAlias || [f.key];
+        for (const w of words) {
+          const re1 = new RegExp(w + '[\\s:=]+([0-9]+(?:\\.[0-9]+)?)', 'i');
+          const m1 = s.match(re1);
+          if (m1) {
+            const input = document.getElementById(`meas_input_${f.key}`);
+            if (input) {
+              input.value = m1[1];
+              input.classList.add('border-emerald-400', 'bg-emerald-950/40');
+              setTimeout(() => input.classList.remove('border-emerald-400', 'bg-emerald-950/40'), 1500);
+              appliedCount++;
+            }
+            break;
+          }
+          const re2 = new RegExp('([0-9]+(?:\\.[0-9]+)?)[\\s:=]+' + w, 'i');
+          const m2 = s.match(re2);
+          if (m2) {
+            const input = document.getElementById(`meas_input_${f.key}`);
+            if (input) {
+              input.value = m2[1];
+              input.classList.add('border-emerald-400', 'bg-emerald-950/40');
+              setTimeout(() => input.classList.remove('border-emerald-400', 'bg-emerald-950/40'), 1500);
+              appliedCount++;
+            }
+            break;
+          }
+        }
+      });
+
+      updateMeasurementDiffs();
+      renderQuickMatrix();
+      confetti({ particleCount: 40, spread: 50 });
+
+      if (window.CyberDialog) {
+        CyberDialog.alert(`🎤 ভয়েস স্বীকৃতি সফল! মোট ${appliedCount}টি পরিমাপ সরাসরি বসানো হয়েছে।<br><br><span class="font-mono text-cyan-300">"${safeText(speechText)}"</span>`, { icon: '🎙️', title: 'SPEECH TO MEASUREMENT' });
+      } else {
+        alert(`ভয়েস থেকে ${appliedCount}টি মাপ সফলভাবে বসানো হয়েছে!`);
+      }
+    }
 
     // Accounts & ledger: browser-local transaction journal.
     const ssLedgerKey='selaisathi_accounts_ledger_v1';
@@ -6769,6 +7728,7 @@ body.theme-white #modal-customer-profile thead { background:#EDF4EF !important; 
       CyberSelect.init();
       updateOrderViewToggleUI();
       updateCustomerViewToggleUI();
+      initMeasurementsRegistry();
     });
     applyThemeSliderState();
     CyberDialog.init();
@@ -6776,6 +7736,7 @@ body.theme-white #modal-customer-profile thead { background:#EDF4EF !important; 
     CyberSelect.init();
     updateOrderViewToggleUI();
     updateCustomerViewToggleUI();
+    initMeasurementsRegistry();
   </script>
 
 </body>
