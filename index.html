@@ -599,11 +599,11 @@
     }
 
     /* PRESERVE WHITE TEXT ON SOLID/GRADIENT ACTION BUTTONS IN WHITE THEME */
-    body.theme-white button[class*="bg-cyan-"],
-    body.theme-white button[class*="bg-emerald-"],
-    body.theme-white button[class*="bg-violet-"],
-    body.theme-white button[class*="bg-rose-"],
-    body.theme-white button[class*="bg-blue-"],
+    body.theme-white button[class*="bg-cyan-"]:not([class*="/"]):not(.due-collect-btn),
+    body.theme-white button[class*="bg-emerald-"]:not([class*="/"]):not(.due-whatsapp-btn),
+    body.theme-white button[class*="bg-violet-"]:not([class*="/"]),
+    body.theme-white button[class*="bg-rose-"]:not([class*="/"]),
+    body.theme-white button[class*="bg-blue-"]:not([class*="/"]),
     body.theme-white button[class*="bg-gradient-"],
     body.theme-white .cyber-btn-primary,
     body.theme-white .cyber-btn-danger,
@@ -663,9 +663,101 @@
     .due-aging-pill:not(.active) {
       color: #94A3B8 !important;
     }
-    body.theme-white .due-aging-pill:not(.active) {
-      color: #475569 !important;
+    body.theme-white .due-aging-container {
+      background: #EDF3EF !important;
+      border: 1px solid #D5E2D9 !important;
     }
+    body.theme-white .due-aging-pill:not(.active) {
+      color: #384A3F !important;
+      font-weight: 700 !important;
+    }
+    body.theme-white .due-aging-pill:not(.active):hover {
+      background: #DEEAE1 !important;
+      color: #1A3626 !important;
+    }
+
+    /* Smart Due Recovery Cards & Buttons (Accounts Hub) */
+    .due-item-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--ss-border);
+      transition: all 0.2s ease;
+    }
+    .due-item-card:hover {
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+    body.theme-white .due-item-card {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+    }
+    body.theme-white .due-item-card:hover {
+      border-color: #CBD5E1 !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06) !important;
+    }
+
+    .due-whatsapp-btn {
+      background: rgba(5, 150, 105, 0.18) !important;
+      border: 1px solid rgba(16, 185, 129, 0.4) !important;
+      color: #34D399 !important;
+      font-weight: 700 !important;
+    }
+    .due-whatsapp-btn:hover {
+      background: rgba(5, 150, 105, 0.3) !important;
+      color: #6EE7B7 !important;
+    }
+    body.theme-white .due-whatsapp-btn {
+      background: #D1FAE5 !important;
+      border: 1px solid #6EE7B7 !important;
+      color: #065F46 !important;
+      font-weight: 800 !important;
+    }
+    body.theme-white .due-whatsapp-btn:hover {
+      background: #A7F3D0 !important;
+      color: #047857 !important;
+    }
+
+    .due-collect-btn {
+      background: rgba(8, 145, 178, 0.18) !important;
+      border: 1px solid rgba(6, 182, 212, 0.4) !important;
+      color: #38BDF8 !important;
+      font-weight: 700 !important;
+    }
+    .due-collect-btn:hover {
+      background: rgba(8, 145, 178, 0.3) !important;
+      color: #7DD3FC !important;
+    }
+    body.theme-white .due-collect-btn {
+      background: #CFFAFE !important;
+      border: 1px solid #67E8F9 !important;
+      color: #0E7490 !important;
+      font-weight: 800 !important;
+    }
+    body.theme-white .due-collect-btn:hover {
+      background: #BAE6FD !important;
+      color: #0369A1 !important;
+    }
+
+    body.theme-white .due-amount-val {
+      color: #B45309 !important;
+      font-weight: 900 !important;
+    }
+    body.theme-white .due-order-id {
+      color: #0E7490 !important;
+      font-weight: 700 !important;
+    }
+    body.theme-white #acc-due-summary-badge {
+      background: #FEF3C7 !important;
+      color: #92400E !important;
+      border-color: #FCD34D !important;
+      font-weight: 800 !important;
+    }
+
+    /* Accounts method badges in White Theme */
+    body.theme-white .bg-emerald-500\/15 { background: #E6F4EA !important; color: #137333 !important; border-color: #A3D9B5 !important; }
+    body.theme-white .bg-pink-500\/15 { background: #FCE8E6 !important; color: #C5221F !important; border-color: #F6AEA9 !important; }
+    body.theme-white .bg-amber-500\/15 { background: #FEF7E0 !important; color: #B06000 !important; border-color: #FDD663 !important; }
+    body.theme-white .bg-blue-500\/15 { background: #E8F0FE !important; color: #1A73E8 !important; border-color: #AECBFA !important; }
+    body.theme-white .bg-amber-500\/20 { background: #FEF3C7 !important; color: #92400E !important; border-color: #FCD34D !important; }
 
     .exp-cat-btn.active {
       border-color: #f43f5e !important;
@@ -4194,7 +4286,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               </div>
 
               <!-- Aging Filter Pills -->
-              <div class="flex items-center gap-1 text-[11px] p-1 bg-slate-900/60 rounded-xl border border-slate-800">
+              <div class="due-aging-container flex items-center gap-1 text-[11px] p-1 bg-slate-900/60 rounded-xl border border-slate-800">
                 <button onclick="setDueAgingFilter('all')" id="acc-aging-all" class="due-aging-pill active flex-1 py-1 text-center rounded-lg font-bold transition-all">All</button>
                 <button onclick="setDueAgingFilter('0-7')" id="acc-aging-0-7" class="due-aging-pill flex-1 py-1 text-center rounded-lg text-gray-400 hover:text-white transition-all">0-7 Days</button>
                 <button onclick="setDueAgingFilter('8-14')" id="acc-aging-8-14" class="due-aging-pill flex-1 py-1 text-center rounded-lg text-gray-400 hover:text-white transition-all">8-14 Days</button>
@@ -9288,28 +9380,28 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         const ageColor = o.ageBucket === '15+' ? 'bg-rose-500/20 text-rose-400 border-rose-500/30' : (o.ageBucket === '8-14' ? 'bg-amber-500/20 text-amber-400 border-amber-500/30' : 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30');
 
         return `
-          <div class="p-3 rounded-2xl bg-white/[0.03] border border-ios-border hover:border-amber-500/30 transition-all space-y-2">
+          <div class="due-item-card p-3 rounded-2xl bg-white/[0.03] border border-ios-border hover:border-amber-500/30 transition-all space-y-2">
             <div class="flex items-start justify-between gap-2">
               <div class="min-w-0">
                 <div class="font-bold text-xs text-ios-text truncate flex items-center gap-1.5">
                   <span>${safeText(o.name)}</span>
-                  <span class="px-1.5 py-0.2 rounded text-[9px] font-mono border ${ageColor}">${o.diffDays}d ago</span>
+                  <span class="due-age-badge px-1.5 py-0.2 rounded text-[9px] font-mono border ${ageColor}">${o.diffDays}d ago</span>
                 </div>
                 <div class="text-[10px] text-ios-subtext font-mono truncate">
-                  📞 ${safeText(o.phone)} · <span class="text-cyan-400">${safeText(o.id)}</span> (${safeText(o.garment || 'Garment')})
+                  📞 ${safeText(o.phone)} · <span class="due-order-id text-cyan-400">${safeText(o.id)}</span> (${safeText(o.garment || 'Garment')})
                 </div>
               </div>
               <div class="text-right shrink-0">
-                <div class="text-xs font-black font-mono text-amber-400">${moneyBDT(o.due)}</div>
+                <div class="due-amount-val text-xs font-black font-mono text-amber-400">${moneyBDT(o.due)}</div>
                 <div class="text-[9px] text-ios-subtext">Total: ${moneyBDT(o.total)}</div>
               </div>
             </div>
 
             <div class="flex items-center gap-2 pt-1 border-t border-ios-border/60">
-              <button onclick="sendDueReminderWhatsApp('${o.id}')" title="Send WhatsApp Due Reminder" class="flex-1 py-1 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold flex items-center justify-center gap-1 transition-all active:scale-95">
+              <button onclick="sendDueReminderWhatsApp('${o.id}')" title="Send WhatsApp Due Reminder" class="due-whatsapp-btn flex-1 py-1 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold flex items-center justify-center gap-1 transition-all active:scale-95">
                 <span>💬</span> <span>WhatsApp তাগাদা</span>
               </button>
-              <button onclick="openReceivePaymentModal('${o.id}')" title="Collect Payment Now" class="flex-1 py-1 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 border border-cyan-500/30 text-[10px] font-bold flex items-center justify-center gap-1 transition-all active:scale-95">
+              <button onclick="openReceivePaymentModal('${o.id}')" title="Collect Payment Now" class="due-collect-btn flex-1 py-1 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 border border-cyan-500/30 text-[10px] font-bold flex items-center justify-center gap-1 transition-all active:scale-95">
                 <span>💰</span> <span>বকেয়া জমা</span>
               </button>
             </div>
