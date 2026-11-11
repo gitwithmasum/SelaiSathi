@@ -3403,6 +3403,8 @@
             <button onclick="exportOrdersCSV()" class="px-4 py-2.5 rounded-xl text-xs font-bold border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 active:scale-95 flex items-center gap-1.5 transition-colors">
               <span>↓</span> <span>Export CSV</span>
             </button>
+            <button onclick="exportOrdersExcel()" class="px-4 py-2.5 rounded-xl text-xs font-bold border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20 active:scale-95 flex items-center gap-1.5 transition-colors"><span>▦</span> <span>Excel</span></button>
+            <button onclick="exportOrdersPDF()" class="px-4 py-2.5 rounded-xl text-xs font-bold border border-rose-500/30 bg-rose-500/10 text-rose-300 hover:bg-rose-500/20 active:scale-95 flex items-center gap-1.5 transition-colors"><span>▤</span> <span>Export PDF</span></button>
             <button onclick="openNewOrderModal()" class="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-700/20 active:scale-95 transition-all">
               <span>+</span> New Order
             </button>
@@ -4471,6 +4473,27 @@
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+    }
+
+    function getOrdersExportRows() {
+      return ordersData.map(o => [o.id, o.tag || '', o.name || '', o.phone || '', o.garment || '', o.stage || '', o.total ?? 0, o.advance ?? 0, o.due ?? 0, o.date || '']);
+    }
+    function exportOrdersExcel() {
+      if (!ordersData.length) { alert('No orders to export'); return; }
+      const headers=['Order ID','Pin Tag','Customer Name','Phone','Garment','Stage','Total (BDT)','Advance (BDT)','Due (BDT)','Delivery Date'];
+      const esc=v=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      const table='<table border="1"><thead><tr>'+headers.map(h=>'<th>'+esc(h)+'</th>').join('')+'</tr></thead><tbody>'+getOrdersExportRows().map(row=>'<tr>'+row.map(v=>'<td>'+esc(v)+'</td>').join('')+'</tr>').join('')+'</tbody></table>';
+      const html='<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="UTF-8"></head><body><h2>SelaiSathi - Orders</h2><p>Exported: '+new Date().toLocaleString()+'</p>'+table+'</body></html>';
+      const blob=new Blob(['\\uFEFF',html],{type:'application/vnd.ms-excel;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+      a.href=url;a.download='selaisathi_orders_'+new Date().toISOString().slice(0,10)+'.xls';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+    }
+    function exportOrdersPDF() {
+      if (!ordersData.length) { alert('No orders to export'); return; }
+      const headers=['Order ID','Pin Tag','Customer','Phone','Garment','Stage','Total (BDT)','Advance (BDT)','Due (BDT)','Delivery Date'];
+      const esc=v=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      const rows=getOrdersExportRows().map(row=>'<tr>'+row.map(v=>'<td>'+esc(v)+'</td>').join('')+'</tr>').join('');
+      const w=window.open('','_blank');if(!w){alert('Please allow pop-ups to print or save the orders PDF.');return;}
+      w.document.write('<!doctype html><html><head><meta charset="utf-8"><title>SelaiSathi Orders</title><style>body{font:12px Arial,sans-serif;color:#17212b;padding:24px}h1{font-size:22px}p{color:#64748b}table{width:100%;border-collapse:collapse;font-size:10px}th,td{border:1px solid #d7dee7;padding:7px 5px;text-align:left;overflow-wrap:anywhere}th{background:#eaf0f5}tr{page-break-inside:avoid}@page{size:landscape;margin:12mm}@media print{body{padding:0}}</style></head><body><h1>SelaiSathi - Orders Report</h1><p>Exported: '+esc(new Date().toLocaleString())+' | Total orders: '+ordersData.length+'</p><table><thead><tr>'+headers.map(h=>'<th>'+esc(h)+'</th>').join('')+'</tr></thead><tbody>'+rows+'</tbody></table><script>window.onload=function(){window.print();};<\\/script></body></html>');w.document.close();
     }
 
     function openNewOrderModal() {
