@@ -323,8 +323,8 @@
     body:not(.theme-white) .app-view button { transition: background .2s ease,border-color .2s ease,transform .2s ease,box-shadow .2s ease; }
     body:not(.theme-white) .app-view button:focus-visible, body:not(.theme-white) header button:focus-visible, body:not(.theme-white) .nav-item:focus-visible { outline: 2px solid var(--ss-cyan); outline-offset: 3px; }
     body:not(.theme-white) .app-view .bg-gradient-to-br, body:not(.theme-white) .app-view .bg-gradient-to-r { border-color: var(--ss-border); }
-    body:not(.theme-white) #modal-new-order .bento-card, body:not(.theme-white) #modal-edit-order .bento-card, body:not(.theme-white) #modal-receipt .bento-card, body:not(.theme-white) #modal-data-entry .bento-card { background: #111d30 !important; }
-    body:not(.theme-white) #modal-new-order label, body:not(.theme-white) #modal-edit-order label, body:not(.theme-white) #modal-receipt h3, body:not(.theme-white) #modal-data-entry label { color: #dce8f7 !important; }
+    body:not(.theme-white) #modal-new-order .bento-card, body:not(.theme-white) #modal-edit-order .bento-card, body:not(.theme-white) #modal-receipt .bento-card, body:not(.theme-white) #modal-data-entry .bento-card, body:not(.theme-white) #modal-customer-profile .bento-card { background: #111d30 !important; }
+    body:not(.theme-white) #modal-new-order label, body:not(.theme-white) #modal-edit-order label, body:not(.theme-white) #modal-receipt h3, body:not(.theme-white) #modal-data-entry label, body:not(.theme-white) #modal-customer-profile label { color: #dce8f7 !important; }
 
     /* Common layout utilities */
     main { padding: 28px clamp(16px,2.4vw,36px) 42px !important; }
@@ -1002,7 +1002,8 @@
     body.theme-white #modal-new-order,
     body.theme-white #modal-edit-order,
     body.theme-white #modal-receipt,
-    body.theme-white #modal-data-entry {
+    body.theme-white #modal-data-entry,
+    body.theme-white #modal-customer-profile {
       background: rgba(18, 30, 24, 0.45) !important;
       backdrop-filter: blur(8px) !important;
       -webkit-backdrop-filter: blur(8px) !important;
@@ -1010,7 +1011,8 @@
     body.theme-white #modal-new-order .bento-card,
     body.theme-white #modal-edit-order .bento-card,
     body.theme-white #modal-receipt .bento-card,
-    body.theme-white #modal-data-entry .bento-card {
+    body.theme-white #modal-data-entry .bento-card,
+    body.theme-white #modal-customer-profile .bento-card {
       background: #FFFFFF !important;
       border: 1px solid #DCE5DF !important;
       color: #25332C !important;
@@ -1019,12 +1021,15 @@
     body.theme-white #modal-new-order h3,
     body.theme-white #modal-edit-order h3,
     body.theme-white #modal-receipt h3,
-    body.theme-white #modal-data-entry h3 {
+    body.theme-white #modal-data-entry h3,
+    body.theme-white #modal-customer-profile h3,
+    body.theme-white #modal-customer-profile h4 {
       color: #25332C !important;
     }
     body.theme-white #modal-new-order label,
     body.theme-white #modal-edit-order label,
-    body.theme-white #modal-data-entry label {
+    body.theme-white #modal-data-entry label,
+    body.theme-white #modal-customer-profile label {
       color: #25332C !important;
       font-weight: 700 !important;
     }
@@ -3538,19 +3543,116 @@
 
       <!-- CUSTOMER MANAGEMENT -->
       <section id="view-customers" class="app-view hidden space-y-6">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div><div class="text-xs font-mono text-cyan-300 font-bold tracking-widest">CUSTOMER RELATIONSHIP</div><h1 class="text-3xl font-black mt-1">Customers</h1><p class="text-sm text-gray-400 mt-1">Customer profiles, contact details and order history</p></div>
-          <button onclick="openDataModal('customer')" class="px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-cyan-600 to-violet-600">＋ Add customer</button>
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">CRM & MEASUREMENTS</span>
+              <span class="text-xs text-ios-subtext">Client Registry & Order History</span>
+            </div>
+            <h1 class="text-3xl font-black text-ios-text tracking-tight mt-1">Customers</h1>
+            <p class="text-xs text-ios-subtext mt-1">Customer profiles, saved measurements, order history, and WhatsApp/SMS communication.</p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2.5">
+            <button onclick="exportCustomersCSV()" class="px-4 py-2.5 rounded-xl text-xs font-bold border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 active:scale-95 flex items-center gap-1.5 transition-colors">
+              <span>↓</span> <span>Export CSV</span>
+            </button>
+            <button onclick="openDataModal('customer')" class="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white rounded-xl text-xs font-bold shadow-md shadow-cyan-700/20 active:scale-95 transition-all">
+              <span>＋</span> Add Customer
+            </button>
+          </div>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <div class="bento-card p-5"><div class="text-xs text-gray-400">Total customers</div><div id="customer-total" class="text-2xl font-black mt-1">0</div></div>
-          <div class="bento-card p-5"><div class="text-xs text-gray-400">Customers with due</div><div id="customer-due-count" class="text-2xl font-black mt-1">0</div></div>
-          <div class="bento-card p-5"><div class="text-xs text-gray-400">Total outstanding</div><div id="customer-due-total" class="text-2xl font-black mt-1">৳0</div></div>
+
+        <!-- 4 Customer KPI Bento Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bento-card p-5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-gray-400 font-bold uppercase tracking-wider">Total Customers</span>
+              <span class="text-lg">👥</span>
+            </div>
+            <div class="text-2xl sm:text-3xl font-black font-mono text-ios-text mt-2" id="customer-total">0</div>
+            <div class="text-[11px] text-gray-500 mt-1">Registered clients in database</div>
+          </div>
+
+          <div class="bento-card p-5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-amber-500 font-bold uppercase tracking-wider">VIP / Frequent</span>
+              <span class="text-lg">⭐</span>
+            </div>
+            <div class="text-2xl sm:text-3xl font-black font-mono text-amber-500 mt-2" id="customer-vip-count">0</div>
+            <div class="text-[11px] text-gray-500 mt-1">Loyal customers (2+ orders)</div>
+          </div>
+
+          <div class="bento-card p-5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-rose-500 font-bold uppercase tracking-wider">Clients with Due</span>
+              <span class="text-lg">💳</span>
+            </div>
+            <div class="text-2xl sm:text-3xl font-black font-mono text-rose-500 mt-2" id="customer-due-count">0</div>
+            <div class="text-[11px] text-gray-500 mt-1">Awaiting balance payment</div>
+          </div>
+
+          <div class="bento-card p-5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-rose-500 font-bold uppercase tracking-wider">Total Outstanding</span>
+              <span class="text-lg">💰</span>
+            </div>
+            <div class="text-2xl sm:text-3xl font-black font-mono text-rose-500 mt-2" id="customer-due-total">৳0</div>
+            <div class="text-[11px] text-gray-500 mt-1">Total pending receivable</div>
+          </div>
         </div>
-        <div class="bento-card p-5 space-y-4">
-          <div class="flex flex-col sm:flex-row gap-3 justify-between"><h2 class="font-bold">Customer directory</h2><input id="customer-search" oninput="renderCustomers()" class="sm:max-w-xs px-3 py-2 text-xs rounded-xl" placeholder="Search name or phone..."></div>
-          <div class="overflow-x-auto"><table class="w-full text-left text-xs"><thead><tr class="border-b border-gray-700 text-gray-400"><th class="p-3">Customer</th><th class="p-3">Phone</th><th class="p-3">Orders</th><th class="p-3">Due</th><th class="p-3">Actions</th></tr></thead><tbody id="customers-table"></tbody></table></div>
-          <div id="customers-empty" class="hidden text-center text-sm text-gray-400 py-8">No customers found. Add your first customer.</div>
+
+        <!-- Filter & Search Toolbar Bento Card -->
+        <div class="bento-card p-5 space-y-3.5">
+          <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
+            <!-- Search -->
+            <div class="relative flex-1">
+              <input type="text" id="customer-search" oninput="renderCustomers()" placeholder="Search customer name, phone number, address, or ID..." class="w-full px-4 py-2.5 pl-10 text-xs rounded-xl border border-ios-border bg-white/60 dark:bg-slate-900/60 focus:outline-none">
+              <span class="absolute left-3.5 top-2.5 text-gray-400 text-sm">🔍</span>
+            </div>
+
+            <!-- Filters & View Mode Toggle -->
+            <div class="flex flex-wrap items-center gap-2 text-xs">
+              <!-- Status / Due Filter -->
+              <div class="relative">
+                <button type="button" class="cyber-select-trigger" id="customer-filter-status-btn" onclick="CyberSelect.openForSelect(this, 'customer-filter-status')">
+                  <span id="customer-filter-status-label">All Customers (সকল গ্রাহক)</span>
+                  <span class="cyber-select-chevron">▾</span>
+                </button>
+                <select id="customer-filter-status" onchange="renderCustomers()" class="sr-only">
+                  <option value="ALL">All Customers (সকল গ্রাহক)</option>
+                  <option value="DUE">বকেয়া আছে (Due Only)</option>
+                  <option value="PAID">পরিশোধিত (Zero Due)</option>
+                  <option value="VIP">⭐ VIP Clients (নিয়মিত)</option>
+                </select>
+              </div>
+
+              <!-- Segmented View Mode Toggle Pill (List vs Grid) -->
+              <div class="order-view-toggle-pill ml-auto sm:ml-0" id="customer-view-toggle" title="Switch Customer Display View">
+                <button type="button" class="order-view-btn is-active" id="btn-cust-view-list" onclick="setCustomerViewMode('list')" title="List View (লিস্ট ভিউ)">
+                  <span class="order-view-check" id="check-cust-view-list">✓</span>
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+                <div class="order-view-divider"></div>
+                <button type="button" class="order-view-btn" id="btn-cust-view-grid" onclick="setCustomerViewMode('grid')" title="Grid / Card View (গ্রিড / কার্ড ভিউ)">
+                  <span class="order-view-check hidden" id="check-cust-view-grid">✓</span>
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Customer List / Cards Container Bento Card -->
+        <div class="bento-card p-6 space-y-4">
+          <div id="customers-display-container">
+            <!-- Table View or Grid Cards rendered dynamically -->
+          </div>
+          <div id="customers-empty" class="hidden text-center py-10 space-y-2">
+            <span class="text-3xl">👥</span>
+            <div class="text-sm font-bold text-ios-text">কোনো গ্রাহক পাওয়া যায়নি</div>
+            <p class="text-xs text-gray-400">ফিল্টার পরিবর্তন করুন অথবা "＋ Add Customer" বাটনে ক্লিক করে নতুন গ্রাহক যোগ করুন।</p>
+          </div>
         </div>
       </section>
 
@@ -3595,6 +3697,135 @@
           <input id="data-kind" type="hidden"><input id="data-edit-id" type="hidden">
           <div id="data-modal-fields" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
           <div class="flex justify-end gap-2 pt-2"><button onclick="closeDataModal()" class="px-4 py-2 rounded-xl border border-slate-600 text-xs">Cancel</button><button onclick="saveDataRecord()" class="px-5 py-2 rounded-xl bg-cyan-600 text-white text-xs font-bold">Save record</button></div>
+        </div>
+      </div>
+
+      <!-- MODAL: CUSTOMER 360° PROFILE -->
+      <div id="modal-customer-profile" class="hidden fixed inset-0 z-[70] bg-black/65 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bento-card max-w-2xl w-full p-6 space-y-5 shadow-2xl max-h-[92vh] overflow-y-auto">
+          <!-- Modal Header -->
+          <div class="flex justify-between items-start border-b border-ios-border pb-4">
+            <div class="flex items-center gap-3.5">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 text-white font-black text-lg flex items-center justify-center shadow-md shrink-0" id="cp-avatar">
+                SH
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h3 class="text-xl font-black text-ios-text" id="cp-name">Shahadat Hossain</h3>
+                  <span id="cp-vip-badge" class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30">⭐ VIP</span>
+                </div>
+                <div class="text-xs text-gray-400 flex items-center gap-2.5 mt-1 font-mono flex-wrap">
+                  <span id="cp-id" class="text-cyan-400 font-bold">C-1001</span>
+                  <span>•</span>
+                  <span id="cp-phone">📞 01591463333</span>
+                  <span>•</span>
+                  <span id="cp-address">📍 Dhaka</span>
+                </div>
+              </div>
+            </div>
+            <button onclick="closeCustomerProfileModal()" class="text-gray-400 hover:text-gray-600 font-bold text-xl p-1">✕</button>
+          </div>
+
+          <!-- Quick Action Buttons Strip -->
+          <div class="flex flex-wrap items-center gap-2">
+            <a id="cp-call-btn" href="tel:" class="px-3 py-1.5 rounded-xl bg-slate-800 text-cyan-300 border border-cyan-500/30 text-xs font-bold hover:bg-cyan-500/20 transition-all flex items-center gap-1.5">
+              <span>📞</span> <span>Call</span>
+            </a>
+            <a id="cp-wa-btn" href="#" target="_blank" class="px-3 py-1.5 rounded-xl bg-emerald-600/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold hover:bg-emerald-600/30 transition-all flex items-center gap-1.5">
+              <span>🟢</span> <span>WhatsApp</span>
+            </a>
+            <button id="cp-sms-btn" onclick="sendCustomerDueSmsFromModal()" class="px-3 py-1.5 rounded-xl bg-purple-600/20 text-purple-300 border border-purple-500/30 text-xs font-bold hover:bg-purple-600/30 transition-all flex items-center gap-1.5">
+              <span>📩</span> <span>Due SMS</span>
+            </button>
+            <button id="cp-new-order-btn" onclick="quickCreateOrderFromProfile()" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all flex items-center gap-1.5 sm:ml-auto shadow-xs active:scale-95">
+              <span>➕</span> <span>New Order for Client</span>
+            </button>
+          </div>
+
+          <!-- Style Notes -->
+          <div class="p-3.5 rounded-xl bg-cyan-500/5 border border-cyan-500/20 text-xs">
+            <div class="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-wider">Style Notes & Special Preferences</div>
+            <div class="text-ios-text font-medium mt-1" id="cp-notes">No special preferences noted.</div>
+          </div>
+
+          <!-- Lifetime Financials Strip -->
+          <div class="grid grid-cols-3 gap-3 text-center text-xs font-mono p-3 rounded-2xl bg-gray-100/60 dark:bg-slate-800/40 border border-ios-border/60">
+            <div>
+              <div class="text-[10px] text-gray-400 uppercase tracking-wider">Total Orders</div>
+              <div class="text-base font-black text-ios-text mt-0.5" id="cp-total-orders">0</div>
+            </div>
+            <div>
+              <div class="text-[10px] text-gray-400 uppercase tracking-wider">Total Billed</div>
+              <div class="text-base font-bold text-cyan-400 mt-0.5" id="cp-total-billed">৳0</div>
+            </div>
+            <div>
+              <div class="text-[10px] text-gray-400 uppercase tracking-wider">Current Due</div>
+              <div class="text-base font-black text-rose-500 mt-0.5" id="cp-total-due">৳0</div>
+            </div>
+          </div>
+
+          <!-- Measurement Registry Box -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs font-black text-ios-text flex items-center gap-1.5 uppercase tracking-wider">
+                <span>📏</span> <span>Saved Measurement Profile (সংরক্ষিত মাপ)</span>
+              </h4>
+              <button type="button" id="cp-edit-meas-btn" onclick="toggleEditMeasurements()" class="text-xs text-cyan-400 hover:underline font-bold">✏️ Edit Measurements</button>
+            </div>
+            
+            <!-- View mode for measurements -->
+            <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 text-center text-xs font-mono" id="cp-meas-view">
+              <!-- length, chest, waist, sleeve, neck, shoulder -->
+            </div>
+
+            <!-- Inline Edit mode for measurements (hidden by default) -->
+            <div class="hidden space-y-3 p-3.5 rounded-xl bg-slate-900/60 border border-cyan-500/30 text-xs font-mono" id="cp-meas-edit">
+              <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                <div><label class="text-[10px] text-gray-400 block mb-1">Length (লম্বা)</label><input type="text" id="cp-edit-m-length" class="w-full p-1.5 rounded-lg border border-slate-700 bg-slate-800 text-center font-bold text-cyan-300"></div>
+                <div><label class="text-[10px] text-gray-400 block mb-1">Chest (বুক)</label><input type="text" id="cp-edit-m-chest" class="w-full p-1.5 rounded-lg border border-slate-700 bg-slate-800 text-center font-bold text-cyan-300"></div>
+                <div><label class="text-[10px] text-gray-400 block mb-1">Waist (কোমর)</label><input type="text" id="cp-edit-m-waist" class="w-full p-1.5 rounded-lg border border-slate-700 bg-slate-800 text-center font-bold text-cyan-300"></div>
+                <div><label class="text-[10px] text-gray-400 block mb-1">Sleeve (হাতা)</label><input type="text" id="cp-edit-m-sleeve" class="w-full p-1.5 rounded-lg border border-slate-700 bg-slate-800 text-center font-bold text-cyan-300"></div>
+                <div><label class="text-[10px] text-gray-400 block mb-1">Neck (কলার)</label><input type="text" id="cp-edit-m-neck" class="w-full p-1.5 rounded-lg border border-slate-700 bg-slate-800 text-center font-bold text-cyan-300"></div>
+                <div><label class="text-[10px] text-gray-400 block mb-1">Shoulder (তীর)</label><input type="text" id="cp-edit-m-shoulder" class="w-full p-1.5 rounded-lg border border-slate-700 bg-slate-800 text-center font-bold text-cyan-300"></div>
+              </div>
+              <div class="flex justify-end gap-2">
+                <button type="button" onclick="toggleEditMeasurements(false)" class="px-3 py-1 rounded-lg border border-slate-600 text-[11px]">Cancel</button>
+                <button type="button" onclick="saveCustomerMeasurements()" class="px-4 py-1 rounded-lg bg-emerald-600 text-white font-bold text-[11px]">Save Measurements ✓</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Orders History Table -->
+          <div class="space-y-2">
+            <h4 class="text-xs font-black text-ios-text flex items-center gap-1.5 uppercase tracking-wider">
+              <span>📋</span> <span>Order History (অর্ডার তালিকা)</span>
+            </h4>
+            <div class="overflow-x-auto max-h-48 overflow-y-auto rounded-xl border border-ios-border">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-gray-100 dark:bg-slate-800/60 border-b border-ios-border text-gray-400">
+                  <tr>
+                    <th class="p-2.5">Order ID</th>
+                    <th class="p-2.5">Garment</th>
+                    <th class="p-2.5">Stage</th>
+                    <th class="p-2.5">Delivery</th>
+                    <th class="p-2.5">Bill</th>
+                    <th class="p-2.5">Due</th>
+                    <th class="p-2.5">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="cp-orders-tbody">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="flex justify-end pt-3 border-t border-ios-border">
+            <button type="button" onclick="closeCustomerProfileModal()" class="px-5 py-2 rounded-xl border border-ios-border text-xs font-bold text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-800">
+              Close
+            </button>
+          </div>
         </div>
       </div>
 
@@ -4573,9 +4804,39 @@
       try {
         const saved = JSON.parse(localStorage.getItem(ssStoreKey) || '{}');
         return {
-          customers: Array.isArray(saved.customers) ? saved.customers : [
-            {id:'C-1001',name:'Shahadat Hossain',phone:'01591463333',address:'Dhaka',notes:'Regular customer'},
-            {id:'C-1002',name:'Arif Hossain',phone:'01324941964',address:'Dhaka',notes:'Prefers cotton fabric'}
+          customers: Array.isArray(saved.customers) && saved.customers.length ? saved.customers : [
+            {
+              id: 'C-1001',
+              name: 'Shahadat Hossain',
+              phone: '01591463333',
+              address: 'Dhanmondi, Dhaka',
+              notes: 'Regular VIP client · Prefers loose collar',
+              measurements: { length: '40', chest: '38', waist: '34', sleeve: '24', neck: '15.5', shoulder: '18' }
+            },
+            {
+              id: 'C-1002',
+              name: 'Arif Hossain',
+              phone: '01324941964',
+              address: 'Mirpur-10, Dhaka',
+              notes: 'Prefers pure cotton fabric',
+              measurements: { length: '39', chest: '36', waist: '32', sleeve: '23.5', neck: '15', shoulder: '17.5' }
+            },
+            {
+              id: 'C-1003',
+              name: 'Kamrul Hasan',
+              phone: '01548694019',
+              address: 'Sector 4, Uttara, Dhaka',
+              notes: 'Formal fittings · Urgent delivery preference',
+              measurements: { length: '41', chest: '40', waist: '35', sleeve: '24.5', neck: '16', shoulder: '18.5' }
+            },
+            {
+              id: 'C-1004',
+              name: 'Rakibul Islam',
+              phone: '01864357068',
+              address: 'Banani, Dhaka',
+              notes: 'Royal Blazer client',
+              measurements: { length: '30', chest: '42', waist: '36', sleeve: '25', neck: '16.5', shoulder: '19' }
+            }
           ],
           staff: Array.isArray(saved.staff) ? saved.staff : [
             {id:'S-101',name:'Rahim Uddin',phone:'01700000001',role:'Master Tailor',rate:'350',status:'Active'},
@@ -4592,20 +4853,534 @@
     function persistSsRecords(){ try { localStorage.setItem(ssStoreKey, JSON.stringify(ssRecords)); } catch(e) { alert('Could not save records in this browser. Check storage permissions.'); } }
     function moneyBDT(n){ return '৳'+(Number(n)||0).toLocaleString('en-BD'); }
     function safeText(v){ return String(v ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
-    function renderCustomers(){
-      const q=(document.getElementById('customer-search')?.value||'').toLowerCase();
-      const list=ssRecords.customers.filter(x=>(x.name+' '+x.phone).toLowerCase().includes(q));
-      const body=document.getElementById('customers-table'); if(!body)return;
-      const dueOrders=ordersData.reduce((s,o)=>s+(Number(o.due)||0),0);
-      document.getElementById('customer-total').textContent=ssRecords.customers.length;
-      document.getElementById('customer-due-count').textContent=ordersData.filter(o=>Number(o.due)>0).length;
-      document.getElementById('customer-due-total').textContent=moneyBDT(dueOrders);
-      body.innerHTML=list.map(x=>{
-        const related=ordersData.filter(o=>o.phone===x.phone);
-        const due=related.reduce((s,o)=>s+(Number(o.due)||0),0);
-        return '<tr class="border-b border-slate-700/60"><td class="p-3 font-semibold">'+safeText(x.name)+'</td><td class="p-3">'+safeText(x.phone)+'</td><td class="p-3">'+related.length+'</td><td class="p-3">'+moneyBDT(due)+'</td><td class="p-3"><button onclick="editDataRecord(\'customer\',\''+x.id+'\')" class="text-cyan-300 mr-3">Edit</button><button onclick="deleteDataRecord(\'customer\',\''+x.id+'\')" class="text-rose-300">Delete</button></td></tr>';
-      }).join('');
-      document.getElementById('customers-empty').classList.toggle('hidden',list.length!==0);
+
+    /* ======================================================== */
+    /* ENHANCED CUSTOMER CRM & 360° PROFILE ENGINE              */
+    /* ======================================================== */
+    let customerFilterStatus = 'ALL';
+    let customerViewMode = 'list';
+    try {
+      customerViewMode = localStorage.getItem('selaisathi_customer_view_mode') || 'list';
+    } catch(e) {}
+    let activeProfileCustomerId = null;
+
+    function setCustomerViewMode(mode) {
+      customerViewMode = mode;
+      try { localStorage.setItem('selaisathi_customer_view_mode', mode); } catch(e){}
+      updateCustomerViewToggleUI();
+      renderCustomers();
+    }
+
+    function updateCustomerViewToggleUI() {
+      const btnList = document.getElementById('btn-cust-view-list');
+      const btnGrid = document.getElementById('btn-cust-view-grid');
+      const checkList = document.getElementById('check-cust-view-list');
+      const checkGrid = document.getElementById('check-cust-view-grid');
+      if (!btnList || !btnGrid) return;
+
+      if (customerViewMode === 'grid') {
+        btnList.classList.remove('is-active');
+        btnGrid.classList.add('is-active');
+        checkList?.classList.add('hidden');
+        checkGrid?.classList.remove('hidden');
+      } else {
+        btnGrid.classList.remove('is-active');
+        btnList.classList.add('is-active');
+        checkGrid?.classList.add('hidden');
+        checkList?.classList.remove('hidden');
+      }
+    }
+
+    function renderCustomers() {
+      updateCustomerViewToggleUI();
+      const q = (document.getElementById('customer-search')?.value || '').toLowerCase().trim();
+      customerFilterStatus = document.getElementById('customer-filter-status')?.value || 'ALL';
+
+      // Correlate each customer with their orders
+      const enriched = ssRecords.customers.map(c => {
+        const cleanPhone = (c.phone || '').replace(/\D/g, '');
+        const related = ordersData.filter(o => {
+          const oClean = (o.phone || '').replace(/\D/g, '');
+          return (cleanPhone && oClean && cleanPhone === oClean) || (o.name && c.name && o.name.toLowerCase() === c.name.toLowerCase());
+        });
+        const totalBilled = related.reduce((s, o) => s + (Number(o.total) || 0), 0);
+        const totalDue = related.reduce((s, o) => s + (Number(o.due) || 0), 0);
+        const isVip = related.length >= 2 || (c.notes && c.notes.toLowerCase().includes('vip'));
+        return {
+          ...c,
+          orders: related,
+          orderCount: related.length,
+          totalBilled,
+          totalDue,
+          isVip
+        };
+      });
+
+      // Calculate overall KPIs
+      const totalCust = enriched.length;
+      const vipCust = enriched.filter(c => c.isVip).length;
+      const dueCust = enriched.filter(c => c.totalDue > 0).length;
+      const totalOutstanding = enriched.reduce((s, c) => s + c.totalDue, 0);
+
+      const elTotal = document.getElementById('customer-total');
+      const elVip = document.getElementById('customer-vip-count');
+      const elDueCount = document.getElementById('customer-due-count');
+      const elDueTotal = document.getElementById('customer-due-total');
+
+      if (elTotal) elTotal.textContent = totalCust;
+      if (elVip) elVip.textContent = vipCust;
+      if (elDueCount) elDueCount.textContent = dueCust;
+      if (elDueTotal) elDueTotal.textContent = moneyBDT(totalOutstanding);
+
+      // Filter list
+      let filtered = enriched.filter(c => {
+        if (q) {
+          const matchName = (c.name || '').toLowerCase().includes(q);
+          const matchPhone = (c.phone || '').toLowerCase().includes(q);
+          const matchAddr = (c.address || '').toLowerCase().includes(q);
+          const matchId = (c.id || '').toLowerCase().includes(q);
+          if (!matchName && !matchPhone && !matchAddr && !matchId) return false;
+        }
+        if (customerFilterStatus === 'DUE' && c.totalDue <= 0) return false;
+        if (customerFilterStatus === 'PAID' && c.totalDue > 0) return false;
+        if (customerFilterStatus === 'VIP' && !c.isVip) return false;
+        return true;
+      });
+
+      const container = document.getElementById('customers-display-container');
+      const emptyState = document.getElementById('customers-empty');
+      if (!container) return;
+
+      if (filtered.length === 0) {
+        container.innerHTML = '';
+        if (emptyState) emptyState.classList.remove('hidden');
+        return;
+      }
+      if (emptyState) emptyState.classList.add('hidden');
+
+      if (customerViewMode === 'grid') {
+        container.innerHTML = `
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4.5">
+            ${filtered.map(c => {
+              const initials = (c.name || 'C').split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase();
+              const cleanPhone = (c.phone || '').replace(/\D/g, '');
+              const waUrl = `https://wa.me/88${cleanPhone}?text=${encodeURIComponent('আসসালামু আলাইকুম ' + c.name + ', সেলাই সাথী টেইলার্স থেকে যোগাযোগ করা হচ্ছে।')}`;
+              return `
+                <div class="p-5 bg-gray-50/70 dark:bg-slate-900/50 rounded-2xl border border-ios-border flex flex-col justify-between gap-4 hover:shadow-ios-card hover:border-cyan-500/40 transition-all relative group">
+                  <!-- Header -->
+                  <div class="flex items-start justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                      <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 text-white font-black text-sm flex items-center justify-center shadow-sm shrink-0">
+                        ${initials}
+                      </div>
+                      <div>
+                        <div class="flex items-center gap-2 flex-wrap">
+                          <button onclick="openCustomerProfile('${c.id}')" class="font-bold text-ios-text text-sm hover:text-cyan-400 text-left transition-colors cursor-pointer">
+                            ${safeText(c.name)}
+                          </button>
+                          ${c.isVip ? '<span class="px-1.5 py-0.5 text-[9px] font-bold rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30">⭐ VIP</span>' : ''}
+                        </div>
+                        <div class="text-[11px] font-mono text-gray-400 mt-0.5 flex items-center gap-2">
+                          <span class="text-cyan-400 font-bold">${safeText(c.id)}</span>
+                          <span>•</span>
+                          <span>${safeText(c.address || 'Dhaka')}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    ${c.totalDue > 0 ? `
+                      <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30 shrink-0">
+                        Due: ${moneyBDT(c.totalDue)}
+                      </span>
+                    ` : `
+                      <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 shrink-0">
+                        ✓ Paid
+                      </span>
+                    `}
+                  </div>
+
+                  <!-- Contact Pill -->
+                  <div class="bg-white/60 dark:bg-slate-800/40 p-2.5 rounded-xl border border-ios-border/60 flex items-center justify-between text-xs font-mono">
+                    <span class="text-ios-text font-bold">📞 ${safeText(c.phone)}</span>
+                    <div class="flex items-center gap-1.5">
+                      <a href="tel:${safeText(c.phone)}" title="Direct Phone Call" class="px-2 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-cyan-300 border border-cyan-500/30 text-[11px] flex items-center gap-1">
+                        <span>📞</span> Call
+                      </a>
+                      <a href="${waUrl}" target="_blank" title="Chat on WhatsApp" class="px-2 py-1 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 text-[11px] flex items-center gap-1">
+                        <span>🟢</span> WhatsApp
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- Style Notes Pill if present -->
+                  ${c.notes ? `
+                    <div class="text-[11px] text-gray-400 bg-cyan-500/5 px-2.5 py-1.5 rounded-lg border border-cyan-500/10 truncate">
+                      💡 ${safeText(c.notes)}
+                    </div>
+                  ` : ''}
+
+                  <!-- 3-Column Financials Strip -->
+                  <div class="grid grid-cols-3 gap-2 text-center text-xs font-mono p-2.5 rounded-xl bg-gray-100/60 dark:bg-slate-800/25 border border-ios-border/40">
+                    <div>
+                      <div class="text-[10px] text-gray-400 uppercase tracking-wider">Orders</div>
+                      <div class="font-extrabold text-ios-text mt-0.5">${c.orderCount}</div>
+                    </div>
+                    <div>
+                      <div class="text-[10px] text-gray-400 uppercase tracking-wider">Billed</div>
+                      <div class="font-bold text-cyan-400 mt-0.5">${moneyBDT(c.totalBilled)}</div>
+                    </div>
+                    <div>
+                      <div class="text-[10px] text-gray-400 uppercase tracking-wider">Due</div>
+                      <div class="font-black ${c.totalDue > 0 ? 'text-rose-500' : 'text-emerald-500'} mt-0.5">${moneyBDT(c.totalDue)}</div>
+                    </div>
+                  </div>
+
+                  <!-- Action Buttons Footer -->
+                  <div class="flex items-center justify-between gap-1.5 pt-2 border-t border-ios-border">
+                    <button onclick="openCustomerProfile('${c.id}')" title="View 360° Profile & Measurements" class="flex-1 py-1.5 bg-white dark:bg-slate-800 border border-ios-border rounded-xl text-xs font-bold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 active:scale-95 shadow-xs flex items-center justify-center gap-1 transition-all">
+                      <span>👤</span> Profile
+                    </button>
+                    <button onclick="quickCreateOrderForCustomer('${safeText(c.phone)}', '${safeText(c.name)}')" title="Create New Order for this Customer" class="flex-1 py-1.5 bg-emerald-600/15 hover:bg-emerald-600/25 text-emerald-400 border border-emerald-500/30 rounded-xl text-xs font-bold active:scale-95 shadow-xs flex items-center justify-center gap-1 transition-all">
+                      <span>➕</span> Order
+                    </button>
+                    <button onclick="sendCustomerDueSms('${safeText(c.name)}', '${safeText(c.phone)}', ${c.totalDue})" title="Send Due Reminder or Greeting SMS" class="px-2.5 py-1.5 bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 border border-purple-500/30 rounded-xl text-xs font-bold active:scale-95 shadow-xs flex items-center justify-center transition-all">
+                      <span>📩</span>
+                    </button>
+                    <button onclick="editDataRecord('customer', '${c.id}')" title="Edit Customer Details" class="px-2 py-1.5 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 rounded-xl text-xs font-bold active:scale-95 shadow-xs flex items-center justify-center transition-all">
+                      <span>✏️</span>
+                    </button>
+                    <button onclick="deleteDataRecord('customer', '${c.id}')" title="Delete Customer" class="px-2 py-1.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded-xl text-xs font-bold active:scale-95 shadow-xs flex items-center justify-center transition-all">
+                      <span>🗑️</span>
+                    </button>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+      } else {
+        // List View (Table layout)
+        container.innerHTML = `
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead>
+                <tr class="border-b border-ios-border text-gray-400">
+                  <th class="p-3">Customer</th>
+                  <th class="p-3">Contact</th>
+                  <th class="p-3">Address & Style Notes</th>
+                  <th class="p-3 text-center">Orders</th>
+                  <th class="p-3">Total / Due</th>
+                  <th class="p-3 text-right">Quick Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-ios-border/60">
+                ${filtered.map(c => {
+                  const initials = (c.name || 'C').split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase();
+                  const cleanPhone = (c.phone || '').replace(/\D/g, '');
+                  const waUrl = `https://wa.me/88${cleanPhone}?text=${encodeURIComponent('আসসালামু আলাইকুম ' + c.name + ', সেলাই সাথী টেইলার্স থেকে যোগাযোগ করা হচ্ছে।')}`;
+                  return `
+                    <tr class="hover:bg-cyan-500/5 transition-colors">
+                      <td class="p-3">
+                        <div class="flex items-center gap-2.5">
+                          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 text-white font-black text-xs flex items-center justify-center shrink-0">
+                            ${initials}
+                          </div>
+                          <div>
+                            <div class="flex items-center gap-1.5">
+                              <button onclick="openCustomerProfile('${c.id}')" class="font-bold text-ios-text hover:text-cyan-400 text-left transition-colors cursor-pointer">
+                                ${safeText(c.name)}
+                              </button>
+                              ${c.isVip ? '<span class="px-1.5 py-0.2 text-[8px] font-bold rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30">VIP</span>' : ''}
+                            </div>
+                            <span class="text-[10px] font-mono text-cyan-400 font-bold">${safeText(c.id)}</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="p-3 font-mono">
+                        <div>${safeText(c.phone)}</div>
+                        <div class="flex items-center gap-2 mt-1">
+                          <a href="tel:${safeText(c.phone)}" class="text-[10px] text-cyan-400 hover:underline">📞 Call</a>
+                          <span class="text-gray-500 text-[10px]">•</span>
+                          <a href="${waUrl}" target="_blank" class="text-[10px] text-emerald-400 hover:underline">🟢 WhatsApp</a>
+                        </div>
+                      </td>
+                      <td class="p-3 max-w-xs">
+                        <div class="text-ios-text font-medium truncate">${safeText(c.address || '—')}</div>
+                        <div class="text-[10px] text-gray-400 truncate">${safeText(c.notes || '—')}</div>
+                      </td>
+                      <td class="p-3 text-center font-mono">
+                        <span class="px-2 py-0.5 rounded-lg bg-cyan-500/10 text-cyan-400 font-bold border border-cyan-500/20">${c.orderCount}</span>
+                      </td>
+                      <td class="p-3 font-mono">
+                        <div class="text-ios-text font-bold">${moneyBDT(c.totalBilled)}</div>
+                        <div class="text-[10px] ${c.totalDue > 0 ? 'text-rose-500 font-black' : 'text-emerald-500 font-bold'}">
+                          ${c.totalDue > 0 ? `Due: ${moneyBDT(c.totalDue)}` : '✓ Paid'}
+                        </div>
+                      </td>
+                      <td class="p-3 text-right whitespace-nowrap">
+                        <div class="flex items-center justify-end gap-1.5">
+                          <button onclick="openCustomerProfile('${c.id}')" title="360° Profile" class="px-2 py-1 bg-white dark:bg-slate-800 border border-ios-border rounded-lg text-xs font-bold hover:bg-gray-100 dark:hover:bg-slate-700 transition-all">
+                            👤
+                          </button>
+                          <button onclick="quickCreateOrderForCustomer('${safeText(c.phone)}', '${safeText(c.name)}')" title="New Order for Client" class="px-2 py-1 bg-emerald-600/15 hover:bg-emerald-600/25 text-emerald-400 border border-emerald-500/30 rounded-lg text-xs font-bold transition-all">
+                            ➕
+                          </button>
+                          <button onclick="sendCustomerDueSms('${safeText(c.name)}', '${safeText(c.phone)}', ${c.totalDue})" title="Send Due / Notification SMS" class="px-2 py-1 bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 border border-purple-500/30 rounded-lg text-xs font-bold transition-all">
+                            💬
+                          </button>
+                          <button onclick="editDataRecord('customer', '${c.id}')" title="Edit Customer" class="px-2 py-1 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 rounded-lg text-xs font-bold transition-all">
+                            ✏️
+                          </button>
+                          <button onclick="deleteDataRecord('customer', '${c.id}')" title="Delete Customer" class="px-2 py-1 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded-lg text-xs font-bold transition-all">
+                            🗑️
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  `;
+                }).join('')}
+              </tbody>
+            </table>
+          </div>
+        `;
+      }
+    }
+
+    function openCustomerProfile(customerId) {
+      const cust = ssRecords.customers.find(c => c.id === customerId);
+      if (!cust) return;
+      activeProfileCustomerId = customerId;
+
+      const cleanPhone = (cust.phone || '').replace(/\D/g, '');
+      const related = ordersData.filter(o => {
+        const oClean = (o.phone || '').replace(/\D/g, '');
+        return (cleanPhone && oClean && cleanPhone === oClean) || (o.name && cust.name && o.name.toLowerCase() === cust.name.toLowerCase());
+      });
+      const totalBilled = related.reduce((s, o) => s + (Number(o.total) || 0), 0);
+      const totalDue = related.reduce((s, o) => s + (Number(o.due) || 0), 0);
+      const isVip = related.length >= 2 || (cust.notes && cust.notes.toLowerCase().includes('vip'));
+
+      const initials = (cust.name || 'C').split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase();
+      document.getElementById('cp-avatar').textContent = initials;
+      document.getElementById('cp-name').textContent = cust.name;
+      document.getElementById('cp-vip-badge').classList.toggle('hidden', !isVip);
+      document.getElementById('cp-id').textContent = cust.id;
+      document.getElementById('cp-phone').textContent = `📞 ${cust.phone}`;
+      document.getElementById('cp-address').textContent = `📍 ${cust.address || 'Dhaka'}`;
+      document.getElementById('cp-notes').textContent = cust.notes || 'No special preferences noted.';
+
+      document.getElementById('cp-call-btn').setAttribute('href', `tel:${cust.phone}`);
+      const waUrl = `https://wa.me/88${cleanPhone}?text=${encodeURIComponent('আসসালামু আলাইকুম ' + cust.name + ', সেলাই সাথী টেইলার্স থেকে যোগাযোগ করা হচ্ছে।')}`;
+      document.getElementById('cp-wa-btn').setAttribute('href', waUrl);
+
+      document.getElementById('cp-total-orders').textContent = related.length;
+      document.getElementById('cp-total-billed').textContent = moneyBDT(totalBilled);
+      document.getElementById('cp-total-due').textContent = moneyBDT(totalDue);
+
+      // Measurements render
+      renderProfileMeasurements(cust);
+
+      // Order history render
+      const tbody = document.getElementById('cp-orders-tbody');
+      if (tbody) {
+        if (related.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-gray-400">এই গ্রাহকের কোনো পূর্ববর্তী অর্ডার নেই।</td></tr>`;
+        } else {
+          tbody.innerHTML = related.map(o => `
+            <tr class="border-b border-ios-border/60 hover:bg-white/5 font-mono">
+              <td class="p-2.5 font-bold text-ios-text">${o.id}</td>
+              <td class="p-2.5 text-cyan-400">${o.garment}</td>
+              <td class="p-2.5"><span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-cyan-500/20 text-cyan-400">${o.stage}</span></td>
+              <td class="p-2.5 text-gray-400">${o.date || '—'}</td>
+              <td class="p-2.5 font-bold text-ios-text">৳${o.total}</td>
+              <td class="p-2.5 font-black ${o.due > 0 ? 'text-rose-500' : 'text-emerald-500'}">৳${o.due}</td>
+              <td class="p-2.5">
+                <button onclick="showPosReceipt('${o.id}', '${o.name}', '${o.phone}')" class="px-2 py-1 bg-white/10 hover:bg-white/20 rounded-md text-[10px] font-bold text-cyan-300">
+                  🖨️ Receipt
+                </button>
+              </td>
+            </tr>
+          `).join('');
+        }
+      }
+
+      const modal = document.getElementById('modal-customer-profile');
+      modal?.classList.remove('hidden');
+    }
+
+    function closeCustomerProfileModal() {
+      document.getElementById('modal-customer-profile')?.classList.add('hidden');
+      toggleEditMeasurements(false);
+      activeProfileCustomerId = null;
+    }
+
+    function renderProfileMeasurements(cust) {
+      const m = cust.measurements || { length: '40', chest: '38', waist: '34', sleeve: '24', neck: '15.5', shoulder: '18' };
+      const grid = document.getElementById('cp-meas-view');
+      if (!grid) return;
+      grid.innerHTML = `
+        <div class="p-2 rounded-xl bg-cyan-500/10 border border-cyan-500/20">
+          <div class="text-[9px] text-gray-400 uppercase">Length (লম্বা)</div>
+          <div class="text-sm font-black text-cyan-400 mt-0.5">${m.length || '—'}"</div>
+        </div>
+        <div class="p-2 rounded-xl bg-cyan-500/10 border border-cyan-500/20">
+          <div class="text-[9px] text-gray-400 uppercase">Chest (বুক)</div>
+          <div class="text-sm font-black text-cyan-400 mt-0.5">${m.chest || '—'}"</div>
+        </div>
+        <div class="p-2 rounded-xl bg-cyan-500/10 border border-cyan-500/20">
+          <div class="text-[9px] text-gray-400 uppercase">Waist (কোমর)</div>
+          <div class="text-sm font-black text-cyan-400 mt-0.5">${m.waist || '—'}"</div>
+        </div>
+        <div class="p-2 rounded-xl bg-cyan-500/10 border border-cyan-500/20">
+          <div class="text-[9px] text-gray-400 uppercase">Sleeve (হাতা)</div>
+          <div class="text-sm font-black text-cyan-400 mt-0.5">${m.sleeve || '—'}"</div>
+        </div>
+        <div class="p-2 rounded-xl bg-cyan-500/10 border border-cyan-500/20">
+          <div class="text-[9px] text-gray-400 uppercase">Neck (কলার)</div>
+          <div class="text-sm font-black text-cyan-400 mt-0.5">${m.neck || '—'}"</div>
+        </div>
+        <div class="p-2 rounded-xl bg-cyan-500/10 border border-cyan-500/20">
+          <div class="text-[9px] text-gray-400 uppercase">Shoulder (তীর)</div>
+          <div class="text-sm font-black text-cyan-400 mt-0.5">${m.shoulder || '—'}"</div>
+        </div>
+      `;
+
+      // Also populate input values for edit mode
+      const elLen = document.getElementById('cp-edit-m-length');
+      const elCh = document.getElementById('cp-edit-m-chest');
+      const elW = document.getElementById('cp-edit-m-waist');
+      const elSl = document.getElementById('cp-edit-m-sleeve');
+      const elNk = document.getElementById('cp-edit-m-neck');
+      const elSh = document.getElementById('cp-edit-m-shoulder');
+
+      if (elLen) elLen.value = m.length || '40';
+      if (elCh) elCh.value = m.chest || '38';
+      if (elW) elW.value = m.waist || '34';
+      if (elSl) elSl.value = m.sleeve || '24';
+      if (elNk) elNk.value = m.neck || '15.5';
+      if (elSh) elSh.value = m.shoulder || '18';
+    }
+
+    function toggleEditMeasurements(show) {
+      const viewEl = document.getElementById('cp-meas-view');
+      const editEl = document.getElementById('cp-meas-edit');
+      const btn = document.getElementById('cp-edit-meas-btn');
+      if (!viewEl || !editEl) return;
+      const isEditing = show !== undefined ? show : editEl.classList.contains('hidden');
+      if (isEditing) {
+        viewEl.classList.add('hidden');
+        editEl.classList.remove('hidden');
+        if (btn) btn.textContent = '✕ Close Edit';
+      } else {
+        viewEl.classList.remove('hidden');
+        editEl.classList.add('hidden');
+        if (btn) btn.textContent = '✏️ Edit Measurements';
+      }
+    }
+
+    function saveCustomerMeasurements() {
+      if (!activeProfileCustomerId) return;
+      const cust = ssRecords.customers.find(c => c.id === activeProfileCustomerId);
+      if (!cust) return;
+      cust.measurements = {
+        length: document.getElementById('cp-edit-m-length')?.value.trim() || '40',
+        chest: document.getElementById('cp-edit-m-chest')?.value.trim() || '38',
+        waist: document.getElementById('cp-edit-m-waist')?.value.trim() || '34',
+        sleeve: document.getElementById('cp-edit-m-sleeve')?.value.trim() || '24',
+        neck: document.getElementById('cp-edit-m-neck')?.value.trim() || '15.5',
+        shoulder: document.getElementById('cp-edit-m-shoulder')?.value.trim() || '18',
+      };
+      persistSsRecords();
+      renderProfileMeasurements(cust);
+      toggleEditMeasurements(false);
+      confetti({ particleCount: 30, spread: 45 });
+      if (window.CyberDialog) {
+        CyberDialog.alert(`${cust.name}-এর সংরক্ষিত পরিমাপ সফলভাবে আপডেট করা হয়েছে!`, { icon: '📏', title: 'MEASUREMENT SAVED' });
+      }
+    }
+
+    function quickCreateOrderForCustomer(phone, name) {
+      closeCustomerProfileModal();
+      navigateTo('orders');
+      openNewOrderModal();
+      const nameInput = document.getElementById('no-cust-name');
+      const phoneInput = document.getElementById('no-cust-phone');
+      if (nameInput) nameInput.value = name || '';
+      if (phoneInput) phoneInput.value = phone || '';
+    }
+
+    function quickCreateOrderFromProfile() {
+      if (!activeProfileCustomerId) return;
+      const cust = ssRecords.customers.find(c => c.id === activeProfileCustomerId);
+      if (cust) quickCreateOrderForCustomer(cust.phone, cust.name);
+    }
+
+    function sendCustomerDueSmsFromModal() {
+      if (!activeProfileCustomerId) return;
+      const cust = ssRecords.customers.find(c => c.id === activeProfileCustomerId);
+      if (!cust) return;
+      const cleanPhone = (cust.phone || '').replace(/\D/g, '');
+      const related = ordersData.filter(o => {
+        const oClean = (o.phone || '').replace(/\D/g, '');
+        return (cleanPhone && oClean && cleanPhone === oClean) || (o.name && cust.name && o.name.toLowerCase() === cust.name.toLowerCase());
+      });
+      const totalDue = related.reduce((s, o) => s + (Number(o.due) || 0), 0);
+      sendCustomerDueSms(cust.name, cust.phone, totalDue);
+    }
+
+    function sendCustomerDueSms(name, phone, due) {
+      if (due > 0) {
+        confetti({ particleCount: 40, spread: 55 });
+        const msg = `📲 ${name} (${phone})-এর ফোনে ৳${due.toLocaleString()} বকেয়া পরিশোধের নোটিফিকেশন SMS সফলভাবে প্রেরণ করা হয়েছে!`;
+        if (window.CyberDialog) {
+          CyberDialog.alert(msg, { icon: '📩', title: 'DUE SMS DISPATCHED' });
+        } else {
+          alert(msg);
+        }
+      } else {
+        const msg = `📲 ${name} (${phone})-এর ফোনে কাস্টমার ধন্যবাদ ও শুভেচ্ছা SMS সফলভাবে প্রেরণ করা হয়েছে!`;
+        if (window.CyberDialog) {
+          CyberDialog.alert(msg, { icon: '✨', title: 'GREETING SENT' });
+        } else {
+          alert(msg);
+        }
+      }
+    }
+
+    function exportCustomersCSV() {
+      if (!ssRecords.customers.length) {
+        if (window.CyberDialog) CyberDialog.alert('No customers to export');
+        else alert('No customers to export');
+        return;
+      }
+      const headers = ['Customer ID', 'Name', 'Phone', 'Address', 'Notes', 'Total Orders', 'Total Billed (BDT)', 'Outstanding Due (BDT)'];
+      const rows = ssRecords.customers.map(c => {
+        const cleanPhone = (c.phone || '').replace(/\D/g, '');
+        const related = ordersData.filter(o => {
+          const oClean = (o.phone || '').replace(/\D/g, '');
+          return (cleanPhone && oClean && cleanPhone === oClean) || (o.name && c.name && o.name.toLowerCase() === c.name.toLowerCase());
+        });
+        const totalBilled = related.reduce((s, o) => s + (Number(o.total) || 0), 0);
+        const totalDue = related.reduce((s, o) => s + (Number(o.due) || 0), 0);
+        return [
+          `"${c.id}"`,
+          `"${c.name}"`,
+          `"${c.phone}"`,
+          `"${c.address || ''}"`,
+          `"${c.notes || ''}"`,
+          related.length,
+          totalBilled,
+          totalDue
+        ];
+      });
+      const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', `selaisathi_customers_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
     function renderStaff(){
       const el=document.getElementById('staff-list'); if(!el)return;
@@ -5519,7 +6294,7 @@
         });
 
         // Sync initial labels for all registered cyber selects
-        ['order-filter-stage', 'order-filter-due', 'order-filter-garment', 'eo-stage', 'eo-garment', 'no-garment'].forEach(id => {
+        ['order-filter-stage', 'order-filter-due', 'order-filter-garment', 'eo-stage', 'eo-garment', 'no-garment', 'customer-filter-status'].forEach(id => {
           this.syncTrigger(id);
         });
       },
@@ -5694,12 +6469,14 @@
       CyberCalendar.init();
       CyberSelect.init();
       updateOrderViewToggleUI();
+      updateCustomerViewToggleUI();
     });
     applyThemeSliderState();
     CyberDialog.init();
     CyberCalendar.init();
     CyberSelect.init();
     updateOrderViewToggleUI();
+    updateCustomerViewToggleUI();
   </script>
 
 </body>
