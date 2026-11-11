@@ -5651,38 +5651,92 @@ body.theme-white #modal-customer-profile thead { background:#EDF4EF !important; 
       fabric:[['name','Material name','text'],['sku','SKU / Code','text'],['stock','Current stock','number'],['unit','Unit (yard/pcs)','text'],['cost','Unit cost (৳)','number'],['minimum','Low-stock threshold','number']]
     };
     function openDataModal(kind,record){
-      const fields=ssFieldSets[kind]; if(!fields)return;
-      document.getElementById('data-kind').value=kind;
-      document.getElementById('data-edit-id').value=record?.id||'';
-      document.getElementById('data-modal-title').textContent=(record?'Edit ':'Add ')+(kind==='customer'?'customer':kind==='staff'?'staff member':'material');
-      document.getElementById('data-modal-fields').innerHTML=fields.map(([key,label,type])=>'<label class="text-xs text-gray-300">'+label+'<input id="data-field-'+key+'" type="'+type+'" value="'+safeText(record?.[key]??'')+'" class="block w-full mt-1 px-3 py-2 rounded-xl text-sm" /></label>').join('');
-      const modal=document.getElementById('modal-data-entry'); modal.classList.remove('hidden'); modal.classList.add('flex');
+      const fields=ssFieldSets[kind];
+      const modal=document.getElementById('modal-data-entry');
+      const title=document.getElementById('data-modal-title');
+      const fieldsHost=document.getElementById('data-modal-fields');
+      const kindInput=document.getElementById('data-kind');
+      const editInput=document.getElementById('data-edit-id');
+      if(!fields||!modal||!title||!fieldsHost||!kindInput||!editInput){
+        console.error('SelaiSathi: customer data modal is missing required elements.');
+        alert('Edit window could not be opened. Please refresh the page and try again.');
+        return;
+      }
+      kindInput.value=kind;
+      editInput.value=record?.id||'';
+      title.textContent=(record?'Edit ':'Add ')+(kind==='customer'?'customer':kind==='staff'?'staff member':'material');
+      fieldsHost.innerHTML=fields.map(([key,label,type])=>'<label class="text-xs text-gray-300">'+label+'<input id="data-field-'+key+'" type="'+type+'" value="'+safeText(record?.[key]??'')+'" class="block w-full mt-1 px-3 py-2 rounded-xl text-sm" /></label>').join('');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      modal.style.display='flex';
+      modal.setAttribute('aria-hidden','false');
+      requestAnimationFrame(()=>fieldsHost.querySelector('input')?.focus());
     }
-    function closeDataModal(){const m=document.getElementById('modal-data-entry');m.classList.add('hidden');m.classList.remove('flex');}
+    function closeDataModal(){
+      const modal=document.getElementById('modal-data-entry');
+      if(!modal)return;
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      modal.style.display='none';
+      modal.setAttribute('aria-hidden','true');
+    }
     function saveDataRecord(){
-      const kind=document.getElementById('data-kind').value, editId=document.getElementById('data-edit-id').value;
-      const record={}; ssFieldSets[kind].forEach(([key])=>record[key]=document.getElementById('data-field-'+key).value.trim());
+      const kind=document.getElementById('data-kind')?.value;
+      const editId=document.getElementById('data-edit-id')?.value||'';
+      if(!ssFieldSets[kind])return;
+      const record={};
+      for(const [key] of ssFieldSets[kind]){
+        const field=document.getElementById('data-field-'+key);
+        if(!field){alert('A required form field is missing. Please reopen the edit window.');return;}
+        record[key]=field.value.trim();
+      }
       const required=kind==='customer'?['name','phone']:kind==='staff'?['name','phone','role']:['name','sku','stock'];
       if(required.some(k=>!record[k])){alert('Please complete the required fields.');return;}
-      if(kind==='customer'&&!/^\+?[0-9\s-]{7,16}$/.test(record.phone)){alert('Enter a valid phone number.');return;}
-      if(kind==='fabric'&&Number(record.stock)<0){alert('Stock cannot be negative.');return;}
-      if(editId){const i=ssRecords[kind].findIndex(x=>x.id===editId);if(i>=0)ssRecords[kind][i]={...ssRecords[kind][i],...record};}
-      else {record.id=kind[0].toUpperCase()+'-'+Date.now().toString(36).toUpperCase();ssRecords[kind].unshift(record);}
-      persistSsRecords();closeDataModal();renderCustomers();renderStaff();renderFabrics();
+      if(kind==='customer'&&!/^\\+?[0-9\\s-]{7,16}$/.test(record.phone)){alert('Enter a valid phone number.');return;}
+      if(kind==='fabric'&&(!Number.isFinite(Number(record.stock))||Number(record.stock)<0)){alert('Enter a valid, non-negative stock value.');return;}
+      if(editId){
+        const i=ssRecords[kind].findIndex(x=>String(x.id)===String(editId));
+        if(i<0){alert('This record could not be found. Refresh the page and try again.');return;}
+        ssRecords[kind][i]={...ssRecords[kind][i],...record};
+      }else{
+        record.id=kind[0].toUpperCase()+'-'+Date.now().toString(36).toUpperCase();
+        ssRecords[kind].unshift(record);
+      }
+      persistSsRecords();
+      closeDataModal();
+      renderCustomers();
+      renderStaff();
+      renderFabrics();
+      if(kind==='customer'&&activeProfileCustomerId===editId){
+        openCustomerProfile(editId);
+      }
+      if(window.CyberDialog)CyberDialog.alert('Record successfully saved.',{icon:'✓',title:'RECORD SAVED'});
     }
-    function editDataRecord(kind,id){const record=ssRecords[kind].find(x=>x.id===id);if(record)openDataModal(kind,record);}
+    function editDataRecord(kind,id){
+      const record=ssRecords[kind]?.find(x=>String(x.id)===String(id));
+      if(!record){alert('Customer record not found. Please refresh and try again.');return;}
+      openDataModal(kind,record);
+    }
     function deleteDataRecord(kind,id){
-      const doDelete = () => {
-        ssRecords[kind]=ssRecords[kind].filter(x=>x.id!==id);
+      if(!ssRecords[kind]||!ssRecords[kind].some(x=>String(x.id)===String(id))){
+        alert('Record not found. Please refresh and try again.');
+        return;
+      }
+      const doDelete=()=>{
+        ssRecords[kind]=ssRecords[kind].filter(x=>String(x.id)!==String(id));
         persistSsRecords();
+        if(kind==='customer'&&String(activeProfileCustomerId)===String(id)){
+          activeProfileCustomerId=null;
+          closeCustomerProfileModal();
+        }
         renderCustomers();
         renderStaff();
         renderFabrics();
-        if (window.CyberDialog) CyberDialog.alert('Record successfully deleted.', { icon: '🗑️' });
+        if(window.CyberDialog)CyberDialog.alert('Record successfully deleted.',{icon:'🗑️',title:'RECORD DELETED'});
       };
-      if (window.CyberDialog) {
-        CyberDialog.confirm('Delete this record? This cannot be undone.', doDelete, { danger: true, title: 'CONFIRM DELETE' });
-      } else if (confirm('Delete this record? This cannot be undone.')) {
+      if(window.CyberDialog){
+        CyberDialog.confirm('Delete this record? This cannot be undone.',doDelete,{danger:true,title:'CONFIRM DELETE',confirmText:'Delete customer',cancelText:'Keep record'});
+      }else if(confirm('Delete this record? This cannot be undone.')){
         doDelete();
       }
     }
