@@ -4219,8 +4219,9 @@
                 <div class="font-bold text-emerald-500 mt-0.5">৳${o.advance || 0}</div>
               </div>
               <div>
-                <div class="text-[10px] text-gray-400 uppercase tracking-wider">Due</div>
-                <div class="font-black ${o.due > 0 ? 'text-rose-500' : 'text-emerald-500'} mt-0.5">৳${o.due}</div>
+                ${Number(o.due) <= 0
+                  ? '<div class="text-[10px] text-gray-400 uppercase tracking-wider">Payment Status</div><div class="mt-1 inline-flex items-center justify-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-1 text-[10px] font-extrabold tracking-wide text-emerald-500"><span>✓</span><span>PAID</span></div>'
+                  : '<div class="text-[10px] text-gray-400 uppercase tracking-wider">Due</div><div class="font-black text-rose-500 mt-0.5">৳' + (o.due || 0) + '</div>'}
               </div>
             </div>
 
