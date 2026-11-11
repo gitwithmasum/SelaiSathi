@@ -2754,10 +2754,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <div class="ss-nav-group ss-nav-admin">
           <div class="ss-nav-heading"><span>SYSTEM</span></div>
           <nav class="space-y-1" aria-label="System tools">
-            <button onclick="alert('Shop settings')" class="nav-item group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all"><span class="nav-icon-badge"><span>⚙</span></span><span class="ss-nav-label text-xs" data-i18n="menu_settings">Shop settings</span></button>
-            <button onclick="alert('Users & roles')" class="nav-item group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all"><span class="nav-icon-badge"><span>♧</span></span><span class="ss-nav-label text-xs" data-i18n="menu_users">Users & roles</span></button>
-            <button onclick="alert('Database cloud backup')" class="nav-item group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all"><span class="nav-icon-badge"><span>☁</span></span><span class="ss-nav-label text-xs" data-i18n="menu_backups">Backups</span></button>
-            <button onclick="alert('Live audit activity log')" class="nav-item group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all"><span class="nav-icon-badge"><span>◷</span></span><span class="ss-nav-label text-xs" data-i18n="menu_activity">Activity log</span></button>
+            <button onclick="CyberDialog.alert('দোকানের সাধারণ সেটিংস ও প্রিন্টার কনফিগারেশন মডিউল লোড হচ্ছে...', { icon: '⚙️', title: 'SHOP SETTINGS' })" class="nav-item group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all"><span class="nav-icon-badge"><span>⚙</span></span><span class="ss-nav-label text-xs" data-i18n="menu_settings">Shop settings</span></button>
+            <button onclick="CyberDialog.alert('ব্যবহারকারী ও কর্মচারীদের রোল পারমিশন ম্যানেজমেন্ট প্যানেল লোড হচ্ছে...', { icon: '👥', title: 'USERS & ROLES' })" class="nav-item group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all"><span class="nav-icon-badge"><span>♧</span></span><span class="ss-nav-label text-xs" data-i18n="menu_users">Users & roles</span></button>
+            <button onclick="CyberDialog.alert('ক্লাউড ব্যাকআপ সিঙ্ক্রোনাইজেশন সম্পন্ন হয়েছে! সর্বশেষ স্ন্যাপশট নিরাপদে সংরক্ষিত।', { icon: '☁️', title: 'CLOUD BACKUP' })" class="nav-item group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all"><span class="nav-icon-badge"><span>☁</span></span><span class="ss-nav-label text-xs" data-i18n="menu_backups">Backups</span></button>
+            <button onclick="CyberDialog.alert('রিয়েল-টাইম অডিট ও অ্যাক্টিভিটি লগ পরিদর্শন উইন্ডো প্রস্তুত হচ্ছে...', { icon: '⏱️', title: 'ACTIVITY LOG' })" class="nav-item group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all"><span class="nav-icon-badge"><span>◷</span></span><span class="ss-nav-label text-xs" data-i18n="menu_activity">Activity log</span></button>
           </nav>
         </div>
       </div>
@@ -4151,23 +4151,31 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               </div>
             </div>
 
-            <!-- Right Controls: Attendance Status Filter & Dual View Toggle (Grid / List) -->
+            <!-- Right Controls: Attendance Status Filter (CyberSelect) & Dual View Toggle (Grid / List) -->
             <div class="staff-filter-right flex items-center gap-3 self-end lg:self-auto">
-              <!-- Attendance Status Filter -->
-              <select id="staff-attendance-filter" onchange="renderStaff()" class="px-3 py-2 rounded-xl text-xs bg-slate-900/60 border border-slate-700/80 text-gray-300 focus:outline-none focus:border-violet-400">
-                <option value="ALL">All Attendance (সবাই)</option>
-                <option value="Present">🟢 Present (উপস্থিত)</option>
-                <option value="Half-Day">🟡 Half-Day (অর্ধবেলা)</option>
-                <option value="Absent">🔴 Absent (অনুপস্থিত)</option>
-              </select>
-
-              <!-- Dual View Toggle -->
-              <div class="flex items-center p-1 rounded-full bg-slate-900/80 border border-slate-700/80 text-xs shrink-0">
-                <button onclick="setStaffViewMode('grid')" id="staff-view-btn-grid" class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold transition-all bg-violet-600 text-white shadow-xs" title="Grid View">
-                  <span>⊞</span> <span class="hidden sm:inline">Cards</span>
+              <!-- Attendance Status Filter (CyberSelect) -->
+              <div class="relative">
+                <button type="button" class="cyber-select-trigger" id="staff-attendance-filter-btn" onclick="CyberSelect.openForSelect(this, 'staff-attendance-filter')">
+                  <span id="staff-attendance-filter-label">All Attendance (সবাই)</span>
+                  <span class="cyber-select-chevron">▾</span>
                 </button>
-                <button onclick="setStaffViewMode('list')" id="staff-view-btn-list" class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold transition-all text-gray-400 hover:text-white" title="List View">
-                  <span>☰</span> <span class="hidden sm:inline">Payroll Table</span>
+                <select id="staff-attendance-filter" onchange="renderStaff()" class="sr-only">
+                  <option value="ALL">All Attendance (সবাই)</option>
+                  <option value="Present">🟢 Present (উপস্থিত)</option>
+                  <option value="Half-Day">🟡 Half-Day (অর্ধবেলা)</option>
+                  <option value="Absent">🔴 Absent (অনুপস্থিত)</option>
+                </select>
+              </div>
+
+              <!-- Segmented Dual View Toggle Pill (Iconic Cyber Toggle) -->
+              <div class="order-view-toggle-pill ml-auto sm:ml-0" id="staff-view-toggle" title="Switch Staff Display View">
+                <button type="button" class="order-view-btn is-active" id="btn-staff-view-grid" onclick="setStaffViewMode('grid')" title="Grid Cards View (গ্রিড ভিউ)">
+                  <span class="order-view-check" id="check-staff-view-grid">✓</span>
+                  <span class="order-view-icon">⊞</span>
+                </button>
+                <button type="button" class="order-view-btn" id="btn-staff-view-list" onclick="setStaffViewMode('list')" title="Payroll Table View (বেতন রেজিস্টার)">
+                  <span class="order-view-check hidden" id="check-staff-view-list">✓</span>
+                  <span class="order-view-icon">☰</span>
                 </button>
               </div>
             </div>
@@ -4536,12 +4544,18 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
         <div>
           <label class="block text-gray-300 font-bold mb-1">Payment Method (পরিশোধ মাধ্যম)</label>
-          <select id="payout-method" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/70 border border-slate-700 text-gray-200 focus:outline-none focus:border-violet-400">
-            <option value="Cash">Cash (নগদ)</option>
-            <option value="bKash">bKash (বিকাশ)</option>
-            <option value="Nagad">Nagad (নগদ ওয়ালেট)</option>
-            <option value="Bank">Bank Transfer</option>
-          </select>
+          <div class="relative">
+            <button type="button" class="cyber-select-trigger w-full !py-2.5 !rounded-xl" id="payout-method-btn" onclick="CyberSelect.openForSelect(this, 'payout-method')">
+              <span id="payout-method-label">Cash (নগদ)</span>
+              <span class="cyber-select-chevron">▾</span>
+            </button>
+            <select id="payout-method" class="sr-only">
+              <option value="Cash">Cash (নগদ)</option>
+              <option value="bKash">bKash (বিকাশ)</option>
+              <option value="Nagad">Nagad (নগদ ওয়ালেট)</option>
+              <option value="Bank">Bank Transfer</option>
+            </select>
+          </div>
         </div>
 
         <div>
@@ -6248,15 +6262,22 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
 
     function updateStaffViewToggleUI() {
-      const btnGrid = document.getElementById('staff-view-btn-grid');
-      const btnList = document.getElementById('staff-view-btn-list');
+      const btnGrid = document.getElementById('btn-staff-view-grid');
+      const btnList = document.getElementById('btn-staff-view-list');
+      const checkGrid = document.getElementById('check-staff-view-grid');
+      const checkList = document.getElementById('check-staff-view-list');
       if (!btnGrid || !btnList) return;
+
       if (staffViewMode === 'grid') {
-        btnGrid.className = 'flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold transition-all bg-violet-600 text-white shadow-xs';
-        btnList.className = 'flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold transition-all text-gray-400 hover:text-white';
+        btnList.classList.remove('is-active');
+        btnGrid.classList.add('is-active');
+        checkList?.classList.add('hidden');
+        checkGrid?.classList.remove('hidden');
       } else {
-        btnList.className = 'flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold transition-all bg-violet-600 text-white shadow-xs';
-        btnGrid.className = 'flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold transition-all text-gray-400 hover:text-white';
+        btnGrid.classList.remove('is-active');
+        btnList.classList.add('is-active');
+        checkGrid?.classList.add('hidden');
+        checkList?.classList.remove('hidden');
       }
     }
 
@@ -6281,6 +6302,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
 
     function renderStaff() {
+      updateStaffViewToggleUI();
       const container = document.getElementById('staff-display-container');
       if (!container) return;
 
@@ -6648,6 +6670,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       document.getElementById('payout-amount').value = fin.netDue > 0 ? fin.netDue : '';
       document.getElementById('payout-notes').value = '';
       setPayoutType('advance');
+      if (window.CyberSelect) CyberSelect.syncTrigger('payout-method');
       const modal = document.getElementById('modal-staff-payout');
       if (modal) modal.classList.remove('hidden');
     }
@@ -7014,7 +7037,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const editInput=document.getElementById('data-edit-id');
       if(!fields||!modal||!title||!fieldsHost||!kindInput||!editInput){
         console.error('SelaiSathi: customer data modal is missing required elements.');
-        alert('Edit window could not be opened. Please refresh the page and try again.');
+        CyberDialog.alert('Edit window could not be opened. Please refresh the page and try again.', { icon: '⚠️', title: 'MODAL ERROR' });
         return;
       }
       kindInput.value=kind;
@@ -7042,16 +7065,31 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const record={};
       for(const [key] of ssFieldSets[kind]){
         const field=document.getElementById('data-field-'+key);
-        if(!field){alert('A required form field is missing. Please reopen the edit window.');return;}
+        if(!field){
+          CyberDialog.alert('A required form field is missing. Please reopen the edit window.', { icon: '⚠️', title: 'FIELD MISSING' });
+          return;
+        }
         record[key]=field.value.trim();
       }
       const required=kind==='customer'?['name','phone']:kind==='staff'?['name','phone','role']:['name','sku','stock'];
-      if(required.some(k=>!record[k])){alert('Please complete the required fields.');return;}
-      if(kind==='customer'&&!/^\\+?[0-9\\s-]{7,16}$/.test(record.phone)){alert('Enter a valid phone number.');return;}
-      if(kind==='fabric'&&(!Number.isFinite(Number(record.stock))||Number(record.stock)<0)){alert('Enter a valid, non-negative stock value.');return;}
+      if(required.some(k=>!record[k])){
+        CyberDialog.alert('Please complete the required fields.', { icon: '⚠️', title: 'REQUIRED FIELD' });
+        return;
+      }
+      if(kind==='customer'&&!/^\\+?[0-9\\s-]{7,16}$/.test(record.phone)){
+        CyberDialog.alert('Enter a valid phone number.', { icon: '⚠️', title: 'INVALID PHONE' });
+        return;
+      }
+      if(kind==='fabric'&&(!Number.isFinite(Number(record.stock))||Number(record.stock)<0)){
+        CyberDialog.alert('Enter a valid, non-negative stock value.', { icon: '⚠️', title: 'INVALID VALUE' });
+        return;
+      }
       if(editId){
         const i=ssRecords[kind].findIndex(x=>String(x.id)===String(editId));
-        if(i<0){alert('This record could not be found. Refresh the page and try again.');return;}
+        if(i<0){
+          CyberDialog.alert('This record could not be found. Refresh the page and try again.', { icon: '⚠️', title: 'NOT FOUND' });
+          return;
+        }
         ssRecords[kind][i]={...ssRecords[kind][i],...record};
       }else{
         record.id=kind[0].toUpperCase()+'-'+Date.now().toString(36).toUpperCase();
@@ -7072,14 +7110,28 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
     function editDataRecord(kind,id){
       const record=ssRecords[kind]?.find(x=>String(x.id)===String(id));
-      if(!record){alert('Customer record not found. Please refresh and try again.');return;}
+      if(!record){
+        CyberDialog.alert('Record not found. Please refresh and try again.', { icon: '⚠️', title: 'NOT FOUND' });
+        return;
+      }
       openDataModal(kind,record);
     }
     function deleteDataRecord(kind,id){
-      if(!ssRecords[kind]||!ssRecords[kind].some(x=>String(x.id)===String(id))){
-        alert('Record not found. Please refresh and try again.');
+      const list = ssRecords[kind] || [];
+      const record = list.find(x=>String(x.id)===String(id));
+      if(!record){
+        CyberDialog.alert('Record not found. Please refresh and try again.', { icon: '⚠️', title: 'NOT FOUND' });
         return;
       }
+      const recordName = record.name || 'this record';
+      const kindLabel = kind === 'staff' ? 'কারিগর' : kind === 'customer' ? 'গ্রাহক' : 'উপাদান';
+      const confirmTitle = kind === 'staff' ? 'CONFIRM KARIGAR REMOVAL' : kind === 'customer' ? 'CONFIRM CUSTOMER REMOVAL' : 'CONFIRM MATERIAL REMOVAL';
+      const confirmMsg = kind === 'staff'
+        ? `আপনি কি নিশ্চিতভাবে কারিগর <strong>"${safeText(recordName)}"</strong> (${safeText(record.role || '')})-এর রেকর্ড মুছে ফেলতে চান?<br><br><span class="text-xs text-rose-400">⚠️ সতর্কতা: এই পরিবর্তনটি স্থায়ী এবং পূর্বাবস্থায় ফিরিয়ে আনা যাবে না।</span>`
+        : kind === 'customer'
+        ? `আপনি কি নিশ্চিতভাবে গ্রাহক <strong>"${safeText(recordName)}"</strong>-কে মুছে ফেলতে চান?<br><br><span class="text-xs text-rose-400">⚠️ সতর্কতা: এই পরিবর্তনটি স্থায়ী এবং পূর্বাবস্থায় ফিরিয়ে আনা যাবে না।</span>`
+        : `আপনি কি নিশ্চিতভাবে উপাদান <strong>"${safeText(recordName)}"</strong> মুছে ফেলতে চান?`;
+
       const doDelete=()=>{
         ssRecords[kind]=ssRecords[kind].filter(x=>String(x.id)!==String(id));
         persistSsRecords();
@@ -7094,13 +7146,15 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         renderCustomers();
         renderStaff();
         renderFabrics();
-        if(window.CyberDialog)CyberDialog.alert('Record successfully deleted.',{icon:'🗑️',title:'RECORD DELETED'});
+        CyberDialog.alert(`${kindLabel} "${safeText(recordName)}" সফলভাবে মুছে ফেলা হয়েছে।`,{icon:'🗑️',title:'RECORD DELETED'});
       };
-      if(window.CyberDialog){
-        CyberDialog.confirm('Delete this record? This cannot be undone.',doDelete,{danger:true,title:'CONFIRM DELETE',confirmText:'Delete customer',cancelText:'Keep record'});
-      }else if(confirm('Delete this record? This cannot be undone.')){
-        doDelete();
-      }
+
+      CyberDialog.confirm(confirmMsg, doDelete, {
+        danger: true,
+        title: confirmTitle,
+        confirmText: kind === 'staff' ? 'হ্যাঁ, কারিগর মুছুন' : kind === 'customer' ? 'হ্যাঁ, গ্রাহক মুছুন' : 'হ্যাঁ, মুছুন',
+        cancelText: 'না, বাতিল'
+      });
     }
     function adjustFabricStock(id){
       const item=ssRecords.fabrics.find(x=>x.id===id);if(!item)return;
@@ -8796,10 +8850,16 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           }
         });
 
-        // Globally route native alert to CyberDialog
-        window._nativeAlert = window.alert;
+        // Globally route native alert & confirm to CyberDialog
+        window.CyberDialog = this;
+        window._nativeAlert = window._nativeAlert || window.alert;
         window.alert = (msg) => {
-          this.alert(msg);
+          this.alert(String(msg ?? ''));
+        };
+        window._nativeConfirm = window._nativeConfirm || window.confirm;
+        window.confirm = (msg) => {
+          this.confirm(String(msg ?? ''), () => {});
+          return false;
         };
       },
 
@@ -8906,6 +8966,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         this.overlay?.classList.add('hidden');
       }
     };
+    window.CyberDialog = CyberDialog;
 
     /* ======================================================== */
     /* FUTURISTIC CYBER-DROPDOWN & SELECT SYSTEM ENGINE         */
@@ -8938,7 +8999,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         });
 
         // Sync initial labels for all registered cyber selects
-        ['order-filter-stage', 'order-filter-due', 'order-filter-garment', 'eo-stage', 'eo-garment', 'no-garment', 'customer-filter-status'].forEach(id => {
+        ['order-filter-stage', 'order-filter-due', 'order-filter-garment', 'eo-stage', 'eo-garment', 'no-garment', 'customer-filter-status', 'staff-attendance-filter', 'payout-method'].forEach(id => {
           this.syncTrigger(id);
         });
       },
@@ -9061,22 +9122,23 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         this.popover.style.left = `${Math.round(left)}px`;
       }
     };
+    window.CyberSelect = CyberSelect;
 
     /* ======================================================== */
     /* DASHBOARD INTERACTIVE ACTIONS                            */
     /* ======================================================== */
     function sendQuickDeliverySms() {
       confetti({ particleCount: 35, spread: 50, origin: { y: 0.2 } });
-      alert('📲 ৩ জন গ্রাহকের ফোনে "পোশাক প্রস্তুত — শপ থেকে গ্রহণ করুন" নোটিফিকেশন SMS পাঠানো হয়েছে!');
+      CyberDialog.alert('৩ জন গ্রাহকের ফোনে "পোশাক প্রস্তুত — শপ থেকে গ্রহণ করুন" নোটিফিকেশন SMS পাঠানো হয়েছে!', { icon: '📲', title: 'DELIVERY SMS DISPATCHED' });
     }
 
     function sendDueAlertsSms() {
       confetti({ particleCount: 45, spread: 60, origin: { y: 0.2 } });
-      alert('📩 ৳২৩,৫০০ টাকার বকেয়া আদায়ের জন্য ২ জন গ্রাহককে স্বয়ংক্রিয় SMS তাগাদা সফলভাবে পাঠানো হয়েছে!');
+      CyberDialog.alert('৳২৩,৫০০ টাকার বকেয়া আদায়ের জন্য ২ জন গ্রাহককে স্বয়ংক্রিয় SMS তাগাদা সফলভাবে পাঠানো হয়েছে!', { icon: '📩', title: 'DUE RECOVERY SMS SENT' });
     }
 
     function sendDirectSms(name, phone) {
-      alert(`📲 ${name} (${phone})-এর ফোনে ডেলিভারি রিমাইন্ডার SMS সফলভাবে প্রেরণ করা হয়েছে।`);
+      CyberDialog.alert(`${safeText(name)} (${safeText(phone)})-এর ফোনে ডেলিভারি রিমাইন্ডার SMS সফলভাবে প্রেরণ করা হয়েছে।`, { icon: '📲', title: 'SMS DISPATCHED' });
     }
 
     function markDeliveryComplete(btn, tag) {
