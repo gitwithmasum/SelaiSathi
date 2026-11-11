@@ -2464,6 +2464,34 @@ body.theme-white #modal-customer-profile > .bento-card > div:first-child {
 }
 body.theme-white #modal-customer-profile #cp-name,
 body.theme-white #modal-customer-profile h4 { color:#24382C !important; }
+
+/* Galaxy theme: restore contrast for dark utility text inside Customer 360. */
+body:not(.theme-white) #modal-customer-profile .text-black,
+body:not(.theme-white) #modal-customer-profile .text-gray-900,
+body:not(.theme-white) #modal-customer-profile .text-gray-800,
+body:not(.theme-white) #modal-customer-profile .text-slate-900,
+body:not(.theme-white) #modal-customer-profile .text-slate-800,
+body:not(.theme-white) #modal-customer-profile .text-neutral-900,
+body:not(.theme-white) #modal-customer-profile .text-zinc-900,
+body:not(.theme-white) #modal-customer-profile .text-ios-text,
+body:not(.theme-white) #modal-customer-profile #cp-name,
+body:not(.theme-white) #modal-customer-profile #cp-notes,
+body:not(.theme-white) #modal-customer-profile #cp-meas-view,
+body:not(.theme-white) #modal-customer-profile #cp-meas-view [class*="text-"] {
+  color:#E2EAF5 !important;
+}
+body:not(.theme-white) #modal-customer-profile h3,
+body:not(.theme-white) #modal-customer-profile h4 { color:#F1F5F9 !important; }
+body:not(.theme-white) #modal-customer-profile #cp-orders-tbody td { color:#DCE7F5 !important; }
+body:not(.theme-white) #modal-customer-profile #cp-orders-tbody th,
+body:not(.theme-white) #modal-customer-profile .text-gray-500,
+body:not(.theme-white) #modal-customer-profile .text-gray-600,
+body:not(.theme-white) #modal-customer-profile .text-slate-500,
+body:not(.theme-white) #modal-customer-profile .text-slate-600 { color:#A9B9CC !important; }
+body:not(.theme-white) #modal-customer-profile input,
+body:not(.theme-white) #modal-customer-profile textarea,
+body:not(.theme-white) #modal-customer-profile select { color:#E2EAF5 !important; }
+
 body.theme-white #modal-customer-profile .text-gray-400 { color:#718176 !important; }
 body.theme-white #modal-customer-profile #cp-id { color:#087E83 !important; background:#E4F4F1 !important; border-color:#C9E8DF !important; }
 body.theme-white #modal-customer-profile > .bento-card > div:nth-child(4) {
