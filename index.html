@@ -559,10 +559,73 @@
     body.theme-white .cyber-btn-danger,
     body.theme-white .order-view-btn.is-active,
     body.theme-white .staff-role-pill.active,
+    body.theme-white .acc-time-pill.active,
+    body.theme-white .due-aging-pill.active,
     body.theme-white #sp-avatar,
     body.theme-white #cp-avatar,
     body.theme-white .dash-ai-card button[class*="bg-cyan-"] {
       color: #FFFFFF !important;
+    }
+
+    /* ============================================================
+       ACCOUNTS & FINANCIAL HUB STYLES (GALAXY & WHITE THEMES)
+       ============================================================ */
+    .acc-time-pill.active {
+      background: linear-gradient(135deg, #06b6d4 0%, #2563eb 100%) !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 2px 10px rgba(6, 182, 212, 0.4) !important;
+    }
+    body.theme-white .acc-time-pill.active {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 2px 10px rgba(16, 185, 129, 0.25) !important;
+    }
+    .acc-time-pill:not(.active) {
+      color: #94A3B8 !important;
+    }
+    body.theme-white .acc-time-pill:not(.active) {
+      color: #475569 !important;
+    }
+
+    .acc-tab-pill.active {
+      background: rgba(6, 182, 212, 0.18) !important;
+      color: #67e8f9 !important;
+      border: 1px solid rgba(6, 182, 212, 0.4) !important;
+    }
+    body.theme-white .acc-tab-pill.active {
+      background: #E8F5E9 !important;
+      color: #1B5E20 !important;
+      border: 1px solid #A5D6A7 !important;
+    }
+    .acc-tab-pill:not(.active) {
+      border: 1px solid transparent !important;
+      color: #94A3B8 !important;
+    }
+    body.theme-white .acc-tab-pill:not(.active) {
+      color: #475569 !important;
+    }
+
+    .due-aging-pill.active {
+      background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%) !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.35) !important;
+    }
+    .due-aging-pill:not(.active) {
+      color: #94A3B8 !important;
+    }
+    body.theme-white .due-aging-pill:not(.active) {
+      color: #475569 !important;
+    }
+
+    .exp-cat-btn.active {
+      border-color: #f43f5e !important;
+      background: rgba(244, 63, 94, 0.2) !important;
+      color: #fda4af !important;
+    }
+    body.theme-white .exp-cat-btn.active {
+      border-color: #e11d48 !important;
+      background: #ffe4e6 !important;
+      color: #9f1239 !important;
     }
 
     /* Main Container */
@@ -3855,35 +3918,275 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       </section>
 
       <!-- ==================================================== -->
-      <!-- VIEW 4: ACCOUNTS (Multi-Color Financial Bento)       -->
+      <!-- VIEW 4: ACCOUNTS & FINANCIAL HUB (FINANCIAL CONTROL) -->
       <!-- ==================================================== -->
       <section id="view-accounts" class="app-view hidden space-y-6">
-  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-    <div><div class="text-xs font-mono font-bold tracking-widest text-amber-300">FINANCIAL CONTROL CENTER</div><h1 class="text-3xl font-black mt-1">Accounts & Ledger</h1><p class="text-sm text-gray-400 mt-1">Track order sales, received payments, expenses and customer dues.</p></div>
-    <div class="flex flex-wrap gap-2"><button onclick="addLedgerExpense()" class="px-4 py-2.5 rounded-xl border border-rose-500/30 text-rose-200 text-xs font-bold">＋ Add expense</button><button onclick="receiveLedgerPayment()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-xs font-bold">＋ Receive payment</button><button onclick="exportLedgerCSV()" class="px-4 py-2.5 rounded-xl border border-slate-600 text-xs font-bold">↓ Export CSV</button></div>
-  </div>
-  <div class="grid grid-cols-2 xl:grid-cols-5 gap-3">
-    <div class="bento-card p-4"><div class="text-xs text-gray-400">Order sales</div><div id="ledger-sales" class="text-xl font-black mt-2">৳0</div><div class="text-[10px] text-gray-500 mt-1">Total order value</div></div>
-    <div class="bento-card p-4"><div class="text-xs text-gray-400">Collected</div><div id="ledger-collected" class="text-xl font-black mt-2 text-emerald-300">৳0</div><div class="text-[10px] text-gray-500 mt-1">Advance + payments</div></div>
-    <div class="bento-card p-4"><div class="text-xs text-gray-400">Expenses</div><div id="ledger-expenses" class="text-xl font-black mt-2 text-rose-300">৳0</div><div class="text-[10px] text-gray-500 mt-1">Recorded outflow</div></div>
-    <div class="bento-card p-4"><div class="text-xs text-gray-400">Net cash</div><div id="ledger-net" class="text-xl font-black mt-2">৳0</div><div class="text-[10px] text-gray-500 mt-1">Collected − expenses</div></div>
-    <div class="bento-card p-4 col-span-2 xl:col-span-1"><div class="text-xs text-gray-400">Outstanding due</div><div id="ledger-due" class="text-xl font-black mt-2 text-amber-300">৳0</div><div id="ledger-due-orders" class="text-[10px] text-gray-500 mt-1">0 orders with due</div></div>
-  </div>
-  <div class="grid grid-cols-1 xl:grid-cols-3 gap-5">
-    <div class="xl:col-span-2 bento-card p-5 space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3"><div><h2 class="font-bold text-lg">Transactions ledger</h2><p class="text-xs text-gray-400 mt-1">Payments and expenses recorded in this browser.</p></div><input id="ledger-search" oninput="renderLedger()" class="px-3 py-2 rounded-xl text-xs sm:max-w-xs" placeholder="Search description, customer, order..."></div>
-      <div class="flex flex-wrap gap-2">
-        <button id="ledger-filter-all" onclick="setLedgerFilter('all')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-cyan-500/15 text-cyan-200 border border-cyan-400/30">All</button>
-        <button id="ledger-filter-income" onclick="setLedgerFilter('income')" class="px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-600 text-gray-300">Income</button>
-        <button id="ledger-filter-expense" onclick="setLedgerFilter('expense')" class="px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-600 text-gray-300">Expenses</button>
-      </div>
-      <div class="overflow-x-auto"><table class="w-full min-w-[620px] text-left text-xs"><thead><tr class="border-b border-slate-700 text-gray-400"><th class="p-3">Date</th><th class="p-3">Description</th><th class="p-3">Method</th><th class="p-3 text-right">Amount</th></tr></thead><tbody id="ledger-table"></tbody></table></div>
-      <div id="ledger-empty" class="hidden text-center py-8 text-sm text-gray-400">No transactions match this filter.</div>
-    </div>
-    <div class="bento-card p-5 space-y-4"><div><h2 class="font-bold text-lg">Customer dues</h2><p class="text-xs text-gray-400 mt-1">Outstanding amounts from active orders</p></div><div id="ledger-customer-dues" class="space-y-3"></div><div id="ledger-dues-empty" class="hidden text-center py-6 text-xs text-gray-400">No outstanding customer dues.</div></div>
-  </div>
-  <div class="bento-card p-4 text-xs text-gray-400">Note: order totals and current dues are calculated from the existing Orders page data. Ledger transactions are saved in this browser only; cloud sync and persistent order storage are not connected yet.</div>
-</section>
+        
+        <!-- Header Banner & Top Controls -->
+        <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-amber-500/20 text-amber-400 border border-amber-500/30">FINANCIAL CONTROL CENTER</span>
+              <span class="text-xs text-ios-subtext">Cash Drawer · Due Recovery · Wallets & Ledger</span>
+            </div>
+            <h1 class="text-3xl font-black text-ios-text tracking-tight mt-1">Accounts & Financial Hub (হিসাব খাতা)</h1>
+            <p class="text-xs text-ios-subtext mt-1">রিয়েল-টাইম ক্যাশবাক্স, ১-ক্লিক বকেয়া তাগাদা, পেমেন্ট ওয়ালেট, কারিগর মজুরি ও দৈনিক ব্যালেন্স শিট।</p>
+          </div>
+
+          <!-- Top Action Buttons -->
+          <div class="flex flex-wrap items-center gap-2">
+            <button onclick="openAddExpenseModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-rose-500/40 bg-rose-500/10 text-rose-300 hover:bg-rose-500/20 transition-all flex items-center gap-1.5 active:scale-95 shadow-xs">
+              <span>💸</span> <span>＋ Add Expense (খরচ)</span>
+            </button>
+            <button onclick="openReceivePaymentModal()" class="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:brightness-110 transition-all flex items-center gap-1.5 active:scale-95 shadow-md shadow-emerald-500/20">
+              <span>💰</span> <span>＋ Receive Payment (পেমেন্ট জমা)</span>
+            </button>
+            <button onclick="openCashCloseModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-amber-500/40 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 transition-all flex items-center gap-1.5 active:scale-95">
+              <span>🔒</span> <span>Day Close (ক্যাশ ক্লোজ)</span>
+            </button>
+            <button onclick="printAccountsStatement()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 transition-all flex items-center gap-1.5 active:scale-95">
+              <span>🖨️</span> <span>Statement</span>
+            </button>
+            <button onclick="exportLedgerCSV()" class="px-3 py-2 rounded-xl text-xs font-bold border border-ios-border bg-white/5 hover:bg-white/10 text-ios-text transition-all flex items-center gap-1 active:scale-95" title="Export Ledger as CSV">
+              <span>↓</span> <span>CSV</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Time Filter Bar (Today, Yesterday, This Week, This Month, All Time) -->
+        <div class="flex flex-wrap items-center justify-between gap-3 p-2 rounded-2xl bento-card border-ios-border">
+          <div class="flex items-center gap-1.5 text-xs">
+            <span class="text-xs text-ios-subtext px-2 font-semibold">সময়সীমা:</span>
+            <div class="flex flex-wrap items-center gap-1 p-1 bg-slate-900/60 rounded-xl border border-slate-800" id="acc-time-filters">
+              <button onclick="setAccountsTimeFilter('today')" id="acc-time-today" class="acc-time-pill active px-3 py-1 rounded-lg text-xs font-bold transition-all">📅 Today (আজ)</button>
+              <button onclick="setAccountsTimeFilter('yesterday')" id="acc-time-yesterday" class="acc-time-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all">⏪ Yesterday (গতকাল)</button>
+              <button onclick="setAccountsTimeFilter('week')" id="acc-time-week" class="acc-time-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all">🗓️ This Week (সপ্তাহ)</button>
+              <button onclick="setAccountsTimeFilter('month')" id="acc-time-month" class="acc-time-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all">📊 This Month (মাস)</button>
+              <button onclick="setAccountsTimeFilter('all')" id="acc-time-all" class="acc-time-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all">🌐 All Time (সব)</button>
+            </div>
+          </div>
+          <div class="text-[11px] text-ios-subtext font-mono flex items-center gap-2 pr-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span id="acc-filter-indicator">Filtered: Today's Financial Records</span>
+          </div>
+        </div>
+
+        <!-- 6 Core Financial Bento KPIs Grid -->
+        <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3.5">
+          <!-- KPI 1: Sales -->
+          <div class="bento-card p-4 space-y-1 group">
+            <div class="flex items-center justify-between text-xs text-ios-subtext">
+              <span>Order Sales</span>
+              <span class="text-sm">📋</span>
+            </div>
+            <div id="ledger-sales" class="text-2xl font-black font-mono text-ios-text mt-1">৳0</div>
+            <div class="text-[10px] text-ios-subtext truncate">Total order value</div>
+          </div>
+
+          <!-- KPI 2: Cash In / Collected -->
+          <div class="bento-card p-4 space-y-1 group">
+            <div class="flex items-center justify-between text-xs text-emerald-400">
+              <span class="font-bold">Total Cash In</span>
+              <span class="text-sm">📥</span>
+            </div>
+            <div id="ledger-collected" class="text-2xl font-black font-mono text-emerald-400 mt-1">৳0</div>
+            <div class="text-[10px] text-emerald-500/80 truncate">Advance + collections</div>
+          </div>
+
+          <!-- KPI 3: Cash Out / Expenses -->
+          <div class="bento-card p-4 space-y-1 group">
+            <div class="flex items-center justify-between text-xs text-rose-400">
+              <span class="font-bold">Total Cash Out</span>
+              <span class="text-sm">📤</span>
+            </div>
+            <div id="ledger-expenses" class="text-2xl font-black font-mono text-rose-400 mt-1">৳0</div>
+            <div class="text-[10px] text-rose-500/80 truncate">Expenses + Karigar wages</div>
+          </div>
+
+          <!-- KPI 4: Net Cash Flow -->
+          <div class="bento-card p-4 space-y-1 group">
+            <div class="flex items-center justify-between text-xs text-cyan-400">
+              <span class="font-bold">Net Cash Flow</span>
+              <span class="text-sm">⚖️</span>
+            </div>
+            <div id="ledger-net" class="text-2xl font-black font-mono text-cyan-400 mt-1">৳0</div>
+            <div class="text-[10px] text-ios-subtext truncate">Cash In − Cash Out</div>
+          </div>
+
+          <!-- KPI 5: Net Profit & Margin -->
+          <div class="bento-card p-4 space-y-1 group border-cyan-500/20">
+            <div class="flex items-center justify-between text-xs text-indigo-400">
+              <span class="font-bold">Estimated Profit</span>
+              <span id="ledger-profit-margin" class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-mono">0%</span>
+            </div>
+            <div id="ledger-profit-amount" class="text-2xl font-black font-mono text-indigo-300 mt-1">৳0</div>
+            <div class="text-[10px] text-ios-subtext truncate">Gross Margin Estimate</div>
+          </div>
+
+          <!-- KPI 6: Total Dues -->
+          <div class="bento-card p-4 space-y-1 group border-amber-500/20">
+            <div class="flex items-center justify-between text-xs text-amber-400">
+              <span class="font-bold">Outstanding Due</span>
+              <span class="text-sm">⏳</span>
+            </div>
+            <div id="ledger-due" class="text-2xl font-black font-mono text-amber-400 mt-1">৳0</div>
+            <div id="ledger-due-orders" class="text-[10px] text-amber-500/80 truncate">0 orders with due</div>
+          </div>
+        </div>
+
+        <!-- 4 Digital Wallets & Cash Drawer Balance Bar -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+          <!-- Cash Drawer -->
+          <div class="bento-card p-3.5 flex items-center justify-between bg-gradient-to-r from-emerald-950/20 to-teal-950/10 border-emerald-500/20">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center text-lg font-black shrink-0">💵</div>
+              <div>
+                <div class="text-[11px] text-ios-subtext font-bold">নগদ ক্যাশবাক্স (Drawer)</div>
+                <div id="acc-wallet-cash" class="text-lg font-black font-mono text-emerald-400">৳0</div>
+              </div>
+            </div>
+            <button onclick="openCashCloseModal()" class="text-[10px] font-mono font-bold text-emerald-400 px-2 py-1 rounded bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20">মিলান ▾</button>
+          </div>
+
+          <!-- bKash Wallet -->
+          <div class="bento-card p-3.5 flex items-center gap-3 bg-gradient-to-r from-pink-950/20 to-rose-950/10 border-pink-500/20">
+            <div class="w-9 h-9 rounded-xl bg-pink-500/20 text-pink-300 flex items-center justify-center text-base font-black shrink-0">📱</div>
+            <div>
+              <div class="text-[11px] text-ios-subtext font-bold">বিকাশ (bKash Wallet)</div>
+              <div id="acc-wallet-bkash" class="text-lg font-black font-mono text-pink-400">৳0</div>
+            </div>
+          </div>
+
+          <!-- Nagad Wallet -->
+          <div class="bento-card p-3.5 flex items-center gap-3 bg-gradient-to-r from-amber-950/20 to-orange-950/10 border-amber-500/20">
+            <div class="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center text-base font-black shrink-0">🟠</div>
+            <div>
+              <div class="text-[11px] text-ios-subtext font-bold">নগদ ওয়ালেট (Nagad)</div>
+              <div id="acc-wallet-nagad" class="text-lg font-black font-mono text-amber-400">৳0</div>
+            </div>
+          </div>
+
+          <!-- Bank Account -->
+          <div class="bento-card p-3.5 flex items-center gap-3 bg-gradient-to-r from-blue-950/20 to-indigo-950/10 border-blue-500/20">
+            <div class="w-9 h-9 rounded-xl bg-blue-500/20 text-blue-300 flex items-center justify-center text-base font-black shrink-0">🏦</div>
+            <div>
+              <div class="text-[11px] text-ios-subtext font-bold">ব্যাংক একাউন্ট (Bank)</div>
+              <div id="acc-wallet-bank" class="text-lg font-black font-mono text-blue-400">৳0</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Two Columns Workspace: Left Ledger (7 cols) + Right Due & Expenses (5 cols) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+          
+          <!-- LEFT: Transactions Journal Table (7 cols on lg, 8 cols on xl) -->
+          <div class="lg:col-span-7 xl:col-span-8 bento-card p-5 space-y-4">
+            
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-ios-border">
+              <div>
+                <h2 class="font-black text-lg text-ios-text flex items-center gap-2">
+                  <span>📜</span> <span>Transactions Ledger (জমা-খরচ ও খতিয়ান)</span>
+                </h2>
+                <p class="text-xs text-ios-subtext mt-0.5">সব ধরনের সেলস কালেকশন, দোকান খরচ ও কারিগর মজুরির লাইভ ট্র্যাকিং।</p>
+              </div>
+              <div class="relative sm:w-64">
+                <input id="ledger-search" oninput="renderLedger()" class="w-full pl-8 pr-3 py-1.5 rounded-xl text-xs bg-slate-900/60 border border-slate-700/80 text-ios-text placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition-all" placeholder="খুঁজুন (বিবরণ, কাস্টমার, অর্ডার)...">
+                <span class="absolute left-2.5 top-2 text-xs text-gray-400">🔍</span>
+              </div>
+            </div>
+
+            <!-- Ledger Filter Pills -->
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex flex-wrap items-center gap-1.5 text-xs">
+                <button id="ledger-filter-all" onclick="setLedgerFilter('all')" class="acc-tab-pill active px-3 py-1.5 rounded-xl font-bold transition-all">All (সব এন্ট্রি)</button>
+                <button id="ledger-filter-income" onclick="setLedgerFilter('income')" class="acc-tab-pill px-3 py-1.5 rounded-xl font-medium text-gray-400 hover:text-white transition-all">📥 Income (আদায়/জমা)</button>
+                <button id="ledger-filter-expense" onclick="setLedgerFilter('expense')" class="acc-tab-pill px-3 py-1.5 rounded-xl font-medium text-gray-400 hover:text-white transition-all">📤 Expenses (দোকান খরচ)</button>
+                <button id="ledger-filter-karigar" onclick="setLedgerFilter('karigar')" class="acc-tab-pill px-3 py-1.5 rounded-xl font-medium text-gray-400 hover:text-white transition-all">👥 Karigar Wages (মজুরি ও খোরাকি)</button>
+              </div>
+              <span id="ledger-tx-count" class="text-[11px] font-mono text-ios-subtext">0 transactions</span>
+            </div>
+
+            <!-- Table -->
+            <div class="overflow-x-auto rounded-xl border border-ios-border">
+              <table class="w-full min-w-[620px] text-left text-xs">
+                <thead>
+                  <tr class="border-b border-ios-border bg-slate-900/40 text-ios-subtext">
+                    <th class="p-3">তারিখ ও সময়</th>
+                    <th class="p-3">বিবরণ ও ক্যাটাগরি</th>
+                    <th class="p-3">মাধ্যম</th>
+                    <th class="p-3 text-right">টাকার পরিমাণ</th>
+                    <th class="p-3 text-center w-16">রসিদ</th>
+                  </tr>
+                </thead>
+                <tbody id="ledger-table" class="divide-y divide-slate-800/40"></tbody>
+              </table>
+            </div>
+
+            <div id="ledger-empty" class="hidden text-center py-10 text-xs text-ios-subtext">
+              <div class="text-3xl mb-2">📭</div>
+              <span>কোনো ট্রানজ্যাকশন পাওয়া যায়নি।</span>
+            </div>
+          </div>
+
+          <!-- RIGHT: Smart Due Recovery & Expense Breakdown (5 cols on lg, 4 cols on xl) -->
+          <div class="lg:col-span-5 xl:col-span-4 space-y-5">
+            
+            <!-- Smart Customer Dues Card -->
+            <div class="bento-card p-5 space-y-3.5">
+              <div class="flex items-center justify-between pb-2 border-b border-ios-border">
+                <div>
+                  <h2 class="font-black text-base text-ios-text flex items-center gap-1.5">
+                    <span>⚠️</span> <span>Smart Due Recovery (বকেয়া তাগাদা)</span>
+                  </h2>
+                  <p class="text-xs text-ios-subtext mt-0.5">১-ক্লিক WhatsApp মেসেজ ও বকেয়া কালেকশন।</p>
+                </div>
+                <span id="acc-due-summary-badge" class="px-2 py-0.5 text-xs font-mono font-bold rounded-lg bg-amber-500/20 text-amber-400 border border-amber-500/30">৳0 Due</span>
+              </div>
+
+              <!-- Aging Filter Pills -->
+              <div class="flex items-center gap-1 text-[11px] p-1 bg-slate-900/60 rounded-xl border border-slate-800">
+                <button onclick="setDueAgingFilter('all')" id="acc-aging-all" class="due-aging-pill active flex-1 py-1 text-center rounded-lg font-bold transition-all">All</button>
+                <button onclick="setDueAgingFilter('0-7')" id="acc-aging-0-7" class="due-aging-pill flex-1 py-1 text-center rounded-lg text-gray-400 hover:text-white transition-all">0-7 Days</button>
+                <button onclick="setDueAgingFilter('8-14')" id="acc-aging-8-14" class="due-aging-pill flex-1 py-1 text-center rounded-lg text-gray-400 hover:text-white transition-all">8-14 Days</button>
+                <button onclick="setDueAgingFilter('15+')" id="acc-aging-15plus" class="due-aging-pill flex-1 py-1 text-center rounded-lg text-gray-400 hover:text-white transition-all">15+ Days</button>
+              </div>
+
+              <!-- Dues List -->
+              <div id="ledger-customer-dues" class="space-y-2.5 max-h-[360px] overflow-y-auto pr-1"></div>
+              <div id="ledger-dues-empty" class="hidden text-center py-6 text-xs text-ios-subtext">
+                <div class="text-2xl mb-1">🎉</div>
+                <span>আলহামদুলিল্লাহ! কোনো বকেয়া নেই।</span>
+              </div>
+            </div>
+
+            <!-- Expense Category Breakdown Card -->
+            <div class="bento-card p-5 space-y-3.5">
+              <div class="flex items-center justify-between pb-2 border-b border-ios-border">
+                <div>
+                  <h2 class="font-black text-base text-ios-text flex items-center gap-1.5">
+                    <span>📊</span> <span>Expense Categories (দোকান খরচ বিশ্লেষণ)</span>
+                  </h2>
+                  <p class="text-xs text-ios-subtext mt-0.5">কাঁচামাল, ইউটিলিটি, আপ্যায়ন ও কারিগর মজুরি।</p>
+                </div>
+                <button onclick="openAddExpenseModal()" class="text-xs text-rose-400 hover:underline font-bold">＋ খরচ এন্ট্রি</button>
+              </div>
+
+              <div id="acc-expense-categories" class="space-y-3"></div>
+              <div id="acc-expense-empty" class="hidden text-center py-4 text-xs text-ios-subtext">কোনো খরচ রেকর্ড করা হয়নি।</div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="bento-card p-4 text-xs text-ios-subtext flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <span>🛡️</span>
+            <span>Local Financial Encryption · সব ট্রানজ্যাকশন ও ক্যাশবাক্স হিসাব লোকাল ব্রাউজারে সুরক্ষিত সংরক্ষিত থাকে।</span>
+          </div>
+          <button onclick="printAccountsStatement()" class="text-cyan-400 hover:underline font-bold text-xs shrink-0">🖨️ A4 ব্যালেন্স শিট প্রিন্ট করুন</button>
+        </div>
+
+      </section>
 
 <!-- VIEW 5: REPORTS (Comparative Dual Bar Chart Bento)   -->
       <!-- ==================================================== -->
@@ -5015,6 +5318,311 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         </button>
         <button onclick="window.print()" class="px-5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl text-xs font-bold shadow-sm">
           Print POS 🖨️
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: RECEIVE PAYMENT / DUE COLLECTION                   -->
+  <!-- ======================================================== -->
+  <div id="modal-receive-payment" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bento-card max-w-lg w-full p-6 sm:p-7 space-y-5 shadow-2xl max-h-[92vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b border-ios-border pb-3.5">
+        <h3 class="text-lg font-black text-ios-text flex items-center gap-2">
+          <span>💰</span> <span>Receive Payment (পেমেন্ট ও বকেয়া জমা)</span>
+        </h3>
+        <button onclick="closeModal('modal-receive-payment')" class="text-gray-400 hover:text-ios-text font-bold text-xl">✕</button>
+      </div>
+
+      <div class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-bold text-ios-text mb-1.5">Select Order / Customer * (বকেয়া অর্ডার নির্বাচন)</label>
+          <div class="relative">
+            <button type="button" class="cyber-select-trigger w-full !py-2.5 !rounded-2xl" id="rcv-order-btn" onclick="CyberSelect.openForSelect(this, 'rcv-order')">
+              <span id="rcv-order-label">Select Order with Due...</span>
+              <span class="cyber-select-chevron">▾</span>
+            </button>
+            <select id="rcv-order" onchange="onReceiveOrderSelected()" class="sr-only"></select>
+          </div>
+        </div>
+
+        <!-- Selected Order Info Preview -->
+        <div id="rcv-order-preview" class="hidden p-3 bg-cyan-500/10 border border-cyan-500/30 rounded-2xl flex items-center justify-between text-xs">
+          <div>
+            <div class="font-bold text-ios-text" id="rcv-prev-name">Customer Name</div>
+            <div class="text-[10px] text-ios-subtext font-mono" id="rcv-prev-details">ORD-XXXX · Garment</div>
+          </div>
+          <div class="text-right">
+            <div class="text-[10px] text-amber-400 font-bold uppercase">Due Amount</div>
+            <div class="font-mono font-black text-sm text-amber-300" id="rcv-prev-due">৳0</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3.5">
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <label class="font-bold text-ios-text">Amount Received (৳) *</label>
+              <button type="button" onclick="fillFullDueAmount()" class="text-[10px] font-bold text-emerald-400 hover:underline">Full Due</button>
+            </div>
+            <input type="number" id="rcv-amount" placeholder="0" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm font-black font-mono text-ios-text bg-white/70 dark:bg-slate-900/70 focus:outline-none focus:border-emerald-500">
+          </div>
+          <div>
+            <label class="block font-bold text-ios-text mb-1.5">Payment Method *</label>
+            <div class="relative">
+              <button type="button" class="cyber-select-trigger w-full !py-2.5 !rounded-2xl" id="rcv-method-btn" onclick="CyberSelect.openForSelect(this, 'rcv-method')">
+                <span id="rcv-method-label">Cash (নগদ ড্রয়ার)</span>
+                <span class="cyber-select-chevron">▾</span>
+              </button>
+              <select id="rcv-method" class="sr-only">
+                <option value="Cash">Cash (নগদ ড্রয়ার)</option>
+                <option value="bKash">bKash (বিকাশ ওয়ালেট)</option>
+                <option value="Nagad">Nagad (নগদ ওয়ালেট)</option>
+                <option value="Bank">Bank Transfer (ব্যাংক)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-ios-text mb-1.5">Remarks / Note (ঐচ্ছিক বিবরণ)</label>
+          <input type="text" id="rcv-notes" placeholder="e.g. Final delivery collection / partial advance" class="w-full border border-ios-border rounded-2xl px-4 py-2 text-xs text-ios-text bg-white/70 dark:bg-slate-900/70 focus:outline-none focus:border-emerald-500">
+        </div>
+
+        <!-- Money Receipt option -->
+        <label class="flex items-center gap-2 p-3 bg-white/5 border border-ios-border rounded-2xl cursor-pointer">
+          <input type="checkbox" id="rcv-print-receipt" checked class="rounded border-slate-700 text-emerald-600 focus:ring-0">
+          <span class="text-xs text-ios-text font-bold">পেমেন্ট জমার পর সাথে সাথে 58mm Money Receipt প্রিন্ট করুন 🖨️</span>
+        </label>
+      </div>
+
+      <div class="flex justify-end gap-2.5 pt-3 border-t border-ios-border">
+        <button onclick="closeModal('modal-receive-payment')" class="px-5 py-2.5 border border-ios-border rounded-2xl text-xs font-bold text-ios-subtext hover:bg-white/10 active:scale-95">
+          Cancel
+        </button>
+        <button onclick="submitReceivePayment()" class="px-6 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:brightness-110 text-white rounded-2xl text-xs font-bold shadow-md active:scale-95">
+          জমা রেকর্ড করুন ✓
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: ADD EXPENSE                                        -->
+  <!-- ======================================================== -->
+  <div id="modal-add-expense" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bento-card max-w-lg w-full p-6 sm:p-7 space-y-5 shadow-2xl max-h-[92vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b border-ios-border pb-3.5">
+        <h3 class="text-lg font-black text-ios-text flex items-center gap-2">
+          <span>💸</span> <span>Add Shop Expense (দোকান খরচ এন্ট্রি)</span>
+        </h3>
+        <button onclick="closeModal('modal-add-expense')" class="text-gray-400 hover:text-ios-text font-bold text-xl">✕</button>
+      </div>
+
+      <div class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-bold text-ios-text mb-1.5">Expense Category * (খরচের খাত)</label>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="exp-category-pills">
+            <button type="button" onclick="setExpenseCategory('Accessories')" class="exp-cat-btn active p-2 rounded-xl border border-rose-500/40 bg-rose-500/20 text-rose-300 font-bold text-left text-xs transition-all" data-cat="Accessories">🧵 Accessories (সুতা/বোতাম)</button>
+            <button type="button" onclick="setExpenseCategory('Utility & Rent')" class="exp-cat-btn p-2 rounded-xl border border-ios-border bg-white/5 text-ios-subtext font-medium text-left text-xs hover:border-slate-600 transition-all" data-cat="Utility & Rent">⚡ Utility & Rent (ভাড়া/বিল)</button>
+            <button type="button" onclick="setExpenseCategory('Refreshment & Daily')" class="exp-cat-btn p-2 rounded-xl border border-ios-border bg-white/5 text-ios-subtext font-medium text-left text-xs hover:border-slate-600 transition-all" data-cat="Refreshment & Daily">☕ Refreshment (চা/নাস্তা)</button>
+            <button type="button" onclick="setExpenseCategory('Machine Maintenance')" class="exp-cat-btn p-2 rounded-xl border border-ios-border bg-white/5 text-ios-subtext font-medium text-left text-xs hover:border-slate-600 transition-all" data-cat="Machine Maintenance">✂️ Machine (মেরামত/তেল)</button>
+            <button type="button" onclick="setExpenseCategory('Staff Wages & Advance')" class="exp-cat-btn p-2 rounded-xl border border-ios-border bg-white/5 text-ios-subtext font-medium text-left text-xs hover:border-slate-600 transition-all" data-cat="Staff Wages & Advance">👥 Staff (মজুরি/খোরাকি)</button>
+            <button type="button" onclick="setExpenseCategory('Other Expense')" class="exp-cat-btn p-2 rounded-xl border border-ios-border bg-white/5 text-ios-subtext font-medium text-left text-xs hover:border-slate-600 transition-all" data-cat="Other Expense">📦 Other (অন্যান্য)</button>
+          </div>
+          <input type="hidden" id="exp-category" value="Accessories">
+        </div>
+
+        <div>
+          <label class="block font-bold text-ios-text mb-1.5">Description * (খরচের বিবরণ)</label>
+          <input type="text" id="exp-description" placeholder="e.g. 5 reel Royal blue thread + metallic zippers" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-xs text-ios-text bg-white/70 dark:bg-slate-900/70 focus:outline-none focus:border-rose-500">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-bold text-ios-text mb-1.5">Amount (টাকার পরিমাণ ৳) *</label>
+            <input type="number" id="exp-amount" placeholder="0" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm font-black font-mono text-rose-400 bg-white/70 dark:bg-slate-900/70 focus:outline-none focus:border-rose-500">
+          </div>
+          <div>
+            <label class="block font-bold text-ios-text mb-1.5">Payment Method *</label>
+            <div class="relative">
+              <button type="button" class="cyber-select-trigger w-full !py-2.5 !rounded-2xl" id="exp-method-btn" onclick="CyberSelect.openForSelect(this, 'exp-method')">
+                <span id="exp-method-label">Cash (নগদ ড্রয়ার)</span>
+                <span class="cyber-select-chevron">▾</span>
+              </button>
+              <select id="exp-method" class="sr-only">
+                <option value="Cash">Cash (নগদ ড্রয়ার)</option>
+                <option value="bKash">bKash (বিকাশ)</option>
+                <option value="Nagad">Nagad (নগদ ওয়ালেট)</option>
+                <option value="Bank">Bank Transfer</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-bold text-ios-text mb-1.5">Receipt / Memo Ref (মেমো নাম্বার)</label>
+            <input type="text" id="exp-reference" placeholder="e.g. MEMO-882" class="w-full border border-ios-border rounded-2xl px-4 py-2 text-xs font-mono text-ios-text bg-white/70 dark:bg-slate-900/70">
+          </div>
+          <div>
+            <label class="block font-bold text-ios-text mb-1.5">Expense Date</label>
+            <input type="date" id="exp-date" class="w-full border border-ios-border rounded-2xl px-4 py-2 text-xs text-ios-text bg-white/70 dark:bg-slate-900/70">
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2.5 pt-3 border-t border-ios-border">
+        <button onclick="closeModal('modal-add-expense')" class="px-5 py-2.5 border border-ios-border rounded-2xl text-xs font-bold text-ios-subtext hover:bg-white/10 active:scale-95">
+          Cancel
+        </button>
+        <button onclick="submitAddExpense()" class="px-6 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-2xl text-xs font-bold shadow-md active:scale-95">
+          খরচ সংরক্ষণ করুন ✓
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: DAILY CASH DRAWER & SHIFT CLOSING                  -->
+  <!-- ======================================================== -->
+  <div id="modal-cash-close" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bento-card max-w-lg w-full p-6 sm:p-7 space-y-5 shadow-2xl max-h-[92vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b border-ios-border pb-3.5">
+        <h3 class="text-lg font-black text-ios-text flex items-center gap-2">
+          <span>🔒</span> <span>Daily Cash Register & Shift Close (ক্যাশ খাতা ক্লোজিং)</span>
+        </h3>
+        <button onclick="closeModal('modal-cash-close')" class="text-gray-400 hover:text-ios-text font-bold text-xl">✕</button>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <!-- Live Drawer Flow Breakdown -->
+        <div class="grid grid-cols-3 gap-2.5 text-center">
+          <div class="p-3 rounded-2xl bg-white/5 border border-ios-border">
+            <div class="text-[10px] text-ios-subtext font-bold uppercase">Opening Float</div>
+            <div class="text-base font-black font-mono text-ios-text mt-1" id="close-prev-opening">৳2,000</div>
+          </div>
+          <div class="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
+            <div class="text-[10px] text-emerald-400 font-bold uppercase">Today Cash In</div>
+            <div class="text-base font-black font-mono text-emerald-400 mt-1" id="close-today-in">৳0</div>
+          </div>
+          <div class="p-3 rounded-2xl bg-rose-500/10 border border-rose-500/20">
+            <div class="text-[10px] text-rose-400 font-bold uppercase">Today Cash Out</div>
+            <div class="text-base font-black font-mono text-rose-400 mt-1" id="close-today-out">৳0</div>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-gradient-to-r from-cyan-950/40 to-blue-950/40 border border-cyan-500/30 flex items-center justify-between">
+          <div>
+            <div class="text-xs text-cyan-300 font-bold">System Expected Cash (ক্যাশ বাক্সে থাকার কথা):</div>
+            <div class="text-[10px] text-ios-subtext mt-0.5">Opening Float + Cash In − Cash Out</div>
+          </div>
+          <div class="text-2xl font-black font-mono text-cyan-300" id="close-expected-cash">৳0</div>
+        </div>
+
+        <div class="space-y-2">
+          <label class="block font-bold text-ios-text">Physical Cash Counted (ড্রয়ার গুনে বাস্তবে কত পাওয়া গেল) *</label>
+          <input type="number" id="close-actual-cash" oninput="calculateClosingDiscrepancy()" placeholder="Enter physical cash in drawer" class="w-full border border-ios-border rounded-2xl px-4 py-3 text-lg font-black font-mono text-ios-text bg-white/70 dark:bg-slate-900/70 focus:outline-none focus:border-cyan-400">
+        </div>
+
+        <!-- Discrepancy Alert Box -->
+        <div id="close-diff-box" class="p-3.5 rounded-2xl border border-ios-border bg-white/5 flex items-center justify-between">
+          <span class="text-xs text-ios-subtext font-bold" id="close-diff-label">পার্থক্য / মিল:</span>
+          <span class="text-sm font-black font-mono text-ios-text" id="close-diff-val">৳0 (মিল আছে)</span>
+        </div>
+
+        <div>
+          <label class="block font-bold text-ios-text mb-1">Shift Closing Remarks / Notes (ঐচ্ছিক মন্তব্য)</label>
+          <input type="text" id="close-notes" placeholder="e.g. Night shift closed by Manager" class="w-full border border-ios-border rounded-2xl px-4 py-2 text-xs text-ios-text bg-white/70 dark:bg-slate-900/70">
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2.5 pt-3 border-t border-ios-border">
+        <button onclick="closeModal('modal-cash-close')" class="px-5 py-2.5 border border-ios-border rounded-2xl text-xs font-bold text-ios-subtext hover:bg-white/10 active:scale-95">
+          Cancel
+        </button>
+        <button onclick="submitCashClose()" class="px-6 py-2.5 bg-gradient-to-r from-amber-600 to-orange-600 hover:brightness-110 text-white rounded-2xl text-xs font-bold shadow-md active:scale-95">
+          ক্যাশ ক্লোজ ও প্রিন্ট সামারি 🔒
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: 58MM POS MONEY RECEIPT                            -->
+  <!-- ======================================================== -->
+  <div id="modal-money-receipt" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bento-card max-w-sm w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex justify-between items-center border-b border-ios-border pb-3">
+        <h3 class="text-sm font-black text-ios-text flex items-center gap-1.5">
+          <span>🧾</span> <span>Money Receipt (মানি রিসিট)</span>
+        </h3>
+        <button onclick="closeModal('modal-money-receipt')" class="text-gray-400 hover:text-ios-text font-bold text-lg">✕</button>
+      </div>
+
+      <!-- Printable 58mm Thermal Slip -->
+      <div id="printable-money-receipt" class="p-4 text-xs font-mono border border-dashed border-gray-400 space-y-2.5 bg-white text-gray-900 shadow-inner">
+        <div class="text-center pb-2 border-b border-dashed border-gray-400 space-y-0.5">
+          <div class="font-black text-sm tracking-wide">SELAISATHI TAILORS</div>
+          <div class="text-[10px]">Shop 12, New Market, Dhaka</div>
+          <div class="text-[10px]">Phone: 01700-112233</div>
+          <div class="text-[10px] font-bold mt-1 bg-black text-white px-2 py-0.5 inline-block">MONEY RECEIPT (মানি রিসিট)</div>
+        </div>
+
+        <div class="flex justify-between text-[11px] pt-1">
+          <span>VOUCHER: <strong id="mr-voucher-no">MR-2610-0089</strong></span>
+          <span id="mr-date" class="text-gray-600">12/11/2026</span>
+        </div>
+
+        <div class="text-[11px] space-y-0.5 border-b border-dashed border-gray-400 pb-2">
+          <div>Customer: <strong id="mr-cust-name">Shahadat Hossain</strong></div>
+          <div>Mobile: <span id="mr-cust-phone">01591463333</span></div>
+          <div>Order Ref: <span id="mr-order-id" class="font-bold">ORD-2610-0022</span></div>
+          <div>Garment: <span id="mr-garment">Cotton Panjabi</span></div>
+        </div>
+
+        <div class="space-y-1 text-xs">
+          <div class="flex justify-between text-gray-600">
+            <span>Total Order Bill:</span>
+            <span id="mr-order-total" class="font-mono">৳850</span>
+          </div>
+          <div class="flex justify-between text-gray-600">
+            <span>Previously Paid:</span>
+            <span id="mr-prev-paid" class="font-mono">৳300</span>
+          </div>
+          <div class="flex justify-between text-sm font-black pt-1 border-t border-dashed border-gray-400">
+            <span>AMOUNT RECEIVED:</span>
+            <span id="mr-amount-paid" class="font-mono text-emerald-800">৳550</span>
+          </div>
+          <div class="flex justify-between text-[11px] text-gray-600 font-mono">
+            <span>Payment Method:</span>
+            <span id="mr-payment-method" class="font-bold">bKash (বিকাশ)</span>
+          </div>
+          <div class="flex justify-between text-xs font-bold pt-1 border-t border-dashed border-gray-400">
+            <span>Remaining Due:</span>
+            <span id="mr-remaining-due" class="font-mono text-rose-700">৳0 (PAID)</span>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-dashed border-gray-400 text-center space-y-1 text-[9px] text-gray-500">
+          <div>Received with thanks. Keep this slip for your record.</div>
+          <div class="pt-2 flex justify-between items-center text-[10px] text-gray-700">
+            <span>Customer Sign</span>
+            <span>Authorized Sign</span>
+          </div>
+          <div class="pt-1 text-[8px] text-gray-400">Powered by SelaiSathi Tailor OS</div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between gap-2 pt-2 border-t border-ios-border">
+        <button onclick="shareMoneyReceiptWhatsApp()" class="flex-1 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1 active:scale-95 shadow-sm">
+          <span>💬</span> <span>WhatsApp</span>
+        </button>
+        <button onclick="printMoneyReceipt()" class="flex-1 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:brightness-110 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1 active:scale-95 shadow-sm">
+          <span>🖨️</span> <span>Print POS</span>
+        </button>
+        <button onclick="closeModal('modal-money-receipt')" class="px-4 py-2 border border-ios-border rounded-xl text-xs font-bold text-ios-subtext hover:bg-white/10">
+          Close
         </button>
       </div>
     </div>
@@ -8303,72 +8911,810 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       }
     }
 
-    // Accounts & ledger: browser-local transaction journal.
-    const ssLedgerKey='selaisathi_accounts_ledger_v1';
-    let ssLedgerTransactions=(()=>{try{const v=JSON.parse(localStorage.getItem(ssLedgerKey)||'[]');return Array.isArray(v)?v:[];}catch(e){return[];}})();
-    let ledgerFilter='all';
-    function persistLedger(){try{localStorage.setItem(ssLedgerKey,JSON.stringify(ssLedgerTransactions));}catch(e){alert('Could not save the ledger in this browser.');}}
-    function setLedgerFilter(filter){
-      ledgerFilter=filter;
-      ['all','income','expense'].forEach(k=>{const el=document.getElementById('ledger-filter-'+k);if(el)el.className='px-3 py-1.5 rounded-lg text-xs font-bold '+(filter===k?'bg-cyan-500/15 text-cyan-200 border border-cyan-400/30':'border border-slate-600 text-gray-300');});
+    // ========================================================
+    // ACCOUNTS & FINANCIAL HUB (FINANCIAL CONTROL CENTER OS)
+    // ========================================================
+    const ssLedgerKey = 'selaisathi_accounts_ledger_v1';
+    let ssAccountsTimeFilter = 'today';
+    let ssAccountsAgingFilter = 'all';
+    let ledgerFilter = 'all';
+    let ssOpeningCash = Number(localStorage.getItem('ss_opening_cash')) || 2500;
+    let activeReceiptData = null;
+
+    const defaultLedgerTxns = [
+      { id: 'TX-101', type: 'income', description: 'Order Advance Payment', customer: 'Shahadat Hossain', orderId: 'ORD-2610-0022', category: 'Order Advance', method: 'bKash', amount: 300, date: new Date().toISOString().slice(0, 10), createdAt: new Date().toISOString() },
+      { id: 'TX-102', type: 'income', description: 'Order Advance Payment', customer: 'Arif Hossain', orderId: 'ORD-2610-0021', category: 'Order Advance', method: 'Cash', amount: 200, date: new Date().toISOString().slice(0, 10), createdAt: new Date().toISOString() },
+      { id: 'TX-103', type: 'income', description: 'Due Collection (Fully Paid)', customer: 'Kamrul Hasan', orderId: 'ORD-2610-0020', category: 'Due Collection', method: 'Cash', amount: 550, date: new Date().toISOString().slice(0, 10), createdAt: new Date().toISOString() },
+      { id: 'TX-104', type: 'expense', description: 'Royal Thread & Button Box (সুতা ও বোতাম)', category: 'Accessories', method: 'Cash', amount: 350, date: new Date().toISOString().slice(0, 10), createdAt: new Date().toISOString() },
+      { id: 'TX-105', type: 'expense', description: 'Rahim Uddin (Master Tailor) - খোরাকি / অগ্রিম', category: 'Staff Wages & Advance', method: 'Cash', amount: 500, date: new Date().toISOString().slice(0, 10), createdAt: new Date().toISOString() },
+      { id: 'TX-106', type: 'expense', description: 'Shop Electricity Bill (দোকান বিদ্যুৎ বিল)', category: 'Utility & Rent', method: 'Nagad', amount: 800, date: new Date(Date.now() - 86400000 * 2).toISOString().slice(0, 10), createdAt: new Date().toISOString() },
+      { id: 'TX-107', type: 'income', description: 'Advance on Royal Blazer', customer: 'Rakibul Islam', orderId: 'ORD-2610-0019', category: 'Order Advance', method: 'Bank', amount: 2200, date: new Date(Date.now() - 86400000 * 3).toISOString().slice(0, 10), createdAt: new Date().toISOString() }
+    ];
+
+    let ssLedgerTransactions = (() => {
+      try {
+        const v = JSON.parse(localStorage.getItem(ssLedgerKey) || '[]');
+        if (Array.isArray(v) && v.length) return v;
+        localStorage.setItem(ssLedgerKey, JSON.stringify(defaultLedgerTxns));
+        return defaultLedgerTxns;
+      } catch(e) {
+        return defaultLedgerTxns;
+      }
+    })();
+    window.ssLedgerTransactions = ssLedgerTransactions;
+
+    function persistLedger() {
+      try {
+        localStorage.setItem(ssLedgerKey, JSON.stringify(ssLedgerTransactions));
+      } catch(e) {
+        console.error('Could not save ledger in localStorage', e);
+      }
+    }
+
+    function isDateInAccountFilter(dateStr, filter) {
+      if (filter === 'all' || !filter) return true;
+      if (!dateStr) return false;
+      const d = new Date(dateStr);
+      if (isNaN(d.getTime())) return true;
+      const now = new Date();
+      const todayStr = now.toISOString().slice(0, 10);
+      const targetStr = d.toISOString().slice(0, 10);
+      if (filter === 'today') return targetStr === todayStr;
+      if (filter === 'yesterday') {
+        const y = new Date(now);
+        y.setDate(y.getDate() - 1);
+        return targetStr === y.toISOString().slice(0, 10);
+      }
+      if (filter === 'week') {
+        const diff = (now - d) / (1000 * 60 * 60 * 24);
+        return diff >= 0 && diff <= 7;
+      }
+      if (filter === 'month') {
+        return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth();
+      }
+      return true;
+    }
+
+    function setAccountsTimeFilter(filter) {
+      ssAccountsTimeFilter = filter;
+      ['today', 'yesterday', 'week', 'month', 'all'].forEach(k => {
+        const btn = document.getElementById('acc-time-' + k);
+        if (btn) {
+          if (k === filter) {
+            btn.className = 'acc-time-pill active px-3 py-1 rounded-lg text-xs font-bold transition-all';
+          } else {
+            btn.className = 'acc-time-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all';
+          }
+        }
+      });
+      const ind = document.getElementById('acc-filter-indicator');
+      if (ind) {
+        const map = {
+          today: "Filtered: Today's Financial Records (আজকের হিসাব)",
+          yesterday: "Filtered: Yesterday's Records (গতকালের হিসাব)",
+          week: "Filtered: Last 7 Days (চলতি সপ্তাহের হিসাব)",
+          month: "Filtered: Current Month (চলতি মাসের হিসাব)",
+          all: "Filtered: All-Time Records (সার্বিক হিসাব)"
+        };
+        ind.textContent = map[filter] || "Financial Records";
+      }
       renderLedger();
     }
-    function renderLedger(){
-      const table=document.getElementById('ledger-table');if(!table)return;
-      const sales=ordersData.reduce((n,o)=>n+(Number(o.total)||0),0);
-      const advances=ordersData.reduce((n,o)=>n+(Number(o.advance)||0),0);
-      const otherIncome=ssLedgerTransactions.filter(t=>t.type==='income'&&!t.orderId).reduce((n,t)=>n+(Number(t.amount)||0),0);
-      const collected=advances+otherIncome;
-      const expenses=ssLedgerTransactions.filter(t=>t.type==='expense').reduce((n,t)=>n+(Number(t.amount)||0),0);
-      const due=ordersData.reduce((n,o)=>n+(Number(o.due)||0),0);
-      document.getElementById('ledger-sales').textContent=moneyBDT(sales);
-      document.getElementById('ledger-collected').textContent=moneyBDT(collected);
-      document.getElementById('ledger-expenses').textContent=moneyBDT(expenses);
-      document.getElementById('ledger-net').textContent=moneyBDT(collected-expenses);
-      document.getElementById('ledger-due').textContent=moneyBDT(due);
-      document.getElementById('ledger-due-orders').textContent=ordersData.filter(o=>Number(o.due)>0).length+' orders with due';
-      const q=(document.getElementById('ledger-search')?.value||'').toLowerCase();
-      const tx=ssLedgerTransactions.slice().reverse().filter(t=>(ledgerFilter==='all'||t.type===ledgerFilter)&&(String(t.description)+' '+String(t.customer||'')+' '+String(t.orderId||'')).toLowerCase().includes(q));
-      table.innerHTML=tx.map(t=>'<tr class="border-b border-slate-700/60"><td class="p-3 whitespace-nowrap text-gray-400">'+safeText(t.date||'')+'</td><td class="p-3"><div class="font-semibold">'+safeText(t.description)+'</div><div class="text-[10px] text-gray-500">'+safeText(t.customer||t.category||'')+(t.orderId?' · '+safeText(t.orderId):'')+'</div></td><td class="p-3">'+safeText(t.method||'Cash')+'</td><td class="p-3 text-right font-mono font-bold '+(t.type==='income'?'text-emerald-300':'text-rose-300')+'">'+(t.type==='income'?'+':'−')+moneyBDT(t.amount)+'</td></tr>').join('');
-      document.getElementById('ledger-empty').classList.toggle('hidden',tx.length!==0);
-      const dueByCustomer={};
-      ordersData.filter(o=>Number(o.due)>0).forEach(o=>{const key=o.phone||o.name; if(!dueByCustomer[key])dueByCustomer[key]={name:o.name,phone:o.phone,due:0,count:0};dueByCustomer[key].due+=Number(o.due)||0;dueByCustomer[key].count++;});
-      const dueList=Object.values(dueByCustomer).sort((a,b)=>b.due-a.due);
-      document.getElementById('ledger-customer-dues').innerHTML=dueList.map(c=>'<div class="flex items-center justify-between gap-2 border-b border-slate-700/60 pb-3"><div class="min-w-0"><div class="text-xs font-semibold truncate">'+safeText(c.name)+'</div><div class="text-[10px] text-gray-500">'+safeText(c.phone)+' · '+c.count+' order(s)</div></div><div class="text-xs font-mono font-bold text-amber-300">'+moneyBDT(c.due)+'</div></div>').join('');
-      document.getElementById('ledger-dues-empty').classList.toggle('hidden',dueList.length!==0);
+
+    function setLedgerFilter(filter) {
+      ledgerFilter = filter;
+      ['all', 'income', 'expense', 'karigar'].forEach(k => {
+        const el = document.getElementById('ledger-filter-' + k);
+        if (el) {
+          if (filter === k) {
+            el.className = 'acc-tab-pill active px-3 py-1.5 rounded-xl font-bold transition-all';
+          } else {
+            el.className = 'acc-tab-pill px-3 py-1.5 rounded-xl font-medium text-gray-400 hover:text-white transition-all';
+          }
+        }
+      });
+      renderLedger();
     }
-    function receiveLedgerPayment(){
-      const pending=ordersData.filter(o=>Number(o.due)>0);
-      if(!pending.length){alert('There are no orders with outstanding dues.');return;}
-      const menu=pending.map((o,i)=>(i+1)+'. '+o.name+' · '+o.id+' · Due '+moneyBDT(o.due)).join('\n');
-      const selected=prompt('Select an order number to receive payment:\n'+menu,'1');if(selected===null)return;
-      const index=Number(selected)-1;if(!Number.isInteger(index)||index<0||index>=pending.length){alert('Invalid order selection.');return;}
-      const order=pending[index];
-      const raw=prompt('Payment amount for '+order.name+' (maximum '+order.due+'):',String(order.due));if(raw===null)return;
-      const amount=Number(raw);if(!Number.isFinite(amount)||amount<=0||amount>Number(order.due)){alert('Enter a valid amount not greater than the outstanding due.');return;}
-      const methodRaw=prompt('Payment method: Cash, bKash, Nagad, Bank or Other','Cash');if(methodRaw===null)return;
-      const method=methodRaw.trim()||'Cash';
-      order.advance=(Number(order.advance)||0)+amount;order.due=Math.max(0,Number(order.total)-order.advance);
-      ssLedgerTransactions.push({id:'TX-'+Date.now(),type:'income',description:'Order payment',customer:order.name,orderId:order.id,method,amount,date:new Date().toISOString().slice(0,10),createdAt:new Date().toISOString()});
-      persistLedger();renderLedger();if(typeof renderOrdersTable==='function')renderOrdersTable();if(typeof renderCustomers==='function')renderCustomers();
-      alert('Payment recorded. Remaining due: '+moneyBDT(order.due));
+
+    function setDueAgingFilter(filter) {
+      ssAccountsAgingFilter = filter;
+      ['all', '0-7', '8-14', '15+'].forEach(k => {
+        const idKey = k === '15+' ? '15plus' : k;
+        const btn = document.getElementById('acc-aging-' + idKey);
+        if (btn) {
+          if (k === filter) {
+            btn.className = 'due-aging-pill active flex-1 py-1 text-center rounded-lg font-bold transition-all';
+          } else {
+            btn.className = 'due-aging-pill flex-1 py-1 text-center rounded-lg text-gray-400 hover:text-white transition-all';
+          }
+        }
+      });
+      renderCustomerDues();
     }
-    function addLedgerExpense(){
-      const description=prompt('Expense description (e.g. shop rent, thread purchase):');if(description===null)return;
-      if(!description.trim()){alert('Enter an expense description.');return;}
-      const raw=prompt('Expense amount (৳):');if(raw===null)return;
-      const amount=Number(raw);if(!Number.isFinite(amount)||amount<=0){alert('Enter a valid amount greater than zero.');return;}
-      const category=prompt('Expense category (e.g. Rent, Materials, Utilities, Staff):','General');if(category===null)return;
-      const methodRaw=prompt('Payment method: Cash, bKash, Nagad, Bank or Other','Cash');if(methodRaw===null)return;
-      ssLedgerTransactions.push({id:'TX-'+Date.now(),type:'expense',description:description.trim(),category:category.trim()||'General',method:methodRaw.trim()||'Cash',amount,date:new Date().toISOString().slice(0,10),createdAt:new Date().toISOString()});
-      persistLedger();renderLedger();
+
+    function renderLedger() {
+      const table = document.getElementById('ledger-table');
+      if (!table) return;
+
+      const periodTx = ssLedgerTransactions.filter(t => isDateInAccountFilter(t.date || t.createdAt, ssAccountsTimeFilter));
+
+      // Financial KPIs
+      const periodOrders = ordersData.filter(o => isDateInAccountFilter(o.date, ssAccountsTimeFilter));
+      const sales = (ssAccountsTimeFilter === 'all' ? ordersData : (periodOrders.length ? periodOrders : ordersData))
+        .reduce((n, o) => n + (Number(o.total) || 0), 0);
+
+      const collected = periodTx.filter(t => t.type === 'income')
+        .reduce((n, t) => n + (Number(t.amount) || 0), 0);
+
+      const expenses = periodTx.filter(t => t.type === 'expense')
+        .reduce((n, t) => n + (Number(t.amount) || 0), 0);
+
+      const netCash = collected - expenses;
+      const estProfit = Math.max(0, Math.round(sales * 0.45 - (expenses * 0.3)));
+      const profitMargin = sales > 0 ? Math.round((estProfit / sales) * 100) : 0;
+
+      const dueOrders = ordersData.filter(o => Number(o.due) > 0);
+      const totalDue = dueOrders.reduce((n, o) => n + (Number(o.due) || 0), 0);
+
+      const setTxt = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+      setTxt('ledger-sales', moneyBDT(sales));
+      setTxt('ledger-collected', moneyBDT(collected));
+      setTxt('ledger-expenses', moneyBDT(expenses));
+      setTxt('ledger-net', (netCash >= 0 ? '+' : '−') + moneyBDT(Math.abs(netCash)));
+      setTxt('ledger-profit-amount', moneyBDT(estProfit));
+      setTxt('ledger-profit-margin', `${profitMargin}% Margin`);
+      setTxt('ledger-due', moneyBDT(totalDue));
+      setTxt('ledger-due-orders', `${dueOrders.length} customer order(s) with due`);
+
+      // Wallets Calculation
+      const wallets = { Cash: 0, bKash: 0, Nagad: 0, Bank: 0 };
+      periodTx.forEach(t => {
+        const m = t.method || 'Cash';
+        if (wallets[m] === undefined) wallets[m] = 0;
+        if (t.type === 'income') wallets[m] += Number(t.amount) || 0;
+        else wallets[m] -= Number(t.amount) || 0;
+      });
+
+      const todayCashIn = periodTx.filter(t => t.type === 'income' && t.method === 'Cash').reduce((n, t) => n + Number(t.amount), 0);
+      const todayCashOut = periodTx.filter(t => t.type === 'expense' && t.method === 'Cash').reduce((n, t) => n + Number(t.amount), 0);
+      const currentDrawerCash = Math.max(0, ssOpeningCash + todayCashIn - todayCashOut);
+
+      setTxt('acc-wallet-cash', moneyBDT(currentDrawerCash));
+      setTxt('acc-wallet-bkash', moneyBDT(Math.max(0, wallets['bKash'] || 0)));
+      setTxt('acc-wallet-nagad', moneyBDT(Math.max(0, wallets['Nagad'] || 0)));
+      setTxt('acc-wallet-bank', moneyBDT(Math.max(0, wallets['Bank'] || 0)));
+
+      // Table Filtering
+      const q = (document.getElementById('ledger-search')?.value || '').toLowerCase().trim();
+      let txList = periodTx.slice().reverse();
+
+      if (ledgerFilter === 'income') {
+        txList = txList.filter(t => t.type === 'income');
+      } else if (ledgerFilter === 'expense') {
+        txList = txList.filter(t => t.type === 'expense' && (t.category !== 'Staff Wages & Advance'));
+      } else if (ledgerFilter === 'karigar') {
+        txList = txList.filter(t => (t.category === 'Staff Wages & Advance') || String(t.description).toLowerCase().includes('karigar') || String(t.description).toLowerCase().includes('মজুরি'));
+      }
+
+      if (q) {
+        txList = txList.filter(t =>
+          String(t.description || '').toLowerCase().includes(q) ||
+          String(t.customer || '').toLowerCase().includes(q) ||
+          String(t.orderId || '').toLowerCase().includes(q) ||
+          String(t.category || '').toLowerCase().includes(q) ||
+          String(t.method || '').toLowerCase().includes(q)
+        );
+      }
+
+      setTxt('ledger-tx-count', `${txList.length} transaction${txList.length === 1 ? '' : 's'}`);
+
+      table.innerHTML = txList.map(t => {
+        const isInc = t.type === 'income';
+        const methodBadges = {
+          Cash: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
+          bKash: 'bg-pink-500/15 text-pink-400 border-pink-500/30',
+          Nagad: 'bg-amber-500/15 text-amber-400 border-amber-500/30',
+          Bank: 'bg-blue-500/15 text-blue-400 border-blue-500/30'
+        };
+        const mBadge = methodBadges[t.method] || 'bg-slate-700 text-gray-300 border-slate-600';
+
+        return `
+          <tr class="hover:bg-white/[0.03] transition-colors border-b border-ios-border">
+            <td class="p-3 whitespace-nowrap text-ios-subtext font-mono text-[11px]">
+              <div>${safeText(t.date || '')}</div>
+              <div class="text-[9px] text-gray-500">${t.createdAt ? new Date(t.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}</div>
+            </td>
+            <td class="p-3">
+              <div class="font-bold text-ios-text flex items-center gap-1.5">
+                <span>${isInc ? '🟢' : '🔴'}</span>
+                <span>${safeText(t.description || 'Transaction')}</span>
+              </div>
+              <div class="text-[10px] text-ios-subtext flex items-center gap-1.5 mt-0.5">
+                <span class="font-medium text-cyan-400">${safeText(t.category || 'General')}</span>
+                ${t.customer ? `· 👤 <span>${safeText(t.customer)}</span>` : ''}
+                ${t.orderId ? `· <span class="font-mono text-amber-400">${safeText(t.orderId)}</span>` : ''}
+                ${t.reference ? `· <span class="font-mono text-gray-500">${safeText(t.reference)}</span>` : ''}
+              </div>
+            </td>
+            <td class="p-3">
+              <span class="px-2 py-0.5 rounded-md text-[10px] font-bold border ${mBadge}">${safeText(t.method || 'Cash')}</span>
+            </td>
+            <td class="p-3 text-right font-mono font-black ${isInc ? 'text-emerald-400' : 'text-rose-400'} text-xs">
+              ${isInc ? '+' : '−'}${moneyBDT(t.amount)}
+            </td>
+            <td class="p-3 text-center">
+              <button onclick="printSingleTxnReceipt('${t.id}')" title="Print Slip" class="p-1 rounded-lg hover:bg-white/10 text-gray-400 hover:text-cyan-400 transition-colors">🖨️</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      document.getElementById('ledger-empty')?.classList.toggle('hidden', txList.length !== 0);
+
+      // Expense Categories Breakdown
+      const catTotals = {};
+      const expenseList = periodTx.filter(t => t.type === 'expense');
+      const totalExp = expenseList.reduce((n, t) => n + Number(t.amount), 0);
+      expenseList.forEach(t => {
+        const cat = t.category || 'Other Expense';
+        catTotals[cat] = (catTotals[cat] || 0) + Number(t.amount);
+      });
+
+      const catBox = document.getElementById('acc-expense-categories');
+      if (catBox) {
+        const sortedCats = Object.entries(catTotals).sort((a, b) => b[1] - a[1]);
+        if (!sortedCats.length) {
+          catBox.innerHTML = '';
+          document.getElementById('acc-expense-empty')?.classList.remove('hidden');
+        } else {
+          document.getElementById('acc-expense-empty')?.classList.add('hidden');
+          const catColors = {
+            'Accessories': 'from-rose-500 to-pink-500',
+            'Utility & Rent': 'from-amber-500 to-orange-500',
+            'Refreshment & Daily': 'from-yellow-500 to-amber-600',
+            'Machine Maintenance': 'from-blue-500 to-indigo-500',
+            'Staff Wages & Advance': 'from-violet-500 to-purple-600',
+            'Other Expense': 'from-slate-500 to-gray-600'
+          };
+          catBox.innerHTML = sortedCats.map(([cat, amt]) => {
+            const pct = totalExp > 0 ? Math.round((amt / totalExp) * 100) : 0;
+            const barGrad = catColors[cat] || 'from-rose-500 to-pink-500';
+            return `
+              <div>
+                <div class="flex items-center justify-between text-xs mb-1">
+                  <span class="font-bold text-ios-text">${safeText(cat)}</span>
+                  <div class="space-x-1.5 font-mono">
+                    <span class="font-black text-rose-400">${moneyBDT(amt)}</span>
+                    <span class="text-[10px] text-ios-subtext">(${pct}%)</span>
+                  </div>
+                </div>
+                <div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                  <div class="h-full rounded-full bg-gradient-to-r ${barGrad}" style="width: ${Math.max(4, pct)}%"></div>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+
+      renderCustomerDues();
     }
-    function exportLedgerCSV(){
-      const rows=[['Date','Type','Description','Customer','Order ID','Category','Method','Amount BDT']];
-      ssLedgerTransactions.forEach(t=>rows.push([t.date,t.type,t.description,t.customer||'',t.orderId||'',t.category||'',t.method,t.amount]));
-      const csv=rows.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');
-      const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');
-      a.href=url;a.download='selaisathi-ledger-'+new Date().toISOString().slice(0,10)+'.csv';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+
+    function renderCustomerDues() {
+      const container = document.getElementById('ledger-customer-dues');
+      if (!container) return;
+
+      const now = new Date();
+      const dueOrders = ordersData.filter(o => Number(o.due) > 0).map(o => {
+        let orderDate = new Date(o.date);
+        if (isNaN(orderDate.getTime())) orderDate = new Date();
+        const diffDays = Math.max(0, Math.floor((now - orderDate) / (1000 * 60 * 60 * 24)));
+        let ageBucket = '0-7';
+        if (diffDays > 14) ageBucket = '15+';
+        else if (diffDays > 7) ageBucket = '8-14';
+        return { ...o, diffDays, ageBucket };
+      });
+
+      const totalDue = dueOrders.reduce((n, o) => n + Number(o.due), 0);
+      const summaryBadge = document.getElementById('acc-due-summary-badge');
+      if (summaryBadge) summaryBadge.textContent = `${moneyBDT(totalDue)} Due`;
+
+      let filtered = dueOrders;
+      if (ssAccountsAgingFilter !== 'all') {
+        filtered = filtered.filter(o => o.ageBucket === ssAccountsAgingFilter);
+      }
+
+      filtered.sort((a, b) => Number(b.due) - Number(a.due));
+
+      const emptyEl = document.getElementById('ledger-dues-empty');
+      if (!filtered.length) {
+        container.innerHTML = '';
+        emptyEl?.classList.remove('hidden');
+        return;
+      }
+      emptyEl?.classList.add('hidden');
+
+      container.innerHTML = filtered.map(o => {
+        const ageColor = o.ageBucket === '15+' ? 'bg-rose-500/20 text-rose-400 border-rose-500/30' : (o.ageBucket === '8-14' ? 'bg-amber-500/20 text-amber-400 border-amber-500/30' : 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30');
+
+        return `
+          <div class="p-3 rounded-2xl bg-white/[0.03] border border-ios-border hover:border-amber-500/30 transition-all space-y-2">
+            <div class="flex items-start justify-between gap-2">
+              <div class="min-w-0">
+                <div class="font-bold text-xs text-ios-text truncate flex items-center gap-1.5">
+                  <span>${safeText(o.name)}</span>
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-mono border ${ageColor}">${o.diffDays}d ago</span>
+                </div>
+                <div class="text-[10px] text-ios-subtext font-mono truncate">
+                  📞 ${safeText(o.phone)} · <span class="text-cyan-400">${safeText(o.id)}</span> (${safeText(o.garment || 'Garment')})
+                </div>
+              </div>
+              <div class="text-right shrink-0">
+                <div class="text-xs font-black font-mono text-amber-400">${moneyBDT(o.due)}</div>
+                <div class="text-[9px] text-ios-subtext">Total: ${moneyBDT(o.total)}</div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 pt-1 border-t border-ios-border/60">
+              <button onclick="sendDueReminderWhatsApp('${o.id}')" title="Send WhatsApp Due Reminder" class="flex-1 py-1 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold flex items-center justify-center gap-1 transition-all active:scale-95">
+                <span>💬</span> <span>WhatsApp তাগাদা</span>
+              </button>
+              <button onclick="openReceivePaymentModal('${o.id}')" title="Collect Payment Now" class="flex-1 py-1 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 border border-cyan-500/30 text-[10px] font-bold flex items-center justify-center gap-1 transition-all active:scale-95">
+                <span>💰</span> <span>বকেয়া জমা</span>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Modal: Receive Payment / Due Collection
+    function openReceivePaymentModal(preselectedOrderId) {
+      const pending = ordersData.filter(o => Number(o.due) > 0);
+      const selectEl = document.getElementById('rcv-order');
+      if (!selectEl) return;
+
+      if (!pending.length) {
+        if (window.CyberDialog) CyberDialog.alert('আলহামদুলিল্লাহ! কোনো অর্ডারে বকেয়া পাওনা নেই।', { icon: '🎉', title: 'NO DUES' });
+        else alert('No orders with outstanding dues.');
+        return;
+      }
+
+      selectEl.innerHTML = pending.map(o => `
+        <option value="${o.id}" data-due="${o.due}" data-total="${o.total}" data-name="${safeText(o.name)}" data-phone="${safeText(o.phone)}" data-garment="${safeText(o.garment || '')}">
+          ${safeText(o.name)} · ${o.id} · Due: ${moneyBDT(o.due)}
+        </option>
+      `).join('');
+
+      if (preselectedOrderId && pending.some(o => o.id === preselectedOrderId)) {
+        selectEl.value = preselectedOrderId;
+      } else {
+        selectEl.selectedIndex = 0;
+      }
+
+      if (window.CyberSelect) CyberSelect.syncTrigger('rcv-order');
+      onReceiveOrderSelected();
+
+      document.getElementById('rcv-notes').value = '';
+      document.getElementById('modal-receive-payment')?.classList.remove('hidden');
+    }
+
+    function onReceiveOrderSelected() {
+      const selectEl = document.getElementById('rcv-order');
+      if (!selectEl || selectEl.selectedIndex < 0) return;
+      const opt = selectEl.options[selectEl.selectedIndex];
+      const due = Number(opt.getAttribute('data-due')) || 0;
+      const name = opt.getAttribute('data-name') || '';
+      const orderId = opt.value;
+      const garment = opt.getAttribute('data-garment') || '';
+
+      const prev = document.getElementById('rcv-order-preview');
+      if (prev) {
+        prev.classList.remove('hidden');
+        document.getElementById('rcv-prev-name').textContent = name;
+        document.getElementById('rcv-prev-details').textContent = `${orderId} · ${garment}`;
+        document.getElementById('rcv-prev-due').textContent = moneyBDT(due);
+      }
+
+      const amtInput = document.getElementById('rcv-amount');
+      if (amtInput) amtInput.value = due;
+    }
+
+    function fillFullDueAmount() {
+      onReceiveOrderSelected();
+    }
+
+    function submitReceivePayment() {
+      const selectEl = document.getElementById('rcv-order');
+      if (!selectEl || selectEl.selectedIndex < 0) return;
+      const orderId = selectEl.value;
+      const order = ordersData.find(o => o.id === orderId);
+      if (!order) return;
+
+      const amtInput = document.getElementById('rcv-amount');
+      const amount = Number(amtInput?.value) || 0;
+      if (amount <= 0 || amount > Number(order.due)) {
+        if (window.CyberDialog) CyberDialog.alert(`দয়া করে ১ থেকে ${order.due} টাকার মধ্যে একটি সঠিক পরিমাণ লিখুন।`, { icon: '⚠️', title: 'INVALID AMOUNT' });
+        else alert('Enter a valid amount not greater than due.');
+        return;
+      }
+
+      const method = document.getElementById('rcv-method')?.value || 'Cash';
+      const notes = document.getElementById('rcv-notes')?.value.trim() || '';
+      const shouldPrint = document.getElementById('rcv-print-receipt')?.checked ?? true;
+
+      const prevDue = Number(order.due) || 0;
+      order.advance = (Number(order.advance) || 0) + amount;
+      order.due = Math.max(0, Number(order.total) - order.advance);
+
+      const txnId = 'TXN-' + Date.now().toString(36).toUpperCase();
+      const todayStr = new Date().toISOString().slice(0, 10);
+
+      const txn = {
+        id: txnId,
+        type: 'income',
+        category: 'Due Collection',
+        description: `Order Payment (${order.garment || 'Garment'}) - ${order.name}`,
+        customer: order.name,
+        orderId: order.id,
+        method: method,
+        amount: amount,
+        reference: notes || 'Voucher Payment',
+        date: todayStr,
+        createdAt: new Date().toISOString()
+      };
+
+      ssLedgerTransactions.unshift(txn);
+      persistLedger();
+      renderLedger();
+      if (typeof renderOrdersTable === 'function') renderOrdersTable();
+      if (typeof renderCustomers === 'function') renderCustomers();
+
+      closeModal('modal-receive-payment');
+
+      const receiptPayload = {
+        voucherNo: 'MR-' + Date.now().toString().slice(-6),
+        date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+        name: order.name,
+        phone: order.phone,
+        orderId: order.id,
+        garment: order.garment || 'Garment Item',
+        total: order.total,
+        prevPaid: (Number(order.total) - prevDue),
+        amountPaid: amount,
+        method: method,
+        remainingDue: order.due
+      };
+
+      if (shouldPrint) {
+        showMoneyReceipt(receiptPayload);
+      } else {
+        if (window.CyberDialog) {
+          CyberDialog.alert(`৳${amount.toLocaleString('en-BD')} টাকা সফলভাবে জমা নেওয়া হয়েছে! অবশিষ্ট বকেয়া: ${moneyBDT(order.due)}`, { icon: '💰', title: 'PAYMENT RECORDED' });
+        }
+      }
+    }
+
+    // Modal: Add Expense
+    function openAddExpenseModal() {
+      setExpenseCategory('Accessories');
+      const desc = document.getElementById('exp-description');
+      const amt = document.getElementById('exp-amount');
+      const ref = document.getElementById('exp-reference');
+      const dateEl = document.getElementById('exp-date');
+      if (desc) desc.value = '';
+      if (amt) amt.value = '';
+      if (ref) ref.value = '';
+      if (dateEl) dateEl.value = new Date().toISOString().slice(0, 10);
+      document.getElementById('modal-add-expense')?.classList.remove('hidden');
+    }
+
+    function setExpenseCategory(cat) {
+      document.getElementById('exp-category').value = cat;
+      document.querySelectorAll('#exp-category-pills button').forEach(b => {
+        const c = b.getAttribute('data-cat');
+        if (c === cat) {
+          b.className = 'exp-cat-btn active p-2 rounded-xl border border-rose-500/40 bg-rose-500/20 text-rose-300 font-bold text-left text-xs transition-all';
+        } else {
+          b.className = 'exp-cat-btn p-2 rounded-xl border border-ios-border bg-white/5 text-ios-subtext font-medium text-left text-xs hover:border-slate-600 transition-all';
+        }
+      });
+    }
+
+    function submitAddExpense() {
+      const desc = document.getElementById('exp-description')?.value.trim();
+      const amt = Number(document.getElementById('exp-amount')?.value) || 0;
+      const cat = document.getElementById('exp-category')?.value || 'Accessories';
+      const method = document.getElementById('exp-method')?.value || 'Cash';
+      const ref = document.getElementById('exp-reference')?.value.trim();
+      const dateVal = document.getElementById('exp-date')?.value || new Date().toISOString().slice(0, 10);
+
+      if (!desc) {
+        if (window.CyberDialog) CyberDialog.alert('দয়া করে খরচের বিবরণ লিখুন।', { icon: '⚠️', title: 'DESCRIPTION REQUIRED' });
+        else alert('Expense description is required.');
+        return;
+      }
+      if (amt <= 0) {
+        if (window.CyberDialog) CyberDialog.alert('দয়া করে খরচের সঠিক পরিমাণ (৳) লিখুন।', { icon: '⚠️', title: 'INVALID AMOUNT' });
+        else alert('Enter a valid amount.');
+        return;
+      }
+
+      const txn = {
+        id: 'TXN-' + Date.now().toString(36).toUpperCase(),
+        type: 'expense',
+        category: cat,
+        description: desc,
+        method: method,
+        amount: amt,
+        reference: ref || 'Shop Expense',
+        date: dateVal,
+        createdAt: new Date().toISOString()
+      };
+
+      ssLedgerTransactions.unshift(txn);
+      persistLedger();
+      renderLedger();
+      closeModal('modal-add-expense');
+
+      if (window.CyberDialog) {
+        CyberDialog.alert(`৳${amt.toLocaleString('en-BD')} টাকা খরচের এন্ট্রি সফলভাবে সংরক্ষণ করা হয়েছে!`, { icon: '💸', title: 'EXPENSE RECORDED' });
+      }
+    }
+
+    // Modal: Daily Cash Close
+    function openCashCloseModal() {
+      const todayStr = new Date().toISOString().slice(0, 10);
+      const todayTx = ssLedgerTransactions.filter(t => (t.date || '').slice(0, 10) === todayStr);
+
+      const cashIn = todayTx.filter(t => t.type === 'income' && t.method === 'Cash').reduce((n, t) => n + Number(t.amount), 0);
+      const cashOut = todayTx.filter(t => t.type === 'expense' && t.method === 'Cash').reduce((n, t) => n + Number(t.amount), 0);
+      const expected = Math.max(0, ssOpeningCash + cashIn - cashOut);
+
+      const setTxt = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+      setTxt('close-prev-opening', moneyBDT(ssOpeningCash));
+      setTxt('close-today-in', '+' + moneyBDT(cashIn));
+      setTxt('close-today-out', '−' + moneyBDT(cashOut));
+      setTxt('close-expected-cash', moneyBDT(expected));
+
+      const actualInput = document.getElementById('close-actual-cash');
+      if (actualInput) actualInput.value = expected;
+
+      calculateClosingDiscrepancy();
+      document.getElementById('modal-cash-close')?.classList.remove('hidden');
+    }
+
+    function calculateClosingDiscrepancy() {
+      const expectedText = document.getElementById('close-expected-cash')?.textContent.replace(/[^0-9.-]+/g, '') || '0';
+      const expected = Number(expectedText) || 0;
+      const actual = Number(document.getElementById('close-actual-cash')?.value) || 0;
+      const diff = actual - expected;
+
+      const diffVal = document.getElementById('close-diff-val');
+      const diffBox = document.getElementById('close-diff-box');
+      if (!diffVal || !diffBox) return;
+
+      if (diff === 0) {
+        diffVal.textContent = '✅ পারফেক্ট! ক্যাশবাক্স মিলেছে (Matched)';
+        diffVal.className = 'text-sm font-black font-mono text-emerald-400';
+        diffBox.className = 'p-3.5 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 flex items-center justify-between';
+      } else if (diff > 0) {
+        diffVal.textContent = `🟢 উদ্বৃত্ত (Surplus): +${moneyBDT(diff)}`;
+        diffVal.className = 'text-sm font-black font-mono text-cyan-400';
+        diffBox.className = 'p-3.5 rounded-2xl border border-cyan-500/30 bg-cyan-500/10 flex items-center justify-between';
+      } else {
+        diffVal.textContent = `🔴 ঘাটতি (Shortage): −${moneyBDT(Math.abs(diff))}`;
+        diffVal.className = 'text-sm font-black font-mono text-rose-400';
+        diffBox.className = 'p-3.5 rounded-2xl border border-rose-500/30 bg-rose-500/10 flex items-center justify-between';
+      }
+    }
+
+    function submitCashClose() {
+      const actual = Number(document.getElementById('close-actual-cash')?.value) || 0;
+      const expectedText = document.getElementById('close-expected-cash')?.textContent.replace(/[^0-9.-]+/g, '') || '0';
+      const expected = Number(expectedText) || 0;
+      const notes = document.getElementById('close-notes')?.value.trim() || 'Day Closed';
+
+      const shiftData = {
+        date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        openingFloat: ssOpeningCash,
+        actualCounted: actual,
+        expectedDrawer: expected,
+        discrepancy: actual - expected,
+        notes: notes
+      };
+
+      try {
+        localStorage.setItem('ss_last_shift_close', JSON.stringify(shiftData));
+      } catch(e) {}
+
+      closeModal('modal-cash-close');
+
+      if (window.CyberDialog) {
+        CyberDialog.alert(`🔒 দৈনিক ক্যাশবাক্স সফলভাবে ক্লোজ করা হয়েছে!<br><br><b>ক্লোজিং ব্যালেন্স:</b> ${moneyBDT(actual)}<br><b>পার্থক্য:</b> ${shiftData.discrepancy === 0 ? 'পারফেক্ট মিল আছে ✓' : moneyBDT(shiftData.discrepancy)}`, { icon: '🔒', title: 'DAY CLOSE RECORDED' });
+      }
+    }
+
+    // Modal: 58mm Money Receipt Slip
+    function showMoneyReceipt(data) {
+      activeReceiptData = data;
+      const setTxt = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+      setTxt('mr-voucher-no', data.voucherNo || ('MR-' + Date.now().toString().slice(-6)));
+      setTxt('mr-date', data.date || new Date().toLocaleDateString('en-GB'));
+      setTxt('mr-cust-name', data.name || 'Customer');
+      setTxt('mr-cust-phone', data.phone || '017xxxxxxxx');
+      setTxt('mr-order-id', data.orderId || 'ORD-XXXX');
+      setTxt('mr-garment', data.garment || 'Tailored Item');
+      setTxt('mr-order-total', moneyBDT(data.total));
+      setTxt('mr-prev-paid', moneyBDT(data.prevPaid));
+      setTxt('mr-amount-paid', moneyBDT(data.amountPaid));
+      setTxt('mr-payment-method', `${data.method} (${data.method === 'Cash' ? 'নগদ' : 'ডিজিটাল'})`);
+      setTxt('mr-remaining-due', data.remainingDue <= 0 ? '৳0 (PAID ✓)' : moneyBDT(data.remainingDue));
+
+      document.getElementById('modal-money-receipt')?.classList.remove('hidden');
+    }
+
+    function printMoneyReceipt() {
+      const receiptEl = document.getElementById('printable-money-receipt');
+      if (!receiptEl) return;
+      const w = window.open('', '_blank', 'width=380,height=600');
+      if (!w) { alert('Popup blocked. Allow popups to print receipt.'); return; }
+      w.document.write(`
+        <!doctype html><html><head><meta charset="utf-8"><title>Money Receipt</title>
+        <style>body{font-family:monospace;font-size:12px;padding:10px;margin:0;}@media print{body{padding:0;}}</style>
+        </head><body>${receiptEl.outerHTML}
+        <' + 'script>window.onload=function(){window.print();window.close();};<' + '/script>
+        </body></html>
+      `);
+      w.document.close();
+    }
+
+    function shareMoneyReceiptWhatsApp() {
+      if (!activeReceiptData) return;
+      const cleanPhone = String(activeReceiptData.phone || '').replace(/[^0-9]/g, '');
+      const msg = [
+        `🧾 *সেলাই সাথী টেইলার্স — মানি রিসিট*`,
+        `ভাউচার: *${activeReceiptData.voucherNo}*`,
+        `তারিখ: ${activeReceiptData.date}`,
+        `👤 গ্রাহক: *${activeReceiptData.name}*`,
+        `📋 অর্ডার নং: *${activeReceiptData.orderId}* (${activeReceiptData.garment})`,
+        `-----------------------------`,
+        `💰 মোট বিল: ${moneyBDT(activeReceiptData.total)}`,
+        `🟢 আদায়কৃত জমা: *${moneyBDT(activeReceiptData.amountPaid)}* (${activeReceiptData.method})`,
+        `⏳ অবশিষ্ট বকেয়া: *${activeReceiptData.remainingDue <= 0 ? 'পরিশোধিত (PAID ✓)' : moneyBDT(activeReceiptData.remainingDue)}*`,
+        `-----------------------------`,
+        `পেমেন্ট নিশ্চিত করার জন্য ধন্যবাদ! — সেলাই সাথী টেইলার্স`
+      ].join('\n');
+
+      const url = `https://wa.me/88${cleanPhone}?text=${encodeURIComponent(msg)}`;
+      window.open(url, '_blank');
+    }
+
+    function printSingleTxnReceipt(txnId) {
+      const txn = ssLedgerTransactions.find(t => t.id === txnId);
+      if (!txn) return;
+      showMoneyReceipt({
+        voucherNo: txn.id,
+        date: txn.date,
+        name: txn.customer || 'Customer / Karigar',
+        phone: 'N/A',
+        orderId: txn.orderId || 'Direct Entry',
+        garment: txn.category || 'Transaction',
+        total: txn.amount,
+        prevPaid: 0,
+        amountPaid: txn.amount,
+        method: txn.method || 'Cash',
+        remainingDue: 0
+      });
+    }
+
+    function sendDueReminderWhatsApp(orderId) {
+      const order = ordersData.find(o => o.id === orderId);
+      if (!order) return;
+      const cleanPhone = String(order.phone || '').replace(/[^0-9]/g, '');
+      const msg = [
+        `আসসালামু আলাইকুম *${order.name}* ভাই/আপা,`,
+        `সেলাই সাথী টেইলার্স থেকে আপনার পোশাকের অর্ডারটি প্রস্তুত করা হচ্ছে।`,
+        ``,
+        `📋 অর্ডার নং: *${order.id}*`,
+        `👔 পোশাক: *${order.garment || 'পোশাক'}*`,
+        `💰 মোট বিল: ${moneyBDT(order.total)}`,
+        `🟢 পরিশোধিত অগ্রিম: ${moneyBDT(order.advance)}`,
+        `⚠️ *বকেয়া পরিমাণ: ${moneyBDT(order.due)}*`,
+        ``,
+        `ডেলিভারি নেয়ার পূর্বে বকেয়া পরিশোধ করার জন্য বিনীত অনুরোধ করা হচ্ছে।`,
+        `বিকাশ / নগদ (পার্সোনাল): *01700-112233*`,
+        ``,
+        `ধন্যবাদান্তে,`,
+        `সেলাই সাথী টেইলার্স (দোকান ১২, নিউ মার্কেট, ঢাকা)`
+      ].join('\n');
+
+      const url = `https://wa.me/88${cleanPhone}?text=${encodeURIComponent(msg)}`;
+      window.open(url, '_blank');
+    }
+
+    function printAccountsStatement() {
+      const periodTx = ssLedgerTransactions.filter(t => isDateInAccountFilter(t.date || t.createdAt, ssAccountsTimeFilter));
+      const sales = ordersData.reduce((n, o) => n + (Number(o.total) || 0), 0);
+      const collected = periodTx.filter(t => t.type === 'income').reduce((n, t) => n + Number(t.amount), 0);
+      const expenses = periodTx.filter(t => t.type === 'expense').reduce((n, t) => n + Number(t.amount), 0);
+      const net = collected - expenses;
+      const dues = ordersData.filter(o => Number(o.due) > 0).reduce((n, o) => n + Number(o.due), 0);
+
+      const rows = periodTx.map(t => `
+        <tr>
+          <td style="padding:6px;border:1px solid #cbd5e1;">${safeText(t.date)}</td>
+          <td style="padding:6px;border:1px solid #cbd5e1;"><b>${safeText(t.description)}</b><br><small style="color:#64748b">${safeText(t.category || '')} ${t.customer ? '· ' + safeText(t.customer) : ''}</small></td>
+          <td style="padding:6px;border:1px solid #cbd5e1;">${safeText(t.method || 'Cash')}</td>
+          <td style="padding:6px;border:1px solid #cbd5e1;text-align:right;font-family:monospace;font-weight:bold;color:${t.type==='income'?'#059669':'#e11d48'};">
+            ${t.type==='income'?'+':'−'}${moneyBDT(t.amount)}
+          </td>
+        </tr>
+      `).join('');
+
+      const w = window.open('', '_blank');
+      if (!w) { alert('Popup blocked. Please allow popups.'); return; }
+
+      w.document.write(`
+        <!doctype html><html><head><meta charset="utf-8"><title>Accounts Balance Statement</title>
+        <style>
+          body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; color: #0f172a; padding: 24px; font-size: 12px; }
+          .header { text-align: center; border-bottom: 2px solid #0f172a; padding-bottom: 12px; margin-bottom: 16px; }
+          .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+          .kpi-card { border: 1px solid #cbd5e1; padding: 10px; border-radius: 8px; text-align: center; }
+          table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 11px; }
+          th { background: #f1f5f9; padding: 8px; border: 1px solid #cbd5e1; text-align: left; }
+          .footer { margin-top: 40px; display: flex; justify-content: space-between; border-top: 1px dashed #94a3b8; padding-top: 15px; }
+          @media print { body { padding: 0; } }
+        </style>
+        </head><body>
+          <div class="header">
+            <h1 style="margin:0;font-size:20px;">SELAISATHI TAILORS</h1>
+            <div style="font-size:11px;color:#64748b;">FINANCIAL ACCOUNTS & LEDGER STATEMENT</div>
+            <div style="font-size:10px;margin-top:4px;">Period: ${ssAccountsTimeFilter.toUpperCase()} · Generated: ${new Date().toLocaleString()}</div>
+          </div>
+
+          <div class="kpi-grid">
+            <div class="kpi-card"><div>Total Collected</div><b style="font-size:16px;color:#059669;">${moneyBDT(collected)}</b></div>
+            <div class="kpi-card"><div>Total Expenses</div><b style="font-size:16px;color:#e11d48;">${moneyBDT(expenses)}</b></div>
+            <div class="kpi-card"><div>Net Cash Result</div><b style="font-size:16px;">${moneyBDT(net)}</b></div>
+            <div class="kpi-card"><div>Outstanding Dues</div><b style="font-size:16px;color:#d97706;">${moneyBDT(dues)}</b></div>
+          </div>
+
+          <h3>Transaction Journal</h3>
+          <table>
+            <thead><tr><th>Date</th><th>Description</th><th>Method</th><th style="text-align:right">Amount</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+
+          <div class="footer">
+            <span>Prepared by: Accountant / System</span>
+            <span>Approved by: Shop Owner</span>
+          </div>
+          <' + 'script>window.onload=function(){window.print();};<' + '/script>
+        </body></html>
+      `);
+      w.document.close();
+    }
+
+    // Compatibility aliases for legacy calls
+    function receiveLedgerPayment() { openReceivePaymentModal(); }
+    function addLedgerExpense() { openAddExpenseModal(); }
+
+    function exportLedgerCSV() {
+      const rows = [['Transaction ID', 'Date', 'Type', 'Category', 'Description', 'Customer', 'Order ID', 'Method', 'Amount BDT']];
+      ssLedgerTransactions.forEach(t => rows.push([t.id, t.date, t.type, t.category || '', t.description, t.customer || '', t.orderId || '', t.method || 'Cash', t.amount]));
+      const csv = rows.map(row => row.map(v => '"' + String(v ?? '').replace(/"/g, '""') + '"').join(',')).join('\r\n');
+      const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'selaisathi-accounts-ledger-' + new Date().toISOString().slice(0, 10) + '.csv';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
     }
 
 
@@ -9154,7 +10500,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         });
 
         // Sync initial labels for all registered cyber selects
-        ['order-filter-stage', 'order-filter-due', 'order-filter-garment', 'eo-stage', 'eo-garment', 'no-garment', 'customer-filter-status', 'staff-attendance-filter', 'payout-method'].forEach(id => {
+        ['order-filter-stage', 'order-filter-due', 'order-filter-garment', 'eo-stage', 'eo-garment', 'no-garment', 'customer-filter-status', 'staff-attendance-filter', 'payout-method', 'rcv-method', 'exp-method'].forEach(id => {
           this.syncTrigger(id);
         });
       },
