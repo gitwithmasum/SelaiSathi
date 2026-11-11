@@ -303,28 +303,78 @@
     }
     body:not(.theme-white) .bento-card:hover { border-color: rgba(34,211,238,.25) !important; box-shadow: 0 16px 38px rgba(0,0,0,.22),0 0 22px rgba(34,211,238,.035) !important; transform: translateY(-1px); }
     body:not(.theme-white) .glass-card { background: rgba(16,27,44,.86) !important; border: 1px solid var(--ss-border); }
-    body:not(.theme-white) .app-view .bg-white, body:not(.theme-white) .app-view .bg-white\/80, body:not(.theme-white) .app-view .bg-white\/70 { background: rgba(255,255,255,.055) !important; }
-    body:not(.theme-white) .app-view .bg-gray-50, body:not(.theme-white) .app-view .bg-gray-50\/50, body:not(.theme-white) .app-view .bg-gray-50\/70, body:not(.theme-white) .app-view .bg-gray-100, body:not(.theme-white) .app-view .bg-gray-100\/70, body:not(.theme-white) .app-view .bg-gray-200\/60 { background: rgba(148,163,184,.09) !important; }
-    body:not(.theme-white) .app-view .border-ios-border, body:not(.theme-white) .app-view .border-gray-100, body:not(.theme-white) .app-view .border-gray-200, body:not(.theme-white) .app-view .border-gray-300\/40 { border-color: var(--ss-border) !important; }
-    body:not(.theme-white) .app-view .text-ios-text, body:not(.theme-white) .app-view .text-gray-900, body:not(.theme-white) .app-view .text-gray-800 { color: #eaf2ff !important; }
-    body:not(.theme-white) .app-view .text-gray-700 { color: #c6d3e4 !important; }
-    body:not(.theme-white) .app-view .text-gray-600 { color: #aabbd0 !important; }
-    body:not(.theme-white) .app-view .text-gray-500, body:not(.theme-white) .app-view .text-gray-400, body:not(.theme-white) .app-view .text-ios-subtext { color: var(--ss-muted) !important; }
-    body:not(.theme-white) .app-view .divide-gray-100 > :not([hidden]) ~ :not([hidden]) { border-color: var(--ss-border) !important; }
-    body:not(.theme-white) .app-view table thead tr { border-color: var(--ss-border) !important; color: #9fb2c9 !important; }
-    body:not(.theme-white) .app-view table tbody tr { border-color: var(--ss-border) !important; }
-    body:not(.theme-white) .app-view table tbody tr:hover { background: rgba(34,211,238,.045) !important; }
-    body:not(.theme-white) .app-view input:not([type=checkbox]), body:not(.theme-white) .app-view select, body:not(.theme-white) .app-view textarea {
-      color: #eaf2ff !important; background: rgba(5,12,23,.48) !important;
-      border-color: rgba(148,163,184,.22) !important; border-radius: 12px !important;
+    body:not(.theme-white) .bg-white, body:not(.theme-white) .bg-white\/80, body:not(.theme-white) .bg-white\/70 { background: rgba(255,255,255,.055) !important; }
+    body:not(.theme-white) .bg-gray-50, body:not(.theme-white) .bg-gray-50\/50, body:not(.theme-white) .bg-gray-50\/70, body:not(.theme-white) .bg-gray-100, body:not(.theme-white) .bg-gray-100\/70, body:not(.theme-white) .bg-gray-200\/60 { background: rgba(148,163,184,.09) !important; }
+    body:not(.theme-white) .border-ios-border, body:not(.theme-white) .border-gray-100, body:not(.theme-white) .border-gray-200, body:not(.theme-white) .border-gray-300\/40 { border-color: var(--ss-border) !important; }
+    body:not(.theme-white) .text-ios-text, body:not(.theme-white) .text-gray-900, body:not(.theme-white) .text-gray-800 { color: #FFFFFF !important; }
+    body:not(.theme-white) .text-gray-700 { color: #c6d3e4 !important; }
+    body:not(.theme-white) .text-gray-600 { color: #aabbd0 !important; }
+    body:not(.theme-white) .text-gray-500, body:not(.theme-white) .text-gray-400, body:not(.theme-white) .text-ios-subtext { color: var(--ss-muted) !important; }
+    body:not(.theme-white) .divide-gray-100 > :not([hidden]) ~ :not([hidden]) { border-color: var(--ss-border) !important; }
+    body:not(.theme-white) table thead tr { border-color: var(--ss-border) !important; color: #9fb2c9 !important; }
+    body:not(.theme-white) table tbody tr { border-color: var(--ss-border) !important; }
+    body:not(.theme-white) table tbody tr:hover { background: rgba(34,211,238,.045) !important; }
+
+    /* Universal Input & Textarea Fields - Galaxy Theme */
+    body:not(.theme-white) input:not([type=checkbox]):not([type=radio]):not(#printable-receipt *):not(#printable-money-receipt *),
+    body:not(.theme-white) select:not(#printable-receipt *):not(#printable-money-receipt *),
+    body:not(.theme-white) textarea:not(#printable-receipt *):not(#printable-money-receipt *) {
+      color: #FFFFFF !important;
+      background: rgba(13, 22, 38, 0.92) !important;
+      border-color: rgba(148, 163, 184, 0.28) !important;
+      border-radius: 14px !important;
     }
-    body:not(.theme-white) .app-view input::placeholder, body:not(.theme-white) .app-view textarea::placeholder { color: #71839a !important; }
-    body:not(.theme-white) .app-view input:focus, body:not(.theme-white) .app-view select:focus, body:not(.theme-white) .app-view textarea:focus { outline: none; border-color: rgba(34,211,238,.62) !important; box-shadow: 0 0 0 3px rgba(34,211,238,.08); }
-    body:not(.theme-white) .app-view button { transition: background .2s ease,border-color .2s ease,transform .2s ease,box-shadow .2s ease; }
-    body:not(.theme-white) .app-view button:focus-visible, body:not(.theme-white) header button:focus-visible, body:not(.theme-white) .nav-item:focus-visible { outline: 2px solid var(--ss-cyan); outline-offset: 3px; }
-    body:not(.theme-white) .app-view .bg-gradient-to-br, body:not(.theme-white) .app-view .bg-gradient-to-r { border-color: var(--ss-border); }
-    body:not(.theme-white) #modal-new-order .bento-card, body:not(.theme-white) #modal-edit-order .bento-card, body:not(.theme-white) #modal-receipt .bento-card, body:not(.theme-white) #modal-data-entry .bento-card, body:not(.theme-white) #modal-customer-profile .bento-card { background: #111d30 !important; }
-    body:not(.theme-white) #modal-new-order label, body:not(.theme-white) #modal-edit-order label, body:not(.theme-white) #modal-receipt h3, body:not(.theme-white) #modal-data-entry label, body:not(.theme-white) #modal-customer-profile label { color: #dce8f7 !important; }
+    body:not(.theme-white) input::placeholder,
+    body:not(.theme-white) textarea::placeholder {
+      color: #94A3B8 !important;
+      opacity: 1 !important;
+    }
+    body:not(.theme-white) input:focus,
+    body:not(.theme-white) select:focus,
+    body:not(.theme-white) textarea:focus {
+      outline: none !important;
+      background: rgba(15, 23, 42, 0.98) !important;
+      border-color: rgba(34, 211, 238, 0.8) !important;
+      box-shadow: 0 0 16px rgba(34, 211, 238, 0.25) !important;
+    }
+
+    /* Universal Modal Bento Cards & Labels in Galaxy Theme */
+    body:not(.theme-white) [id^="modal-"] .bento-card {
+      background: #0d1626 !important;
+      border: 1px solid rgba(148, 163, 184, 0.28) !important;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 35px rgba(34, 211, 238, 0.08) !important;
+    }
+    body:not(.theme-white) [id^="modal-"] label {
+      color: #e2e8f0 !important;
+    }
+
+    /* Native Option Styling Across All Dropdowns */
+    select option {
+      background-color: #0d1626 !important;
+      color: #FFFFFF !important;
+      padding: 10px 14px !important;
+    }
+    body.theme-white select option {
+      background-color: #FFFFFF !important;
+      color: #0F172A !important;
+    }
+
+    /* Hidden Select Elements for CyberSelect: zero dimensions & no pointer capture */
+    select.sr-only, select[class*="sr-only"], select[style*="display: none"], select[style*="display:none"] {
+      display: none !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      position: absolute !important;
+      width: 0 !important;
+      height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+    }
+
+    body:not(.theme-white) button { transition: background .2s ease,border-color .2s ease,transform .2s ease,box-shadow .2s ease; }
+    body:not(.theme-white) button:focus-visible, body:not(.theme-white) header button:focus-visible, body:not(.theme-white) .nav-item:focus-visible { outline: 2px solid var(--ss-cyan); outline-offset: 3px; }
+    body:not(.theme-white) .bg-gradient-to-br, body:not(.theme-white) .bg-gradient-to-r { border-color: var(--ss-border); }
 
     /* Common layout utilities */
     main { padding: 28px clamp(16px,2.4vw,36px) 42px !important; }
@@ -2829,7 +2879,7 @@ body.theme-white #view-measurements #meas-quick-matrix {
 #view-staff .staff-card-grid>article>div:first-child{flex:1 1 auto}
 #view-staff .staff-card-grid article .staff-actions{padding-top:12px;border-top:1px solid rgba(148,163,184,.18);gap:8px;align-items:center}
 #view-staff .staff-card-grid article button,#view-staff .staff-card-grid article a{white-space:nowrap}
-#view-staff #staff-search,#view-staff #staff-attendance-filter{min-height:40px}
+#view-staff #staff-search,#view-staff #staff-attendance-filter-btn{min-height:40px}
 #view-staff .staff-role-pill{min-height:32px;border:1px solid transparent}
 #view-staff .staff-role-pill.active{box-shadow:0 4px 14px rgba(124,58,237,.22)}
 #view-staff #staff-display-container table{min-width:980px}
@@ -2846,7 +2896,7 @@ body.theme-white #view-staff .staff-card-grid article .text-cyan-300,body.theme-
 body.theme-white #view-staff .staff-card-grid article .text-emerald-300,body.theme-white #view-staff .staff-card-grid article .text-emerald-400{color:#047857!important}
 body.theme-white #view-staff .staff-card-grid article .text-amber-300,body.theme-white #view-staff .staff-card-grid article .text-amber-400{color:#a16207!important}
 body.theme-white #view-staff .staff-card-grid article .staff-actions{border-color:#e0e5ef!important}
-body.theme-white #view-staff #staff-search,body.theme-white #view-staff #staff-attendance-filter{color:#263247!important;background:#fff!important;border-color:#d8dfeb!important}
+body.theme-white #view-staff #staff-search,body.theme-white #view-staff #staff-attendance-filter-btn{color:#263247!important;background:#fff!important;border-color:#d8dfeb!important}
 body.theme-white #view-staff #staff-search::placeholder{color:#8792a4!important}
 body.theme-white #view-staff .staff-role-pill:not(.active){color:#536176!important}
 body.theme-white #view-staff .staff-role-pill:not(.active):hover{background:#ede9fe!important;color:#5b21b6!important}
@@ -2855,7 +2905,7 @@ body.theme-white #view-staff #staff-display-container thead tr{background:#f2f4f
 body.theme-white #view-staff #staff-display-container tbody tr:hover{background:#f5f7fc!important}
 #view-staff button:focus-visible,#view-staff a:focus-visible,#view-staff input:focus-visible,#view-staff select:focus-visible{outline:2px solid #22d3ee;outline-offset:2px}
 @media(max-width:1279px){#view-staff .staff-card-grid{gap:14px!important}}
-@media(max-width:639px){#view-staff .staff-card-grid>article{padding:15px!important}#view-staff .staff-page-header-actions{width:100%}#view-staff .staff-page-header-actions button{flex:1 1 auto;justify-content:center}#view-staff .staff-filter-right{width:100%;flex-wrap:wrap}#view-staff #staff-attendance-filter{flex:1 1 150px;min-width:0}}
+@media(max-width:639px){#view-staff .staff-card-grid>article{padding:15px!important}#view-staff .staff-page-header-actions{width:100%}#view-staff .staff-page-header-actions button{flex:1 1 auto;justify-content:center}#view-staff .staff-filter-right{width:100%;flex-wrap:wrap}#view-staff #staff-attendance-filter-btn{flex:1 1 150px;min-width:0}}
 
 
 /* Staff page zoom resilience: fluid columns based on available CSS width */
@@ -4331,7 +4381,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                   <span id="order-filter-stage-label">All Stages (সব স্টেজ)</span>
                   <span class="cyber-select-chevron">▾</span>
                 </button>
-                <select id="order-filter-stage" onchange="filterOrders()" class="sr-only">
+                <select id="order-filter-stage" onchange="filterOrders()" class="sr-only" style="display:none !important;" aria-hidden="true" tabindex="-1">
                   <option value="ALL">All Stages (সব স্টেজ)</option>
                   <option value="CUTTING">✂️ CUTTING</option>
                   <option value="STITCHING">🪡 STITCHING</option>
@@ -4347,7 +4397,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                   <span id="order-filter-due-label">All Payments (সব পেমেন্ট)</span>
                   <span class="cyber-select-chevron">▾</span>
                 </button>
-                <select id="order-filter-due" onchange="filterOrders()" class="sr-only">
+                <select id="order-filter-due" onchange="filterOrders()" class="sr-only" style="display:none !important;" aria-hidden="true" tabindex="-1">
                   <option value="ALL">All Payments (সব পেমেন্ট)</option>
                   <option value="DUE">বকেয়া আছে (Due Only)</option>
                   <option value="PAID">পরিশোধিত (Fully Paid)</option>
@@ -4360,7 +4410,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                   <span id="order-filter-garment-label">All Garments (সব পোশাক)</span>
                   <span class="cyber-select-chevron">▾</span>
                 </button>
-                <select id="order-filter-garment" onchange="filterOrders()" class="sr-only">
+                <select id="order-filter-garment" onchange="filterOrders()" class="sr-only" style="display:none !important;" aria-hidden="true" tabindex="-1">
                   <option value="ALL">All Garments (সব পোশাক)</option>
                   <option value="Panjabi">Panjabi (পাঞ্জাবি)</option>
                   <option value="Shirt">Shirt (শার্ট)</option>
@@ -4478,7 +4528,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                   <span id="customer-filter-status-label">All Customers (সকল গ্রাহক)</span>
                   <span class="cyber-select-chevron">▾</span>
                 </button>
-                <select id="customer-filter-status" onchange="renderCustomers()" class="sr-only">
+                <select id="customer-filter-status" onchange="renderCustomers()" class="sr-only" style="display:none !important;" aria-hidden="true" tabindex="-1">
                   <option value="ALL">All Customers (সকল গ্রাহক)</option>
                   <option value="DUE">বকেয়া আছে (Due Only)</option>
                   <option value="PAID">পরিশোধিত (Zero Due)</option>
@@ -4617,7 +4667,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                   <span id="staff-attendance-filter-label">All Attendance (সবাই)</span>
                   <span class="cyber-select-chevron">▾</span>
                 </button>
-                <select id="staff-attendance-filter" onchange="renderStaff()" class="sr-only">
+                <select id="staff-attendance-filter" onchange="renderStaff()" class="sr-only" style="display:none !important;" aria-hidden="true" tabindex="-1">
                   <option value="ALL">All Attendance (সবাই)</option>
                   <option value="Present">🟢 Present (উপস্থিত)</option>
                   <option value="Half-Day">🟡 Half-Day (অর্ধবেলা)</option>
@@ -5007,7 +5057,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <span id="payout-method-label">Cash (নগদ)</span>
               <span class="cyber-select-chevron">▾</span>
             </button>
-            <select id="payout-method" class="sr-only">
+            <select id="payout-method" class="sr-only" style="display:none !important;" aria-hidden="true" tabindex="-1">
               <option value="Cash">Cash (নগদ)</option>
               <option value="bKash">bKash (বিকাশ)</option>
               <option value="Nagad">Nagad (নগদ ওয়ালেট)</option>
@@ -5093,7 +5143,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 <span id="eo-stage-label">✂️ CUTTING (কাটিং)</span>
                 <span class="cyber-select-chevron">▾</span>
               </button>
-              <select id="eo-stage" class="sr-only font-bold">
+              <select id="eo-stage" class="sr-only font-bold" style="display:none !important;" aria-hidden="true" tabindex="-1">
                 <option value="CUTTING">✂️ CUTTING (কাটিং)</option>
                 <option value="STITCHING">🪡 STITCHING (সেলাই)</option>
                 <option value="FINISHING">👔 FINISHING (ফিনিশিং)</option>
@@ -5106,11 +5156,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
         <div>
           <label class="block font-bold text-ios-text mb-1.5">Customer Name *</label>
-          <input type="text" id="eo-cust-name" placeholder="Customer Name" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm focus:outline-none focus:border-ios-blue text-ios-text bg-white/70 dark:bg-slate-900/70">
+          <input type="text" id="eo-cust-name" placeholder="Customer Name" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm focus:outline-none focus:border-ios-blue text-ios-text">
         </div>
         <div>
           <label class="block font-bold text-ios-text mb-1.5">Mobile Number *</label>
-          <input type="tel" id="eo-cust-phone" placeholder="017xxxxxxxx" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm focus:outline-none focus:border-ios-blue text-ios-text bg-white/70 dark:bg-slate-900/70">
+          <input type="tel" id="eo-cust-phone" placeholder="017xxxxxxxx" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm focus:outline-none focus:border-ios-blue text-ios-text">
         </div>
 
         <div class="grid grid-cols-2 gap-3.5">
@@ -5121,7 +5171,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 <span id="eo-garment-label">Cotton Panjabi (পাঞ্জাবি)</span>
                 <span class="cyber-select-chevron">▾</span>
               </button>
-              <select id="eo-garment" class="sr-only">
+              <select id="eo-garment" class="sr-only" style="display:none !important;" aria-hidden="true" tabindex="-1">
                 <option value="Cotton Panjabi">Cotton Panjabi (পাঞ্জাবি)</option>
                 <option value="Formal Shirt">Formal Shirt (শার্ট)</option>
                 <option value="Gabardine Pant">Gabardine Pant (প্যান্ট)</option>
@@ -5148,15 +5198,15 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <div class="grid grid-cols-3 gap-3.5">
           <div>
             <label class="block font-bold text-ios-text mb-1.5">Total Bill (৳) *</label>
-            <input type="number" id="eo-total" oninput="calculateEditDue()" class="w-full border border-ios-border rounded-2xl px-3 py-2.5 text-sm font-black font-mono text-ios-text bg-white/70 dark:bg-slate-900/70">
+            <input type="number" id="eo-total" oninput="calculateEditDue()" class="w-full border border-ios-border rounded-2xl px-3 py-2.5 text-sm font-black font-mono text-ios-text">
           </div>
           <div>
             <label class="block font-bold text-ios-text mb-1.5">Advance (৳)</label>
-            <input type="number" id="eo-advance" oninput="calculateEditDue()" class="w-full border border-ios-border rounded-2xl px-3 py-2.5 text-sm font-black font-mono text-emerald-600 bg-white/70 dark:bg-slate-900/70">
+            <input type="number" id="eo-advance" oninput="calculateEditDue()" class="w-full border border-ios-border rounded-2xl px-3 py-2.5 text-sm font-black font-mono text-emerald-400">
           </div>
           <div>
             <label class="block font-bold text-ios-text mb-1.5">Due Amount (৳)</label>
-            <input type="number" id="eo-due" readonly class="w-full border border-ios-border rounded-2xl px-3 py-2.5 text-sm font-black font-mono text-red-500 bg-red-500/10">
+            <input type="number" id="eo-due" readonly class="w-full border border-ios-border rounded-2xl px-3 py-2.5 text-sm font-black font-mono text-rose-400 bg-rose-500/10">
           </div>
         </div>
       </div>
@@ -5166,7 +5216,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           🗑️ Delete Order
         </button>
         <div class="flex items-center gap-2">
-          <button onclick="closeModal('modal-edit-order')" class="px-5 py-2.5 border border-ios-border rounded-2xl text-xs font-bold text-gray-600 hover:bg-gray-50 active:scale-95">
+          <button onclick="closeModal('modal-edit-order')" class="px-5 py-2.5 border border-ios-border rounded-2xl text-xs font-bold text-ios-subtext hover:bg-white/10 active:scale-95">
             Cancel
           </button>
           <button onclick="saveEditOrder()" class="px-6 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl text-xs font-bold shadow-md active:scale-95">
@@ -5190,11 +5240,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <div class="space-y-3.5 text-xs">
         <div>
           <label class="block font-bold text-ios-text mb-1.5">Customer Name *</label>
-          <input type="text" id="no-cust-name" placeholder="e.g. Shahadat Hossain" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm focus:outline-none focus:border-ios-blue text-ios-text bg-white/70 dark:bg-slate-900/70">
+          <input type="text" id="no-cust-name" placeholder="e.g. Shahadat Hossain" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm focus:outline-none focus:border-ios-blue text-ios-text">
         </div>
         <div>
           <label class="block font-bold text-ios-text mb-1.5">Mobile Number *</label>
-          <input type="tel" id="no-cust-phone" placeholder="017xxxxxxxx" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm focus:outline-none focus:border-ios-blue text-ios-text bg-white/70 dark:bg-slate-900/70">
+          <input type="tel" id="no-cust-phone" placeholder="017xxxxxxxx" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm focus:outline-none focus:border-ios-blue text-ios-text">
         </div>
 
         <div class="grid grid-cols-2 gap-3.5">
@@ -5205,7 +5255,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 <span id="no-garment-label">Panjabi (পাঞ্জাবি)</span>
                 <span class="cyber-select-chevron">▾</span>
               </button>
-              <select id="no-garment" class="sr-only">
+              <select id="no-garment" class="sr-only" style="display:none !important;" aria-hidden="true" tabindex="-1">
                 <option value="Panjabi">Panjabi (পাঞ্জাবি)</option>
                 <option value="Shirt">Formal Shirt (শার্ট)</option>
                 <option value="Pant">Pant (প্যান্ট)</option>
@@ -5230,11 +5280,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <div class="grid grid-cols-2 gap-3.5">
           <div>
             <label class="block font-bold text-ios-text mb-1.5">Total Bill (৳) *</label>
-            <input type="number" id="no-total" value="850" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm font-black font-mono text-ios-text bg-white/70 dark:bg-slate-900/70">
+            <input type="number" id="no-total" value="850" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm font-black font-mono text-ios-text">
           </div>
           <div>
             <label class="block font-bold text-ios-text mb-1.5">Advance Paid (৳)</label>
-            <input type="number" id="no-advance" value="300" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm font-black font-mono text-emerald-600 bg-white/70 dark:bg-slate-900/70">
+            <input type="number" id="no-advance" value="300" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm font-black font-mono text-emerald-400">
           </div>
         </div>
 
@@ -5343,7 +5393,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <span id="rcv-order-label">Select Order with Due...</span>
               <span class="cyber-select-chevron">▾</span>
             </button>
-            <select id="rcv-order" onchange="onReceiveOrderSelected()" class="sr-only"></select>
+            <select id="rcv-order" onchange="onReceiveOrderSelected()" class="sr-only" style="display:none !important;" aria-hidden="true" tabindex="-1"></select>
           </div>
         </div>
 
@@ -5365,7 +5415,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <label class="font-bold text-ios-text">Amount Received (৳) *</label>
               <button type="button" onclick="fillFullDueAmount()" class="text-[10px] font-bold text-emerald-400 hover:underline">Full Due</button>
             </div>
-            <input type="number" id="rcv-amount" placeholder="0" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm font-black font-mono text-ios-text bg-white/70 dark:bg-slate-900/70 focus:outline-none focus:border-emerald-500">
+            <input type="number" id="rcv-amount" placeholder="0" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm font-black font-mono text-ios-text focus:outline-none focus:border-emerald-500">
           </div>
           <div>
             <label class="block font-bold text-ios-text mb-1.5">Payment Method *</label>
@@ -5374,7 +5424,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 <span id="rcv-method-label">Cash (নগদ ড্রয়ার)</span>
                 <span class="cyber-select-chevron">▾</span>
               </button>
-              <select id="rcv-method" class="sr-only">
+              <select id="rcv-method" class="sr-only" style="display:none !important;" aria-hidden="true" tabindex="-1">
                 <option value="Cash">Cash (নগদ ড্রয়ার)</option>
                 <option value="bKash">bKash (বিকাশ ওয়ালেট)</option>
                 <option value="Nagad">Nagad (নগদ ওয়ালেট)</option>
@@ -5386,7 +5436,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
         <div>
           <label class="block font-bold text-ios-text mb-1.5">Remarks / Note (ঐচ্ছিক বিবরণ)</label>
-          <input type="text" id="rcv-notes" placeholder="e.g. Final delivery collection / partial advance" class="w-full border border-ios-border rounded-2xl px-4 py-2 text-xs text-ios-text bg-white/70 dark:bg-slate-900/70 focus:outline-none focus:border-emerald-500">
+          <input type="text" id="rcv-notes" placeholder="e.g. Final delivery collection / partial advance" class="w-full border border-ios-border rounded-2xl px-4 py-2 text-xs text-ios-text focus:outline-none focus:border-emerald-500">
         </div>
 
         <!-- Money Receipt option -->
@@ -5435,13 +5485,13 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
         <div>
           <label class="block font-bold text-ios-text mb-1.5">Description * (খরচের বিবরণ)</label>
-          <input type="text" id="exp-description" placeholder="e.g. 5 reel Royal blue thread + metallic zippers" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-xs text-ios-text bg-white/70 dark:bg-slate-900/70 focus:outline-none focus:border-rose-500">
+          <input type="text" id="exp-description" placeholder="e.g. 5 reel Royal blue thread + metallic zippers" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-xs text-ios-text focus:outline-none focus:border-rose-500">
         </div>
 
         <div class="grid grid-cols-2 gap-3.5">
           <div>
             <label class="block font-bold text-ios-text mb-1.5">Amount (টাকার পরিমাণ ৳) *</label>
-            <input type="number" id="exp-amount" placeholder="0" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm font-black font-mono text-rose-400 bg-white/70 dark:bg-slate-900/70 focus:outline-none focus:border-rose-500">
+            <input type="number" id="exp-amount" placeholder="0" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm font-black font-mono text-rose-400 focus:outline-none focus:border-rose-500">
           </div>
           <div>
             <label class="block font-bold text-ios-text mb-1.5">Payment Method *</label>
@@ -5450,7 +5500,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 <span id="exp-method-label">Cash (নগদ ড্রয়ার)</span>
                 <span class="cyber-select-chevron">▾</span>
               </button>
-              <select id="exp-method" class="sr-only">
+              <select id="exp-method" class="sr-only" style="display:none !important;" aria-hidden="true" tabindex="-1">
                 <option value="Cash">Cash (নগদ ড্রয়ার)</option>
                 <option value="bKash">bKash (বিকাশ)</option>
                 <option value="Nagad">Nagad (নগদ ওয়ালেট)</option>
@@ -5463,11 +5513,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <div class="grid grid-cols-2 gap-3.5">
           <div>
             <label class="block font-bold text-ios-text mb-1.5">Receipt / Memo Ref (মেমো নাম্বার)</label>
-            <input type="text" id="exp-reference" placeholder="e.g. MEMO-882" class="w-full border border-ios-border rounded-2xl px-4 py-2 text-xs font-mono text-ios-text bg-white/70 dark:bg-slate-900/70">
+            <input type="text" id="exp-reference" placeholder="e.g. MEMO-882" class="w-full border border-ios-border rounded-2xl px-4 py-2 text-xs font-mono text-ios-text">
           </div>
           <div>
             <label class="block font-bold text-ios-text mb-1.5">Expense Date</label>
-            <input type="date" id="exp-date" class="w-full border border-ios-border rounded-2xl px-4 py-2 text-xs text-ios-text bg-white/70 dark:bg-slate-900/70">
+            <input type="date" id="exp-date" class="w-full border border-ios-border rounded-2xl px-4 py-2 text-xs text-ios-text">
           </div>
         </div>
       </div>
@@ -5498,16 +5548,16 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <div class="space-y-4 text-xs">
         <!-- Live Drawer Flow Breakdown -->
         <div class="grid grid-cols-3 gap-2.5 text-center">
-          <div class="p-3 rounded-2xl bg-white/5 border border-ios-border">
-            <div class="text-[10px] text-ios-subtext font-bold uppercase">Opening Float</div>
-            <div class="text-base font-black font-mono text-ios-text mt-1" id="close-prev-opening">৳2,000</div>
+          <div class="p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/25">
+            <div class="text-[10px] text-cyan-400 font-bold uppercase tracking-wider">Opening Float</div>
+            <div class="text-base font-black font-mono text-cyan-300 mt-1" id="close-prev-opening">৳2,000</div>
           </div>
           <div class="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
-            <div class="text-[10px] text-emerald-400 font-bold uppercase">Today Cash In</div>
+            <div class="text-[10px] text-emerald-400 font-bold uppercase tracking-wider">Today Cash In</div>
             <div class="text-base font-black font-mono text-emerald-400 mt-1" id="close-today-in">৳0</div>
           </div>
           <div class="p-3 rounded-2xl bg-rose-500/10 border border-rose-500/20">
-            <div class="text-[10px] text-rose-400 font-bold uppercase">Today Cash Out</div>
+            <div class="text-[10px] text-rose-400 font-bold uppercase tracking-wider">Today Cash Out</div>
             <div class="text-base font-black font-mono text-rose-400 mt-1" id="close-today-out">৳0</div>
           </div>
         </div>
@@ -5522,7 +5572,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
         <div class="space-y-2">
           <label class="block font-bold text-ios-text">Physical Cash Counted (ড্রয়ার গুনে বাস্তবে কত পাওয়া গেল) *</label>
-          <input type="number" id="close-actual-cash" oninput="calculateClosingDiscrepancy()" placeholder="Enter physical cash in drawer" class="w-full border border-ios-border rounded-2xl px-4 py-3 text-lg font-black font-mono text-ios-text bg-white/70 dark:bg-slate-900/70 focus:outline-none focus:border-cyan-400">
+          <input type="number" id="close-actual-cash" oninput="calculateClosingDiscrepancy()" placeholder="Enter physical cash in drawer" class="w-full border border-slate-700/80 rounded-2xl px-4 py-3 text-lg font-black font-mono text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
         </div>
 
         <!-- Discrepancy Alert Box -->
@@ -5533,12 +5583,12 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
         <div>
           <label class="block font-bold text-ios-text mb-1">Shift Closing Remarks / Notes (ঐচ্ছিক মন্তব্য)</label>
-          <input type="text" id="close-notes" placeholder="e.g. Night shift closed by Manager" class="w-full border border-ios-border rounded-2xl px-4 py-2 text-xs text-ios-text bg-white/70 dark:bg-slate-900/70">
+          <input type="text" id="close-notes" placeholder="e.g. Night shift closed by Manager" class="w-full border border-slate-700/80 rounded-2xl px-4 py-2.5 text-xs text-white placeholder-slate-400 bg-slate-900/90 focus:outline-none focus:border-cyan-400">
         </div>
       </div>
 
       <div class="flex justify-end gap-2.5 pt-3 border-t border-ios-border">
-        <button onclick="closeModal('modal-cash-close')" class="px-5 py-2.5 border border-ios-border rounded-2xl text-xs font-bold text-ios-subtext hover:bg-white/10 active:scale-95">
+        <button onclick="closeModal('modal-cash-close')" class="px-5 py-2.5 border border-slate-700 rounded-2xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 active:scale-95 transition-all">
           Cancel
         </button>
         <button onclick="submitCashClose()" class="px-6 py-2.5 bg-gradient-to-r from-amber-600 to-orange-600 hover:brightness-110 text-white rounded-2xl text-xs font-bold shadow-md active:scale-95">
