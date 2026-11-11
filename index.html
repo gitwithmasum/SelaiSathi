@@ -3575,9 +3575,9 @@
           </div>
 
           <div class="flex flex-wrap items-center gap-2.5">
-            <button onclick="exportCustomersCSV()" class="px-4 py-2.5 rounded-xl text-xs font-bold border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 active:scale-95 flex items-center gap-1.5 transition-colors">
-              <span>↓</span> <span>Export CSV</span>
-            </button>
+            <button onclick="exportCustomersCSV()" class="customer-export-btn customer-export-csv px-3 py-2.5 rounded-xl text-xs font-bold border flex items-center gap-1.5 transition-all"><span>↓</span><span>CSV</span></button>
+            <button onclick="exportCustomersExcel()" class="customer-export-btn customer-export-excel px-3 py-2.5 rounded-xl text-xs font-bold border flex items-center gap-1.5 transition-all"><span>▦</span><span>Excel</span></button>
+            <button onclick="exportCustomersPDF()" class="customer-export-btn customer-export-pdf px-3 py-2.5 rounded-xl text-xs font-bold border flex items-center gap-1.5 transition-all"><span>▤</span><span>PDF</span></button>
             <button onclick="openDataModal('customer')" class="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white rounded-xl text-xs font-bold shadow-md shadow-cyan-700/20 active:scale-95 transition-all">
               <span>＋</span> Add Customer
             </button>
@@ -4875,6 +4875,57 @@
     function moneyBDT(n){ return '৳'+(Number(n)||0).toLocaleString('en-BD'); }
     function safeText(v){ return String(v ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
 
+    /* Customer workspace: crisp surfaces, compact 4-up CRM cards */
+    #view-customers .customer-export-btn { min-height:36px; }
+    #view-customers .customer-export-csv { color:#0891b2; background:rgba(6,182,212,.09); border-color:rgba(6,182,212,.28); }
+    #view-customers .customer-export-excel { color:#059669; background:rgba(16,185,129,.09); border-color:rgba(16,185,129,.28); }
+    #view-customers .customer-export-pdf { color:#e8790b; background:rgba(245,158,11,.09); border-color:rgba(245,158,11,.28); }
+    #view-customers .customer-export-btn:hover { transform:translateY(-1px); filter:brightness(1.06); }
+    #view-customers .customer-card-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)) !important; gap:12px !important; align-items:stretch; }
+    #view-customers .customer-record-card { min-width:0; overflow:hidden; border-radius:15px !important; }
+    #view-customers .customer-record-card > div { min-width:0; }
+    #view-customers .customer-record-card > div:first-child { gap:8px !important; }
+    #view-customers .customer-record-card > div:first-child > div:first-child { min-width:0; gap:9px !important; }
+    #view-customers .customer-record-card > div:first-child > div:first-child > div:last-child { min-width:0; }
+    #view-customers .customer-record-card > div:first-child > div:first-child > div:last-child > div:last-child { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:100%; }
+    #view-customers .customer-record-card .customer-contact-pill { min-width:0; flex-wrap:wrap; }
+    #view-customers .customer-record-card .customer-contact-pill > span { min-width:0; overflow-wrap:anywhere; }
+    #view-customers .customer-record-card .customer-contact-pill > div { flex-wrap:wrap; }
+    #view-customers .customer-record-card .customer-contact-pill a { padding:5px 7px !important; font-size:10px !important; }
+    #view-customers .customer-record-card .customer-financial-strip > div { min-width:0; }
+    #view-customers .customer-record-card .customer-financial-strip > div > div:last-child { font-size:11px; overflow-wrap:anywhere; }
+    #view-customers .customer-record-card .customer-card-actions button { min-width:0; padding:6px 4px !important; font-size:10px !important; }
+    #view-customers #customers-display-container { min-width:0; }
+    #view-customers #customers-display-container > .overflow-x-auto { border-radius:12px; }
+    #view-customers #customers-display-container table { border-collapse:separate; border-spacing:0; }
+    #view-customers #customers-display-container thead { background:rgba(148,163,184,.07); }
+    #view-customers #customers-display-container tbody tr { transition:background .18s ease; }
+    #view-customers #customers-display-container tbody tr:hover { background:rgba(34,211,238,.045); }
+    body:not(.theme-white) #view-customers .customer-record-card { background:linear-gradient(145deg,#142033,#101a2b) !important; border-color:rgba(148,163,184,.18) !important; box-shadow:0 7px 20px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.025); }
+    body:not(.theme-white) #view-customers .customer-record-card:hover { border-color:rgba(34,211,238,.38) !important; box-shadow:0 12px 26px rgba(0,0,0,.22),0 0 16px rgba(34,211,238,.045); transform:translateY(-2px); }
+    body:not(.theme-white) #view-customers .customer-contact-pill { background:#0c1728 !important; border-color:rgba(148,163,184,.18) !important; }
+    body:not(.theme-white) #view-customers .customer-notes-pill { background:rgba(34,211,238,.07) !important; border-color:rgba(34,211,238,.15) !important; color:#a9bfd7 !important; }
+    body:not(.theme-white) #view-customers .customer-financial-strip { background:#0c1728 !important; border-color:rgba(148,163,184,.17) !important; }
+    body:not(.theme-white) #view-customers .customer-card-actions { border-color:rgba(148,163,184,.17) !important; }
+    body:not(.theme-white) #view-customers #customer-search { background:#101c2e !important; color:#e8f0fb !important; border-color:rgba(148,163,184,.22) !important; }
+    body.theme-white #view-customers .customer-record-card { background:#FFFFFF !important; border-color:#DFE8E2 !important; box-shadow:0 3px 12px rgba(27,55,39,.055) !important; }
+    body.theme-white #view-customers .customer-record-card:hover { border-color:#BFD8C8 !important; box-shadow:0 8px 20px rgba(27,90,55,.09) !important; transform:translateY(-2px); }
+    body.theme-white #view-customers .customer-contact-pill { background:#F2F6F3 !important; border-color:#DFE8E2 !important; }
+    body.theme-white #view-customers .customer-contact-pill .text-ios-text { color:#263B30 !important; }
+    body.theme-white #view-customers .customer-notes-pill { background:#F0F6F2 !important; border-color:#DFEAE2 !important; color:#52675A !important; }
+    body.theme-white #view-customers .customer-financial-strip { background:#F3F7F4 !important; border-color:#DFE8E2 !important; }
+    body.theme-white #view-customers .customer-financial-strip .text-gray-400 { color:#718176 !important; }
+    body.theme-white #view-customers .customer-financial-strip .text-cyan-400 { color:#187A67 !important; }
+    body.theme-white #view-customers .customer-card-actions { border-color:#E3EBE5 !important; }
+    body.theme-white #view-customers .customer-card-actions button:first-child { background:#F4F7F5 !important; color:#34483B !important; border-color:#DFE8E2 !important; }
+    body.theme-white #view-customers #customer-search { background:#FFFFFF !important; color:#263B30 !important; border-color:#DCE6DF !important; }
+    body.theme-white #view-customers #customer-search::placeholder { color:#89968D !important; }
+    body.theme-white #view-customers #customers-display-container thead { background:#F0F5F1 !important; }
+    body.theme-white #view-customers #customers-display-container tbody tr:hover { background:#F4F8F5 !important; }
+    @media (max-width:1279px) { #view-customers .customer-card-grid { grid-template-columns:repeat(3,minmax(0,1fr)) !important; } }
+    @media (max-width:1023px) { #view-customers .customer-card-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; } }
+    @media (max-width:639px) { #view-customers .customer-card-grid { grid-template-columns:minmax(0,1fr) !important; } #view-customers .customer-record-card { padding:12px !important; } #view-customers .customer-export-btn { flex:1 1 auto; justify-content:center; } }
+
     /* ======================================================== */
     /* ENHANCED CUSTOMER CRM & 360° PROFILE ENGINE              */
     /* ======================================================== */
@@ -4981,13 +5032,13 @@
 
       if (customerViewMode === 'grid') {
         container.innerHTML = `
-          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4.5">
+          <div class="customer-card-grid grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
             ${filtered.map(c => {
               const initials = (c.name || 'C').split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase();
               const cleanPhone = (c.phone || '').replace(/\D/g, '');
               const waUrl = `https://wa.me/88${cleanPhone}?text=${encodeURIComponent('আসসালামু আলাইকুম ' + c.name + ', সেলাই সাথী টেইলার্স থেকে যোগাযোগ করা হচ্ছে।')}`;
               return `
-                <div class="p-5 bg-gray-50/70 dark:bg-slate-900/50 rounded-2xl border border-ios-border flex flex-col justify-between gap-4 hover:shadow-ios-card hover:border-cyan-500/40 transition-all relative group">
+                <div class="customer-record-card p-3.5 rounded-2xl border flex flex-col justify-between gap-3 transition-all relative group">
                   <!-- Header -->
                   <div class="flex items-start justify-between gap-3">
                     <div class="flex items-center gap-3">
@@ -5021,7 +5072,7 @@
                   </div>
 
                   <!-- Contact Pill -->
-                  <div class="bg-white/60 dark:bg-slate-800/40 p-2.5 rounded-xl border border-ios-border/60 flex items-center justify-between text-xs font-mono">
+                  <div class="customer-contact-pill p-2 rounded-xl border flex items-center justify-between gap-2 text-xs font-mono">
                     <span class="text-ios-text font-bold">📞 ${safeText(c.phone)}</span>
                     <div class="flex items-center gap-1.5">
                       <a href="tel:${safeText(c.phone)}" title="Direct Phone Call" class="px-2 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-cyan-300 border border-cyan-500/30 text-[11px] flex items-center gap-1">
@@ -5035,13 +5086,13 @@
 
                   <!-- Style Notes Pill if present -->
                   ${c.notes ? `
-                    <div class="text-[11px] text-gray-400 bg-cyan-500/5 px-2.5 py-1.5 rounded-lg border border-cyan-500/10 truncate">
+                    <div class="customer-notes-pill text-[11px] px-2.5 py-1.5 rounded-lg border truncate">
                       💡 ${safeText(c.notes)}
                     </div>
                   ` : ''}
 
                   <!-- 3-Column Financials Strip -->
-                  <div class="grid grid-cols-3 gap-2 text-center text-xs font-mono p-2.5 rounded-xl bg-gray-100/60 dark:bg-slate-800/25 border border-ios-border/40">
+                  <div class="customer-financial-strip grid grid-cols-3 gap-1.5 text-center text-xs font-mono p-2 rounded-xl border">
                     <div>
                       <div class="text-[10px] text-gray-400 uppercase tracking-wider">Orders</div>
                       <div class="font-extrabold text-ios-text mt-0.5">${c.orderCount}</div>
@@ -5057,7 +5108,7 @@
                   </div>
 
                   <!-- Action Buttons Footer -->
-                  <div class="flex items-center justify-between gap-1.5 pt-2 border-t border-ios-border">
+                  <div class="customer-card-actions flex items-center justify-between gap-1.5 pt-2 border-t border-ios-border">
                     <button onclick="openCustomerProfile('${c.id}')" title="View 360° Profile & Measurements" class="flex-1 py-1.5 bg-white dark:bg-slate-800 border border-ios-border rounded-xl text-xs font-bold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 active:scale-95 shadow-xs flex items-center justify-center gap-1 transition-all">
                       <span>👤</span> Profile
                     </button>
@@ -5368,40 +5419,52 @@
       }
     }
 
-    function exportCustomersCSV() {
-      if (!ssRecords.customers.length) {
-        if (window.CyberDialog) CyberDialog.alert('No customers to export');
-        else alert('No customers to export');
-        return;
-      }
-      const headers = ['Customer ID', 'Name', 'Phone', 'Address', 'Notes', 'Total Orders', 'Total Billed (BDT)', 'Outstanding Due (BDT)'];
+    function getCustomerExportData() {
+      const headers = ['Customer ID','Name','Phone','Address','Notes','Total Orders','Total Billed (BDT)','Outstanding Due (BDT)'];
       const rows = ssRecords.customers.map(c => {
         const cleanPhone = (c.phone || '').replace(/\D/g, '');
         const related = ordersData.filter(o => {
           const oClean = (o.phone || '').replace(/\D/g, '');
           return (cleanPhone && oClean && cleanPhone === oClean) || (o.name && c.name && o.name.toLowerCase() === c.name.toLowerCase());
         });
-        const totalBilled = related.reduce((s, o) => s + (Number(o.total) || 0), 0);
-        const totalDue = related.reduce((s, o) => s + (Number(o.due) || 0), 0);
-        return [
-          `"${c.id}"`,
-          `"${c.name}"`,
-          `"${c.phone}"`,
-          `"${c.address || ''}"`,
-          `"${c.notes || ''}"`,
-          related.length,
-          totalBilled,
-          totalDue
-        ];
+        return [c.id || '',c.name || '',c.phone || '',c.address || '',c.notes || '',related.length,
+          related.reduce((sum,o)=>sum+(Number(o.total)||0),0),
+          related.reduce((sum,o)=>sum+(Number(o.due)||0),0)];
       });
-      const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
-      const encodedUri = encodeURI(csvContent);
-      const link = document.createElement('a');
-      link.setAttribute('href', encodedUri);
-      link.setAttribute('download', `selaisathi_customers_${new Date().toISOString().slice(0, 10)}.csv`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      return {headers,rows};
+    }
+    function customerExportReady() {
+      if (ssRecords.customers.length) return true;
+      if (window.CyberDialog) CyberDialog.alert('No customers to export');
+      else alert('No customers to export');
+      return false;
+    }
+    function exportCustomersCSV() {
+      if (!customerExportReady()) return;
+      const {headers,rows}=getCustomerExportData();
+      const quote=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+      const csv=[headers.map(quote).join(','),...rows.map(row=>row.map(quote).join(','))].join('\r\n');
+      const blob=new Blob(['\uFEFF',csv],{type:'text/csv;charset=utf-8;'});
+      const url=URL.createObjectURL(blob),link=document.createElement('a');
+      link.href=url;link.download='selaisathi_customers_'+new Date().toISOString().slice(0,10)+'.csv';
+      document.body.appendChild(link);link.click();link.remove();URL.revokeObjectURL(url);
+    }
+    function exportCustomersExcel() {
+      if (!customerExportReady()) return;
+      const {headers,rows}=getCustomerExportData();
+      const esc=v=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      const table='<table border="1"><thead><tr>'+headers.map(h=>'<th>'+esc(h)+'</th>').join('')+'</tr></thead><tbody>'+rows.map(row=>'<tr>'+row.map(v=>'<td>'+esc(v)+'</td>').join('')+'</tr>').join('')+'</tbody></table>';
+      const html='<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="UTF-8"></head><body><h2>SelaiSathi - Customer Directory</h2><p>Exported: '+esc(new Date().toLocaleString())+' | Total customers: '+rows.length+'</p>'+table+'</body></html>';
+      const blob=new Blob(['\uFEFF',html],{type:'application/vnd.ms-excel;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+      a.href=url;a.download='selaisathi_customers_'+new Date().toISOString().slice(0,10)+'.xls';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+    }
+    function exportCustomersPDF() {
+      if (!customerExportReady()) return;
+      const {headers,rows}=getCustomerExportData();
+      const esc=v=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      const body=rows.map(row=>'<tr>'+row.map(v=>'<td>'+esc(v)+'</td>').join('')+'</tr>').join('');
+      const w=window.open('','_blank');if(!w){alert('Please allow pop-ups to print or save the customer PDF.');return;}
+      w.document.write('<!doctype html><html><head><meta charset="utf-8"><title>SelaiSathi Customers</title><style>body{font:12px Arial,sans-serif;color:#17212b;padding:24px}h1{font-size:22px}p{color:#64748b}table{width:100%;border-collapse:collapse;font-size:10px}th,td{border:1px solid #d7dee7;padding:7px 5px;text-align:left;overflow-wrap:anywhere}th{background:#eaf0f5}tr{page-break-inside:avoid}@page{size:landscape;margin:12mm}@media print{body{padding:0}}</style></head><body><h1>SelaiSathi - Customer Directory</h1><p>Exported: '+esc(new Date().toLocaleString())+' | Total customers: '+rows.length+'</p><table><thead><tr>'+headers.map(h=>'<th>'+esc(h)+'</th>').join('')+'</tr></thead><tbody>'+body+'</tbody></table><script>window.onload=function(){window.print();};<\\/script></body></html>');w.document.close();
     }
     function renderStaff(){
       const el=document.getElementById('staff-list'); if(!el)return;
