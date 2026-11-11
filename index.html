@@ -784,6 +784,76 @@
       color: #9f1239 !important;
     }
 
+    /* ============================================================
+       FABRICS & ROLL REGISTRY STYLES (GALAXY & WHITE THEMES)
+       ============================================================ */
+    .fabric-cat-pill {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      color: #94a3b8;
+      cursor: pointer;
+      user-select: none;
+    }
+    .fabric-cat-pill:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #FFFFFF;
+      border-color: rgba(34, 211, 238, 0.4);
+    }
+    .fabric-cat-pill.active {
+      background: linear-gradient(135deg, #06b6d4 0%, #0d9488 100%) !important;
+      border-color: rgba(34, 211, 238, 0.6) !important;
+      color: #FFFFFF !important;
+      font-weight: 800 !important;
+      box-shadow: 0 2px 10px rgba(6, 182, 212, 0.35) !important;
+    }
+
+    body.theme-white .fabric-cat-pill {
+      background: #FFFFFF !important;
+      border: 1px solid #DCE5DF !important;
+      color: #4A5B51 !important;
+      font-weight: 600 !important;
+    }
+    body.theme-white .fabric-cat-pill:hover {
+      background: #F1F5F2 !important;
+      color: #1E382A !important;
+      border-color: #CAD5CE !important;
+    }
+    body.theme-white .fabric-cat-pill.active {
+      background: linear-gradient(135deg, #0D9488 0%, #047857 100%) !important;
+      border-color: #047857 !important;
+      color: #FFFFFF !important;
+      font-weight: 800 !important;
+      box-shadow: 0 2px 8px rgba(13, 148, 136, 0.25) !important;
+    }
+
+    .fabric-card {
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .fabric-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(34, 211, 238, 0.4) !important;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3), 0 0 24px rgba(34, 211, 238, 0.08) !important;
+    }
+    body.theme-white .fabric-card:hover {
+      border-color: #10B981 !important;
+      box-shadow: 0 12px 28px rgba(25, 45, 35, 0.08) !important;
+    }
+
+    .fabric-color-swatch-preset {
+      width: 24px;
+      height: 24px;
+      border-radius: 9999px;
+      border: 2px solid transparent;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+    .fabric-color-swatch-preset:hover,
+    .fabric-color-swatch-preset.is-selected {
+      transform: scale(1.15);
+      border-color: #22d3ee;
+      box-shadow: 0 0 8px rgba(34, 211, 238, 0.6);
+    }
+
     /* Main Container */
     body.theme-white > div.flex-1 {
       background: #F6F8F7 !important;
@@ -4823,20 +4893,193 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       </section>
 
-      <!-- FABRIC & MATERIALS -->
+      <!-- ==================================================== -->
+      <!-- VIEW 7: FABRIC & ROLL REGISTRY HUB                   -->
+      <!-- ==================================================== -->
       <section id="view-fabrics" class="app-view hidden space-y-6">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div><div class="text-xs font-mono text-cyan-300 font-bold tracking-widest">MATERIAL CONTROL</div><h1 class="text-3xl font-black mt-1">Fabrics & Materials</h1><p class="text-sm text-gray-400 mt-1">Track fabric rolls, accessories, stock levels and reorder needs</p></div>
-          <button onclick="openDataModal('fabric')" class="px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-cyan-600 to-violet-600">＋ Add material</button>
+        <!-- Top Title & Action Bar -->
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div>
+            <div class="text-[10px] font-mono font-bold tracking-[.25em] text-cyan-400 uppercase">MATERIAL CONTROL & ROLL REGISTRY</div>
+            <h1 class="text-2xl sm:text-3xl font-black text-ios-text mt-1 flex items-center gap-2">
+              <span>🧵</span> <span>Fabrics & Materials (কাপড় ও থান রেজিস্ট্রি)</span>
+            </h1>
+            <p class="text-xs sm:text-sm text-ios-subtext mt-1">থান ও রোল ট্র্যাকিং, বারকোড ট্যাগ, কাপড় কনজাম্পশন ক্যালকুলেটর এবং ১-ক্লিক সাপ্লায়ার রিকুইজিশন।</p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <button onclick="printFabricCatalog()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 active:scale-95 transition-all flex items-center gap-1.5">
+              <span>🖨️</span> <span>ক্যাটালগ প্রিন্ট</span>
+            </button>
+            <button onclick="exportFabricCSV()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-slate-700 bg-slate-800/60 text-slate-300 hover:text-white active:scale-95 transition-all flex items-center gap-1.5">
+              <span>↓</span> <span>CSV এক্সপোর্ট</span>
+            </button>
+            <button onclick="openFabricModal()" class="px-4 py-2 bg-gradient-to-r from-cyan-600 via-teal-600 to-emerald-600 hover:brightness-110 text-white rounded-xl text-xs font-bold shadow-md shadow-cyan-600/20 active:scale-95 transition-all flex items-center gap-1.5">
+              <span class="text-sm leading-none">＋</span> <span>নতুন কাপড় এন্ট্রি</span>
+            </button>
+          </div>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <div class="bento-card p-5"><div class="text-xs text-gray-400">Material types</div><div id="fabric-total" class="text-2xl font-black mt-1">0</div></div>
-          <div class="bento-card p-5"><div class="text-xs text-gray-400">Low-stock alerts</div><div id="fabric-low" class="text-2xl font-black mt-1">0</div></div>
-          <div class="bento-card p-5"><div class="text-xs text-gray-400">Stock value</div><div id="fabric-value" class="text-2xl font-black mt-1">৳0</div></div>
+
+        <!-- 4 Bento KPI Metric Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+          <div class="bento-card p-4 sm:p-5">
+            <div class="flex items-center justify-between text-xs text-ios-subtext">
+              <span class="font-bold uppercase tracking-wider text-[10px]">Material Types</span>
+              <span class="text-base">🧵</span>
+            </div>
+            <div class="text-2xl sm:text-3xl font-black font-mono text-ios-text mt-2" id="fabric-total">0</div>
+            <div class="text-[11px] text-ios-subtext mt-0.5">নিবন্ধিত কাপড়ের ভ্যারাইটি</div>
+          </div>
+
+          <div class="bento-card p-4 sm:p-5">
+            <div class="flex items-center justify-between text-xs text-cyan-400">
+              <span class="font-bold uppercase tracking-wider text-[10px]">Total Fabric Stock</span>
+              <span class="text-base">📏</span>
+            </div>
+            <div class="text-2xl sm:text-3xl font-black font-mono text-cyan-300 mt-2" id="fabric-total-yards">0 yds</div>
+            <div class="text-[11px] text-ios-subtext mt-0.5" id="fabric-active-bolts">0টি থান / রোল সক্রিয়</div>
+          </div>
+
+          <div class="bento-card p-4 sm:p-5">
+            <div class="flex items-center justify-between text-xs text-emerald-400">
+              <span class="font-bold uppercase tracking-wider text-[10px]">Stock Valuation</span>
+              <span class="text-base">💰</span>
+            </div>
+            <div class="text-2xl sm:text-3xl font-black font-mono text-emerald-400 mt-2" id="fabric-value">৳0</div>
+            <div class="text-[11px] text-ios-subtext mt-0.5">মোট ক্রয়মূল্য ইনভেন্টরি সম্পদ</div>
+          </div>
+
+          <div class="bento-card p-4 sm:p-5 cursor-pointer hover:border-amber-500/50 transition-all" onclick="filterLowStockFabrics()" title="Click to view low stock items">
+            <div class="flex items-center justify-between text-xs text-amber-400">
+              <span class="font-bold uppercase tracking-wider text-[10px]">Low-Stock Alerts</span>
+              <span class="text-base">⚠️</span>
+            </div>
+            <div class="text-2xl sm:text-3xl font-black font-mono text-amber-400 mt-2" id="fabric-low">0</div>
+            <div class="text-[11px] text-amber-300/80 mt-0.5">রিঅর্ডার প্রয়োজন (&lt; ন্যূনতম স্টক)</div>
+          </div>
         </div>
-        <div class="bento-card p-5 space-y-4"><div class="flex flex-col sm:flex-row gap-3 justify-between"><h2 class="font-bold">Stock register</h2><input id="fabric-search" oninput="renderFabrics()" class="sm:max-w-xs px-3 py-2 text-xs rounded-xl" placeholder="Search material or SKU..."></div>
-          <div class="overflow-x-auto"><table class="w-full text-left text-xs"><thead><tr class="border-b border-gray-700 text-gray-400"><th class="p-3">Material</th><th class="p-3">SKU</th><th class="p-3">Stock</th><th class="p-3">Unit cost</th><th class="p-3">Status</th><th class="p-3">Actions</th></tr></thead><tbody id="fabrics-table"></tbody></table></div>
-          <div id="fabrics-empty" class="hidden text-center text-sm text-gray-400 py-8">No materials found. Add your first stock item.</div>
+
+        <!-- Interactive Garment Yield Calculator Tool (Quick Estimator Widget) -->
+        <div class="bento-card p-4 sm:p-5 space-y-3">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2.5 border-b border-ios-border">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">📐</span>
+              <div>
+                <h3 class="font-black text-sm text-ios-text">স্মার্ট পোশাক কনজাম্পশন ক্যালকুলেটর (Quick Fabric Cut Estimator)</h3>
+                <p class="text-[11px] text-ios-subtext">থানে কত গজ কাপড় আছে দিলে কয়টি পাঞ্জাবি, শার্ট বা প্যান্ট তৈরি সম্ভব তা সাথে সাথে হিসাব করে নিন।</p>
+              </div>
+            </div>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 font-bold self-start sm:self-auto">TAILOR MATH 2.0</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-3 items-end">
+            <div>
+              <label class="block text-[11px] font-bold text-ios-text mb-1">পোশাকের ধরন (Garment Type)</label>
+              <select id="calc-garment-type" onchange="runFabricEstimator()" class="w-full px-3 py-2 rounded-xl text-xs bg-slate-900/90 border border-slate-700 text-ios-text focus:outline-none focus:border-cyan-400">
+                <option value="panjabi">পাঞ্জাবি (Panjabi - ২.৫০ গজ)</option>
+                <option value="shirt">ফরমাল শার্ট (Shirt - ২.২৫ গজ)</option>
+                <option value="pant">প্যান্ট (Pant - ১.৩০ গজ)</option>
+                <option value="kabli">কাবলি সেট (Kabli Set - ৩.২৫ গজ)</option>
+                <option value="blazer">ব্লেজার (Blazer - ২.০০ গজ)</option>
+                <option value="pajama">পায়জামা (Pajama - ১.৭৫ গজ)</option>
+                <option value="kurti">লেডিস কামিজ (Kurti - ২.৪০ গজ)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-ios-text mb-1">মোট কাপড়ের পরিমাণ (গজ)</label>
+              <input type="number" id="calc-fabric-yards" value="25" min="1" step="0.5" oninput="runFabricEstimator()" placeholder="Enter yards" class="w-full px-3 py-2 rounded-xl text-xs font-mono font-bold bg-slate-900/90 border border-slate-700 text-ios-text focus:outline-none focus:border-cyan-400">
+            </div>
+
+            <div class="sm:col-span-1 lg:col-span-2 p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/25 flex items-center justify-between">
+              <div>
+                <div class="text-[10px] text-cyan-400 font-bold uppercase tracking-wider">সম্ভাব্য তৈরি হবে:</div>
+                <div class="text-base sm:text-lg font-black font-mono text-cyan-300" id="calc-result-text">১০টি পাঞ্জাবি তৈরি সম্ভব</div>
+              </div>
+              <div class="text-right">
+                <div class="text-[10px] text-ios-subtext">অবশিষ্ট কাপড় (Leftover):</div>
+                <div class="text-xs font-black font-mono text-emerald-400" id="calc-leftover-text">০.০ গজ</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter, Category & View Mode Toolbar -->
+        <div class="bento-card p-4 sm:p-5 space-y-3.5">
+          <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
+            <!-- Search Input -->
+            <div class="relative flex-1">
+              <input type="text" id="fabric-search" oninput="renderFabrics()" placeholder="Search fabric name, SKU, Bolt ID (e.g. BOLT-104), or Rack..." class="w-full px-4 py-2.5 pl-10 text-xs rounded-xl border border-ios-border bg-slate-900/60 focus:outline-none">
+              <span class="absolute left-3.5 top-2.5 text-gray-400 text-sm">🔍</span>
+              <button onclick="clearFabricSearch()" id="fabric-search-clear" class="hidden absolute right-3.5 top-2.5 text-gray-400 hover:text-white text-xs">✕</button>
+            </div>
+
+            <!-- Stock Status Filter -->
+            <div class="flex items-center gap-2">
+              <div class="due-aging-container flex items-center gap-1 text-[11px] p-1 bg-slate-900/60 rounded-xl border border-slate-800" id="fabric-stock-filters">
+                <button type="button" onclick="setFabricStockFilter('all')" id="fs-filter-all" class="due-aging-pill active px-3 py-1 rounded-lg text-xs font-bold transition-all">All Stock</button>
+                <button type="button" onclick="setFabricStockFilter('low')" id="fs-filter-low" class="due-aging-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all">⚠️ Low Stock</button>
+                <button type="button" onclick="setFabricStockFilter('instock')" id="fs-filter-instock" class="due-aging-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all">✓ In Stock</button>
+              </div>
+
+              <!-- Segmented View Toggle (Grid vs Table) -->
+              <div class="order-view-toggle-pill ml-auto sm:ml-0" id="fabric-view-toggle" title="Switch View Mode">
+                <button type="button" class="order-view-btn is-active" id="btn-fabric-view-grid" onclick="setFabricViewMode('grid')" title="Visual Swatches Grid View">
+                  <span class="order-view-check" id="check-fabric-grid">✓</span>
+                  <span class="order-view-icon">⊞</span>
+                </button>
+                <button type="button" class="order-view-btn" id="btn-fabric-view-table" onclick="setFabricViewMode('table')" title="Detailed Inventory Ledger Table">
+                  <span class="order-view-check hidden" id="check-fabric-table">✓</span>
+                  <span class="order-view-icon">☰</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category Filter Pills Bar -->
+          <div class="flex flex-wrap items-center gap-1.5 pt-1 border-t border-ios-border" id="fabric-category-pills">
+            <button onclick="setFabricCategory('all')" class="fabric-cat-pill active px-3 py-1 rounded-xl text-xs font-bold border transition-all" data-cat="all">All Materials (সব)</button>
+            <button onclick="setFabricCategory('Cotton')" class="fabric-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Cotton">👔 Cotton (সুতি)</button>
+            <button onclick="setFabricCategory('Linen')" class="fabric-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Linen">🌿 Linen (লিনেন)</button>
+            <button onclick="setFabricCategory('Gabardine')" class="fabric-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Gabardine">👖 Gabardine (গ্যাবার্ডিন)</button>
+            <button onclick="setFabricCategory('Suiting')" class="fabric-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Suiting">🧥 Suiting (স্যুটিং)</button>
+            <button onclick="setFabricCategory('Silk')" class="fabric-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Silk">✨ Silk (সিল্ক)</button>
+            <button onclick="setFabricCategory('Accessories')" class="fabric-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Accessories">🧵 Accessories (বোতাম/জিপার)</button>
+          </div>
+        </div>
+
+        <!-- Displays: Visual Grid vs Detailed Table -->
+        <div id="fabric-grid-view" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <!-- Populated dynamically via renderFabrics() -->
+        </div>
+
+        <div id="fabric-table-view" class="bento-card p-5 space-y-4 hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead>
+                <tr class="border-b border-ios-border text-ios-subtext">
+                  <th class="p-3">Material & Color</th>
+                  <th class="p-3">Bolt Tag & Rack</th>
+                  <th class="p-3">Category</th>
+                  <th class="p-3">Remaining Stock</th>
+                  <th class="p-3">Unit Cost / Price</th>
+                  <th class="p-3">Yield Potential</th>
+                  <th class="p-3">Status</th>
+                  <th class="p-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="fabrics-table" class="divide-y divide-ios-border">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div id="fabrics-empty" class="hidden text-center py-12 text-sm text-ios-subtext space-y-2">
+          <div class="text-4xl mb-1">🧵</div>
+          <div class="font-bold text-base text-ios-text">কোনো কাপড় বা ম্যাটেরিয়াল পাওয়া যায়নি</div>
+          <p class="text-xs">ফিল্টার পরিবর্তন করুন অথবা "＋ নতুন কাপড় এন্ট্রি" বাটনে ক্লিক করে নতুন থান বা ম্যাটেরিয়াল যোগ করুন।</p>
         </div>
       </section>
 
@@ -5797,6 +6040,274 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
   </div>
 
   <!-- ======================================================== -->
+  <!-- MODAL: ADD / EDIT FABRIC & MATERIAL                      -->
+  <!-- ======================================================== -->
+  <div id="modal-fabric-entry" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bento-card max-w-xl w-full p-6 sm:p-7 space-y-4 shadow-2xl max-h-[92vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b border-ios-border pb-3.5">
+        <h3 class="text-lg font-black text-ios-text flex items-center gap-2" id="fabric-modal-title">
+          <span>🧵</span> <span>Fabric & Material Registration (নতুন কাপড় এন্ট্রি)</span>
+        </h3>
+        <button onclick="closeModal('modal-fabric-entry')" class="text-gray-400 hover:text-ios-text font-bold text-xl">✕</button>
+      </div>
+
+      <input type="hidden" id="fe-edit-id">
+
+      <div class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-bold text-ios-text mb-1">Material Name * (কাপড়ের নাম)</label>
+          <input type="text" id="fe-name" placeholder="e.g. Egyptian Giza Cotton (মিশরীয় সুতি)" class="w-full border border-slate-700/80 rounded-2xl px-4 py-2.5 text-sm text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block font-bold text-ios-text mb-1">Category (ধরন)</label>
+            <select id="fe-category" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
+              <option value="Cotton">👔 Cotton (সুতি)</option>
+              <option value="Linen">🌿 Linen (লিনেন)</option>
+              <option value="Gabardine">👖 Gabardine (গ্যাবার্ডিন)</option>
+              <option value="Suiting">🧥 Suiting (স্যুটিং)</option>
+              <option value="Silk">✨ Silk (সিল্ক)</option>
+              <option value="Voile">💨 Voile (ভয়েল)</option>
+              <option value="Accessories">🧵 Accessories (বোতাম/জিপার)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-ios-text mb-1">Bolt / Roll ID (থান কোড)</label>
+            <input type="text" id="fe-bolt-id" placeholder="e.g. BOLT-108" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs font-mono font-bold text-cyan-300 bg-slate-900/90 focus:outline-none focus:border-cyan-400">
+          </div>
+          <div>
+            <label class="block font-bold text-ios-text mb-1">SKU / Barcode</label>
+            <input type="text" id="fe-sku" placeholder="e.g. FAB-EGY-08" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs font-mono text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
+          </div>
+        </div>
+
+        <!-- Color Swatch Picker -->
+        <div class="p-3.5 rounded-2xl bg-white/5 border border-ios-border space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-ios-text">Digital Color Swatch (কাপড়ের রঙ)</span>
+            <div class="flex items-center gap-2">
+              <input type="color" id="fe-color-picker" value="#1e3a8a" onchange="syncFabricColorHex(this.value)" class="w-7 h-7 rounded-lg cursor-pointer bg-transparent border-0">
+              <input type="text" id="fe-color-name" placeholder="Color Name (e.g. Royal Navy)" class="border border-slate-700/80 rounded-xl px-2.5 py-1 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400 w-36">
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 pt-1" id="fe-color-presets">
+            <!-- Preset color dots injected via JS -->
+          </div>
+          <input type="hidden" id="fe-color-val" value="#1e3a8a">
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div>
+            <label class="block font-bold text-ios-text mb-1">Width (বহর)</label>
+            <select id="fe-width" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
+              <option value='58" ডাবল বহর'>58" ডাবল বহর</option>
+              <option value='54" চওড়া বহর'>54" চওড়া বহর</option>
+              <option value='44" সিঙ্গেল বহর'>44" সিঙ্গেল বহর</option>
+              <option value='36" বহর'>36" বহর</option>
+              <option value="N/A">N/A (এক্সেসরিজ)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-ios-text mb-1">Unit (একক)</label>
+            <select id="fe-unit" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
+              <option value="yard">Yard (গজ)</option>
+              <option value="meter">Meter (মিটার)</option>
+              <option value="pcs">Pieces (পিস)</option>
+              <option value="reel">Reel (রিল)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-ios-text mb-1">Stock (মজুদ) *</label>
+            <input type="number" id="fe-stock" step="0.25" placeholder="0" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs font-mono font-bold text-emerald-400 bg-slate-900/90 focus:outline-none focus:border-cyan-400">
+          </div>
+          <div>
+            <label class="block font-bold text-ios-text mb-1">Initial Roll (শুরুতে কত)</label>
+            <input type="number" id="fe-initial-stock" step="0.25" placeholder="50" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs font-mono text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block font-bold text-ios-text mb-1">Cost / Unit (ক্রয়দর ৳) *</label>
+            <input type="number" id="fe-cost" placeholder="0" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs font-mono font-bold text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
+          </div>
+          <div>
+            <label class="block font-bold text-ios-text mb-1">Selling / Unit (বিক্রয়দর ৳)</label>
+            <input type="number" id="fe-price" placeholder="0" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs font-mono font-bold text-cyan-300 bg-slate-900/90 focus:outline-none focus:border-cyan-400">
+          </div>
+          <div>
+            <label class="block font-bold text-ios-text mb-1">Low-Stock Alert (ন্যূনতম স্টক)</label>
+            <input type="number" id="fe-minimum" placeholder="10" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs font-mono text-amber-400 bg-slate-900/90 focus:outline-none focus:border-cyan-400">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block font-bold text-ios-text mb-1">Rack / Shelf (দোকানের সেলফ)</label>
+            <input type="text" id="fe-rack" placeholder="e.g. Rack A-01, Shelf 2" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
+          </div>
+          <div>
+            <label class="block font-bold text-ios-text mb-1">Supplier (মহাজন/দোকান)</label>
+            <input type="text" id="fe-supplier" placeholder="e.g. Al-Madina Fabrics" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
+          </div>
+          <div>
+            <label class="block font-bold text-ios-text mb-1">Supplier Mobile / WA</label>
+            <input type="tel" id="fe-supplier-phone" placeholder="017xxxxxxxx" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-ios-text mb-1">Notes / Care Information (ঐচ্ছিক মন্তব্য)</label>
+          <input type="text" id="fe-notes" placeholder="e.g. Pre-washed cotton. Iron at medium heat. Best for slim fit panjabi." class="w-full border border-slate-700/80 rounded-2xl px-4 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2.5 pt-3 border-t border-ios-border">
+        <button onclick="closeModal('modal-fabric-entry')" class="px-5 py-2.5 border border-slate-700 rounded-2xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 active:scale-95 transition-all">
+          Cancel
+        </button>
+        <button onclick="saveFabricRecord()" class="px-6 py-2.5 bg-gradient-to-r from-cyan-600 via-teal-600 to-emerald-600 hover:brightness-110 text-white rounded-2xl text-xs font-bold shadow-md active:scale-95">
+          সংরক্ষণ করুন ✓
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: FABRIC STOCK IN / CUT OUT OPERATION               -->
+  <!-- ======================================================== -->
+  <div id="modal-fabric-stock-op" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bento-card max-w-md w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex justify-between items-center border-b border-ios-border pb-3">
+        <h3 class="text-base font-black text-ios-text flex items-center gap-2">
+          <span>📦</span> <span>Fabric Stock Adjustment (স্টক সমন্বয়)</span>
+        </h3>
+        <button onclick="closeModal('modal-fabric-stock-op')" class="text-gray-400 hover:text-ios-text font-bold text-lg">✕</button>
+      </div>
+
+      <input type="hidden" id="fso-fabric-id">
+
+      <!-- Current Fabric Header Preview -->
+      <div class="p-3 rounded-2xl bg-white/5 border border-ios-border flex items-center gap-3">
+        <span class="w-5 h-5 rounded-full border border-white/40 shadow-sm shrink-0" id="fso-swatch"></span>
+        <div class="min-w-0 flex-1">
+          <div class="font-bold text-xs text-ios-text truncate" id="fso-name">Fabric Name</div>
+          <div class="text-[10px] text-ios-subtext font-mono" id="fso-details">BOLT-XXX · Rack</div>
+        </div>
+        <div class="text-right shrink-0">
+          <div class="text-[10px] text-ios-subtext">বর্তমান স্টক:</div>
+          <div class="text-sm font-black font-mono text-cyan-300" id="fso-current-stock">0 yds</div>
+        </div>
+      </div>
+
+      <div class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-bold text-ios-text mb-1.5">অপারেশন নির্বাচন করুন *</label>
+          <div class="grid grid-cols-2 gap-2" id="fso-type-toggle">
+            <button type="button" onclick="setFabricOpType('in')" id="fso-btn-in" class="p-2.5 rounded-xl border border-emerald-500/50 bg-emerald-500/20 text-emerald-300 font-bold flex items-center justify-center gap-1.5 transition-all">
+              <span>📥</span> <span>Stock In (ক্রয় / জমা)</span>
+            </button>
+            <button type="button" onclick="setFabricOpType('out')" id="fso-btn-out" class="p-2.5 rounded-xl border border-slate-700 bg-slate-800/60 text-slate-300 font-bold flex items-center justify-center gap-1.5 transition-all">
+              <span>✂️</span> <span>Stock Cut Out (ব্যবহার)</span>
+            </button>
+          </div>
+          <input type="hidden" id="fso-type" value="in">
+        </div>
+
+        <div>
+          <label class="block font-bold text-ios-text mb-1">পরিমাণ (গজ / পিস) *</label>
+          <input type="number" id="fso-qty" step="0.25" placeholder="e.g. 10" class="w-full border border-slate-700/80 rounded-2xl px-4 py-2.5 text-base font-black font-mono text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
+        </div>
+
+        <div>
+          <label class="block font-bold text-ios-text mb-1">রেফারেন্স / অর্ডার নং / মেমো</label>
+          <input type="text" id="fso-ref" placeholder="e.g. ORD-2610-0022 or MEMO-991" class="w-full border border-slate-700/80 rounded-2xl px-4 py-2 text-xs font-mono text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
+        </div>
+
+        <div>
+          <label class="block font-bold text-ios-text mb-1">বিবরণ / মন্তব্য (ঐচ্ছিক)</label>
+          <input type="text" id="fso-notes" placeholder="e.g. Cutting for 2 Panjabi by Master Karim" class="w-full border border-slate-700/80 rounded-2xl px-4 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
+        </div>
+
+        <!-- Optional Accounts Expense Logging Toggle -->
+        <label id="fso-expense-container" class="flex items-center gap-2 p-3 bg-white/5 border border-ios-border rounded-2xl cursor-pointer">
+          <input type="checkbox" id="fso-log-expense" class="rounded border-slate-700 text-rose-500 focus:ring-0">
+          <span class="text-[11px] text-ios-text font-bold">দোকান খরচ হিসেবে ক্যাশ রেজিস্টারে যোগ করুন (Add to Accounts Expense)</span>
+        </label>
+      </div>
+
+      <div class="flex justify-end gap-2.5 pt-2 border-t border-ios-border">
+        <button onclick="closeModal('modal-fabric-stock-op')" class="px-4 py-2 border border-slate-700 rounded-xl text-xs font-bold text-slate-300 hover:text-white">
+          Cancel
+        </button>
+        <button onclick="submitFabricStockOp()" class="px-5 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-xs font-bold shadow-md active:scale-95">
+          সমন্বয় নিশ্চিত করুন ✓
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: 58MM POS THERMAL FABRIC BOLT LABEL                -->
+  <!-- ======================================================== -->
+  <div id="modal-fabric-label" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bento-card max-w-sm w-full p-5 space-y-4 shadow-2xl">
+      <div class="flex justify-between items-center border-b border-ios-border pb-2.5">
+        <h3 class="text-sm font-black text-ios-text flex items-center gap-1.5">
+          <span>🏷️</span> <span>58mm Fabric Bolt Pin Tag</span>
+        </h3>
+        <button onclick="closeModal('modal-fabric-label')" class="text-gray-400 hover:text-ios-text font-bold text-lg">✕</button>
+      </div>
+
+      <!-- Printable 58mm Thermal Sticker Slip -->
+      <div id="printable-fabric-label" class="p-4 text-xs font-mono border border-dashed border-gray-400 space-y-2 bg-white text-gray-900 shadow-inner">
+        <div class="text-center pb-1.5 border-b border-dashed border-gray-400 space-y-0.5">
+          <div class="font-black text-sm tracking-wide">SELAISATHI BESPOKE</div>
+          <div class="text-[9px] uppercase tracking-wider text-gray-600">Fabric Bolt Registry Pin Tag</div>
+        </div>
+
+        <div class="text-center py-1 bg-black text-white font-black text-sm font-mono tracking-widest" id="fl-bolt-id">
+          BOLT-101
+        </div>
+
+        <div class="text-center text-[10px] tracking-widest text-gray-700 pt-0.5">
+          |||||| | ||||| ||| ||||||| | |||
+        </div>
+
+        <div class="text-[11px] space-y-1 border-t border-dashed border-gray-400 pt-2">
+          <div>Fabric: <strong id="fl-name">Egyptian Giza Cotton</strong></div>
+          <div class="flex justify-between">
+            <span>Color: <strong id="fl-color">Pure White</strong></span>
+            <span>Width: <strong id="fl-width">58"</strong></span>
+          </div>
+          <div class="flex justify-between">
+            <span>Stock: <strong id="fl-stock" class="text-sm font-black">42.5 yds</strong></span>
+            <span>Rack: <strong id="fl-rack">Rack A-01</strong></span>
+          </div>
+          <div class="flex justify-between text-gray-700 pt-1 border-t border-dashed border-gray-300">
+            <span>Price: <strong id="fl-price">৳620/yd</strong></span>
+            <span>Cost: <span id="fl-cost">৳450</span></span>
+          </div>
+        </div>
+
+        <div class="pt-2 border-t border-dashed border-gray-400 text-center text-[8px] text-gray-500">
+          Attach with safety pin to fabric bolt · Scan via SelaiSathi
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between gap-2 pt-1 border-t border-ios-border">
+        <button onclick="printFabricBoltLabel()" class="flex-1 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:brightness-110 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1 active:scale-95 shadow-sm">
+          <span>🖨️</span> <span>Print Tag (58mm)</span>
+        </button>
+        <button onclick="closeModal('modal-fabric-label')" class="px-4 py-2 border border-ios-border rounded-xl text-xs font-bold text-ios-subtext hover:bg-white/10">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
   <!-- FUTURISTIC CYBER-GLASS CALENDAR POPOVER                  -->
   <!-- ======================================================== -->
   <div id="cyber-calendar-popover" class="cyber-cal-popover hidden" role="dialog" aria-modal="true" aria-label="Futuristic Calendar">
@@ -6595,10 +7106,13 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               ]
             }
           ],
-          fabrics: Array.isArray(saved.fabrics) ? saved.fabrics : [
-            {id:'F-201',name:'Cotton Fabric',sku:'FAB-COT-01',stock:'32',unit:'yard',cost:'180',minimum:'10'},
-            {id:'F-202',name:'Buttons',sku:'ACC-BTN-02',stock:'8',unit:'pcs',cost:'5',minimum:'15'},
-            {id:'F-203',name:'Zipper',sku:'ACC-ZIP-03',stock:'45',unit:'pcs',cost:'12',minimum:'10'}
+          fabrics: Array.isArray(saved.fabrics) && saved.fabrics.length ? saved.fabrics : [
+            { id: 'F-101', name: 'Egyptian Giza Cotton (মিশরীয় সুতি)', sku: 'GIZA-WHT-58', boltId: 'BOLT-101', category: 'Cotton', color: '#ffffff', colorName: 'Pure White', width: '58" ডাবল বহর', unit: 'yard', stock: 42.5, initialStock: 50, cost: 480, price: 650, minimum: 10, rack: 'Rack A-01, Shelf 2', supplier: 'Narayanganj Textile Mills', supplierPhone: '01711223344', notes: 'Super fine 80s yarn, ideal for Eid panjabi' },
+            { id: 'F-102', name: 'Raymond Super 120s Wool Suiting', sku: 'RAY-NVY-120', boltId: 'BOLT-102', category: 'Suiting', color: '#1e293b', colorName: 'Midnight Navy', width: '58" ডাবল বহর', unit: 'yard', stock: 18.0, initialStock: 30, cost: 1450, price: 2100, minimum: 6, rack: 'Rack B-04', supplier: 'Raymond Authorized Dealer', supplierPhone: '01819887766', notes: 'Wrinkle resistant, Italian cut finish' },
+            { id: 'F-103', name: 'Pakistani Pure Lawn Linen (সবুজ লিনেন)', sku: 'LIN-PAK-GRN', boltId: 'BOLT-103', category: 'Linen', color: '#047857', colorName: 'Emerald Green', width: '44" সিঙ্গেল বহর', unit: 'yard', stock: 5.5, initialStock: 25, cost: 380, price: 520, minimum: 8, rack: 'Rack A-03', supplier: 'Islampur Cloth Market', supplierPhone: '01912345678', notes: 'Breathable summer wear' },
+            { id: 'F-104', name: 'Kabli Twill Gabardine (খাকি গ্যাবার্ডিন)', sku: 'GAB-TWL-KHK', boltId: 'BOLT-104', category: 'Gabardine', color: '#78350f', colorName: 'Desert Khaki', width: '58" ডাবল বহর', unit: 'yard', stock: 26.0, initialStock: 40, cost: 420, price: 580, minimum: 10, rack: 'Rack C-02', supplier: 'Chittagong Twill Depot', supplierPhone: '01811554433', notes: 'Heavyweight durable fabric for Kabli & Pants' },
+            { id: 'F-105', name: 'Mulberry Silk Blend (রয়েল সিল্ক)', sku: 'SLK-ROY-MRN', boltId: 'BOLT-105', category: 'Silk', color: '#881337', colorName: 'Maroon Red', width: '44" সিঙ্গেল বহর', unit: 'yard', stock: 4.0, initialStock: 20, cost: 850, price: 1250, minimum: 6, rack: 'Rack B-01', supplier: 'Rajshahi Silk Center', supplierPhone: '01712998877', notes: 'Rich festive finish with subtle luster' },
+            { id: 'F-106', name: 'Premium Horn Buttons (বোতাম বক্স)', sku: 'ACC-BTN-HRN', boltId: 'ACC-201', category: 'Accessories', color: '#475569', colorName: 'Smoke Grey', width: 'N/A', unit: 'pcs', stock: 15, initialStock: 25, cost: 160, price: 250, minimum: 5, rack: 'Drawer D-1', supplier: 'Dhaka Accessories Mart', supplierPhone: '01611009988', notes: 'Laser engraved bespoke jacket buttons' }
           ]
         };
       } catch(e) { return {customers:[],staff:[],fabrics:[]}; }
@@ -7944,22 +8458,983 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       link.click();
       document.body.removeChild(link);
     }
-    function renderFabrics(){
-      const q=(document.getElementById('fabric-search')?.value||'').toLowerCase();
-      const list=ssRecords.fabrics.filter(x=>(x.name+' '+x.sku).toLowerCase().includes(q));
-      const body=document.getElementById('fabrics-table'); if(!body)return;
-      document.getElementById('fabric-total').textContent=ssRecords.fabrics.length;
-      document.getElementById('fabric-low').textContent=ssRecords.fabrics.filter(x=>Number(x.stock)<=Number(x.minimum)).length;
-      document.getElementById('fabric-value').textContent=moneyBDT(ssRecords.fabrics.reduce((s,x)=>s+(Number(x.stock)||0)*(Number(x.cost)||0),0));
-      body.innerHTML=list.map(x=>'<tr class="border-b border-slate-700/60"><td class="p-3 font-semibold">'+safeText(x.name)+'</td><td class="p-3 font-mono">'+safeText(x.sku)+'</td><td class="p-3">'+safeText(x.stock)+' '+safeText(x.unit)+'</td><td class="p-3">'+moneyBDT(x.cost)+'</td><td class="p-3">'+(Number(x.stock)<=Number(x.minimum)?'<span class="text-amber-300">Low stock</span>':'<span class="text-emerald-300">In stock</span>')+'</td><td class="p-3 whitespace-nowrap"><button onclick="adjustFabricStock(\''+x.id+'\')" class="text-cyan-300 mr-3">Stock ±</button><button onclick="editDataRecord(\'fabric\',\''+x.id+'\')" class="text-cyan-300 mr-3">Edit</button><button onclick="deleteDataRecord(\'fabric\',\''+x.id+'\')" class="text-rose-300">Delete</button></td></tr>').join('');
-      document.getElementById('fabrics-empty').classList.toggle('hidden',list.length!==0);
+    // ========================================================
+    // 4C. ADVANCED FABRICS & MATERIALS REGISTRY ENGINE
+    // ========================================================
+    let fabricViewMode = 'grid';
+    let activeFabricCategory = 'all';
+    let activeFabricStockFilter = 'all';
+
+    const FABRIC_COLOR_PRESETS = [
+      { name: 'Pure White', hex: '#ffffff' },
+      { name: 'Off White', hex: '#f8fafc' },
+      { name: 'Midnight Navy', hex: '#1e293b' },
+      { name: 'Royal Blue', hex: '#1d4ed8' },
+      { name: 'Emerald Green', hex: '#047857' },
+      { name: 'Desert Khaki', hex: '#78350f' },
+      { name: 'Charcoal Black', hex: '#090d16' },
+      { name: 'Maroon Red', hex: '#881337' },
+      { name: 'Slate Grey', hex: '#475569' },
+      { name: 'Pastel Sky', hex: '#38bdf8' }
+    ];
+
+    function enrichFabricRecord(f) {
+      if (!f) return null;
+      const stock = Number(f.stock) || 0;
+      const minimum = Number(f.minimum) || 10;
+      const initialStock = Number(f.initialStock) || (stock > 0 ? stock : 50);
+      const cost = Number(f.cost) || 0;
+      const price = Number(f.price) || (cost > 0 ? Math.round(cost * 1.35) : 0);
+      const boltId = f.boltId || (f.sku ? 'BOLT-' + String(f.sku).replace(/[^0-9A-Z]/gi, '') : 'BOLT-' + Math.floor(100 + Math.random() * 900));
+      const category = f.category || (f.name && /button|zipper|thread|বোতাম|জিপার/i.test(f.name) ? 'Accessories' : 'Cotton');
+      const color = f.color || '#3b82f6';
+      const colorName = f.colorName || 'Royal Navy';
+      const width = f.width || '58" ডাবল বহর';
+      const unit = f.unit || 'yard';
+      const rack = f.rack || 'Rack A-01';
+      const supplier = f.supplier || 'Narayanganj Textile Mills';
+      const supplierPhone = f.supplierPhone || '01711000000';
+      const notes = f.notes || '';
+
+      return {
+        ...f,
+        stock,
+        minimum,
+        initialStock,
+        cost,
+        price,
+        boltId,
+        category,
+        color,
+        colorName,
+        width,
+        unit,
+        rack,
+        supplier,
+        supplierPhone,
+        notes
+      };
     }
+
+    function initFabricSampleSeeds() {
+      if (!ssRecords.fabrics || ssRecords.fabrics.length === 0) {
+        ssRecords.fabrics = [
+          {
+            id: 'F-101',
+            name: 'Egyptian Giza Cotton (মিশরীয় সুতি)',
+            sku: 'GIZA-WHT-58',
+            category: 'Cotton',
+            boltId: 'BOLT-101',
+            color: '#ffffff',
+            colorName: 'Pure White',
+            width: '58" ডাবল বহর',
+            unit: 'yard',
+            stock: 42.5,
+            initialStock: 50,
+            cost: 480,
+            price: 650,
+            minimum: 10,
+            rack: 'Rack A-01, Shelf 2',
+            supplier: 'Narayanganj Textile Mills',
+            supplierPhone: '01711223344',
+            notes: 'Super fine 80s yarn, ideal for Eid panjabi'
+          },
+          {
+            id: 'F-102',
+            name: 'Raymond Super 120s Wool Suiting',
+            sku: 'RAY-NVY-120',
+            category: 'Suiting',
+            boltId: 'BOLT-102',
+            color: '#1e293b',
+            colorName: 'Midnight Navy',
+            width: '58" ডাবল বহর',
+            unit: 'yard',
+            stock: 18.0,
+            initialStock: 30,
+            cost: 1450,
+            price: 2100,
+            minimum: 6,
+            rack: 'Rack B-04',
+            supplier: 'Raymond Authorized Dealer',
+            supplierPhone: '01819887766',
+            notes: 'Wrinkle resistant, Italian cut finish'
+          },
+          {
+            id: 'F-103',
+            name: 'Pakistani Pure Lawn Linen (সবুজ লিনেন)',
+            sku: 'LIN-PAK-GRN',
+            category: 'Linen',
+            boltId: 'BOLT-103',
+            color: '#047857',
+            colorName: 'Emerald Green',
+            width: '44" সিঙ্গেল বহর',
+            unit: 'yard',
+            stock: 5.5,
+            initialStock: 25,
+            cost: 380,
+            price: 520,
+            minimum: 8,
+            rack: 'Rack A-03',
+            supplier: 'Islampur Cloth Market',
+            supplierPhone: '01912345678',
+            notes: 'Breathable summer wear'
+          },
+          {
+            id: 'F-104',
+            name: 'Kabli Twill Gabardine (খাকি গ্যাবার্ডিন)',
+            sku: 'GAB-TWL-KHK',
+            category: 'Gabardine',
+            boltId: 'BOLT-104',
+            color: '#78350f',
+            colorName: 'Desert Khaki',
+            width: '58" ডাবল বহর',
+            unit: 'yard',
+            stock: 26.0,
+            initialStock: 40,
+            cost: 420,
+            price: 580,
+            minimum: 10,
+            rack: 'Rack C-02',
+            supplier: 'Chittagong Twill Depot',
+            supplierPhone: '01811554433',
+            notes: 'Heavyweight durable fabric for Kabli & Pants'
+          },
+          {
+            id: 'F-105',
+            name: 'Mulberry Silk Blend (রয়েল সিল্ক)',
+            sku: 'SLK-ROY-MRN',
+            category: 'Silk',
+            boltId: 'BOLT-105',
+            color: '#881337',
+            colorName: 'Maroon Red',
+            width: '44" সিঙ্গেল বহর',
+            unit: 'yard',
+            stock: 4.0,
+            initialStock: 20,
+            cost: 850,
+            price: 1250,
+            minimum: 6,
+            rack: 'Rack B-01',
+            supplier: 'Rajshahi Silk Center',
+            supplierPhone: '01712998877',
+            notes: 'Rich festive finish with subtle luster'
+          },
+          {
+            id: 'F-106',
+            name: 'Premium Horn Buttons (বোতাম বক্স)',
+            sku: 'ACC-BTN-HRN',
+            category: 'Accessories',
+            boltId: 'ACC-201',
+            color: '#475569',
+            colorName: 'Smoke Grey',
+            width: 'N/A',
+            unit: 'pcs',
+            stock: 15,
+            initialStock: 25,
+            cost: 160,
+            price: 250,
+            minimum: 5,
+            rack: 'Drawer D-1',
+            supplier: 'Dhaka Accessories Mart',
+            supplierPhone: '01611009988',
+            notes: 'Laser engraved bespoke jacket buttons'
+          }
+        ];
+        persistSsRecords();
+      } else {
+        let changed = false;
+        ssRecords.fabrics = ssRecords.fabrics.map(f => {
+          const enriched = enrichFabricRecord(f);
+          if (!f.boltId || !f.color || !f.category || !f.rack) changed = true;
+          return enriched;
+        });
+        if (changed) persistSsRecords();
+      }
+    }
+
+    function calculateGarmentYields(yards, width = '58"') {
+      const y = Number(yards) || 0;
+      const is58 = String(width).includes('58') || String(width).includes('54');
+      return {
+        panjabi: is58 ? Math.floor(y / 2.50) : Math.floor(y / 2.75),
+        shirt: is58 ? Math.floor(y / 1.80) : Math.floor(y / 2.25),
+        pant: is58 ? Math.floor(y / 1.30) : Math.floor(y / 1.60),
+        blazer: Math.floor(y / 2.00),
+        kabli: Math.floor(y / 3.25),
+        pajama: Math.floor(y / 1.75),
+        kurti: Math.floor(y / 2.40)
+      };
+    }
+
+    function runFabricEstimator() {
+      const type = document.getElementById('calc-garment-type')?.value || 'panjabi';
+      const yards = Number(document.getElementById('calc-fabric-yards')?.value) || 0;
+      const resultEl = document.getElementById('calc-result-text');
+      const leftoverEl = document.getElementById('calc-leftover-text');
+      if (!resultEl || !leftoverEl) return;
+
+      const rates = {
+        panjabi: { per: 2.50, name: 'পাঞ্জাবি' },
+        shirt: { per: 2.25, name: 'শার্ট' },
+        pant: { per: 1.30, name: 'প্যান্ট' },
+        kabli: { per: 3.25, name: 'কাবলি সেট' },
+        blazer: { per: 2.00, name: 'ব্লেজার' },
+        pajama: { per: 1.75, name: 'পায়জামা' },
+        kurti: { per: 2.40, name: 'কামিজ' }
+      };
+
+      const selected = rates[type] || rates.panjabi;
+      const count = Math.floor(yards / selected.per);
+      const leftover = (yards - (count * selected.per)).toFixed(2);
+
+      resultEl.textContent = count > 0 ? count + 'টি ' + selected.name + ' তৈরি সম্ভব' : 'কাপড়ের পরিমাণ অপর্যাপ্ত';
+      leftoverEl.textContent = leftover + ' গজ';
+    }
+
+    function setFabricViewMode(mode) {
+      fabricViewMode = mode;
+      const gridBtn = document.getElementById('btn-fabric-view-grid');
+      const tableBtn = document.getElementById('btn-fabric-view-table');
+      const gridCheck = document.getElementById('check-fabric-grid');
+      const tableCheck = document.getElementById('check-fabric-table');
+      const gridView = document.getElementById('fabric-grid-view');
+      const tableView = document.getElementById('fabric-table-view');
+
+      if (mode === 'grid') {
+        gridBtn?.classList.add('is-active');
+        tableBtn?.classList.remove('is-active');
+        gridCheck?.classList.remove('hidden');
+        tableCheck?.classList.add('hidden');
+        gridView?.classList.remove('hidden');
+        tableView?.classList.add('hidden');
+      } else {
+        tableBtn?.classList.add('is-active');
+        gridBtn?.classList.remove('is-active');
+        tableCheck?.classList.remove('hidden');
+        gridCheck?.classList.add('hidden');
+        tableView?.classList.remove('hidden');
+        gridView?.classList.add('hidden');
+      }
+    }
+
+    function setFabricCategory(cat) {
+      activeFabricCategory = cat;
+      const pills = document.querySelectorAll('#fabric-category-pills .fabric-cat-pill');
+      pills.forEach(pill => {
+        if (pill.getAttribute('data-cat') === cat) {
+          pill.classList.add('active');
+        } else {
+          pill.classList.remove('active');
+        }
+      });
+      renderFabrics();
+    }
+
+    function setFabricStockFilter(filter) {
+      activeFabricStockFilter = filter;
+      const filterPills = document.querySelectorAll('#fabric-stock-filters .due-aging-pill');
+      filterPills.forEach(pill => pill.classList.remove('active'));
+      const activeBtn = document.getElementById('fs-filter-' + filter);
+      if (activeBtn) activeBtn.classList.add('active');
+      renderFabrics();
+    }
+
+    function clearFabricSearch() {
+      const input = document.getElementById('fabric-search');
+      if (input) input.value = '';
+      const clearBtn = document.getElementById('fabric-search-clear');
+      if (clearBtn) clearBtn.classList.add('hidden');
+      renderFabrics();
+    }
+
+    function filterLowStockFabrics() {
+      setFabricStockFilter('low');
+      const input = document.getElementById('fabric-search');
+      if (input) input.value = '';
+      const section = document.getElementById('view-fabrics');
+      section?.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function renderFabrics() {
+      initFabricSampleSeeds();
+
+      const searchInput = document.getElementById('fabric-search');
+      const q = (searchInput?.value || '').trim().toLowerCase();
+      const clearBtn = document.getElementById('fabric-search-clear');
+      if (clearBtn) clearBtn.classList.toggle('hidden', q.length === 0);
+
+      const all = ssRecords.fabrics.map(enrichFabricRecord);
+
+      // Filter by Search Query
+      let list = all.filter(x => {
+        const text = (x.name + ' ' + x.sku + ' ' + x.boltId + ' ' + x.category + ' ' + x.rack + ' ' + x.colorName + ' ' + x.supplier).toLowerCase();
+        return text.includes(q);
+      });
+
+      // Filter by Category
+      if (activeFabricCategory !== 'all') {
+        list = list.filter(x => (x.category || '').toLowerCase() === activeFabricCategory.toLowerCase());
+      }
+
+      // Filter by Stock Status
+      if (activeFabricStockFilter === 'low') {
+        list = list.filter(x => Number(x.stock) <= Number(x.minimum));
+      } else if (activeFabricStockFilter === 'instock') {
+        list = list.filter(x => Number(x.stock) > Number(x.minimum));
+      }
+
+      // Update KPI Metric Cards
+      const totalCount = all.length;
+      const totalYards = all.reduce((s, x) => s + (x.unit === 'yard' ? Number(x.stock) || 0 : 0), 0);
+      const totalValue = all.reduce((s, x) => s + ((Number(x.stock) || 0) * (Number(x.cost) || 0)), 0);
+      const lowStockCount = all.filter(x => Number(x.stock) <= Number(x.minimum)).length;
+      const activeBoltsCount = all.filter(x => Number(x.stock) > 0).length;
+
+      const totalEl = document.getElementById('fabric-total');
+      const yardsEl = document.getElementById('fabric-total-yards');
+      const boltsEl = document.getElementById('fabric-active-bolts');
+      const valEl = document.getElementById('fabric-value');
+      const lowEl = document.getElementById('fabric-low');
+
+      if (totalEl) totalEl.textContent = totalCount;
+      if (yardsEl) yardsEl.textContent = totalYards.toFixed(1) + ' yds';
+      if (boltsEl) boltsEl.textContent = activeBoltsCount + 'টি থান / রোল সক্রিয়';
+      if (valEl) valEl.textContent = moneyBDT(totalValue);
+      if (lowEl) lowEl.textContent = lowStockCount;
+
+      // Render Grid View
+      const gridHost = document.getElementById('fabric-grid-view');
+      if (gridHost) {
+        gridHost.innerHTML = list.map(item => {
+          const isLow = Number(item.stock) <= Number(item.minimum);
+          const isZero = Number(item.stock) <= 0;
+          const yields = calculateGarmentYields(item.stock, item.width);
+          const pct = Math.min(100, Math.round(((Number(item.stock) || 0) / (Number(item.initialStock) || 50)) * 100));
+
+          return `
+            <div class="fabric-card bento-card p-4 sm:p-5 flex flex-col justify-between space-y-3.5 group relative overflow-hidden transition-all duration-300">
+              <!-- Top Row: Bolt ID, Category Pill & Color Dot -->
+              <div class="flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <span class="w-3.5 h-3.5 rounded-full border border-white/20 shadow-sm flex-shrink-0" style="background-color: ${item.color}" title="${safeText(item.colorName || 'Color')}"></span>
+                  <span class="text-xs font-mono font-black tracking-wider px-2 py-0.5 rounded-md bg-white/10 text-ios-text border border-ios-border">${safeText(item.boltId)}</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">${safeText(item.category)}</span>
+                  ${isZero ? '<span class="text-[10px] font-black px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">Stock Out</span>' : isLow ? '<span class="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 animate-pulse">Low Stock</span>' : '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">In Stock</span>'}
+                </div>
+              </div>
+
+              <!-- Main Fabric Details -->
+              <div class="space-y-1">
+                <h4 class="font-black text-sm text-ios-text group-hover:text-cyan-400 transition-colors leading-snug">${safeText(item.name)}</h4>
+                <div class="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-ios-subtext">
+                  <span class="font-mono text-cyan-300/80">${safeText(item.sku)}</span>
+                  <span>•</span>
+                  <span>${safeText(item.width)}</span>
+                  <span>•</span>
+                  <span class="text-gray-300">${safeText(item.rack)}</span>
+                </div>
+              </div>
+
+              <!-- Remaining Stock Gauge & Valuation -->
+              <div class="p-3 rounded-2xl bg-white/5 border border-ios-border space-y-2">
+                <div class="flex items-baseline justify-between">
+                  <span class="text-[10px] font-bold text-ios-subtext uppercase">Current Stock</span>
+                  <div class="text-right">
+                    <span class="text-lg font-black font-mono ${isLow ? 'text-amber-400' : 'text-emerald-400'}">${item.stock}</span>
+                    <span class="text-xs text-ios-subtext ml-1">${safeText(item.unit)}</span>
+                  </div>
+                </div>
+
+                <!-- Stock Progress Bar -->
+                <div class="w-full h-1.5 rounded-full bg-slate-800/80 overflow-hidden">
+                  <div class="h-full rounded-full transition-all duration-500 ${isLow ? 'bg-gradient-to-r from-amber-500 to-rose-500' : 'bg-gradient-to-r from-cyan-500 to-emerald-500'}" style="width: ${pct}%"></div>
+                </div>
+
+                <div class="flex justify-between items-center text-[10px] text-ios-subtext pt-0.5">
+                  <span>দর: <strong class="text-ios-text font-mono">${moneyBDT(item.price)}</strong> / ${safeText(item.unit)}</span>
+                  <span>ক্রয়: <span class="font-mono">${moneyBDT(item.cost)}</span></span>
+                </div>
+              </div>
+
+              <!-- Garment Yields Quick Badge -->
+              ${item.unit === 'yard' ? `
+              <div class="p-2.5 rounded-xl bg-cyan-500/5 border border-cyan-500/15 text-[11px] space-y-1">
+                <div class="text-[9px] font-bold text-cyan-400 uppercase tracking-wider flex items-center justify-between">
+                  <span>✂️ সম্ভাব্য তৈরি করা যাবে</span>
+                  <span class="font-mono font-normal text-ios-subtext">Approx. Cut Yields</span>
+                </div>
+                <div class="flex flex-wrap items-center gap-1.5 text-[10px] font-bold">
+                  ${yields.panjabi > 0 ? `<span class="px-2 py-0.5 rounded-md bg-white/10 text-ios-text font-mono">👔 ${yields.panjabi} পাঞ্জাবি</span>` : ''}
+                  ${yields.shirt > 0 ? `<span class="px-2 py-0.5 rounded-md bg-white/10 text-ios-text font-mono">👕 ${yields.shirt} শার্ট</span>` : ''}
+                  ${yields.pant > 0 ? `<span class="px-2 py-0.5 rounded-md bg-white/10 text-ios-text font-mono">👖 ${yields.pant} প্যান্ট</span>` : ''}
+                  ${yields.panjabi === 0 && yields.shirt === 0 && yields.pant === 0 ? `<span class="text-rose-400/90 text-[10px]">কাপড়ের পরিমাণ কম, বড় পোশাকের জন্য অপর্যাপ্ত</span>` : ''}
+                </div>
+              </div>` : ''}
+
+              <!-- Action Buttons Row -->
+              <div class="flex items-center justify-between gap-1.5 pt-2 border-t border-ios-border text-xs">
+                <div class="flex items-center gap-1">
+                  <button onclick="openFabricStockModal('${item.id}', 'in')" class="px-2.5 py-1.5 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 font-bold active:scale-95 transition-all" title="Stock In / Out">
+                    ± স্টক
+                  </button>
+                  <button onclick="openFabricBoltLabel('${item.id}')" class="p-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white" title="Print 58mm Thermal Tag">
+                    🏷️
+                  </button>
+                  <button onclick="sendFabricSupplierWhatsApp('${item.id}')" class="p-1.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400" title="1-Click Supplier Requisition via WhatsApp">
+                    💬
+                  </button>
+                </div>
+                <div class="flex items-center gap-1">
+                  <button onclick="openFabricModal('${item.id}')" class="px-2.5 py-1.5 rounded-xl border border-ios-border text-gray-300 hover:text-white hover:bg-white/5 font-semibold text-[11px]">
+                    Edit
+                  </button>
+                  <button onclick="deleteDataRecord('fabric', '${item.id}')" class="p-1.5 rounded-xl text-rose-400 hover:bg-rose-500/10" title="Delete Fabric">
+                    🗑️
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Render Table View
+      const tableHost = document.getElementById('fabrics-table');
+      if (tableHost) {
+        tableHost.innerHTML = list.map(item => {
+          const isLow = Number(item.stock) <= Number(item.minimum);
+          const yields = calculateGarmentYields(item.stock, item.width);
+
+          return `
+            <tr class="border-b border-ios-border hover:bg-white/5 transition-colors">
+              <td class="p-3">
+                <div class="flex items-center gap-2.5">
+                  <span class="w-3.5 h-3.5 rounded-full border border-white/20 flex-shrink-0" style="background-color: ${item.color}"></span>
+                  <div>
+                    <div class="font-black text-ios-text text-sm">${safeText(item.name)}</div>
+                    <div class="text-[11px] text-ios-subtext font-mono">${safeText(item.sku)} • ${safeText(item.width)}</div>
+                  </div>
+                </div>
+              </td>
+              <td class="p-3">
+                <div class="font-mono font-bold text-xs text-cyan-300">${safeText(item.boltId)}</div>
+                <div class="text-[11px] text-ios-subtext">${safeText(item.rack)}</div>
+              </td>
+              <td class="p-3">
+                <span class="text-xs px-2 py-0.5 rounded-full bg-white/5 border border-ios-border font-bold text-ios-text">${safeText(item.category)}</span>
+              </td>
+              <td class="p-3">
+                <div class="font-mono font-black text-sm ${isLow ? 'text-amber-400' : 'text-emerald-400'}">${item.stock} ${safeText(item.unit)}</div>
+                <div class="text-[10px] text-ios-subtext">Alert: &le; ${item.minimum} ${safeText(item.unit)}</div>
+              </td>
+              <td class="p-3">
+                <div class="font-mono font-bold text-xs text-ios-text">${moneyBDT(item.price)}</div>
+                <div class="text-[10px] text-ios-subtext">ক্রয়: ${moneyBDT(item.cost)}</div>
+              </td>
+              <td class="p-3">
+                <div class="text-[11px] text-ios-text font-mono">
+                  ${item.unit === 'yard' ? `~ ${yields.panjabi} Panjabi | ~ ${yields.shirt} Shirt` : safeText(item.notes || '-')}
+                </div>
+              </td>
+              <td class="p-3">
+                ${isLow ? '<span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 animate-pulse">Low Stock</span>' : '<span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">In Stock</span>'}
+              </td>
+              <td class="p-3 text-right whitespace-nowrap">
+                <button onclick="openFabricStockModal('${item.id}', 'in')" class="text-cyan-400 hover:text-cyan-300 font-bold mr-2 text-xs">± স্টক</button>
+                <button onclick="openFabricBoltLabel('${item.id}')" class="text-gray-300 hover:text-white mr-2 text-xs" title="58mm Tag">🏷️</button>
+                <button onclick="sendFabricSupplierWhatsApp('${item.id}')" class="text-emerald-400 hover:text-emerald-300 mr-2 text-xs" title="WhatsApp Requisition">💬</button>
+                <button onclick="openFabricModal('${item.id}')" class="text-cyan-300 hover:underline mr-2 text-xs">Edit</button>
+                <button onclick="deleteDataRecord('fabric', '${item.id}')" class="text-rose-400 hover:text-rose-300 text-xs">✕</button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      // Empty State
+      const emptyEl = document.getElementById('fabrics-empty');
+      if (emptyEl) {
+        emptyEl.classList.toggle('hidden', list.length !== 0);
+      }
+
+      // Refresh Quick Estimator
+      runFabricEstimator();
+    }
+
+    function syncFabricColorHex(hex, name) {
+      const picker = document.getElementById('fe-color-picker');
+      const nameInput = document.getElementById('fe-color-name');
+      const valInput = document.getElementById('fe-color-val');
+      if (picker) picker.value = hex;
+      if (valInput) valInput.value = hex;
+      if (name && nameInput) nameInput.value = name;
+    }
+
+    function openFabricModal(editId) {
+      initFabricSampleSeeds();
+      const modal = document.getElementById('modal-fabric-entry');
+      if (!modal) return;
+
+      const titleEl = document.getElementById('fabric-modal-title');
+      const editInput = document.getElementById('fe-edit-id');
+      const nameInput = document.getElementById('fe-name');
+      const catSelect = document.getElementById('fe-category');
+      const boltInput = document.getElementById('fe-bolt-id');
+      const skuInput = document.getElementById('fe-sku');
+      const colorVal = document.getElementById('fe-color-val');
+      const colorPicker = document.getElementById('fe-color-picker');
+      const colorName = document.getElementById('fe-color-name');
+      const widthSelect = document.getElementById('fe-width');
+      const unitSelect = document.getElementById('fe-unit');
+      const stockInput = document.getElementById('fe-stock');
+      const initStockInput = document.getElementById('fe-initial-stock');
+      const costInput = document.getElementById('fe-cost');
+      const priceInput = document.getElementById('fe-price');
+      const minInput = document.getElementById('fe-minimum');
+      const rackInput = document.getElementById('fe-rack');
+      const suppInput = document.getElementById('fe-supplier');
+      const suppPhone = document.getElementById('fe-supplier-phone');
+      const notesInput = document.getElementById('fe-notes');
+
+      // Populate preset buttons
+      const presetHost = document.getElementById('fe-color-presets');
+      if (presetHost) {
+        presetHost.innerHTML = FABRIC_COLOR_PRESETS.map(p => `
+          <button type="button" onclick="syncFabricColorHex('${p.hex}', '${p.name}')" class="fabric-color-swatch-preset flex items-center gap-1.5 px-2 py-1 rounded-lg border border-slate-700 bg-slate-800/80 text-[10px] text-gray-300 hover:text-white hover:border-cyan-400">
+            <span class="w-2.5 h-2.5 rounded-full border border-white/20" style="background-color: ${p.hex}"></span>
+            <span>${p.name}</span>
+          </button>
+        `).join('');
+      }
+
+      if (editId) {
+        const item = ssRecords.fabrics.find(x => String(x.id) === String(editId));
+        if (!item) {
+          CyberDialog.alert('কাপড় রেকর্ডটি খুঁজে পাওয়া যায়নি।', { icon: '⚠️', title: 'NOT FOUND' });
+          return;
+        }
+        const enriched = enrichFabricRecord(item);
+        if (titleEl) titleEl.innerHTML = '<span>🧵</span> <span>কাপড় ও থান তথ্য পরিবর্তন (Edit Material)</span>';
+        if (editInput) editInput.value = enriched.id;
+        if (nameInput) nameInput.value = enriched.name || '';
+        if (catSelect) catSelect.value = enriched.category || 'Cotton';
+        if (boltInput) boltInput.value = enriched.boltId || '';
+        if (skuInput) skuInput.value = enriched.sku || '';
+        if (colorVal) colorVal.value = enriched.color || '#3b82f6';
+        if (colorPicker) colorPicker.value = enriched.color || '#3b82f6';
+        if (colorName) colorName.value = enriched.colorName || '';
+        if (widthSelect) widthSelect.value = enriched.width || '58" ডাবল বহর';
+        if (unitSelect) unitSelect.value = enriched.unit || 'yard';
+        if (stockInput) stockInput.value = enriched.stock ?? '';
+        if (initStockInput) initStockInput.value = enriched.initialStock ?? '';
+        if (costInput) costInput.value = enriched.cost ?? '';
+        if (priceInput) priceInput.value = enriched.price ?? '';
+        if (minInput) minInput.value = enriched.minimum ?? 10;
+        if (rackInput) rackInput.value = enriched.rack || '';
+        if (suppInput) suppInput.value = enriched.supplier || '';
+        if (suppPhone) suppPhone.value = enriched.supplierPhone || '';
+        if (notesInput) notesInput.value = enriched.notes || '';
+      } else {
+        if (titleEl) titleEl.innerHTML = '<span>🧵</span> <span>নতুন কাপড় ও উপাদান নিবন্ধন (New Material)</span>';
+        if (editInput) editInput.value = '';
+        if (nameInput) nameInput.value = '';
+        if (catSelect) catSelect.value = 'Cotton';
+        if (boltInput) boltInput.value = 'BOLT-' + Math.floor(100 + Math.random() * 900);
+        if (skuInput) skuInput.value = 'FAB-' + Date.now().toString(36).slice(-4).toUpperCase();
+        syncFabricColorHex('#ffffff', 'Pure White');
+        if (widthSelect) widthSelect.value = '58" ডাবল বহর';
+        if (unitSelect) unitSelect.value = 'yard';
+        if (stockInput) stockInput.value = '';
+        if (initStockInput) initStockInput.value = '';
+        if (costInput) costInput.value = '';
+        if (priceInput) priceInput.value = '';
+        if (minInput) minInput.value = '10';
+        if (rackInput) rackInput.value = 'Rack A-01';
+        if (suppInput) suppInput.value = '';
+        if (suppPhone) suppPhone.value = '';
+        if (notesInput) notesInput.value = '';
+      }
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      requestAnimationFrame(() => nameInput?.focus());
+    }
+
+    function saveFabricRecord() {
+      const editId = document.getElementById('fe-edit-id')?.value;
+      const name = document.getElementById('fe-name')?.value.trim();
+      const sku = document.getElementById('fe-sku')?.value.trim();
+      const stockRaw = document.getElementById('fe-stock')?.value;
+      const costRaw = document.getElementById('fe-cost')?.value;
+
+      if (!name) {
+        CyberDialog.alert('অনুগ্রহ করে কাপড়ের নাম লিখুন।', { icon: '⚠️', title: 'REQUIRED FIELD' });
+        return;
+      }
+      if (stockRaw === '' || isNaN(Number(stockRaw)) || Number(stockRaw) < 0) {
+        CyberDialog.alert('সঠিক মজুত স্টক (সংখ্যা) লিখুন।', { icon: '⚠️', title: 'INVALID STOCK' });
+        return;
+      }
+
+      const category = document.getElementById('fe-category')?.value || 'Cotton';
+      const boltId = document.getElementById('fe-bolt-id')?.value.trim() || ('BOLT-' + Math.floor(100 + Math.random() * 900));
+      const color = document.getElementById('fe-color-val')?.value || '#3b82f6';
+      const colorName = document.getElementById('fe-color-name')?.value.trim() || 'Custom Shade';
+      const width = document.getElementById('fe-width')?.value || '58" ডাবল বহর';
+      const unit = document.getElementById('fe-unit')?.value || 'yard';
+      const stock = Number(stockRaw);
+      const initialStock = Number(document.getElementById('fe-initial-stock')?.value) || stock;
+      const cost = Number(costRaw) || 0;
+      const price = Number(document.getElementById('fe-price')?.value) || (cost > 0 ? Math.round(cost * 1.35) : 0);
+      const minimum = Number(document.getElementById('fe-minimum')?.value) || 10;
+      const rack = document.getElementById('fe-rack')?.value.trim() || 'Rack A-01';
+      const supplier = document.getElementById('fe-supplier')?.value.trim() || '';
+      const supplierPhone = document.getElementById('fe-supplier-phone')?.value.trim() || '';
+      const notes = document.getElementById('fe-notes')?.value.trim() || '';
+
+      const finalSku = sku || ('SKU-' + Date.now().toString(36).slice(-4).toUpperCase());
+
+      const record = {
+        name,
+        category,
+        boltId,
+        sku: finalSku,
+        color,
+        colorName,
+        width,
+        unit,
+        stock,
+        initialStock,
+        cost,
+        price,
+        minimum,
+        rack,
+        supplier,
+        supplierPhone,
+        notes
+      };
+
+      if (editId) {
+        const idx = ssRecords.fabrics.findIndex(x => String(x.id) === String(editId));
+        if (idx >= 0) {
+          ssRecords.fabrics[idx] = { ...ssRecords.fabrics[idx], ...record, id: editId };
+        }
+      } else {
+        record.id = 'F-' + Date.now().toString(36).toUpperCase();
+        ssRecords.fabrics.unshift(record);
+      }
+
+      persistSsRecords();
+      closeModal('modal-fabric-entry');
+      renderFabrics();
+      CyberDialog.alert(`কাপড় ও থান "${safeText(name)}" সফলভাবে সংরক্ষিত হয়েছে।`, { icon: '✨', title: 'FABRIC SAVED' });
+    }
+
+    function openFabricStockModal(fabricId, opType = 'in') {
+      const item = ssRecords.fabrics.find(x => String(x.id) === String(fabricId));
+      if (!item) {
+        CyberDialog.alert('কাপড় রেকর্ডটি খুঁজে পাওয়া যায়নি।', { icon: '⚠️', title: 'NOT FOUND' });
+        return;
+      }
+      const enriched = enrichFabricRecord(item);
+      const modal = document.getElementById('modal-fabric-stock-op');
+      if (!modal) return;
+
+      document.getElementById('fso-fabric-id').value = enriched.id;
+      const swatch = document.getElementById('fso-swatch');
+      if (swatch) swatch.style.backgroundColor = enriched.color || '#3b82f6';
+      const nameEl = document.getElementById('fso-name') || document.getElementById('fso-fabric-name');
+      if (nameEl) nameEl.textContent = enriched.name;
+      const detailsEl = document.getElementById('fso-details');
+      if (detailsEl) detailsEl.textContent = enriched.boltId + ' • ' + enriched.rack + ' (' + enriched.width + ')';
+      const curStockEl = document.getElementById('fso-current-stock') || document.getElementById('fso-cur-stock');
+      if (curStockEl) curStockEl.textContent = enriched.stock + ' ' + enriched.unit;
+      document.getElementById('fso-qty').value = '';
+      document.getElementById('fso-ref').value = '';
+      document.getElementById('fso-notes').value = '';
+
+      setFabricOpType(opType);
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      requestAnimationFrame(() => document.getElementById('fso-qty')?.focus());
+    }
+
+    function setFabricOpType(type) {
+      const hiddenInput = document.getElementById('fso-type');
+      const inBtn = document.getElementById('fso-btn-in') || document.getElementById('btn-fso-in');
+      const outBtn = document.getElementById('fso-btn-out') || document.getElementById('btn-fso-out');
+      const expenseBox = document.getElementById('fso-expense-container');
+
+      if (hiddenInput) hiddenInput.value = type;
+
+      if (type === 'in') {
+        inBtn?.classList.add('bg-cyan-500/20', 'border-cyan-400', 'text-cyan-300');
+        inBtn?.classList.remove('border-slate-700', 'text-gray-400');
+        outBtn?.classList.remove('bg-rose-500/20', 'border-rose-400', 'text-rose-300');
+        outBtn?.classList.add('border-slate-700', 'text-gray-400');
+        expenseBox?.classList.remove('hidden');
+      } else {
+        outBtn?.classList.add('bg-rose-500/20', 'border-rose-400', 'text-rose-300');
+        outBtn?.classList.remove('border-slate-700', 'text-gray-400');
+        inBtn?.classList.remove('bg-cyan-500/20', 'border-cyan-400', 'text-cyan-300');
+        inBtn?.classList.add('border-slate-700', 'text-gray-400');
+        expenseBox?.classList.add('hidden');
+      }
+    }
+
+    function submitFabricStockOp() {
+      const fabricId = document.getElementById('fso-fabric-id')?.value;
+      const type = document.getElementById('fso-type')?.value || 'in';
+      const qty = Number(document.getElementById('fso-qty')?.value);
+      const ref = document.getElementById('fso-ref')?.value.trim();
+      const notes = document.getElementById('fso-notes')?.value.trim();
+      const logExpense = document.getElementById('fso-log-expense')?.checked;
+
+      if (!qty || qty <= 0) {
+        CyberDialog.alert('অনুগ্রহ করে সঠিক পরিমাণ লিখুন (০ এর বেশি)।', { icon: '⚠️', title: 'INVALID QTY' });
+        return;
+      }
+
+      const item = ssRecords.fabrics.find(x => String(x.id) === String(fabricId));
+      if (!item) return;
+
+      const current = Number(item.stock) || 0;
+      if (type === 'out' && qty > current) {
+        CyberDialog.alert(`মজুত কাপড়ের তুলনায় কাটার পরিমাণ বেশি! বর্তমান মজুত আছে: ${current} ${safeText(item.unit || 'yard')}`, { icon: '⚠️', title: 'INSUFFICIENT STOCK' });
+        return;
+      }
+
+      const change = type === 'in' ? qty : -qty;
+      const newStock = Number((current + change).toFixed(2));
+      item.stock = newStock;
+
+      // Log movement to ssMovements
+      if (window.ssMovements) {
+        ssMovements.unshift({
+          id: 'MOV-' + Date.now().toString(36).toUpperCase(),
+          date: new Date().toISOString(),
+          type: type === 'in' ? 'FABRIC_RESTOCK' : 'FABRIC_CUTOUT',
+          materialId: item.id,
+          materialName: item.name,
+          change: change,
+          balance: newStock,
+          ref: ref || 'Manual Adjustment',
+          notes: notes || (type === 'in' ? 'Stock roll replenishment' : 'Cut for garment production')
+        });
+      }
+
+      // Optional Accounts integration for fabric purchase expense
+      if (type === 'in' && logExpense && item.cost > 0) {
+        const totalExpense = Math.round(qty * Number(item.cost));
+        if (window.ssRecords && window.ssRecords.accounts) {
+          ssRecords.accounts.unshift({
+            id: 'EXP-FAB-' + Date.now().toString(36).toUpperCase(),
+            type: 'expense',
+            category: 'Fabric Restock',
+            amount: totalExpense,
+            description: `থান ক্রয়: ${item.name} (${qty} ${item.unit || 'yd'} @ ৳${item.cost})`,
+            paymentMethod: 'Cash',
+            date: new Date().toISOString(),
+            status: 'paid',
+            reference: ref || item.boltId || 'FABRIC'
+          });
+        }
+      }
+
+      persistSsRecords();
+      closeModal('modal-fabric-stock-op');
+      renderFabrics();
+
+      const opMsg = type === 'in'
+        ? `সফলভাবে <strong>+${qty} ${safeText(item.unit || 'yd')}</strong> স্টক ইন সম্পন্ন হয়েছে! বর্তমান মোট স্টক: ${newStock} ${safeText(item.unit || 'yd')}।`
+        : `সফলভাবে <strong>-${qty} ${safeText(item.unit || 'yd')}</strong> কাট আউট সম্পন্ন হয়েছে। অবশিষ্ট স্টক: ${newStock} ${safeText(item.unit || 'yd')}।`;
+
+      CyberDialog.alert(opMsg, { icon: '✓', title: 'STOCK UPDATED' });
+    }
+
+    function openFabricBoltLabel(fabricId) {
+      const item = ssRecords.fabrics.find(x => String(x.id) === String(fabricId));
+      if (!item) return;
+      const enriched = enrichFabricRecord(item);
+
+      const modal = document.getElementById('modal-fabric-label');
+      if (!modal) return;
+
+      document.getElementById('fl-bolt-id').textContent = enriched.boltId;
+      document.getElementById('fl-name').textContent = enriched.name;
+      document.getElementById('fl-color').textContent = enriched.colorName || 'Default';
+      document.getElementById('fl-width').textContent = enriched.width;
+      document.getElementById('fl-stock').textContent = enriched.stock + ' ' + enriched.unit;
+      document.getElementById('fl-rack').textContent = enriched.rack;
+      document.getElementById('fl-price').textContent = moneyBDT(enriched.price) + '/' + enriched.unit;
+      document.getElementById('fl-cost').textContent = moneyBDT(enriched.cost);
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function printFabricBoltLabel() {
+      const printContents = document.getElementById('printable-fabric-label')?.innerHTML;
+      if (!printContents) return;
+
+      const printWindow = window.open('', '_blank', 'width=380,height=520');
+      printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>58mm Fabric Bolt Pin Tag</title>
+          <style>
+            @page { size: 58mm auto; margin: 2mm; }
+            body { font-family: monospace; font-size: 11px; margin: 0; padding: 6px; color: #000; background: #fff; }
+            .font-black { font-weight: 900; }
+            .font-bold { font-weight: 700; }
+            .text-center { text-align: center; }
+            .text-sm { font-size: 13px; }
+            .text-xs { font-size: 10px; }
+            .tracking-widest { letter-spacing: 0.15em; }
+            .border-b { border-bottom: 1px dashed #444; }
+            .border-t { border-top: 1px dashed #444; }
+            .py-1 { padding-top: 4px; padding-bottom: 4px; }
+            .pt-1 { padding-top: 4px; }
+            .pt-2 { padding-top: 8px; }
+            .pb-1 { padding-bottom: 4px; }
+            .flex { display: flex; }
+            .justify-between { justify-content: space-between; }
+            .space-y-1 > * + * { margin-top: 3px; }
+          </style>
+        </head>
+        <body>
+          ${printContents}
+          <\/body><\/html>
+      `);
+      printWindow.document.close();
+    }
+
+    function sendFabricSupplierWhatsApp(fabricId) {
+      const item = ssRecords.fabrics.find(x => String(x.id) === String(fabricId));
+      if (!item) return;
+      const enriched = enrichFabricRecord(item);
+
+      const phone = (enriched.supplierPhone || '').replace(/[^0-9]/g, '');
+      const neededYds = Math.max(20, Math.round(Number(enriched.initialStock || 50) - Number(enriched.stock)));
+
+      const message = `সালামু আলাইকুম। সেলাইসাথী টেইলার্স থেকে কাপড় রিঅর্ডার রিকুইজিশন:\n\n` +
+        `• কাপড়ের নাম: ${enriched.name}\n` +
+        `• থান কোড: ${enriched.boltId} (SKU: ${enriched.sku})\n` +
+        `• কালার: ${enriched.colorName}\n` +
+        `• বহর: ${enriched.width}\n` +
+        `• বর্তমান অবশিষ্ট স্টক: ${enriched.stock} ${enriched.unit}\n` +
+        `• নতুন অর্ডার পরিমাণ: ${neededYds} ${enriched.unit}\n\n` +
+        `অনুগ্রহ করে রেট নিশ্চিত করে দ্রুত ডেলিভারির ব্যবস্থা করবেন। ধন্যবাদ।`;
+
+      const targetUrl = phone
+        ? `https://wa.me/88${phone.startsWith('88') ? phone.slice(2) : phone.startsWith('0') ? phone.slice(1) : phone}?text=${encodeURIComponent(message)}`
+        : `https://wa.me/?text=${encodeURIComponent(message)}`;
+
+      window.open(targetUrl, '_blank');
+    }
+
+    function printFabricCatalog() {
+      initFabricSampleSeeds();
+      const list = ssRecords.fabrics.map(enrichFabricRecord);
+
+      const printWindow = window.open('', '_blank', 'width=900,height=700');
+      const rows = list.map((item, idx) => `
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 8px;">${idx + 1}</td>
+          <td style="padding: 8px;">
+            <strong>${item.name}</strong><br>
+            <small style="color: #666;">${item.boltId} • ${item.sku}</small>
+          </td>
+          <td style="padding: 8px;">${item.category}</td>
+          <td style="padding: 8px;">
+            <span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${item.color};border:1px solid #aaa;vertical-align:middle;margin-right:4px;"></span>
+            ${item.colorName} (${item.width})
+          </td>
+          <td style="padding: 8px;"><strong>${item.stock} ${item.unit}</strong></td>
+          <td style="padding: 8px;">${item.rack}</td>
+          <td style="padding: 8px;">৳${item.price}</td>
+        </tr>
+      `).join('');
+
+      printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>SelaiSathi - Fabric & Materials Catalog</title>
+          <style>
+            @page { size: A4; margin: 15mm; }
+            body { font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 12px; color: #111; margin: 0; padding: 15px; }
+            h2 { margin: 0 0 5px 0; color: #0284c7; }
+            table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 11px; }
+            th { background: #f1f5f9; padding: 8px; text-align: left; border-bottom: 2px solid #cbd5e1; }
+          </style>
+        </head>
+        <body>
+          <h2>SELAISATHI BESPOKE TAILORS</h2>
+          <div>Fabrics & Materials Inventory Catalog · Date: ${new Date().toLocaleDateString('bn-BD')}</div>
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Material / Fabric</th>
+                <th>Category</th>
+                <th>Color & Width</th>
+                <th>Stock</th>
+                <th>Rack Location</th>
+                <th>Selling Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows}
+            </tbody>
+          </table>
+          <\/body><\/html>
+      `);
+      printWindow.document.close();
+    }
+
+    function exportFabricCSV() {
+      initFabricSampleSeeds();
+      const list = ssRecords.fabrics.map(enrichFabricRecord);
+      const headers = ['ID', 'Bolt ID', 'Material Name', 'SKU', 'Category', 'Color', 'Width', 'Stock', 'Unit', 'Cost', 'Price', 'Minimum', 'Rack', 'Supplier', 'Supplier Phone'];
+      const rows = list.map(x => [
+        x.id,
+        x.boltId,
+        `"${(x.name || '').replace(/"/g, '""')}"`,
+        x.sku,
+        x.category,
+        x.colorName,
+        `"${x.width}"`,
+        x.stock,
+        x.unit,
+        x.cost,
+        x.price,
+        x.minimum,
+        `"${(x.rack || '').replace(/"/g, '""')}"`,
+        `"${(x.supplier || '').replace(/"/g, '""')}"`,
+        x.supplierPhone
+      ]);
+
+      const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', `selaisathi_fabric_inventory_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
     const ssFieldSets={
       customer:[['name','Customer name','text'],['phone','Mobile number','tel'],['address','Address','text'],['notes','Notes','text']],
       staff:[['name','Karigar / Staff name','text'],['phone','Mobile number','tel'],['role','Role (Master Tailor / Cutter / Stitcher / Finishing)','text'],['rate','Rate per garment (৳)','number'],['specialty','Specialty / Craft Focus','text'],['experience','Experience (e.g. 8 Years)','text'],['address','Address / Location','text'],['status','Status (Active/Inactive)','text']],
       fabric:[['name','Material name','text'],['sku','SKU / Code','text'],['stock','Current stock','number'],['unit','Unit (yard/pcs)','text'],['cost','Unit cost (৳)','number'],['minimum','Low-stock threshold','number']]
     };
     function openDataModal(kind,record){
+      if(kind==='fabric'){openFabricModal(record?.id);return;}
       const fields=ssFieldSets[kind];
       const modal=document.getElementById('modal-data-entry');
       const title=document.getElementById('data-modal-title');
@@ -8088,11 +9563,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       });
     }
     function adjustFabricStock(id){
-      const item=ssRecords.fabrics.find(x=>x.id===id);if(!item)return;
-      const raw=prompt('Enter stock adjustment (+ to add, - to use):','5');if(raw===null)return;
-      const change=Number(raw);if(!Number.isFinite(change)||!change){alert('Enter a non-zero number.');return;}
-      if(Number(item.stock)+change<0){alert('Stock cannot be negative.');return;}
-      item.stock=String(Number(item.stock)+change);persistSsRecords();renderFabrics();
+      openFabricStockModal(id, 'in');
     }
     function renderWorkspacePages(){renderCustomers();renderStaff();renderFabrics();}
 
@@ -10857,6 +12328,5 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     updateStaffViewToggleUI();
     initMeasurementsRegistry();
   </script>
-
 </body>
 </html>
