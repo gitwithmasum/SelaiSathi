@@ -1,4 +1,71 @@
-<!DOCTYPE html>
+<!DOCTYPE html
+
+  <!-- ======================================================== -->
+  <!-- 🧮 TAILOR FABRIC & MEASUREMENT CONVERTER MODAL          -->
+  <!-- ======================================================== -->
+  <div id="modal-fabric-calc" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bento-card max-w-md w-full p-5 space-y-4 shadow-2xl border border-cyan-500/30">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">🧮</span>
+          <div>
+            <h3 class="font-bold text-sm text-white">দরজি গজ-ইঞ্চি ও খরচ ক্যালকুলেটর</h3>
+            <p class="text-[10px] text-gray-400">Goj, Gira, Inch, Meter & Fabric Price Calc</p>
+          </div>
+        </div>
+        <button onclick="toggleFabricCalcModal()" class="text-gray-400 hover:text-white text-lg p-1">✕</button>
+      </div>
+
+      <!-- Quick Converter Controls -->
+      <div class="grid grid-cols-2 gap-3 text-xs">
+        <div>
+          <label class="text-[10px] text-gray-400 font-bold block mb-1">গজ (Goj / Yard)</label>
+          <input type="number" id="calc-input-goj" step="0.25" placeholder="e.g. 2.5" oninput="calcConvert('goj')" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono" />
+        </div>
+        <div>
+          <label class="text-[10px] text-gray-400 font-bold block mb-1">গিরা (Gira - 16 Gira = 1 Goj)</label>
+          <input type="number" id="calc-input-gira" step="1" placeholder="e.g. 8" oninput="calcConvert('gira')" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono" />
+        </div>
+        <div>
+          <label class="text-[10px] text-gray-400 font-bold block mb-1">ইঞ্চি (Inches)</label>
+          <input type="number" id="calc-input-inch" step="0.5" placeholder="e.g. 90" oninput="calcConvert('inch')" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono" />
+        </div>
+        <div>
+          <label class="text-[10px] text-gray-400 font-bold block mb-1">মিটার (Meters)</label>
+          <input type="number" id="calc-input-meter" step="0.1" placeholder="e.g. 2.28" oninput="calcConvert('meter')" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono" />
+        </div>
+      </div>
+
+      <!-- Price Estimate -->
+      <div class="bg-cyan-500/10 border border-cyan-500/20 rounded-xl p-3 text-xs space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-cyan-300 font-bold">কাপড়ের দর (প্রতি গজ ৳):</span>
+          <input type="number" id="calc-rate-per-goj" value="350" oninput="calcPrice()" class="w-24 bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-right font-mono text-white text-xs" />
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-cyan-300 font-bold">বানানোর মজুরি (Making ৳):</span>
+          <input type="number" id="calc-making-charge" value="450" oninput="calcPrice()" class="w-24 bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-right font-mono text-white text-xs" />
+        </div>
+        <div class="border-t border-cyan-500/20 pt-2 flex items-center justify-between font-bold">
+          <span class="text-white">মোট আনুমানিক খরচ:</span>
+          <span id="calc-total-result" class="text-base text-emerald-400 font-mono font-black">৳1325</span>
+        </div>
+      </div>
+
+      <div class="text-[10px] text-gray-500 flex justify-between">
+        <span>১ গজ = ১৬ গিরা = ৩৬ ইঞ্চি</span>
+        <span>১ মিটার ≈ ৩৯.৩৭ ইঞ্চি</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 🖨️ PRINT-READY OFFICIAL MONTHLY A4 AUDIT CONTAINER       -->
+  <!-- ======================================================== -->
+  <div id="print-report-container" class="hidden">
+    <!-- Populated dynamically right before window.print() -->
+  </div>
+>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -3680,6 +3747,41 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
 
   </style>
+  <style>
+
+    /* ========================================================================== */
+    /* 🔔 NOTIFICATION CENTER, FABRIC CALCULATOR, COMMAND PALETTE & P&L REPORT    */
+    /* ========================================================================== */
+    .notif-popover {
+      animation: cyberDropdownFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.65), 0 0 25px rgba(34,211,238,0.15);
+    }
+    
+    .calc-key {
+      transition: all 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .calc-key:active {
+      transform: scale(0.92);
+    }
+
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #print-report-container, #print-report-container * {
+        visibility: visible;
+      }
+      #print-report-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        color: #000 !important;
+        background: #fff !important;
+      }
+    }
+
+  </style>
 </head>
 <body class="flex h-screen overflow-hidden text-sm bg-ios-bg select-none">
 
@@ -3829,6 +3931,44 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <!-- RIGHT: Language Toggle [🌐] + Theme Slider [⚪|🔵] (+ New Order on desktop) -->
       <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
         
+        <!-- Sync Status Pill (Auto-saved) -->
+        <div class="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-[11px] font-semibold text-emerald-400 select-none" title="All tailor data saved locally">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="hidden xl:inline">Auto-Save</span>
+        </div>
+
+        <!-- Fabric & Rate Calculator Trigger -->
+        <button onclick="toggleFabricCalcModal()" class="p-2 sm:px-2.5 sm:py-1.5 rounded-xl border border-ios-border bg-white/5 hover:bg-cyan-500/15 text-ios-text active:scale-95 transition-all flex items-center gap-1 shrink-0" title="Tailor Fabric & Rate Calculator (কাপড় ও দরজি হিসাব)">
+          <span class="text-sm">🧮</span>
+          <span class="hidden xl:inline text-[11px] font-bold">Calc</span>
+        </button>
+
+        <!-- Notification Bell with Badge -->
+        <div class="relative">
+          <button onclick="toggleNotifDropdown(event)" id="btn-notif-bell" class="p-2 sm:px-2.5 sm:py-1.5 rounded-xl border border-ios-border bg-white/5 hover:bg-amber-500/15 text-ios-text active:scale-95 transition-all flex items-center justify-center relative shrink-0" title="Alerts & Delivery Notifications">
+            <span class="text-sm">🔔</span>
+            <span id="notif-badge" class="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 bg-gradient-to-r from-rose-500 to-amber-500 text-white text-[10px] font-black rounded-full flex items-center justify-center shadow-md shadow-rose-500/50">0</span>
+          </button>
+
+          <!-- Notification Dropdown Popover -->
+          <div id="notif-popover" class="hidden absolute right-0 mt-2 w-80 sm:w-96 bg-slate-900/95 dark:bg-slate-950/95 border border-cyan-500/30 rounded-2xl p-4 z-50 notif-popover backdrop-blur-2xl">
+            <div class="flex items-center justify-between pb-3 border-b border-white/10 mb-3">
+              <div class="flex items-center gap-2">
+                <span class="text-base">🔔</span>
+                <span class="font-bold text-xs text-white">Smart Delivery & Due Alerts</span>
+              </div>
+              <span id="notif-popover-count" class="text-[10px] font-mono font-bold text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded-md">0 pending</span>
+            </div>
+            <div id="notif-list" class="max-h-72 overflow-y-auto space-y-2 pr-1 text-xs">
+              <!-- Dynamically populated -->
+            </div>
+            <div class="pt-3 border-t border-white/10 mt-3 flex justify-between items-center text-[11px]">
+              <span class="text-gray-400">SelaiSathi Live Radar</span>
+              <button onclick="navigateTo('orders')" class="text-cyan-400 hover:underline font-bold">View all orders →</button>
+            </div>
+          </div>
+        </div>
+
         <!-- Language Switcher: Compact Glass Icon Button -->
         <button onclick="toggleLanguage()" class="p-2 sm:px-3 sm:py-1.5 rounded-xl border border-ios-border bg-white/5 hover:bg-white/15 text-xs font-bold text-ios-text transition-all active:scale-95 flex items-center gap-1 shrink-0" title="Language (ভাষা পরিবর্তন)">
           <span class="text-sm">🌐</span>
@@ -15329,6 +15469,352 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         }
       } catch(e) {}
     })();
+
+  
+    // =========================================================================
+    // 🔔 NOTIFICATION CENTER & SMART DELIVERY ALERTS
+    // =========================================================================
+    function updateNotifCenter() {
+      const badge = document.getElementById('notif-badge');
+      const countEl = document.getElementById('notif-popover-count');
+      const listEl = document.getElementById('notif-list');
+      if (!badge || !listEl) return;
+
+      const activeOrders = ordersData.filter(o => o.stage !== 'DELIVERED');
+      const dueOrders = ordersData.filter(o => Number(o.due) > 0);
+      const readyOrders = ordersData.filter(o => o.stage === 'READY');
+      
+      const totalAlerts = readyOrders.length + dueOrders.length;
+      badge.textContent = totalAlerts;
+      badge.style.display = totalAlerts > 0 ? 'flex' : 'none';
+      if (countEl) countEl.textContent = totalAlerts + ' alerts';
+
+      let itemsHtml = '';
+
+      if (readyOrders.length > 0) {
+        itemsHtml += '<div class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider mb-1 mt-1">Ready for Delivery (' + readyOrders.length + ')</div>';
+        readyOrders.slice(0, 4).forEach(o => {
+          itemsHtml += '<div onclick="navigateTo(\'orders\'); toggleNotifDropdown();" class="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 cursor-pointer transition-all flex items-center justify-between">' +
+            '<div><div class="font-bold text-white">' + safeText(o.name) + ' (' + safeText(o.garment) + ')</div><div class="text-[10px] text-gray-400">' + safeText(o.id) + ' · Due: ' + moneyBDT(o.due) + '</div></div>' +
+            '<span class="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 font-bold text-[10px]">READY</span></div>';
+        });
+      }
+
+      if (dueOrders.length > 0) {
+        itemsHtml += '<div class="text-[10px] font-bold text-amber-400 uppercase tracking-wider mb-1 mt-2">Pending Due Collection (' + dueOrders.length + ')</div>';
+        dueOrders.slice(0, 4).forEach(o => {
+          itemsHtml += '<div onclick="sendWhatsAppDueReminder(\'' + o.id + '\')" class="p-2 rounded-xl bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20 cursor-pointer transition-all flex items-center justify-between">' +
+            '<div><div class="font-bold text-white">' + safeText(o.name) + '</div><div class="text-[10px] text-gray-400">' + safeText(o.phone) + '</div></div>' +
+            '<div class="text-right"><div class="font-mono font-bold text-amber-300">' + moneyBDT(o.due) + '</div><span class="text-[9px] text-cyan-400">WhatsApp 📲</span></div></div>';
+        });
+      }
+
+      if (totalAlerts === 0) {
+        itemsHtml = '<div class="text-center py-6 text-gray-400">No urgent alerts. All caught up! 🎉</div>';
+      }
+
+      listEl.innerHTML = itemsHtml;
+    }
+
+    function toggleNotifDropdown(e) {
+      if (e) e.stopPropagation();
+      const popover = document.getElementById('notif-popover');
+      if (popover) {
+        popover.classList.toggle('hidden');
+        if (!popover.classList.contains('hidden')) updateNotifCenter();
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      const popover = document.getElementById('notif-popover');
+      const btn = document.getElementById('btn-notif-bell');
+      if (popover && !popover.classList.contains('hidden') && !popover.contains(e.target) && !btn?.contains(e.target)) {
+        popover.classList.add('hidden');
+      }
+    });
+
+    // =========================================================================
+    // 🧮 TAILOR FABRIC CONVERTER & PRICING
+    // =========================================================================
+    function toggleFabricCalcModal() {
+      const modal = document.getElementById('modal-fabric-calc');
+      if (modal) modal.classList.toggle('hidden');
+    }
+
+    function calcConvert(source) {
+      const gojInput = document.getElementById('calc-input-goj');
+      const giraInput = document.getElementById('calc-input-gira');
+      const inchInput = document.getElementById('calc-input-inch');
+      const meterInput = document.getElementById('calc-input-meter');
+
+      let goj = 0;
+      if (source === 'goj') {
+        goj = parseFloat(gojInput.value) || 0;
+      } else if (source === 'gira') {
+        goj = (parseFloat(giraInput.value) || 0) / 16;
+      } else if (source === 'inch') {
+        goj = (parseFloat(inchInput.value) || 0) / 36;
+      } else if (source === 'meter') {
+        goj = (parseFloat(meterInput.value) || 0) * 1.09361;
+      }
+
+      if (source !== 'goj') gojInput.value = goj ? (Math.round(goj * 100) / 100) : '';
+      if (source !== 'gira') giraInput.value = goj ? (Math.round(goj * 16 * 10) / 10) : '';
+      if (source !== 'inch') inchInput.value = goj ? (Math.round(goj * 36 * 10) / 10) : '';
+      if (source !== 'meter') meterInput.value = goj ? (Math.round((goj / 1.09361) * 100) / 100) : '';
+
+      calcPrice();
+    }
+
+    function calcPrice() {
+      const goj = parseFloat(document.getElementById('calc-input-goj').value) || 0;
+      const rate = parseFloat(document.getElementById('calc-rate-per-goj').value) || 0;
+      const making = parseFloat(document.getElementById('calc-making-charge').value) || 0;
+      const total = (goj * rate) + making;
+      document.getElementById('calc-total-result').textContent = moneyBDT(Math.round(total));
+    }
+
+    // =========================================================================
+    // 📲 1-CLICK WHATSAPP DUE REMINDER
+    // =========================================================================
+    function sendWhatsAppDueReminder(orderId) {
+      const order = ordersData.find(o => o.id === orderId);
+      if (!order) return;
+      const phoneClean = String(order.phone || '').replace(/\D/g, '');
+      const formattedPhone = phoneClean.startsWith('88') ? phoneClean : ('88' + phoneClean);
+      const text = encodeURIComponent(
+        'সম্মানিত ' + order.name + ' ভাই/ম্যাডাম, সেলাইসাথী থেকে শুভেচ্ছা। আপনার অর্ডার নং ' + order.id + 
+        ' (' + order.garment + ') এর বকেয়া বাকি আছে ' + moneyBDT(order.due) + '। ডেলিভারির পূর্বে বকেয়া পরিশোধ করার জন্য বিনীত অনুরোধ জানানো হলো। ধন্যবাদ!'
+      );
+      window.open('https://api.whatsapp.com/send?phone=' + formattedPhone + '&text=' + text, '_blank');
+    }
+
+    // =========================================================================
+    // 📈 ENHANCED REPORT RENDERER: P&L, 6-MONTH CHART & DUE RECOVERY
+    // =========================================================================
+    const originalRenderReports = window.renderReports;
+    window.renderReports = function() {
+      if (typeof originalRenderReports === 'function') originalRenderReports();
+
+      const month = reportMonthValue();
+      const monthOrders = ordersData.filter(o => reportDateMonth(o.date) === month);
+      const sales = monthOrders.reduce((n,o) => n + (Number(o.total) || 0), 0);
+      const monthExpenses = ssLedgerTransactions.filter(t => t.type === 'expense' && String(t.date || '').slice(0, 7) === month);
+      const expenses = monthExpenses.reduce((n,t) => n + (Number(t.amount) || 0), 0);
+      
+      // Material / karigor estimate: 45% of garment sales
+      const estimatedCost = expenses + Math.round(sales * 0.42);
+      const netProfit = sales - estimatedCost;
+      const profitMargin = sales > 0 ? Math.round((netProfit / sales) * 100) : 0;
+
+      // Update P&L cards
+      const elRev = document.getElementById('pl-revenue');
+      const elCost = document.getElementById('pl-total-cost');
+      const elNet = document.getElementById('pl-net-profit');
+      const elMargin = document.getElementById('pl-profit-margin');
+
+      if (elRev) elRev.textContent = moneyBDT(sales);
+      if (elCost) elCost.textContent = moneyBDT(estimatedCost);
+      if (elNet) elNet.textContent = moneyBDT(netProfit);
+      if (elMargin) elMargin.textContent = (profitMargin >= 0 ? '+' : '') + profitMargin + '% estimated net margin';
+
+      // 6-Month Comparison Chart
+      render6MonthChart(month);
+
+      // Top Selling Garments
+      renderTopGarments(monthOrders);
+
+      // Due Recovery Table
+      renderDueRecoveryTable();
+
+      // Update Notif badge count
+      updateNotifCenter();
+    };
+
+    function render6MonthChart(currentMonth) {
+      const container = document.getElementById('report-chart-container');
+      if (!container) return;
+
+      const months = [];
+      const d = new Date();
+      for (let i = 5; i >= 0; i--) {
+        const past = new Date(d.getFullYear(), d.getMonth() - i, 1);
+        const y = past.getFullYear();
+        const m = String(past.getMonth() + 1).padStart(2, '0');
+        const label = past.toLocaleString('en-US', { month: 'short' });
+        months.push({ key: y + '-' + m, label: label });
+      }
+
+      let maxVal = 1000;
+      const stats = months.map(mObj => {
+        const mSales = ordersData.filter(o => reportDateMonth(o.date) === mObj.key).reduce((sum, o) => sum + (Number(o.total) || 0), 0);
+        const mExp = ssLedgerTransactions.filter(t => t.type === 'expense' && String(t.date || '').slice(0, 7) === mObj.key).reduce((sum, t) => sum + (Number(t.amount) || 0), 0);
+        if (mSales > maxVal) maxVal = mSales;
+        if (mExp > maxVal) maxVal = mExp;
+        return { ...mObj, sales: mSales, exp: mExp };
+      });
+
+      container.innerHTML = stats.map(s => {
+        const salesH = Math.max(8, Math.round((s.sales / maxVal) * 160));
+        const expH = Math.max(8, Math.round((s.exp / maxVal) * 160));
+        const isCurrent = s.key === currentMonth;
+
+        return '<div class="flex-1 flex flex-col items-center gap-2 group">' +
+          '<div class="w-full flex items-end justify-center gap-1 sm:gap-2 h-44">' +
+            '<div class="w-1/2 max-w-[28px] bg-gradient-to-t from-cyan-600 to-cyan-400 rounded-t-md transition-all group-hover:brightness-125" style="height:' + salesH + 'px" title="' + s.label + ' Sales: ' + moneyBDT(s.sales) + '"></div>' +
+            '<div class="w-1/2 max-w-[28px] bg-gradient-to-t from-rose-600 to-rose-400 rounded-t-md transition-all group-hover:brightness-125" style="height:' + expH + 'px" title="' + s.label + ' Expenses: ' + moneyBDT(s.exp) + '"></div>' +
+          '</div>' +
+          '<span class="text-[11px] font-bold ' + (isCurrent ? 'text-cyan-400 border-b-2 border-cyan-400 pb-0.5' : 'text-gray-400') + '">' + s.label + '</span>' +
+        '</div>';
+      }).join('');
+    }
+
+    function renderTopGarments(orders) {
+      const container = document.getElementById('report-top-garments');
+      if (!container) return;
+
+      const garmentCounts = {};
+      orders.forEach(o => {
+        const g = o.garment || 'Custom Garment';
+        garmentCounts[g] = (garmentCounts[g] || 0) + (Number(o.total) || 0);
+      });
+
+      const sorted = Object.entries(garmentCounts).sort((a,b) => b[1] - a[1]);
+      const maxRev = sorted[0] ? sorted[0][1] : 1;
+
+      if (sorted.length === 0) {
+        container.innerHTML = '<div class="text-xs text-gray-500 py-4 text-center">No orders recorded for this month.</div>';
+        return;
+      }
+
+      container.innerHTML = sorted.map(([name, rev], idx) => {
+        const percent = Math.round((rev / maxRev) * 100);
+        return '<div>' +
+          '<div class="flex justify-between text-xs mb-1 font-semibold">' +
+            '<span class="text-gray-300">#' + (idx + 1) + ' ' + safeText(name) + '</span>' +
+            '<span class="font-mono text-cyan-300 font-bold">' + moneyBDT(rev) + '</span>' +
+          '</div>' +
+          '<div class="h-2 rounded-full bg-slate-800 overflow-hidden">' +
+            '<div class="h-full rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400" style="width:' + percent + '%"></div>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    function renderDueRecoveryTable() {
+      const table = document.getElementById('report-due-recovery-table');
+      const badge = document.getElementById('report-due-total-badge');
+      if (!table) return;
+
+      const dueOrders = ordersData.filter(o => Number(o.due) > 0);
+      const totalDue = dueOrders.reduce((sum, o) => sum + (Number(o.due) || 0), 0);
+      if (badge) badge.textContent = moneyBDT(totalDue) + ' Total Due';
+
+      if (dueOrders.length === 0) {
+        table.innerHTML = '<tr><td colspan="4" class="p-4 text-center text-gray-500">No outstanding customer dues! 🎉</td></tr>';
+        return;
+      }
+
+      table.innerHTML = dueOrders.map(o => {
+        return '<tr class="border-b border-slate-700/50 hover:bg-white/5 transition-colors">' +
+          '<td class="p-2.5"><div class="font-semibold text-white">' + safeText(o.name) + '</div><div class="text-[10px] text-gray-400">' + safeText(o.phone) + '</div></td>' +
+          '<td class="p-2.5 font-mono text-[11px] text-cyan-300">' + safeText(o.id) + '</td>' +
+          '<td class="p-2.5 text-right font-mono font-bold text-amber-300">' + moneyBDT(o.due) + '</td>' +
+          '<td class="p-2.5 text-center">' +
+            '<button onclick="sendWhatsAppDueReminder(\'' + o.id + '\')" class="px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 font-bold text-[10px] border border-emerald-500/30 transition-all flex items-center gap-1 mx-auto">' +
+              '<span>💬</span> <span>WhatsApp</span>' +
+            '</button>' +
+          '</td>' +
+        '</tr>';
+      }).join('');
+    }
+
+    // =========================================================================
+    // 🖨️ 1-CLICK OFFICIAL A4 PRINT REPORT
+    // =========================================================================
+    function printOfficialAuditReport() {
+      const month = reportMonthValue();
+      const monthOrders = ordersData.filter(o => reportDateMonth(o.date) === month);
+      const sales = monthOrders.reduce((n,o) => n + (Number(o.total) || 0), 0);
+      const monthExpenses = ssLedgerTransactions.filter(t => t.type === 'expense' && String(t.date || '').slice(0, 7) === month);
+      const expenses = monthExpenses.reduce((n,t) => n + (Number(t.amount) || 0), 0);
+      const totalDue = ordersData.reduce((sum, o) => sum + (Number(o.due) || 0), 0);
+
+      const printContainer = document.getElementById('print-report-container');
+      if (!printContainer) return;
+
+      printContainer.innerHTML = 
+        '<div style="font-family: Arial, sans-serif; padding: 30px; color: #111;">' +
+          '<div style="border-bottom: 2px solid #000; padding-bottom: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">' +
+            '<div>' +
+              '<h1 style="font-size: 26px; margin: 0; font-weight: 900;">সেলাইসাথী (SelaiSathi) Smart Tailor OS</h1>' +
+              '<p style="margin: 5px 0 0 0; font-size: 13px; color: #555;">Official Monthly Audit & Financial Intelligence Statement</p>' +
+            '</div>' +
+            '<div style="text-align: right;">' +
+              '<div style="font-size: 14px; font-weight: bold;">Reporting Period: ' + month + '</div>' +
+              '<div style="font-size: 11px; color: #666;">Generated: ' + new Date().toLocaleString() + '</div>' +
+            '</div>' +
+          '</div>' +
+
+          '<div style="display: flex; gap: 15px; margin-bottom: 25px;">' +
+            '<div style="flex: 1; border: 1px solid #ccc; padding: 12px; border-radius: 6px;">' +
+              '<div style="font-size: 11px; text-transform: uppercase; color: #666;">Total Sales Revenue</div>' +
+              '<div style="font-size: 20px; font-weight: bold; margin-top: 5px;">' + moneyBDT(sales) + '</div>' +
+              '<div style="font-size: 10px; color: #777;">' + monthOrders.length + ' Orders Recorded</div>' +
+            '</div>' +
+            '<div style="flex: 1; border: 1px solid #ccc; padding: 12px; border-radius: 6px;">' +
+              '<div style="font-size: 11px; text-transform: uppercase; color: #666;">Shop Expenses</div>' +
+              '<div style="font-size: 20px; font-weight: bold; margin-top: 5px; color: #d00;">' + moneyBDT(expenses) + '</div>' +
+              '<div style="font-size: 10px; color: #777;">' + monthExpenses.length + ' Transactions</div>' +
+            '</div>' +
+            '<div style="flex: 1; border: 1px solid #ccc; padding: 12px; border-radius: 6px;">' +
+              '<div style="font-size: 11px; text-transform: uppercase; color: #666;">Outstanding Due</div>' +
+              '<div style="font-size: 20px; font-weight: bold; margin-top: 5px; color: #c60;">' + moneyBDT(totalDue) + '</div>' +
+              '<div style="font-size: 10px; color: #777;">Market Receivables</div>' +
+            '</div>' +
+          '</div>' +
+
+          '<h3 style="font-size: 14px; border-bottom: 1px solid #ddd; padding-bottom: 5px; margin-bottom: 10px;">Monthly Orders Summary</h3>' +
+          '<table style="width: 100%; border-collapse: collapse; font-size: 11px; margin-bottom: 30px;">' +
+            '<thead>' +
+              '<tr style="background: #f5f5f5; border-bottom: 1px solid #000;">' +
+                '<th style="padding: 8px; text-align: left;">Order ID</th>' +
+                '<th style="padding: 8px; text-align: left;">Customer</th>' +
+                '<th style="padding: 8px; text-align: left;">Garment</th>' +
+                '<th style="padding: 8px; text-align: right;">Total</th>' +
+                '<th style="padding: 8px; text-align: right;">Advance</th>' +
+                '<th style="padding: 8px; text-align: right;">Due</th>' +
+              '</tr>' +
+            '</thead>' +
+            '<tbody>' +
+              monthOrders.map(o => 
+                '<tr style="border-bottom: 1px solid #eee;">' +
+                  '<td style="padding: 6px 8px;">' + safeText(o.id) + '</td>' +
+                  '<td style="padding: 6px 8px;">' + safeText(o.name) + ' (' + safeText(o.phone) + ')</td>' +
+                  '<td style="padding: 6px 8px;">' + safeText(o.garment) + '</td>' +
+                  '<td style="padding: 6px 8px; text-align: right;">' + moneyBDT(o.total) + '</td>' +
+                  '<td style="padding: 6px 8px; text-align: right;">' + moneyBDT(o.advance) + '</td>' +
+                  '<td style="padding: 6px 8px; text-align: right; font-weight: bold;">' + moneyBDT(o.due) + '</td>' +
+                '</tr>'
+              ).join('') +
+            '</tbody>' +
+          '</table>' +
+
+          '<div style="margin-top: 50px; display: flex; justify-content: space-between; font-size: 12px;">' +
+            '<div style="border-top: 1px solid #000; width: 180px; text-align: center; padding-top: 5px;">Manager / Cashier</div>' +
+            '<div style="border-top: 1px solid #000; width: 180px; text-align: center; padding-top: 5px;">Authorized Proprietor</div>' +
+          '</div>' +
+        '</div>';
+
+      printContainer.classList.remove('hidden');
+      window.print();
+      setTimeout(() => {
+        printContainer.classList.add('hidden');
+      }, 1000);
+    }
+
+    // Call updateNotifCenter once after DOM ready
+    setTimeout(updateNotifCenter, 500);
 
   </script>
 </body>
