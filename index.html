@@ -3489,6 +3489,36 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       border-color: #CBD5E1 !important;
     }
 
+  
+    /* ======================================================== */
+    /* PIXEL-PERFECT THEME SLIDER POSITIONING & GEOMETRY        */
+    /* ======================================================== */
+    #theme-slider-track {
+      width: 56px !important;
+      min-width: 56px !important;
+      max-width: 56px !important;
+      height: 28px !important;
+      padding: 0 !important;
+      box-sizing: border-box !important;
+      display: flex !important;
+      align-items: center !important;
+      position: relative !important;
+      border-radius: 9999px !important;
+      cursor: pointer !important;
+      flex-shrink: 0 !important;
+      overflow: hidden !important;
+    }
+    #theme-slider-thumb {
+      width: 22px !important;
+      height: 22px !important;
+      border-radius: 9999px !important;
+      position: absolute !important;
+      left: 3px !important;
+      top: 2px !important;
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), background 0.28s ease !important;
+      pointer-events: none !important;
+    }
+
   </style>
 </head>
 <body class="flex h-screen overflow-hidden text-sm bg-ios-bg select-none">
@@ -3643,14 +3673,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <div 
           id="theme-slider-track"
           onclick="handleTrackClick(event)"
-          class="relative w-[64px] sm:w-[72px] h-[28px] sm:h-[30px] rounded-full p-[3px] cursor-pointer flex items-center transition-all duration-300 select-none border shrink-0"
+          class="relative w-[56px] h-[28px] rounded-full cursor-pointer flex items-center transition-all duration-300 select-none border shrink-0 overflow-hidden"
           data-theme-track
           title="Theme Toggle: Left = White, Right = Galaxy"
         >
           <!-- Circular Slider Thumb (Knob) -->
           <div 
             id="theme-slider-thumb"
-            class="w-5 sm:w-6 h-5 sm:h-6 rounded-full transform translate-x-[36px] sm:translate-x-[42px] transition-all duration-300 ease-out z-10 pointer-events-none"
+            class="w-[22px] h-[22px] rounded-full transition-all duration-300 ease-out z-10 pointer-events-none"
           ></div>
         </div>
 
@@ -14285,7 +14315,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           track.style.boxShadow = 'inset 0 2px 6px rgba(0, 0, 0, 0.6), 0 0 14px rgba(34, 211, 238, 0.2)';
         }
         if (thumb) {
-          thumb.style.transform = 'translateX(44px)';
+          thumb.style.transform = 'translateX(28px)';
           thumb.style.background = 'linear-gradient(135deg, #00D2FF 0%, #0072FF 100%)';
           thumb.style.boxShadow = '0 0 14px rgba(0, 210, 255, 0.85), 0 2px 6px rgba(0, 0, 0, 0.4)';
         }
