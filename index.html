@@ -5415,7 +5415,18 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <span class="cyber-date-label" id="report-month-label">Nov 2026</span>
         <input id="report-month" type="hidden" value="2026-11" data-cyber-month="true" onchange="renderReports()" />
       </div>
-      <button onclick="exportReportsCSV()" class="px-4 py-2.5 rounded-xl text-xs font-bold border border-cyan-400/25 bg-cyan-500/10 text-cyan-200 hover:bg-cyan-500/20">↓ Export report CSV</button>
+      <!-- Export Buttons Group: CSV, Excel, PDF -->
+      <div class="flex items-center gap-1.5 shrink-0">
+        <button onclick="exportReportsCSV()" class="px-3 py-2 rounded-xl text-xs font-bold border border-cyan-400/25 bg-cyan-500/10 text-cyan-200 hover:bg-cyan-500/20 active:scale-95 transition-all flex items-center gap-1" title="Export as CSV spreadsheet">
+          <span>↓</span> <span>CSV</span>
+        </button>
+        <button onclick="exportReportsExcel()" class="px-3 py-2 rounded-xl text-xs font-bold border border-emerald-400/25 bg-emerald-500/10 text-emerald-200 hover:bg-emerald-500/20 active:scale-95 transition-all flex items-center gap-1" title="Export as Microsoft Excel (.xls)">
+          <span>📊</span> <span>Excel</span>
+        </button>
+        <button onclick="exportReportsPDF()" class="px-3 py-2 rounded-xl text-xs font-bold border border-rose-400/25 bg-rose-500/10 text-rose-200 hover:bg-rose-500/20 active:scale-95 transition-all flex items-center gap-1" title="Export or Print as PDF document">
+          <span>📄</span> <span>PDF</span>
+        </button>
+      </div>
     </div>
   </div>
   <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
@@ -14551,6 +14562,177 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       printWindow.document.write(tableHtml);
       printWindow.document.close();
+    }
+
+    
+    // =========================================================================
+    // 📊 EXPORT REPORT EXCEL (.XLS)
+    // =========================================================================
+    function exportReportsExcel() {
+      const month = reportMonthValue();
+      const monthOrders = ordersData.filter(o => reportDateMonth(o.date) === month);
+      const monthTransactions = ssLedgerTransactions.filter(t => String(t.date || '').slice(0, 7) === month);
+      const fabrics = ssRecords.fabrics || [];
+
+      const esc = v => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+      let content = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">' +
+        '<head><meta charset="UTF-8"><style>' +
+        'body { font-family: Arial, sans-serif; padding: 20px; }' +
+        'h2 { color: #0284c7; }' +
+        'table { border-collapse: collapse; width: 100%; margin-bottom: 25px; }' +
+        'th, td { border: 1px solid #cbd5e1; padding: 8px 10px; font-size: 12px; }' +
+        'th { background-color: #f1f5f9; font-weight: bold; }' +
+        '.section-title { font-size: 14px; font-weight: bold; margin-top: 20px; margin-bottom: 8px; color: #334155; }' +
+        '.text-right { text-align: right; }' +
+        '</style></head><body>' +
+        '<h2>সেলাইসাথী (SelaiSathi) - Business Intelligence Report</h2>' +
+        '<p><strong>Reporting Month:</strong> ' + esc(month) + ' | <strong>Exported:</strong> ' + new Date().toLocaleString() + '</p>';
+
+      // 1. Orders Section
+      content += '<div class="section-title">1. Orders in ' + esc(month) + ' (' + monthOrders.length + ' orders)</div>';
+      content += '<table><thead><tr>' +
+        '<th>Order ID</th><th>Customer Name</th><th>Date</th><th class="text-right">Total (BDT)</th><th class="text-right">Advance (BDT)</th><th class="text-right">Due (BDT)</th>' +
+        '</tr></thead><tbody>';
+      if (monthOrders.length) {
+        monthOrders.forEach(o => {
+          content += '<tr>' +
+            '<td>' + esc(o.id) + '</td><td>' + esc(o.name) + '</td><td>' + esc(o.date) + '</td>' +
+            '<td class="text-right">' + esc(o.total) + '</td><td class="text-right">' + esc(o.advance) + '</td><td class="text-right">' + esc(o.due) + '</td>' +
+            '</tr>';
+        });
+      } else {
+        content += '<tr><td colspan="6" style="text-align:center; color:#94a3b8;">No orders recorded in this month</td></tr>';
+      }
+      content += '</tbody></table>';
+
+      // 2. Transactions Section
+      content += '<div class="section-title">2. Financial Transactions (' + monthTransactions.length + ' entries)</div>';
+      content += '<table><thead><tr>' +
+        '<th>Description</th><th>Type</th><th>Category</th><th>Date</th><th>Method</th><th class="text-right">Amount (BDT)</th>' +
+        '</tr></thead><tbody>';
+      if (monthTransactions.length) {
+        monthTransactions.forEach(t => {
+          content += '<tr>' +
+            '<td>' + esc(t.description) + '</td><td>' + esc(t.type) + '</td><td>' + esc(t.category || 'General') + '</td><td>' + esc(t.date) + '</td><td>' + esc(t.method || 'Cash') + '</td><td class="text-right">' + esc(t.amount) + '</td>' +
+            '</tr>';
+        });
+      } else {
+        content += '<tr><td colspan="6" style="text-align:center; color:#94a3b8;">No transactions recorded in this month</td></tr>';
+      }
+      content += '</tbody></table>';
+
+      // 3. Inventory Stock Position
+      content += '<div class="section-title">3. Current Fabric & Material Stock Position (' + fabrics.length + ' items)</div>';
+      content += '<table><thead><tr>' +
+        '<th>Item / Fabric</th><th>SKU</th><th class="text-right">Stock</th><th>Unit</th><th class="text-right">Unit Cost (BDT)</th><th class="text-right">Current Value (BDT)</th><th class="text-right">Reorder Level</th>' +
+        '</tr></thead><tbody>';
+      fabrics.forEach(x => {
+        const val = (Number(x.stock) || 0) * (Number(x.cost) || 0);
+        content += '<tr>' +
+          '<td>' + esc(x.name) + '</td><td>' + esc(x.sku) + '</td><td class="text-right">' + esc(x.stock) + '</td><td>' + esc(x.unit) + '</td><td class="text-right">' + esc(x.cost) + '</td><td class="text-right">' + esc(val) + '</td><td class="text-right">' + esc(x.minimum) + '</td>' +
+          '</tr>';
+      });
+      content += '</tbody></table></body></html>';
+
+      const blob = new Blob(['\uFEFF', content], { type: 'application/vnd.ms-excel;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'SelaiSathi_Report_' + month + '.xls';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // =========================================================================
+    // 📄 EXPORT REPORT PDF (PRINT-READY DOCUMENT)
+    // =========================================================================
+    function exportReportsPDF() {
+      const month = reportMonthValue();
+      const monthOrders = ordersData.filter(o => reportDateMonth(o.date) === month);
+      const monthTransactions = ssLedgerTransactions.filter(t => String(t.date || '').slice(0, 7) === month);
+      const sales = monthOrders.reduce((n, o) => n + (Number(o.total) || 0), 0);
+      const collected = monthOrders.reduce((n, o) => n + (Number(o.advance) || 0), 0);
+      const expenses = monthTransactions.filter(t => t.type === 'expense').reduce((n, t) => n + (Number(t.amount) || 0), 0);
+      const due = ordersData.reduce((n, o) => n + (Number(o.due) || 0), 0);
+
+      const esc = v => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+      const w = window.open('', '_blank');
+      if (!w) {
+        alert('Please allow pop-ups to export or save the report as PDF.');
+        return;
+      }
+
+      w.document.write('<!doctype html><html><head><meta charset="utf-8">' +
+        '<title>SelaiSathi Intelligence Report - ' + esc(month) + '</title>' +
+        '<style>' +
+        '@page { size: A4; margin: 15mm; }' +
+        'body { font-family: Arial, sans-serif; color: #1e293b; margin: 0; padding: 20px; font-size: 11px; line-height: 1.4; }' +
+        'h1 { font-size: 22px; margin: 0 0 4px 0; color: #0f172a; font-weight: 900; }' +
+        '.subtitle { color: #64748b; font-size: 12px; margin-bottom: 20px; }' +
+        '.grid-kpi { display: flex; gap: 12px; margin-bottom: 24px; }' +
+        '.kpi-card { flex: 1; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; background: #f8fafc; }' +
+        '.kpi-title { font-size: 10px; font-weight: bold; text-transform: uppercase; color: #64748b; }' +
+        '.kpi-val { font-size: 18px; font-weight: bold; margin-top: 4px; color: #0f172a; font-family: monospace; }' +
+        '.section-h { font-size: 13px; font-weight: bold; border-bottom: 2px solid #0f172a; padding-bottom: 4px; margin-top: 24px; margin-bottom: 10px; color: #0f172a; }' +
+        'table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 10.5px; }' +
+        'th, td { border: 1px solid #e2e8f0; padding: 6px 8px; text-align: left; }' +
+        'th { background-color: #f1f5f9; font-weight: bold; color: #334155; }' +
+        '.text-right { text-align: right; }' +
+        '.footer { margin-top: 40px; display: flex; justify-content: space-between; font-size: 11px; padding-top: 15px; }' +
+        '@media print { body { padding: 0; } }' +
+        '</style></head><body>' +
+        '<div style="display:flex; justify-content:space-between; align-items:flex-start; border-bottom:1px solid #cbd5e1; padding-bottom:15px;">' +
+          '<div>' +
+            '<h1>সেলাইসাথী (SelaiSathi) Smart Tailor OS</h1>' +
+            '<div class="subtitle">Monthly Business Intelligence & Financial Audit Statement</div>' +
+          '</div>' +
+          '<div style="text-align:right;">' +
+            '<div><strong>Reporting Month:</strong> ' + esc(month) + '</div>' +
+            '<div style="font-size:10px; color:#64748b; margin-top:3px;">Exported on ' + new Date().toLocaleString() + '</div>' +
+          '</div>' +
+        '</div>' +
+
+        '<div class="grid-kpi" style="margin-top:18px;">' +
+          '<div class="kpi-card"><div class="kpi-title">Monthly Sales</div><div class="kpi-val">' + moneyBDT(sales) + '</div><div style="font-size:10px; color:#64748b; margin-top:2px;">' + monthOrders.length + ' Orders</div></div>' +
+          '<div class="kpi-card"><div class="kpi-title">Collected Advance</div><div class="kpi-val" style="color:#059669;">' + moneyBDT(collected) + '</div><div style="font-size:10px; color:#64748b; margin-top:2px;">Cash in hand</div></div>' +
+          '<div class="kpi-card"><div class="kpi-title">Shop Expenses</div><div class="kpi-val" style="color:#e11d48;">' + moneyBDT(expenses) + '</div><div style="font-size:10px; color:#64748b; margin-top:2px;">' + monthTransactions.length + ' Transactions</div></div>' +
+          '<div class="kpi-card"><div class="kpi-title">Market Due</div><div class="kpi-val" style="color:#d97706;">' + moneyBDT(due) + '</div><div style="font-size:10px; color:#64748b; margin-top:2px;">Total Receivables</div></div>' +
+        '</div>' +
+
+        '<div class="section-h">1. Orders Recorded in ' + esc(month) + '</div>' +
+        '<table><thead><tr>' +
+          '<th>Order ID</th><th>Customer Name</th><th>Date</th><th class="text-right">Total</th><th class="text-right">Advance</th><th class="text-right">Due</th>' +
+        '</tr></thead><tbody>' +
+        (monthOrders.length ? monthOrders.map(o => '<tr>' +
+          '<td><strong>' + esc(o.id) + '</strong></td><td>' + esc(o.name) + '</td><td>' + esc(o.date) + '</td>' +
+          '<td class="text-right font-mono">' + moneyBDT(o.total) + '</td><td class="text-right font-mono">' + moneyBDT(o.advance) + '</td><td class="text-right font-mono" style="color:#d97706; font-weight:bold;">' + moneyBDT(o.due) + '</td>' +
+        '</tr>').join('') : '<tr><td colspan="6" style="text-align:center; color:#94a3b8; padding:12px;">No orders found for this month</td></tr>') +
+        '</tbody></table>' +
+
+        '<div class="section-h">2. Financial Expenses & Transactions</div>' +
+        '<table><thead><tr>' +
+          '<th>Description</th><th>Type</th><th>Category</th><th>Date</th><th>Method</th><th class="text-right">Amount</th>' +
+        '</tr></thead><tbody>' +
+        (monthTransactions.length ? monthTransactions.map(t => '<tr>' +
+          '<td>' + esc(t.description) + '</td><td>' + esc(t.type) + '</td><td>' + esc(t.category || 'General') + '</td><td>' + esc(t.date) + '</td><td>' + esc(t.method || 'Cash') + '</td><td class="text-right font-mono">' + moneyBDT(t.amount) + '</td>' +
+        '</tr>').join('') : '<tr><td colspan="6" style="text-align:center; color:#94a3b8; padding:12px;">No transactions found for this month</td></tr>') +
+        '</tbody></table>' +
+
+        '<div class="footer">' +
+          '<div style="border-top:1px solid #94a3b8; width:180px; text-align:center; padding-top:6px;">Prepared By (Cashier)</div>' +
+          '<div style="border-top:1px solid #94a3b8; width:180px; text-align:center; padding-top:6px;">Approved By (Proprietor)</div>' +
+        '</div>' +
+        '</body></html>');
+
+      w.document.close();
+      w.focus();
+      setTimeout(() => {
+        w.print();
+      }, 500);
     }
 
     function exportInventoryCSV() {
