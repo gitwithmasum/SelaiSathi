@@ -3893,32 +3893,6 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <!-- RIGHT: Language Toggle [🌐] + Theme Slider [⚪|🔵] (+ New Order on desktop) -->
       <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
         
-        <!-- Notification Bell with Badge -->
-        <div class="relative">
-          <button onclick="toggleNotifDropdown(event)" id="btn-notif-bell" class="p-2 sm:px-2.5 sm:py-1.5 rounded-xl border border-ios-border bg-white/5 hover:bg-amber-500/15 text-ios-text active:scale-95 transition-all flex items-center justify-center relative shrink-0" title="Alerts & Delivery Notifications">
-            <span class="text-sm">🔔</span>
-            <span id="notif-badge" class="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 bg-gradient-to-r from-rose-500 to-amber-500 text-white text-[10px] font-black rounded-full flex items-center justify-center shadow-md shadow-rose-500/50">0</span>
-          </button>
-
-          <!-- Notification Dropdown Popover -->
-          <div id="notif-popover" class="hidden absolute right-0 mt-2 w-80 sm:w-96 bg-slate-900/95 dark:bg-slate-950/95 border border-cyan-500/30 rounded-2xl p-4 z-50 notif-popover backdrop-blur-2xl">
-            <div class="flex items-center justify-between pb-3 border-b border-white/10 mb-3">
-              <div class="flex items-center gap-2">
-                <span class="text-base">🔔</span>
-                <span class="font-bold text-xs text-white">Smart Delivery & Due Alerts</span>
-              </div>
-              <span id="notif-popover-count" class="text-[10px] font-mono font-bold text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded-md">0 pending</span>
-            </div>
-            <div id="notif-list" class="max-h-72 overflow-y-auto space-y-2 pr-1 text-xs">
-              <!-- Dynamically populated -->
-            </div>
-            <div class="pt-3 border-t border-white/10 mt-3 flex justify-between items-center text-[11px]">
-              <span class="text-gray-400">SelaiSathi Live Radar</span>
-              <button onclick="navigateTo('orders')" class="text-cyan-400 hover:underline font-bold">View all orders →</button>
-            </div>
-          </div>
-        </div>
-
         <!-- Language Switcher: Compact Glass Icon Button -->
         <button onclick="toggleLanguage()" class="p-2 sm:px-3 sm:py-1.5 rounded-xl border border-ios-border bg-white/5 hover:bg-white/15 text-xs font-bold text-ios-text transition-all active:scale-95 flex items-center gap-1 shrink-0" title="Language (ভাষা পরিবর্তন)">
           <span class="text-sm">🌐</span>
@@ -4297,6 +4271,33 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <span class="cyber-date-icon">📅</span>
               <span class="cyber-date-label" id="dash-date-label">11 Nov 2026</span>
               <input type="hidden" id="dash-date" value="2026-11-11" data-cyber-date="true">
+            </div>
+
+            <!-- Smart Notification Alerts Button in Dashboard Header -->
+            <div class="relative">
+              <button onclick="toggleNotifDropdown(event)" id="btn-notif-bell" class="px-3.5 py-2 rounded-xl border border-ios-border bg-white/5 hover:bg-amber-500/15 text-ios-text active:scale-95 transition-all flex items-center gap-2 relative shrink-0 font-bold text-xs shadow-xs" title="Alerts & Delivery Notifications">
+                <span class="text-base leading-none">🔔</span>
+                <span class="hidden sm:inline">Alerts</span>
+                <span id="notif-badge" class="min-w-[18px] h-[18px] px-1 bg-gradient-to-r from-rose-500 to-amber-500 text-white text-[10px] font-black rounded-full flex items-center justify-center shadow-md shadow-rose-500/50">0</span>
+              </button>
+
+              <!-- Notification Dropdown Popover -->
+              <div id="notif-popover" class="hidden absolute right-0 mt-2 w-80 sm:w-96 bg-slate-900/95 dark:bg-slate-950/95 border border-cyan-500/30 rounded-2xl p-4 z-50 notif-popover backdrop-blur-2xl">
+                <div class="flex items-center justify-between pb-3 border-b border-white/10 mb-3">
+                  <div class="flex items-center gap-2">
+                    <span class="text-base">🔔</span>
+                    <span class="font-bold text-xs text-white">Smart Delivery & Due Alerts</span>
+                  </div>
+                  <span id="notif-popover-count" class="text-[10px] font-mono font-bold text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded-md">0 pending</span>
+                </div>
+                <div id="notif-list" class="max-h-72 overflow-y-auto space-y-2 pr-1 text-xs">
+                  <!-- Dynamically populated -->
+                </div>
+                <div class="pt-3 border-t border-white/10 mt-3 flex justify-between items-center text-[11px]">
+                  <span class="text-gray-400">SelaiSathi Live Radar</span>
+                  <button onclick="navigateTo('orders')" class="text-cyan-400 hover:underline font-bold">View all orders →</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
