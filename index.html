@@ -3782,6 +3782,35 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
 
   </style>
+  <style>
+
+    /* ========================================================================== */
+    /* 🛡️ BULLETPROOF CYBER DIALOG FIX (ENSURE CANCEL & OK ALWAYS WORK & CLICK)  */
+    /* ========================================================================== */
+    #cyber-dialog-overlay {
+      pointer-events: auto !important;
+      z-index: 999999999 !important;
+    }
+
+    #cyber-dialog-card {
+      pointer-events: auto !important;
+      position: relative !important;
+      z-index: 10 !important;
+    }
+
+    #cyber-dialog-card button {
+      pointer-events: auto !important;
+      cursor: pointer !important;
+      position: relative !important;
+      z-index: 20 !important;
+    }
+
+    /* Force #cyber-dialog-cancel to hide when it has class hidden, even with .cyber-btn */
+    #cyber-dialog-cancel.hidden {
+      display: none !important;
+    }
+
+  </style>
 </head>
 <body class="flex h-screen overflow-hidden text-sm bg-ios-bg select-none">
 
@@ -7844,8 +7873,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
   <!-- ======================================================== -->
   <!-- FUTURISTIC CYBER-DIALOG / POPUP MODAL (Alert & Confirm)  -->
   <!-- ======================================================== -->
-  <div id="cyber-dialog-overlay" class="cyber-dialog-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="cyber-dialog-title">
-    <div class="cyber-dialog-card" id="cyber-dialog-card">
+  <div id="cyber-dialog-overlay" class="cyber-dialog-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="cyber-dialog-title" onclick="if(event.target === this) CyberDialog.handleCancel()">
+    <div class="cyber-dialog-card" id="cyber-dialog-card" onclick="event.stopPropagation()">
       <!-- Cyber Top Gradient Glow Line -->
       <div class="cyber-dialog-glow-bar"></div>
 
@@ -7855,7 +7884,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <span class="cyber-dialog-dot"></span>
           <span class="cyber-dialog-title" id="cyber-dialog-title">SELAISATHI AI 2.0 • SYSTEM NOTICE</span>
         </div>
-        <button type="button" class="cyber-dialog-close" id="cyber-dialog-close" title="Close">✕</button>
+        <button type="button" class="cyber-dialog-close" id="cyber-dialog-close" onclick="CyberDialog.handleCancel()" title="Close">✕</button>
       </div>
 
       <!-- Body with Cyber Icon and Message -->
@@ -7868,8 +7897,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       <!-- Action Buttons -->
       <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-white/10 cyber-dialog-border" id="cyber-dialog-actions">
-        <button type="button" class="cyber-btn cyber-btn-ghost hidden" id="cyber-dialog-cancel">বাতিল (Cancel)</button>
-        <button type="button" class="cyber-btn cyber-btn-primary" id="cyber-dialog-ok">ঠিক আছে (OK) ✓</button>
+        <button type="button" class="cyber-btn cyber-btn-ghost hidden" id="cyber-dialog-cancel" onclick="CyberDialog.handleCancel()">বাতিল (Cancel)</button>
+        <button type="button" class="cyber-btn cyber-btn-primary" id="cyber-dialog-ok" onclick="CyberDialog.handleOk()">ঠিক আছে (OK) ✓</button>
       </div>
     </div>
   </div>
@@ -15264,13 +15293,16 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         this.cancelBtn = document.getElementById('cyber-dialog-cancel');
         this.closeBtn = document.getElementById('cyber-dialog-close');
 
-        this.closeBtn?.addEventListener('click', () => this.handleCancel());
-        this.cancelBtn?.addEventListener('click', () => this.handleCancel());
-        this.okBtn?.addEventListener('click', () => this.handleOk());
+        // Direct onclick fallbacks
+        if (this.closeBtn) this.closeBtn.onclick = () => this.handleCancel();
+        if (this.cancelBtn) this.cancelBtn.onclick = () => this.handleCancel();
+        if (this.okBtn) this.okBtn.onclick = () => this.handleOk();
 
-        this.overlay.addEventListener('click', (e) => {
-          if (e.target === this.overlay) this.handleCancel();
-        });
+        if (this.overlay) {
+          this.overlay.onclick = (e) => {
+            if (e.target === this.overlay) this.handleCancel();
+          };
+        }
 
         document.addEventListener('keydown', (e) => {
           if (!this.isOpen) return;
@@ -15290,9 +15322,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           this.alert(String(msg ?? ''));
         };
         window._nativeConfirm = window._nativeConfirm || window.confirm;
-        window.confirm = (msg) => {
-          this.confirm(String(msg ?? ''), () => {});
-          return false;
+        window.confirm = (msg, onConfirm, opts) => {
+          return this.confirm(String(msg ?? ''), onConfirm, opts);
         };
       },
 
@@ -15312,7 +15343,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             defaultIcon = '🎉';
             defaultTitle = 'SUCCESSFUL • সম্পন্ন হয়েছে';
             isSuccess = true;
-          } else if (text.includes('মুছে') || text.includes('ভুল') || text.includes('Error') || text.includes('Not found') || text.includes('Invalid') || text.includes('cannot') || text.includes('negative')) {
+          } else if (text.includes('মুছে') || text.includes('ভুল') || text.includes('Error') || text.includes('Not found') || text.includes('Invalid') || text.includes('cannot') || text.includes('negative') || text.includes('সতর্ক')) {
             defaultIcon = '⚠️';
             defaultTitle = 'ATTENTION • সতর্কবার্তা';
             isDanger = text.includes('মুছে') || text.includes('Error');
@@ -15330,13 +15361,19 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             this.iconEl.className = 'cyber-dialog-icon-badge' + (isDanger ? ' is-danger' : isSuccess ? ' is-success' : '');
           }
 
-          if (this.cancelBtn) this.cancelBtn.classList.add('hidden');
+          if (this.cancelBtn) {
+            this.cancelBtn.classList.add('hidden');
+            this.cancelBtn.style.display = 'none';
+          }
           if (this.okBtn) {
             this.okBtn.textContent = options.okText || 'ঠিক আছে (OK) ✓';
             this.okBtn.className = 'cyber-btn cyber-btn-primary';
           }
 
-          this.overlay?.classList.remove('hidden');
+          if (this.overlay) {
+            this.overlay.classList.remove('hidden');
+            this.overlay.style.display = 'flex';
+          }
           setTimeout(() => this.okBtn?.focus(), 50);
         });
       },
@@ -15360,22 +15397,25 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           }
 
           if (this.cancelBtn) {
-            this.cancelBtn.textContent = options.cancelText || 'না, বাতিল (Cancel)';
+            this.cancelBtn.textContent = options.cancelText || 'বাতিল (Cancel)';
             this.cancelBtn.classList.remove('hidden');
+            this.cancelBtn.style.display = 'inline-flex';
           }
 
           if (this.okBtn) {
-            this.okBtn.textContent = options.confirmText || (isDanger ? 'হ্যাঁ, ডিলিট করুন ✓' : 'নিশ্চিত করুন ✓');
+            this.okBtn.textContent = options.confirmText || (isDanger ? 'হ্যাঁ, ডিলিট করুন ✓' : 'ঠিক আছে (OK) ✓');
             this.okBtn.className = 'cyber-btn ' + (isDanger ? 'cyber-btn-danger' : 'cyber-btn-primary');
           }
 
-          this.overlay?.classList.remove('hidden');
+          if (this.overlay) {
+            this.overlay.classList.remove('hidden');
+            this.overlay.style.display = 'flex';
+          }
           setTimeout(() => this.okBtn?.focus(), 50);
         });
       },
 
       handleOk() {
-        if (!this.isOpen) return;
         this.close();
         if (typeof this.currentResolve === 'function') {
           const fn = this.currentResolve;
@@ -15385,7 +15425,6 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       },
 
       handleCancel() {
-        if (!this.isOpen) return;
         this.close();
         if (typeof this.currentResolve === 'function') {
           const fn = this.currentResolve;
@@ -15396,7 +15435,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       close() {
         this.isOpen = false;
-        this.overlay?.classList.add('hidden');
+        if (this.overlay) {
+          this.overlay.classList.add('hidden');
+          this.overlay.style.display = 'none';
+        }
       }
     };
     window.CyberDialog = CyberDialog;
