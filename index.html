@@ -3621,57 +3621,39 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     <!-- Top Bar (Clean, Floating iOS Header) -->
     <header class="h-15 sm:h-16 lg:h-18 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-ios-border flex items-center justify-between px-3 sm:px-5 lg:px-8 z-30 flex-shrink-0 gap-2">
       
-      <!-- LEFT: Hamburger Menu + Brand Logo (Always on left) -->
-      <div class="flex items-center gap-2 shrink-0">
+      <!-- LEFT: Hamburger Menu [☰] + Search Icon [🔍] -->
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
         <!-- Hamburger (mobile/tablet only) -->
         <button onclick="toggleMobileSidebar()" class="lg:hidden p-2 rounded-xl border border-ios-border bg-white/5 hover:bg-white/15 text-ios-text active:scale-95 transition-all flex items-center justify-center shrink-0" aria-label="Open Navigation Menu">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
         </button>
 
-        <!-- Brand Logo + Name -->
-        <div class="flex items-center gap-2 cursor-pointer" onclick="navigateTo('dashboard')">
-          <div class="w-8 h-8 rounded-xl overflow-hidden brand-glow border border-emerald-400/40 shrink-0 shadow-sm shadow-emerald-500/20">
-            <img src="assets/logo.png" alt="SelaiSathi Logo" class="w-full h-full object-cover">
-          </div>
-          <span class="font-extrabold text-sm sm:text-base tracking-tight hidden sm:inline select-none">
-            <span class="brand-selai">Selai</span><span class="brand-sathi">Sathi</span>
-          </span>
-        </div>
-      </div>
-
-      <!-- DESKTOP CENTER: Expanded Universal Search Input (Desktop only, hidden on mobile) -->
-      <div class="hidden md:flex items-center gap-4 flex-1 max-w-md mx-4">
-        <div class="relative flex-1 group">
-          <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400 group-focus-within:text-ios-blue transition-colors">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-          </span>
-          <input 
-            type="text" 
-            id="universal-search"
-            placeholder="Search name, phone, cloth tag or order no..." 
-            class="w-full pl-10 pr-12 py-2 bg-gray-100/70 dark:bg-slate-900/70 border border-transparent rounded-2xl text-xs font-medium text-ios-text placeholder-gray-400 focus:outline-none focus:border-cyan-400 focus:bg-white dark:focus:bg-slate-900 transition-all"
-          >
-          <span class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-[10px] font-mono text-gray-400">
-            <kbd class="px-1.5 py-0.5 bg-white/20 border border-gray-200/20 rounded-md">⌘K</kbd>
-          </span>
-        </div>
-      </div>
-
-      <!-- RIGHT: Search Icon + Language Toggle + Theme Slider (+ New Order on desktop) -->
-      <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-        
-        <!-- Search Icon Button (On mobile: toggles sleek expandable search bar) -->
-        <button onclick="toggleMobileSearch()" id="btn-mobile-search-toggle" class="p-2 rounded-xl border border-ios-border bg-white/5 hover:bg-cyan-500/15 text-ios-text active:scale-95 transition-all flex items-center justify-center relative md:hidden shrink-0" title="Search (অনুসন্ধান)">
+        <!-- Search Icon Button (Beside hamburger, toggles search bar) -->
+        <button onclick="toggleMobileSearch()" id="btn-mobile-search-toggle" class="p-2 rounded-xl border border-ios-border bg-white/5 hover:bg-cyan-500/15 text-ios-text active:scale-95 transition-all flex items-center justify-center relative shrink-0" title="Search (অনুসন্ধান)">
           <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </button>
+      </div>
 
+      <!-- CENTER: Logo [S] + SelaiSathi Brand Text (Perfect Center Alignment) -->
+      <div class="flex items-center justify-center gap-2 cursor-pointer flex-1 mx-2" onclick="navigateTo('dashboard')">
+        <div class="w-8 h-8 rounded-xl overflow-hidden brand-glow border border-emerald-400/40 shrink-0 shadow-sm shadow-emerald-500/20 flex items-center justify-center bg-emerald-500/15">
+          <img src="assets/logo.png" alt="SelaiSathi Logo" class="w-full h-full object-cover">
+        </div>
+        <span class="font-extrabold text-sm sm:text-base tracking-tight select-none">
+          <span class="brand-selai">Selai</span><span class="brand-sathi">Sathi</span>
+        </span>
+      </div>
+
+      <!-- RIGHT: Language Toggle [🌐] + Theme Slider [⚪|🔵] (+ New Order on desktop) -->
+      <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+        
         <!-- Language Switcher: Compact Glass Icon Button -->
         <button onclick="toggleLanguage()" class="p-2 sm:px-3 sm:py-1.5 rounded-xl border border-ios-border bg-white/5 hover:bg-white/15 text-xs font-bold text-ios-text transition-all active:scale-95 flex items-center gap-1 shrink-0" title="Language (ভাষা পরিবর্তন)">
           <span class="text-sm">🌐</span>
           <span id="lang-indicator" class="hidden sm:inline text-[11px]">বাংলা</span>
         </button>
 
-        <!-- Futuristic iOS Pill Slider Switch (Compact & Perfectly Scaled) -->
+        <!-- Futuristic iOS Pill Slider Switch -->
         <div 
           id="theme-slider-track"
           onclick="handleTrackClick(event)"
@@ -3686,7 +3668,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           ></div>
         </div>
 
-        <!-- Primary Action: + New order (Desktop / Tablet only; mobile has bottom FAB) -->
+        <!-- Primary Action: + New order (Desktop only; mobile has bottom FAB) -->
         <button onclick="openNewOrderModal()" class="hidden lg:flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:brightness-110 text-white font-bold text-xs px-3.5 py-2 rounded-xl shadow-md shadow-emerald-600/25 transition-all hover:scale-[1.02] active:scale-95 shrink-0">
           <span class="text-sm leading-none">＋</span>
           <span data-i18n="btn_new_order">New order</span>
@@ -3695,7 +3677,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     </header>
 
     <!-- Futuristic Mobile Expandable Search Bar (Revealed when 🔍 is tapped on mobile) -->
-    <div id="mobile-search-bar" class="hidden md:hidden px-3.5 py-2.5 bg-slate-950/95 border-b border-cyan-500/30 backdrop-blur-xl transition-all duration-200 z-20">
+    <div id="mobile-search-bar" class="hidden px-3.5 py-2.5 bg-slate-950/95 border-b border-cyan-500/30 backdrop-blur-xl transition-all duration-200 z-20">
       <div class="relative flex items-center">
         <span class="absolute left-3 text-cyan-400 text-sm">🔍</span>
         <input 
