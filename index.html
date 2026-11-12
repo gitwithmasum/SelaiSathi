@@ -3548,6 +3548,126 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
 
   </style>
+  <style>
+
+    /* ========================================================================== */
+    /* 🚀 NEXT-GEN HARDWARE-ACCELERATED ULTRA-SMOOTH & SNAPPY ANIMATION ENGINE   */
+    /* ========================================================================== */
+
+    /* 1. Global Touch & Scroll Optimization */
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Remove 300ms mobile tap delay and unwanted touch highlight flash */
+    button, [role="button"], a, input, select, textarea, .mobile-nav-item, .clickable-pill {
+      -webkit-tap-highlight-color: transparent !important;
+      touch-action: manipulation;
+    }
+
+    /* Tactile Micro-Interactions (Native App Haptic Feel) */
+    button:active:not(:disabled):not(.no-tap-effect),
+    [role="button"]:active:not(.no-tap-effect) {
+      transform: scale(0.975);
+      transition: transform 0.08s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    /* 2. Silky GPU-Accelerated Mobile Sidebar Drawer */
+    #app-sidebar {
+      will-change: transform;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transform: translate3d(-100%, 0, 0);
+      transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    #app-sidebar.translate-x-0 {
+      transform: translate3d(0, 0, 0) !important;
+    }
+
+    @media (min-width: 1024px) {
+      #app-sidebar {
+        transform: translate3d(0, 0, 0) !important;
+        transition: none !important;
+      }
+    }
+
+    #sidebar-backdrop {
+      will-change: opacity;
+      transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    /* 3. Snappy Page / View Switcher Micro-Transition (Linear / Apple App Style) */
+    .app-view:not(.hidden) {
+      animation: appViewEnter 0.18s cubic-bezier(0.16, 1, 0.3, 1) both;
+      will-change: opacity, transform;
+    }
+
+    @keyframes appViewEnter {
+      from {
+        opacity: 0.25;
+        transform: translate3d(0, 8px, 0);
+      }
+      to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    /* 4. GPU-Accelerated Modal Dialog Popups */
+    [id^="modal-"]:not(.hidden) {
+      animation: modalBackdropFadeIn 0.16s cubic-bezier(0.16, 1, 0.3, 1) both;
+      will-change: opacity;
+    }
+
+    [id^="modal-"]:not(.hidden) > div:first-child,
+    [id^="modal-"]:not(.hidden) > .bento-card {
+      animation: modalSpringScaleIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+      will-change: transform, opacity;
+      transform-origin: center 40%;
+    }
+
+    @keyframes modalBackdropFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes modalSpringScaleIn {
+      from {
+        opacity: 0.6;
+        transform: translate3d(0, 10px, 0) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+    }
+
+    /* 5. Bento Cards & Interactive Surfaces Smooth Transitions */
+    .bento-card {
+      will-change: transform, box-shadow;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                  box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                  border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    .bento-card:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Floating Navbar GPU Layering */
+    #mobile-bottom-nav {
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+    }
+
+  </style>
 </head>
 <body class="flex h-screen overflow-hidden text-sm bg-ios-bg select-none">
 
