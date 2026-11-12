@@ -3485,6 +3485,24 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       padding-bottom: max(6px, env(safe-area-inset-bottom, 6px));
     }
 
+  
+    /* ======================================================== */
+    /* ONE-LINE FUTURISTIC HEADER & MOBILE SEARCH BAR STYLES    */
+    /* ======================================================== */
+    #mobile-search-bar {
+      background: rgba(10, 15, 29, 0.96);
+      border-bottom: 1px solid rgba(34, 211, 238, 0.3);
+    }
+    body.theme-white #mobile-search-bar {
+      background: rgba(255, 255, 255, 0.97) !important;
+      border-bottom-color: #E2E8F0 !important;
+    }
+    body.theme-white #mobile-search-input {
+      background: #F1F5F9 !important;
+      color: #0F172A !important;
+      border-color: #CBD5E1 !important;
+    }
+
   </style>
 </head>
 <body class="flex h-screen overflow-hidden text-sm bg-ios-bg select-none">
@@ -3601,70 +3619,95 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
   <div class="flex-1 flex flex-col min-w-0 overflow-hidden bg-ios-bg">
     
     <!-- Top Bar (Clean, Floating iOS Header) -->
-    <header class="h-16 lg:h-18 bg-white/80 backdrop-blur-xl border-b border-ios-border flex items-center justify-between px-3.5 sm:px-5 lg:px-8 z-20 flex-shrink-0 gap-2 sm:gap-4">
+    <header class="h-15 sm:h-16 lg:h-18 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-ios-border flex items-center justify-between px-3 sm:px-5 lg:px-8 z-30 flex-shrink-0 gap-2">
       
-      <!-- Mobile Left: Hamburger + Mini Brand Logo -->
-      <div class="flex items-center gap-2 lg:hidden">
-        <button onclick="toggleMobileSidebar()" class="p-2 rounded-xl border border-ios-border bg-white/10 hover:bg-white/20 text-ios-text active:scale-95 transition-all" aria-label="Open Navigation Menu">
+      <!-- LEFT: Hamburger Menu + Brand Logo (Always on left) -->
+      <div class="flex items-center gap-2 shrink-0">
+        <!-- Hamburger (mobile/tablet only) -->
+        <button onclick="toggleMobileSidebar()" class="lg:hidden p-2 rounded-xl border border-ios-border bg-white/5 hover:bg-white/15 text-ios-text active:scale-95 transition-all flex items-center justify-center shrink-0" aria-label="Open Navigation Menu">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
         </button>
-        <div class="flex items-center gap-1.5" onclick="navigateTo('dashboard')" role="button">
-          <div class="w-7 h-7 rounded-xl overflow-hidden brand-glow border border-emerald-400/40 shrink-0">
-            <img src="assets/logo.png" alt="Logo" class="w-full h-full object-cover">
+
+        <!-- Brand Logo + Name -->
+        <div class="flex items-center gap-2 cursor-pointer" onclick="navigateTo('dashboard')">
+          <div class="w-8 h-8 rounded-xl overflow-hidden brand-glow border border-emerald-400/40 shrink-0 shadow-sm shadow-emerald-500/20">
+            <img src="assets/logo.png" alt="SelaiSathi Logo" class="w-full h-full object-cover">
           </div>
-          <span class="font-black text-sm tracking-tight hidden sm:inline"><span class="brand-selai">Selai</span><span class="brand-sathi">Sathi</span></span>
+          <span class="font-extrabold text-sm sm:text-base tracking-tight hidden sm:inline select-none">
+            <span class="brand-selai">Selai</span><span class="brand-sathi">Sathi</span>
+          </span>
         </div>
       </div>
 
-      <!-- Universal Search Input with Keyboard Shortcut Pill -->
-      <div class="flex items-center gap-4 flex-1 max-w-xl">
+      <!-- DESKTOP CENTER: Expanded Universal Search Input (Desktop only, hidden on mobile) -->
+      <div class="hidden md:flex items-center gap-4 flex-1 max-w-md mx-4">
         <div class="relative flex-1 group">
-          <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400 group-focus-within:text-ios-blue transition-colors">
+          <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400 group-focus-within:text-ios-blue transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
           </span>
           <input 
             type="text" 
             id="universal-search"
             placeholder="Search name, phone, cloth tag or order no..." 
-            class="w-full pl-9 pr-4 sm:pr-12 py-2 sm:py-2.5 bg-gray-100/70 border border-transparent rounded-2xl text-xs font-medium text-ios-text placeholder-gray-400 focus:outline-none focus:border-ios-blue focus:bg-white focus:shadow-ios-card transition-all"
+            class="w-full pl-10 pr-12 py-2 bg-gray-100/70 dark:bg-slate-900/70 border border-transparent rounded-2xl text-xs font-medium text-ios-text placeholder-gray-400 focus:outline-none focus:border-cyan-400 focus:bg-white dark:focus:bg-slate-900 transition-all"
           >
-          <span class="absolute inset-y-0 right-0 pr-3 hidden sm:flex items-center pointer-events-none text-[10px] font-mono text-gray-400">
-            <kbd class="px-1.5 py-0.5 bg-white border border-gray-200 rounded-md shadow-xs">⌘K</kbd>
+          <span class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-[10px] font-mono text-gray-400">
+            <kbd class="px-1.5 py-0.5 bg-white/20 border border-gray-200/20 rounded-md">⌘K</kbd>
           </span>
         </div>
       </div>
 
-      <!-- Right Action Controls (Multi-Color Indicators, Language, New Order) -->
-      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+      <!-- RIGHT: Search Icon + Language Toggle + Theme Slider (+ New Order on desktop) -->
+      <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
         
-        <!-- Language Switcher: English <-> Bengali -->
-        <button onclick="toggleLanguage()" class="flex items-center gap-1 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-2xl border border-ios-border bg-white/10 hover:bg-white/20 text-xs font-bold text-ios-text shadow-xs transition-all active:scale-95" title="Switch Language">
-          <span class="text-sm sm:text-base">🌐</span>
-          <span id="lang-indicator" class="hidden xs:inline">বাংলা</span>
+        <!-- Search Icon Button (On mobile: toggles sleek expandable search bar) -->
+        <button onclick="toggleMobileSearch()" id="btn-mobile-search-toggle" class="p-2 rounded-xl border border-ios-border bg-white/5 hover:bg-cyan-500/15 text-ios-text active:scale-95 transition-all flex items-center justify-center relative md:hidden shrink-0" title="Search (অনুসন্ধান)">
+          <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </button>
 
-        <!-- Standalone iOS Pill Slider Switch: Left = White, Right = Galaxy -->
+        <!-- Language Switcher: Compact Glass Icon Button -->
+        <button onclick="toggleLanguage()" class="p-2 sm:px-3 sm:py-1.5 rounded-xl border border-ios-border bg-white/5 hover:bg-white/15 text-xs font-bold text-ios-text transition-all active:scale-95 flex items-center gap-1 shrink-0" title="Language (ভাষা পরিবর্তন)">
+          <span class="text-sm">🌐</span>
+          <span id="lang-indicator" class="hidden sm:inline text-[11px]">বাংলা</span>
+        </button>
+
+        <!-- Futuristic iOS Pill Slider Switch (Compact & Perfectly Scaled) -->
         <div 
           id="theme-slider-track"
           onclick="handleTrackClick(event)"
-          class="relative w-[68px] sm:w-[76px] h-[30px] sm:h-[32px] rounded-full p-[3px] sm:p-[4px] cursor-pointer flex items-center transition-all duration-300 select-none border shrink-0"
+          class="relative w-[64px] sm:w-[72px] h-[28px] sm:h-[30px] rounded-full p-[3px] cursor-pointer flex items-center transition-all duration-300 select-none border shrink-0"
           data-theme-track
           title="Theme Toggle: Left = White, Right = Galaxy"
         >
           <!-- Circular Slider Thumb (Knob) -->
           <div 
             id="theme-slider-thumb"
-            class="w-5 sm:w-6 h-5 sm:h-6 rounded-full transform translate-x-[38px] sm:translate-x-[44px] transition-all duration-300 ease-out z-10 pointer-events-none"
+            class="w-5 sm:w-6 h-5 sm:h-6 rounded-full transform translate-x-[36px] sm:translate-x-[42px] transition-all duration-300 ease-out z-10 pointer-events-none"
           ></div>
         </div>
 
-        <!-- Primary Action: + New order (Shown on desktop/tablet, mobile has bottom bar FAB) -->
-        <button onclick="openNewOrderModal()" class="hidden md:flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-xs px-4 lg:px-5 py-2.5 rounded-2xl shadow-lg shadow-emerald-600/25 transition-all hover:scale-[1.02] active:scale-95">
-          <span class="text-sm">＋</span>
+        <!-- Primary Action: + New order (Desktop / Tablet only; mobile has bottom FAB) -->
+        <button onclick="openNewOrderModal()" class="hidden lg:flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:brightness-110 text-white font-bold text-xs px-3.5 py-2 rounded-xl shadow-md shadow-emerald-600/25 transition-all hover:scale-[1.02] active:scale-95 shrink-0">
+          <span class="text-sm leading-none">＋</span>
           <span data-i18n="btn_new_order">New order</span>
         </button>
       </div>
     </header>
+
+    <!-- Futuristic Mobile Expandable Search Bar (Revealed when 🔍 is tapped on mobile) -->
+    <div id="mobile-search-bar" class="hidden md:hidden px-3.5 py-2.5 bg-slate-950/95 border-b border-cyan-500/30 backdrop-blur-xl transition-all duration-200 z-20">
+      <div class="relative flex items-center">
+        <span class="absolute left-3 text-cyan-400 text-sm">🔍</span>
+        <input 
+          type="text" 
+          id="mobile-search-input"
+          oninput="handleMobileSearchInput(this.value)"
+          placeholder="Search name, phone, cloth tag or order no..." 
+          class="w-full pl-9 pr-9 py-2 bg-slate-900 border border-cyan-500/40 rounded-xl text-xs font-medium text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400"
+        >
+        <button onclick="toggleMobileSearch()" class="absolute right-2.5 text-gray-400 hover:text-white text-xs p-1">✕</button>
+      </div>
+    </div>
 
     <!-- Scrollable Bento Canvas -->
     <main class="flex-1 w-full min-w-0 overflow-y-auto p-3 sm:p-5 lg:p-8 pb-28 lg:pb-8 space-y-5 lg:space-y-6">
@@ -7575,6 +7618,29 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
     
     // --- Mobile Off-Canvas Drawer Navigation ---
+    
+    // --- Mobile Expandable Search Helpers ---
+    function toggleMobileSearch() {
+      const searchBar = document.getElementById('mobile-search-bar');
+      const input = document.getElementById('mobile-search-input');
+      if (!searchBar) return;
+      searchBar.classList.toggle('hidden');
+      if (!searchBar.classList.contains('hidden')) {
+        setTimeout(() => input?.focus(), 60);
+      }
+    }
+
+    function handleMobileSearchInput(val) {
+      const desktopSearch = document.getElementById('universal-search');
+      if (desktopSearch) desktopSearch.value = val;
+
+      const q = (val || '').trim().toLowerCase();
+      if (typeof orderSearchQuery !== 'undefined') {
+        orderSearchQuery = q;
+        if (typeof renderOrdersTable === 'function') renderOrdersTable();
+      }
+    }
+
     function openMobileSidebar() {
       const sidebar = document.getElementById('app-sidebar');
       const backdrop = document.getElementById('sidebar-backdrop');
