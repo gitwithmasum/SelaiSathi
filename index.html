@@ -386,36 +386,22 @@
     #printable-receipt { color: #172033 !important; background: #fff !important; }
     #printable-receipt * { color: inherit !important; }
 
-    @media (max-width: 900px) {
-      body > aside { width: 226px !important; min-width: 226px !important; }
+        @media (max-width: 900px) {
       main { padding: 20px 16px 32px !important; }
-      header { padding-left: 16px !important; padding-right: 16px !important; gap: 12px; flex-wrap: wrap; }
-      header > div:last-child { gap: 7px !important; }
+      header { padding-left: 12px !important; padding-right: 12px !important; gap: 8px; flex-wrap: nowrap !important; }
     }
     @media (max-width: 640px) {
       body { height: 100dvh !important; }
-      body > aside { width: 66px !important; min-width: 66px !important; }
-      body > aside .h-20 { justify-content: center; padding-inline: 8px !important; }
-      body > aside .h-20 > div:last-child, body > aside [data-i18n^="sec_"], body > aside .nav-item > span:not(.nav-icon-badge), body > aside .nav-item > span.ml-auto { display: none !important; }
-      body > aside .px-3\.5.py-5 { padding: 10px 6px !important; }
-      body > aside .px-3\.5.py-5 > div { margin-bottom: 12px; }
-      body > aside .nav-item { justify-content: center !important; padding: 6px !important; }
-      body > aside .nav-icon-badge { width: 38px !important; height: 38px !important; }
-      body > aside > div:last-child { padding: 8px 5px !important; }
-      body > aside > div:last-child > div { justify-content: center; padding: 6px !important; }
-      body > aside > div:last-child > div > div:not(:first-child), body > aside > div:last-child > div > span { display: none !important; }
-      header { min-height: 62px; padding: 9px 10px !important; }
-      header > div:first-child { min-width: 100%; max-width: none; }
-      header > div:last-child { width: 100%; justify-content: space-between; }
-      header .flex.items-center.bg-gray-100\/80 { display: none !important; }
-      header button { padding: 8px 10px !important; }
-      main { padding: 16px 12px 28px !important; }
+      header { min-height: 56px !important; padding: 8px 12px !important; flex-wrap: nowrap !important; }
+      header > div:first-child { min-width: auto !important; max-width: none !important; width: auto !important; }
+      header > div:last-child { width: auto !important; justify-content: flex-end !important; }
+      main { padding: 14px 10px 96px !important; }
       .app-view > * + * { margin-top: 16px; }
       .bento-card { border-radius: 16px !important; }
-      .app-view h1 { font-size: 1.65rem !important; }
-      .app-view .p-7 { padding: 18px !important; }
-      .app-view .p-6 { padding: 16px !important; }
-      .app-view .p-5 { padding: 14px !important; }
+      .app-view h1 { font-size: 1.5rem !important; }
+      .app-view .p-7 { padding: 16px !important; }
+      .app-view .p-6 { padding: 14px !important; }
+      .app-view .p-5 { padding: 12px !important; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
@@ -3619,7 +3605,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
   <div class="flex-1 flex flex-col min-w-0 overflow-hidden bg-ios-bg">
     
     <!-- Top Bar (Clean, Floating iOS Header) -->
-    <header class="h-15 sm:h-16 lg:h-18 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-ios-border flex items-center justify-between px-3 sm:px-5 lg:px-8 z-30 flex-shrink-0 gap-2">
+    <header class="h-15 sm:h-16 lg:h-18 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-ios-border flex flex-nowrap items-center justify-between px-3 sm:px-5 lg:px-8 z-30 flex-shrink-0 gap-1.5 sm:gap-2">
       
       <!-- LEFT: Hamburger Menu [☰] + Search Icon [🔍] -->
       <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
