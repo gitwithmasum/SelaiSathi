@@ -3420,14 +3420,83 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       #view-inventory .inv-card:hover { transform: none !important; }
     }
 
-</style>
+
+    /* ======================================================== */
+    /* MOBILE-FIRST APP & TABLET RESPONSIVE ENHANCEMENTS        */
+    /* ======================================================== */
+    @media (max-width: 1023px) {
+      body {
+        overflow-x: hidden !important;
+      }
+      #app-sidebar {
+        position: fixed !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        width: 280px !important;
+        z-index: 60 !important;
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.8) !important;
+      }
+      body.theme-white #app-sidebar {
+        background: #FFFFFF !important;
+        border-color: #E2E8F0 !important;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.2) !important;
+      }
+    }
+
+    #mobile-bottom-nav {
+      background: rgba(10, 15, 29, 0.96);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.5);
+    }
+    body.theme-white #mobile-bottom-nav {
+      background: rgba(255, 255, 255, 0.97) !important;
+      border-top-color: #E2E8F0 !important;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.07) !important;
+    }
+
+    .mobile-nav-item {
+      color: #94A3B8;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+    .mobile-nav-item:hover,
+    .mobile-nav-item.active {
+      color: #22D3EE !important;
+      transform: translateY(-1px);
+    }
+    .mobile-nav-item.active span:first-child {
+      filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.6));
+    }
+    body.theme-white .mobile-nav-item {
+      color: #64748B !important;
+    }
+    body.theme-white .mobile-nav-item:hover,
+    body.theme-white .mobile-nav-item.active {
+      color: #0284C7 !important;
+    }
+    body.theme-white .mobile-nav-item.active span:first-child {
+      filter: drop-shadow(0 0 6px rgba(2, 132, 199, 0.4));
+    }
+
+    .safe-area-bottom {
+      padding-bottom: max(6px, env(safe-area-inset-bottom, 6px));
+    }
+
+  </style>
 </head>
 <body class="flex h-screen overflow-hidden text-sm bg-ios-bg select-none">
 
   <!-- ======================================================== -->
   <!-- 1. FUTURISTIC LEFT NAVBAR (Animated, Glowing, Cyber-Chic) -->
   <!-- ======================================================== -->
-  <aside class="w-68 bg-cyber-sidebar text-gray-300 flex flex-col justify-between border-r border-white/5 flex-shrink-0 z-30 transition-all duration-300 relative shadow-2xl">
+    <!-- Backdrop for Mobile Drawer -->
+  <div id="sidebar-backdrop" onclick="closeMobileSidebar()" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs transition-opacity lg:hidden hidden"></div>
+
+  <!-- 1. FUTURISTIC LEFT NAVBAR (Animated, Glowing, Cyber-Chic & Mobile Off-Canvas) -->
+  <aside id="app-sidebar" class="fixed lg:static inset-y-0 left-0 z-50 w-72 lg:w-68 bg-cyber-sidebar text-gray-300 flex flex-col justify-between border-r border-white/5 flex-shrink-0 -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out shadow-2xl">
     
     <!-- Ambient Neon Corner Glow -->
     <div class="absolute top-0 left-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -3532,52 +3601,65 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
   <div class="flex-1 flex flex-col min-w-0 overflow-hidden bg-ios-bg">
     
     <!-- Top Bar (Clean, Floating iOS Header) -->
-    <header class="h-18 bg-white/80 backdrop-blur-xl border-b border-ios-border flex items-center justify-between px-8 z-20 flex-shrink-0">
+    <header class="h-16 lg:h-18 bg-white/80 backdrop-blur-xl border-b border-ios-border flex items-center justify-between px-3.5 sm:px-5 lg:px-8 z-20 flex-shrink-0 gap-2 sm:gap-4">
       
-      <!-- Left: Universal Search Input with Keyboard Shortcut Pill -->
+      <!-- Mobile Left: Hamburger + Mini Brand Logo -->
+      <div class="flex items-center gap-2 lg:hidden">
+        <button onclick="toggleMobileSidebar()" class="p-2 rounded-xl border border-ios-border bg-white/10 hover:bg-white/20 text-ios-text active:scale-95 transition-all" aria-label="Open Navigation Menu">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+        <div class="flex items-center gap-1.5" onclick="navigateTo('dashboard')" role="button">
+          <div class="w-7 h-7 rounded-xl overflow-hidden brand-glow border border-emerald-400/40 shrink-0">
+            <img src="assets/logo.png" alt="Logo" class="w-full h-full object-cover">
+          </div>
+          <span class="font-black text-sm tracking-tight hidden sm:inline"><span class="brand-selai">Selai</span><span class="brand-sathi">Sathi</span></span>
+        </div>
+      </div>
+
+      <!-- Universal Search Input with Keyboard Shortcut Pill -->
       <div class="flex items-center gap-4 flex-1 max-w-xl">
         <div class="relative flex-1 group">
-          <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400 group-focus-within:text-ios-blue transition-colors">
+          <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400 group-focus-within:text-ios-blue transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
           </span>
           <input 
             type="text" 
             id="universal-search"
             placeholder="Search name, phone, cloth tag or order no..." 
-            class="w-full pl-10 pr-12 py-2.5 bg-gray-100/70 border border-transparent rounded-2xl text-xs font-medium text-ios-text placeholder-gray-400 focus:outline-none focus:border-ios-blue focus:bg-white focus:shadow-ios-card transition-all"
+            class="w-full pl-9 pr-4 sm:pr-12 py-2 sm:py-2.5 bg-gray-100/70 border border-transparent rounded-2xl text-xs font-medium text-ios-text placeholder-gray-400 focus:outline-none focus:border-ios-blue focus:bg-white focus:shadow-ios-card transition-all"
           >
-          <span class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-[10px] font-mono text-gray-400">
+          <span class="absolute inset-y-0 right-0 pr-3 hidden sm:flex items-center pointer-events-none text-[10px] font-mono text-gray-400">
             <kbd class="px-1.5 py-0.5 bg-white border border-gray-200 rounded-md shadow-xs">⌘K</kbd>
           </span>
         </div>
       </div>
 
       <!-- Right Action Controls (Multi-Color Indicators, Language, New Order) -->
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
         
         <!-- Language Switcher: English <-> Bengali -->
-        <button onclick="toggleLanguage()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl border border-ios-border bg-white/10 hover:bg-white/20 text-xs font-bold text-ios-text shadow-xs transition-all active:scale-95">
-          <span class="text-base">🌐</span>
-          <span id="lang-indicator">বাংলা</span>
+        <button onclick="toggleLanguage()" class="flex items-center gap-1 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-2xl border border-ios-border bg-white/10 hover:bg-white/20 text-xs font-bold text-ios-text shadow-xs transition-all active:scale-95" title="Switch Language">
+          <span class="text-sm sm:text-base">🌐</span>
+          <span id="lang-indicator" class="hidden xs:inline">বাংলা</span>
         </button>
 
         <!-- Standalone iOS Pill Slider Switch: Left = White, Right = Galaxy -->
         <div 
           id="theme-slider-track"
           onclick="handleTrackClick(event)"
-          class="relative w-[76px] h-[32px] rounded-full p-[4px] cursor-pointer flex items-center transition-all duration-300 select-none border shrink-0"
+          class="relative w-[68px] sm:w-[76px] h-[30px] sm:h-[32px] rounded-full p-[3px] sm:p-[4px] cursor-pointer flex items-center transition-all duration-300 select-none border shrink-0"
           data-theme-track
           title="Theme Toggle: Left = White, Right = Galaxy"
         >
           <!-- Circular Slider Thumb (Knob) -->
           <div 
             id="theme-slider-thumb"
-            class="w-6 h-6 rounded-full transform translate-x-[44px] transition-all duration-300 ease-out z-10 pointer-events-none"
+            class="w-5 sm:w-6 h-5 sm:h-6 rounded-full transform translate-x-[38px] sm:translate-x-[44px] transition-all duration-300 ease-out z-10 pointer-events-none"
           ></div>
         </div>
 
-        <!-- Primary Action: + New order (iOS Glass Pill Button) -->
-        <button onclick="openNewOrderModal()" class="flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-xs px-5 py-2.5 rounded-2xl shadow-lg shadow-emerald-600/25 transition-all hover:scale-[1.02] active:scale-95">
+        <!-- Primary Action: + New order (Shown on desktop/tablet, mobile has bottom bar FAB) -->
+        <button onclick="openNewOrderModal()" class="hidden md:flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-xs px-4 lg:px-5 py-2.5 rounded-2xl shadow-lg shadow-emerald-600/25 transition-all hover:scale-[1.02] active:scale-95">
           <span class="text-sm">＋</span>
           <span data-i18n="btn_new_order">New order</span>
         </button>
@@ -3585,7 +3667,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     </header>
 
     <!-- Scrollable Bento Canvas -->
-    <main class="flex-1 overflow-y-auto p-6 lg:p-8 space-y-6">
+    <main class="flex-1 w-full min-w-0 overflow-y-auto p-3 sm:p-5 lg:p-8 pb-28 lg:pb-8 space-y-5 lg:space-y-6">
 
       <!-- ==================================================== -->
       <!-- VIEW 1: INVENTORY (iPhone Bento Grid System)         -->
@@ -5768,6 +5850,41 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
     </main>
 
+    <!-- ======================================================== -->
+    <!-- 3. MOBILE & TABLET NATIVE BOTTOM NAVIGATION BAR          -->
+    <!-- ======================================================== -->
+    <nav id="mobile-bottom-nav" class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-slate-950/95 backdrop-blur-xl border-t border-white/10 px-2 py-1.5 flex items-center justify-around shadow-2xl safe-area-bottom">
+      <!-- 1. Dashboard -->
+      <button onclick="navigateTo('dashboard')" class="mobile-nav-item active flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all" data-nav="dashboard" title="Dashboard">
+        <span class="text-xl">📊</span>
+        <span class="text-[10px] font-bold mt-0.5 tracking-tight" data-i18n="menu_dashboard">Dashboard</span>
+      </button>
+
+      <!-- 2. Orders -->
+      <button onclick="navigateTo('orders')" class="mobile-nav-item flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all" data-nav="orders" title="Orders">
+        <span class="text-xl">📋</span>
+        <span class="text-[10px] font-bold mt-0.5 tracking-tight" data-i18n="menu_orders">Orders</span>
+      </button>
+
+      <!-- Center Floating Action Button (FAB): + New Order -->
+      <button onclick="openNewOrderModal()" class="w-13 h-13 -mt-6 rounded-full bg-gradient-to-tr from-emerald-500 via-teal-500 to-cyan-500 text-white flex items-center justify-center shadow-xl shadow-emerald-500/40 border-2 border-slate-900 active:scale-95 transition-all group" title="Create New Order">
+        <span class="text-2xl font-black leading-none group-hover:rotate-90 transition-transform">＋</span>
+      </button>
+
+      <!-- 3. Customers -->
+      <button onclick="navigateTo('customers')" class="mobile-nav-item flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all" data-nav="customers" title="Customers">
+        <span class="text-xl">👥</span>
+        <span class="text-[10px] font-bold mt-0.5 tracking-tight" data-i18n="menu_customers">Customers</span>
+      </button>
+
+      <!-- 4. Menu Drawer (More) -->
+      <button onclick="openMobileSidebar()" class="mobile-nav-item flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all" id="mobile-nav-more" title="More Menu">
+        <span class="text-xl">☰</span>
+        <span class="text-[10px] font-bold mt-0.5 tracking-tight">মেনু</span>
+      </button>
+    </nav>
+
+
   </div>
 
   <!-- ======================================================== -->
@@ -7456,6 +7573,41 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       } else {
         document.getElementById('dash-greeting').innerText = 'Good Evening, Shop Owner';      }
     }
+    
+    // --- Mobile Off-Canvas Drawer Navigation ---
+    function openMobileSidebar() {
+      const sidebar = document.getElementById('app-sidebar');
+      const backdrop = document.getElementById('sidebar-backdrop');
+      if (sidebar) {
+        sidebar.classList.remove('-translate-x-full');
+        sidebar.classList.add('translate-x-0');
+      }
+      if (backdrop) {
+        backdrop.classList.remove('hidden');
+      }
+    }
+
+    function closeMobileSidebar() {
+      const sidebar = document.getElementById('app-sidebar');
+      const backdrop = document.getElementById('sidebar-backdrop');
+      if (sidebar) {
+        sidebar.classList.add('-translate-x-full');
+        sidebar.classList.remove('translate-x-0');
+      }
+      if (backdrop) {
+        backdrop.classList.add('hidden');
+      }
+    }
+
+    function toggleMobileSidebar() {
+      const sidebar = document.getElementById('app-sidebar');
+      if (sidebar && sidebar.classList.contains('-translate-x-full')) {
+        openMobileSidebar();
+      } else {
+        closeMobileSidebar();
+      }
+    }
+
     function navigateTo(viewId) {
       document.querySelectorAll('.app-view').forEach(v => v.classList.add('hidden'));
       document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
@@ -7465,6 +7617,20 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       const activeNav = document.getElementById(`nav-${viewId}`);
       if (activeNav) activeNav.classList.add('active');
+
+      // Update Mobile Bottom Nav Active state
+      document.querySelectorAll('.mobile-nav-item').forEach(btn => {
+        if (btn.getAttribute('data-nav') === viewId) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      // Auto-close mobile drawer on navigation
+      if (window.innerWidth < 1024) {
+        closeMobileSidebar();
+      }
 
       if (viewId === 'orders') renderOrdersTable();
       if (['customers','staff','fabrics'].includes(viewId)) renderWorkspacePages();
