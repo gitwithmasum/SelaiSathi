@@ -3432,21 +3432,33 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       }
     }
 
+    /* ======================================================== */
+    /* FLOATING PILL DOCK NAVBAR & ACTIVE DOT INDICATOR         */
+    /* ======================================================== */
     #mobile-bottom-nav {
-      background: rgba(10, 15, 29, 0.96);
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.5);
+      background: rgba(10, 15, 29, 0.94);
+      border: 1px solid rgba(34, 211, 238, 0.25);
+      border-radius: 26px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(34, 211, 238, 0.12);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      left: 14px !important;
+      right: 14px !important;
+      bottom: 12px !important;
+      max-width: 440px !important;
+      margin-inline: auto !important;
     }
     body.theme-white #mobile-bottom-nav {
-      background: rgba(255, 255, 255, 0.97) !important;
-      border-top-color: #E2E8F0 !important;
-      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.07) !important;
+      background: rgba(255, 255, 255, 0.95) !important;
+      border: 1px solid #DCE5DF !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04) !important;
     }
 
     .mobile-nav-item {
       color: #94A3B8;
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       cursor: pointer;
+      position: relative;
     }
     .mobile-nav-item:hover,
     .mobile-nav-item.active {
@@ -3455,6 +3467,18 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
     .mobile-nav-item.active span:first-child {
       filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.6));
+    }
+    .active-dot-indicator {
+      display: none;
+      width: 4px;
+      height: 4px;
+      border-radius: 9999px;
+      background-color: #22D3EE;
+      box-shadow: 0 0 8px #22D3EE;
+      margin-top: 2px;
+    }
+    .mobile-nav-item.active .active-dot-indicator {
+      display: block;
     }
     body.theme-white .mobile-nav-item {
       color: #64748B !important;
@@ -3465,6 +3489,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
     body.theme-white .mobile-nav-item.active span:first-child {
       filter: drop-shadow(0 0 6px rgba(2, 132, 199, 0.4));
+    }
+    body.theme-white .mobile-nav-item.active .active-dot-indicator {
+      background-color: #0284C7 !important;
+      box-shadow: 0 0 6px rgba(2, 132, 199, 0.6) !important;
     }
 
     .safe-area-bottom {
@@ -5894,34 +5922,38 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     <!-- ======================================================== -->
     <!-- 3. MOBILE & TABLET NATIVE BOTTOM NAVIGATION BAR          -->
     <!-- ======================================================== -->
-    <nav id="mobile-bottom-nav" class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-slate-950/95 backdrop-blur-xl border-t border-white/10 px-2 py-1.5 flex items-center justify-around shadow-2xl safe-area-bottom">
-      <!-- 1. Dashboard -->
-      <button onclick="navigateTo('dashboard')" class="mobile-nav-item active flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all" data-nav="dashboard" title="Dashboard">
+    <nav id="mobile-bottom-nav" class="lg:hidden fixed z-40 px-3 py-1.5 flex items-center justify-around safe-area-bottom">
+      <!-- 1. Home -->
+      <button onclick="navigateTo('dashboard')" class="mobile-nav-item active flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all" data-nav="dashboard" title="Home">
         <span class="text-xl">📊</span>
-        <span class="text-[10px] font-bold mt-0.5 tracking-tight" data-i18n="menu_dashboard">Dashboard</span>
+        <span class="text-[10px] font-bold mt-0.5 tracking-tight">Home</span>
+        <span class="active-dot-indicator"></span>
       </button>
 
       <!-- 2. Orders -->
-      <button onclick="navigateTo('orders')" class="mobile-nav-item flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all" data-nav="orders" title="Orders">
+      <button onclick="navigateTo('orders')" class="mobile-nav-item flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all" data-nav="orders" title="Orders">
         <span class="text-xl">📋</span>
-        <span class="text-[10px] font-bold mt-0.5 tracking-tight" data-i18n="menu_orders">Orders</span>
+        <span class="text-[10px] font-bold mt-0.5 tracking-tight">Orders</span>
+        <span class="active-dot-indicator"></span>
       </button>
 
-      <!-- Center Floating Action Button (FAB): + New Order -->
-      <button onclick="openNewOrderModal()" class="w-13 h-13 -mt-6 rounded-full bg-gradient-to-tr from-emerald-500 via-teal-500 to-cyan-500 text-white flex items-center justify-center shadow-xl shadow-emerald-500/40 border-2 border-slate-900 active:scale-95 transition-all group" title="Create New Order">
+      <!-- 3. Center Elevated Floating Action Button (FAB): + New Order -->
+      <button onclick="openNewOrderModal()" class="w-12 h-12 -mt-6 rounded-full bg-gradient-to-tr from-emerald-500 via-teal-500 to-cyan-500 text-white flex items-center justify-center shadow-xl shadow-emerald-500/40 border-2 border-slate-900 active:scale-95 transition-all group shrink-0" title="Create New Order">
         <span class="text-2xl font-black leading-none group-hover:rotate-90 transition-transform">＋</span>
       </button>
 
-      <!-- 3. Customers -->
-      <button onclick="navigateTo('customers')" class="mobile-nav-item flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all" data-nav="customers" title="Customers">
+      <!-- 4. Clients -->
+      <button onclick="navigateTo('customers')" class="mobile-nav-item flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all" data-nav="customers" title="Clients">
         <span class="text-xl">👥</span>
-        <span class="text-[10px] font-bold mt-0.5 tracking-tight" data-i18n="menu_customers">Customers</span>
+        <span class="text-[10px] font-bold mt-0.5 tracking-tight">Clients</span>
+        <span class="active-dot-indicator"></span>
       </button>
 
-      <!-- 4. Menu Drawer (More) -->
-      <button onclick="openMobileSidebar()" class="mobile-nav-item flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all" id="mobile-nav-more" title="More Menu">
+      <!-- 5. Menu Drawer (More) -->
+      <button onclick="openMobileSidebar()" class="mobile-nav-item flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all" id="mobile-nav-more" title="Menu">
         <span class="text-xl">☰</span>
-        <span class="text-[10px] font-bold mt-0.5 tracking-tight">মেনু</span>
+        <span class="text-[10px] font-bold mt-0.5 tracking-tight">Menu</span>
+        <span class="active-dot-indicator"></span>
       </button>
     </nav>
 
