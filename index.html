@@ -3668,6 +3668,42 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
 
   </style>
+  <style>
+
+    /* ========================================================================== */
+    /* 🖥️ DESKTOP COLLAPSIBLE SIDEBAR & EXPANDED CANVAS SYSTEM                    */
+    /* ========================================================================== */
+    #app-sidebar {
+      transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), 
+                  transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), 
+                  opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                  margin-left 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    @media (min-width: 1024px) {
+      body.desktop-sidebar-collapsed #app-sidebar {
+        width: 0 !important;
+        min-width: 0 !important;
+        max-width: 0 !important;
+        margin-left: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        border-right: none !important;
+        transform: translate3d(-100%, 0, 0) !important;
+      }
+
+      body.desktop-sidebar-collapsed #btn-header-hamburger {
+        display: flex !important;
+      }
+
+      body.desktop-sidebar-collapsed #header-collapsed-brand {
+        display: flex !important;
+      }
+    }
+
+  </style>
 </head>
 <body class="flex h-screen overflow-hidden text-sm bg-ios-bg select-none">
 
@@ -3687,21 +3723,27 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     <!-- Top Brand & Menu Section -->
     <div class="flex flex-col flex-1 overflow-y-auto z-10">
       
-      <!-- Futuristic Brand Header -->
-      <div class="h-20 flex items-center px-6 gap-3.5 border-b border-white/5">
-        <div class="w-10 h-10 rounded-2xl overflow-hidden brand-glow shrink-0 shadow-md shadow-emerald-500/25 border border-emerald-400/30">
-          <img src="assets/logo.png" alt="SelaiSathi Logo" class="w-full h-full object-cover rounded-2xl">
+      <!-- Futuristic Brand Header (Click to collapse on Desktop) -->
+      <div onclick="handleSidebarBrandClick()" class="h-20 flex items-center justify-between px-5 border-b border-white/5 cursor-pointer group hover:bg-white/[0.04] transition-colors select-none" title="Click to collapse sidebar (সাইডবার বন্ধ করুন)">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl overflow-hidden brand-glow shrink-0 shadow-md shadow-emerald-500/25 border border-emerald-400/30 group-hover:scale-105 transition-transform">
+            <img src="assets/logo.png" alt="SelaiSathi Logo" class="w-full h-full object-cover rounded-2xl">
+          </div>
+          <div>
+            <div class="flex items-center">
+              <span class="font-extrabold text-[17px] tracking-tight leading-none">
+                <span class="brand-selai">Selai</span><span class="brand-sathi">Sathi</span>
+              </span>
+            </div>
+            <div class="text-[11px] text-emerald-400/90 font-medium tracking-wide flex items-center gap-1 mt-0.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              সেলাই সাথী • OS
+            </div>
+          </div>
         </div>
-        <div>
-          <div class="flex items-center">
-            <span class="font-extrabold text-[17px] tracking-tight leading-none select-none">
-              <span class="brand-selai">Selai</span><span class="brand-sathi">Sathi</span>
-            </span>
-          </div>
-          <div class="text-[11px] text-emerald-400/90 font-medium tracking-wide flex items-center gap-1 mt-0.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            সেলাই সাথী • OS
-          </div>
+        <!-- Desktop Collapse Chevron Icon -->
+        <div class="hidden lg:flex items-center justify-center w-8 h-8 rounded-xl bg-white/5 group-hover:bg-cyan-500/20 text-gray-400 group-hover:text-cyan-300 transition-all border border-white/5 group-hover:border-cyan-400/30 shadow-xs" title="Collapse Sidebar (সাইডবার বন্ধ করুন)">
+          <svg class="w-4 h-4 transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path></svg>
         </div>
       </div>
       <!-- Navigation: workflow-first tailoring workspace -->
@@ -3788,7 +3830,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <!-- LEFT: Hamburger Menu [☰] + Search Icon [🔍] -->
       <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
         <!-- Hamburger (mobile/tablet only) -->
-        <button onclick="toggleMobileSidebar()" class="lg:hidden p-2 rounded-xl border border-ios-border bg-white/5 hover:bg-white/15 text-ios-text active:scale-95 transition-all flex items-center justify-center shrink-0" aria-label="Open Navigation Menu">
+        <button onclick="handleHeaderMenuClick()" id="btn-header-hamburger" class="lg:hidden p-2 rounded-xl border border-ios-border bg-white/5 hover:bg-white/15 text-ios-text active:scale-95 transition-all flex items-center justify-center shrink-0 cursor-pointer" aria-label="Toggle Navigation Menu" title="Navigation Menu (মেনু)">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
         </button>
 
@@ -15280,6 +15322,38 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     updateCustomerViewToggleUI();
     updateStaffViewToggleUI();
     initMeasurementsRegistry();
+  
+    // Desktop Collapsible Sidebar Handlers
+    function toggleDesktopSidebar() {
+      const isCollapsed = document.body.classList.toggle('desktop-sidebar-collapsed');
+      localStorage.setItem('selaisathi_desktop_sidebar_collapsed', isCollapsed ? 'true' : 'false');
+    }
+
+    function handleSidebarBrandClick() {
+      if (window.innerWidth >= 1024) {
+        toggleDesktopSidebar();
+      } else {
+        closeMobileSidebar();
+      }
+    }
+
+    function handleHeaderMenuClick() {
+      if (window.innerWidth >= 1024) {
+        toggleDesktopSidebar();
+      } else {
+        toggleMobileSidebar();
+      }
+    }
+
+    // Restore desktop sidebar collapsed state on page load
+    (function initDesktopSidebarState() {
+      try {
+        if (window.innerWidth >= 1024 && localStorage.getItem('selaisathi_desktop_sidebar_collapsed') === 'true') {
+          document.body.classList.add('desktop-sidebar-collapsed');
+        }
+      } catch(e) {}
+    })();
+
   </script>
 </body>
 </html>
