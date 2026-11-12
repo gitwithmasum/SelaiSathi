@@ -1,71 +1,4 @@
-<!DOCTYPE html
-
-  <!-- ======================================================== -->
-  <!-- 🧮 TAILOR FABRIC & MEASUREMENT CONVERTER MODAL          -->
-  <!-- ======================================================== -->
-  <div id="modal-fabric-calc" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bento-card max-w-md w-full p-5 space-y-4 shadow-2xl border border-cyan-500/30">
-      <div class="flex items-center justify-between border-b border-white/10 pb-3">
-        <div class="flex items-center gap-2">
-          <span class="text-2xl">🧮</span>
-          <div>
-            <h3 class="font-bold text-sm text-white">দরজি গজ-ইঞ্চি ও খরচ ক্যালকুলেটর</h3>
-            <p class="text-[10px] text-gray-400">Goj, Gira, Inch, Meter & Fabric Price Calc</p>
-          </div>
-        </div>
-        <button onclick="toggleFabricCalcModal()" class="text-gray-400 hover:text-white text-lg p-1">✕</button>
-      </div>
-
-      <!-- Quick Converter Controls -->
-      <div class="grid grid-cols-2 gap-3 text-xs">
-        <div>
-          <label class="text-[10px] text-gray-400 font-bold block mb-1">গজ (Goj / Yard)</label>
-          <input type="number" id="calc-input-goj" step="0.25" placeholder="e.g. 2.5" oninput="calcConvert('goj')" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono" />
-        </div>
-        <div>
-          <label class="text-[10px] text-gray-400 font-bold block mb-1">গিরা (Gira - 16 Gira = 1 Goj)</label>
-          <input type="number" id="calc-input-gira" step="1" placeholder="e.g. 8" oninput="calcConvert('gira')" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono" />
-        </div>
-        <div>
-          <label class="text-[10px] text-gray-400 font-bold block mb-1">ইঞ্চি (Inches)</label>
-          <input type="number" id="calc-input-inch" step="0.5" placeholder="e.g. 90" oninput="calcConvert('inch')" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono" />
-        </div>
-        <div>
-          <label class="text-[10px] text-gray-400 font-bold block mb-1">মিটার (Meters)</label>
-          <input type="number" id="calc-input-meter" step="0.1" placeholder="e.g. 2.28" oninput="calcConvert('meter')" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono" />
-        </div>
-      </div>
-
-      <!-- Price Estimate -->
-      <div class="bg-cyan-500/10 border border-cyan-500/20 rounded-xl p-3 text-xs space-y-2">
-        <div class="flex items-center justify-between">
-          <span class="text-cyan-300 font-bold">কাপড়ের দর (প্রতি গজ ৳):</span>
-          <input type="number" id="calc-rate-per-goj" value="350" oninput="calcPrice()" class="w-24 bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-right font-mono text-white text-xs" />
-        </div>
-        <div class="flex items-center justify-between">
-          <span class="text-cyan-300 font-bold">বানানোর মজুরি (Making ৳):</span>
-          <input type="number" id="calc-making-charge" value="450" oninput="calcPrice()" class="w-24 bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-right font-mono text-white text-xs" />
-        </div>
-        <div class="border-t border-cyan-500/20 pt-2 flex items-center justify-between font-bold">
-          <span class="text-white">মোট আনুমানিক খরচ:</span>
-          <span id="calc-total-result" class="text-base text-emerald-400 font-mono font-black">৳1325</span>
-        </div>
-      </div>
-
-      <div class="text-[10px] text-gray-500 flex justify-between">
-        <span>১ গজ = ১৬ গিরা = ৩৬ ইঞ্চি</span>
-        <span>১ মিটার ≈ ৩৯.৩৭ ইঞ্চি</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ======================================================== -->
-  <!-- 🖨️ PRINT-READY OFFICIAL MONTHLY A4 AUDIT CONTAINER       -->
-  <!-- ======================================================== -->
-  <div id="print-report-container" class="hidden">
-    <!-- Populated dynamically right before window.print() -->
-  </div>
->
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -16040,5 +15973,72 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     setTimeout(updateNotifCenter, 500);
 
   </script>
+
+
+  <!-- ======================================================== -->
+  <!-- 🧮 TAILOR FABRIC & MEASUREMENT CONVERTER MODAL          -->
+  <!-- ======================================================== -->
+  <div id="modal-fabric-calc" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bento-card max-w-md w-full p-5 space-y-4 shadow-2xl border border-cyan-500/30">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">🧮</span>
+          <div>
+            <h3 class="font-bold text-sm text-white">দরজি গজ-ইঞ্চি ও খরচ ক্যালকুলেটর</h3>
+            <p class="text-[10px] text-gray-400">Goj, Gira, Inch, Meter & Fabric Price Calc</p>
+          </div>
+        </div>
+        <button onclick="toggleFabricCalcModal()" class="text-gray-400 hover:text-white text-lg p-1">✕</button>
+      </div>
+
+      <!-- Quick Converter Controls -->
+      <div class="grid grid-cols-2 gap-3 text-xs">
+        <div>
+          <label class="text-[10px] text-gray-400 font-bold block mb-1">গজ (Goj / Yard)</label>
+          <input type="number" id="calc-input-goj" step="0.25" placeholder="e.g. 2.5" oninput="calcConvert('goj')" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono" />
+        </div>
+        <div>
+          <label class="text-[10px] text-gray-400 font-bold block mb-1">গিরা (Gira - 16 Gira = 1 Goj)</label>
+          <input type="number" id="calc-input-gira" step="1" placeholder="e.g. 8" oninput="calcConvert('gira')" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono" />
+        </div>
+        <div>
+          <label class="text-[10px] text-gray-400 font-bold block mb-1">ইঞ্চি (Inches)</label>
+          <input type="number" id="calc-input-inch" step="0.5" placeholder="e.g. 90" oninput="calcConvert('inch')" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono" />
+        </div>
+        <div>
+          <label class="text-[10px] text-gray-400 font-bold block mb-1">মিটার (Meters)</label>
+          <input type="number" id="calc-input-meter" step="0.1" placeholder="e.g. 2.28" oninput="calcConvert('meter')" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono" />
+        </div>
+      </div>
+
+      <!-- Price Estimate -->
+      <div class="bg-cyan-500/10 border border-cyan-500/20 rounded-xl p-3 text-xs space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-cyan-300 font-bold">কাপড়ের দর (প্রতি গজ ৳):</span>
+          <input type="number" id="calc-rate-per-goj" value="350" oninput="calcPrice()" class="w-24 bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-right font-mono text-white text-xs" />
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-cyan-300 font-bold">বানানোর মজুরি (Making ৳):</span>
+          <input type="number" id="calc-making-charge" value="450" oninput="calcPrice()" class="w-24 bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-right font-mono text-white text-xs" />
+        </div>
+        <div class="border-t border-cyan-500/20 pt-2 flex items-center justify-between font-bold">
+          <span class="text-white">মোট আনুমানিক খরচ:</span>
+          <span id="calc-total-result" class="text-base text-emerald-400 font-mono font-black">৳1325</span>
+        </div>
+      </div>
+
+      <div class="text-[10px] text-gray-500 flex justify-between">
+        <span>১ গজ = ১৬ গিরা = ৩৬ ইঞ্চি</span>
+        <span>১ মিটার ≈ ৩৯.৩৭ ইঞ্চি</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 🖨️ PRINT-READY OFFICIAL MONTHLY A4 AUDIT CONTAINER       -->
+  <!-- ======================================================== -->
+  <div id="print-report-container" class="hidden">
+    <!-- Populated dynamically right before window.print() -->
+  </div>
 </body>
 </html>
