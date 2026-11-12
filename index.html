@@ -5429,209 +5429,682 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     <!-- ==================================================== -->
     <!-- VIEW: SHOP SETTINGS & BRANDING CONTROL HUB           -->
     <!-- ==================================================== -->
+    <!-- ==================================================== -->
+    <!-- VIEW: CYBER SHOP SETTINGS // SYSTEM CONTROL DECK    -->
+    <!-- ==================================================== -->
     <section id="view-settings" class="app-view hidden space-y-6">
       
-      <!-- Header Strip -->
-      <div class="staff-page-header flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded-lg bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">SHOP ADMIN & CONTROL</span>
-            <span class="text-xs text-ios-subtext">Enterprise Branding & Tailor Config</span>
+      <!-- Futuristic Cyber Command Header Strip -->
+      <div class="relative overflow-hidden rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-cyan-500/20 shadow-[0_0_30px_rgba(6,182,212,0.12)]">
+        <!-- Background Ambient Neon Glow -->
+        <div class="absolute -top-24 -right-24 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -left-24 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        
+        <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div>
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-black uppercase tracking-wider bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 shadow-[0_0_12px_rgba(6,182,212,0.25)]">
+                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                <span>CYBER COMMAND DECK // V2.0</span>
+              </span>
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> QUANTUM ENGINE ONLINE
+              </span>
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono text-purple-400 bg-purple-500/10 border border-purple-500/20">
+                🛡️ AES-256 VAULT ACTIVE
+              </span>
+            </div>
+            <h1 class="text-2xl sm:text-4xl font-black text-white tracking-tight flex items-center gap-3">
+              <span>Shop Settings & Brand Control</span>
+              <span class="text-xs px-2.5 py-1 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 font-mono font-bold tracking-normal hidden sm:inline-block">CENTRAL HUD</span>
+            </h1>
+            <p class="text-xs sm:text-sm text-gray-400 mt-1 max-w-2xl leading-relaxed">
+              Configure enterprise store identity, custom branded receipts, POS thermal paper profiles, automated WhatsApp matrix, and real-time tailoring profit margins.
+            </p>
           </div>
-          <h1 class="text-3xl font-black text-ios-text tracking-tight mt-1">Shop Settings & Configuration</h1>
-          <p class="text-xs text-ios-subtext mt-1">Manage shop profile, branding, custom receipt header, POS thermal sizes, garment making charges, and automated messaging templates.</p>
+
+          <!-- Quick Action Save Button -->
+          <div class="flex items-center gap-3">
+            <button onclick="saveShopSettingsUI()" class="w-full sm:w-auto px-6 py-3 rounded-2xl font-black text-xs sm:text-sm bg-gradient-to-r from-cyan-400 via-teal-400 to-emerald-400 text-slate-950 shadow-[0_0_25px_rgba(6,182,212,0.4)] hover:shadow-[0_0_35px_rgba(6,182,212,0.6)] hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2 group cursor-pointer">
+              <span class="text-base group-hover:rotate-12 transition-transform">💾</span>
+              <span>Save All Settings (সংরক্ষণ করুন)</span>
+              <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-black/20 text-black/90 font-bold">CTRL+S</span>
+            </button>
+          </div>
         </div>
 
-        <div class="flex items-center gap-2">
-          <button onclick="saveShopSettingsUI()" class="px-5 py-2.5 rounded-xl font-bold text-xs bg-gradient-to-r from-emerald-500 to-teal-600 hover:brightness-110 text-white shadow-lg shadow-emerald-500/25 active:scale-95 transition-all flex items-center gap-2">
-            <span>💾</span> <span>Save Settings (সংরক্ষণ করুন)</span>
-          </button>
+        <!-- Futuristic Live Telemetry Diagnostics Bar -->
+        <div class="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-3 mt-6 pt-5 border-t border-white/10 text-xs">
+          <div class="p-3 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-md">
+            <div class="text-[10px] uppercase font-mono tracking-wider text-gray-400 flex items-center gap-1.5">
+              <span>🏪</span> Active Brand Identity
+            </div>
+            <div id="telemetry-brand-name" class="font-bold text-white text-sm truncate mt-0.5 text-cyan-300 font-mono">SELAISATHI TAILORS</div>
+          </div>
+          <div class="p-3 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-md">
+            <div class="text-[10px] uppercase font-mono tracking-wider text-gray-400 flex items-center gap-1.5">
+              <span>🧾</span> POS Thermal Engine
+            </div>
+            <div id="telemetry-printer-type" class="font-bold text-white text-sm truncate mt-0.5 font-mono">58mm Thermal Slip</div>
+          </div>
+          <div class="p-3 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-md">
+            <div class="text-[10px] uppercase font-mono tracking-wider text-gray-400 flex items-center gap-1.5">
+              <span>✂️</span> Garment Catalog Specs
+            </div>
+            <div id="telemetry-garment-count" class="font-bold text-emerald-400 text-sm truncate mt-0.5 font-mono">5 Active Models</div>
+          </div>
+          <div class="p-3 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-md">
+            <div class="text-[10px] uppercase font-mono tracking-wider text-gray-400 flex items-center gap-1.5">
+              <span>☁️</span> Local Data Vault
+            </div>
+            <div id="telemetry-vault-status" class="font-bold text-purple-300 text-sm truncate mt-0.5 font-mono">100% Synced & Secure</div>
+          </div>
         </div>
       </div>
 
-      <!-- Settings Navigation Tabs -->
-      <div class="flex flex-wrap items-center gap-2 border-b border-white/10 pb-3" id="settings-tabs-container">
-        <button onclick="switchSettingsTab('profile')" id="stab-btn-profile" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">🏪 Shop Profile & Branding</button>
-        <button onclick="switchSettingsTab('invoice')" id="stab-btn-invoice" class="px-4 py-2 rounded-xl text-xs font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent">🧾 POS & Receipt Setup</button>
-        <button onclick="switchSettingsTab('catalog')" id="stab-btn-catalog" class="px-4 py-2 rounded-xl text-xs font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent">✂️ Garments & Rates</button>
-        <button onclick="switchSettingsTab('templates')" id="stab-btn-templates" class="px-4 py-2 rounded-xl text-xs font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent">📲 WhatsApp / SMS Templates</button>
-        <button onclick="switchSettingsTab('backup')" id="stab-btn-backup" class="px-4 py-2 rounded-xl text-xs font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent">💾 Data Backup & Restore</button>
+      <!-- Futuristic Holographic Navigation Matrix (Tabs) -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none" id="settings-tabs-container">
+        <button onclick="switchSettingsTab('profile')" id="stab-btn-profile" class="px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-[0_0_15px_rgba(6,182,212,0.2)] flex items-center gap-2 whitespace-nowrap active:scale-95">
+          <span>// 01</span> <span>🏪 Brand & Identity Deck</span>
+        </button>
+        <button onclick="switchSettingsTab('invoice')" id="stab-btn-invoice" class="px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-2 whitespace-nowrap active:scale-95">
+          <span>// 02</span> <span>🧾 POS & Thermal Hardware</span>
+        </button>
+        <button onclick="switchSettingsTab('catalog')" id="stab-btn-catalog" class="px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-2 whitespace-nowrap active:scale-95">
+          <span>// 03</span> <span>✂️ Garments & Profit Margin</span>
+        </button>
+        <button onclick="switchSettingsTab('templates')" id="stab-btn-templates" class="px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-2 whitespace-nowrap active:scale-95">
+          <span>// 04</span> <span>📲 Neural Dispatch (WhatsApp)</span>
+        </button>
+        <button onclick="switchSettingsTab('backup')" id="stab-btn-backup" class="px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-2 whitespace-nowrap active:scale-95">
+          <span>// 05</span> <span>💾 Encrypted Vault (Backup)</span>
+        </button>
       </div>
 
-      <!-- TAB 1: SHOP PROFILE & BRANDING -->
+      <!-- ==================================================== -->
+      <!-- TAB 1: BRAND IDENTITY & INTERACTIVE HUD SIMULATOR   -->
+      <!-- ==================================================== -->
       <div id="stab-content-profile" class="settings-tab-panel space-y-6">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div class="lg:col-span-2 bento-card p-6 space-y-4">
-            <h2 class="text-base font-bold text-white flex items-center gap-2"><span>🏪</span> Shop Information & Header Identity</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          
+          <!-- Left: Futuristic Inputs (7 cols) -->
+          <div class="lg:col-span-7 bento-card p-6 sm:p-7 space-y-5 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl shadow-xl">
+            <div class="flex items-center justify-between border-b border-white/10 pb-4">
+              <div class="flex items-center gap-2.5">
+                <span class="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-sm border border-cyan-500/30">01</span>
+                <div>
+                  <h2 class="text-base font-bold text-white tracking-wide">Enterprise Profile & Branding Matrix</h2>
+                  <p class="text-xs text-gray-400">Configure global brand identity, custom receipts and export titles</p>
+                </div>
+              </div>
+              <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">LIVE SYNAPSE</span>
+            </div>
+
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="text-xs font-bold text-gray-300 block mb-1.5">Shop / Brand Name (দোকানের নাম) *</label>
-                <input type="text" id="set-shop-name" class="w-full bg-slate-900/80 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-white font-bold text-sm focus:border-cyan-400 outline-none" placeholder="e.g.皇家 Royale Bespoke Tailors" />
-              </div>
-              <div>
-                <label class="text-xs font-bold text-gray-300 block mb-1.5">Branch / Outlet (শাখা)</label>
-                <input type="text" id="set-shop-branch" class="w-full bg-slate-900/80 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-white text-sm focus:border-cyan-400 outline-none" placeholder="e.g. New Market Branch" />
-              </div>
-              <div>
-                <label class="text-xs font-bold text-gray-300 block mb-1.5">Primary Phone (মোবাইল নম্বর) *</label>
-                <input type="text" id="set-shop-phone" class="w-full bg-slate-900/80 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-white font-mono text-sm focus:border-cyan-400 outline-none" placeholder="01700-112233" />
-              </div>
-              <div>
-                <label class="text-xs font-bold text-gray-300 block mb-1.5">Alternative Phone / Email</label>
-                <input type="text" id="set-shop-email" class="w-full bg-slate-900/80 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-white text-sm focus:border-cyan-400 outline-none" placeholder="info@yourshop.com" />
-              </div>
               <div class="sm:col-span-2">
-                <label class="text-xs font-bold text-gray-300 block mb-1.5">Shop Physical Address (পূর্ণ ঠিকানা) *</label>
-                <input type="text" id="set-shop-address" class="w-full bg-slate-900/80 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-white text-sm focus:border-cyan-400 outline-none" placeholder="Shop 12, Level 2, New Market, Dhaka" />
+                <label class="text-xs font-bold text-gray-300 flex items-center justify-between mb-1.5">
+                  <span class="flex items-center gap-1.5"><span>🏪</span> Shop / Brand Name (দোকানের নাম) <span class="text-rose-400">*</span></span>
+                  <span class="font-mono text-[10px] text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded">[PRIMARY IDENTITY]</span>
+                </label>
+                <div class="relative">
+                  <input type="text" id="set-shop-name" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-2xl px-4 py-3 text-white font-black text-sm focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.25)] outline-none transition-all" placeholder="e.g. Royale Bespoke Tailors" />
+                  <span class="absolute right-3.5 top-3.5 text-xs text-cyan-400/60 pointer-events-none">✨</span>
+                </div>
               </div>
+
+              <div>
+                <label class="text-xs font-bold text-gray-300 flex items-center justify-between mb-1.5">
+                  <span>Branch / Outlet (শাখা)</span>
+                  <span class="font-mono text-[10px] text-gray-400">[OUTLET]</span>
+                </label>
+                <input type="text" id="set-shop-branch" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-2xl px-4 py-2.5 text-white text-xs focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.25)] outline-none transition-all" placeholder="e.g. New Market Branch" />
+              </div>
+
+              <div>
+                <label class="text-xs font-bold text-gray-300 flex items-center justify-between mb-1.5">
+                  <span class="flex items-center gap-1">Primary Phone (মোবাইল নম্বর) <span class="text-rose-400">*</span></span>
+                  <span class="font-mono text-[10px] text-gray-400">[COMM]</span>
+                </label>
+                <input type="text" id="set-shop-phone" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-2xl px-4 py-2.5 text-white font-mono text-xs focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.25)] outline-none transition-all" placeholder="01700-112233" />
+              </div>
+
+              <div>
+                <label class="text-xs font-bold text-gray-300 flex items-center justify-between mb-1.5">
+                  <span>Support Email</span>
+                  <span class="font-mono text-[10px] text-gray-400">[NET]</span>
+                </label>
+                <input type="text" id="set-shop-email" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-2xl px-4 py-2.5 text-white text-xs focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.25)] outline-none transition-all" placeholder="info@yourbrand.com" />
+              </div>
+
+              <div>
+                <label class="text-xs font-bold text-gray-300 flex items-center justify-between mb-1.5">
+                  <span>Website / Tracking URL</span>
+                  <span class="font-mono text-[10px] text-gray-400">[WEB]</span>
+                </label>
+                <input type="text" id="set-shop-web" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-2xl px-4 py-2.5 text-white text-xs focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.25)] outline-none transition-all" placeholder="selaisathi.com/track" />
+              </div>
+
               <div class="sm:col-span-2">
-                <label class="text-xs font-bold text-gray-300 block mb-1.5">Tagline / Slogan (স্লোগান / মটো)</label>
-                <input type="text" id="set-shop-tagline" class="w-full bg-slate-900/80 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-white text-sm focus:border-cyan-400 outline-none" placeholder="বিশ্বাস ও আধুনিক ফ্যাশনের মেলবন্ধন" />
+                <label class="text-xs font-bold text-gray-300 flex items-center justify-between mb-1.5">
+                  <span class="flex items-center gap-1">Physical Address (পূর্ণ ঠিকানা) <span class="text-rose-400">*</span></span>
+                  <span class="font-mono text-[10px] text-gray-400">[GEO]</span>
+                </label>
+                <input type="text" id="set-shop-address" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-2xl px-4 py-2.5 text-white text-xs focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.25)] outline-none transition-all" placeholder="Shop 12, Level 2, New Market, Dhaka" />
+              </div>
+
+              <div class="sm:col-span-2">
+                <label class="text-xs font-bold text-gray-300 flex items-center justify-between mb-1.5">
+                  <span>Brand Tagline / Slogan (স্লোগান)</span>
+                  <span class="font-mono text-[10px] text-gray-400">[MOTTO]</span>
+                </label>
+                <input type="text" id="set-shop-tagline" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-2xl px-4 py-2.5 text-white text-xs focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.25)] outline-none transition-all" placeholder="বিশ্বাস ও আধুনিক ফ্যাশনের মেলবন্ধন" />
+              </div>
+            </div>
+
+            <!-- Dynamic Branding Guarantee Banner -->
+            <div class="p-4 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-slate-900/60 to-emerald-950/40 border border-cyan-500/20 text-xs text-cyan-200/90 flex items-start gap-3">
+              <span class="text-lg">⚡</span>
+              <div class="space-y-0.5">
+                <strong class="text-white block font-mono text-[11px] tracking-wide uppercase">AUTONOMOUS BRAND PROPAGATION:</strong>
+                <p class="text-[11px] text-gray-300">
+                  এখানে যে দোকানের নাম ও ঠিকানা দেবেন, ক্যাশ মেমো, মানি রিসিট, কারিগর মজুরি শিট, কাটিং স্লিপ, Excel রিপোর্ট এবং PDF অডিট শিটে <span class="text-cyan-400 font-bold">SelaiSathi</span>-র পরিবর্তে আপনার ব্র্যান্ড স্বয়ংক্রিয়ভাবে উপস্থাপিত হবে।
+                </p>
               </div>
             </div>
           </div>
 
-          <!-- Live Memo Header Preview Card -->
-          <div class="bento-card p-6 flex flex-col justify-between space-y-4">
-            <div>
-              <h3 class="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider mb-2">Live Receipt Header Preview</h3>
-              <div class="p-4 rounded-xl bg-white text-slate-900 font-mono text-xs border border-dashed border-slate-400 shadow-md space-y-1 text-center">
-                <div id="preview-memo-title" class="font-black text-sm uppercase">SELAISATHI TAILORS</div>
-                <div id="preview-memo-tagline" class="text-[10px] text-gray-600 italic">বিশ্বাস ও আধুনিক ফ্যাশনের মেলবন্ধন</div>
-                <div id="preview-memo-address" class="text-[10px]">Shop 12, New Market, Dhaka</div>
-                <div id="preview-memo-phone" class="text-[10px]">Phone: 01700-112233</div>
-                <div class="border-t border-dashed border-gray-400 pt-1 text-[9px] text-gray-500 font-sans">All receipts, PDF and Excel exports will reflect this brand name!</div>
+          <!-- Right: Interactive Cyber Thermal Terminal Simulator (5 cols) -->
+          <div class="lg:col-span-5 space-y-4">
+            <!-- Terminal Hardware Casing -->
+            <div class="bento-card p-5 rounded-3xl bg-gradient-to-b from-slate-900 to-slate-950 border border-cyan-500/30 shadow-[0_0_30px_rgba(6,182,212,0.15)] relative overflow-hidden">
+              
+              <!-- Hardware LEDs & Header -->
+              <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-4">
+                <div class="flex items-center gap-2">
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(6,182,212,0.8)]"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400/80"></span>
+                  </div>
+                  <span class="text-[11px] font-mono font-bold text-gray-300 tracking-wider">HUD THERMAL SIMULATOR</span>
+                </div>
+                <div class="flex items-center gap-1 text-[10px] font-mono text-cyan-300 bg-cyan-500/10 px-2 py-0.5 rounded-md border border-cyan-500/20">
+                  <span>REALTIME SYNC</span>
+                </div>
+              </div>
+
+              <!-- Paper Format Switcher -->
+              <div class="flex items-center justify-center gap-1.5 p-1 rounded-xl bg-slate-950/80 border border-white/10 mb-4 text-[10px] font-mono font-bold">
+                <button type="button" onclick="setSimPaperMode('58mm')" id="sim-btn-58mm" class="flex-1 py-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-center transition-all">58mm POS</button>
+                <button type="button" onclick="setSimPaperMode('80mm')" id="sim-btn-80mm" class="flex-1 py-1.5 rounded-lg text-gray-400 hover:text-white text-center transition-all">80mm POS</button>
+                <button type="button" onclick="setSimPaperMode('a4')" id="sim-btn-a4" class="flex-1 py-1.5 rounded-lg text-gray-400 hover:text-white text-center transition-all">A4 Laser</button>
+              </div>
+
+              <!-- The Simulated Thermal Slip Body -->
+              <div class="flex justify-center">
+                <div id="simulated-thermal-slip" class="w-full max-w-[290px] transition-all duration-300 bg-[#f8fafc] text-slate-950 font-mono text-xs p-4 rounded-xl shadow-2xl border-t-4 border-cyan-400 relative space-y-2.5">
+                  
+                  <!-- Top Thermal Header -->
+                  <div class="text-center pb-2.5 border-b border-dashed border-slate-400 space-y-0.5">
+                    <div id="preview-memo-title" class="font-black text-sm tracking-wider uppercase text-slate-950">SELAISATHI TAILORS</div>
+                    <div id="preview-memo-tagline" class="text-[9px] text-slate-600 italic">বিশ্বাস ও আধুনিক ফ্যাশনের মেলবন্ধন</div>
+                    <div id="preview-memo-address" class="text-[9px] text-slate-700">Shop 12, New Market, Dhaka</div>
+                    <div id="preview-memo-phone" class="text-[9px] text-slate-700 font-bold">Phone: 01700-112233</div>
+                    <div class="pt-1">
+                      <span class="inline-block bg-slate-900 text-white text-[9px] px-2 py-0.5 font-bold uppercase rounded">CASH MEMO // অরিজিনাল চালান</span>
+                    </div>
+                  </div>
+
+                  <!-- Order Meta Info -->
+                  <div class="flex justify-between items-center text-[10px] pb-1.5 border-b border-dashed border-slate-300">
+                    <div>ORDER: <strong class="font-bold text-slate-900">#ORD-2610-0089</strong></div>
+                    <div class="font-bold bg-slate-200 px-1.5 py-0.5 rounded text-[9px]">TAG-1044</div>
+                  </div>
+
+                  <!-- Customer Info -->
+                  <div class="text-[10px] space-y-0.5 text-slate-800">
+                    <div>Client: <strong class="text-slate-950">Mr. Shahadat Hossain</strong></div>
+                    <div>Phone: <span>01591-463333</span></div>
+                    <div>Delivery: <strong class="text-slate-950">19/11/2026</strong></div>
+                  </div>
+
+                  <!-- Items Table -->
+                  <div class="border-t border-b border-dashed border-slate-400 py-1.5 text-[10px] space-y-1">
+                    <div class="flex justify-between">
+                      <span>Premium Panjabi (1x)</span>
+                      <strong class="font-mono">৳550</strong>
+                    </div>
+                    <div class="flex justify-between text-slate-600 text-[9px]">
+                      <span>Stitching & Collar Design</span>
+                      <span>Included</span>
+                    </div>
+                  </div>
+
+                  <!-- Financials -->
+                  <div class="space-y-1 text-[10px] pt-1">
+                    <div class="flex justify-between text-slate-700">
+                      <span>Subtotal:</span>
+                      <span class="font-mono font-bold">৳550</span>
+                    </div>
+                    <div class="flex justify-between text-emerald-800 font-bold">
+                      <span>Advance Paid:</span>
+                      <span class="font-mono">৳300</span>
+                    </div>
+                    <div class="flex justify-between text-rose-700 font-black text-[11px] pt-1 border-t border-dashed border-slate-400">
+                      <span>DUE BALANCE:</span>
+                      <span class="font-mono">৳250</span>
+                    </div>
+                  </div>
+
+                  <!-- Simulated Barcode & Hologram QR -->
+                  <div class="pt-2 border-t border-dashed border-slate-300 flex items-center justify-between">
+                    <div class="text-[8px] text-slate-500 font-mono">
+                      <div>|||||| |||| |||||||| |||</div>
+                      <div>ORD-2610-0089</div>
+                    </div>
+                    <div class="w-8 h-8 bg-slate-900 text-white flex items-center justify-center text-[7px] font-mono rounded">
+                      [QR]
+                    </div>
+                  </div>
+
+                  <!-- Receipt Footer -->
+                  <div class="text-center pt-2 text-[8px] text-slate-500 border-t border-dashed border-slate-300 space-y-0.5">
+                    <div id="sim-footer-terms">১. ডেলিভারির সময় মেমো সঙ্গে আনবেন।</div>
+                    <div class="font-sans text-[7px] text-slate-400">Thank you for tailoring with us!</div>
+                  </div>
+
+                  <!-- Jagged Tear-off Edge -->
+                  <div class="absolute -bottom-2 left-0 right-0 h-2 bg-repeat-x" style="background-image: radial-gradient(circle, transparent, transparent 50%, #f8fafc 50%, #f8fafc 100%); background-size: 8px 8px;"></div>
+                </div>
+              </div>
+
+              <div class="mt-4 text-center">
+                <span class="text-[10px] font-mono text-gray-400">⚡ LIVE HARDWARE EMULATION ENGINE</span>
               </div>
             </div>
-            <div class="text-[11px] text-gray-400 bg-cyan-500/10 border border-cyan-500/20 rounded-xl p-3">
-              💡 <strong>স্বয়ংক্রিয় ব্র্যান্ডিং:</strong> এখানে যে নাম ও ঠিকানা দেবেন, ক্যাশ মেমো, মানি রিসিট, কাটিং স্লিপ, এক্সেল এবং PDF সব জায়গায় SelaiSathi-র পরিবর্তে আপনার দেওয়া এই দোকানের নামটি প্রদর্শিত হবে।
-            </div>
           </div>
+
         </div>
       </div>
 
-      <!-- TAB 2: POS & RECEIPT SETUP -->
+      <!-- ==================================================== -->
+      <!-- TAB 2: POS HARDWARE & THERMAL PRINTER MATRIX        -->
+      <!-- ==================================================== -->
       <div id="stab-content-invoice" class="settings-tab-panel hidden space-y-6">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div class="bento-card p-6 space-y-4">
-            <h2 class="text-base font-bold text-white flex items-center gap-2"><span>🧾</span> Receipt & Thermal Printer Setup</h2>
-            <div>
-              <label class="text-xs font-bold text-gray-300 block mb-1.5">Default Printer Paper Type</label>
-              <select id="set-printer-type" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white text-xs">
-                <option value="58mm">POS Thermal 58mm (Small Slip Printer)</option>
-                <option value="80mm">POS Thermal 80mm (Wide Slip Printer)</option>
-                <option value="a4">Standard A4 / A5 Full Sheet Invoice</option>
-              </select>
+          
+          <!-- Thermal Profile Spec -->
+          <div class="bento-card p-6 sm:p-7 space-y-5 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl">
+            <div class="flex items-center gap-2.5 border-b border-white/10 pb-4">
+              <span class="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-sm border border-cyan-500/30">02</span>
+              <div>
+                <h2 class="text-base font-bold text-white tracking-wide">POS Hardware & Paper Profile</h2>
+                <p class="text-xs text-gray-400">Hardware paper sizing and automated lead time configuration</p>
+              </div>
             </div>
-            <div>
-              <label class="text-xs font-bold text-gray-300 block mb-1.5">Default Delivery Days from Order Date</label>
-              <input type="number" id="set-delivery-days" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2 text-white font-mono text-xs" value="7" />
-            </div>
-            <div>
-              <label class="text-xs font-bold text-gray-300 block mb-1.5">Invoice Terms & Conditions (শর্তাবলী)</label>
-              <textarea id="set-invoice-terms" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white text-xs leading-relaxed" placeholder="১. ডেলিভারির সময় মেমো সঙ্গে আনবেন।&#10;২. ৩০ দিন পর কাপড়ের কোনো দায় কর্তৃপক্ষ নেবে না।"></textarea>
+
+            <div class="space-y-4">
+              <div>
+                <label class="text-xs font-bold text-gray-300 block mb-2">Default Hardware Printer Paper Type</label>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <label class="relative p-3.5 rounded-2xl bg-slate-950/80 border border-slate-700/80 hover:border-cyan-400/80 cursor-pointer transition-all flex flex-col justify-between group">
+                    <input type="radio" name="printer_type_radio" value="58mm" onchange="syncPrinterTypeSelect('58mm')" class="absolute right-3 top-3 text-cyan-500" checked />
+                    <div>
+                      <span class="text-lg">🧾</span>
+                      <span class="block font-bold text-white text-xs mt-1">58mm POS</span>
+                      <span class="text-[10px] text-gray-400">Compact Slip</span>
+                    </div>
+                    <span class="text-[9px] font-mono text-cyan-400 mt-2">STANDARD</span>
+                  </label>
+
+                  <label class="relative p-3.5 rounded-2xl bg-slate-950/80 border border-slate-700/80 hover:border-cyan-400/80 cursor-pointer transition-all flex flex-col justify-between group">
+                    <input type="radio" name="printer_type_radio" value="80mm" onchange="syncPrinterTypeSelect('80mm')" class="absolute right-3 top-3 text-cyan-500" />
+                    <div>
+                      <span class="text-lg">📜</span>
+                      <span class="block font-bold text-white text-xs mt-1">80mm POS</span>
+                      <span class="text-[10px] text-gray-400">Wide Thermal</span>
+                    </div>
+                    <span class="text-[9px] font-mono text-emerald-400 mt-2">EXPANDED</span>
+                  </label>
+
+                  <label class="relative p-3.5 rounded-2xl bg-slate-950/80 border border-slate-700/80 hover:border-cyan-400/80 cursor-pointer transition-all flex flex-col justify-between group">
+                    <input type="radio" name="printer_type_radio" value="a4" onchange="syncPrinterTypeSelect('a4')" class="absolute right-3 top-3 text-cyan-500" />
+                    <div>
+                      <span class="text-lg">📄</span>
+                      <span class="block font-bold text-white text-xs mt-1">A4 / A5</span>
+                      <span class="text-[10px] text-gray-400">Full Sheet</span>
+                    </div>
+                    <span class="text-[9px] font-mono text-purple-400 mt-2">DESK LASER</span>
+                  </label>
+                </div>
+                <input type="hidden" id="set-printer-type" value="58mm" />
+              </div>
+
+              <div>
+                <label class="text-xs font-bold text-gray-300 block mb-1.5 flex items-center justify-between">
+                  <span>Default Delivery Lead Time (অর্ডার থেকে ডেলিভারির দিন)</span>
+                  <span class="font-mono text-cyan-400 text-[10px]">[AUTOPILOT]</span>
+                </label>
+                <div class="flex items-center gap-3">
+                  <input type="number" id="set-delivery-days" class="w-32 bg-slate-950 border border-slate-700 rounded-2xl px-4 py-2.5 text-white font-mono font-bold text-sm focus:border-cyan-400 outline-none" value="7" />
+                  <span class="text-xs text-gray-400">দিন পর স্বয়ংক্রিয় ডেলিভারি তারিখ নির্ধারণ হবে</span>
+                </div>
+              </div>
+
+              <div>
+                <label class="text-xs font-bold text-gray-300 block mb-1.5">Invoice Terms & Policy (শর্তাবলী)</label>
+                <textarea id="set-invoice-terms" rows="4" class="w-full bg-slate-950 border border-slate-700 rounded-2xl p-4 text-white text-xs leading-relaxed focus:border-cyan-400 outline-none" placeholder="১. ডেলিভারির সময় মেমো সঙ্গে আনবেন।&#10;২. ৩০ দিন পর কাপড়ের কোনো দায় কর্তৃপক্ষ নেবে না।"></textarea>
+              </div>
             </div>
           </div>
 
-          <div class="bento-card p-6 space-y-4">
-            <h2 class="text-base font-bold text-white flex items-center gap-2"><span>🏷️</span> Receipt Features & Badges</h2>
-            <div class="space-y-3 text-xs">
-              <label class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 cursor-pointer">
-                <input type="checkbox" id="set-show-qr" class="w-4 h-4 rounded text-cyan-500" checked />
-                <div>
-                  <span class="font-bold text-white block">Print QR / Barcode Tag on Slip</span>
-                  <span class="text-gray-400 text-[11px]">Allows quick scanning to open customer order in 1-click</span>
+          <!-- Thermal Security & Visual Badges -->
+          <div class="bento-card p-6 sm:p-7 space-y-5 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl">
+            <div class="flex items-center gap-2.5 border-b border-white/10 pb-4">
+              <span class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm border border-emerald-500/30">🏷️</span>
+              <div>
+                <h2 class="text-base font-bold text-white tracking-wide">Slip Elements & Security Badges</h2>
+                <p class="text-xs text-gray-400">Enable holographic barcodes, QR lookup and signature lines</p>
+              </div>
+            </div>
+
+            <div class="space-y-3.5">
+              <label class="flex items-center justify-between p-4 rounded-2xl bg-slate-950/70 border border-white/5 hover:border-cyan-500/30 cursor-pointer transition-all group">
+                <div class="space-y-0.5">
+                  <span class="font-bold text-white text-xs block group-hover:text-cyan-300 transition-colors">Print QR Quick-Scan Tag</span>
+                  <span class="text-gray-400 text-[11px] block">স্মার্টফোনে কিউআর কোড স্ক্যান করে কাস্টমার অর্ডারের স্ট্যাটাস ট্র্যাক করতে পারবে</span>
                 </div>
+                <input type="checkbox" id="set-show-qr" class="w-5 h-5 rounded-lg text-cyan-500 focus:ring-0 bg-slate-900 border-slate-700 cursor-pointer" checked />
               </label>
-              <label class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 cursor-pointer">
-                <input type="checkbox" id="set-show-watermark" class="w-4 h-4 rounded text-cyan-500" checked />
-                <div>
-                  <span class="font-bold text-white block">Watermark & Authorized Signature Block</span>
-                  <span class="text-gray-400 text-[11px]">Displays Manager / Tailor Master signature line</span>
+
+              <label class="flex items-center justify-between p-4 rounded-2xl bg-slate-950/70 border border-white/5 hover:border-cyan-500/30 cursor-pointer transition-all group">
+                <div class="space-y-0.5">
+                  <span class="font-bold text-white text-xs block group-hover:text-cyan-300 transition-colors">Authorized Signature Block</span>
+                  <span class="text-gray-400 text-[11px] block">ক্যাশ মেমো ও মানি রিসিটে ম্যানেজার/টেইলার মাস্টারের স্বাক্ষর লাইন দেখাবে</span>
                 </div>
+                <input type="checkbox" id="set-show-watermark" class="w-5 h-5 rounded-lg text-cyan-500 focus:ring-0 bg-slate-900 border-slate-700 cursor-pointer" checked />
               </label>
+
+              <div class="p-4 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-xs text-cyan-300 space-y-1">
+                <div class="font-bold flex items-center gap-1.5 text-white">
+                  <span>💡</span> <span>THERMAL FAST-PRINT HINT</span>
+                </div>
+                <p class="text-[11px] text-gray-300 leading-relaxed">
+                  SelaiSathi-র POS স্লিপগুলো সরাসরি ব্রাউজার প্রিন্টার উইন্ডো থেকে কোনো মার্জিন ছাড়াই প্রিন্ট করার জন্য অপ্টিমাইজ করা। প্রিন্ট উইন্ডোতে <strong>Margins: None</strong> সিলেক্ট করুন।
+                </p>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
 
-      <!-- TAB 3: GARMENTS & DEFAULT RATES -->
+      <!-- ==================================================== -->
+      <!-- TAB 3: GARMENTS & LIVE PROFIT MARGIN ENGINE         -->
+      <!-- ==================================================== -->
       <div id="stab-content-catalog" class="settings-tab-panel hidden space-y-6">
-        <div class="bento-card p-6 space-y-4">
-          <div class="flex items-center justify-between">
-            <div>
-              <h2 class="text-base font-bold text-white flex items-center gap-2"><span>✂️</span> Garments Catalog & Tailoring Charges</h2>
-              <p class="text-xs text-gray-400 mt-0.5">Pre-configure standard making and karigor sewing charges per garment</p>
+        <div class="bento-card p-6 sm:p-7 space-y-5 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl">
+          
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-sm border border-purple-500/30">03</span>
+              <div>
+                <h2 class="text-base font-bold text-white tracking-wide">Garments Catalog & Profit Margin Matrix</h2>
+                <p class="text-xs text-gray-400">Pre-configure customer making charges and karigor wages with dynamic margin analytics</p>
+              </div>
             </div>
-            <button onclick="addNewGarmentRow()" class="px-3.5 py-1.5 rounded-xl bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-bold hover:bg-cyan-500/30 transition-all">+ Add Garment</button>
+            
+            <button onclick="addNewGarmentRow()" class="px-4 py-2.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 text-xs font-mono font-bold transition-all shadow-[0_0_15px_rgba(6,182,212,0.2)] flex items-center justify-center gap-2 active:scale-95 cursor-pointer">
+              <span>+ Add Garment Spec</span>
+            </button>
           </div>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs min-w-[550px]">
-              <thead>
-                <tr class="border-b border-slate-700 text-gray-400 font-bold uppercase text-[10px]">
-                  <th class="p-3">Garment Name</th>
-                  <th class="p-3 text-right">Standard Making (৳)</th>
-                  <th class="p-3 text-right">Karigor Wage (৳)</th>
-                  <th class="p-3 text-center">Action</th>
+
+          <!-- Cyberpunk Dynamic Rates Table -->
+          <div class="overflow-x-auto rounded-2xl border border-white/10">
+            <table class="w-full text-left text-xs min-w-[620px]">
+              <thead class="bg-slate-950/80 text-gray-400 font-mono text-[10px] uppercase tracking-wider border-b border-white/10">
+                <tr>
+                  <th class="p-4">Garment Model / Name</th>
+                  <th class="p-4 text-right">Standard Making (৳)</th>
+                  <th class="p-4 text-right">Karigor Wage (৳)</th>
+                  <th class="p-4 text-center">Net Margin / Profit</th>
+                  <th class="p-4 text-center">Action</th>
                 </tr>
               </thead>
-              <tbody id="settings-garment-table-body">
-                <!-- Dynamically populated -->
+              <tbody id="settings-garment-table-body" class="divide-y divide-white/5 bg-slate-900/40">
+                <!-- Dynamically Populated with Realtime Profit Margin Calculation -->
               </tbody>
             </table>
           </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 text-xs">
+            <div class="p-3.5 rounded-2xl bg-cyan-500/10 border border-cyan-500/20">
+              <span class="text-[10px] font-mono uppercase text-cyan-300 block">Total Catalog Models</span>
+              <span id="garments-stat-count" class="font-black text-white text-base font-mono">0 Items</span>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
+              <span class="text-[10px] font-mono uppercase text-emerald-300 block">Avg Shop Making Charge</span>
+              <span id="garments-stat-avg-making" class="font-black text-white text-base font-mono">৳0</span>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-purple-500/10 border border-purple-500/20">
+              <span class="text-[10px] font-mono uppercase text-purple-300 block">Avg Profit Margin Rate</span>
+              <span id="garments-stat-avg-margin" class="font-black text-white text-base font-mono">0%</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- TAB 4: WHATSAPP & SMS TEMPLATES -->
+      <!-- ==================================================== -->
+      <!-- TAB 4: NEURAL DISPATCH & WHATSAPP HUB               -->
+      <!-- ==================================================== -->
       <div id="stab-content-templates" class="settings-tab-panel hidden space-y-6">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div class="bento-card p-6 space-y-3">
-            <h3 class="text-sm font-bold text-white flex items-center gap-2"><span>📲</span> Order Confirmation Template</h3>
-            <p class="text-xs text-gray-400">Message sent when a new order is booked.</p>
-            <textarea id="set-tmpl-confirm" rows="4" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white text-xs"></textarea>
-            <span class="text-[10px] text-gray-500">Variables: {shop}, {customer}, {orderId}, {garment}, {total}, {advance}, {due}</span>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          
+          <!-- Template Editors (7 cols) -->
+          <div class="lg:col-span-7 space-y-5">
+            
+            <!-- Order Booked -->
+            <div class="bento-card p-6 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl space-y-3">
+              <div class="flex items-center justify-between">
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                  <span>📲</span> Order Confirmation Template
+                </h3>
+                <span class="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20">NEW ORDER</span>
+              </div>
+              
+              <!-- Quick Insert Variable Pills -->
+              <div class="flex flex-wrap items-center gap-1.5 text-[10px] font-mono">
+                <span class="text-gray-400">Insert:</span>
+                <button type="button" onclick="insertTmplVar('set-tmpl-confirm', '{shop}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{shop}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-confirm', '{customer}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{customer}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-confirm', '{orderId}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{orderId}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-confirm', '{garment}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{garment}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-confirm', '{total}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{total}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-confirm', '{due}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{due}</button>
+              </div>
+
+              <textarea id="set-tmpl-confirm" rows="3" oninput="updateWhatsAppSimulator()" class="w-full bg-slate-950 border border-slate-700 rounded-2xl p-3.5 text-white text-xs leading-relaxed focus:border-cyan-400 outline-none"></textarea>
+            </div>
+
+            <!-- Ready for Pickup -->
+            <div class="bento-card p-6 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl space-y-3">
+              <div class="flex items-center justify-between">
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                  <span>🎉</span> Delivery Ready Notification
+                </h3>
+                <span class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">READY</span>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-1.5 text-[10px] font-mono">
+                <span class="text-gray-400">Insert:</span>
+                <button type="button" onclick="insertTmplVar('set-tmpl-ready', '{shop}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{shop}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-ready', '{customer}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{customer}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-ready', '{orderId}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{orderId}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-ready', '{due}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{due}</button>
+              </div>
+
+              <textarea id="set-tmpl-ready" rows="3" oninput="updateWhatsAppSimulator()" class="w-full bg-slate-950 border border-slate-700 rounded-2xl p-3.5 text-white text-xs leading-relaxed focus:border-cyan-400 outline-none"></textarea>
+            </div>
+
+            <!-- Due Reminder -->
+            <div class="bento-card p-6 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl space-y-3">
+              <div class="flex items-center justify-between">
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                  <span>💬</span> Due Collection Reminder Notice
+                </h3>
+                <span class="text-[10px] font-mono text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">RECOVERY</span>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-1.5 text-[10px] font-mono">
+                <span class="text-gray-400">Insert:</span>
+                <button type="button" onclick="insertTmplVar('set-tmpl-due', '{shop}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{shop}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-due', '{customer}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{customer}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-due', '{orderId}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{orderId}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-due', '{due}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{due}</button>
+              </div>
+
+              <textarea id="set-tmpl-due" rows="3" oninput="updateWhatsAppSimulator()" class="w-full bg-slate-950 border border-slate-700 rounded-2xl p-3.5 text-white text-xs leading-relaxed focus:border-cyan-400 outline-none"></textarea>
+            </div>
+
           </div>
 
-          <div class="bento-card p-6 space-y-3">
-            <h3 class="text-sm font-bold text-white flex items-center gap-2"><span>🎉</span> Delivery Ready Template</h3>
-            <p class="text-xs text-gray-400">Message sent when garment is finished and ready for pickup.</p>
-            <textarea id="set-tmpl-ready" rows="4" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white text-xs"></textarea>
-            <span class="text-[10px] text-gray-500">Variables: {shop}, {customer}, {orderId}, {garment}, {due}</span>
+          <!-- Right: Live Smartphone WhatsApp Chat Simulator (5 cols) -->
+          <div class="lg:col-span-5">
+            <div class="bento-card p-6 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl space-y-4">
+              <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                <h3 class="text-xs font-mono font-bold text-emerald-400 flex items-center gap-2">
+                  <span>📱</span> LIVE WHATSAPP PHONE SIMULATOR
+                </h3>
+                <span class="text-[10px] text-gray-400 font-mono">CLIENT VIEW</span>
+              </div>
+
+              <!-- Phone Mockup Frame -->
+              <div class="mx-auto max-w-[280px] bg-slate-950 rounded-3xl p-3 border-4 border-slate-800 shadow-2xl space-y-3">
+                
+                <!-- Phone Top Bar -->
+                <div class="flex justify-between items-center px-2 text-[10px] text-gray-400 font-mono">
+                  <span>9:41 AM</span>
+                  <div class="flex items-center gap-1">
+                    <span>5G</span>
+                    <span>100%</span>
+                  </div>
+                </div>
+
+                <!-- WhatsApp Chat Header -->
+                <div class="flex items-center gap-2.5 p-2 rounded-2xl bg-slate-900 border border-white/5">
+                  <div class="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center font-bold text-xs">
+                    🏪
+                  </div>
+                  <div class="overflow-hidden">
+                    <div id="sim-wa-shop-name" class="font-bold text-white text-xs truncate">YOUR SHOP</div>
+                    <div class="text-[9px] text-emerald-400 flex items-center gap-1">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Online (Business)
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Chat Canvas Bubble -->
+                <div class="p-3 rounded-2xl bg-[#005c4b]/30 border border-emerald-500/20 text-xs text-gray-200 space-y-2">
+                  <div id="sim-wa-bubble-text" class="text-[11px] leading-relaxed whitespace-pre-wrap">
+                    সম্মানিত গ্রাহক, আপনার অর্ডার নিশ্চিত করা হয়েছে।
+                  </div>
+                  <div class="text-right text-[9px] text-emerald-400/80 font-mono flex items-center justify-end gap-1">
+                    <span>Now</span> <span>✓✓</span>
+                  </div>
+                </div>
+
+                <div class="text-center text-[9px] text-gray-500 font-mono pt-1">
+                  1-Click Direct WhatsApp API
+                </div>
+              </div>
+
+            </div>
           </div>
 
-          <div class="bento-card p-6 space-y-3 lg:col-span-2">
-            <h3 class="text-sm font-bold text-white flex items-center gap-2"><span>💬</span> Due Collection Reminder Template</h3>
-            <p class="text-xs text-gray-400">Polite reminder message sent for outstanding balances.</p>
-            <textarea id="set-tmpl-due" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white text-xs"></textarea>
-            <span class="text-[10px] text-gray-500">Variables: {shop}, {customer}, {orderId}, {due}, {phone}</span>
-          </div>
         </div>
       </div>
 
-      <!-- TAB 5: DATA BACKUP & RESTORE -->
+      <!-- ==================================================== -->
+      <!-- TAB 5: ENCRYPTED DATA VAULT & CLOUD BACKUP MATRIX   -->
+      <!-- ==================================================== -->
       <div id="stab-content-backup" class="settings-tab-panel hidden space-y-6">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div class="bento-card p-6 space-y-4">
-            <h3 class="text-sm font-bold text-white flex items-center gap-2"><span>☁️</span> 1-Click Complete System Backup</h3>
-            <p class="text-xs text-gray-400">Export all shop records, customer profiles, measurements, orders, ledger accounts, and inventory into an encrypted JSON file.</p>
-            <button onclick="downloadCompleteBackupJSON()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:brightness-110 text-white font-bold text-xs shadow-md shadow-cyan-600/30 flex items-center gap-2">
-              <span>📥</span> <span>Download Full Shop Backup (.json)</span>
-            </button>
+        <div class="bento-card p-6 sm:p-8 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl space-y-6">
+          
+          <div class="flex items-center gap-3 border-b border-white/10 pb-4">
+            <span class="w-10 h-10 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-lg border border-purple-500/30">☁️</span>
+            <div>
+              <h2 class="text-base sm:text-lg font-bold text-white tracking-wide">Enterprise Cyber Data Vault & 1-Click Backup</h2>
+              <p class="text-xs text-gray-400">Export and restore all shop records, customer measurements, and ledger transactions safely</p>
+            </div>
           </div>
 
-          <div class="bento-card p-6 space-y-4">
-            <h3 class="text-sm font-bold text-white flex items-center gap-2"><span>📤</span> Restore Data from File</h3>
-            <p class="text-xs text-gray-400">Upload a previously saved .json backup file to seamlessly restore your entire shop on another computer or phone.</p>
-            <input type="file" id="backup-file-input" accept=".json" class="hidden" onchange="handleRestoreBackupFile(event)" />
-            <button onclick="document.getElementById('backup-file-input').click()" class="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs flex items-center gap-2">
-              <span>📂</span> <span>Select Backup File to Restore</span>
-            </button>
+          <!-- Stored Telemetry Cards -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-mono">
+            <div class="p-4 rounded-2xl bg-slate-950/80 border border-white/5">
+              <span class="text-gray-400 text-[10px] block">ORDERS IN VAULT</span>
+              <span id="vault-count-orders" class="font-black text-cyan-300 text-lg block mt-0.5">0</span>
+            </div>
+            <div class="p-4 rounded-2xl bg-slate-950/80 border border-white/5">
+              <span class="text-gray-400 text-[10px] block">CLIENT PROFILES</span>
+              <span id="vault-count-customers" class="font-black text-emerald-300 text-lg block mt-0.5">0</span>
+            </div>
+            <div class="p-4 rounded-2xl bg-slate-950/80 border border-white/5">
+              <span class="text-gray-400 text-[10px] block">LEDGER ENTRIES</span>
+              <span id="vault-count-transactions" class="font-black text-purple-300 text-lg block mt-0.5">0</span>
+            </div>
+            <div class="p-4 rounded-2xl bg-slate-950/80 border border-white/5">
+              <span class="text-gray-400 text-[10px] block">FABRICS & STOCK</span>
+              <span id="vault-count-fabrics" class="font-black text-amber-300 text-lg block mt-0.5">0</span>
+            </div>
           </div>
+
+          <!-- Dual Cyber Action Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+            
+            <!-- Download Backup -->
+            <div class="p-6 rounded-3xl bg-slate-950/80 border border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.1)] flex flex-col justify-between space-y-4">
+              <div class="space-y-2">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono text-cyan-400 bg-cyan-500/10 border border-cyan-500/20">
+                  EXPORT ACTION
+                </span>
+                <h3 class="text-base font-bold text-white">Full System Backup (.json)</h3>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                  আপনার সম্পূর্ণ দোকানের কাস্টমার ডাটাবেজ, মাপ, অর্ডার বুক, আয়-ব্যয় খতিয়ান ও সেটিংস একটি সুরক্ষিত JSON ফাইলে এক্সপোর্ট করুন।
+                </p>
+              </div>
+
+              <button onclick="downloadCompleteBackupJSON()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-cyan-600 via-teal-600 to-blue-600 hover:brightness-110 active:scale-95 text-white font-black text-xs shadow-lg shadow-cyan-600/30 flex items-center justify-center gap-2 transition-all cursor-pointer">
+                <span>📥</span> <span>Download Full Shop Backup File</span>
+              </button>
+            </div>
+
+            <!-- Restore File -->
+            <div class="p-6 rounded-3xl bg-slate-950/80 border border-purple-500/30 shadow-[0_0_20px_rgba(168,85,247,0.1)] flex flex-col justify-between space-y-4">
+              <div class="space-y-2">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono text-purple-400 bg-purple-500/10 border border-purple-500/20">
+                  INGEST & RESTORE
+                </span>
+                <h3 class="text-base font-bold text-white">Restore Data from File</h3>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                  পূর্বে সংরক্ষণ করা .json ব্যাকআপ ফাইলটি আপলোড করে এক ক্লিকে যেকোনো ডিভাইস বা ব্রাউজারে সম্পূর্ণ ডাটা রিস্টোর করুন।
+                </p>
+              </div>
+
+              <div>
+                <input type="file" id="backup-file-input" accept=".json" class="hidden" onchange="handleRestoreBackupFile(event)" />
+                <button onclick="document.getElementById('backup-file-input').click()" class="w-full py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 active:scale-95 text-white font-black text-xs flex items-center justify-center gap-2 transition-all cursor-pointer">
+                  <span>📂</span> <span>Upload & Restore Backup (.json)</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
         </div>
       </div>
 
     </section>
+
 
 
       <!-- ==================================================== -->
@@ -16286,10 +16759,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       setVal('set-shop-branch', cfg.branch);
       setVal('set-shop-phone', cfg.phone);
       setVal('set-shop-email', cfg.email);
+      setVal('set-shop-web', cfg.website || 'selaisathi.com/track');
       setVal('set-shop-address', cfg.address);
       setVal('set-shop-tagline', cfg.tagline);
-      setVal('set-printer-type', cfg.printerType);
-      setVal('set-delivery-days', cfg.deliveryDays);
+      setVal('set-printer-type', cfg.printerType || '58mm');
+      setVal('set-delivery-days', cfg.deliveryDays || 7);
       setVal('set-invoice-terms', cfg.invoiceTerms);
       setVal('set-tmpl-confirm', cfg.tmplConfirm);
       setVal('set-tmpl-ready', cfg.tmplReady);
@@ -16300,8 +16774,15 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const wm = document.getElementById('set-show-watermark');
       if (wm) wm.checked = !!cfg.showWatermark;
 
+      // Sync printer radio buttons
+      const radio = document.querySelector('input[name="printer_type_radio"][value="' + (cfg.printerType || '58mm') + '"]');
+      if (radio) radio.checked = true;
+      setSimPaperMode(cfg.printerType || '58mm');
+
       renderGarmentsTable(cfg.garments || []);
       applyBrandToUI();
+      updateSettingsTelemetry();
+      updateWhatsAppSimulator();
 
       // Realtime live preview typing bindings
       ['set-shop-name', 'set-shop-tagline', 'set-shop-address', 'set-shop-phone'].forEach(id => {
@@ -16312,45 +16793,180 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             const pTag = document.getElementById('preview-memo-tagline');
             const pAddr = document.getElementById('preview-memo-address');
             const pPhone = document.getElementById('preview-memo-phone');
-            if (pTitle) pTitle.textContent = document.getElementById('set-shop-name').value || 'YOUR SHOP';
-            if (pTag) pTag.textContent = document.getElementById('set-shop-tagline').value || '';
-            if (pAddr) pAddr.textContent = document.getElementById('set-shop-address').value || '';
-            if (pPhone) pPhone.textContent = 'Phone: ' + (document.getElementById('set-shop-phone').value || '');
+            const valName = document.getElementById('set-shop-name')?.value || 'YOUR SHOP';
+            const valTag = document.getElementById('set-shop-tagline')?.value || '';
+            const valAddr = document.getElementById('set-shop-address')?.value || '';
+            const valPhone = document.getElementById('set-shop-phone')?.value || '';
+
+            if (pTitle) pTitle.textContent = valName;
+            if (pTag) pTag.textContent = valTag;
+            if (pAddr) pAddr.textContent = valAddr;
+            if (pPhone) pPhone.textContent = 'Phone: ' + valPhone;
+
+            const tBrand = document.getElementById('telemetry-brand-name');
+            if (tBrand) tBrand.textContent = valName;
+
+            updateWhatsAppSimulator();
           };
         }
       });
     }
 
+    function setSimPaperMode(mode) {
+      const slip = document.getElementById('simulated-thermal-slip');
+      const b58 = document.getElementById('sim-btn-58mm');
+      const b80 = document.getElementById('sim-btn-80mm');
+      const ba4 = document.getElementById('sim-btn-a4');
+
+      [b58, b80, ba4].forEach(b => {
+        if (b) b.className = 'flex-1 py-1.5 rounded-lg text-gray-400 hover:text-white text-center transition-all';
+      });
+
+      const activeBtn = document.getElementById('sim-btn-' + mode);
+      if (activeBtn) activeBtn.className = 'flex-1 py-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-center transition-all';
+
+      if (!slip) return;
+      slip.classList.remove('max-w-[290px]', 'max-w-[360px]', 'max-w-[420px]');
+      if (mode === '58mm') slip.classList.add('max-w-[290px]');
+      else if (mode === '80mm') slip.classList.add('max-w-[360px]');
+      else slip.classList.add('max-w-[420px]');
+    }
+
+    function syncPrinterTypeSelect(val) {
+      const hiddenInput = document.getElementById('set-printer-type');
+      if (hiddenInput) hiddenInput.value = val;
+      setSimPaperMode(val);
+      const tel = document.getElementById('telemetry-printer-type');
+      if (tel) {
+        tel.textContent = val === '58mm' ? '58mm Thermal Slip' : (val === '80mm' ? '80mm Wide Thermal' : 'A4 Laser Sheet');
+      }
+    }
+
+    function insertTmplVar(textareaId, variable) {
+      const el = document.getElementById(textareaId);
+      if (!el) return;
+      const start = el.selectionStart || el.value.length;
+      const end = el.selectionEnd || el.value.length;
+      el.value = el.value.substring(0, start) + variable + el.value.substring(end);
+      el.focus();
+      el.selectionStart = el.selectionEnd = start + variable.length;
+      updateWhatsAppSimulator();
+    }
+
+    function updateWhatsAppSimulator() {
+      const shopName = document.getElementById('set-shop-name')?.value || getBrandName();
+      const simShop = document.getElementById('sim-wa-shop-name');
+      if (simShop) simShop.textContent = shopName;
+
+      const rawTmpl = document.getElementById('set-tmpl-confirm')?.value || '';
+      const preview = rawTmpl
+        .replace(/{shop}/g, '*' + shopName + '*')
+        .replace(/{customer}/g, 'Mr. Shahadat Hossain')
+        .replace(/{orderId}/g, '#ORD-2610-0089')
+        .replace(/{garment}/g, 'Premium Panjabi')
+        .replace(/{total}/g, '৳550')
+        .replace(/{advance}/g, '৳300')
+        .replace(/{due}/g, '৳250');
+
+      const simBubble = document.getElementById('sim-wa-bubble-text');
+      if (simBubble) simBubble.textContent = preview;
+    }
+
+    function updateSettingsTelemetry() {
+      const cfg = getShopSettings();
+      const tBrand = document.getElementById('telemetry-brand-name');
+      if (tBrand) tBrand.textContent = cfg.name || 'SELAISATHI TAILORS';
+
+      const tPrinter = document.getElementById('telemetry-printer-type');
+      if (tPrinter) {
+        tPrinter.textContent = cfg.printerType === '58mm' ? '58mm Thermal Slip' : (cfg.printerType === '80mm' ? '80mm Wide Thermal' : 'A4 Laser Sheet');
+      }
+
+      // Vault record counts
+      const vOrders = document.getElementById('vault-count-orders');
+      if (vOrders) vOrders.textContent = (window.ordersData || []).length;
+
+      const vCust = document.getElementById('vault-count-customers');
+      if (vCust) vCust.textContent = ((window.ssRecords && window.ssRecords.customers) || []).length;
+
+      const vTx = document.getElementById('vault-count-transactions');
+      if (vTx) vTx.textContent = (window.ssLedgerTransactions || []).length;
+
+      const vFab = document.getElementById('vault-count-fabrics');
+      if (vFab) vFab.textContent = ((window.ssRecords && window.ssRecords.fabrics) || []).length;
+    }
+
     function switchSettingsTab(tabId) {
       document.querySelectorAll('.settings-tab-panel').forEach(p => p.classList.add('hidden'));
       document.querySelectorAll('#settings-tabs-container button').forEach(b => {
-        b.className = 'px-4 py-2 rounded-xl text-xs font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent';
+        b.className = 'px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-2 whitespace-nowrap active:scale-95';
       });
 
       const panel = document.getElementById('stab-content-' + tabId);
       const btn = document.getElementById('stab-btn-' + tabId);
       if (panel) panel.classList.remove('hidden');
-      if (btn) btn.className = 'px-4 py-2 rounded-xl text-xs font-bold transition-all bg-cyan-500/20 text-cyan-300 border border-cyan-500/30';
+      if (btn) btn.className = 'px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-[0_0_15px_rgba(6,182,212,0.2)] flex items-center gap-2 whitespace-nowrap active:scale-95';
+      
+      if (tabId === 'backup') updateSettingsTelemetry();
     }
 
     function renderGarmentsTable(garments) {
       const tbody = document.getElementById('settings-garment-table-body');
       if (!tbody) return;
 
+      let totalMaking = 0;
+      let totalMarginPercent = 0;
+
       tbody.innerHTML = garments.map((g, idx) => {
-        return '<tr class="border-b border-slate-700/50">' +
-          '<td class="p-2.5"><input type="text" value="' + safeText(g.name) + '" class="g-row-name bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-white font-bold text-xs w-full max-w-[200px]" /></td>' +
-          '<td class="p-2.5 text-right"><input type="number" value="' + (g.making || 0) + '" class="g-row-making bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-right font-mono text-cyan-300 font-bold text-xs w-24" /></td>' +
-          '<td class="p-2.5 text-right"><input type="number" value="' + (g.karigor || 0) + '" class="g-row-karigor bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-right font-mono text-emerald-300 font-bold text-xs w-24" /></td>' +
-          '<td class="p-2.5 text-center"><button onclick="removeGarmentRow(' + idx + ')" class="text-rose-400 hover:text-rose-300 font-bold text-xs p-1">✕</button></td>' +
+        const making = Number(g.making) || 0;
+        const karigor = Number(g.karigor) || 0;
+        const marginBDT = Math.max(0, making - karigor);
+        const marginPct = making > 0 ? Math.round((marginBDT / making) * 100) : 0;
+        totalMaking += making;
+        totalMarginPercent += marginPct;
+
+        const badgeColor = marginPct >= 50 ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' : (marginPct >= 30 ? 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30' : 'bg-amber-500/10 text-amber-400 border-amber-500/30');
+
+        return '<tr class="border-b border-white/5 hover:bg-white/[0.02] transition-colors">' +
+          '<td class="p-3.5"><div class="flex items-center gap-2"><span class="text-xs">✂️</span><input type="text" value="' + safeText(g.name) + '" class="g-row-name bg-slate-950 border border-slate-700/80 rounded-xl px-3 py-1.5 text-white font-bold text-xs w-full max-w-[210px] focus:border-cyan-400 outline-none" /></div></td>' +
+          '<td class="p-3.5 text-right"><input type="number" oninput="recalcRowMargin(this)" value="' + making + '" class="g-row-making bg-slate-950 border border-slate-700/80 rounded-xl px-3 py-1.5 text-right font-mono text-cyan-300 font-bold text-xs w-28 focus:border-cyan-400 outline-none" /></td>' +
+          '<td class="p-3.5 text-right"><input type="number" oninput="recalcRowMargin(this)" value="' + karigor + '" class="g-row-karigor bg-slate-950 border border-slate-700/80 rounded-xl px-3 py-1.5 text-right font-mono text-emerald-300 font-bold text-xs w-28 focus:border-cyan-400 outline-none" /></td>' +
+          '<td class="p-3.5 text-center"><span class="g-row-margin-badge inline-flex items-center gap-1 font-mono font-bold text-[11px] px-2.5 py-1 rounded-lg border ' + badgeColor + '">+৳' + marginBDT + ' (' + marginPct + '%)</span></td>' +
+          '<td class="p-3.5 text-center"><button onclick="removeGarmentRow(' + idx + ')" title="Delete Model" class="w-8 h-8 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 font-bold text-xs inline-flex items-center justify-center transition-all cursor-pointer">✕</button></td>' +
         '</tr>';
       }).join('');
+
+      // Update analytics stats
+      const count = garments.length;
+      const statCount = document.getElementById('garments-stat-count');
+      const statMaking = document.getElementById('garments-stat-avg-making');
+      const statMargin = document.getElementById('garments-stat-avg-margin');
+      const telCount = document.getElementById('telemetry-garment-count');
+
+      if (statCount) statCount.textContent = count + ' Models';
+      if (telCount) telCount.textContent = count + ' Active Models';
+      if (statMaking) statMaking.textContent = '৳' + (count > 0 ? Math.round(totalMaking / count) : 0);
+      if (statMargin) statMargin.textContent = (count > 0 ? Math.round(totalMarginPercent / count) : 0) + '% Profit';
+    }
+
+    function recalcRowMargin(inputEl) {
+      const row = inputEl.closest('tr');
+      if (!row) return;
+      const making = parseFloat(row.querySelector('.g-row-making')?.value) || 0;
+      const karigor = parseFloat(row.querySelector('.g-row-karigor')?.value) || 0;
+      const marginBDT = Math.max(0, making - karigor);
+      const marginPct = making > 0 ? Math.round((marginBDT / making) * 100) : 0;
+      const badge = row.querySelector('.g-row-margin-badge');
+      if (badge) {
+        badge.className = 'g-row-margin-badge inline-flex items-center gap-1 font-mono font-bold text-[11px] px-2.5 py-1 rounded-lg border ' + (marginPct >= 50 ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' : (marginPct >= 30 ? 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30' : 'bg-amber-500/10 text-amber-400 border-amber-500/30'));
+        badge.textContent = '+৳' + marginBDT + ' (' + marginPct + '%)';
+      }
     }
 
     function addNewGarmentRow() {
       const cfg = getShopSettings();
       const list = cfg.garments || [];
-      list.push({ name: 'New Garment', making: 500, karigor: 250 });
+      list.push({ name: 'New Garment Model', making: 500, karigor: 220 });
       cfg.garments = list;
       saveShopSettings(cfg);
       renderGarmentsTable(list);
@@ -16383,6 +16999,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         branch: getVal('set-shop-branch'),
         phone: getVal('set-shop-phone'),
         email: getVal('set-shop-email'),
+        website: getVal('set-shop-web'),
         address: getVal('set-shop-address'),
         tagline: getVal('set-shop-tagline'),
         printerType: getVal('set-printer-type') || '58mm',
@@ -16397,11 +17014,12 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       };
 
       saveShopSettings(updated);
+      updateSettingsTelemetry();
 
       if (window.CyberDialog) {
-        CyberDialog.alert('দোকানের সেটিংস ও ব্র্যান্ড তথ্য সফলভাবে সংরক্ষিত হয়েছে! এখন থেকে সব রিসিট, চালান ও ডকুমেন্টে এই নাম ব্যবহৃত হবে।', {
+        CyberDialog.alert('দোকানের সেটিংস, ব্র্যান্ড পরিচিতি ও রেট চার্ট সফলভাবে সংরক্ষিত হয়েছে! এখন থেকে সব রিসিট, চালান ও ডকুমেন্টে এই ব্র্যান্ড নাম ব্যবহৃত হবে।', {
           icon: '🎉',
-          title: 'SETTINGS SAVED • সংরক্ষিত'
+          title: 'SETTINGS SYNCHRONIZED • সংরক্ষিত'
         });
       } else {
         alert('Settings saved successfully!');
