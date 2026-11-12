@@ -3080,7 +3080,340 @@ body.theme-white #view-measurements #meas-quick-matrix {
 #view-staff #staff-display-container thead{position:sticky;top:0;z-index:2}
 #view-staff #staff-display-container tbody tr{transition:background .18s ease}
 #view-staff .staff-page-header h1{background:linear-gradient(100deg,#e9d5ff,#a5f3fc 55%,#c4b5fd);-webkit-background-clip:text;background-clip:text;color:transparent!important}
-body.theme-white #view-staff .staff-page-header h1{background:linear-gradient(100deg,#6d28d9,#0e7490 55%,#7c3aed);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+
+    /* ============================================================
+       ENTERPRISE WHITE THEME ADAPTATION: SETTINGS, POPOVERS & LEAKS
+       ============================================================ */
+    body.theme-white .cyber-settings-header {
+      background: linear-gradient(135deg, #FFFFFF 0%, #F0FDF4 50%, #F0F9FF 100%) !important;
+      border: 1px solid #BAE6FD !important;
+      box-shadow: 0 10px 30px rgba(14, 165, 233, 0.08), 0 2px 10px rgba(0, 0, 0, 0.03) !important;
+    }
+
+    body.theme-white .cyber-settings-header h1 {
+      color: #0F172A !important;
+      background: none !important;
+      -webkit-text-fill-color: #0F172A !important;
+    }
+
+    body.theme-white .cyber-settings-header p {
+      color: #475569 !important;
+    }
+
+    /* Badges in Settings Header */
+    body.theme-white .cyber-settings-header .bg-cyan-500\/10 {
+      background-color: #E0F2FE !important;
+      color: #0369A1 !important;
+      border-color: #7DD3FC !important;
+    }
+    body.theme-white .cyber-settings-header .bg-cyan-500\/20 {
+      background-color: #E0F2FE !important;
+      color: #0284C7 !important;
+      border-color: #38BDF8 !important;
+    }
+    body.theme-white .cyber-settings-header .bg-emerald-500\/10 {
+      background-color: #DCFCE7 !important;
+      color: #15803D !important;
+      border-color: #86EFAC !important;
+    }
+    body.theme-white .cyber-settings-header .bg-purple-500\/10 {
+      background-color: #F3E8FF !important;
+      color: #7E22CE !important;
+      border-color: #D8B4FE !important;
+    }
+
+    /* Telemetry strip in White Theme */
+    body.theme-white .cyber-settings-header .border-t {
+      border-top-color: #E2E8F0 !important;
+    }
+    body.theme-white .cyber-settings-header .cyber-telemetry-card {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    }
+    body.theme-white .cyber-settings-header .cyber-telemetry-card .text-gray-400 {
+      color: #64748B !important;
+    }
+    body.theme-white .cyber-settings-header #telemetry-brand-name {
+      color: #0284C7 !important;
+    }
+    body.theme-white .cyber-settings-header #telemetry-printer-type {
+      color: #0F172A !important;
+    }
+    body.theme-white .cyber-settings-header #telemetry-garment-count {
+      color: #059669 !important;
+    }
+    body.theme-white .cyber-settings-header #telemetry-vault-status {
+      color: #7C3AED !important;
+    }
+
+    /* Settings Navigation Tabs */
+    body.theme-white .settings-tab-btn {
+      background: #FFFFFF !important;
+      color: #64748B !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: none !important;
+    }
+    body.theme-white .settings-tab-btn:hover {
+      background: #F8FAFC !important;
+      color: #0F172A !important;
+      border-color: #CBD5E1 !important;
+    }
+    body.theme-white .settings-tab-btn.active {
+      background: #E0F2FE !important;
+      color: #0284C7 !important;
+      border-color: #38BDF8 !important;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.15) !important;
+    }
+
+    /* Bento Cards in Settings */
+    body.theme-white #view-settings .bento-card {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+    }
+    body.theme-white #view-settings .bento-card h2,
+    body.theme-white #view-settings .bento-card h3 {
+      color: #0F172A !important;
+    }
+    body.theme-white #view-settings .bento-card p {
+      color: #64748B !important;
+    }
+    body.theme-white #view-settings label {
+      color: #1E293B !important;
+    }
+    body.theme-white #view-settings .border-b {
+      border-bottom-color: #E2E8F0 !important;
+    }
+
+    /* Form controls in Settings */
+    body.theme-white #view-settings input:not([type="checkbox"]):not([type="radio"]),
+    body.theme-white #view-settings textarea,
+    body.theme-white #view-settings select {
+      background: #FFFFFF !important;
+      border: 1px solid #CBD5E1 !important;
+      color: #0F172A !important;
+    }
+    body.theme-white #view-settings input:focus,
+    body.theme-white #view-settings textarea:focus,
+    body.theme-white #view-settings select:focus {
+      border-color: #0284C7 !important;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15) !important;
+    }
+
+    /* Tab 1: Dynamic Branding Banner */
+    body.theme-white #view-settings .bg-gradient-to-r.from-cyan-950\/40 {
+      background: #F0FDF4 !important;
+      border: 1px solid #BBF7D0 !important;
+      color: #166534 !important;
+    }
+    body.theme-white #view-settings .bg-gradient-to-r.from-cyan-950\/40 p {
+      color: #334155 !important;
+    }
+
+    /* Tab 1: Thermal Simulator */
+    body.theme-white .cyber-sim-terminal {
+      background: linear-gradient(180deg, #F8FAFC 0%, #EDF2F7 100%) !important;
+      border: 1px solid #CBD5E1 !important;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06) !important;
+    }
+    body.theme-white .cyber-sim-terminal .text-gray-300 {
+      color: #334155 !important;
+    }
+    body.theme-white .cyber-sim-terminal .bg-slate-950\/80 {
+      background: #E2E8F0 !important;
+      border-color: #CBD5E1 !important;
+    }
+    body.theme-white #sim-btn-58mm,
+    body.theme-white #sim-btn-80mm,
+    body.theme-white #sim-btn-a4 {
+      color: #475569 !important;
+    }
+    body.theme-white .cyber-sim-terminal .bg-cyan-500\/20 {
+      background: #0284C7 !important;
+      color: #FFFFFF !important;
+      border-color: #0284C7 !important;
+    }
+
+    /* Tab 2: Hardware Radio Cards */
+    body.theme-white .cyber-hardware-card {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+    }
+    body.theme-white .cyber-hardware-card:hover {
+      border-color: #38BDF8 !important;
+      background: #F0F9FF !important;
+    }
+    body.theme-white .cyber-hardware-card:has(input[type="radio"]:checked) {
+      border-color: #0284C7 !important;
+      background: #E0F2FE !important;
+    }
+    body.theme-white .cyber-hardware-card .text-white {
+      color: #0F172A !important;
+    }
+    body.theme-white .cyber-hardware-card .text-gray-400 {
+      color: #64748B !important;
+    }
+    body.theme-white #stab-content-invoice label.bg-slate-950\/70 {
+      background: #F8FAFC !important;
+      border: 1px solid #E2E8F0 !important;
+    }
+    body.theme-white #stab-content-invoice label.bg-slate-950\/70:hover {
+      border-color: #BAE6FD !important;
+    }
+    body.theme-white #stab-content-invoice label.bg-slate-950\/70 .text-white {
+      color: #0F172A !important;
+    }
+
+    /* Tab 3: Garments Rate Table */
+    body.theme-white .cyber-rates-table {
+      border-color: #E2E8F0 !important;
+    }
+    body.theme-white .cyber-rates-table thead {
+      background: #F1F5F9 !important;
+      color: #475569 !important;
+      border-bottom: 1px solid #E2E8F0 !important;
+    }
+    body.theme-white .cyber-rates-table tbody {
+      background: #FFFFFF !important;
+    }
+    body.theme-white .cyber-rates-table tbody tr {
+      border-bottom: 1px solid #F1F5F9 !important;
+    }
+    body.theme-white .cyber-rates-table tbody tr:hover {
+      background: #F8FAFC !important;
+    }
+    body.theme-white .cyber-rates-table tbody input {
+      background: #F8FAFC !important;
+      border: 1px solid #CBD5E1 !important;
+      color: #0F172A !important;
+    }
+    body.theme-white #view-settings .g-row-making {
+      color: #0284C7 !important;
+    }
+    body.theme-white #view-settings .g-row-karigor {
+      color: #059669 !important;
+    }
+    body.theme-white #view-settings #stab-content-catalog .p-3\.5 {
+      background: #F8FAFC !important;
+      border: 1px solid #E2E8F0 !important;
+    }
+    body.theme-white #view-settings #garments-stat-count {
+      color: #0F172A !important;
+    }
+    body.theme-white #view-settings #garments-stat-avg-making {
+      color: #0284C7 !important;
+    }
+    body.theme-white #view-settings #garments-stat-avg-margin {
+      color: #7C3AED !important;
+    }
+
+    /* Tab 4: WhatsApp Simulator & Variable Pills */
+    body.theme-white .cyber-phone-frame {
+      background: #F8FAFC !important;
+      border: 4px solid #CBD5E1 !important;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08) !important;
+    }
+    body.theme-white .cyber-phone-frame .bg-slate-900 {
+      background: #075E54 !important;
+      color: #FFFFFF !important;
+    }
+    body.theme-white .cyber-phone-frame #sim-wa-shop-name {
+      color: #FFFFFF !important;
+    }
+    body.theme-white .cyber-phone-frame .bg-\[\#005c4b\]\/30 {
+      background: #DCF8C6 !important;
+      border: 1px solid #BBF7D0 !important;
+    }
+    body.theme-white .cyber-phone-frame #sim-wa-bubble-text {
+      color: #111827 !important;
+    }
+    body.theme-white .cyber-var-pill {
+      background: #F1F5F9 !important;
+      border: 1px solid #CBD5E1 !important;
+      color: #0284C7 !important;
+    }
+    body.theme-white .cyber-var-pill:hover {
+      background: #E0F2FE !important;
+      border-color: #7DD3FC !important;
+    }
+
+    /* Tab 5: Data Vault */
+    body.theme-white #stab-content-backup .p-4.rounded-2xl {
+      background: #F8FAFC !important;
+      border: 1px solid #E2E8F0 !important;
+    }
+    body.theme-white #stab-content-backup .bg-slate-950\/80 {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+    }
+    body.theme-white #stab-content-backup h3 {
+      color: #0F172A !important;
+    }
+    body.theme-white #stab-content-backup p {
+      color: #64748B !important;
+    }
+
+    /* ============================================================
+       ADDITIONAL THEME-WHITE FIXES: POPOVER & SYSTEM CARDS
+       ============================================================ */
+    body.theme-white #notif-popover,
+    body.theme-white .notif-popover {
+      background: rgba(255, 255, 255, 0.98) !important;
+      border: 1px solid #CBD5E1 !important;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12) !important;
+      color: #0F172A !important;
+    }
+    body.theme-white #notif-popover h4,
+    body.theme-white .notif-popover h4 {
+      color: #0F172A !important;
+    }
+    body.theme-white #notif-popover p,
+    body.theme-white .notif-popover p {
+      color: #475569 !important;
+    }
+    body.theme-white #notif-popover .border-b {
+      border-bottom-color: #E2E8F0 !important;
+    }
+
+    /* Reports View Mini Cards */
+    body.theme-white #view-reports .bg-slate-900\/40 {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    }
+    body.theme-white #view-reports .bg-slate-900\/40 .text-gray-500 {
+      color: #64748B !important;
+    }
+    body.theme-white #view-reports .bg-slate-900\/40 .font-mono {
+      color: #0F172A !important;
+    }
+
+    /* Dashboard subtle buttons */
+    body.theme-white .dash-quick-btn-subtle {
+      background: #FFFFFF !important;
+      border-color: #CBD5E1 !important;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+    }
+    body.theme-white .dash-quick-btn-subtle:hover {
+      background: #F8FAFC !important;
+      border-color: #0284C7 !important;
+    }
+
+    /* Accounts & Measurements dark patch cleansers */
+    body.theme-white #view-accounts .bg-slate-900\/60,
+    body.theme-white #view-accounts .bg-slate-900\/40,
+    body.theme-white #view-measurements .bg-slate-900\/60,
+    body.theme-white #view-measurements .bg-slate-900\/50,
+    body.theme-white #view-fabrics .bg-slate-900\/60,
+    body.theme-white #view-fabrics .bg-slate-900\/90 {
+      background: #FFFFFF !important;
+      border-color: #CBD5E1 !important;
+      color: #0F172A !important;
+    }
+
+    body.theme-white #view-staff .staff-page-header h1{background:linear-gradient(100deg,#6d28d9,#0e7490 55%,#7c3aed);-webkit-background-clip:text;background-clip:text;color:transparent!important}
 body.theme-white #view-staff .staff-card-grid>article{background:linear-gradient(145deg,#fff,#f7f8fc)!important;border:1px solid #e2e7f0!important;box-shadow:0 8px 22px rgba(31,41,55,.055)!important}
 body.theme-white #view-staff .staff-card-grid article .bg-slate-900\/50,body.theme-white #view-staff .staff-card-grid article .bg-slate-950\/40,body.theme-white #view-staff .staff-card-grid article .bg-violet-500\/5{background:#f1f3f9!important;border-color:#e0e5ef!important}
 body.theme-white #view-staff .staff-card-grid article .text-gray-300,body.theme-white #view-staff .staff-card-grid article .text-gray-400,body.theme-white #view-staff .staff-card-grid article .text-gray-500{color:#596579!important}
@@ -5435,7 +5768,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     <section id="view-settings" class="app-view hidden space-y-6">
       
       <!-- Futuristic Cyber Command Header Strip -->
-      <div class="relative overflow-hidden rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-cyan-500/20 shadow-[0_0_30px_rgba(6,182,212,0.12)]">
+      <div class="cyber-settings-header relative overflow-hidden rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-cyan-500/20 shadow-[0_0_30px_rgba(6,182,212,0.12)]">
         <!-- Background Ambient Neon Glow -->
         <div class="absolute -top-24 -right-24 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute -bottom-24 -left-24 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -5475,25 +5808,25 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
         <!-- Futuristic Live Telemetry Diagnostics Bar -->
         <div class="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-3 mt-6 pt-5 border-t border-white/10 text-xs">
-          <div class="p-3 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-md">
+          <div class="cyber-telemetry-card p-3 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-md">
             <div class="text-[10px] uppercase font-mono tracking-wider text-gray-400 flex items-center gap-1.5">
               <span>🏪</span> Active Brand Identity
             </div>
             <div id="telemetry-brand-name" class="font-bold text-white text-sm truncate mt-0.5 text-cyan-300 font-mono">SELAISATHI TAILORS</div>
           </div>
-          <div class="p-3 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-md">
+          <div class="cyber-telemetry-card p-3 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-md">
             <div class="text-[10px] uppercase font-mono tracking-wider text-gray-400 flex items-center gap-1.5">
               <span>🧾</span> POS Thermal Engine
             </div>
             <div id="telemetry-printer-type" class="font-bold text-white text-sm truncate mt-0.5 font-mono">58mm Thermal Slip</div>
           </div>
-          <div class="p-3 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-md">
+          <div class="cyber-telemetry-card p-3 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-md">
             <div class="text-[10px] uppercase font-mono tracking-wider text-gray-400 flex items-center gap-1.5">
               <span>✂️</span> Garment Catalog Specs
             </div>
             <div id="telemetry-garment-count" class="font-bold text-emerald-400 text-sm truncate mt-0.5 font-mono">5 Active Models</div>
           </div>
-          <div class="p-3 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-md">
+          <div class="cyber-telemetry-card p-3 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-md">
             <div class="text-[10px] uppercase font-mono tracking-wider text-gray-400 flex items-center gap-1.5">
               <span>☁️</span> Local Data Vault
             </div>
@@ -5504,19 +5837,19 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       <!-- Futuristic Holographic Navigation Matrix (Tabs) -->
       <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none" id="settings-tabs-container">
-        <button onclick="switchSettingsTab('profile')" id="stab-btn-profile" class="px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-[0_0_15px_rgba(6,182,212,0.2)] flex items-center gap-2 whitespace-nowrap active:scale-95">
+        <button onclick="switchSettingsTab('profile')" id="stab-btn-profile" class="settings-tab-btn active px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-[0_0_15px_rgba(6,182,212,0.2)] flex items-center gap-2 whitespace-nowrap active:scale-95">
           <span>// 01</span> <span>🏪 Brand & Identity Deck</span>
         </button>
-        <button onclick="switchSettingsTab('invoice')" id="stab-btn-invoice" class="px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-2 whitespace-nowrap active:scale-95">
+        <button onclick="switchSettingsTab('invoice')" id="stab-btn-invoice" class="settings-tab-btn px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-2 whitespace-nowrap active:scale-95">
           <span>// 02</span> <span>🧾 POS & Thermal Hardware</span>
         </button>
-        <button onclick="switchSettingsTab('catalog')" id="stab-btn-catalog" class="px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-2 whitespace-nowrap active:scale-95">
+        <button onclick="switchSettingsTab('catalog')" id="stab-btn-catalog" class="settings-tab-btn px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-2 whitespace-nowrap active:scale-95">
           <span>// 03</span> <span>✂️ Garments & Profit Margin</span>
         </button>
-        <button onclick="switchSettingsTab('templates')" id="stab-btn-templates" class="px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-2 whitespace-nowrap active:scale-95">
+        <button onclick="switchSettingsTab('templates')" id="stab-btn-templates" class="settings-tab-btn px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-2 whitespace-nowrap active:scale-95">
           <span>// 04</span> <span>📲 Neural Dispatch (WhatsApp)</span>
         </button>
-        <button onclick="switchSettingsTab('backup')" id="stab-btn-backup" class="px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-2 whitespace-nowrap active:scale-95">
+        <button onclick="switchSettingsTab('backup')" id="stab-btn-backup" class="settings-tab-btn px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-2 whitespace-nowrap active:scale-95">
           <span>// 05</span> <span>💾 Encrypted Vault (Backup)</span>
         </button>
       </div>
@@ -5616,7 +5949,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <!-- Right: Interactive Cyber Thermal Terminal Simulator (5 cols) -->
           <div class="lg:col-span-5 space-y-4">
             <!-- Terminal Hardware Casing -->
-            <div class="bento-card p-5 rounded-3xl bg-gradient-to-b from-slate-900 to-slate-950 border border-cyan-500/30 shadow-[0_0_30px_rgba(6,182,212,0.15)] relative overflow-hidden">
+            <div class="cyber-sim-terminal bento-card p-5 rounded-3xl bg-gradient-to-b from-slate-900 to-slate-950 border border-cyan-500/30 shadow-[0_0_30px_rgba(6,182,212,0.15)] relative overflow-hidden">
               
               <!-- Hardware LEDs & Header -->
               <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-4">
@@ -5747,7 +6080,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <div>
                 <label class="text-xs font-bold text-gray-300 block mb-2">Default Hardware Printer Paper Type</label>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <label class="relative p-3.5 rounded-2xl bg-slate-950/80 border border-slate-700/80 hover:border-cyan-400/80 cursor-pointer transition-all flex flex-col justify-between group">
+                  <label class="cyber-hardware-card relative p-3.5 rounded-2xl bg-slate-950/80 border border-slate-700/80 hover:border-cyan-400/80 cursor-pointer transition-all flex flex-col justify-between group">
                     <input type="radio" name="printer_type_radio" value="58mm" onchange="syncPrinterTypeSelect('58mm')" class="absolute right-3 top-3 text-cyan-500" checked />
                     <div>
                       <span class="text-lg">🧾</span>
@@ -5757,7 +6090,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                     <span class="text-[9px] font-mono text-cyan-400 mt-2">STANDARD</span>
                   </label>
 
-                  <label class="relative p-3.5 rounded-2xl bg-slate-950/80 border border-slate-700/80 hover:border-cyan-400/80 cursor-pointer transition-all flex flex-col justify-between group">
+                  <label class="cyber-hardware-card relative p-3.5 rounded-2xl bg-slate-950/80 border border-slate-700/80 hover:border-cyan-400/80 cursor-pointer transition-all flex flex-col justify-between group">
                     <input type="radio" name="printer_type_radio" value="80mm" onchange="syncPrinterTypeSelect('80mm')" class="absolute right-3 top-3 text-cyan-500" />
                     <div>
                       <span class="text-lg">📜</span>
@@ -5767,7 +6100,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                     <span class="text-[9px] font-mono text-emerald-400 mt-2">EXPANDED</span>
                   </label>
 
-                  <label class="relative p-3.5 rounded-2xl bg-slate-950/80 border border-slate-700/80 hover:border-cyan-400/80 cursor-pointer transition-all flex flex-col justify-between group">
+                  <label class="cyber-hardware-card relative p-3.5 rounded-2xl bg-slate-950/80 border border-slate-700/80 hover:border-cyan-400/80 cursor-pointer transition-all flex flex-col justify-between group">
                     <input type="radio" name="printer_type_radio" value="a4" onchange="syncPrinterTypeSelect('a4')" class="absolute right-3 top-3 text-cyan-500" />
                     <div>
                       <span class="text-lg">📄</span>
@@ -5861,7 +6194,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
           <!-- Cyberpunk Dynamic Rates Table -->
           <div class="overflow-x-auto rounded-2xl border border-white/10">
-            <table class="w-full text-left text-xs min-w-[620px]">
+            <table class="cyber-rates-table w-full text-left text-xs min-w-[620px]">
               <thead class="bg-slate-950/80 text-gray-400 font-mono text-[10px] uppercase tracking-wider border-b border-white/10">
                 <tr>
                   <th class="p-4">Garment Model / Name</th>
@@ -5915,12 +6248,12 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <!-- Quick Insert Variable Pills -->
               <div class="flex flex-wrap items-center gap-1.5 text-[10px] font-mono">
                 <span class="text-gray-400">Insert:</span>
-                <button type="button" onclick="insertTmplVar('set-tmpl-confirm', '{shop}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{shop}</button>
-                <button type="button" onclick="insertTmplVar('set-tmpl-confirm', '{customer}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{customer}</button>
-                <button type="button" onclick="insertTmplVar('set-tmpl-confirm', '{orderId}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{orderId}</button>
-                <button type="button" onclick="insertTmplVar('set-tmpl-confirm', '{garment}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{garment}</button>
-                <button type="button" onclick="insertTmplVar('set-tmpl-confirm', '{total}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{total}</button>
-                <button type="button" onclick="insertTmplVar('set-tmpl-confirm', '{due}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{due}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-confirm', '{shop}')" class="cyber-var-pill px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{shop}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-confirm', '{customer}')" class="cyber-var-pill px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{customer}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-confirm', '{orderId}')" class="cyber-var-pill px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{orderId}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-confirm', '{garment}')" class="cyber-var-pill px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{garment}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-confirm', '{total}')" class="cyber-var-pill px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{total}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-confirm', '{due}')" class="cyber-var-pill px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{due}</button>
               </div>
 
               <textarea id="set-tmpl-confirm" rows="3" oninput="updateWhatsAppSimulator()" class="w-full bg-slate-950 border border-slate-700 rounded-2xl p-3.5 text-white text-xs leading-relaxed focus:border-cyan-400 outline-none"></textarea>
@@ -5937,10 +6270,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
               <div class="flex flex-wrap items-center gap-1.5 text-[10px] font-mono">
                 <span class="text-gray-400">Insert:</span>
-                <button type="button" onclick="insertTmplVar('set-tmpl-ready', '{shop}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{shop}</button>
-                <button type="button" onclick="insertTmplVar('set-tmpl-ready', '{customer}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{customer}</button>
-                <button type="button" onclick="insertTmplVar('set-tmpl-ready', '{orderId}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{orderId}</button>
-                <button type="button" onclick="insertTmplVar('set-tmpl-ready', '{due}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{due}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-ready', '{shop}')" class="cyber-var-pill px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{shop}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-ready', '{customer}')" class="cyber-var-pill px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{customer}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-ready', '{orderId}')" class="cyber-var-pill px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{orderId}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-ready', '{due}')" class="cyber-var-pill px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{due}</button>
               </div>
 
               <textarea id="set-tmpl-ready" rows="3" oninput="updateWhatsAppSimulator()" class="w-full bg-slate-950 border border-slate-700 rounded-2xl p-3.5 text-white text-xs leading-relaxed focus:border-cyan-400 outline-none"></textarea>
@@ -5957,10 +6290,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
               <div class="flex flex-wrap items-center gap-1.5 text-[10px] font-mono">
                 <span class="text-gray-400">Insert:</span>
-                <button type="button" onclick="insertTmplVar('set-tmpl-due', '{shop}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{shop}</button>
-                <button type="button" onclick="insertTmplVar('set-tmpl-due', '{customer}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{customer}</button>
-                <button type="button" onclick="insertTmplVar('set-tmpl-due', '{orderId}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{orderId}</button>
-                <button type="button" onclick="insertTmplVar('set-tmpl-due', '{due}')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{due}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-due', '{shop}')" class="cyber-var-pill px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{shop}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-due', '{customer}')" class="cyber-var-pill px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{customer}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-due', '{orderId}')" class="cyber-var-pill px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{orderId}</button>
+                <button type="button" onclick="insertTmplVar('set-tmpl-due', '{due}')" class="cyber-var-pill px-2 py-0.5 rounded bg-white/5 hover:bg-cyan-500/20 hover:text-cyan-300 border border-white/10 transition-colors">{due}</button>
               </div>
 
               <textarea id="set-tmpl-due" rows="3" oninput="updateWhatsAppSimulator()" class="w-full bg-slate-950 border border-slate-700 rounded-2xl p-3.5 text-white text-xs leading-relaxed focus:border-cyan-400 outline-none"></textarea>
@@ -5979,7 +6312,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               </div>
 
               <!-- Phone Mockup Frame -->
-              <div class="mx-auto max-w-[280px] bg-slate-950 rounded-3xl p-3 border-4 border-slate-800 shadow-2xl space-y-3">
+              <div class="cyber-phone-frame mx-auto max-w-[280px] bg-slate-950 rounded-3xl p-3 border-4 border-slate-800 shadow-2xl space-y-3">
                 
                 <!-- Phone Top Bar -->
                 <div class="flex justify-between items-center px-2 text-[10px] text-gray-400 font-mono">
@@ -16899,13 +17232,17 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     function switchSettingsTab(tabId) {
       document.querySelectorAll('.settings-tab-panel').forEach(p => p.classList.add('hidden'));
       document.querySelectorAll('#settings-tabs-container button').forEach(b => {
-        b.className = 'px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-2 whitespace-nowrap active:scale-95';
+        b.classList.remove('active', 'bg-cyan-500/20', 'text-cyan-300', 'border-cyan-500/40', 'shadow-[0_0_15px_rgba(6,182,212,0.2)]');
+        b.classList.add('text-gray-400', 'border-transparent');
       });
 
       const panel = document.getElementById('stab-content-' + tabId);
       const btn = document.getElementById('stab-btn-' + tabId);
       if (panel) panel.classList.remove('hidden');
-      if (btn) btn.className = 'px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-[0_0_15px_rgba(6,182,212,0.2)] flex items-center gap-2 whitespace-nowrap active:scale-95';
+      if (btn) {
+        btn.classList.add('active', 'bg-cyan-500/20', 'text-cyan-300', 'border-cyan-500/40', 'shadow-[0_0_15px_rgba(6,182,212,0.2)]');
+        btn.classList.remove('text-gray-400', 'border-transparent');
+      }
       
       if (tabId === 'backup') updateSettingsTelemetry();
     }
