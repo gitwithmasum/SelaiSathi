@@ -3760,6 +3760,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <div class="due-aging-container flex items-center gap-1 text-[11px] p-1 bg-slate-900/60 rounded-xl border border-slate-800" id="inv-stock-filters">
                 <button type="button" onclick="setInventoryStockFilter('all')" id="isf-filter-all" class="due-aging-pill active px-3 py-1 rounded-lg text-xs font-bold transition-all">All Stock</button>
                 <button type="button" onclick="setInventoryStockFilter('low')" id="isf-filter-low" class="due-aging-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all">⚠️ Low Stock</button>
+                <button type="button" onclick="setInventoryStockFilter('out')" id="isf-filter-out" class="due-aging-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all">⛔ Out</button>
                 <button type="button" onclick="setInventoryStockFilter('instock')" id="isf-filter-instock" class="due-aging-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all">✓ In Stock</button>
               </div>
 
@@ -12846,7 +12847,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     // --- STOCK STATUS FILTER ---
     function setInventoryStockFilter(filter) {
       inventoryStockFilter = filter;
-      const filters = ['all', 'low', 'instock'];
+      const filters = ['all', 'low', 'out', 'instock'];
       filters.forEach(f => {
         const btn = document.getElementById('isf-filter-' + f);
         if (btn) {
@@ -12978,8 +12979,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         }
       }
 
+      // Mutually exclusive stock states: out, low-but-available, and healthy.
       if (inventoryStockFilter === 'low') {
-        filtered = filtered.filter(x => Number(x.stock) <= Number(x.minimum));
+        filtered = filtered.filter(x => Number(x.stock) > 0 && Number(x.stock) <= Number(x.minimum));
+      } else if (inventoryStockFilter === 'out') {
+        filtered = filtered.filter(x => Number(x.stock) <= 0);
       } else if (inventoryStockFilter === 'instock') {
         filtered = filtered.filter(x => Number(x.stock) > Number(x.minimum));
       }
@@ -12995,8 +12999,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const gridContainer = document.getElementById('inventory-grid-view');
       if (gridContainer) {
         gridContainer.innerHTML = filtered.map(item => {
-          const isLow = Number(item.stock) <= Number(item.minimum);
-          const val = (Number(item.stock) || 0) * (Number(item.cost) || 0);
+          const stockQty = Number(item.stock) || 0;
+          const isOut = stockQty <= 0;
+          const isLow = !isOut && stockQty <= (Number(item.minimum) || 0);
+          const val = stockQty * (Number(item.cost) || 0);
           const colorHex = item.color || '#38bdf8';
           const catIcon = item.category === 'Buttons' ? '🔘' :
                           item.category === 'Zippers' ? '🤐' :
@@ -13013,8 +13019,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                       ${catIcon}
                     </span>
                     <div>
-                      <span class="text-[10px] font-mono px-2 py-0.5 rounded-md font-bold uppercase tracking-wider ${isLow ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-cyan-500/10 text-cyan-300 border border-cyan-500/20'}">
-                        ${isLow ? '⚠️ Low Stock' : '✓ In Stock'}
+                      <span class="text-[10px] font-mono px-2 py-0.5 rounded-md font-bold uppercase tracking-wider ${isOut ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' : isLow ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-cyan-500/10 text-cyan-300 border border-cyan-500/20'}">
+                        ${isOut ? '⛔ Out of Stock' : isLow ? '⚠️ Low Stock' : '✓ In Stock'}
                       </span>
                     </div>
                   </div>
@@ -13080,7 +13086,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const tableBody = document.getElementById('inventory-table');
       if (tableBody) {
         tableBody.innerHTML = filtered.map(item => {
-          const isLow = Number(item.stock) <= Number(item.minimum);
+          const stockQty = Number(item.stock) || 0;
+          const isOut = stockQty <= 0;
+          const isLow = !isOut && stockQty <= (Number(item.minimum) || 0);
           const colorHex = item.color || '#38bdf8';
           return `
             <tr class="border-b border-ios-border hover:bg-white/5 transition-colors">
@@ -13095,11 +13103,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               </td>
               <td class="p-3 font-mono font-bold text-cyan-300">${safeText(item.sku || item.boltId || '—')}</td>
               <td class="p-3 font-mono text-ios-subtext">${safeText(item.rack || '—')}</td>
-              <td class="p-3 font-mono font-black ${isLow ? 'text-amber-400' : 'text-ios-text'}">${safeText(item.stock)} ${safeText(item.unit || 'yard')}</td>
+              <td class="p-3 font-mono font-black ${isOut ? 'text-rose-400' : isLow ? 'text-amber-400' : 'text-ios-text'}">${safeText(item.stock)} ${safeText(item.unit || 'yard')}</td>
               <td class="p-3 font-mono text-emerald-400">৳${safeText(item.cost || 0)} / ৳${safeText(item.price || 0)}</td>
               <td class="p-3">
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded-md font-bold uppercase tracking-wider ${isLow ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/20'}">
-                  ${isLow ? '⚠️ Low' : '✓ In Stock'}
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded-md font-bold uppercase tracking-wider ${isOut ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' : isLow ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/20'}">
+                  ${isOut ? '⛔ Out' : isLow ? '⚠️ Low' : '✓ In Stock'}
                 </span>
               </td>
               <td class="p-3 text-right whitespace-nowrap">
