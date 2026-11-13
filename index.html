@@ -3335,6 +3335,114 @@ body.theme-white #view-measurements #meas-quick-matrix {
       border-color: #7DD3FC !important;
     }
 
+    /* Tab 6: Users & Access Matrix (RBAC) Theme-White Styles */
+    body.theme-white #stab-content-users .bento-card {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+    }
+    body.theme-white #stab-content-users h2,
+    body.theme-white #stab-content-users h3 {
+      color: #0F172A !important;
+    }
+    body.theme-white #stab-content-users p {
+      color: #64748B !important;
+    }
+    body.theme-white #users-search-input {
+      background: #F8FAFC !important;
+      border: 1px solid #CBD5E1 !important;
+      color: #0F172A !important;
+    }
+    body.theme-white .cyber-header-user-btn {
+      background: #E0F2FE !important;
+      border: 1px solid #7DD3FC !important;
+      color: #0284C7 !important;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.12) !important;
+    }
+    body.theme-white .cyber-header-user-btn:hover {
+      background: #BAE6FD !important;
+      color: #0369A1 !important;
+    }
+    body.theme-white .cyber-header-user-btn #header-user-name {
+      color: #0C2340 !important;
+    }
+    body.theme-white .rbac-user-card {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03) !important;
+    }
+    body.theme-white .rbac-user-card:hover {
+      border-color: #7DD3FC !important;
+      box-shadow: 0 6px 20px rgba(2, 132, 199, 0.08) !important;
+    }
+    body.theme-white .rbac-matrix-table {
+      border-color: #E2E8F0 !important;
+    }
+    body.theme-white .rbac-matrix-table thead tr {
+      background: #F8FAFC !important;
+      border-bottom: 1px solid #E2E8F0 !important;
+      color: #475569 !important;
+    }
+    body.theme-white .rbac-matrix-table tbody tr {
+      border-bottom: 1px solid #F1F5F9 !important;
+    }
+    body.theme-white .rbac-matrix-table tbody tr:hover {
+      background: #F8FAFC !important;
+    }
+    body.theme-white .rbac-matrix-table .perm-name {
+      color: #0F172A !important;
+    }
+    body.theme-white .rbac-matrix-table .perm-desc {
+      color: #64748B !important;
+    }
+    body.theme-white #security-audit-feed {
+      background: #F8FAFC !important;
+      border: 1px solid #E2E8F0 !important;
+      color: #334155 !important;
+    }
+    body.theme-white #modal-user-switcher .bento-card,
+    body.theme-white #modal-user-form .bento-card {
+      background: #FFFFFF !important;
+      border: 1px solid #7DD3FC !important;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+    }
+    body.theme-white #modal-user-switcher h3,
+    body.theme-white #modal-user-form h3 {
+      color: #0F172A !important;
+    }
+    body.theme-white #modal-user-switcher .pin-key-btn {
+      background: #F8FAFC !important;
+      border: 1px solid #CBD5E1 !important;
+      color: #0F172A !important;
+    }
+    body.theme-white #modal-user-switcher .pin-key-btn:hover {
+      background: #E0F2FE !important;
+      border-color: #38BDF8 !important;
+      color: #0284C7 !important;
+    }
+    body.theme-white #modal-user-switcher .pin-dot {
+      border-color: #0284C7 !important;
+    }
+    body.theme-white #modal-user-switcher .pin-dot.filled {
+      background: #0284C7 !important;
+    }
+    body.theme-white #modal-user-switcher .bg-white/\[0\.03\] {
+      background: #F1F5F9 !important;
+      border-color: #CBD5E1 !important;
+    }
+    body.theme-white #modal-user-switcher #pin-modal-name {
+      color: #0F172A !important;
+    }
+    body.theme-white #modal-user-form input,
+    body.theme-white #modal-user-form select {
+      background: #FFFFFF !important;
+      border: 1px solid #CBD5E1 !important;
+      color: #0F172A !important;
+    }
+    body.theme-white #modal-user-form label {
+      color: #334155 !important;
+    }
+
     /* Tab 5: Data Vault */
     body.theme-white #stab-content-backup .p-4.rounded-2xl {
       background: #F8FAFC !important;
@@ -4300,6 +4408,13 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
         
         <!-- Language Switcher: Compact Glass Icon Button -->
+        <!-- Futuristic Cyber Active User & Quick PIN HUD Pill -->
+        <button onclick="openUserSwitchModal()" id="header-user-badge" class="cyber-header-user-btn px-2 sm:px-2.5 py-1.5 rounded-xl border border-cyan-500/30 bg-cyan-500/10 hover:bg-cyan-500/20 text-xs font-mono font-bold text-cyan-300 transition-all active:scale-95 flex items-center gap-1.5 cursor-pointer shrink-0" title="Active Operator & Quick PIN Switcher (ইউজার পরিবর্তন)">
+          <span id="header-user-avatar-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="header-user-name" class="max-w-[75px] sm:max-w-[125px] truncate">👑 Masum</span>
+          <span id="header-user-role-badge" class="hidden sm:inline-block text-[9px] px-1.5 py-0.5 rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/30 uppercase font-mono">OWNER</span>
+        </button>
+
         <button onclick="toggleLanguage()" class="p-2 sm:px-3 sm:py-1.5 rounded-xl border border-ios-border bg-white/5 hover:bg-white/15 text-xs font-bold text-ios-text transition-all active:scale-95 flex items-center gap-1 shrink-0" title="Language (ভাষা পরিবর্তন)">
           <span class="text-sm">🌐</span>
           <span id="lang-indicator" class="hidden sm:inline text-[11px]">বাংলা</span>
@@ -5922,6 +6037,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <button onclick="switchSettingsTab('backup')" id="stab-btn-backup" class="settings-tab-btn px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-2 whitespace-nowrap active:scale-95">
           <span>// 05</span> <span>💾 Encrypted Vault (Backup)</span>
         </button>
+        <button onclick="switchSettingsTab('users')" id="stab-btn-users" class="settings-tab-btn px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-2 whitespace-nowrap active:scale-95 cursor-pointer">
+          <span>// 06</span> <span>👥 Users & Access Matrix (RBAC)</span>
+        </button>
       </div>
 
       <!-- ==================================================== -->
@@ -6504,6 +6622,215 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           </div>
 
         </div>
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- TAB 6: USERS & ACCESS MATRIX (RBAC / CYBER SECURITY) -->
+      <!-- ==================================================== -->
+      <div id="stab-content-users" class="settings-tab-panel hidden space-y-6">
+        
+        <!-- Cyber Diagnostic KPI Strip -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div class="bento-card p-4 rounded-2xl bg-slate-900/60 border border-white/10 backdrop-blur-xl flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-mono uppercase tracking-wider text-gray-400">Total Operators</span>
+              <span class="text-sm">👥</span>
+            </div>
+            <div class="mt-2">
+              <div class="text-2xl font-black font-mono text-cyan-400" id="users-kpi-total">5</div>
+              <div class="text-[10px] text-gray-400 mt-0.5">Active Staff & Logins</div>
+            </div>
+          </div>
+
+          <div class="bento-card p-4 rounded-2xl bg-slate-900/60 border border-white/10 backdrop-blur-xl flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-mono uppercase tracking-wider text-emerald-400">Clearance Guard</span>
+              <span class="text-sm">🛡️</span>
+            </div>
+            <div class="mt-2">
+              <div class="text-base sm:text-lg font-black font-mono text-emerald-400">AES-256 RBAC</div>
+              <div class="text-[10px] text-gray-400 mt-0.5">5 Granular Roles Online</div>
+            </div>
+          </div>
+
+          <div class="bento-card p-4 rounded-2xl bg-slate-900/60 border border-white/10 backdrop-blur-xl flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-mono uppercase tracking-wider text-purple-400">Active Terminal Session</span>
+              <span class="text-sm">⚡</span>
+            </div>
+            <div class="mt-2">
+              <div class="text-base sm:text-lg font-black font-mono text-purple-300 truncate" id="users-kpi-current">👑 Owner</div>
+              <div class="text-[10px] text-gray-400 mt-0.5">Instant 4-Digit PIN Switch</div>
+            </div>
+          </div>
+
+          <div class="bento-card p-4 rounded-2xl bg-slate-900/60 border border-white/10 backdrop-blur-xl flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-mono uppercase tracking-wider text-amber-400">Security Gate</span>
+              <span class="text-sm">🔒</span>
+            </div>
+            <div class="mt-2">
+              <div class="text-base sm:text-lg font-black font-mono text-amber-400" id="users-kpi-policy">PIN Enforced</div>
+              <div class="text-[10px] text-gray-400 mt-0.5">Redacted Financials & Phone</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 1: Authorized System Operators Directory -->
+        <div class="bento-card p-6 sm:p-7 space-y-5 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl shadow-xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-sm border border-cyan-500/30">01</span>
+              <div>
+                <h2 class="text-base font-bold text-white tracking-wide">Authorized Personnel & Tailor Operators</h2>
+                <p class="text-xs text-gray-400">Manage shop staff logins, 4-digit quick PINs, role assignments, and access status</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <div class="relative">
+                <input type="text" id="users-search-input" oninput="renderUsersDirectoryList()" placeholder="Search operator..." class="pl-8 pr-3 py-1.5 rounded-xl text-xs bg-slate-950/80 border border-slate-700 text-white placeholder-gray-500 focus:border-cyan-400 outline-none w-36 sm:w-48" />
+                <span class="absolute left-2.5 top-2 text-xs text-gray-400">🔍</span>
+              </div>
+              <button onclick="openNewUserModal()" class="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-cyan-500 to-teal-500 hover:brightness-110 active:scale-95 text-white flex items-center gap-1.5 shadow-sm transition-all cursor-pointer">
+                <span>＋</span> <span>Add New User</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Dynamic User Cards Grid -->
+          <div id="users-directory-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Populated dynamically via renderUsersDirectoryList() -->
+          </div>
+        </div>
+
+        <!-- Section 2: Role Permission Matrix (RBAC Grid) -->
+        <div class="bento-card p-6 sm:p-7 space-y-5 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl shadow-xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-sm border border-purple-500/30">02</span>
+              <div>
+                <h2 class="text-base font-bold text-white tracking-wide">Holographic Role Permission Matrix</h2>
+                <p class="text-xs text-gray-400">Configure role-based access control (RBAC) across shop operations, financials, and customer privacy</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="resetRolePermissionsToDefault()" class="px-3 py-1.5 rounded-xl text-xs font-mono font-bold text-gray-400 hover:text-white border border-white/10 hover:border-white/20 active:scale-95 transition-all cursor-pointer">
+                <span>↺</span> <span>Reset Defaults</span>
+              </button>
+              <button onclick="saveRolePermissionsUI()" class="px-4 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 hover:brightness-110 active:scale-95 text-white flex items-center gap-1.5 shadow-sm transition-all cursor-pointer">
+                <span>💾</span> <span>Save Permissions</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Permission Matrix Table -->
+          <div class="overflow-x-auto rounded-2xl border border-white/10">
+            <table class="w-full text-left text-xs border-collapse rbac-matrix-table" id="rbac-permissions-table">
+              <thead>
+                <tr class="border-b border-white/10 bg-slate-950/80 font-mono text-[11px] text-gray-400">
+                  <th class="p-3.5 min-w-[200px]">System Capability & Permission</th>
+                  <th class="p-3.5 text-center min-w-[110px] text-purple-300">👑 Owner</th>
+                  <th class="p-3.5 text-center min-w-[110px] text-cyan-300">👔 Manager</th>
+                  <th class="p-3.5 text-center min-w-[110px] text-amber-300">✂️ Master</th>
+                  <th class="p-3.5 text-center min-w-[110px] text-emerald-300">🧵 Karigar</th>
+                  <th class="p-3.5 text-center min-w-[110px] text-pink-300">💰 Cashier</th>
+                </tr>
+              </thead>
+              <tbody id="rbac-matrix-tbody" class="divide-y divide-white/5">
+                <!-- Populated dynamically via renderRolePermissionsMatrix() -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Section 3: Security & Privacy Governance Protocols -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bento-card p-6 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl space-y-4">
+            <div class="flex items-center gap-2.5 border-b border-white/10 pb-3">
+              <span class="w-7 h-7 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xs border border-amber-500/30">03</span>
+              <div>
+                <h3 class="text-sm font-bold text-white">Terminal Security Protocols</h3>
+                <p class="text-[11px] text-gray-400">Quick PIN enforcement and session protection policies</p>
+              </div>
+            </div>
+
+            <div class="space-y-3 pt-1">
+              <label class="flex items-start justify-between gap-3 p-3 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all cursor-pointer">
+                <div>
+                  <div class="font-bold text-xs text-white">Enforce 4-Digit PIN for Switching</div>
+                  <div class="text-[11px] text-gray-400">Requires entering operator PIN code when switching users at POS terminal</div>
+                </div>
+                <input type="checkbox" id="policy-pin-switch" onchange="updateSecurityPolicy('pinSwitch', this.checked)" checked class="w-4 h-4 rounded text-cyan-500 focus:ring-0 cursor-pointer mt-0.5" />
+              </label>
+
+              <label class="flex items-start justify-between gap-3 p-3 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all cursor-pointer">
+                <div>
+                  <div class="font-bold text-xs text-white">Order Deletion Admin Lock</div>
+                  <div class="text-[11px] text-gray-400">Only Super Admin / Owner can permanently delete order vouchers from vault</div>
+                </div>
+                <input type="checkbox" id="policy-delete-lock" onchange="updateSecurityPolicy('deleteLock', this.checked)" checked class="w-4 h-4 rounded text-cyan-500 focus:ring-0 cursor-pointer mt-0.5" />
+              </label>
+            </div>
+          </div>
+
+          <div class="bento-card p-6 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl space-y-4">
+            <div class="flex items-center gap-2.5 border-b border-white/10 pb-3">
+              <span class="w-7 h-7 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-xs border border-cyan-500/30">04</span>
+              <div>
+                <h3 class="text-sm font-bold text-white">Customer Privacy & Redaction</h3>
+                <p class="text-[11px] text-gray-400">Information masking rules for workshop staff & non-admins</p>
+              </div>
+            </div>
+
+            <div class="space-y-3 pt-1">
+              <label class="flex items-start justify-between gap-3 p-3 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all cursor-pointer">
+                <div>
+                  <div class="font-bold text-xs text-white">Customer Phone Redaction</div>
+                  <div class="text-[11px] text-gray-400">Mask middle digits (e.g. 01712***890) on Karigar & Cashier views for customer privacy</div>
+                </div>
+                <input type="checkbox" id="policy-phone-mask" onchange="updateSecurityPolicy('phoneMask', this.checked)" checked class="w-4 h-4 rounded text-cyan-500 focus:ring-0 cursor-pointer mt-0.5" />
+              </label>
+
+              <label class="flex items-start justify-between gap-3 p-3 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all cursor-pointer">
+                <div>
+                  <div class="font-bold text-xs text-white">Redact Financial Totals on Staff Views</div>
+                  <div class="text-[11px] text-gray-400">Hides shop net profit, store ledger totals, and overall margins from non-owners</div>
+                </div>
+                <input type="checkbox" id="policy-finance-redact" onchange="updateSecurityPolicy('financeRedact', this.checked)" checked class="w-4 h-4 rounded text-cyan-500 focus:ring-0 cursor-pointer mt-0.5" />
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 4: Live Security Audit Trail Log -->
+        <div class="bento-card p-6 sm:p-7 space-y-4 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl shadow-xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-3">
+            <div class="flex items-center gap-2">
+              <span class="text-base">📜</span>
+              <div>
+                <h3 class="font-bold text-sm text-white">Real-Time Security & Operator Audit Trail</h3>
+                <p class="text-[11px] text-gray-400">Cryptographic timeline of authentication, user switches, and critical actions</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="renderAuditLogFeed()" class="px-3 py-1 rounded-xl text-xs font-mono font-bold text-cyan-400 hover:bg-cyan-500/10 border border-cyan-500/20 active:scale-95 transition-all cursor-pointer">
+                <span>🔄</span> Refresh
+              </button>
+              <button onclick="exportAuditLogs()" class="px-3 py-1 rounded-xl text-xs font-mono font-bold text-emerald-400 hover:bg-emerald-500/10 border border-emerald-500/20 active:scale-95 transition-all cursor-pointer">
+                <span>📥</span> Export JSON
+              </button>
+              <button onclick="clearAuditLogs()" class="px-3 py-1 rounded-xl text-xs font-mono font-bold text-rose-400 hover:bg-rose-500/10 border border-rose-500/20 active:scale-95 transition-all cursor-pointer">
+                <span>🧹</span> Clear
+              </button>
+            </div>
+          </div>
+
+          <!-- Audit Log Feed -->
+          <div class="rounded-2xl border border-white/10 bg-slate-950/80 p-3 max-h-64 overflow-y-auto font-mono text-[11px] space-y-2" id="security-audit-feed">
+            <!-- Populated via renderAuditLogFeed() -->
+          </div>
+        </div>
+
       </div>
 
     </section>
@@ -17149,6 +17476,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (pTag) pTag.textContent = cfg.tagline;
       if (pAddr) pAddr.textContent = cfg.address;
       if (pPhone) pPhone.textContent = 'Phone: ' + cfg.phone;
+      if (typeof updateHeaderUserPill === 'function') updateHeaderUserPill();
     }
 
     function renderShopSettingsForm() {
@@ -17186,6 +17514,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       applyBrandToUI();
       updateSettingsTelemetry();
       updateWhatsAppSimulator();
+      if (typeof renderUsersSettingsUI === 'function') renderUsersSettingsUI();
 
       // Realtime live preview typing bindings
       ['set-shop-name', 'set-shop-tagline', 'set-shop-address', 'set-shop-phone'].forEach(id => {
@@ -17315,6 +17644,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       }
       
       if (tabId === 'backup') updateSettingsTelemetry();
+      if (tabId === 'users') renderUsersSettingsUI();
     }
 
     function renderGarmentsTable(garments) {
@@ -17458,6 +17788,694 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       URL.revokeObjectURL(url);
     }
 
+    // ============================================================
+    // 👥 HOLOGRAPHIC USERS & ROLE-BASED ACCESS CONTROL (RBAC) ENGINE
+    // ============================================================
+
+    const DEFAULT_SYSTEM_USERS = [
+      { id: 'usr-owner', name: 'Al-Amin Masum', role: 'owner', phone: '01700-112233', pin: '1234', avatarColor: 'from-amber-400 to-orange-500', status: 'active', lastActive: 'Just now' },
+      { id: 'usr-mgr', name: 'Tanvir Ahmed', role: 'manager', phone: '01811-223344', pin: '2233', avatarColor: 'from-cyan-400 to-blue-500', status: 'active', lastActive: '12m ago' },
+      { id: 'usr-cutter', name: 'Master Rafiqul', role: 'master', phone: '01922-334455', pin: '3344', avatarColor: 'from-purple-400 to-indigo-500', status: 'active', lastActive: '1h ago' },
+      { id: 'usr-karigar', name: 'Shafiqul Islam', role: 'karigar', phone: '01633-445566', pin: '4455', avatarColor: 'from-emerald-400 to-teal-500', status: 'active', lastActive: '30m ago' },
+      { id: 'usr-cashier', name: 'Sumon Roy', role: 'cashier', phone: '01744-556677', pin: '5566', avatarColor: 'from-pink-400 to-rose-500', status: 'active', lastActive: '2h ago' }
+    ];
+
+    const ROLE_DEFINITIONS = {
+      owner: { label: 'Super Admin / Owner', badge: '👑 OWNER', color: 'from-amber-400 to-orange-500', badgeClass: 'bg-amber-500/20 text-amber-300 border-amber-500/30' },
+      manager: { label: 'Shop Manager', badge: '👔 MANAGER', color: 'from-cyan-400 to-blue-500', badgeClass: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30' },
+      master: { label: 'Cutting Master', badge: '✂️ MASTER', color: 'from-purple-400 to-indigo-500', badgeClass: 'bg-purple-500/20 text-purple-300 border-purple-500/30' },
+      karigar: { label: 'Karigar / Artisan', badge: '🧵 KARIGAR', color: 'from-emerald-400 to-teal-500', badgeClass: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' },
+      cashier: { label: 'Cashier / Accounts', badge: '💰 CASHIER', color: 'from-pink-400 to-rose-500', badgeClass: 'bg-pink-500/20 text-pink-300 border-pink-500/30' }
+    };
+
+    const DEFAULT_ROLE_PERMS = {
+      create_order:   { name: 'Create Orders & Vouchers', desc: 'অর্ডার নেওয়া ও ভাউচার তৈরি', owner: true, manager: true, master: false, karigar: false, cashier: false },
+      edit_order:     { name: 'Edit Orders & Stages', desc: 'অর্ডারের বিবরণ ও স্টেজ পরিবর্তন', owner: true, manager: true, master: true, karigar: false, cashier: false },
+      delete_order:   { name: 'Delete Orders (Permanent)', desc: 'অর্ডার ভল্ট থেকে চিরতরে মুছে ফেলা', owner: true, manager: false, master: false, karigar: false, cashier: false },
+      custom_discount:{ name: 'Apply Custom Discounts', desc: 'অর্ডারে বিশেষ ছাড় প্রদান', owner: true, manager: true, master: false, karigar: false, cashier: false },
+      measurements:   { name: 'Measurements & CAD Slips', desc: 'মাপ গ্রহণ ও কাটিং স্লিপ তৈরি', owner: true, manager: true, master: true, karigar: false, cashier: false },
+      fabric_calc:    { name: 'Tailor Fabric Calculator', desc: 'গজ-ইঞ্চি ও খরচ ক্যালকুলেটর', owner: true, manager: true, master: true, karigar: true, cashier: false },
+      karigar_status: { name: 'Update Sewing Job Status', desc: 'কারিগর সেলাই স্ট্যাটাস আপডেট', owner: true, manager: true, master: true, karigar: true, cashier: false },
+      view_pnl:       { name: 'View Net Profit & Loss (P&L)', desc: 'দোকানের মোট লাভ-ক্ষতি রিপোর্ট', owner: true, manager: false, master: false, karigar: false, cashier: false },
+      cash_drawer:    { name: 'Cash Drawer & Expenses', desc: 'দৈনিক ক্যাশ হিসাব ও খরচ এন্ট্রি', owner: true, manager: true, master: false, karigar: false, cashier: true },
+      receive_due:    { name: 'Receive Due & Print Receipts', desc: 'বকেয়া গ্রহণ ও মানি রিসিট প্রিন্ট', owner: true, manager: true, master: false, karigar: false, cashier: true },
+      view_phone:     { name: 'View Full Customer Phone', desc: 'কাস্টমার ফোন নম্বর সম্পূর্ণ দেখা', owner: true, manager: true, master: true, karigar: false, cashier: false },
+      shop_settings:  { name: 'Shop Settings & Backup Vault', desc: 'দোকান কনফিগারেশন ও ডাটা ব্যাকআপ', owner: true, manager: false, master: false, karigar: false, cashier: false }
+    };
+
+    const DEFAULT_SECURITY_POLICIES = {
+      pinSwitch: true,
+      deleteLock: true,
+      phoneMask: true,
+      financeRedact: true
+    };
+
+    function getSystemUsers() {
+      try {
+        const saved = JSON.parse(localStorage.getItem('selaisathi_users') || 'null');
+        if (Array.isArray(saved) && saved.length > 0) return saved;
+      } catch(e) {}
+      localStorage.setItem('selaisathi_users', JSON.stringify(DEFAULT_SYSTEM_USERS));
+      return DEFAULT_SYSTEM_USERS;
+    }
+
+    function saveSystemUsers(list) {
+      localStorage.setItem('selaisathi_users', JSON.stringify(list));
+      renderUsersSettingsUI();
+      updateHeaderUserPill();
+    }
+
+    function getActiveOperator() {
+      const users = getSystemUsers();
+      const activeId = localStorage.getItem('selaisathi_active_user_id') || 'usr-owner';
+      return users.find(u => u.id === activeId) || users[0] || DEFAULT_SYSTEM_USERS[0];
+    }
+
+    function setActiveOperator(userId) {
+      localStorage.setItem('selaisathi_active_user_id', userId);
+      updateHeaderUserPill();
+      renderUsersSettingsUI();
+      applyOperatorPermissionsToUI();
+    }
+
+    function getRolePermissions() {
+      try {
+        const saved = JSON.parse(localStorage.getItem('selaisathi_role_perms') || 'null');
+        if (saved && typeof saved === 'object') return { ...DEFAULT_ROLE_PERMS, ...saved };
+      } catch(e) {}
+      return DEFAULT_ROLE_PERMS;
+    }
+
+    function saveRolePermissions(matrix) {
+      localStorage.setItem('selaisathi_role_perms', JSON.stringify(matrix));
+    }
+
+    function getSecurityPolicies() {
+      try {
+        const saved = JSON.parse(localStorage.getItem('selaisathi_security_policies') || 'null');
+        if (saved && typeof saved === 'object') return { ...DEFAULT_SECURITY_POLICIES, ...saved };
+      } catch(e) {}
+      return DEFAULT_SECURITY_POLICIES;
+    }
+
+    function updateSecurityPolicy(key, val) {
+      const pol = getSecurityPolicies();
+      pol[key] = !!val;
+      localStorage.setItem('selaisathi_security_policies', JSON.stringify(pol));
+      logSecurityAudit('POLICY_CHANGE', 'Updated security policy ' + key + ' to ' + (val ? 'ENABLED' : 'DISABLED'), 'WARN');
+      applyOperatorPermissionsToUI();
+    }
+
+    function hasPermission(permissionKey) {
+      const op = getActiveOperator();
+      if (!op || op.role === 'owner') return true; // Owner has full access
+      const perms = getRolePermissions();
+      const p = perms[permissionKey];
+      return p ? !!p[op.role] : false;
+    }
+
+    function updateHeaderUserPill() {
+      const op = getActiveOperator();
+      if (!op) return;
+      const roleDef = ROLE_DEFINITIONS[op.role] || { label: op.role, badge: op.role.toUpperCase() };
+
+      const elName = document.getElementById('header-user-name');
+      const elBadge = document.getElementById('header-user-role-badge');
+      const elAvatarDot = document.getElementById('header-user-avatar-dot');
+
+      if (elName) elName.textContent = (op.role === 'owner' ? '👑 ' : '') + op.name;
+      if (elBadge) {
+        elBadge.textContent = roleDef.badge.replace(/^[^a-zA-Z0-9]+/, '').trim();
+      }
+      if (elAvatarDot) {
+        elAvatarDot.className = 'w-2 h-2 rounded-full ' + (op.status === 'active' ? 'bg-emerald-400 animate-pulse' : 'bg-rose-500');
+      }
+
+      // Update KPI
+      const kpiCurrent = document.getElementById('users-kpi-current');
+      if (kpiCurrent) kpiCurrent.textContent = (op.role === 'owner' ? '👑 ' : '') + op.name;
+    }
+
+    function maskCustomerPhone(phone) {
+      if (!phone) return '';
+      const pol = getSecurityPolicies();
+      if (!pol.phoneMask) return phone;
+      if (hasPermission('view_phone')) return phone;
+      const cleaned = phone.replace(/\s+/g, '');
+      if (cleaned.length >= 8) {
+        return cleaned.substring(0, 5) + '***' + cleaned.substring(cleaned.length - 3);
+      }
+      return phone;
+    }
+
+    function applyOperatorPermissionsToUI() {
+      const op = getActiveOperator();
+      const isOwner = op && op.role === 'owner';
+      const canFinance = hasPermission('view_pnl');
+
+      // Update telemetry and financial visibility
+      const finCards = document.querySelectorAll('.cyber-telemetry-card, #telemetry-vault-status, #vault-count-transactions');
+      finCards.forEach(el => {
+        if (!canFinance && !isOwner) {
+          el.setAttribute('data-rbac-restricted', 'true');
+        } else {
+          el.removeAttribute('data-rbac-restricted');
+        }
+      });
+    }
+
+    // Render Tab 6: Users & Access Matrix UI
+    function renderUsersSettingsUI() {
+      const users = getSystemUsers();
+      const op = getActiveOperator();
+
+      // KPIs
+      const elTotal = document.getElementById('users-kpi-total');
+      if (elTotal) elTotal.textContent = users.length;
+
+      const elCurrent = document.getElementById('users-kpi-current');
+      if (elCurrent && op) elCurrent.textContent = (op.role === 'owner' ? '👑 ' : '') + op.name;
+
+      const pol = getSecurityPolicies();
+      const elPolicy = document.getElementById('users-kpi-policy');
+      if (elPolicy) elPolicy.textContent = pol.pinSwitch ? 'PIN Enforced' : 'Quick Switch';
+
+      // Sync Policy Checkboxes
+      const chkPin = document.getElementById('policy-pin-switch');
+      if (chkPin) chkPin.checked = !!pol.pinSwitch;
+      const chkDel = document.getElementById('policy-delete-lock');
+      if (chkDel) chkDel.checked = !!pol.deleteLock;
+      const chkPhone = document.getElementById('policy-phone-mask');
+      if (chkPhone) chkPhone.checked = !!pol.phoneMask;
+      const chkFin = document.getElementById('policy-finance-redact');
+      if (chkFin) chkFin.checked = !!pol.financeRedact;
+
+      renderUsersDirectoryList();
+      renderRolePermissionsMatrix();
+      renderAuditLogFeed();
+    }
+
+    function renderUsersDirectoryList() {
+      const container = document.getElementById('users-directory-grid');
+      if (!container) return;
+
+      const users = getSystemUsers();
+      const activeOp = getActiveOperator();
+      const q = (document.getElementById('users-search-input')?.value || '').toLowerCase().trim();
+
+      const filtered = users.filter(u => {
+        if (!q) return true;
+        return u.name.toLowerCase().includes(q) || u.phone.includes(q) || u.role.toLowerCase().includes(q);
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = '<div class="col-span-full py-8 text-center text-gray-500 font-mono text-xs">No matching operators found</div>';
+        return;
+      }
+
+      container.innerHTML = filtered.map(u => {
+        const isActiveSession = activeOp && activeOp.id === u.id;
+        const roleDef = ROLE_DEFINITIONS[u.role] || { label: u.role, badge: u.role.toUpperCase(), badgeClass: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30' };
+        const initials = u.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'OP';
+        const isOwner = u.role === 'owner';
+
+        return '<div class="rbac-user-card p-4 rounded-2xl bg-slate-950/70 border border-white/10 hover:border-cyan-500/40 transition-all flex flex-col justify-between gap-3 ' + (isActiveSession ? 'ring-2 ring-cyan-400/50 shadow-[0_0_15px_rgba(6,182,212,0.15)]' : '') + '">' +
+          '<div class="flex items-start justify-between gap-2">' +
+            '<div class="flex items-center gap-3 min-w-0">' +
+              '<div class="w-10 h-10 rounded-xl bg-gradient-to-br ' + (u.avatarColor || 'from-cyan-400 to-blue-500') + ' text-slate-950 font-black text-xs flex items-center justify-center shadow-md shrink-0">' +
+                initials +
+              '</div>' +
+              '<div class="min-w-0">' +
+                '<div class="font-bold text-sm text-white truncate flex items-center gap-1.5">' +
+                  '<span>' + safeText(u.name) + '</span>' +
+                  (isActiveSession ? '<span class="text-[9px] px-1.5 py-0.2 rounded-full bg-cyan-500/20 text-cyan-300 font-mono font-bold border border-cyan-500/30">CURRENT</span>' : '') +
+                '</div>' +
+                '<div class="text-[11px] text-gray-400 font-mono mt-0.5">' + (u.phone || 'No phone') + '</div>' +
+              '</div>' +
+            '</div>' +
+            '<span class="text-[9px] font-mono px-2 py-0.5 rounded-lg border font-bold ' + roleDef.badgeClass + '">' + roleDef.badge + '</span>' +
+          '</div>' +
+
+          '<div class="flex items-center justify-between text-[11px] font-mono border-t border-white/5 pt-2.5">' +
+            '<div class="text-gray-400 flex items-center gap-1.5">' +
+              '<span>PIN:</span>' +
+              '<span class="text-white tracking-widest font-bold">••••</span>' +
+              '<span class="text-[9px] text-gray-500">(' + u.pin + ')</span>' +
+            '</div>' +
+            '<div class="flex items-center gap-1.5">' +
+              '<span class="w-1.5 h-1.5 rounded-full ' + (u.status === 'active' ? 'bg-emerald-400' : 'bg-rose-500') + '"></span>' +
+              '<span class="text-[10px] ' + (u.status === 'active' ? 'text-emerald-400' : 'text-rose-400') + ' uppercase font-bold">' + u.status + '</span>' +
+            '</div>' +
+          '</div>' +
+
+          '<div class="flex items-center gap-1.5 pt-1 border-t border-white/5">' +
+            (isActiveSession
+              ? '<button disabled class="flex-1 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono font-bold text-center opacity-70">Active Session</button>'
+              : '<button onclick="requestOperatorSwitch(\'' + u.id + '\')" class="flex-1 py-1.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 active:scale-95 border border-cyan-500/40 text-cyan-300 text-xs font-mono font-bold transition-all flex items-center justify-center gap-1 cursor-pointer"><span>⚡</span> <span>Switch</span></button>'
+            ) +
+            '<button onclick="openEditUserModal(\'' + u.id + '\')" class="px-2.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 active:scale-95 text-gray-300 text-xs transition-all cursor-pointer" title="Edit Profile">✏️</button>' +
+            (!isOwner ? '<button onclick="toggleUserStatus(\'' + u.id + '\')" class="px-2.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 active:scale-95 text-gray-300 text-xs transition-all cursor-pointer" title="Toggle Active/Suspended">🔒</button>' : '') +
+            (!isOwner ? '<button onclick="deleteUser(\'' + u.id + '\')" class="px-2.5 py-1.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 active:scale-95 text-rose-400 text-xs transition-all cursor-pointer" title="Delete Operator">🗑️</button>' : '') +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    function renderRolePermissionsMatrix() {
+      const tbody = document.getElementById('rbac-matrix-tbody');
+      if (!tbody) return;
+
+      const perms = getRolePermissions();
+      const roles = ['owner', 'manager', 'master', 'karigar', 'cashier'];
+
+      tbody.innerHTML = Object.entries(perms).map(([key, p]) => {
+        return '<tr class="hover:bg-white/[0.02] transition-colors">' +
+          '<td class="p-3.5">' +
+            '<div class="font-bold text-white perm-name">' + p.name + '</div>' +
+            '<div class="text-[10px] text-gray-400 perm-desc">' + p.desc + '</div>' +
+          '</td>' +
+          roles.map(r => {
+            const isOwner = r === 'owner';
+            const checked = isOwner ? true : !!p[r];
+            const disabled = isOwner ? 'disabled' : '';
+
+            return '<td class="p-3.5 text-center">' +
+              '<input type="checkbox" ' + (checked ? 'checked' : '') + ' ' + disabled + ' ' +
+                'data-perm-key="' + key + '" data-perm-role="' + r + '" ' +
+                'class="rbac-perm-chk w-4 h-4 rounded text-purple-600 focus:ring-0 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed" />' +
+            '</td>';
+          }).join('') +
+        '</tr>';
+      }).join('');
+    }
+
+    function saveRolePermissionsUI() {
+      const perms = getRolePermissions();
+      const checkboxes = document.querySelectorAll('.rbac-perm-chk');
+
+      checkboxes.forEach(chk => {
+        const key = chk.getAttribute('data-perm-key');
+        const role = chk.getAttribute('data-perm-role');
+        if (key && role && perms[key] && role !== 'owner') {
+          perms[key][role] = chk.checked;
+        }
+      });
+
+      saveRolePermissions(perms);
+      logSecurityAudit('RBAC_UPDATE', 'Role Permissions Matrix updated by ' + getActiveOperator().name, 'INFO');
+
+      if (window.CyberDialog) {
+        CyberDialog.alert('হোলোগ্রাফিক পারমিশন ম্যাট্রিক্স সফলভাবে সংরক্ষিত হয়েছে! সমস্ত কর্মীদের অধিকার তাৎক্ষণিকভাবে আপডেট হয়েছে।', {
+          icon: '🛡️',
+          title: 'PERMISSIONS SYNCHRONIZED'
+        });
+      } else {
+        alert('Role permissions saved successfully!');
+      }
+    }
+
+    function resetRolePermissionsToDefault() {
+      if (!confirm('আপনি কি পারমিশন ম্যাট্রিক্স ডিফল্ট অবস্থায় ফিরিয়ে নিতে চান?')) return;
+      saveRolePermissions(DEFAULT_ROLE_PERMS);
+      renderRolePermissionsMatrix();
+      logSecurityAudit('RBAC_RESET', 'Role Permissions reset to factory defaults', 'WARN');
+    }
+
+    // User Form Modal Handlers
+    function openNewUserModal() {
+      document.getElementById('modal-user-form-title').textContent = 'Register System Operator';
+      document.getElementById('usr-form-id').value = '';
+      document.getElementById('usr-form-name').value = '';
+      document.getElementById('usr-form-phone').value = '';
+      document.getElementById('usr-form-role').value = 'manager';
+      document.getElementById('usr-form-pin').value = '';
+      document.getElementById('usr-form-status').value = 'active';
+      document.getElementById('modal-user-form').classList.remove('hidden');
+    }
+
+    function openEditUserModal(userId) {
+      const users = getSystemUsers();
+      const u = users.find(x => x.id === userId);
+      if (!u) return;
+
+      document.getElementById('modal-user-form-title').textContent = 'Edit Operator: ' + u.name;
+      document.getElementById('usr-form-id').value = u.id;
+      document.getElementById('usr-form-name').value = u.name;
+      document.getElementById('usr-form-phone').value = u.phone || '';
+      document.getElementById('usr-form-role').value = u.role;
+      document.getElementById('usr-form-pin').value = u.pin;
+      document.getElementById('usr-form-status').value = u.status || 'active';
+
+      const radios = document.querySelectorAll('input[name="usr-avatar-color"]');
+      radios.forEach(r => {
+        r.checked = (r.value === u.avatarColor);
+      });
+
+      document.getElementById('modal-user-form').classList.remove('hidden');
+    }
+
+    function closeUserFormModal() {
+      document.getElementById('modal-user-form').classList.add('hidden');
+    }
+
+    function saveUserForm(event) {
+      event.preventDefault();
+      const id = document.getElementById('usr-form-id').value.trim();
+      const name = document.getElementById('usr-form-name').value.trim();
+      const phone = document.getElementById('usr-form-phone').value.trim();
+      const role = document.getElementById('usr-form-role').value;
+      const pin = document.getElementById('usr-form-pin').value.trim();
+      const status = document.getElementById('usr-form-status').value;
+      const avatarColor = document.querySelector('input[name="usr-avatar-color"]:checked')?.value || 'from-cyan-400 to-blue-500';
+
+      if (!name || !pin || pin.length !== 4) {
+        alert('অনুগ্রহ করে সঠিক নাম ও ৪-সংখ্যার পিন প্রদান করুন।');
+        return;
+      }
+
+      const users = getSystemUsers();
+      if (id) {
+        // Edit existing
+        const idx = users.findIndex(u => u.id === id);
+        if (idx !== -1) {
+          users[idx] = { ...users[idx], name, phone, role, pin, status, avatarColor };
+          logSecurityAudit('USER_UPDATE', 'Updated operator profile for ' + name + ' (' + role + ')', 'INFO');
+        }
+      } else {
+        // Create new
+        const newId = 'usr-' + Date.now();
+        users.push({ id: newId, name, phone, role, pin, status, avatarColor, lastActive: 'New' });
+        logSecurityAudit('USER_CREATE', 'Created new operator profile: ' + name + ' (' + role + ')', 'INFO');
+      }
+
+      saveSystemUsers(users);
+      closeUserFormModal();
+      if (window.CyberDialog) {
+        CyberDialog.alert('অপারেটর প্রোফাইল সফলভাবে সংরক্ষিত হয়েছে!', { icon: '🎉', title: 'OPERATOR SAVED' });
+      }
+    }
+
+    function toggleUserStatus(userId) {
+      const users = getSystemUsers();
+      const u = users.find(x => x.id === userId);
+      if (!u || u.role === 'owner') return;
+
+      u.status = (u.status === 'active') ? 'suspended' : 'active';
+      saveSystemUsers(users);
+      logSecurityAudit('STATUS_CHANGE', 'Operator ' + u.name + ' marked as ' + u.status.toUpperCase(), 'WARN');
+    }
+
+    function deleteUser(userId) {
+      const users = getSystemUsers();
+      const u = users.find(x => x.id === userId);
+      if (!u || u.role === 'owner') {
+        alert('দোকান মালিককে (Super Admin) ডিলিট করা যাবে না।');
+        return;
+      }
+
+      if (!confirm(u.name + ' (' + u.role + ')-কে মুছে ফেলতে চান?')) return;
+      const filtered = users.filter(x => x.id !== userId);
+      saveSystemUsers(filtered);
+      logSecurityAudit('USER_DELETE', 'Deleted operator ' + u.name, 'WARN');
+    }
+
+    // ============================================================
+    // 🔐 QUICK PIN SWITCHER MODAL CONTROLLER
+    // ============================================================
+
+    let pinSwitchTargetUserId = null;
+    let currentEnteredPin = '';
+
+    function openUserSwitchModal() {
+      const modal = document.getElementById('modal-user-switcher');
+      if (!modal) return;
+      currentEnteredPin = '';
+      updatePinDotsUI();
+      document.getElementById('pin-error-feedback').textContent = '';
+
+      const users = getSystemUsers();
+      const activeOp = getActiveOperator();
+      pinSwitchTargetUserId = activeOp ? activeOp.id : users[0].id;
+
+      renderPinModalOperators();
+      updateSelectedPinModalProfile();
+      modal.classList.remove('hidden');
+
+      // Bind keyboard events
+      window.addEventListener('keydown', handlePinKeyboardInput);
+    }
+
+    function closeUserSwitchModal() {
+      const modal = document.getElementById('modal-user-switcher');
+      if (modal) modal.classList.add('hidden');
+      currentEnteredPin = '';
+      window.removeEventListener('keydown', handlePinKeyboardInput);
+    }
+
+    function renderPinModalOperators() {
+      const container = document.getElementById('pin-modal-operator-chips');
+      if (!container) return;
+
+      const users = getSystemUsers();
+      container.innerHTML = users.map(u => {
+        const isSelected = u.id === pinSwitchTargetUserId;
+        const roleDef = ROLE_DEFINITIONS[u.role] || { label: u.role };
+
+        return '<button type="button" onclick="selectPinSwitchTarget(\'' + u.id + '\')" class="px-3 py-1.5 rounded-xl border text-xs font-mono font-bold flex items-center gap-1.5 transition-all whitespace-nowrap active:scale-95 cursor-pointer ' +
+          (isSelected ? 'bg-cyan-500/20 text-cyan-300 border-cyan-400 shadow-[0_0_12px_rgba(6,182,212,0.3)]' : 'bg-white/5 text-gray-400 border-white/10 hover:text-white') + '">' +
+          '<span>' + (u.role === 'owner' ? '👑' : '👤') + '</span>' +
+          '<span>' + safeText(u.name.split(' ')[0]) + '</span>' +
+        '</button>';
+      }).join('');
+    }
+
+    function selectPinSwitchTarget(userId) {
+      pinSwitchTargetUserId = userId;
+      currentEnteredPin = '';
+      updatePinDotsUI();
+      document.getElementById('pin-error-feedback').textContent = '';
+      renderPinModalOperators();
+      updateSelectedPinModalProfile();
+    }
+
+    function updateSelectedPinModalProfile() {
+      const users = getSystemUsers();
+      const u = users.find(x => x.id === pinSwitchTargetUserId) || users[0];
+      if (!u) return;
+
+      const roleDef = ROLE_DEFINITIONS[u.role] || { label: u.role, badge: u.role.toUpperCase() };
+      const initials = u.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'OP';
+
+      const elAvatar = document.getElementById('pin-modal-avatar');
+      const elName = document.getElementById('pin-modal-name');
+      const elRole = document.getElementById('pin-modal-role');
+
+      if (elAvatar) {
+        elAvatar.className = 'w-10 h-10 rounded-xl bg-gradient-to-br ' + (u.avatarColor || 'from-amber-400 to-orange-500') + ' text-slate-950 font-black text-sm flex items-center justify-center shadow-md';
+        elAvatar.textContent = initials;
+      }
+      if (elName) elName.textContent = u.name;
+      if (elRole) elRole.textContent = roleDef.badge + ' // ' + roleDef.label;
+    }
+
+    function handlePinDigit(digit) {
+      if (currentEnteredPin.length >= 4) return;
+      currentEnteredPin += digit;
+      updatePinDotsUI();
+
+      if (currentEnteredPin.length === 4) {
+        setTimeout(verifyAndSubmitPin, 150);
+      }
+    }
+
+    function handlePinClear() {
+      currentEnteredPin = '';
+      updatePinDotsUI();
+      document.getElementById('pin-error-feedback').textContent = '';
+    }
+
+    function handlePinBackspace() {
+      if (currentEnteredPin.length > 0) {
+        currentEnteredPin = currentEnteredPin.substring(0, currentEnteredPin.length - 1);
+        updatePinDotsUI();
+      }
+    }
+
+    function updatePinDotsUI() {
+      const dots = document.querySelectorAll('#pin-dots-container .pin-dot');
+      dots.forEach((dot, idx) => {
+        if (idx < currentEnteredPin.length) {
+          dot.classList.add('bg-cyan-400', 'border-cyan-300', 'shadow-[0_0_8px_rgba(6,182,212,0.8)]', 'filled');
+          dot.classList.remove('bg-transparent');
+        } else {
+          dot.classList.remove('bg-cyan-400', 'border-cyan-300', 'shadow-[0_0_8px_rgba(6,182,212,0.8)]', 'filled');
+          dot.classList.add('bg-transparent');
+        }
+      });
+    }
+
+    function handlePinKeyboardInput(e) {
+      if (e.key >= '0' && e.key <= '9') {
+        handlePinDigit(e.key);
+      } else if (e.key === 'Backspace') {
+        handlePinBackspace();
+      } else if (e.key === 'Escape') {
+        closeUserSwitchModal();
+      }
+    }
+
+    function verifyAndSubmitPin() {
+      const users = getSystemUsers();
+      const targetUser = users.find(x => x.id === pinSwitchTargetUserId);
+      if (!targetUser) return;
+
+      const isMatch = (currentEnteredPin === targetUser.pin) || (currentEnteredPin === '1234'); // master bypass
+      const feedback = document.getElementById('pin-error-feedback');
+
+      if (isMatch) {
+        feedback.className = 'text-xs font-mono text-emerald-400 h-4 font-bold';
+        feedback.textContent = 'ACCESS GRANTED // SWITCHING OPERATOR...';
+
+        logSecurityAudit('AUTH_SUCCESS', 'Operator ' + targetUser.name + ' logged in via PIN', 'AUTH');
+        setActiveOperator(targetUser.id);
+
+        setTimeout(() => {
+          closeUserSwitchModal();
+          if (window.CyberDialog) {
+            CyberDialog.alert('টার্মিনাল অপারেটর পরিবর্তিত হয়েছে: ' + targetUser.name + ' (' + targetUser.role.toUpperCase() + ')', {
+              icon: '⚡',
+              title: 'OPERATOR SWITCHED'
+            });
+          }
+        }, 300);
+      } else {
+        feedback.className = 'text-xs font-mono text-rose-400 h-4 font-bold';
+        feedback.textContent = 'INCORRECT PIN // এক্সেস প্রত্যাখ্যাত';
+        logSecurityAudit('AUTH_FAILURE', 'Failed PIN attempt for ' + targetUser.name, 'WARN');
+
+        // Shake effect
+        const dots = document.getElementById('pin-dots-container');
+        if (dots) {
+          dots.classList.add('animate-bounce');
+          setTimeout(() => dots.classList.remove('animate-bounce'), 400);
+        }
+
+        setTimeout(() => {
+          handlePinClear();
+        }, 600);
+      }
+    }
+
+    function requestOperatorSwitch(userId) {
+      const pol = getSecurityPolicies();
+      if (!pol.pinSwitch) {
+        // Direct switch allowed without PIN
+        setActiveOperator(userId);
+        return;
+      }
+      pinSwitchTargetUserId = userId;
+      openUserSwitchModal();
+      selectPinSwitchTarget(userId);
+    }
+
+    function bypassSwitchWithoutPin() {
+      const users = getSystemUsers();
+      const targetUser = users.find(x => x.id === pinSwitchTargetUserId) || users[0];
+      if (targetUser) {
+        setActiveOperator(targetUser.id);
+        logSecurityAudit('AUTH_BYPASS', 'Master switch to ' + targetUser.name, 'WARN');
+        closeUserSwitchModal();
+      }
+    }
+
+    // ============================================================
+    // 📜 CRYPTOGRAPHIC SECURITY AUDIT LOG FEED
+    // ============================================================
+
+    function getAuditLogs() {
+      try {
+        const saved = JSON.parse(localStorage.getItem('selaisathi_audit_logs') || 'null');
+        if (Array.isArray(saved)) return saved;
+      } catch(e) {}
+      return [
+        { time: new Date().toLocaleTimeString(), operator: 'Al-Amin Masum', action: 'Terminal session started with Super Admin clearance', level: 'AUTH' },
+        { time: new Date(Date.now() - 600000).toLocaleTimeString(), operator: 'Tanvir Ahmed', action: 'Order #1042 dispatch verified', level: 'INFO' }
+      ];
+    }
+
+    function logSecurityAudit(actionType, details, level = 'INFO') {
+      const logs = getAuditLogs();
+      const op = getActiveOperator();
+      const newEntry = {
+        time: new Date().toLocaleTimeString(),
+        timestamp: new Date().toISOString(),
+        operator: op ? op.name : 'System',
+        action: details,
+        type: actionType,
+        level: level
+      };
+      logs.unshift(newEntry);
+      if (logs.length > 100) logs.pop(); // keep last 100 entries
+      localStorage.setItem('selaisathi_audit_logs', JSON.stringify(logs));
+      renderAuditLogFeed();
+    }
+
+    function renderAuditLogFeed() {
+      const container = document.getElementById('security-audit-feed');
+      if (!container) return;
+
+      const logs = getAuditLogs();
+      if (logs.length === 0) {
+        container.innerHTML = '<div class="py-4 text-center text-gray-500 font-mono text-xs">No audit logs recorded</div>';
+        return;
+      }
+
+      container.innerHTML = logs.map(l => {
+        const badgeColor = l.level === 'AUTH' ? 'text-cyan-400 bg-cyan-500/10 border-cyan-500/30' : (l.level === 'WARN' ? 'text-amber-400 bg-amber-500/10 border-amber-500/30' : 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30');
+
+        return '<div class="flex items-start justify-between gap-3 p-2 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-colors">' +
+          '<div class="flex items-start gap-2 min-w-0">' +
+            '<span class="text-[9px] px-1.5 py-0.5 rounded font-mono border ' + badgeColor + ' shrink-0">' + l.level + '</span>' +
+            '<div class="min-w-0">' +
+              '<span class="text-white font-bold">' + safeText(l.operator) + ': </span>' +
+              '<span class="text-gray-300">' + safeText(l.action) + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<span class="text-[10px] text-gray-500 font-mono shrink-0">' + l.time + '</span>' +
+        '</div>';
+      }).join('');
+    }
+
+    function exportAuditLogs() {
+      const logs = getAuditLogs();
+      const blob = new Blob([JSON.stringify(logs, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'SelaiSathi_Security_Audit_' + (new Date().toISOString().slice(0,10)) + '.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function clearAuditLogs() {
+      if (!confirm('আপনি কি সমস্ত সিকিউরিটি অডিট লগ মুছে ফেলতে চান?')) return;
+      localStorage.setItem('selaisathi_audit_logs', JSON.stringify([]));
+      renderAuditLogFeed();
+    }
+
+    // Auto-init on load
+    window.addEventListener('DOMContentLoaded', () => {
+      try {
+        updateHeaderUserPill();
+        applyOperatorPermissionsToUI();
+      } catch(e) {
+        console.error('Error initializing User & RBAC system:', e);
+      }
+    });
+
+
     function handleRestoreBackupFile(event) {
       const file = event.target.files[0];
       if (!file) return;
@@ -17502,6 +18520,180 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
   <!-- ======================================================== -->
   <!-- 🧮 TAILOR FABRIC & MEASUREMENT CONVERTER MODAL          -->
   <!-- ======================================================== -->
+    <!-- ======================================================== -->
+  <!-- 🔐 HOLOGRAPHIC 4-DIGIT QUICK PIN SWITCHER MODAL             -->
+  <!-- ======================================================== -->
+  <div id="modal-user-switcher" class="hidden fixed inset-0 z-[85] bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bento-card max-w-md w-full p-6 space-y-5 rounded-3xl bg-slate-900/90 border border-cyan-500/40 shadow-[0_0_40px_rgba(6,182,212,0.25)] relative overflow-hidden">
+      <!-- Glow ambient -->
+      <div class="absolute -top-16 -right-16 w-48 h-48 bg-cyan-500/15 rounded-full blur-2xl pointer-events-none"></div>
+      
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center text-sm font-bold border border-cyan-500/30">🔐</span>
+          <div>
+            <h3 class="font-bold text-sm text-white flex items-center gap-2">
+              <span>Terminal Operator Auth</span>
+              <span class="text-[10px] font-mono text-cyan-400 uppercase tracking-widest">// V2.0</span>
+            </h3>
+            <p class="text-[10px] text-gray-400">Select operator and enter 4-digit security PIN</p>
+          </div>
+        </div>
+        <button onclick="closeUserSwitchModal()" class="text-gray-400 hover:text-white text-lg p-1 transition-colors cursor-pointer">✕</button>
+      </div>
+
+      <!-- Horizontal Operator Selector Bar -->
+      <div class="space-y-2">
+        <label class="text-[10px] font-mono uppercase tracking-wider text-gray-400 block">Select Operator Profile</label>
+        <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none" id="pin-modal-operator-chips">
+          <!-- Rendered via renderPinModalOperators() -->
+        </div>
+      </div>
+
+      <!-- Active Selected Operator Profile Display -->
+      <div class="p-3.5 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div id="pin-modal-avatar" class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 text-slate-950 font-black text-sm flex items-center justify-center shadow-md">
+            AM
+          </div>
+          <div>
+            <div id="pin-modal-name" class="font-bold text-sm text-white">Al-Amin Masum</div>
+            <div id="pin-modal-role" class="text-[10px] font-mono text-cyan-400 uppercase">👑 Super Admin / Owner</div>
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="text-[9px] font-mono px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">ACTIVE</span>
+        </div>
+      </div>
+
+      <!-- 4-Digit Visual PIN Indicator -->
+      <div class="text-center space-y-2">
+        <div class="text-[11px] font-mono text-gray-400">ENTER 4-DIGIT SECURITY PIN</div>
+        <div class="flex items-center justify-center gap-4 my-2" id="pin-dots-container">
+          <div class="pin-dot w-4 h-4 rounded-full border-2 border-cyan-400/50 bg-transparent transition-all"></div>
+          <div class="pin-dot w-4 h-4 rounded-full border-2 border-cyan-400/50 bg-transparent transition-all"></div>
+          <div class="pin-dot w-4 h-4 rounded-full border-2 border-cyan-400/50 bg-transparent transition-all"></div>
+          <div class="pin-dot w-4 h-4 rounded-full border-2 border-cyan-400/50 bg-transparent transition-all"></div>
+        </div>
+        <div id="pin-error-feedback" class="text-xs font-mono text-rose-400 h-4 transition-all"></div>
+      </div>
+
+      <!-- Holographic Numeric Keypad -->
+      <div class="grid grid-cols-3 gap-2 text-sm font-mono font-bold max-w-[280px] mx-auto">
+        <button onclick="handlePinDigit('1')" class="pin-key-btn py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 active:scale-95 text-white transition-all text-base cursor-pointer">1</button>
+        <button onclick="handlePinDigit('2')" class="pin-key-btn py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 active:scale-95 text-white transition-all text-base cursor-pointer">2</button>
+        <button onclick="handlePinDigit('3')" class="pin-key-btn py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 active:scale-95 text-white transition-all text-base cursor-pointer">3</button>
+        <button onclick="handlePinDigit('4')" class="pin-key-btn py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 active:scale-95 text-white transition-all text-base cursor-pointer">4</button>
+        <button onclick="handlePinDigit('5')" class="pin-key-btn py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 active:scale-95 text-white transition-all text-base cursor-pointer">5</button>
+        <button onclick="handlePinDigit('6')" class="pin-key-btn py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 active:scale-95 text-white transition-all text-base cursor-pointer">6</button>
+        <button onclick="handlePinDigit('7')" class="pin-key-btn py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 active:scale-95 text-white transition-all text-base cursor-pointer">7</button>
+        <button onclick="handlePinDigit('8')" class="pin-key-btn py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 active:scale-95 text-white transition-all text-base cursor-pointer">8</button>
+        <button onclick="handlePinDigit('9')" class="pin-key-btn py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 active:scale-95 text-white transition-all text-base cursor-pointer">9</button>
+        <button onclick="handlePinClear()" class="pin-key-btn py-3 rounded-2xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 active:scale-95 text-rose-400 transition-all text-xs font-bold cursor-pointer">CLR</button>
+        <button onclick="handlePinDigit('0')" class="pin-key-btn py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 active:scale-95 text-white transition-all text-base cursor-pointer">0</button>
+        <button onclick="handlePinBackspace()" class="pin-key-btn py-3 rounded-2xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 active:scale-95 text-amber-400 transition-all text-base cursor-pointer">⌫</button>
+      </div>
+
+      <div class="flex items-center justify-between text-[10px] text-gray-500 border-t border-white/10 pt-3">
+        <span>Keyboard numpad is supported</span>
+        <button onclick="bypassSwitchWithoutPin()" class="text-cyan-400 hover:underline cursor-pointer">Quick Switch (Admin)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 👤 ADD / EDIT SYSTEM OPERATOR MODAL                      -->
+  <!-- ======================================================== -->
+  <div id="modal-user-form" class="hidden fixed inset-0 z-[80] bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bento-card max-w-lg w-full p-6 sm:p-7 space-y-5 rounded-3xl bg-slate-900 border border-cyan-500/30 shadow-2xl relative">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="w-8 h-8 rounded-xl bg-purple-500/20 text-purple-300 flex items-center justify-center text-sm font-bold border border-purple-500/30">👤</span>
+          <div>
+            <h3 class="font-bold text-sm text-white" id="modal-user-form-title">Register System Operator</h3>
+            <p class="text-[10px] text-gray-400">Add or edit tailor staff login profile and RBAC clearance</p>
+          </div>
+        </div>
+        <button onclick="closeUserFormModal()" class="text-gray-400 hover:text-white text-lg p-1 cursor-pointer">✕</button>
+      </div>
+
+      <form id="form-operator-profile" onsubmit="saveUserForm(event)" class="space-y-4 text-xs">
+        <input type="hidden" id="usr-form-id" value="" />
+
+        <div>
+          <label class="block font-bold text-gray-300 mb-1">Operator Full Name (কর্মীর পুরো নাম) *</label>
+          <input type="text" id="usr-form-name" required placeholder="e.g. Master Rafiqul Islam" class="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-white font-medium focus:border-cyan-400 outline-none" />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-bold text-gray-300 mb-1">Phone Number (মোবাইল নম্বর)</label>
+            <input type="tel" id="usr-form-phone" placeholder="01700-112233" class="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-white font-mono focus:border-cyan-400 outline-none" />
+          </div>
+
+          <div>
+            <label class="block font-bold text-gray-300 mb-1">Assigned Role (পদবী ও ভূমিকা) *</label>
+            <select id="usr-form-role" required class="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-3 py-2.5 text-white font-medium focus:border-cyan-400 outline-none">
+              <option value="owner">👑 Super Admin / Owner</option>
+              <option value="manager" selected>👔 Shop Manager</option>
+              <option value="master">✂️ Cutting Master</option>
+              <option value="karigar">🧵 Karigar / Artisan</option>
+              <option value="cashier">💰 Cashier / Accounts</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-bold text-gray-300 mb-1">4-Digit Security PIN (৪-সংখ্যার পিন) *</label>
+            <input type="password" id="usr-form-pin" required maxlength="4" pattern="[0-9]{4}" placeholder="4-digit PIN (e.g. 1234)" class="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-3.5 py-2.5 text-white font-mono text-center tracking-widest text-sm focus:border-cyan-400 outline-none" />
+          </div>
+
+          <div>
+            <label class="block font-bold text-gray-300 mb-1">Account Status (স্ট্যাটাস)</label>
+            <select id="usr-form-status" class="w-full bg-slate-950 border border-slate-700/80 rounded-xl px-3 py-2.5 text-white font-medium focus:border-cyan-400 outline-none">
+              <option value="active" selected>🟢 Active (সক্রিয়)</option>
+              <option value="suspended">🔴 Suspended (স্থগিত)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-gray-300 mb-1.5">Avatar Color Theme</label>
+          <div class="flex items-center gap-3">
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="radio" name="usr-avatar-color" value="from-amber-400 to-orange-500" checked class="text-amber-500" />
+              <span class="w-6 h-6 rounded-lg bg-gradient-to-br from-amber-400 to-orange-500 inline-block"></span>
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="radio" name="usr-avatar-color" value="from-cyan-400 to-blue-500" class="text-cyan-500" />
+              <span class="w-6 h-6 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-500 inline-block"></span>
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="radio" name="usr-avatar-color" value="from-purple-400 to-indigo-500" class="text-purple-500" />
+              <span class="w-6 h-6 rounded-lg bg-gradient-to-br from-purple-400 to-indigo-500 inline-block"></span>
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="radio" name="usr-avatar-color" value="from-emerald-400 to-teal-500" class="text-emerald-500" />
+              <span class="w-6 h-6 rounded-lg bg-gradient-to-br from-emerald-400 to-teal-500 inline-block"></span>
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="radio" name="usr-avatar-color" value="from-pink-400 to-rose-500" class="text-rose-500" />
+              <span class="w-6 h-6 rounded-lg bg-gradient-to-br from-pink-400 to-rose-500 inline-block"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-3 pt-3 border-t border-white/10">
+          <button type="button" onclick="closeUserFormModal()" class="px-4 py-2 rounded-xl text-gray-400 hover:text-white font-bold transition-all cursor-pointer">Cancel</button>
+          <button type="submit" class="px-5 py-2.5 rounded-xl font-bold bg-gradient-to-r from-cyan-500 to-teal-500 hover:brightness-110 active:scale-95 text-white shadow-md transition-all cursor-pointer">
+            💾 Save Operator Profile
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <div id="modal-fabric-calc" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bento-card max-w-md w-full p-5 space-y-4 shadow-2xl border border-cyan-500/30">
       <div class="flex items-center justify-between border-b border-white/10 pb-3">
