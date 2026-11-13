@@ -4566,49 +4566,39 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       </div>
     </div>
 
-    <!-- Futuristic User Profile Chip (Connected to Google & Account Management) -->
+    <!-- Futuristic Minimalist User Profile Chip -->
     <div class="p-3 border-t border-white/5 z-10 bg-cyber-black/40">
-      <div onclick="handleProfileChipClick()" id="sidebar-owner-chip" class="relative group p-2.5 rounded-2xl cursor-pointer transition-all border border-cyan-500/20 hover:border-cyan-400/50 shadow-sm overflow-hidden" title="Account, Cloud Sync & Security Protocol">
+      <div onclick="handleProfileChipClick()" id="sidebar-owner-chip" class="relative group p-2 rounded-2xl cursor-pointer transition-all border border-white/10 hover:border-cyan-400/40 bg-white/[0.03] hover:bg-white/[0.06] shadow-sm flex items-center gap-2.5 overflow-hidden" title="Account, Profile Photo & Cloud Vault">
         
-        <!-- Animated Cyber Ambient Background Mesh -->
-        <div class="absolute -inset-0.5 bg-gradient-to-r from-cyan-500/10 via-emerald-500/5 to-teal-500/15 rounded-2xl opacity-60 group-hover:opacity-100 transition duration-300 pointer-events-none"></div>
+        <!-- Subtle Ambient Hover Glow -->
+        <div class="absolute -inset-0.5 bg-gradient-to-r from-cyan-500/10 via-emerald-500/5 to-teal-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none"></div>
 
-        <div class="relative flex items-center gap-3">
-          <!-- Holographic Avatar with Radar Ring -->
-          <div class="relative shrink-0">
-            <div id="sidebar-owner-avatar" class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-600 via-teal-600 to-emerald-500 text-white font-black flex items-center justify-center text-xs shadow-md border border-white/20">
-              SO
-            </div>
-            <!-- Live Radar Status Dot with Ping -->
-            <span class="absolute -bottom-0.5 -right-0.5 flex h-3.5 w-3.5">
-              <span id="sidebar-owner-ping" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span id="sidebar-owner-status-dot" class="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 border-2 border-slate-900"></span>
-            </span>
+        <!-- Left: Avatar with Radar Status Dot & Photo Support -->
+        <div class="relative shrink-0">
+          <div id="sidebar-owner-avatar" class="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-tr from-cyan-600 via-teal-600 to-emerald-500 text-white font-black flex items-center justify-center text-xs shadow-md border border-white/20 overflow-hidden">
+            SO
           </div>
+          <!-- Live Radar Pulse Dot -->
+          <span class="absolute -bottom-0.5 -right-0.5 flex h-3 w-3">
+            <span id="sidebar-owner-ping" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span id="sidebar-owner-status-dot" class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 border-2 border-slate-900"></span>
+          </span>
+        </div>
 
-          <!-- User & Telemetry Info -->
-          <div class="flex-1 min-w-0">
-            <div class="text-xs font-black text-white truncate flex items-center gap-1.5">
-              <span id="sidebar-owner-name">Shop Owner</span>
-              <span id="sidebar-owner-badge" class="text-[8px] px-1.5 py-0.2 rounded font-mono font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 flex items-center gap-1">
-                <span class="w-1 h-1 rounded-full bg-cyan-400 animate-pulse"></span>
-                <span id="sidebar-owner-badge-txt">CLOUD LIVE</span>
-              </span>
-            </div>
-            <div id="sidebar-owner-sub" class="text-[10px] text-gray-400 truncate font-mono mt-0.5 flex items-center gap-1">
-              <span>🟢</span> <span>AES-256 Vault Synced</span>
-            </div>
+        <!-- Center: Name & Minimalist Telemetry Status (Clean & Spacious) -->
+        <div class="flex-1 min-w-0">
+          <div class="text-xs font-bold text-white truncate tracking-tight" id="sidebar-owner-name">
+            Shop Owner
           </div>
+          <div id="sidebar-owner-sub" class="text-[10px] text-gray-400 truncate font-mono mt-0.5 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Cloud Synced</span>
+          </div>
+        </div>
 
-          <!-- Futuristic Micro-Signal Meter -->
-          <div class="flex flex-col items-end gap-0.5 shrink-0 text-gray-500 group-hover:text-cyan-400 transition-colors">
-            <div class="flex items-end gap-0.5 h-3" id="sidebar-owner-signal">
-              <span class="w-0.5 h-1.5 bg-cyan-400 rounded-full"></span>
-              <span class="w-0.5 h-2 bg-cyan-400 rounded-full"></span>
-              <span class="w-0.5 h-3 bg-cyan-400 rounded-full"></span>
-            </div>
-            <span class="text-[9px] font-mono text-cyan-400 font-bold" id="sidebar-owner-latency">98ms</span>
-          </div>
+        <!-- Right: Minimalist Cyber Chevron Indicator -->
+        <div class="shrink-0 text-gray-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-all text-xs font-mono pr-1">
+          ›
         </div>
       </div>
     </div>
@@ -19653,6 +19643,118 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       openFirebaseConfigModal();
     }
 
+    function getOwnerCustomPhoto() {
+      try {
+        const saved = localStorage.getItem('selaisathi_owner_photo');
+        if (saved && saved.startsWith('data:image')) return saved;
+      } catch(e) {}
+      const gUser = getGoogleAuthUser();
+      if (gUser && gUser.picture && gUser.picture.startsWith('data:image')) return gUser.picture;
+      const pUser = getPhoneAuthUser();
+      if (pUser && pUser.picture && pUser.picture.startsWith('data:image')) return pUser.picture;
+      return null;
+    }
+
+    function handleOwnerPhotoUpload(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      if (!file.type.startsWith('image/')) {
+        alert('অনুগ্রহ করে একটি সঠিক ছবি ফাইল (.jpg, .png, .webp) নির্বাচন করুন।');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          try {
+            // Offscreen canvas compression to 180x180 max
+            const canvas = document.createElement('canvas');
+            const maxDim = 180;
+            let w = img.width;
+            let h = img.height;
+            if (w > h) {
+              if (w > maxDim) {
+                h = Math.round((h * maxDim) / w);
+                w = maxDim;
+              }
+            } else {
+              if (h > maxDim) {
+                w = Math.round((w * maxDim) / h);
+                h = maxDim;
+              }
+            }
+            canvas.width = w;
+            canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, w, h);
+
+            // Highly optimized data URL
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+
+            // Save locally
+            localStorage.setItem('selaisathi_owner_photo', dataUrl);
+
+            // Attach to user profile
+            const gUser = getGoogleAuthUser();
+            if (gUser) {
+              gUser.picture = dataUrl;
+              saveGoogleAuthUser(gUser);
+            }
+            const pUser = getPhoneAuthUser();
+            if (pUser) {
+              pUser.picture = dataUrl;
+              savePhoneAuthUser(pUser);
+            }
+
+            // Update UI
+            updateSidebarOwnerChip();
+            openShopOwnerModal();
+
+            // Auto-sync photo to Cloud Firestore
+            if (typeof syncToGoogleCloud === 'function') {
+              syncToGoogleCloud(true);
+            }
+
+            if (window.CyberDialog) {
+              CyberDialog.alert('অভিনন্দন! আপনার প্রোফাইল ফটো সফলভাবে সংরক্ষিত ও ক্লাউডে সিঙ্ক হয়েছে।', {
+                icon: '📸',
+                title: 'PHOTO SAVED • সফল'
+              });
+            } else {
+              alert('Profile photo updated successfully!');
+            }
+          } catch(err) {
+            console.error('Photo processing error:', err);
+            alert('Error processing photo: ' + err.message);
+          }
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function removeOwnerPhoto() {
+      if (!confirm('আপনি কি আপনার প্রোফাইল ফটো রিমুভ করতে চান?')) return;
+      localStorage.removeItem('selaisathi_owner_photo');
+      const gUser = getGoogleAuthUser();
+      if (gUser) {
+        gUser.picture = '';
+        saveGoogleAuthUser(gUser);
+      }
+      const pUser = getPhoneAuthUser();
+      if (pUser) {
+        pUser.picture = '';
+        savePhoneAuthUser(pUser);
+      }
+      updateSidebarOwnerChip();
+      openShopOwnerModal();
+      if (typeof syncToGoogleCloud === 'function') {
+        syncToGoogleCloud(true);
+      }
+    }
+
     function getFullDatabaseExport() {
       let recs = null;
       try {
@@ -19678,6 +19780,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       return {
         version: '2.0-cloud',
         exportedAt: new Date().toISOString(),
+        ownerPhoto: getOwnerCustomPhoto(),
         shopSettings: JSON.parse(JSON.stringify(getShopSettings())),
         records: JSON.parse(JSON.stringify(recs)),
         orders: JSON.parse(JSON.stringify(orders)),
@@ -19694,6 +19797,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     function applyFullDatabaseImport(bundle) {
       if (!bundle || typeof bundle !== 'object') throw new Error('Invalid cloud bundle payload');
 
+      if (bundle.ownerPhoto) {
+        localStorage.setItem('selaisathi_owner_photo', bundle.ownerPhoto);
+      }
       if (bundle.shopSettings) localStorage.setItem('selaisathi_shop_settings', JSON.stringify(bundle.shopSettings));
       if (bundle.records) {
         localStorage.setItem(ssStoreKey, JSON.stringify(bundle.records));
@@ -19725,11 +19831,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const gUser = getGoogleAuthUser();
       const pUser = getPhoneAuthUser();
       if (!gUser && !pUser) {
-        // If neither connected, open Google / Phone login dialog!
         openGoogleSignInDialog();
         switchAuthModalTab('google');
       } else {
-        // Open Futuristic Shop Owner Profile Modal
         openShopOwnerModal();
       }
     }
@@ -19799,7 +19903,6 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         provider: 'Google Cloud Vault'
       };
 
-      // Generate 6-digit OTP for Google Login
       const otpCode = String(Math.floor(100000 + Math.random() * 900000));
       closeGoogleSignInDialog();
       closeShopOwnerModal();
@@ -19960,7 +20063,6 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         const cloudCust = ((cloudBundle.records && cloudBundle.records.customers) || []).length;
         const cloudOrders = (cloudBundle.orders || []).length;
 
-        // If this device is empty (e.g. brand new phone / newly installed app) OR user asked to restore:
         if (localTotal === 0 || (autoDetect && cloudCust > localCust) || !autoDetect) {
           const confirmMsg = 'ক্লাউডে (' + ownerIdentity + ') সংরক্ষিত ডাটা পাওয়া গেছে:\n\n• কাস্টমার: ' + cloudCust + ' জন\n• অর্ডার: ' + cloudOrders + ' টি\n• ক্লাউড সেভ টাইম: ' + new Date(cloudBundle.exportedAt || Date.now()).toLocaleString() + '\n\nআপনি কি এই ডিভাইসে সমস্ত ডাটা রিস্টোর করতে চান?';
           
@@ -19982,7 +20084,6 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         }
       }
 
-      // If local already has data and cloud was empty, push local to cloud!
       if (localTotal > 0 && autoDetect) {
         await syncToGoogleCloud(true);
       } else if (!autoDetect) {
@@ -20152,60 +20253,54 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const gUser = getGoogleAuthUser();
       const pUser = getPhoneAuthUser();
       const activeOp = getActiveOperator();
+      const photoUrl = getOwnerCustomPhoto();
 
       const elAvatar = document.getElementById('sidebar-owner-avatar');
       const elName = document.getElementById('sidebar-owner-name');
       const elSub = document.getElementById('sidebar-owner-sub');
-      const elBadgeTxt = document.getElementById('sidebar-owner-badge-txt') || document.getElementById('sidebar-owner-badge');
       const elDot = document.getElementById('sidebar-owner-status-dot');
       const elPing = document.getElementById('sidebar-owner-ping');
-      const elLatency = document.getElementById('sidebar-owner-latency');
 
       let displayName = 'Shop Owner';
-      let displaySub = '<span>🔒</span> <span>Local Terminal</span>';
-      let badgeText = 'OFFLINE';
-      let badgeClass = 'bg-amber-500/20 text-amber-400 border border-amber-500/30';
+      let displaySub = '<span class="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0"></span><span class="truncate">Local Mode</span>';
       let dotClass = 'bg-amber-400';
       let pingVisible = false;
-      let latency = 'OFFLINE';
 
       if (gUser && pUser) {
         displayName = gUser.name;
-        displaySub = '<span>🟢</span> <span>' + gUser.email + ' • ' + pUser.phone + '</span>';
-        badgeText = 'DUAL 2FA LIVE';
-        badgeClass = 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+        displaySub = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span><span class="text-emerald-400 font-bold truncate">Cloud Active</span><span class="text-gray-500">•</span><span class="truncate">' + safeText(pUser.phone) + '</span>';
         dotClass = 'bg-emerald-400';
         pingVisible = true;
-        latency = '42ms';
       } else if (gUser) {
         displayName = gUser.name;
-        displaySub = '<span>🟢</span> <span>' + gUser.email + '</span>';
-        badgeText = 'CLOUD LIVE';
-        badgeClass = 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+        displaySub = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span><span class="text-emerald-400 font-bold truncate">Cloud Synced</span>';
         dotClass = 'bg-emerald-400';
         pingVisible = true;
-        latency = '48ms';
       } else if (pUser) {
         displayName = pUser.name;
-        displaySub = '<span>📱</span> <span>' + pUser.phone + ' • OTP Active</span>';
-        badgeText = 'PHONE CLOUD';
-        badgeClass = 'bg-purple-500/20 text-purple-300 border border-purple-500/30';
+        displaySub = '<span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse shrink-0"></span><span class="text-purple-300 font-bold truncate">Phone Synced</span>';
         dotClass = 'bg-purple-400';
         pingVisible = true;
-        latency = '54ms';
       } else if (activeOp) {
         displayName = activeOp.name;
-        displaySub = '<span>👤</span> <span>' + activeOp.role.toUpperCase() + ' • ' + (activeOp.phone || 'Local Session') + '</span>';
+        displaySub = '<span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span><span class="text-cyan-300 truncate">' + safeText(activeOp.role.toUpperCase()) + '</span>';
       }
 
       const initials = displayName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'SO';
 
-      if (elAvatar) elAvatar.textContent = initials;
+      if (elAvatar) {
+        if (photoUrl) {
+          elAvatar.innerHTML = '<img src="' + photoUrl + '" alt="' + safeText(displayName) + '" class="w-full h-full object-cover" />';
+          elAvatar.className = 'w-9 h-9 sm:w-10 sm:h-10 rounded-2xl border border-white/20 shadow-sm overflow-hidden shrink-0';
+        } else {
+          elAvatar.innerHTML = initials;
+          elAvatar.className = 'w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-tr from-cyan-600 via-teal-600 to-emerald-500 text-white font-black flex items-center justify-center text-xs shadow-md border border-white/20 overflow-hidden shrink-0';
+        }
+      }
+
       if (elName) elName.textContent = displayName;
       if (elSub) elSub.innerHTML = displaySub;
-      if (elBadgeTxt) elBadgeTxt.textContent = badgeText;
-      if (elLatency) elLatency.textContent = latency;
-      if (elDot) elDot.className = 'relative inline-flex rounded-full h-3.5 w-3.5 border-2 border-slate-900 ' + dotClass;
+      if (elDot) elDot.className = 'relative inline-flex rounded-full h-3 w-3 border-2 border-slate-900 ' + dotClass;
       if (elPing) elPing.style.display = pingVisible ? 'inline-flex' : 'none';
     }
 
@@ -20213,6 +20308,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const gUser = getGoogleAuthUser();
       const pUser = getPhoneAuthUser();
       const activeOp = getActiveOperator();
+      const photoUrl = getOwnerCustomPhoto();
 
       const elName = document.getElementById('modal-owner-name');
       const elEmail = document.getElementById('modal-owner-email');
@@ -20228,7 +20324,22 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       if (elName) elName.textContent = name;
       if (elEmail) elEmail.textContent = sub;
-      if (elAvatar) elAvatar.textContent = initials;
+      
+      if (elAvatar) {
+        if (photoUrl) {
+          elAvatar.innerHTML = '<img src="' + photoUrl + '" alt="' + safeText(name) + '" class="w-full h-full object-cover" />';
+          elAvatar.className = 'w-14 h-14 rounded-2xl border-2 border-white/40 shadow-md overflow-hidden shrink-0';
+        } else {
+          elAvatar.innerHTML = initials;
+          elAvatar.className = 'w-14 h-14 rounded-2xl bg-gradient-to-tr from-cyan-600 via-teal-600 to-emerald-500 text-white font-extrabold flex items-center justify-center text-sm shadow-md overflow-hidden shrink-0 border-2 border-white/40';
+        }
+      }
+
+      const btnRemovePhoto = document.getElementById('btn-remove-owner-photo');
+      if (btnRemovePhoto) {
+        btnRemovePhoto.classList.toggle('hidden', !photoUrl);
+      }
+
       if (elBadge) elBadge.textContent = (gUser && pUser) ? 'DUAL 2FA CLOUD' : (gUser ? 'GOOGLE CLOUD LIVE' : (pUser ? 'PHONE CLOUD LIVE' : 'LOCAL TERMINAL'));
       if (elStatus) elStatus.textContent = isConnected ? 'Live Cloud Database Synced (AES-256)' : 'Local Offline Mode';
       if (elDot) elDot.className = 'w-2 h-2 rounded-full ' + (isConnected ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400');
@@ -20267,7 +20378,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               : '<button onclick="closeShopOwnerModal(); openGoogleSignInDialog(); switchAuthModalTab(\'google\');" class="text-xs text-cyan-400 hover:underline font-bold">Connect Google →</button>'
             ) +
           '</div>' +
-          // Phone sub-box (WITH REAL CLOUD SYNC & RESTORE!)
+          // Phone sub-box
           '<div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-ios-border flex-wrap gap-2">' +
             '<div class="flex items-center gap-2">' +
               '<span class="text-sm">' + (pUser ? '📱' : '⚪') + '</span>' +
@@ -20371,25 +20482,41 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <button onclick="closeShopOwnerModal()" class="text-gray-400 hover:text-white text-lg p-1 transition-colors cursor-pointer">✕</button>
       </div>
 
-      <!-- User Profile Header Card (With Sky-Blue Texture Support) -->
-      <div id="modal-owner-profile-card" class="p-4 rounded-2xl bg-white/[0.03] border border-ios-border flex items-center gap-3.5 relative overflow-hidden">
-        <div id="modal-owner-avatar" class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-600 via-teal-600 to-emerald-500 text-white font-extrabold flex items-center justify-center text-sm shadow-md overflow-hidden shrink-0 border-2 border-white/40">
-          SO
+      <!-- User Profile Header Card with Photo Upload -->
+      <div id="modal-owner-profile-card" class="p-4 rounded-2xl bg-white/[0.03] border border-ios-border flex items-center gap-3.5 relative overflow-hidden group">
+        
+        <!-- Avatar with Clickable Camera Overlay -->
+        <div class="relative shrink-0">
+          <div id="modal-owner-avatar" class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-cyan-600 via-teal-600 to-emerald-500 text-white font-extrabold flex items-center justify-center text-sm shadow-md overflow-hidden border-2 border-white/40">
+            SO
+          </div>
+          <button type="button" onclick="document.getElementById('owner-photo-file-input').click()" class="absolute inset-0 bg-black/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center transition-all rounded-2xl cursor-pointer text-white" title="Click to upload/change photo">
+            <span class="text-xs">📷</span>
+            <span class="text-[8px] font-bold uppercase tracking-wider">Change</span>
+          </button>
         </div>
+
+        <!-- Details & Photo Upload Controls -->
         <div class="min-w-0 flex-1">
           <div class="flex items-center gap-2">
             <h4 id="modal-owner-name" class="font-black text-sm text-ios-text truncate">Shop Owner</h4>
             <span id="modal-owner-badge" class="text-[9px] px-1.5 py-0.5 rounded font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">CLOUD LIVE</span>
           </div>
           <p id="modal-owner-email" class="text-xs text-ios-subtext truncate mt-0.5 font-mono">Owner • New Market, Dhaka</p>
-          <div class="flex items-center gap-2 mt-1.5 text-[10px] font-mono">
-            <span id="modal-owner-sync-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span id="modal-owner-sync-status" class="text-emerald-400 font-bold">Firestore Cloud Active</span>
-            <span class="text-gray-500">•</span>
-            <span class="text-cyan-400" id="modal-owner-latency-tag">⚡ 42ms</span>
+          
+          <div class="flex items-center gap-2 mt-2">
+            <button type="button" onclick="document.getElementById('owner-photo-file-input').click()" class="px-2.5 py-1 rounded-xl text-[10px] font-bold bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 flex items-center gap-1.5 transition-all cursor-pointer active:scale-95">
+              <span>📷</span> <span>Change Photo</span>
+            </button>
+            <button type="button" id="btn-remove-owner-photo" onclick="removeOwnerPhoto()" class="hidden px-2 py-1 rounded-xl text-[10px] font-bold text-rose-400 hover:bg-rose-500/10 border border-rose-500/20 transition-all cursor-pointer" title="Remove custom photo">
+              ✕ Remove
+            </button>
           </div>
         </div>
       </div>
+
+      <!-- Hidden File Input for Profile Photo -->
+      <input type="file" id="owner-photo-file-input" accept="image/*" class="hidden" onchange="handleOwnerPhotoUpload(event)" />
 
       <!-- Futuristic Telemetry HUD Grid -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
