@@ -3335,6 +3335,54 @@ body.theme-white #view-measurements #meas-quick-matrix {
       border-color: #7DD3FC !important;
     }
 
+    /* Dedicated view-users Theme-White Styles */
+    body.theme-white #view-users .bento-card {
+      background: #FFFFFF !important;
+      border: 1px solid #E2E8F0 !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+    }
+    body.theme-white #view-users h1,
+    body.theme-white #view-users h2,
+    body.theme-white #view-users h3 {
+      color: #0F172A !important;
+    }
+    body.theme-white #view-users p {
+      color: #64748B !important;
+    }
+    body.theme-white #view-users input {
+      background: #F8FAFC !important;
+      border: 1px solid #CBD5E1 !important;
+      color: #0F172A !important;
+    }
+    body.theme-white #view-users .cyber-settings-header {
+      background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 50%, #F8FAFC 100%) !important;
+      border-color: #7DD3FC !important;
+    }
+    body.theme-white #view-users .cyber-settings-header h1 {
+      color: #0C2340 !important;
+    }
+    body.theme-white #view-users .cyber-settings-header p {
+      color: #0369A1 !important;
+    }
+    body.theme-white #view-users .cyber-telemetry-card {
+      background: #FFFFFF !important;
+      border-color: #BAE6FD !important;
+    }
+    body.theme-white #view-users #users-view-kpi-total {
+      color: #0284C7 !important;
+    }
+    body.theme-white #view-users #users-view-kpi-current {
+      color: #7C3AED !important;
+    }
+    body.theme-white #view-users #users-view-kpi-policy {
+      color: #D97706 !important;
+    }
+    body.theme-white #nav-users.active {
+      background: #E0F2FE !important;
+      color: #0284C7 !important;
+      border-color: #38BDF8 !important;
+    }
+
     /* Tab 6: Users & Access Matrix (RBAC) Theme-White Styles */
     body.theme-white #stab-content-users .bento-card {
       background: #FFFFFF !important;
@@ -4343,7 +4391,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <button onclick="navigateTo('settings')" id="nav-settings" title="Shop Settings" aria-label="Shop Settings" class="nav-item group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all">
               <span class="nav-icon-badge"><span>⚙</span></span><span class="ss-nav-label text-xs" data-i18n="menu_settings">Shop settings</span>
             </button>
-            <button onclick="CyberDialog.alert('ব্যবহারকারী ও কর্মচারীদের রোল পারমিশন ম্যানেজমেন্ট প্যানেল লোড হচ্ছে...', { icon: '👥', title: 'USERS & ROLES' })" class="nav-item group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all"><span class="nav-icon-badge"><span>♧</span></span><span class="ss-nav-label text-xs" data-i18n="menu_users">Users & roles</span></button>
+            <button onclick="navigateTo('users')" id="nav-users" title="Users & Roles" aria-label="Users & Roles" class="nav-item group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all">
+              <span class="nav-icon-badge"><span>👥</span></span><span class="ss-nav-label text-xs" data-i18n="menu_users">Users & roles</span>
+            </button>
             <button onclick="CyberDialog.alert('ক্লাউড ব্যাকআপ সিঙ্ক্রোনাইজেশন সম্পন্ন হয়েছে! সর্বশেষ স্ন্যাপশট নিরাপদে সংরক্ষিত।', { icon: '☁️', title: 'CLOUD BACKUP' })" class="nav-item group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all"><span class="nav-icon-badge"><span>☁</span></span><span class="ss-nav-label text-xs" data-i18n="menu_backups">Backups</span></button>
             <button onclick="CyberDialog.alert('রিয়েল-টাইম অডিট ও অ্যাক্টিভিটি লগ পরিদর্শন উইন্ডো প্রস্তুত হচ্ছে...', { icon: '⏱️', title: 'ACTIVITY LOG' })" class="nav-item group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all"><span class="nav-icon-badge"><span>◷</span></span><span class="ss-nav-label text-xs" data-i18n="menu_activity">Activity log</span></button>
           </nav>
@@ -4408,13 +4458,6 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
         
         <!-- Language Switcher: Compact Glass Icon Button -->
-        <!-- Futuristic Cyber Active User & Quick PIN HUD Pill -->
-        <button onclick="openUserSwitchModal()" id="header-user-badge" class="cyber-header-user-btn px-2 sm:px-2.5 py-1.5 rounded-xl border border-cyan-500/30 bg-cyan-500/10 hover:bg-cyan-500/20 text-xs font-mono font-bold text-cyan-300 transition-all active:scale-95 flex items-center gap-1.5 cursor-pointer shrink-0" title="Active Operator & Quick PIN Switcher (ইউজার পরিবর্তন)">
-          <span id="header-user-avatar-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span id="header-user-name" class="max-w-[75px] sm:max-w-[125px] truncate">👑 Masum</span>
-          <span id="header-user-role-badge" class="hidden sm:inline-block text-[9px] px-1.5 py-0.5 rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/30 uppercase font-mono">OWNER</span>
-        </button>
-
         <button onclick="toggleLanguage()" class="p-2 sm:px-3 sm:py-1.5 rounded-xl border border-ios-border bg-white/5 hover:bg-white/15 text-xs font-bold text-ios-text transition-all active:scale-95 flex items-center gap-1 shrink-0" title="Language (ভাষা পরিবর্তন)">
           <span class="text-sm">🌐</span>
           <span id="lang-indicator" class="hidden sm:inline text-[11px]">বাংলা</span>
@@ -6834,6 +6877,243 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       </div>
 
     </section>
+
+      <!-- ==================================================== -->
+      <!-- VIEW: USERS & ACCESS MATRIX (RBAC / CYBER COMMAND)   -->
+      <!-- ==================================================== -->
+      <section id="view-users" class="app-view hidden space-y-6">
+        
+        <!-- Futuristic Cyber Command Header Strip -->
+        <div class="cyber-settings-header relative overflow-hidden rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-purple-500/20 shadow-[0_0_30px_rgba(168,85,247,0.12)]">
+          <!-- Background Ambient Glow -->
+          <div class="absolute -top-24 -right-24 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="absolute -bottom-24 -left-24 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-2">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-black uppercase tracking-wider bg-purple-500/10 text-purple-300 border border-purple-500/30 shadow-[0_0_12px_rgba(168,85,247,0.25)]">
+                  <span class="w-2 h-2 rounded-full bg-purple-400 animate-ping"></span>
+                  <span>CYBER ACCESS MATRIX // V2.0</span>
+                </span>
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> LEVEL 5 CLEARANCE (ADMIN)
+                </span>
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono text-cyan-400 bg-cyan-500/10 border border-cyan-500/20">
+                  🛡️ AES-256 RBAC GUARD ACTIVE
+                </span>
+              </div>
+              <h1 class="text-2xl sm:text-4xl font-black text-white tracking-tight flex items-center gap-3">
+                <span>Users & Access Control Matrix</span>
+                <span class="text-xs px-2.5 py-1 rounded-lg bg-purple-500/20 text-purple-300 border border-purple-500/30 font-mono font-bold tracking-normal hidden sm:inline-block">RBAC HUD</span>
+              </h1>
+              <p class="text-xs sm:text-sm text-gray-400 mt-1 max-w-2xl leading-relaxed">
+                কর্মচারীদের রোল ও পদবী নিয়ন্ত্রণ, ৪-ডিজিটের দ্রুত পিন লগইন, আর্থিক তথ্যের গোপনীয়তা এবং গ্রাহকের ফোন নম্বর সুরক্ষা কনফিগারেশন।
+              </p>
+            </div>
+
+            <!-- Header Action Buttons -->
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <button onclick="openUserSwitchModal()" class="px-4 py-2.5 rounded-xl font-bold text-xs bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500/30 active:scale-95 shadow-sm flex items-center gap-1.5 transition-all cursor-pointer" title="Quick PIN Switcher">
+                <span>⚡</span>
+                <span>Switch Operator</span>
+              </button>
+              <button onclick="openNewUserModal()" class="px-5 py-2.5 rounded-xl font-bold text-xs bg-gradient-to-r from-purple-600 to-indigo-600 hover:brightness-110 active:scale-95 text-white shadow-md shadow-purple-600/25 flex items-center gap-1.5 transition-all cursor-pointer">
+                <span>＋</span>
+                <span>Add New User</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Futuristic Live Telemetry Diagnostics Bar -->
+          <div class="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-3 mt-6 pt-5 border-t border-white/10 text-xs">
+            <div class="cyber-telemetry-card p-3.5 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-md">
+              <div class="text-[10px] uppercase font-mono tracking-wider text-gray-400 flex items-center gap-1.5">
+                <span>👥</span> Total Operators
+              </div>
+              <div id="users-view-kpi-total" class="font-black text-cyan-300 text-lg font-mono mt-0.5">5 Active</div>
+            </div>
+
+            <div class="cyber-telemetry-card p-3.5 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-md">
+              <div class="text-[10px] uppercase font-mono tracking-wider text-gray-400 flex items-center gap-1.5">
+                <span>🛡️</span> Security Clearance
+              </div>
+              <div class="font-bold text-emerald-400 text-sm truncate mt-0.5 font-mono">AES-256 Active</div>
+            </div>
+
+            <div class="cyber-telemetry-card p-3.5 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-md">
+              <div class="text-[10px] uppercase font-mono tracking-wider text-gray-400 flex items-center gap-1.5">
+                <span>👑</span> Current Operator
+              </div>
+              <div id="users-view-kpi-current" class="font-bold text-purple-300 text-sm truncate mt-0.5 font-mono">Al-Amin Masum</div>
+            </div>
+
+            <div class="cyber-telemetry-card p-3.5 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-md">
+              <div class="text-[10px] uppercase font-mono tracking-wider text-gray-400 flex items-center gap-1.5">
+                <span>🔒</span> Terminal Gate
+              </div>
+              <div id="users-view-kpi-policy" class="font-bold text-amber-300 text-sm truncate mt-0.5 font-mono">PIN Enforced</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 1: Authorized System Operators Directory -->
+        <div class="bento-card p-6 sm:p-7 space-y-5 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl shadow-xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-sm border border-purple-500/30">01</span>
+              <div>
+                <h2 class="text-base font-bold text-white tracking-wide">Authorized Personnel & Tailor Operators</h2>
+                <p class="text-xs text-gray-400">সকল ইউজার তালিকা, ৪-সংখ্যার কুইক পিন ও পদবী স্ট্যাটাস পরিচালনা করুন</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <div class="relative">
+                <input type="text" id="users-view-search-input" oninput="renderUsersDirectoryList()" placeholder="Search operator..." class="pl-8 pr-3 py-2 rounded-xl text-xs bg-slate-950/80 border border-slate-700 text-white placeholder-gray-500 focus:border-cyan-400 outline-none w-44 sm:w-56" />
+                <span class="absolute left-2.5 top-2.5 text-xs text-gray-400">🔍</span>
+              </div>
+              <button onclick="openNewUserModal()" class="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 hover:brightness-110 active:scale-95 text-white flex items-center gap-1.5 shadow-sm transition-all cursor-pointer">
+                <span>＋</span> <span>Add User</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Dynamic User Cards Grid -->
+          <div id="users-view-directory-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Populated via renderUsersDirectoryList() -->
+          </div>
+        </div>
+
+        <!-- Section 2: Role Permission Matrix (RBAC Grid) -->
+        <div class="bento-card p-6 sm:p-7 space-y-5 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl shadow-xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-sm border border-cyan-500/30">02</span>
+              <div>
+                <h2 class="text-base font-bold text-white tracking-wide">Holographic Role Permission Matrix</h2>
+                <p class="text-xs text-gray-400">কোন রোল কী কী কাজ করতে পারবে তা সুনির্দিষ্টভাবে টিক দিয়ে নির্ধারণ করুন</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="resetRolePermissionsToDefault()" class="px-3 py-1.5 rounded-xl text-xs font-mono font-bold text-gray-400 hover:text-white border border-white/10 hover:border-white/20 active:scale-95 transition-all cursor-pointer">
+                <span>↺</span> <span>Reset Defaults</span>
+              </button>
+              <button onclick="saveRolePermissionsUI()" class="px-4 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 hover:brightness-110 active:scale-95 text-white flex items-center gap-1.5 shadow-sm transition-all cursor-pointer">
+                <span>💾</span> <span>Save Permissions</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Permission Matrix Table -->
+          <div class="overflow-x-auto rounded-2xl border border-white/10">
+            <table class="w-full text-left text-xs border-collapse rbac-matrix-table">
+              <thead>
+                <tr class="border-b border-white/10 bg-slate-950/80 font-mono text-[11px] text-gray-400">
+                  <th class="p-3.5 min-w-[200px]">System Capability & Permission</th>
+                  <th class="p-3.5 text-center min-w-[110px] text-purple-300">👑 Owner</th>
+                  <th class="p-3.5 text-center min-w-[110px] text-cyan-300">👔 Manager</th>
+                  <th class="p-3.5 text-center min-w-[110px] text-amber-300">✂️ Master</th>
+                  <th class="p-3.5 text-center min-w-[110px] text-emerald-300">🧵 Karigar</th>
+                  <th class="p-3.5 text-center min-w-[110px] text-pink-300">💰 Cashier</th>
+                </tr>
+              </thead>
+              <tbody id="users-view-rbac-tbody" class="divide-y divide-white/5">
+                <!-- Populated via renderRolePermissionsMatrix() -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Section 3: Security & Privacy Governance Protocols -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bento-card p-6 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl space-y-4">
+            <div class="flex items-center gap-2.5 border-b border-white/10 pb-3">
+              <span class="w-7 h-7 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xs border border-amber-500/30">03</span>
+              <div>
+                <h3 class="text-sm font-bold text-white">Terminal Security Protocols</h3>
+                <p class="text-[11px] text-gray-400">কুইক পিন এবং সেশন সিকিউরিটি পলিসি</p>
+              </div>
+            </div>
+
+            <div class="space-y-3 pt-1">
+              <label class="flex items-start justify-between gap-3 p-3 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all cursor-pointer">
+                <div>
+                  <div class="font-bold text-xs text-white">Enforce 4-Digit PIN for Switching</div>
+                  <div class="text-[11px] text-gray-400">অপারেটর পরিবর্তনের সময় বাধ্যতামূলক ৪-সংখ্যার পিন দিতে হবে</div>
+                </div>
+                <input type="checkbox" id="users-view-policy-pin-switch" onchange="updateSecurityPolicy('pinSwitch', this.checked)" checked class="w-4 h-4 rounded text-purple-600 focus:ring-0 cursor-pointer mt-0.5" />
+              </label>
+
+              <label class="flex items-start justify-between gap-3 p-3 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all cursor-pointer">
+                <div>
+                  <div class="font-bold text-xs text-white">Order Deletion Admin Lock</div>
+                  <div class="text-[11px] text-gray-400">মালিক (Super Admin) ছাড়া অন্য কেউ অর্ডার সম্পূর্ণ ডিলিট করতে পারবে না</div>
+                </div>
+                <input type="checkbox" id="users-view-policy-delete-lock" onchange="updateSecurityPolicy('deleteLock', this.checked)" checked class="w-4 h-4 rounded text-purple-600 focus:ring-0 cursor-pointer mt-0.5" />
+              </label>
+            </div>
+          </div>
+
+          <div class="bento-card p-6 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl space-y-4">
+            <div class="flex items-center gap-2.5 border-b border-white/10 pb-3">
+              <span class="w-7 h-7 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-xs border border-cyan-500/30">04</span>
+              <div>
+                <h3 class="text-sm font-bold text-white">Customer Privacy & Redaction</h3>
+                <p class="text-[11px] text-gray-400">কারিগর ও স্টাফদের জন্য গ্রাহকের ডাটা সুরক্ষা</p>
+              </div>
+            </div>
+
+            <div class="space-y-3 pt-1">
+              <label class="flex items-start justify-between gap-3 p-3 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all cursor-pointer">
+                <div>
+                  <div class="font-bold text-xs text-white">Customer Phone Redaction</div>
+                  <div class="text-[11px] text-gray-400">কারিগর ও ক্যাশিয়ারদের স্ক্রিনে ফোন নম্বর মাস্ক করা থাকবে (01712***890)</div>
+                </div>
+                <input type="checkbox" id="users-view-policy-phone-mask" onchange="updateSecurityPolicy('phoneMask', this.checked)" checked class="w-4 h-4 rounded text-purple-600 focus:ring-0 cursor-pointer mt-0.5" />
+              </label>
+
+              <label class="flex items-start justify-between gap-3 p-3 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all cursor-pointer">
+                <div>
+                  <div class="font-bold text-xs text-white">Redact Financial Totals on Staff Views</div>
+                  <div class="text-[11px] text-gray-400">মালিক ছাড়া অন্যদের স্ক্রিনে মোট লাভ-ক্ষতি ও দোকানের ব্যালেন্স হাইড থাকবে</div>
+                </div>
+                <input type="checkbox" id="users-view-policy-finance-redact" onchange="updateSecurityPolicy('financeRedact', this.checked)" checked class="w-4 h-4 rounded text-purple-600 focus:ring-0 cursor-pointer mt-0.5" />
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 4: Live Security Audit Trail Log -->
+        <div class="bento-card p-6 sm:p-7 space-y-4 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl shadow-xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-3">
+            <div class="flex items-center gap-2">
+              <span class="text-base">📜</span>
+              <div>
+                <h3 class="font-bold text-sm text-white">Real-Time Security & Operator Audit Trail</h3>
+                <p class="text-[11px] text-gray-400">কে কোন সময়ে কোন কাজ করেছে তার সার্বক্ষণিক রেকর্ড</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="renderAuditLogFeed()" class="px-3 py-1 rounded-xl text-xs font-mono font-bold text-cyan-400 hover:bg-cyan-500/10 border border-cyan-500/20 active:scale-95 transition-all cursor-pointer">
+                <span>🔄</span> Refresh
+              </button>
+              <button onclick="exportAuditLogs()" class="px-3 py-1 rounded-xl text-xs font-mono font-bold text-emerald-400 hover:bg-emerald-500/10 border border-emerald-500/20 active:scale-95 transition-all cursor-pointer">
+                <span>📥</span> Export JSON
+              </button>
+              <button onclick="clearAuditLogs()" class="px-3 py-1 rounded-xl text-xs font-mono font-bold text-rose-400 hover:bg-rose-500/10 border border-rose-500/20 active:scale-95 transition-all cursor-pointer">
+                <span>🧹</span> Clear
+              </button>
+            </div>
+          </div>
+
+          <!-- Audit Log Feed -->
+          <div class="rounded-2xl border border-white/10 bg-slate-950/80 p-3 max-h-64 overflow-y-auto font-mono text-[11px] space-y-2" id="users-view-security-audit-feed">
+            <!-- Populated via renderAuditLogFeed() -->
+          </div>
+        </div>
+
+      </section>
+
 
 
 
@@ -9385,6 +9665,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       }
 
       if (viewId === 'settings') renderShopSettingsForm();
+      if (viewId === 'users') renderUsersSettingsUI();
       if (viewId === 'orders') renderOrdersTable();
       if (['customers','staff','fabrics'].includes(viewId)) renderWorkspacePages();
       if (viewId === 'measurements') renderMeasurementsPage();
@@ -17894,6 +18175,29 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       return p ? !!p[op.role] : false;
     }
 
+        function updateSidebarUserProfileChip() {
+      const op = getActiveOperator();
+      if (!op) return;
+      const roleDef = ROLE_DEFINITIONS[op.role] || { label: op.role, badge: op.role.toUpperCase() };
+      const initials = op.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'OP';
+
+      const elAvatar = document.getElementById('sidebar-user-avatar');
+      const elName = document.getElementById('sidebar-user-name');
+      const elBadge = document.getElementById('sidebar-user-role-badge');
+      const elSub = document.getElementById('sidebar-user-subtext');
+
+      if (elAvatar) {
+        elAvatar.className = 'w-10 h-10 rounded-2xl bg-gradient-to-tr ' + (op.avatarColor || 'from-amber-400 to-orange-500') + ' text-slate-950 font-extrabold flex items-center justify-center text-xs shadow-md';
+        elAvatar.textContent = initials;
+      }
+      if (elName) elName.textContent = op.name;
+      if (elBadge) {
+        elBadge.textContent = roleDef.badge.replace(/^[^a-zA-Z0-9]+/, '').trim();
+        elBadge.className = 'text-[9px] px-1.5 py-0.2 rounded font-mono border ' + roleDef.badgeClass;
+      }
+      if (elSub) elSub.textContent = roleDef.label + ' • ' + (op.status === 'active' ? 'Active' : 'Suspended');
+    }
+
     function updateHeaderUserPill() {
       const op = getActiveOperator();
       if (!op) return;
@@ -17949,35 +18253,50 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const users = getSystemUsers();
       const op = getActiveOperator();
 
-      // KPIs
-      const elTotal = document.getElementById('users-kpi-total');
-      if (elTotal) elTotal.textContent = users.length;
+      // KPIs for both settings tab and dedicated view-users
+      ['users-kpi-total', 'users-view-kpi-total'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = users.length + ' Active';
+      });
 
-      const elCurrent = document.getElementById('users-kpi-current');
-      if (elCurrent && op) elCurrent.textContent = (op.role === 'owner' ? '👑 ' : '') + op.name;
+      ['users-kpi-current', 'users-view-kpi-current'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el && op) el.textContent = (op.role === 'owner' ? '👑 ' : '') + op.name;
+      });
 
       const pol = getSecurityPolicies();
-      const elPolicy = document.getElementById('users-kpi-policy');
-      if (elPolicy) elPolicy.textContent = pol.pinSwitch ? 'PIN Enforced' : 'Quick Switch';
+      ['users-kpi-policy', 'users-view-kpi-policy'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = pol.pinSwitch ? 'PIN Enforced' : 'Quick Switch';
+      });
 
-      // Sync Policy Checkboxes
-      const chkPin = document.getElementById('policy-pin-switch');
-      if (chkPin) chkPin.checked = !!pol.pinSwitch;
-      const chkDel = document.getElementById('policy-delete-lock');
-      if (chkDel) chkDel.checked = !!pol.deleteLock;
-      const chkPhone = document.getElementById('policy-phone-mask');
-      if (chkPhone) chkPhone.checked = !!pol.phoneMask;
-      const chkFin = document.getElementById('policy-finance-redact');
-      if (chkFin) chkFin.checked = !!pol.financeRedact;
+      // Sync Policy Checkboxes for both views
+      ['policy-pin-switch', 'users-view-policy-pin-switch'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.checked = !!pol.pinSwitch;
+      });
+      ['policy-delete-lock', 'users-view-policy-delete-lock'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.checked = !!pol.deleteLock;
+      });
+      ['policy-phone-mask', 'users-view-policy-phone-mask'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.checked = !!pol.phoneMask;
+      });
+      ['policy-finance-redact', 'users-view-policy-finance-redact'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.checked = !!pol.financeRedact;
+      });
 
       renderUsersDirectoryList();
       renderRolePermissionsMatrix();
       renderAuditLogFeed();
+      updateSidebarUserProfileChip();
     }
 
     function renderUsersDirectoryList() {
-      const container = document.getElementById('users-directory-grid');
-      if (!container) return;
+      const containers = [document.getElementById('users-directory-grid'), document.getElementById('users-view-directory-grid')].filter(Boolean);
+      if (containers.length === 0) return;
 
       const users = getSystemUsers();
       const activeOp = getActiveOperator();
@@ -17989,11 +18308,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       });
 
       if (filtered.length === 0) {
-        container.innerHTML = '<div class="col-span-full py-8 text-center text-gray-500 font-mono text-xs">No matching operators found</div>';
+        containers.forEach(c => c.innerHTML = '<div class="col-span-full py-8 text-center text-gray-500 font-mono text-xs">No matching operators found</div>');
         return;
       }
 
-      container.innerHTML = filtered.map(u => {
+      const cardsHtml = filtered.map(u => { containers.forEach(c => c.innerHTML = htmlOutput);
         const isActiveSession = activeOp && activeOp.id === u.id;
         const roleDef = ROLE_DEFINITIONS[u.role] || { label: u.role, badge: u.role.toUpperCase(), badgeClass: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30' };
         const initials = u.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'OP';
@@ -18039,16 +18358,17 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           '</div>' +
         '</div>';
       }).join('');
+      containers.forEach(c => c.innerHTML = cardsHtml);
     }
 
     function renderRolePermissionsMatrix() {
-      const tbody = document.getElementById('rbac-matrix-tbody');
-      if (!tbody) return;
+      const tbodies = [document.getElementById('rbac-matrix-tbody'), document.getElementById('users-view-rbac-tbody')].filter(Boolean);
+      if (tbodies.length === 0) return;
 
       const perms = getRolePermissions();
       const roles = ['owner', 'manager', 'master', 'karigar', 'cashier'];
 
-      tbody.innerHTML = Object.entries(perms).map(([key, p]) => {
+      const matrixRowsHtml = Object.entries(perms).map(([key, p]) => {
         return '<tr class="hover:bg-white/[0.02] transition-colors">' +
           '<td class="p-3.5">' +
             '<div class="font-bold text-white perm-name">' + p.name + '</div>' +
@@ -18067,6 +18387,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           }).join('') +
         '</tr>';
       }).join('');
+      tbodies.forEach(tb => tb.innerHTML = matrixRowsHtml);
     }
 
     function saveRolePermissionsUI() {
@@ -18247,6 +18568,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           '<span>' + safeText(u.name.split(' ')[0]) + '</span>' +
         '</button>';
       }).join('');
+      containers.forEach(c => c.innerHTML = logsHtml);
     }
 
     function selectPinSwitchTarget(userId) {
@@ -18421,16 +18743,16 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
 
     function renderAuditLogFeed() {
-      const container = document.getElementById('security-audit-feed');
-      if (!container) return;
+      const containers = [document.getElementById('security-audit-feed'), document.getElementById('users-view-security-audit-feed')].filter(Boolean);
+      if (containers.length === 0) return;
 
       const logs = getAuditLogs();
       if (logs.length === 0) {
-        container.innerHTML = '<div class="py-4 text-center text-gray-500 font-mono text-xs">No audit logs recorded</div>';
+        containers.forEach(c => c.innerHTML = '<div class="py-4 text-center text-gray-500 font-mono text-xs">No audit logs recorded</div>');
         return;
       }
 
-      container.innerHTML = logs.map(l => {
+      const logsHtml = logs.map(l => {
         const badgeColor = l.level === 'AUTH' ? 'text-cyan-400 bg-cyan-500/10 border-cyan-500/30' : (l.level === 'WARN' ? 'text-amber-400 bg-amber-500/10 border-amber-500/30' : 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30');
 
         return '<div class="flex items-start justify-between gap-3 p-2 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-colors">' +
