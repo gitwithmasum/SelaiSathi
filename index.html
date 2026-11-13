@@ -3484,6 +3484,395 @@ body.theme-white #view-measurements #meas-quick-matrix {
       box-shadow: 0 0 8px rgba(2, 132, 199, 0.6) !important;
     }
 
+    
+    /* ============================================================
+       THEME-WHITE CARD COLOR OVERHAUL: #acd4eb (USER SPECIFIED)
+       "ar white color er je chotto chotto card ba part gulo ache
+        sob ei color kore dao, bg te je color dicho oita thik ache"
+       ============================================================ */
+    body.theme-white {
+      --ss-surface: #acd4eb;
+      --ss-surface-subtle: #bde1f5;
+      --ss-surface-tertiary: #9ccde8;
+      --ss-border: #72b9e4;
+      --ss-border-subtle: #8ac6ec;
+      --ss-text-primary: #0c2340;
+      --ss-text-secondary: #1e3a5f;
+      --ss-text-muted: #3d6086;
+    }
+
+    /* All Cards, Bento Cards, Panels, Articles */
+    body.theme-white .bento-card,
+    body.theme-white .glass-card,
+    body.theme-white [class*="bento-card"],
+    body.theme-white .app-view article.bento-card {
+      background: #acd4eb !important;
+      border: 1px solid #72b9e4 !important;
+      box-shadow: 0 4px 18px rgba(12, 45, 75, 0.1) !important;
+      color: #0c2340 !important;
+    }
+
+    body.theme-white .bento-card:hover {
+      border-color: #0284c7 !important;
+      box-shadow: 0 8px 24px rgba(12, 45, 75, 0.16) !important;
+    }
+
+    /* Header & Sidebar & Bottom Nav */
+    body.theme-white header {
+      background: rgba(172, 212, 235, 0.95) !important;
+      border-bottom: 1px solid #72b9e4 !important;
+      box-shadow: 0 4px 20px rgba(12, 45, 75, 0.08) !important;
+    }
+    body.theme-white header input {
+      background: #d6eefb !important;
+      border: 1px solid #72b9e4 !important;
+      color: #0c2340 !important;
+    }
+    body.theme-white header button:not(:last-child) {
+      background: #bde1f5 !important;
+      border: 1px solid #8ac6ec !important;
+      color: #0c2340 !important;
+    }
+
+    body.theme-white aside,
+    body.theme-white #app-sidebar {
+      background: rgba(172, 212, 235, 0.97) !important;
+      border-right: 1px solid #72b9e4 !important;
+      box-shadow: 4px 0 24px rgba(12, 45, 75, 0.08) !important;
+    }
+    body.theme-white aside .nav-item {
+      color: #1e3a5f !important;
+    }
+    body.theme-white aside .nav-item:hover {
+      background: #bde1f5 !important;
+      border-color: #8ac6ec !important;
+      color: #0c2340 !important;
+    }
+    body.theme-white aside .nav-item.active {
+      background: #0284c7 !important;
+      color: #ffffff !important;
+      border: 1px solid #0284c7 !important;
+      box-shadow: 0 2px 10px rgba(2, 132, 199, 0.3) !important;
+    }
+    body.theme-white aside .nav-item.active .nav-icon-badge {
+      background: #ffffff !important;
+      color: #0284c7 !important;
+      border-color: #ffffff !important;
+    }
+    body.theme-white aside .nav-icon-badge {
+      background: #bde1f5 !important;
+      color: #0c2340 !important;
+      border-color: #8ac6ec !important;
+    }
+    body.theme-white aside .bg-cyber-black\/40 {
+      background: #bde1f5 !important;
+      border-top: 1px solid #72b9e4 !important;
+    }
+    body.theme-white aside .brand-selai {
+      color: #0c2340 !important;
+      -webkit-text-fill-color: #0c2340 !important;
+    }
+    body.theme-white aside .brand-sathi {
+      color: #0284c7 !important;
+      -webkit-text-fill-color: #0284c7 !important;
+    }
+
+    body.theme-white #mobile-bottom-nav {
+      background: rgba(172, 212, 235, 0.97) !important;
+      border: 1px solid #72b9e4 !important;
+      box-shadow: 0 10px 30px rgba(12, 45, 75, 0.14) !important;
+    }
+    body.theme-white .mobile-nav-item {
+      color: #1e3a5f !important;
+    }
+    body.theme-white .mobile-nav-item.active {
+      color: #0284c7 !important;
+    }
+    body.theme-white .mobile-nav-item.active .active-dot-indicator {
+      background-color: #0284c7 !important;
+      box-shadow: 0 0 8px rgba(2, 132, 199, 0.7) !important;
+    }
+
+    /* Form Controls & Inputs */
+    body.theme-white input:not([type="checkbox"]):not([type="radio"]):not(#printable-receipt *),
+    body.theme-white textarea:not(#printable-receipt *),
+    body.theme-white select:not(#printable-receipt *) {
+      background: #d6eefb !important;
+      border: 1px solid #72b9e4 !important;
+      color: #0c2340 !important;
+    }
+    body.theme-white input:focus,
+    body.theme-white textarea:focus,
+    body.theme-white select:focus {
+      border-color: #0284c7 !important;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2) !important;
+    }
+    body.theme-white input::placeholder,
+    body.theme-white textarea::placeholder {
+      color: #4b6e94 !important;
+    }
+
+    /* Small Cards & Parts across all Views */
+    /* 1. Dashboard View */
+    body.theme-white .dash-quick-btn-subtle {
+      background: #acd4eb !important;
+      border: 1px solid #72b9e4 !important;
+      color: #0c2340 !important;
+    }
+    body.theme-white .dash-quick-btn-subtle:hover {
+      background: #bde1f5 !important;
+      border-color: #0284c7 !important;
+    }
+
+    /* 2. Customers View */
+    body.theme-white #view-customers .customer-record-card {
+      background: #acd4eb !important;
+      border: 1px solid #72b9e4 !important;
+      box-shadow: 0 4px 14px rgba(12, 45, 75, 0.08) !important;
+    }
+    body.theme-white #view-customers .customer-contact-pill,
+    body.theme-white #view-customers .customer-financial-strip,
+    body.theme-white #view-customers .customer-notes-pill {
+      background: #bde1f5 !important;
+      border: 1px solid #8ac6ec !important;
+      color: #0c2340 !important;
+    }
+    body.theme-white #view-customers #customer-search {
+      background: #d6eefb !important;
+      border-color: #72b9e4 !important;
+      color: #0c2340 !important;
+    }
+    body.theme-white #view-customers #customers-display-container thead {
+      background: #9ccde8 !important;
+      color: #0c2340 !important;
+    }
+    body.theme-white #view-customers #customers-display-container tbody tr:hover {
+      background: #bde1f5 !important;
+    }
+
+    /* 3. Staff View */
+    body.theme-white #view-staff .staff-card-grid > article {
+      background: #acd4eb !important;
+      border: 1px solid #72b9e4 !important;
+      box-shadow: 0 4px 14px rgba(12, 45, 75, 0.08) !important;
+    }
+    body.theme-white #view-staff .staff-card-grid article .bg-slate-900\/50,
+    body.theme-white #view-staff .staff-card-grid article .bg-slate-950\/40,
+    body.theme-white #view-staff .staff-card-grid article .bg-violet-500\/5 {
+      background: #bde1f5 !important;
+      border-color: #8ac6ec !important;
+    }
+    body.theme-white #view-staff #staff-search,
+    body.theme-white #view-staff #staff-attendance-filter-btn {
+      background: #bde1f5 !important;
+      border-color: #8ac6ec !important;
+      color: #0c2340 !important;
+    }
+    body.theme-white #view-staff .staff-role-pill:not(.active) {
+      background: #bde1f5 !important;
+      border: 1px solid #8ac6ec !important;
+      color: #1e3a5f !important;
+    }
+    body.theme-white #view-staff .staff-role-pill:not(.active):hover {
+      background: #c7e8fa !important;
+      color: #0c2340 !important;
+    }
+    body.theme-white #view-staff #staff-display-container thead tr {
+      background: #9ccde8 !important;
+      color: #0c2340 !important;
+    }
+    body.theme-white #view-staff #staff-display-container tbody tr:hover {
+      background: #bde1f5 !important;
+    }
+
+    /* 4. Inventory View */
+    body.theme-white #view-inventory .inv-card {
+      background: #acd4eb !important;
+      border: 1px solid #72b9e4 !important;
+      box-shadow: 0 4px 14px rgba(12, 45, 75, 0.08) !important;
+    }
+    body.theme-white #view-inventory .inv-card .bg-slate-900\/50,
+    body.theme-white #view-inventory .inv-card .bg-white\/5 {
+      background: #bde1f5 !important;
+      border-color: #8ac6ec !important;
+    }
+    body.theme-white #view-inventory .inv-cat-pill:not(.active) {
+      background: #bde1f5 !important;
+      border-color: #8ac6ec !important;
+      color: #1e3a5f !important;
+    }
+    body.theme-white #view-inventory .inv-cat-pill.active {
+      background: #0284c7 !important;
+      color: #ffffff !important;
+      border-color: #0284c7 !important;
+    }
+
+    /* 5. Measurements View */
+    body.theme-white #view-measurements .bento-card {
+      background: #acd4eb !important;
+      border: 1px solid #72b9e4 !important;
+    }
+    body.theme-white #view-measurements #meas-active-customer-pill,
+    body.theme-white #view-measurements #meas-history-list > * {
+      background: #bde1f5 !important;
+      border-color: #8ac6ec !important;
+    }
+    body.theme-white #view-measurements #meas-quick-matrix {
+      background: #bde1f5 !important;
+      border-color: #8ac6ec !important;
+    }
+    body.theme-white #meas-customer-dropdown {
+      background: #acd4eb !important;
+      border-color: #72b9e4 !important;
+      color: #0c2340 !important;
+    }
+    body.theme-white #meas-customer-dropdown > div:hover {
+      background: #bde1f5 !important;
+    }
+
+    /* 6. Reports View */
+    body.theme-white #view-reports .bento-card,
+    body.theme-white #view-reports .bg-slate-900\/40 {
+      background: #acd4eb !important;
+      border: 1px solid #72b9e4 !important;
+      color: #0c2340 !important;
+    }
+
+    /* 7. Accounts View */
+    body.theme-white #view-accounts .bento-card,
+    body.theme-white #view-accounts .bg-slate-900\/60,
+    body.theme-white #view-accounts .bg-slate-900\/40,
+    body.theme-white #view-accounts .due-aging-container {
+      background: #acd4eb !important;
+      border: 1px solid #72b9e4 !important;
+    }
+    body.theme-white #view-accounts thead tr {
+      background: #9ccde8 !important;
+      color: #0c2340 !important;
+    }
+    body.theme-white #view-accounts tbody tr:hover {
+      background: #bde1f5 !important;
+    }
+
+    /* 8. Fabrics View */
+    body.theme-white #view-fabrics .bento-card,
+    body.theme-white #view-fabrics .bg-slate-900\/60,
+    body.theme-white #view-fabrics .bg-slate-900\/90 {
+      background: #acd4eb !important;
+      border: 1px solid #72b9e4 !important;
+    }
+    body.theme-white .fabric-cat-pill:not(.active) {
+      background: #bde1f5 !important;
+      border-color: #8ac6ec !important;
+      color: #1e3a5f !important;
+    }
+
+    /* 9. Settings View */
+    body.theme-white #view-settings .cyber-settings-header {
+      background: linear-gradient(135deg, #b8def2 0%, #acd4eb 100%) !important;
+      border: 1px solid #72b9e4 !important;
+      box-shadow: 0 8px 24px rgba(12, 45, 75, 0.1) !important;
+    }
+    body.theme-white #view-settings .cyber-telemetry-card {
+      background: #bde1f5 !important;
+      border: 1px solid #8ac6ec !important;
+    }
+    body.theme-white #view-settings .bento-card {
+      background: #acd4eb !important;
+      border: 1px solid #72b9e4 !important;
+    }
+    body.theme-white .settings-tab-btn:not(.active) {
+      background: #bde1f5 !important;
+      border: 1px solid #8ac6ec !important;
+      color: #1e3a5f !important;
+    }
+    body.theme-white .settings-tab-btn.active {
+      background: #0284c7 !important;
+      color: #ffffff !important;
+      border-color: #0284c7 !important;
+    }
+    body.theme-white .cyber-hardware-card {
+      background: #bde1f5 !important;
+      border: 1px solid #8ac6ec !important;
+    }
+    body.theme-white .cyber-hardware-card:hover {
+      background: #c5e7fa !important;
+      border-color: #0284c7 !important;
+    }
+    body.theme-white .cyber-hardware-card:has(input[type="radio"]:checked) {
+      background: #0284c7 !important;
+      border-color: #0284c7 !important;
+    }
+    body.theme-white .cyber-hardware-card:has(input[type="radio"]:checked) .text-white,
+    body.theme-white .cyber-hardware-card:has(input[type="radio"]:checked) .text-gray-400,
+    body.theme-white .cyber-hardware-card:has(input[type="radio"]:checked) span {
+      color: #ffffff !important;
+    }
+    body.theme-white .cyber-sim-terminal {
+      background: #acd4eb !important;
+      border: 1px solid #72b9e4 !important;
+    }
+    body.theme-white .cyber-sim-terminal .bg-slate-950\/80 {
+      background: #bde1f5 !important;
+      border-color: #8ac6ec !important;
+    }
+    body.theme-white .cyber-rates-table thead {
+      background: #9ccde8 !important;
+      color: #0c2340 !important;
+    }
+    body.theme-white .cyber-rates-table tbody {
+      background: #acd4eb !important;
+    }
+    body.theme-white .cyber-rates-table tbody tr:hover {
+      background: #bde1f5 !important;
+    }
+    body.theme-white .cyber-rates-table tbody input {
+      background: #d6eefb !important;
+      border-color: #72b9e4 !important;
+      color: #0c2340 !important;
+    }
+    body.theme-white .cyber-phone-frame {
+      background: #bde1f5 !important;
+      border: 4px solid #72b9e4 !important;
+    }
+    body.theme-white .cyber-var-pill {
+      background: #bde1f5 !important;
+      border: 1px solid #8ac6ec !important;
+      color: #0284c7 !important;
+    }
+    body.theme-white #stab-content-backup .p-4.rounded-2xl,
+    body.theme-white #stab-content-backup .bg-slate-950\/80 {
+      background: #bde1f5 !important;
+      border: 1px solid #8ac6ec !important;
+    }
+
+    /* Popovers & Floating Menus */
+    body.theme-white #notif-popover,
+    body.theme-white .notif-popover {
+      background: #acd4eb !important;
+      border: 1px solid #72b9e4 !important;
+      box-shadow: 0 16px 36px rgba(12, 45, 75, 0.18) !important;
+      color: #0c2340 !important;
+    }
+
+    /* Headings, text labels inside cards */
+    body.theme-white .app-view h1,
+    body.theme-white .app-view h2,
+    body.theme-white .app-view h3,
+    body.theme-white .bento-card h1,
+    body.theme-white .bento-card h2,
+    body.theme-white .bento-card h3,
+    body.theme-white .bento-card h4 {
+      color: #0c2340 !important;
+    }
+    body.theme-white label {
+      color: #0c2340 !important;
+    }
+    body.theme-white .app-view p,
+    body.theme-white .bento-card p {
+      color: #1e3a5f !important;
+    }
+
     body.theme-white #view-staff .staff-page-header h1{background:linear-gradient(100deg,#6d28d9,#0e7490 55%,#7c3aed);-webkit-background-clip:text;background-clip:text;color:transparent!important}
 body.theme-white #view-staff .staff-card-grid>article{background:linear-gradient(145deg,#fff,#f7f8fc)!important;border:1px solid #e2e7f0!important;box-shadow:0 8px 22px rgba(31,41,55,.055)!important}
 body.theme-white #view-staff .staff-card-grid article .bg-slate-900\/50,body.theme-white #view-staff .staff-card-grid article .bg-slate-950\/40,body.theme-white #view-staff .staff-card-grid article .bg-violet-500\/5{background:#f1f3f9!important;border-color:#e0e5ef!important}
