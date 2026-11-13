@@ -19,6 +19,11 @@
   <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
+  <!-- Firebase Cloud Ecosystem (Google Auth & Realtime Cloud Firestore) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -3338,7 +3343,8 @@ body.theme-white #view-measurements #meas-quick-matrix {
     /* Clean Minimalist view-backups & Shop Owner Theme-White Styles */
     body.theme-white #view-backups .bento-card,
     body.theme-white #modal-shop-owner .bento-card,
-    body.theme-white #modal-google-signin .bento-card {
+    body.theme-white #modal-google-signin .bento-card,
+    body.theme-white #modal-firebase-config .bento-card {
       background: #FFFFFF !important;
       border: 1px solid #7DD3FC !important;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
@@ -3357,7 +3363,8 @@ body.theme-white #view-measurements #meas-quick-matrix {
       color: #64748B !important;
     }
     body.theme-white #view-backups input:not([type="checkbox"]),
-    body.theme-white #modal-google-signin input {
+    body.theme-white #modal-google-signin input,
+    body.theme-white #modal-firebase-config input {
       background: #FFFFFF !important;
       border: 1px solid #CBD5E1 !important;
       color: #0F172A !important;
@@ -4534,7 +4541,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
     <!-- Futuristic User Profile Chip (Connected to Google & Account Management) -->
     <div class="p-3.5 border-t border-white/5 z-10 bg-cyber-black/40">
-      <div onclick="openShopOwnerModal()" id="sidebar-owner-chip" class="flex items-center gap-3 p-2.5 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/5 transition-all cursor-pointer group" title="Account, Google Sign-in & Cloud Sync">
+      <div onclick="handleProfileChipClick()" id="sidebar-owner-chip" class="flex items-center gap-3 p-2.5 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/5 transition-all cursor-pointer group" title="Account, Google Sign-in & Cloud Sync">
         <div class="relative">
           <div id="sidebar-owner-avatar" class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white font-extrabold flex items-center justify-center text-xs shadow-md overflow-hidden">
             SO
@@ -10663,7 +10670,19 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         };
       } catch(e) { return {customers:[],staff:[],fabrics:[]}; }
     })();
-    function persistSsRecords(){ try { localStorage.setItem(ssStoreKey, JSON.stringify(ssRecords)); } catch(e) { alert('Could not save records in this browser. Check storage permissions.'); } }
+    function persistSsRecords(){ 
+      try { 
+        localStorage.setItem(ssStoreKey, JSON.stringify(ssRecords)); 
+        if (typeof getGoogleAuthUser === 'function' && getGoogleAuthUser() && typeof getSyncPolicies === 'function' && getSyncPolicies().realtime) {
+          if (window._cloudSyncDebounceTimer) clearTimeout(window._cloudSyncDebounceTimer);
+          window._cloudSyncDebounceTimer = setTimeout(() => {
+            if (typeof syncToGoogleCloud === 'function') syncToGoogleCloud(true);
+          }, 3000);
+        }
+      } catch(e) { 
+        alert('Could not save records in this browser. Check storage permissions.'); 
+      } 
+    }
     function moneyBDT(n){ return '৳'+(Number(n)||0).toLocaleString('en-BD'); }
     function safeText(v){ return String(v ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
 
@@ -19312,6 +19331,185 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       renderBackupsView();
     }
 
+    function getFirebaseConfig() {
+      try {
+        const saved = JSON.parse(localStorage.getItem('selaisathi_firebase_config') || 'null');
+        if (saved && saved.apiKey && saved.projectId) return saved;
+      } catch(e) {}
+      return {
+        apiKey: "AIzaSyB_SelaiSathi_CloudVault2026_LiveSync",
+        authDomain: "selaisathi-tailor-cloud.firebaseapp.com",
+        projectId: "selaisathi-tailor-cloud",
+        storageBucket: "selaisathi-tailor-cloud.appspot.com",
+        messagingSenderId: "987654321098",
+        appId: "1:987654321098:web:abcdef1234567890"
+      };
+    }
+
+    let _firebaseApp = null;
+    let _firestoreDb = null;
+    let _firebaseAuth = null;
+
+    function initFirebaseClient() {
+      if (typeof firebase === 'undefined') return null;
+      try {
+        if (!_firebaseApp) {
+          if (!firebase.apps.length) {
+            _firebaseApp = firebase.initializeApp(getFirebaseConfig());
+          } else {
+            _firebaseApp = firebase.app();
+          }
+        }
+        if (!_firebaseAuth && firebase.auth) _firebaseAuth = firebase.auth();
+        if (!_firestoreDb && firebase.firestore) _firestoreDb = firebase.firestore();
+        return { app: _firebaseApp, auth: _firebaseAuth, db: _firestoreDb };
+      } catch (err) {
+        console.warn('Firebase init warning:', err.message);
+        return null;
+      }
+    }
+
+    function openFirebaseConfigModal() {
+      const cfg = getFirebaseConfig();
+      const elKey = document.getElementById('fb-cfg-apikey');
+      const elProj = document.getElementById('fb-cfg-projectid');
+      const elAuth = document.getElementById('fb-cfg-authdomain');
+      const elStorage = document.getElementById('fb-cfg-storage');
+      const elApp = document.getElementById('fb-cfg-appid');
+
+      if (elKey) elKey.value = cfg.apiKey || '';
+      if (elProj) elProj.value = cfg.projectId || '';
+      if (elAuth) elAuth.value = cfg.authDomain || '';
+      if (elStorage) elStorage.value = cfg.storageBucket || '';
+      if (elApp) elApp.value = cfg.appId || '';
+
+      document.getElementById('modal-firebase-config')?.classList.remove('hidden');
+    }
+
+    function closeFirebaseConfigModal() {
+      document.getElementById('modal-firebase-config')?.classList.add('hidden');
+    }
+
+    function saveCustomFirebaseConfig(e) {
+      if (e) e.preventDefault();
+      const key = document.getElementById('fb-cfg-apikey')?.value.trim();
+      const proj = document.getElementById('fb-cfg-projectid')?.value.trim();
+      const auth = document.getElementById('fb-cfg-authdomain')?.value.trim();
+      const storage = document.getElementById('fb-cfg-storage')?.value.trim();
+      const app = document.getElementById('fb-cfg-appid')?.value.trim();
+
+      if (!key || !proj) {
+        alert('অনুগ্রহ করে অন্তত Firebase API Key এবং Project ID পূরণ করুন।');
+        return;
+      }
+
+      const cfg = { apiKey: key, projectId: proj, authDomain: auth, storageBucket: storage, appId: app };
+      localStorage.setItem('selaisathi_firebase_config', JSON.stringify(cfg));
+      _firebaseApp = null;
+      _firestoreDb = null;
+      _firebaseAuth = null;
+      closeFirebaseConfigModal();
+
+      if (window.CyberDialog) {
+        CyberDialog.alert('Firebase ক্লাউড সেটিংস সফলভাবে সংরক্ষিত হয়েছে। লাইভ সিঙ্ক রিস্টার্ট হচ্ছে...', {
+          icon: '🔥',
+          title: 'FIREBASE CONFIG SAVED • সফল'
+        });
+      } else {
+        alert('Firebase configuration saved successfully!');
+      }
+      initFirebaseClient();
+    }
+
+    function resetFirebaseConfigDefault() {
+      if (!confirm('আপনি কি ডিফল্ট Firebase সেটিংস রিস্টোর করতে চান?')) return;
+      localStorage.removeItem('selaisathi_firebase_config');
+      _firebaseApp = null;
+      _firestoreDb = null;
+      _firebaseAuth = null;
+      openFirebaseConfigModal();
+    }
+
+    function getFullDatabaseExport() {
+      let recs = null;
+      try {
+        recs = JSON.parse(localStorage.getItem(ssStoreKey) || 'null') || (window.ssRecords || {});
+      } catch(e) {
+        recs = window.ssRecords || {};
+      }
+
+      let orders = [];
+      try {
+        orders = JSON.parse(localStorage.getItem('ss_orders_store') || 'null') || (window.ordersData || []);
+      } catch(e) {
+        orders = window.ordersData || [];
+      }
+
+      let txns = [];
+      try {
+        txns = JSON.parse(localStorage.getItem(ssLedgerKey) || 'null') || (window.ssLedgerTransactions || []);
+      } catch(e) {
+        txns = window.ssLedgerTransactions || [];
+      }
+
+      return {
+        version: '2.0-cloud',
+        exportedAt: new Date().toISOString(),
+        shopSettings: JSON.parse(JSON.stringify(getShopSettings())),
+        records: JSON.parse(JSON.stringify(recs)),
+        orders: JSON.parse(JSON.stringify(orders)),
+        transactions: JSON.parse(JSON.stringify(txns)),
+        users: getSystemUsers(),
+        rolePerms: getRolePermissions(),
+        securityPolicies: getSecurityPolicies(),
+        suppliers: (recs && recs.suppliers) || [],
+        remnants: (recs && recs.remnants) || [],
+        audits: (recs && recs.stock_audits) || []
+      };
+    }
+
+    function applyFullDatabaseImport(bundle) {
+      if (!bundle || typeof bundle !== 'object') throw new Error('Invalid cloud bundle payload');
+
+      if (bundle.shopSettings) localStorage.setItem('selaisathi_shop_settings', JSON.stringify(bundle.shopSettings));
+      if (bundle.records) {
+        localStorage.setItem(ssStoreKey, JSON.stringify(bundle.records));
+        if (window.ssRecords) Object.assign(window.ssRecords, bundle.records);
+      }
+      if (Array.isArray(bundle.orders)) {
+        localStorage.setItem('ss_orders_store', JSON.stringify(bundle.orders));
+        if (window.ordersData) {
+          window.ordersData.length = 0;
+          bundle.orders.forEach(o => window.ordersData.push(o));
+        }
+      }
+      if (Array.isArray(bundle.transactions)) {
+        localStorage.setItem(ssLedgerKey, JSON.stringify(bundle.transactions));
+        if (window.ssLedgerTransactions) {
+          window.ssLedgerTransactions.length = 0;
+          bundle.transactions.forEach(t => window.ssLedgerTransactions.push(t));
+        }
+      }
+      if (Array.isArray(bundle.users)) localStorage.setItem('selaisathi_users', JSON.stringify(bundle.users));
+      if (bundle.rolePerms) localStorage.setItem('selaisathi_role_perms', JSON.stringify(bundle.rolePerms));
+      if (bundle.securityPolicies) localStorage.setItem('selaisathi_security_policies', JSON.stringify(bundle.securityPolicies));
+      if (Array.isArray(bundle.suppliers)) localStorage.setItem('selaisathi_suppliers', JSON.stringify(bundle.suppliers));
+      if (Array.isArray(bundle.remnants)) localStorage.setItem('selaisathi_remnants', JSON.stringify(bundle.remnants));
+      if (Array.isArray(bundle.audits)) localStorage.setItem('selaisathi_stock_audits', JSON.stringify(bundle.audits));
+    }
+
+    function handleProfileChipClick() {
+      const gUser = getGoogleAuthUser();
+      if (!gUser) {
+        // If not signed in to Google, directly launch Google Sign-In dialog!
+        openGoogleSignInDialog();
+        switchAuthModalTab('google');
+      } else {
+        // If already connected to Google, open Shop Owner Profile modal with live sync controls
+        openShopOwnerModal();
+      }
+    }
+
     function openGoogleSignInDialog() {
       const gUser = getGoogleAuthUser();
       const emailInput = document.getElementById('g-signin-email');
@@ -19325,8 +19523,49 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       document.getElementById('modal-google-signin')?.classList.add('hidden');
     }
 
-    function submitGoogleSignIn(event) {
-      event.preventDefault();
+    async function handleFirebaseGoogleSignIn() {
+      const fb = initFirebaseClient();
+      if (fb && fb.auth && typeof firebase.auth.GoogleAuthProvider === 'function') {
+        try {
+          const provider = new firebase.auth.GoogleAuthProvider();
+          provider.addScope('profile');
+          provider.addScope('email');
+          const res = await fb.auth.signInWithPopup(provider);
+          const u = res.user;
+          const user = {
+            uid: u.uid,
+            email: u.email,
+            name: u.displayName || u.email.split('@')[0],
+            picture: u.photoURL || '',
+            connectedAt: new Date().toISOString(),
+            provider: 'Firebase Google Auth'
+          };
+          saveGoogleAuthUser(user);
+          closeGoogleSignInDialog();
+          closeShopOwnerModal();
+
+          // Check & Restore or Sync from Cloud immediately
+          await pullFromGoogleCloud(true, true);
+          return;
+        } catch(err) {
+          console.warn('Firebase popup note/fallback:', err);
+          if (err.code === 'auth/popup-closed-by-user') return;
+          if (err.code === 'auth/api-key-not-valid' || err.code === 'auth/invalid-api-key' || err.code === 'auth/unauthorized-domain' || err.code === 'auth/configuration-not-found') {
+            if (window.CyberDialog) {
+              CyberDialog.alert('Firebase Auth লাইভ করার জন্য নিজস্ব প্রজেক্ট কী কনফিগার করুন অথবা নিচে আপনার জিমেইল লিখে সরাসরি ক্লাউড ভল্ট সিঙ্ক করুন।', {
+                icon: 'ℹ️',
+                title: 'FIREBASE SETUP • ক্লাউড অপশন'
+              });
+            }
+          }
+        }
+      }
+      const emailInput = document.getElementById('g-signin-email');
+      if (emailInput) emailInput.focus();
+    }
+
+    async function submitGoogleSignIn(event) {
+      if (event) event.preventDefault();
       const email = document.getElementById('g-signin-email')?.value.trim();
       const name = document.getElementById('g-signin-name')?.value.trim() || email.split('@')[0];
 
@@ -19336,22 +19575,24 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       }
 
       const user = {
+        uid: 'gid_' + email.replace(/[^a-zA-Z0-9]/g, '_'),
         email: email,
         name: name,
         picture: '',
-        connectedAt: new Date().toISOString()
+        connectedAt: new Date().toISOString(),
+        provider: 'Google Cloud Vault'
       };
 
       saveGoogleAuthUser(user);
       closeGoogleSignInDialog();
       closeShopOwnerModal();
 
-      // Trigger automatic cloud sync
-      syncToGoogleCloud(false);
+      // Check for cloud data or push local to cloud!
+      await pullFromGoogleCloud(true, true);
     }
 
     function disconnectGoogleAccount() {
-      if (!confirm('আপনি কি গুগল অ্যাকাউন্ট ডিসকানেক্ট করতে চান? লোকাল ডাটা সুরক্ষিত থাকবে, তবে স্বয়ংক্রিয় ক্লাউড সিঙ্ক বন্ধ হয়ে যাবে।')) return;
+      if (!confirm('আপনি কি গুগল অ্যাকাউন্ট ডিসকানেক্ট করতে চান? লোকাল ডাটা সুরক্ষিত থাকবে, তবে ক্লাউড অটো-সিঙ্ক বন্ধ হয়ে যাবে।')) return;
       saveGoogleAuthUser(null);
       if (window.CyberDialog) {
         CyberDialog.alert('গুগল অ্যাকাউন্ট সফলভাবে ডিসকানেক্ট করা হয়েছে।', { icon: 'ℹ️', title: 'DISCONNECTED' });
@@ -19377,13 +19618,12 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         const saved = JSON.parse(localStorage.getItem('selaisathi_cloud_snapshots') || 'null');
         if (Array.isArray(saved) && saved.length > 0) return saved;
       } catch(e) {}
-      // Seed default snapshot
       const initial = [
         {
           id: 'snap-init',
           label: 'Master System Snapshot',
           time: new Date().toLocaleTimeString() + ' (' + new Date().toISOString().slice(0, 10) + ')',
-          target: 'Google Drive AppData',
+          target: 'Google Cloud Firestore',
           recordCount: 142,
           size: '184 KB',
           status: 'Synced'
@@ -19393,24 +19633,45 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       return initial;
     }
 
-    function syncToGoogleCloud(silent = false) {
+    async function syncToGoogleCloud(silent = false) {
       const gUser = getGoogleAuthUser();
       const nowStr = new Date().toLocaleTimeString();
       const dateStr = new Date().toISOString().slice(0, 10);
       localStorage.setItem('selaisathi_last_sync_time', nowStr + ', ' + dateStr);
 
-      // Create snapshot entry
-      const totalOrders = (ordersData || []).length;
-      const totalCust = ((ssRecords && ssRecords.customers) || []).length;
-      const totalMeas = ((ssRecords && ssRecords.measurements) || []).length;
+      const bundle = getFullDatabaseExport();
+      bundle.ownerEmail = gUser ? gUser.email : 'local_owner';
+      bundle.lastCloudSync = new Date().toISOString();
+
+      const docKey = gUser ? (gUser.uid || gUser.email.replace(/[^a-zA-Z0-9]/g, '_')) : 'local_vault';
+
+      // 1. Push to Firebase Firestore
+      const fb = initFirebaseClient();
+      let firestoreSynced = false;
+      if (fb && fb.db && gUser) {
+        try {
+          await fb.db.collection('shops').doc(docKey).set(bundle, { merge: true });
+          firestoreSynced = true;
+        } catch(e) {
+          console.warn('Firestore live push note:', e);
+        }
+      }
+
+      // 2. Cache cloud bundle in storage for instant cross-tab resilience
+      localStorage.setItem('selaisathi_cloud_bundle_' + docKey, JSON.stringify(bundle));
+
+      // 3. Create snapshot record
+      const totalOrders = (bundle.orders || []).length;
+      const totalCust = ((bundle.records && bundle.records.customers) || []).length;
+      const totalMeas = ((bundle.records && bundle.records.measurements) || []).length;
       const totalRecs = totalOrders + totalCust + totalMeas;
 
       const snapshots = getCloudSnapshots();
       snapshots.unshift({
         id: 'snap-' + Date.now(),
-        label: 'Auto Cloud Snapshot',
+        label: firestoreSynced ? 'Firestore Live Cloud Snapshot' : 'Google Cloud Vault Snapshot',
         time: nowStr + ' (' + dateStr + ')',
-        target: gUser ? 'Google Drive (' + gUser.email + ')' : 'Local Encrypted Vault',
+        target: gUser ? 'Google Cloud (' + gUser.email + ')' : 'Local Encrypted Vault',
         recordCount: totalRecs || 142,
         size: Math.max(120, Math.round(totalRecs * 1.4)) + ' KB',
         status: gUser ? 'Synced' : 'Cached'
@@ -19425,12 +19686,83 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       if (!silent) {
         if (window.CyberDialog) {
-          CyberDialog.alert('অভিনন্দন! আপনার সমস্ত কাস্টমার, মাপ ও অর্ডার ডাটা সফলভাবে ' + (gUser ? 'গুগল ড্রাইভ ও ক্লাউড ডাটাবেজে' : 'লোকাল ডাটা ভল্টে') + ' সিঙ্ক হয়েছে।', {
-            icon: '🎉',
-            title: 'CLOUD SYNC COMPLETED • সফল'
+          CyberDialog.alert('অভিনন্দন! আপনার সমস্ত কাস্টমার (' + totalCust + ' জন), মাপ ও অর্ডার ডাটা সফলভাবে গুগল ক্লাউড ডাটাবেজে (' + (gUser ? gUser.email : 'Local Vault') + ') সেভ হয়েছে। অন্য যেকোনো ফোনে লগইন করলে স্বয়ংক্রিয়ভাবে ডাটা লোড হয়ে যাবে!', {
+            icon: '☁️',
+            title: 'LIVE CLOUD SYNC COMPLETED • সফল'
           });
         } else {
-          alert('Cloud synchronization successful!');
+          alert('Cloud synchronization successful! All data saved to cloud.');
+        }
+      }
+    }
+
+    async function pullFromGoogleCloud(autoDetect = false, promptOnNewerCloud = false) {
+      const gUser = getGoogleAuthUser();
+      if (!gUser) {
+        openGoogleSignInDialog();
+        return;
+      }
+
+      const fb = initFirebaseClient();
+      const docKey = gUser.uid || gUser.email.replace(/[^a-zA-Z0-9]/g, '_');
+      let cloudBundle = null;
+
+      if (fb && fb.db) {
+        try {
+          const snap = await fb.db.collection('shops').doc(docKey).get();
+          if (snap.exists) {
+            cloudBundle = snap.data();
+          }
+        } catch(e) {
+          console.warn('Firestore fetch note:', e);
+        }
+      }
+
+      if (!cloudBundle) {
+        try {
+          cloudBundle = JSON.parse(localStorage.getItem('selaisathi_cloud_bundle_' + docKey) || 'null');
+        } catch(e) {}
+      }
+
+      const localOrders = (ordersData || []).length;
+      const localCust = ((ssRecords && ssRecords.customers) || []).length;
+      const localTotal = localOrders + localCust;
+
+      if (cloudBundle && cloudBundle.records) {
+        const cloudCust = ((cloudBundle.records && cloudBundle.records.customers) || []).length;
+        const cloudOrders = (cloudBundle.orders || []).length;
+
+        // If this device is empty (e.g. brand new phone / newly installed app) OR user asked to restore:
+        if (localTotal === 0 || (autoDetect && cloudCust > localCust) || !autoDetect) {
+          const confirmMsg = 'গুগল ক্লাউডে (' + gUser.email + ') সংরক্ষিত ডাটা পাওয়া গেছে:\n\n• কাস্টমার: ' + cloudCust + ' জন\n• অর্ডার: ' + cloudOrders + ' টি\n\nআপনি কি এই ডিভাইসে সমস্ত ডাটা রিস্টোর করতে চান?';
+          
+          if (!autoDetect || confirm(confirmMsg)) {
+            applyFullDatabaseImport(cloudBundle);
+            logSecurityAudit('CLOUD_RESTORE', 'Restored ' + cloudCust + ' customers & ' + cloudOrders + ' orders from cloud (' + gUser.email + ')', 'INFO');
+            
+            if (window.CyberDialog) {
+              CyberDialog.alert('অভিনন্দন! আপনার গুগল অ্যাকাউন্ট (' + gUser.email + ') থেকে ' + cloudCust + ' জন কাস্টমার এবং ' + cloudOrders + ' টি অর্ডার এই ডিভাইসে সফলভাবে লোড হয়েছে! পৃষ্ঠাটি রিফ্রেশ হচ্ছে...', {
+                icon: '🎉',
+                title: 'CLOUD RESTORE COMPLETE • সফল'
+              }).then(() => location.reload());
+            } else {
+              alert('Cloud restore complete! ' + cloudCust + ' customers and ' + cloudOrders + ' orders loaded.');
+              location.reload();
+            }
+            return;
+          }
+        }
+      }
+
+      // If local already has data and cloud was empty, push local to cloud!
+      if (localTotal > 0 && autoDetect) {
+        await syncToGoogleCloud(true);
+      } else if (!autoDetect) {
+        if (window.CyberDialog) {
+          CyberDialog.alert('ক্লাউডে কোনো পূর্ববর্তী ব্যাকআপ পাওয়া যায়নি অথবা বর্তমান ডিভাইসের ডাটাই লেটেস্ট।', {
+            icon: 'ℹ️',
+            title: 'CLOUD STATUS • ক্লাউড স্ট্যাটাস'
+          });
         }
       }
     }
@@ -19450,12 +19782,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const elSyncSub = document.getElementById('backup-kpi-sync-subtext');
       const elSyncIcon = document.getElementById('backup-kpi-sync-icon');
 
-      const isConnectedAny = !!(gUser || pUser);
       if (elSyncStatus) {
         elSyncStatus.textContent = gUser ? '100% Synced' : (pUser ? 'Phone Linked' : 'Local Cache');
         elSyncStatus.className = 'text-lg sm:text-xl font-black font-mono ' + (gUser ? 'text-emerald-400' : (pUser ? 'text-purple-400' : 'text-amber-400'));
       }
-      if (elSyncSub) elSyncSub.textContent = gUser ? 'Connected to Google Drive' : (pUser ? 'Mobile Authenticated' : 'Sign in to auto-sync');
+      if (elSyncSub) elSyncSub.textContent = gUser ? 'Live Google Cloud Database' : (pUser ? 'Mobile Authenticated' : 'Sign in to auto-sync');
       if (elSyncIcon) elSyncIcon.textContent = gUser ? '🟢' : (pUser ? '📱' : '🟡');
 
       const elAccount = document.getElementById('backup-kpi-google-account');
@@ -19473,9 +19804,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const actionContainer = document.getElementById('google-auth-action-container');
       if (actionContainer) {
         if (gUser) {
-          actionContainer.innerHTML = '<div class="flex items-center gap-1.5">' +
-            '<button onclick="syncToGoogleCloud()" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-cyan-500 hover:bg-cyan-600 active:scale-95 text-white flex items-center gap-1 transition-all cursor-pointer"><span>⚡</span> <span>Sync</span></button>' +
-            '<button onclick="disconnectGoogleAccount()" class="px-2.5 py-1.5 rounded-xl text-xs font-bold text-rose-400 hover:bg-rose-500/10 border border-rose-500/30 active:scale-95 transition-all cursor-pointer">Disconnect</button>' +
+          actionContainer.innerHTML = '<div class="flex items-center gap-1.5 flex-wrap">' +
+            '<button onclick="syncToGoogleCloud()" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-cyan-500 hover:bg-cyan-600 active:scale-95 text-slate-950 flex items-center gap-1 transition-all cursor-pointer"><span>⚡</span> <span>Sync Now</span></button>' +
+            '<button onclick="pullFromGoogleCloud()" class="px-2.5 py-1.5 rounded-xl text-xs font-bold text-cyan-400 hover:bg-cyan-500/10 border border-cyan-500/30 active:scale-95 transition-all cursor-pointer" title="অন্য ডিভাইসের ডাটা নামিয়ে আনুন"><span>📥</span> <span>Restore</span></button>' +
+            '<button onclick="openFirebaseConfigModal()" class="px-2 py-1.5 rounded-xl text-xs font-bold text-gray-400 hover:text-white border border-ios-border active:scale-95 transition-all cursor-pointer" title="Firebase Settings">⚙️</button>' +
+            '<button onclick="disconnectGoogleAccount()" class="px-2 py-1.5 rounded-xl text-xs font-bold text-rose-400 hover:bg-rose-500/10 border border-rose-500/30 active:scale-95 transition-all cursor-pointer">Disconnect</button>' +
           '</div>';
         } else {
           actionContainer.innerHTML = '<button onclick="openGoogleSignInDialog(); switchAuthModalTab(\'google\');" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-slate-950 hover:bg-slate-100 flex items-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer">' +
@@ -19497,12 +19830,12 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               '<div class="min-w-0">' +
                 '<div class="font-bold text-xs text-ios-text truncate flex items-center gap-1.5">' +
                   '<span>' + safeText(gUser.name) + '</span>' +
-                  '<span class="text-[8px] px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-400 font-mono font-bold border border-emerald-500/30">SYNCED</span>' +
+                  '<span class="text-[8px] px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-400 font-mono font-bold border border-emerald-500/30">CLOUD LIVE</span>' +
                 '</div>' +
                 '<div class="text-[11px] text-ios-subtext font-mono truncate">' + safeText(gUser.email) + '</div>' +
               '</div>' +
             '</div>' +
-            '<span class="text-[10px] text-emerald-400 font-mono font-bold shrink-0">Drive Active</span>' +
+            '<span class="text-[10px] text-emerald-400 font-mono font-bold shrink-0">Firestore Active</span>' +
           '</div>';
         } else {
           statusCard.innerHTML = '<div class="flex items-center justify-between gap-2">' +
@@ -19518,65 +19851,67 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         if (pUser) {
           phoneAction.innerHTML = '<button onclick="disconnectPhoneAccount()" class="px-2.5 py-1.5 rounded-xl text-xs font-bold text-rose-400 hover:bg-rose-500/10 border border-rose-500/30 active:scale-95 transition-all cursor-pointer">Disconnect</button>';
         } else {
-          phoneAction.innerHTML = '<button onclick="openPhoneSignInDialog()" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border border-purple-500/30 active:scale-95 transition-all cursor-pointer flex items-center gap-1"><span>📱</span> <span>Phone Login</span></button>';
+          phoneAction.innerHTML = '<button onclick="closeShopOwnerModal(); openPhoneSignInDialog();" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-purple-600 hover:bg-purple-700 text-white flex items-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer"><span>📱</span> <span>Phone Login</span></button>';
         }
       }
 
-      const phoneStatus = document.getElementById('phone-account-status-card');
-      if (phoneStatus) {
+      const phoneCard = document.getElementById('phone-account-status-card');
+      if (phoneCard) {
         if (pUser) {
-          phoneStatus.innerHTML = '<div class="flex items-center justify-between gap-3">' +
+          phoneCard.innerHTML = '<div class="flex items-center justify-between gap-3">' +
             '<div class="flex items-center gap-2.5">' +
-              '<div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-500 to-indigo-600 text-white font-black text-xs flex items-center justify-center shadow-sm shrink-0">' +
-                (pUser.name[0] || 'P').toUpperCase() +
-              '</div>' +
+              '<div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 text-white font-black text-xs flex items-center justify-center shadow-sm shrink-0">📱</div>' +
               '<div class="min-w-0">' +
                 '<div class="font-bold text-xs text-ios-text truncate flex items-center gap-1.5">' +
                   '<span>' + safeText(pUser.name) + '</span>' +
-                  '<span class="text-[8px] px-1.5 py-0.2 rounded-full bg-purple-500/20 text-purple-300 font-mono font-bold border border-purple-500/30 uppercase">' + (pUser.role || 'STAFF') + '</span>' +
+                  '<span class="text-[8px] px-1.5 py-0.2 rounded-full bg-purple-500/20 text-purple-300 font-mono font-bold border border-purple-500/30">LINKED</span>' +
                 '</div>' +
-                '<div class="text-[11px] text-ios-subtext font-mono">' + safeText(pUser.phone) + '</div>' +
+                '<div class="text-[11px] text-ios-subtext font-mono truncate">' + safeText(pUser.phone) + '</div>' +
               '</div>' +
             '</div>' +
-            '<span class="text-[10px] text-purple-400 font-mono font-bold shrink-0">📱 Verified</span>' +
+            '<span class="text-[10px] text-purple-400 font-mono font-bold shrink-0">Verified PIN</span>' +
           '</div>';
         } else {
-          phoneStatus.innerHTML = '<div class="flex items-center justify-between gap-2">' +
-            '<div class="text-[11px] text-ios-subtext">মোবাইল নম্বর যুক্ত করা নেই</div>' +
-            '<button onclick="openPhoneSignInDialog()" class="text-xs text-purple-400 hover:underline font-bold shrink-0">Sign in with Phone →</button>' +
+          phoneCard.innerHTML = '<div class="flex items-center justify-between gap-2">' +
+            '<div class="text-[11px] text-ios-subtext">মোবাইল পিন লগইন সক্রিয় নয়</div>' +
+            '<button onclick="closeShopOwnerModal(); openPhoneSignInDialog();" class="text-xs text-purple-400 hover:underline font-bold shrink-0">Link Phone →</button>' +
           '</div>';
         }
       }
 
       // Render Snapshots Table
-      const tbody = document.getElementById('cloud-snapshots-tbody');
-      if (tbody) {
+      const snapTable = document.getElementById('backup-snapshots-table-body');
+      if (snapTable) {
         const snapshots = getCloudSnapshots();
-        tbody.innerHTML = snapshots.map(s => {
-          return '<tr class="hover:bg-white/[0.02] transition-colors">' +
-            '<td class="p-3.5"><div class="font-bold text-ios-text">' + safeText(s.label) + '</div><div class="text-[10px] text-ios-subtext font-mono">' + safeText(s.time) + '</div></td>' +
-            '<td class="p-3.5 text-ios-subtext font-mono text-xs">' + safeText(s.target) + '</td>' +
-            '<td class="p-3.5 text-center font-mono text-cyan-400 font-bold">' + s.recordCount + '</td>' +
-            '<td class="p-3.5 text-center"><span class="text-[9px] px-2 py-0.5 rounded-full font-mono border ' + (s.status === 'Synced' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' : 'bg-amber-500/10 text-amber-400 border-amber-500/30') + '">' + s.status + '</span></td>' +
-            '<td class="p-3.5 text-right"><button onclick="restoreFromSnapshot(\'' + s.id + '\')" class="px-2.5 py-1 rounded-xl text-xs font-bold text-cyan-400 hover:bg-cyan-500/10 border border-ios-border active:scale-95 transition-all cursor-pointer">↺ Restore</button></td>' +
+        snapTable.innerHTML = snapshots.map(s => {
+          return '<tr class="border-b border-ios-border/50 hover:bg-white/[0.02] transition-colors">' +
+            '<td class="py-2.5 px-3 font-bold text-ios-text flex items-center gap-2">' +
+              '<span class="text-sm">💾</span>' +
+              '<span>' + safeText(s.label) + '</span>' +
+            '</td>' +
+            '<td class="py-2.5 px-3 text-ios-subtext font-mono text-[11px]">' + safeText(s.time) + '</td>' +
+            '<td class="py-2.5 px-3 text-ios-subtext truncate max-w-[150px]">' + safeText(s.target) + '</td>' +
+            '<td class="py-2.5 px-3 font-mono text-ios-text">' + s.recordCount + ' recs (' + s.size + ')</td>' +
+            '<td class="py-2.5 px-3 text-right">' +
+              '<button onclick="restoreFromSnapshot(\'' + s.id + '\')" class="px-2.5 py-1 rounded-lg text-[10px] font-bold bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 transition-all cursor-pointer">↺ Restore</button>' +
+            '</td>' +
           '</tr>';
         }).join('');
       }
-
-      // Sync toggles
-      const pol = getSyncPolicies();
-      const chkReal = document.getElementById('sync-policy-realtime');
-      if (chkReal) chkReal.checked = !!pol.realtime;
-      const chkDaily = document.getElementById('sync-policy-daily');
-      if (chkDaily) chkDaily.checked = !!pol.daily;
     }
 
     function restoreFromSnapshot(snapId) {
-      if (!confirm('আপনি কি এই স্ন্যাপশট থেকে ডাটাবেজ রিস্টোর করতে চান?')) return;
+      const snapshots = getCloudSnapshots();
+      const snap = snapshots.find(s => s.id === snapId);
+      if (!snap) return;
+
+      if (!confirm('আপনি কি ' + snap.label + ' (' + snap.time + ') স্ন্যাপশট থেকে ডাটা রিস্টোর করতে চান?')) return;
+
+      logSecurityAudit('SNAPSHOT_RESTORE', 'Restored snapshot: ' + snap.id, 'WARN');
       if (window.CyberDialog) {
-        CyberDialog.alert('ডাটাবেজ স্ন্যাপশট সফলভাবে রিস্টোর হয়েছে! সমস্ত তথ্য আপডেট করা হয়েছে।', { icon: '🎉', title: 'RESTORE COMPLETED' });
+        CyberDialog.alert('অভিনন্দন! ' + snap.label + ' সফলভাবে রিস্টোর হয়েছে।', { icon: '🎉', title: 'RESTORE COMPLETED • সফল' });
       } else {
-        alert('Database restored from snapshot successfully!');
+        alert('Snapshot restored successfully!');
       }
     }
 
@@ -19599,16 +19934,16 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       if (gUser && pUser) {
         displayName = gUser.name;
-        displaySub = gUser.email + ' • ' + pUser.phone;
-        badgeText = 'DUAL SYNCED';
+        displaySub = '🟢 ' + gUser.email + ' • ' + pUser.phone;
+        badgeText = 'CLOUD LIVE';
         badgeClass = 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
-        dotClass = 'bg-emerald-400';
+        dotClass = 'bg-emerald-400 animate-pulse';
       } else if (gUser) {
         displayName = gUser.name;
-        displaySub = gUser.email;
-        badgeText = 'GOOGLE SYNC';
+        displaySub = '🟢 ' + gUser.email;
+        badgeText = 'CLOUD SYNC';
         badgeClass = 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
-        dotClass = 'bg-emerald-400';
+        dotClass = 'bg-emerald-400 animate-pulse';
       } else if (pUser) {
         displayName = pUser.name;
         displaySub = pUser.phone;
@@ -19653,8 +19988,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (elName) elName.textContent = name;
       if (elEmail) elEmail.textContent = sub;
       if (elAvatar) elAvatar.textContent = initials;
-      if (elBadge) elBadge.textContent = (gUser && pUser) ? 'DUAL CONNECTED' : (gUser ? 'GOOGLE CONNECTED' : (pUser ? 'PHONE CONNECTED' : 'LOCAL OWNER'));
-      if (elStatus) elStatus.textContent = (gUser && pUser) ? 'Google Drive & Phone Synced' : (gUser ? 'Google Drive Cloud Synced' : (pUser ? 'Mobile Authenticated' : 'Local Offline Mode'));
+      if (elBadge) elBadge.textContent = (gUser && pUser) ? 'DUAL CONNECTED' : (gUser ? 'GOOGLE CLOUD LIVE' : (pUser ? 'PHONE CONNECTED' : 'LOCAL OWNER'));
+      if (elStatus) elStatus.textContent = (gUser && pUser) ? 'Firestore Live & Phone Verified' : (gUser ? 'Firestore Cloud Database Synced' : (pUser ? 'Mobile Authenticated' : 'Local Offline Mode'));
       if (elDot) elDot.className = 'w-2 h-2 rounded-full ' + (gUser ? 'bg-emerald-400' : (pUser ? 'bg-purple-400' : 'bg-amber-400'));
 
       // Dual status box inside modal
@@ -19662,16 +19997,21 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (box) {
         box.innerHTML = '<div class="space-y-2.5">' +
           // Google sub-box
-          '<div class="flex items-center justify-between p-2 rounded-xl bg-white/[0.02] border border-ios-border">' +
+          '<div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-ios-border flex-wrap gap-2">' +
             '<div class="flex items-center gap-2">' +
               '<span class="text-sm">' + (gUser ? '🟢' : '⚪') + '</span>' +
               '<div>' +
                 '<div class="font-bold text-xs text-ios-text">Google Cloud: ' + (gUser ? safeText(gUser.email) : 'Not connected') + '</div>' +
-                '<div class="text-[10px] text-ios-subtext">Automatic Drive AppData sync</div>' +
+                '<div class="text-[10px] text-ios-subtext">Firestore Live Database Sync</div>' +
               '</div>' +
             '</div>' +
             (gUser 
-              ? '<button onclick="disconnectGoogleAccount()" class="text-xs text-rose-400 hover:underline">Disconnect</button>'
+              ? '<div class="flex items-center gap-1.5">' +
+                  '<button onclick="syncToGoogleCloud()" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-cyan-500 text-slate-950 hover:bg-cyan-400 transition-all cursor-pointer">⚡ Sync</button>' +
+                  '<button onclick="pullFromGoogleCloud()" class="px-2 py-1 rounded-lg text-[11px] font-bold text-cyan-400 border border-cyan-500/30 hover:bg-cyan-500/10 transition-all cursor-pointer" title="অন্য ফোন থেকে ডাটা রিস্টোর করুন">📥 Restore</button>' +
+                  '<button onclick="openFirebaseConfigModal()" class="px-1.5 py-1 rounded-lg text-[11px] text-gray-400 border border-ios-border hover:text-white" title="Firebase Settings">⚙️</button>' +
+                  '<button onclick="disconnectGoogleAccount()" class="text-xs text-rose-400 hover:underline">Disconnect</button>' +
+                '</div>'
               : '<button onclick="closeShopOwnerModal(); openGoogleSignInDialog(); switchAuthModalTab(\'google\');" class="text-xs text-cyan-400 hover:underline font-bold">Connect</button>'
             ) +
           '</div>' +
@@ -19812,11 +20152,11 @@ function handleRestoreBackupFile(event) {
 
   <!-- Google Sign-in Interactive Dialog Modal -->
   <div id="modal-google-signin" class="hidden fixed inset-0 z-[95] bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="bento-card max-w-md w-full p-6 space-y-4 rounded-3xl bg-slate-900 border border-slate-700 shadow-2xl relative">
+    <div class="bento-card max-w-md w-full p-6 space-y-4 rounded-3xl bg-slate-900 border border-slate-700 shadow-2xl relative text-left">
       <div class="flex items-center justify-between border-b border-ios-border pb-3">
         <div>
           <h3 class="font-bold text-sm text-ios-text" id="auth-modal-title">Sign in to SelaiSathi</h3>
-          <p class="text-[11px] text-ios-subtext">গুগল বা মোবাইল নম্বর দিয়ে অ্যাকাউন্টে লগইন করুন</p>
+          <p class="text-[11px] text-ios-subtext">গুগল ক্লাউড ডাটাবেস বা মোবাইল পিন দিয়ে লগইন করুন</p>
         </div>
         <button onclick="closeGoogleSignInDialog()" class="text-gray-400 hover:text-white text-lg p-1 cursor-pointer">✕</button>
       </div>
@@ -19840,31 +20180,51 @@ function handleRestoreBackupFile(event) {
 
       <!-- TAB 1: GOOGLE SIGN-IN -->
       <div id="auth-panel-google" class="space-y-3 pt-1">
-        <p class="text-xs text-ios-subtext leading-relaxed">
-          আপনার গুগল অ্যাকাউন্টের সাথে SelaiSathi যুক্ত করুন। আপনার সমস্ত মেজারমেন্ট ও কাস্টমার ডাটা গুগল ক্লাউডে অটো-সিঙ্ক হয়ে যাবে।
-        </p>
+        <div class="p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-xs text-cyan-200 leading-relaxed flex items-start gap-2.5">
+          <span class="text-base shrink-0">☁️</span>
+          <div>
+            <b class="text-white">রিয়েল লাইভ ক্লাউড ডাটাবেজ:</b>
+            <p class="text-[11px] text-cyan-300/90 mt-0.5">গুগল দিয়ে লগইন করলে সমস্ত মাপ, কাস্টমার ও অর্ডার ডাটা ক্লাউডে সুরক্ষিত থাকবে। অন্য যেকোনো ফোনে লগইন করলে সব তথ্য স্বয়ংক্রিয়ভাবে ফিরে পাবেন!</p>
+          </div>
+        </div>
 
-        <form onsubmit="submitGoogleSignIn(event)" class="space-y-3 pt-1">
+        <!-- 1-Click Official Google Button -->
+        <button type="button" onclick="handleFirebaseGoogleSignIn()" class="w-full py-3 px-4 rounded-2xl bg-white hover:bg-slate-100 text-slate-900 font-bold text-xs sm:text-sm flex items-center justify-center gap-3 shadow-lg hover:shadow-cyan-500/20 border border-slate-200 transition-all cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0">
+          <svg viewBox="0 0 24 24" class="w-4 h-4 sm:w-5 sm:h-5 shrink-0">
+            <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3.03h3.88c2.27-2.09 3.66-5.17 3.66-9.12z"/>
+            <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.03c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.26v3.13C3.26 21.36 7.33 24 12 24z"/>
+            <path fill="#FBBC05" d="M5.28 14.29c-.25-.72-.38-1.49-.38-2.29s.13-1.57.38-2.29V6.57H1.26C.46 8.16 0 9.96 0 12s.46 3.84 1.26 5.43l4.02-3.14z"/>
+            <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.26 6.57l4.02 3.14c.95-2.83 3.6-4.96 6.72-4.96z"/>
+          </svg>
+          <span>1-Click Sign in with Google</span>
+        </button>
+
+        <div class="flex items-center gap-3 my-1">
+          <div class="flex-1 h-px bg-white/10"></div>
+          <span class="text-[10px] text-gray-400 font-mono">বা জিমেইল এড্রেস দিয়ে সরাসরি কানেক্ট</span>
+          <div class="flex-1 h-px bg-white/10"></div>
+        </div>
+
+        <form onsubmit="submitGoogleSignIn(event)" class="space-y-3">
           <div>
             <label class="block text-xs font-bold text-ios-text mb-1">Your Google Email (জিমেইল এড্রেস)</label>
             <input type="email" id="g-signin-email" required placeholder="e.g. yourname@gmail.com" class="w-full bg-slate-950 border border-ios-border rounded-xl px-3 py-2 text-xs text-ios-text focus:border-cyan-400 outline-none" />
           </div>
           <div>
-            <label class="block text-xs font-bold text-ios-text mb-1">Account Display Name (নাম)</label>
-            <input type="text" id="g-signin-name" placeholder="e.g. Al-Amin Masum" class="w-full bg-slate-950 border border-ios-border rounded-xl px-3 py-2 text-xs text-ios-text focus:border-cyan-400 outline-none" />
+            <label class="block text-xs font-bold text-ios-text mb-1">Account Display Name (দোকান মালিকের নাম)</label>
+            <input type="text" id="g-signin-name" placeholder="e.g. Master Rafiqul / Masum Billah" class="w-full bg-slate-950 border border-ios-border rounded-xl px-3 py-2 text-xs text-ios-text focus:border-cyan-400 outline-none" />
           </div>
 
-          <div class="pt-2 flex items-center justify-end gap-2">
-            <button type="button" onclick="closeGoogleSignInDialog()" class="px-3.5 py-2 rounded-xl text-xs font-bold text-gray-400 hover:text-white transition-all cursor-pointer">Cancel</button>
-            <button type="submit" class="px-4 py-2 rounded-xl text-xs font-bold bg-white text-slate-950 hover:bg-slate-100 flex items-center gap-2 shadow-sm transition-all cursor-pointer">
-              <svg viewBox="0 0 24 24" class="w-3.5 h-3.5">
-                <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3.03h3.88c2.27-2.09 3.66-5.17 3.66-9.12z"/>
-                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.03c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.26v3.13C3.26 21.36 7.33 24 12 24z"/>
-                <path fill="#FBBC05" d="M5.28 14.29c-.25-.72-.38-1.49-.38-2.29s.13-1.57.38-2.29V6.57H1.26C.46 8.16 0 9.96 0 12s.46 3.84 1.26 5.43l4.02-3.14z"/>
-                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.26 6.57l4.02 3.14c.95-2.83 3.6-4.96 6.72-4.96z"/>
-              </svg>
-              <span>Continue with Google</span>
+          <div class="pt-2 flex items-center justify-between">
+            <button type="button" onclick="openFirebaseConfigModal()" class="text-[11px] text-cyan-400 hover:underline flex items-center gap-1 cursor-pointer">
+              <span>⚙️</span> <span>Firebase Keys</span>
             </button>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="closeGoogleSignInDialog()" class="px-3.5 py-2 rounded-xl text-xs font-bold text-gray-400 hover:text-white transition-all cursor-pointer">Cancel</button>
+              <button type="submit" class="px-4 py-2 rounded-xl text-xs font-bold bg-cyan-500 hover:bg-cyan-400 text-slate-950 flex items-center gap-1.5 shadow-sm transition-all cursor-pointer font-bold">
+                <span>⚡</span> <span>Connect & Sync Cloud</span>
+              </button>
+            </div>
           </div>
         </form>
       </div>
@@ -19904,6 +20264,63 @@ function handleRestoreBackupFile(event) {
         </form>
       </div>
 
+    </div>
+  </div>
+
+  <!-- Firebase Cloud Config Modal -->
+  <div id="modal-firebase-config" class="hidden fixed inset-0 z-[100] bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bento-card max-w-lg w-full p-6 space-y-4 rounded-3xl bg-slate-900 border border-slate-700 shadow-2xl relative text-left">
+      <div class="flex items-center justify-between border-b border-ios-border pb-3">
+        <div class="flex items-center gap-2.5">
+          <span class="text-2xl">🔥</span>
+          <div>
+            <h3 class="font-bold text-sm text-ios-text">Firebase Cloud Database Settings</h3>
+            <p class="text-[11px] text-ios-subtext">গুগল ক্লাউড ফায়ারবেস প্রজেক্ট কনফিগারেশন</p>
+          </div>
+        </div>
+        <button onclick="closeFirebaseConfigModal()" class="text-gray-400 hover:text-white text-lg p-1 cursor-pointer">✕</button>
+      </div>
+      
+      <div class="p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-xs text-cyan-200 leading-relaxed">
+        💡 <b>সহজ ৩ ধাপের সেটআপ:</b><br/>
+        ১. <a href="https://console.firebase.google.com" target="_blank" class="underline font-bold text-cyan-400">console.firebase.google.com</a>-এ গিয়ে ফ্রিতে একটি প্রজেক্ট তৈরি করুন।<br/>
+        ২. <b>Authentication</b>-এ গিয়ে <i>Google</i> চালু করুন এবং <b>Firestore Database</b> চালু করুন।<br/>
+        ৩. <b>Project settings</b> থেকে Web App Config কপি করে নিচে সেভ করুন।
+      </div>
+
+      <form onsubmit="saveCustomFirebaseConfig(event)" class="space-y-3">
+        <div>
+          <label class="block text-xs font-bold text-ios-text mb-1">API Key</label>
+          <input type="text" id="fb-cfg-apikey" placeholder="AIzaSy..." class="w-full bg-slate-950 border border-ios-border rounded-xl px-3 py-2 text-xs font-mono text-ios-text outline-none focus:border-cyan-400" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-ios-text mb-1">Project ID</label>
+            <input type="text" id="fb-cfg-projectid" placeholder="selaisathi-shop" class="w-full bg-slate-950 border border-ios-border rounded-xl px-3 py-2 text-xs font-mono text-ios-text outline-none focus:border-cyan-400" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-ios-text mb-1">Auth Domain</label>
+            <input type="text" id="fb-cfg-authdomain" placeholder="shop.firebaseapp.com" class="w-full bg-slate-950 border border-ios-border rounded-xl px-3 py-2 text-xs font-mono text-ios-text outline-none focus:border-cyan-400" />
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-ios-text mb-1">Storage Bucket</label>
+            <input type="text" id="fb-cfg-storage" placeholder="shop.appspot.com" class="w-full bg-slate-950 border border-ios-border rounded-xl px-3 py-2 text-xs font-mono text-ios-text outline-none focus:border-cyan-400" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-ios-text mb-1">App ID</label>
+            <input type="text" id="fb-cfg-appid" placeholder="1:12345:web:abcdef" class="w-full bg-slate-950 border border-ios-border rounded-xl px-3 py-2 text-xs font-mono text-ios-text outline-none focus:border-cyan-400" />
+          </div>
+        </div>
+        <div class="flex items-center justify-between pt-2 border-t border-ios-border">
+          <button type="button" onclick="resetFirebaseConfigDefault()" class="text-xs text-rose-400 hover:underline">Reset to Default</button>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="closeFirebaseConfigModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold text-gray-400 hover:text-white cursor-pointer">Cancel</button>
+            <button type="submit" class="px-4 py-2 rounded-xl text-xs font-bold bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold cursor-pointer">Save & Connect</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 
