@@ -3373,14 +3373,73 @@ body.theme-white #view-measurements #meas-quick-matrix {
       border-color: #38BDF8 !important;
     }
     body.theme-white #sidebar-owner-chip {
-      background: #FFFFFF !important;
-      border: 1px solid #7DD3FC !important;
+      background-color: #95D0F4 !important;
+      background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(149, 208, 244, 0.4) 100%), url('assets/owner-card-bg.jpg') !important;
+      background-size: cover !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+      border: 1.5px solid #38BDF8 !important;
+      box-shadow: 0 3px 12px rgba(2, 132, 199, 0.16), inset 0 1px 1px rgba(255, 255, 255, 0.8) !important;
+      position: relative;
+    }
+    body.theme-white #sidebar-owner-chip:hover {
+      background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(149, 208, 244, 0.5) 100%), url('assets/owner-card-bg.jpg') !important;
+      border-color: #0284C7 !important;
+      box-shadow: 0 6px 18px rgba(2, 132, 199, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.9) !important;
+      transform: translateY(-1px);
     }
     body.theme-white #sidebar-owner-name {
-      color: #0C2340 !important;
+      color: #082F49 !important;
+      font-weight: 800 !important;
+      letter-spacing: -0.01em;
     }
     body.theme-white #sidebar-owner-sub {
       color: #0369A1 !important;
+      font-weight: 600 !important;
+    }
+    body.theme-white #sidebar-owner-badge {
+      background: rgba(255, 255, 255, 0.9) !important;
+      color: #0284C7 !important;
+      border: 1px solid #7DD3FC !important;
+      font-weight: 800 !important;
+      box-shadow: 0 1px 3px rgba(2, 132, 199, 0.12) !important;
+    }
+    body.theme-white #sidebar-owner-avatar {
+      border: 2px solid #FFFFFF !important;
+      box-shadow: 0 2px 8px rgba(12, 35, 64, 0.2) !important;
+    }
+    body.theme-white #sidebar-owner-chip span.text-gray-500,
+    body.theme-white #sidebar-owner-chip span.group-hover\:text-emerald-400 {
+      color: #0284C7 !important;
+    }
+
+    /* Shop Owner Profile Modal Header Card with Sky-Blue Texture */
+    body.theme-white #modal-owner-profile-card {
+      background-color: #95D0F4 !important;
+      background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(149, 208, 244, 0.4) 100%), url('assets/owner-card-bg.jpg') !important;
+      background-size: cover !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+      border: 1.5px solid #38BDF8 !important;
+      box-shadow: 0 3px 12px rgba(2, 132, 199, 0.14), inset 0 1px 1px rgba(255, 255, 255, 0.8) !important;
+    }
+    body.theme-white #modal-owner-profile-card #modal-owner-name {
+      color: #082F49 !important;
+      font-weight: 800 !important;
+    }
+    body.theme-white #modal-owner-profile-card #modal-owner-email {
+      color: #0369A1 !important;
+      font-weight: 600 !important;
+    }
+    body.theme-white #modal-owner-profile-card #modal-owner-badge {
+      background: rgba(255, 255, 255, 0.9) !important;
+      color: #0284C7 !important;
+      border: 1px solid #7DD3FC !important;
+      font-weight: 800 !important;
+    }
+    body.theme-white #modal-owner-profile-card #modal-owner-avatar {
+      border: 2px solid #FFFFFF !important;
+      box-shadow: 0 2px 8px rgba(12, 35, 64, 0.2) !important;
     }
 
     /* Clean Minimalist view-users Theme-White Styles */
@@ -19704,7 +19763,7 @@ function handleRestoreBackupFile(event) {
       </div>
 
       <!-- User Profile Header Card -->
-      <div class="p-4 rounded-2xl bg-white/[0.03] border border-ios-border flex items-center gap-3.5">
+      <div id="modal-owner-profile-card" class="p-4 rounded-2xl bg-white/[0.03] border border-ios-border flex items-center gap-3.5">
         <div id="modal-owner-avatar" class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white font-extrabold flex items-center justify-center text-sm shadow-md overflow-hidden shrink-0">
           SO
         </div>
