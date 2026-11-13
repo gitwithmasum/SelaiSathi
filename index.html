@@ -3382,7 +3382,7 @@ body.theme-white #view-measurements #meas-quick-matrix {
     body.theme-white #modal-shop-owner h3,
     body.theme-white #modal-shop-owner h4,
     body.theme-white #modal-google-signin h3 {
-      color: #0F172A !important;
+      color: #082F49 !important;
     }
     body.theme-white #view-backups p,
     body.theme-white #modal-shop-owner p,
@@ -3390,11 +3390,57 @@ body.theme-white #view-measurements #meas-quick-matrix {
       color: #64748B !important;
     }
     body.theme-white #view-backups input:not([type="checkbox"]),
-    body.theme-white #modal-google-signin input,
     body.theme-white #modal-firebase-config input {
       background: #FFFFFF !important;
       border: 1px solid #CBD5E1 !important;
       color: #0F172A !important;
+    }
+    body.theme-white #modal-google-signin .auth-tab-bar {
+      background: #F0F9FF !important;
+      border: 1px solid #BAE6FD !important;
+    }
+    body.theme-white #modal-google-signin .auth-tab-bar button.active-tab {
+      background: #FFFFFF !important;
+      color: #0284C7 !important;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.15) !important;
+    }
+    body.theme-white #modal-google-signin .auth-tab-bar button:not(.active-tab) {
+      color: #64748B !important;
+    }
+    body.theme-white #modal-google-signin .auth-capsule {
+      background: #F0F9FF !important;
+      border-color: #BAE6FD !important;
+      color: #0369A1 !important;
+    }
+    body.theme-white #modal-google-signin .auth-divider {
+      background-color: #E2E8F0 !important;
+    }
+    body.theme-white #modal-google-signin #p-dial-box {
+      background: #F1F5F9 !important;
+      border-color: #CBD5E1 !important;
+      color: #0369A1 !important;
+    }
+    body.theme-white #modal-google-signin input {
+      background: #F8FAFC !important;
+      border: 1.5px solid #CBD5E1 !important;
+      color: #082F49 !important;
+    }
+    body.theme-white #modal-google-signin input:focus {
+      border-color: #0284C7 !important;
+      background: #FFFFFF !important;
+      box-shadow: 0 0 12px rgba(2, 132, 199, 0.25) !important;
+    }
+    body:not(.theme-white) #sidebar-owner-chip {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+    body:not(.theme-white) #sidebar-owner-chip:hover {
+      background: rgba(15, 23, 42, 0.85);
+      border-color: rgba(6, 182, 212, 0.4);
+      box-shadow: 0 6px 20px rgba(6, 182, 212, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transform: translateY(-1px);
     }
     body.theme-white #modal-owner-google-box,
     body.theme-white #google-account-status-card {
@@ -4568,14 +4614,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
     <!-- Futuristic Minimalist User Profile Chip -->
     <div class="p-3 border-t border-white/5 z-10 bg-cyber-black/40">
-      <div onclick="handleProfileChipClick()" id="sidebar-owner-chip" class="relative group p-2 rounded-2xl cursor-pointer transition-all border border-white/10 hover:border-cyan-400/40 bg-white/[0.03] hover:bg-white/[0.06] shadow-sm flex items-center gap-2.5 overflow-hidden" title="Account, Profile Photo & Cloud Vault">
+      <div onclick="handleProfileChipClick()" id="sidebar-owner-chip" class="relative group p-2.5 rounded-2xl cursor-pointer transition-all border border-white/10 hover:border-cyan-400/40 bg-white/[0.03] hover:bg-white/[0.06] shadow-sm flex items-center gap-2.5 overflow-hidden" title="Account, Profile Photo & Cloud Vault">
         
         <!-- Subtle Ambient Hover Glow -->
         <div class="absolute -inset-0.5 bg-gradient-to-r from-cyan-500/10 via-emerald-500/5 to-teal-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none"></div>
 
         <!-- Left: Avatar with Radar Status Dot & Photo Support -->
         <div class="relative shrink-0">
-          <div id="sidebar-owner-avatar" class="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-tr from-cyan-600 via-teal-600 to-emerald-500 text-white font-black flex items-center justify-center text-xs shadow-md border border-white/20 overflow-hidden">
+          <div id="sidebar-owner-avatar" class="w-9.5 h-9.5 rounded-2xl bg-gradient-to-tr from-cyan-600 via-teal-600 to-emerald-500 text-white font-black flex items-center justify-center text-xs shadow-md border border-white/20 overflow-hidden shrink-0">
             SO
           </div>
           <!-- Live Radar Pulse Dot -->
@@ -4585,20 +4631,25 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           </span>
         </div>
 
-        <!-- Center: Name & Minimalist Telemetry Status (Clean & Spacious) -->
+        <!-- Center: Name & Minimalist Telemetry Status (Never wraps or squishes) -->
         <div class="flex-1 min-w-0">
-          <div class="text-xs font-bold text-white truncate tracking-tight" id="sidebar-owner-name">
-            Shop Owner
+          <div class="flex items-center gap-1.5">
+            <span class="text-xs font-bold text-white truncate max-w-[105px]" id="sidebar-owner-name">
+              Shop Owner
+            </span>
+            <span id="sidebar-owner-badge" class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-md shrink-0 uppercase tracking-wider bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
+              PRO
+            </span>
           </div>
           <div id="sidebar-owner-sub" class="text-[10px] text-gray-400 truncate font-mono mt-0.5 flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>Cloud Synced</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+            <span class="truncate">Cloud Synced</span>
           </div>
         </div>
 
-        <!-- Right: Minimalist Cyber Chevron Indicator -->
-        <div class="shrink-0 text-gray-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-all text-xs font-mono pr-1">
-          ›
+        <!-- Right: Minimalist Double Arrow -->
+        <div class="shrink-0 text-gray-400 group-hover:text-cyan-400 transition-colors text-xs font-mono pr-0.5">
+          ⇅
         </div>
       </div>
     </div>
@@ -19278,16 +19329,16 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (tab === 'google') {
         panelGoogle?.classList.remove('hidden');
         panelPhone?.classList.add('hidden');
-        btnGoogle?.classList.add('bg-white', 'text-slate-950', 'shadow-sm');
+        btnGoogle?.classList.add('bg-white', 'text-slate-950', 'shadow-md', 'active-tab');
         btnGoogle?.classList.remove('text-gray-400');
-        btnPhone?.classList.remove('bg-white', 'text-slate-950', 'shadow-sm');
+        btnPhone?.classList.remove('bg-white', 'text-slate-950', 'shadow-md', 'active-tab');
         btnPhone?.classList.add('text-gray-400');
       } else {
         panelGoogle?.classList.add('hidden');
         panelPhone?.classList.remove('hidden');
-        btnPhone?.classList.add('bg-white', 'text-slate-950', 'shadow-sm');
+        btnPhone?.classList.add('bg-white', 'text-slate-950', 'shadow-md', 'active-tab');
         btnPhone?.classList.remove('text-gray-400');
-        btnGoogle?.classList.remove('bg-white', 'text-slate-950', 'shadow-sm');
+        btnGoogle?.classList.remove('bg-white', 'text-slate-950', 'shadow-md', 'active-tab');
         btnGoogle?.classList.add('text-gray-400');
       }
     }
@@ -20257,33 +20308,46 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       const elAvatar = document.getElementById('sidebar-owner-avatar');
       const elName = document.getElementById('sidebar-owner-name');
+      const elBadge = document.getElementById('sidebar-owner-badge');
       const elSub = document.getElementById('sidebar-owner-sub');
       const elDot = document.getElementById('sidebar-owner-status-dot');
       const elPing = document.getElementById('sidebar-owner-ping');
 
       let displayName = 'Shop Owner';
-      let displaySub = '<span class="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0"></span><span class="truncate">Local Mode</span>';
-      let dotClass = 'bg-amber-400';
-      let pingVisible = false;
+      let badgeText = 'PRO';
+      let badgeClass = 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30';
+      let displaySub = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span><span class="truncate">Local Mode</span>';
+      let dotClass = 'bg-emerald-500';
+      let pingVisible = true;
 
       if (gUser && pUser) {
         displayName = gUser.name;
+        badgeText = 'CLOUD';
+        badgeClass = 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
         displaySub = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span><span class="text-emerald-400 font-bold truncate">Cloud Active</span><span class="text-gray-500">•</span><span class="truncate">' + safeText(pUser.phone) + '</span>';
         dotClass = 'bg-emerald-400';
         pingVisible = true;
       } else if (gUser) {
         displayName = gUser.name;
+        badgeText = 'CLOUD';
+        badgeClass = 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40';
         displaySub = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span><span class="text-emerald-400 font-bold truncate">Cloud Synced</span>';
         dotClass = 'bg-emerald-400';
         pingVisible = true;
       } else if (pUser) {
         displayName = pUser.name;
-        displaySub = '<span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse shrink-0"></span><span class="text-purple-300 font-bold truncate">Phone Synced</span>';
+        badgeText = 'PHONE';
+        badgeClass = 'bg-purple-500/20 text-purple-300 border-purple-500/40';
+        displaySub = '<span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse shrink-0"></span><span class="text-purple-300 font-bold truncate">Phone Synced</span><span class="text-gray-500">•</span><span class="truncate">' + safeText(pUser.phone) + '</span>';
         dotClass = 'bg-purple-400';
         pingVisible = true;
       } else if (activeOp) {
         displayName = activeOp.name;
-        displaySub = '<span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span><span class="text-cyan-300 truncate">' + safeText(activeOp.role.toUpperCase()) + '</span>';
+        badgeText = 'OFFLINE';
+        badgeClass = 'bg-amber-500/20 text-amber-300 border-amber-500/40';
+        displaySub = '<span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span><span class="truncate">' + safeText(activeOp.role.toUpperCase()) + (activeOp.phone ? ' • ' + safeText(activeOp.phone) : '') + '</span>';
+        dotClass = 'bg-amber-400';
+        pingVisible = false;
       }
 
       const initials = displayName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'SO';
@@ -20291,14 +20355,18 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (elAvatar) {
         if (photoUrl) {
           elAvatar.innerHTML = '<img src="' + photoUrl + '" alt="' + safeText(displayName) + '" class="w-full h-full object-cover" />';
-          elAvatar.className = 'w-9 h-9 sm:w-10 sm:h-10 rounded-2xl border border-white/20 shadow-sm overflow-hidden shrink-0';
+          elAvatar.className = 'w-9.5 h-9.5 rounded-2xl border border-white/20 shadow-sm overflow-hidden shrink-0';
         } else {
           elAvatar.innerHTML = initials;
-          elAvatar.className = 'w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-tr from-cyan-600 via-teal-600 to-emerald-500 text-white font-black flex items-center justify-center text-xs shadow-md border border-white/20 overflow-hidden shrink-0';
+          elAvatar.className = 'w-9.5 h-9.5 rounded-2xl bg-gradient-to-tr from-cyan-600 via-teal-600 to-emerald-500 text-white font-black flex items-center justify-center text-xs shadow-md border border-white/20 overflow-hidden shrink-0';
         }
       }
 
       if (elName) elName.textContent = displayName;
+      if (elBadge) {
+        elBadge.textContent = badgeText;
+        elBadge.className = 'text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-md shrink-0 uppercase tracking-wider border ' + badgeClass;
+      }
       if (elSub) elSub.innerHTML = displaySub;
       if (elDot) elDot.className = 'relative inline-flex rounded-full h-3 w-3 border-2 border-slate-900 ' + dotClass;
       if (elPing) elPing.style.display = pingVisible ? 'inline-flex' : 'none';
@@ -20714,114 +20782,118 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
   </div>
 
   <!-- Google Sign-in Interactive Dialog Modal -->
-  <div id="modal-google-signin" class="hidden fixed inset-0 z-[95] bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="bento-card max-w-md w-full p-6 space-y-4 rounded-3xl bg-slate-900 border border-slate-700 shadow-2xl relative text-left">
-      <div class="flex items-center justify-between border-b border-ios-border pb-3">
+  <div id="modal-google-signin" class="hidden fixed inset-0 z-[95] bg-black/85 backdrop-blur-xl flex items-center justify-center p-4">
+    <div class="bento-card max-w-md w-full p-6 sm:p-7 space-y-4 rounded-3xl bg-slate-950/90 border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.8),0_0_20px_rgba(56,189,248,0.12)] relative text-left overflow-hidden">
+      
+      <!-- Top Ambient Neon Glow Aura -->
+      <div class="absolute -top-16 left-1/2 -translate-x-1/2 w-48 h-48 bg-gradient-to-r from-cyan-500/20 via-blue-500/15 to-purple-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Header with Close Button -->
+      <div class="flex items-center justify-between border-b border-ios-border pb-3 relative z-10">
         <div>
-          <h3 class="font-bold text-sm text-ios-text" id="auth-modal-title">Sign in to SelaiSathi</h3>
-          <p class="text-[11px] text-ios-subtext">গুগল ক্লাউড ডাটাবেস বা মোবাইল পিন দিয়ে লগইন করুন</p>
+          <h3 class="font-black text-sm sm:text-base text-ios-text tracking-tight flex items-center gap-1.5" id="auth-modal-title">
+            <span>⚡</span> <span>Sign In & Sync Vault</span>
+          </h3>
+          <p class="text-[11px] text-ios-subtext">Google Cloud বা মোবাইল পিন দিয়ে ক্লাউড অ্যাক্সেস করুন</p>
         </div>
-        <button onclick="closeGoogleSignInDialog()" class="text-gray-400 hover:text-white text-lg p-1 cursor-pointer">✕</button>
+        <button onclick="closeGoogleSignInDialog()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-all cursor-pointer">✕</button>
       </div>
 
-      <!-- Segment Tabs for Google vs Phone -->
-      <div class="flex items-center gap-1.5 p-1 rounded-2xl bg-black/20 border border-ios-border">
-        <button type="button" onclick="switchAuthModalTab('google')" id="auth-tab-btn-google" class="flex-1 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-950 shadow-sm flex items-center justify-center gap-2 cursor-pointer">
-          <svg viewBox="0 0 24 24" class="w-3.5 h-3.5">
+      <!-- Segment Tabs (Google vs Phone) -->
+      <div class="auth-tab-bar flex items-center gap-1 p-1 rounded-2xl bg-slate-900 border border-white/10 relative z-10">
+        <button type="button" onclick="switchAuthModalTab('google')" id="auth-tab-btn-google" class="active-tab flex-1 py-2.5 rounded-xl text-xs font-black transition-all bg-white text-slate-950 shadow-md flex items-center justify-center gap-2 cursor-pointer">
+          <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 shrink-0">
             <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3.03h3.88c2.27-2.09 3.66-5.17 3.66-9.12z"/>
             <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.03c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.26v3.13C3.26 21.36 7.33 24 12 24z"/>
             <path fill="#FBBC05" d="M5.28 14.29c-.25-.72-.38-1.49-.38-2.29s.13-1.57.38-2.29V6.57H1.26C.46 8.16 0 9.96 0 12s.46 3.84 1.26 5.43l4.02-3.14z"/>
             <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.26 6.57l4.02 3.14c.95-2.83 3.6-4.96 6.72-4.96z"/>
           </svg>
-          <span>Google Sign-In</span>
+          <span>Google Cloud</span>
         </button>
-        <button type="button" onclick="switchAuthModalTab('phone')" id="auth-tab-btn-phone" class="flex-1 py-2 rounded-xl text-xs font-bold transition-all text-gray-400 hover:text-white flex items-center justify-center gap-1.5 cursor-pointer">
+        <button type="button" onclick="switchAuthModalTab('phone')" id="auth-tab-btn-phone" class="flex-1 py-2.5 rounded-xl text-xs font-bold transition-all text-gray-400 hover:text-white flex items-center justify-center gap-1.5 cursor-pointer">
           <span>📱</span>
-          <span>Mobile Number</span>
+          <span>Mobile PIN</span>
         </button>
       </div>
 
       <!-- TAB 1: GOOGLE SIGN-IN -->
-      <div id="auth-panel-google" class="space-y-3 pt-1">
-        <div class="p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-xs text-cyan-200 leading-relaxed flex items-start gap-2.5">
-          <span class="text-base shrink-0">☁️</span>
-          <div>
-            <b class="text-white">রিয়েল লাইভ ক্লাউড ডাটাবেজ:</b>
-            <p class="text-[11px] text-cyan-300/90 mt-0.5">গুগল দিয়ে লগইন করলে সমস্ত মাপ, কাস্টমার ও অর্ডার ডাটা ক্লাউডে সুরক্ষিত থাকবে। অন্য যেকোনো ফোনে লগইন করলে সব তথ্য স্বয়ংক্রিয়ভাবে ফিরে পাবেন!</p>
-          </div>
+      <div id="auth-panel-google" class="space-y-3.5 pt-1 relative z-10">
+        <!-- Minimal Capsule Header -->
+        <div class="auth-capsule p-2.5 rounded-2xl bg-cyan-500/5 border border-cyan-500/15 flex items-center justify-between text-[11px] font-mono text-cyan-300">
+          <span class="flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+            <span>Google Cloud Firestore</span>
+          </span>
+          <span class="text-gray-400 text-[10px]">AES-256 Vault</span>
         </div>
 
         <!-- 1-Click Official Google Button -->
-        <button type="button" onclick="handleFirebaseGoogleSignIn()" class="w-full py-3 px-4 rounded-2xl bg-white hover:bg-slate-100 text-slate-900 font-bold text-xs sm:text-sm flex items-center justify-center gap-3 shadow-lg hover:shadow-cyan-500/20 border border-slate-200 transition-all cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0">
+        <button type="button" onclick="handleFirebaseGoogleSignIn()" class="w-full py-3.5 px-4 rounded-2xl bg-white hover:bg-slate-100 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-3 shadow-xl hover:shadow-cyan-500/20 border border-white/40 transition-all cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0">
           <svg viewBox="0 0 24 24" class="w-4 h-4 sm:w-5 sm:h-5 shrink-0">
             <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3.03h3.88c2.27-2.09 3.66-5.17 3.66-9.12z"/>
             <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.03c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.26v3.13C3.26 21.36 7.33 24 12 24z"/>
             <path fill="#FBBC05" d="M5.28 14.29c-.25-.72-.38-1.49-.38-2.29s.13-1.57.38-2.29V6.57H1.26C.46 8.16 0 9.96 0 12s.46 3.84 1.26 5.43l4.02-3.14z"/>
             <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.26 6.57l4.02 3.14c.95-2.83 3.6-4.96 6.72-4.96z"/>
           </svg>
-          <span>1-Click Sign in with Google</span>
+          <span>1-Click Continue with Google</span>
         </button>
 
-        <div class="flex items-center gap-3 my-1">
-          <div class="flex-1 h-px bg-white/10"></div>
-          <span class="text-[10px] text-gray-400 font-mono">বা জিমেইল এড্রেস দিয়ে সরাসরি কানেক্ট</span>
-          <div class="flex-1 h-px bg-white/10"></div>
+        <!-- Cyber Divider -->
+        <div class="flex items-center gap-3 my-2">
+          <div class="auth-divider flex-1 h-px bg-white/10"></div>
+          <span class="text-[10px] text-gray-500 font-mono uppercase tracking-widest">or enter email</span>
+          <div class="auth-divider flex-1 h-px bg-white/10"></div>
         </div>
 
         <form onsubmit="submitGoogleSignIn(event)" class="space-y-3">
-          <div>
-            <label class="block text-xs font-bold text-ios-text mb-1">Your Google Email (জিমেইল এড্রেস)</label>
-            <input type="email" id="g-signin-email" required placeholder="e.g. yourname@gmail.com" class="w-full bg-slate-950 border border-ios-border rounded-xl px-3 py-2 text-xs text-ios-text focus:border-cyan-400 outline-none" />
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-ios-text mb-1">Account Display Name (দোকান মালিকের নাম)</label>
-            <input type="text" id="g-signin-name" placeholder="e.g. Master Rafiqul / Masum Billah" class="w-full bg-slate-950 border border-ios-border rounded-xl px-3 py-2 text-xs text-ios-text focus:border-cyan-400 outline-none" />
+          <div class="relative">
+            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs">✉</span>
+            <input type="email" id="g-signin-email" required placeholder="name@gmail.com" class="w-full bg-slate-900/80 border border-white/10 hover:border-white/20 focus:border-cyan-400 rounded-2xl pl-9 pr-24 py-3 text-xs text-ios-text outline-none transition-all font-mono" />
+            <input type="hidden" id="g-signin-name" value="" />
+            <button type="submit" class="absolute right-1.5 top-1/2 -translate-y-1/2 px-3.5 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs transition-all cursor-pointer">
+              Next →
+            </button>
           </div>
 
-          <div class="pt-2 flex items-center justify-between">
-            <button type="button" onclick="openFirebaseConfigModal()" class="text-[11px] text-cyan-400 hover:underline flex items-center gap-1 cursor-pointer">
-              <span>⚙️</span> <span>Firebase Keys</span>
+          <div class="pt-1 flex items-center justify-between">
+            <button type="button" onclick="openFirebaseConfigModal()" class="text-[11px] text-cyan-400/80 hover:text-cyan-300 font-mono hover:underline flex items-center gap-1 cursor-pointer">
+              <span>⚙</span> <span>Cloud Config</span>
             </button>
-            <div class="flex items-center gap-2">
-              <button type="button" onclick="closeGoogleSignInDialog()" class="px-3.5 py-2 rounded-xl text-xs font-bold text-gray-400 hover:text-white transition-all cursor-pointer">Cancel</button>
-              <button type="submit" class="px-4 py-2 rounded-xl text-xs font-bold bg-cyan-500 hover:bg-cyan-400 text-slate-950 flex items-center gap-1.5 shadow-sm transition-all cursor-pointer font-bold">
-                <span>⚡</span> <span>Connect & Sync Cloud</span>
-              </button>
-            </div>
+            <button type="button" onclick="closeGoogleSignInDialog()" class="text-xs text-gray-500 hover:text-white transition-all cursor-pointer">Cancel</button>
           </div>
         </form>
       </div>
 
       <!-- TAB 2: MOBILE NUMBER SIGN-IN -->
-      <div id="auth-panel-phone" class="hidden space-y-3 pt-1">
-        <p class="text-xs text-ios-subtext leading-relaxed">
-          দোকান মালিক বা কর্মচারীর ১১-সংখ্যার মোবাইল নম্বর এবং ৪-সংখ্যার গোপন পিন দিয়ে সরাসরি সিস্টেমে লগইন করুন।
-        </p>
+      <div id="auth-panel-phone" class="hidden space-y-3.5 pt-1 relative z-10">
+        <!-- Minimal Capsule Header -->
+        <div class="auth-capsule p-2.5 rounded-2xl bg-purple-500/5 border border-purple-500/15 flex items-center justify-between text-[11px] font-mono text-purple-300">
+          <span class="flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
+            <span>2FA Phone Security</span>
+          </span>
+          <span class="text-gray-400 text-[10px]">Instant SMS OTP</span>
+        </div>
 
-        <form onsubmit="submitPhoneSignIn(event)" class="space-y-3 pt-1">
+        <form onsubmit="submitPhoneSignIn(event)" class="space-y-3">
           <div>
-            <label class="block text-xs font-bold text-ios-text mb-1">Mobile Number (মোবাইল নম্বর) *</label>
-            <div class="flex items-center">
-              <span class="px-3 py-2 bg-slate-800 border border-r-0 border-ios-border rounded-l-xl text-xs font-mono text-gray-400">🇧🇩 +88</span>
-              <input type="tel" id="p-signin-number" required placeholder="01700-112233" class="w-full bg-slate-950 border border-ios-border rounded-r-xl px-3 py-2 text-xs font-mono text-ios-text focus:border-purple-400 outline-none" />
+            <label class="block text-[11px] font-mono text-gray-400 mb-1 uppercase tracking-wider">Mobile Number</label>
+            <div class="flex items-center rounded-2xl bg-slate-900/80 border border-white/10 hover:border-white/20 focus-within:border-cyan-400 overflow-hidden transition-all">
+              <span id="p-dial-box" class="px-3 py-3 text-xs font-mono font-bold text-cyan-400 bg-white/[0.02] border-r border-white/10 shrink-0">🇧🇩 +88</span>
+              <input type="tel" id="p-signin-number" required placeholder="01700-112233" class="w-full bg-transparent px-3 py-3 text-xs font-mono text-ios-text outline-none tracking-wider" />
             </div>
           </div>
 
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="block text-xs font-bold text-ios-text mb-1">4-Digit Security PIN *</label>
-              <input type="password" id="p-signin-pin" required maxlength="4" pattern="[0-9]{4}" placeholder="4-digit PIN" class="w-full bg-slate-950 border border-ios-border rounded-xl px-3 py-2 text-xs font-mono text-center tracking-widest text-ios-text focus:border-purple-400 outline-none" />
-            </div>
-            <div>
-              <label class="block text-xs font-bold text-ios-text mb-1">Full Name (নাম)</label>
-              <input type="text" id="p-signin-name" placeholder="e.g. Master Rafiq" class="w-full bg-slate-950 border border-ios-border rounded-xl px-3 py-2 text-xs text-ios-text focus:border-purple-400 outline-none" />
-            </div>
+          <div>
+            <label class="block text-[11px] font-mono text-gray-400 mb-1 uppercase tracking-wider">4-Digit Security PIN</label>
+            <input type="password" id="p-signin-pin" required maxlength="4" pattern="[0-9]{4}" placeholder="••••" class="w-full bg-slate-900/80 border border-white/10 hover:border-white/20 focus:border-cyan-400 rounded-2xl px-4 py-3 text-center text-lg font-black font-mono tracking-[0.4em] text-cyan-300 outline-none transition-all placeholder:tracking-normal placeholder:text-gray-600" />
+            <input type="hidden" id="p-signin-name" value="" />
           </div>
 
-          <div class="pt-2 flex items-center justify-end gap-2">
-            <button type="button" onclick="closeGoogleSignInDialog()" class="px-3.5 py-2 rounded-xl text-xs font-bold text-gray-400 hover:text-white transition-all cursor-pointer">Cancel</button>
-            <button type="submit" class="px-5 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:brightness-110 flex items-center gap-1.5 shadow-sm transition-all cursor-pointer">
-              <span>📱</span> <span>Verify & Log In</span>
+          <div class="pt-2 flex items-center justify-between gap-2">
+            <button type="button" onclick="closeGoogleSignInDialog()" class="px-3.5 py-2.5 rounded-xl text-xs font-bold text-gray-500 hover:text-white transition-all cursor-pointer">Cancel</button>
+            <button type="submit" class="flex-1 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-lg shadow-cyan-500/25 active:scale-95 transition-all cursor-pointer">
+              <span>⚡</span> <span>Verify & Access Vault</span>
             </button>
           </div>
         </form>
