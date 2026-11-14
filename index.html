@@ -4645,29 +4645,29 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
         <!-- Left: Avatar with Radar Status Dot & Photo Support -->
         <div class="relative shrink-0">
-          <div id="sidebar-owner-avatar" class="sidebar-owner-avatar-fixed w-10 h-10 aspect-square rounded-2xl bg-gradient-to-tr from-cyan-600 via-teal-600 to-emerald-500 text-white font-black flex items-center justify-center text-xs shadow-md border border-white/20 overflow-hidden shrink-0">
-            SO
+          <div id="sidebar-owner-avatar" class="sidebar-owner-avatar-fixed w-10 h-10 aspect-square rounded-2xl bg-white/[0.06] text-cyan-400 flex items-center justify-center text-sm shadow-inner border border-white/10 shrink-0">
+            <span class="text-base">👤</span>
           </div>
           <!-- Live Radar Pulse Dot -->
           <span class="absolute -bottom-0.5 -right-0.5 flex h-3 w-3">
-            <span id="sidebar-owner-ping" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span id="sidebar-owner-status-dot" class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 border-2 border-slate-900"></span>
+            <span id="sidebar-owner-ping" style="display: none;" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span id="sidebar-owner-status-dot" class="relative inline-flex rounded-full h-3 w-3 bg-slate-500 border-2 border-slate-900"></span>
           </span>
         </div>
 
         <!-- Center: Name & Minimalist Telemetry Status (Never wraps or squishes) -->
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-1.5">
-            <span class="text-xs font-bold text-white truncate max-w-[105px]" id="sidebar-owner-name">
-              Shop Owner
+            <span class="text-xs font-bold text-cyan-400 truncate max-w-[105px] tracking-wide" id="sidebar-owner-name">
+              Sign In
             </span>
-            <span id="sidebar-owner-badge" class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-md shrink-0 uppercase tracking-wider bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
-              PRO
+            <span id="sidebar-owner-badge" class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-md shrink-0 uppercase tracking-wider bg-slate-500/20 text-slate-400 border border-slate-500/30">
+              OFFLINE
             </span>
           </div>
           <div id="sidebar-owner-sub" class="text-[10px] text-gray-400 truncate font-mono mt-0.5 flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
-            <span class="truncate">Cloud Synced</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-slate-400 shrink-0"></span>
+            <span class="truncate">লগইন করুন • ক্লাউড</span>
           </div>
         </div>
 
@@ -20569,7 +20569,6 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     function updateSidebarOwnerChip() {
       const gUser = getGoogleAuthUser();
       const pUser = getPhoneAuthUser();
-      const activeOp = getActiveOperator();
       const photoUrl = getOwnerCustomPhoto();
 
       const elAvatar = document.getElementById('sidebar-owner-avatar');
@@ -20578,13 +20577,15 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const elSub = document.getElementById('sidebar-owner-sub');
       const elDot = document.getElementById('sidebar-owner-status-dot');
       const elPing = document.getElementById('sidebar-owner-ping');
+      const chipContainer = document.getElementById('sidebar-owner-chip');
 
-      let displayName = 'Shop Owner';
-      let badgeText = 'PRO';
-      let badgeClass = 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30';
-      let displaySub = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span><span class="truncate">Local Mode</span>';
-      let dotClass = 'bg-emerald-500';
-      let pingVisible = true;
+      let displayName = 'Sign In';
+      let badgeText = 'OFFLINE';
+      let badgeClass = 'bg-slate-500/20 text-slate-400 border-slate-500/30';
+      let displaySub = '<span class="w-1.5 h-1.5 rounded-full bg-slate-400 shrink-0"></span><span class="truncate">লগইন করুন • ক্লাউড</span>';
+      let dotClass = 'bg-slate-500';
+      let pingVisible = false;
+      const isConnected = !!(gUser || pUser);
 
       if (gUser && pUser) {
         displayName = gUser.name;
@@ -20607,28 +20608,39 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         displaySub = '<span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse shrink-0"></span><span class="text-purple-300 font-bold truncate">Phone Synced</span><span class="text-gray-500">•</span><span class="truncate">' + safeText(pUser.phone) + '</span>';
         dotClass = 'bg-purple-400';
         pingVisible = true;
-      } else if (activeOp) {
-        displayName = activeOp.name;
+      } else {
+        // 🔴 NO ACCOUNT LOGGED IN - Strictly NO personal staff/operator names!
+        displayName = 'Sign In';
         badgeText = 'OFFLINE';
-        badgeClass = 'bg-amber-500/20 text-amber-300 border-amber-500/40';
-        displaySub = '<span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span><span class="truncate">' + safeText(activeOp.role.toUpperCase()) + (activeOp.phone ? ' • ' + safeText(activeOp.phone) : '') + '</span>';
-        dotClass = 'bg-amber-400';
+        badgeClass = 'bg-slate-500/20 text-slate-400 border-slate-500/30';
+        displaySub = '<span class="w-1.5 h-1.5 rounded-full bg-slate-400 shrink-0"></span><span class="truncate">লগইন করুন • ক্লাউড</span>';
+        dotClass = 'bg-slate-500';
         pingVisible = false;
       }
 
-      const initials = displayName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'SO';
-
       if (elAvatar) {
-        if (photoUrl) {
+        if (isConnected && photoUrl) {
           elAvatar.innerHTML = '<img src="' + photoUrl + '" alt="' + safeText(displayName) + '" class="w-full h-full object-cover" />';
           elAvatar.className = 'sidebar-owner-avatar-fixed w-10 h-10 aspect-square rounded-2xl border border-white/20 shadow-sm overflow-hidden shrink-0';
-        } else {
+        } else if (isConnected) {
+          const initials = displayName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'SO';
           elAvatar.innerHTML = initials;
           elAvatar.className = 'sidebar-owner-avatar-fixed w-10 h-10 aspect-square rounded-2xl bg-gradient-to-tr from-cyan-600 via-teal-600 to-emerald-500 text-white font-black flex items-center justify-center text-xs shadow-md border border-white/20 overflow-hidden shrink-0';
+        } else {
+          // Clean neutral guest silhouette when logged out
+          elAvatar.innerHTML = '<span class="text-base">👤</span>';
+          elAvatar.className = 'sidebar-owner-avatar-fixed w-10 h-10 aspect-square rounded-2xl bg-white/[0.06] text-cyan-400 flex items-center justify-center text-sm shadow-inner border border-white/10 shrink-0';
         }
       }
 
-      if (elName) elName.textContent = displayName;
+      if (elName) {
+        elName.textContent = displayName;
+        if (!isConnected) {
+          elName.className = 'text-xs font-bold text-cyan-400 truncate max-w-[105px] tracking-wide';
+        } else {
+          elName.className = 'text-xs font-bold text-white truncate max-w-[105px]';
+        }
+      }
       if (elBadge) {
         elBadge.textContent = badgeText;
         elBadge.className = 'text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-md shrink-0 uppercase tracking-wider border ' + badgeClass;
@@ -20636,12 +20648,15 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (elSub) elSub.innerHTML = displaySub;
       if (elDot) elDot.className = 'relative inline-flex rounded-full h-3 w-3 border-2 border-slate-900 ' + dotClass;
       if (elPing) elPing.style.display = pingVisible ? 'inline-flex' : 'none';
+
+      if (chipContainer) {
+        chipContainer.title = !isConnected ? 'Click to Sign In with Google or Mobile' : 'Account, Profile Photo & Cloud Vault';
+      }
     }
 
     function openShopOwnerModal() {
       const gUser = getGoogleAuthUser();
       const pUser = getPhoneAuthUser();
-      const activeOp = getActiveOperator();
       const photoUrl = getOwnerCustomPhoto();
 
       const elName = document.getElementById('modal-owner-name');
@@ -20650,26 +20665,34 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const elBadge = document.getElementById('modal-owner-badge');
 
       const isConnected = !!(gUser || pUser);
-      const name = gUser ? gUser.name : (pUser ? pUser.name : (activeOp ? activeOp.name : 'Shop Owner'));
-      const sub = gUser ? gUser.email : (pUser ? pUser.phone : (getShopSettings().email || 'Owner • Tailor Shop'));
-      const initials = name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'SO';
+      // Strictly NO personal staff/operator names when logged out!
+      const name = gUser ? gUser.name : (pUser ? pUser.name : 'Guest (লগইন করা নেই)');
+      const sub = gUser ? gUser.email : (pUser ? pUser.phone : 'ক্লাউড ব্যাকআপের জন্য সাইন-ইন করুন');
 
       if (elName) elName.textContent = name;
       if (elEmail) elEmail.textContent = sub;
       
       if (elAvatar) {
-        if (photoUrl) {
+        if (isConnected && photoUrl) {
           elAvatar.innerHTML = '<img src="' + photoUrl + '" alt="' + safeText(name) + '" class="w-full h-full object-cover" />';
           elAvatar.className = 'w-12 h-12 rounded-2xl border-2 border-white/40 shadow-md overflow-hidden shrink-0';
-        } else {
+        } else if (isConnected) {
+          const initials = name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'SO';
           elAvatar.innerHTML = initials;
           elAvatar.className = 'w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-600 via-teal-600 to-emerald-500 text-white font-extrabold flex items-center justify-center text-sm shadow-md overflow-hidden shrink-0 border-2 border-white/40';
+        } else {
+          elAvatar.innerHTML = '<span class="text-xl">👤</span>';
+          elAvatar.className = 'w-12 h-12 rounded-2xl bg-white/[0.06] text-cyan-400 flex items-center justify-center text-base shadow-inner shrink-0 border border-white/15';
         }
       }
 
       const btnRemovePhoto = document.getElementById('btn-remove-owner-photo');
       if (btnRemovePhoto) {
-        btnRemovePhoto.classList.toggle('hidden', !photoUrl);
+        btnRemovePhoto.classList.toggle('hidden', !isConnected || !photoUrl);
+      }
+      const photoControls = document.getElementById('modal-owner-photo-controls');
+      if (photoControls) {
+        photoControls.classList.toggle('hidden', !isConnected);
       }
 
       if (elBadge) {
@@ -20683,7 +20706,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           elBadge.textContent = 'PHONE CLOUD';
           elBadge.className = 'text-[9px] px-1.5 py-0.5 rounded font-mono font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30';
         } else {
-          elBadge.textContent = 'LOCAL OFFLINE';
+          elBadge.textContent = 'OFFLINE';
           elBadge.className = 'text-[9px] px-1.5 py-0.5 rounded font-mono font-bold bg-slate-500/20 text-slate-400 border border-slate-500/30';
         }
       }
@@ -20851,7 +20874,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           </div>
           <p id="modal-owner-email" class="text-xs text-ios-subtext truncate mt-0.5 font-mono">Owner • Tailor Shop</p>
           
-          <div class="flex items-center gap-2 mt-1.5">
+          <div id="modal-owner-photo-controls" class="flex items-center gap-2 mt-1.5">
             <button type="button" onclick="document.getElementById('owner-photo-file-input').click()" class="px-2 py-0.5 rounded-lg text-[10px] font-medium bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 flex items-center gap-1 transition-all cursor-pointer active:scale-95">
               <span>📷</span> <span>Change Photo</span>
             </button>
