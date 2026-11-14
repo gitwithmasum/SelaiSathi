@@ -3508,6 +3508,11 @@ body.theme-white #view-measurements #meas-quick-matrix {
       font-weight: 800 !important;
       box-shadow: 0 1px 3px rgba(2, 132, 199, 0.12) !important;
     }
+    body.theme-white #sidebar-owner-arrow,
+    body.theme-white #sidebar-owner-avatar svg,
+    body.theme-white #modal-owner-avatar svg {
+      color: #0284C7 !important;
+    }
     body.theme-white #sidebar-owner-avatar {
       border: 2px solid #FFFFFF !important;
       box-shadow: 0 2px 8px rgba(12, 35, 64, 0.2) !important;
@@ -4638,42 +4643,46 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
     <!-- Futuristic Minimalist User Profile Chip -->
     <div class="p-3 border-t border-white/5 z-10 bg-cyber-black/40">
-      <div onclick="handleProfileChipClick()" id="sidebar-owner-chip" class="relative group p-2.5 rounded-2xl cursor-pointer transition-all border border-white/10 hover:border-cyan-400/40 bg-white/[0.03] hover:bg-white/[0.06] shadow-sm flex items-center gap-2.5 overflow-hidden" title="Account, Profile Photo & Cloud Vault">
+      <div onclick="handleProfileChipClick()" id="sidebar-owner-chip" class="relative group p-2.5 rounded-2xl cursor-pointer transition-all border border-white/10 hover:border-cyan-400/40 bg-white/[0.03] hover:bg-white/[0.06] shadow-sm flex items-center gap-2.5 overflow-hidden active:scale-[0.98]" title="Click to Sign In with Google or Mobile">
         
         <!-- Subtle Ambient Hover Glow -->
-        <div class="absolute -inset-0.5 bg-gradient-to-r from-cyan-500/10 via-emerald-500/5 to-teal-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none"></div>
+        <div class="absolute -inset-0.5 bg-gradient-to-r from-cyan-500/15 via-blue-500/10 to-teal-500/15 rounded-2xl opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none"></div>
 
         <!-- Left: Avatar with Radar Status Dot & Photo Support -->
         <div class="relative shrink-0">
-          <div id="sidebar-owner-avatar" class="sidebar-owner-avatar-fixed w-10 h-10 aspect-square rounded-2xl bg-white/[0.06] text-cyan-400 flex items-center justify-center text-sm shadow-inner border border-white/10 shrink-0">
-            <span class="text-base">👤</span>
+          <div id="sidebar-owner-avatar" class="sidebar-owner-avatar-fixed w-10 h-10 aspect-square rounded-2xl bg-cyan-500/10 border border-cyan-500/25 flex items-center justify-center shadow-[0_0_15px_rgba(6,182,212,0.12)] group-hover:border-cyan-400/50 group-hover:shadow-[0_0_20px_rgba(6,182,212,0.25)] transition-all shrink-0">
+            <svg class="w-4 h-4 text-cyan-400 group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
           </div>
-          <!-- Live Radar Pulse Dot -->
-          <span class="absolute -bottom-0.5 -right-0.5 flex h-3 w-3">
-            <span id="sidebar-owner-ping" style="display: none;" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span id="sidebar-owner-status-dot" class="relative inline-flex rounded-full h-3 w-3 bg-slate-500 border-2 border-slate-900"></span>
+          <!-- Live Radar Pulse Dot Container -->
+          <span id="sidebar-owner-dot-wrap" style="display: none;" class="absolute -bottom-0.5 -right-0.5 flex h-3 w-3">
+            <span id="sidebar-owner-ping" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span id="sidebar-owner-status-dot" class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400 border-2 border-slate-900"></span>
           </span>
         </div>
 
-        <!-- Center: Name & Minimalist Telemetry Status (Never wraps or squishes) -->
+        <!-- Center: Name & Futuristic Minimalist Microcopy -->
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-1.5">
-            <span class="text-xs font-bold text-cyan-400 truncate max-w-[105px] tracking-wide" id="sidebar-owner-name">
+            <span class="text-xs font-bold text-cyan-300 group-hover:text-white transition-colors tracking-wide truncate max-w-[125px]" id="sidebar-owner-name">
               Sign In
             </span>
-            <span id="sidebar-owner-badge" class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-md shrink-0 uppercase tracking-wider bg-slate-500/20 text-slate-400 border border-slate-500/30">
-              OFFLINE
+            <span id="sidebar-owner-badge" class="hidden text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-md shrink-0 uppercase tracking-wider bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
+              CLOUD
             </span>
           </div>
           <div id="sidebar-owner-sub" class="text-[10px] text-gray-400 truncate font-mono mt-0.5 flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-slate-400 shrink-0"></span>
-            <span class="truncate">লগইন করুন • ক্লাউড</span>
+            <span class="truncate text-gray-400 group-hover:text-cyan-400/90 transition-colors">Tap to connect cloud</span>
           </div>
         </div>
 
-        <!-- Right: Minimalist Double Arrow -->
-        <div class="shrink-0 text-gray-400 group-hover:text-cyan-400 transition-colors text-xs font-mono pr-0.5">
-          ⇅
+        <!-- Right: Animated Minimalist Glow Arrow -->
+        <div class="shrink-0 pr-0.5 flex items-center justify-center">
+          <span id="sidebar-owner-arrow" class="text-cyan-400/70 group-hover:text-cyan-300 group-hover:translate-x-1 transition-all duration-300 text-xs font-mono font-bold inline-block">
+            →
+          </span>
         </div>
       </div>
     </div>
@@ -20575,82 +20584,84 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const elName = document.getElementById('sidebar-owner-name');
       const elBadge = document.getElementById('sidebar-owner-badge');
       const elSub = document.getElementById('sidebar-owner-sub');
+      const elDotWrap = document.getElementById('sidebar-owner-dot-wrap');
       const elDot = document.getElementById('sidebar-owner-status-dot');
       const elPing = document.getElementById('sidebar-owner-ping');
+      const elArrow = document.getElementById('sidebar-owner-arrow');
       const chipContainer = document.getElementById('sidebar-owner-chip');
 
-      let displayName = 'Sign In';
-      let badgeText = 'OFFLINE';
-      let badgeClass = 'bg-slate-500/20 text-slate-400 border-slate-500/30';
-      let displaySub = '<span class="w-1.5 h-1.5 rounded-full bg-slate-400 shrink-0"></span><span class="truncate">লগইন করুন • ক্লাউড</span>';
-      let dotClass = 'bg-slate-500';
-      let pingVisible = false;
       const isConnected = !!(gUser || pUser);
 
-      if (gUser && pUser) {
-        displayName = gUser.name;
-        badgeText = 'CLOUD';
-        badgeClass = 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
-        displaySub = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span><span class="text-emerald-400 font-bold truncate">Cloud Active</span><span class="text-gray-500">•</span><span class="truncate">' + safeText(pUser.phone) + '</span>';
-        dotClass = 'bg-emerald-400';
-        pingVisible = true;
-      } else if (gUser) {
-        displayName = gUser.name;
-        badgeText = 'CLOUD';
-        badgeClass = 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40';
-        displaySub = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span><span class="text-emerald-400 font-bold truncate">Cloud Synced</span>';
-        dotClass = 'bg-emerald-400';
-        pingVisible = true;
-      } else if (pUser) {
-        displayName = pUser.name;
-        badgeText = 'PHONE';
-        badgeClass = 'bg-purple-500/20 text-purple-300 border-purple-500/40';
-        displaySub = '<span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse shrink-0"></span><span class="text-purple-300 font-bold truncate">Phone Synced</span><span class="text-gray-500">•</span><span class="truncate">' + safeText(pUser.phone) + '</span>';
-        dotClass = 'bg-purple-400';
-        pingVisible = true;
-      } else {
-        // 🔴 NO ACCOUNT LOGGED IN - Strictly NO personal staff/operator names!
-        displayName = 'Sign In';
-        badgeText = 'OFFLINE';
-        badgeClass = 'bg-slate-500/20 text-slate-400 border-slate-500/30';
-        displaySub = '<span class="w-1.5 h-1.5 rounded-full bg-slate-400 shrink-0"></span><span class="truncate">লগইন করুন • ক্লাউড</span>';
-        dotClass = 'bg-slate-500';
-        pingVisible = false;
-      }
+      if (isConnected) {
+        const displayName = gUser ? gUser.name : pUser.name;
+        const badgeText = (gUser && pUser) ? 'CLOUD' : (gUser ? 'CLOUD' : 'PHONE');
+        const badgeClass = gUser ? 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30' : 'bg-purple-500/15 text-purple-300 border-purple-500/30';
+        const displaySub = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span><span class="text-emerald-400 font-semibold truncate">Cloud Synced</span>';
 
-      if (elAvatar) {
-        if (isConnected && photoUrl) {
-          elAvatar.innerHTML = '<img src="' + photoUrl + '" alt="' + safeText(displayName) + '" class="w-full h-full object-cover" />';
-          elAvatar.className = 'sidebar-owner-avatar-fixed w-10 h-10 aspect-square rounded-2xl border border-white/20 shadow-sm overflow-hidden shrink-0';
-        } else if (isConnected) {
-          const initials = displayName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'SO';
-          elAvatar.innerHTML = initials;
-          elAvatar.className = 'sidebar-owner-avatar-fixed w-10 h-10 aspect-square rounded-2xl bg-gradient-to-tr from-cyan-600 via-teal-600 to-emerald-500 text-white font-black flex items-center justify-center text-xs shadow-md border border-white/20 overflow-hidden shrink-0';
-        } else {
-          // Clean neutral guest silhouette when logged out
-          elAvatar.innerHTML = '<span class="text-base">👤</span>';
-          elAvatar.className = 'sidebar-owner-avatar-fixed w-10 h-10 aspect-square rounded-2xl bg-white/[0.06] text-cyan-400 flex items-center justify-center text-sm shadow-inner border border-white/10 shrink-0';
+        if (elAvatar) {
+          if (photoUrl) {
+            elAvatar.innerHTML = '<img src="' + photoUrl + '" alt="' + safeText(displayName) + '" class="w-full h-full object-cover" />';
+            elAvatar.className = 'sidebar-owner-avatar-fixed w-10 h-10 aspect-square rounded-2xl border border-white/20 shadow-sm overflow-hidden shrink-0';
+          } else {
+            const initials = displayName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'SO';
+            elAvatar.innerHTML = initials;
+            elAvatar.className = 'sidebar-owner-avatar-fixed w-10 h-10 aspect-square rounded-2xl bg-gradient-to-tr from-cyan-600 via-teal-600 to-emerald-500 text-white font-black flex items-center justify-center text-xs shadow-md border border-white/20 overflow-hidden shrink-0';
+          }
         }
-      }
 
-      if (elName) {
-        elName.textContent = displayName;
-        if (!isConnected) {
-          elName.className = 'text-xs font-bold text-cyan-400 truncate max-w-[105px] tracking-wide';
-        } else {
+        if (elName) {
+          elName.textContent = displayName;
           elName.className = 'text-xs font-bold text-white truncate max-w-[105px]';
         }
-      }
-      if (elBadge) {
-        elBadge.textContent = badgeText;
-        elBadge.className = 'text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-md shrink-0 uppercase tracking-wider border ' + badgeClass;
-      }
-      if (elSub) elSub.innerHTML = displaySub;
-      if (elDot) elDot.className = 'relative inline-flex rounded-full h-3 w-3 border-2 border-slate-900 ' + dotClass;
-      if (elPing) elPing.style.display = pingVisible ? 'inline-flex' : 'none';
 
-      if (chipContainer) {
-        chipContainer.title = !isConnected ? 'Click to Sign In with Google or Mobile' : 'Account, Profile Photo & Cloud Vault';
+        if (elBadge) {
+          elBadge.textContent = badgeText;
+          elBadge.className = 'text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-md shrink-0 uppercase tracking-wider border ' + badgeClass;
+          elBadge.classList.remove('hidden');
+        }
+
+        if (elSub) elSub.innerHTML = displaySub;
+
+        if (elDotWrap) elDotWrap.style.display = 'flex';
+        if (elDot) elDot.className = 'relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400 border-2 border-slate-900';
+        if (elPing) elPing.style.display = 'inline-flex';
+
+        if (elArrow) {
+          elArrow.innerHTML = '›';
+          elArrow.className = 'text-gray-400 group-hover:text-cyan-300 group-hover:translate-x-0.5 transition-all duration-300 text-sm font-bold inline-block';
+        }
+
+        if (chipContainer) chipContainer.title = 'Shop Owner Profile & Cloud Vault';
+
+      } else {
+        // 🔴 ULTRA-MINIMALIST & FUTURISTIC SIGN-IN PILL
+        if (elAvatar) {
+          elAvatar.innerHTML = '<svg class="w-4 h-4 text-cyan-400 group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
+          elAvatar.className = 'sidebar-owner-avatar-fixed w-10 h-10 aspect-square rounded-2xl bg-cyan-500/10 border border-cyan-500/25 flex items-center justify-center shadow-[0_0_15px_rgba(6,182,212,0.12)] group-hover:border-cyan-400/50 group-hover:shadow-[0_0_20px_rgba(6,182,212,0.25)] transition-all shrink-0';
+        }
+
+        if (elName) {
+          elName.textContent = 'Sign In';
+          elName.className = 'text-xs font-bold text-cyan-300 group-hover:text-white transition-colors tracking-wide';
+        }
+
+        if (elBadge) {
+          elBadge.classList.add('hidden'); // Eliminates clutter!
+        }
+
+        if (elSub) {
+          elSub.innerHTML = '<span class="truncate text-gray-400 group-hover:text-cyan-400/90 transition-colors">Tap to connect cloud</span>';
+        }
+
+        // Hide orphan dot when logged out!
+        if (elDotWrap) elDotWrap.style.display = 'none';
+
+        if (elArrow) {
+          elArrow.innerHTML = '→';
+          elArrow.className = 'text-cyan-400/70 group-hover:text-cyan-300 group-hover:translate-x-1 transition-all duration-300 text-xs font-mono font-bold inline-block';
+        }
+
+        if (chipContainer) chipContainer.title = 'Click to Sign In with Google or Mobile';
       }
     }
 
@@ -20666,7 +20677,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       const isConnected = !!(gUser || pUser);
       // Strictly NO personal staff/operator names when logged out!
-      const name = gUser ? gUser.name : (pUser ? pUser.name : 'Guest (লগইন করা নেই)');
+      const name = gUser ? gUser.name : (pUser ? pUser.name : 'Guest Mode');
       const sub = gUser ? gUser.email : (pUser ? pUser.phone : 'ক্লাউড ব্যাকআপের জন্য সাইন-ইন করুন');
 
       if (elName) elName.textContent = name;
@@ -20681,8 +20692,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           elAvatar.innerHTML = initials;
           elAvatar.className = 'w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-600 via-teal-600 to-emerald-500 text-white font-extrabold flex items-center justify-center text-sm shadow-md overflow-hidden shrink-0 border-2 border-white/40';
         } else {
-          elAvatar.innerHTML = '<span class="text-xl">👤</span>';
-          elAvatar.className = 'w-12 h-12 rounded-2xl bg-white/[0.06] text-cyan-400 flex items-center justify-center text-base shadow-inner shrink-0 border border-white/15';
+          elAvatar.innerHTML = '<svg class="w-6 h-6 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
+          elAvatar.className = 'w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/25 flex items-center justify-center shadow-[0_0_20px_rgba(6,182,212,0.15)] shrink-0';
         }
       }
 
