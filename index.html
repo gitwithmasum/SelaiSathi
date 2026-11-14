@@ -3442,6 +3442,30 @@ body.theme-white #view-measurements #meas-quick-matrix {
       box-shadow: 0 6px 20px rgba(6, 182, 212, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.1);
       transform: translateY(-1px);
     }
+    #sidebar-owner-avatar,
+    .sidebar-owner-avatar-fixed {
+      width: 40px !important;
+      min-width: 40px !important;
+      max-width: 40px !important;
+      height: 40px !important;
+      min-height: 40px !important;
+      max-height: 40px !important;
+      aspect-ratio: 1 / 1 !important;
+      border-radius: 14px !important;
+      overflow: hidden !important;
+      flex-shrink: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    #sidebar-owner-avatar img,
+    .sidebar-owner-avatar-fixed img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      display: block !important;
+      border-radius: inherit !important;
+    }
     body.theme-white #modal-owner-google-box,
     body.theme-white #google-account-status-card {
       background: #F8FAFC !important;
@@ -4621,7 +4645,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
         <!-- Left: Avatar with Radar Status Dot & Photo Support -->
         <div class="relative shrink-0">
-          <div id="sidebar-owner-avatar" class="w-9.5 h-9.5 rounded-2xl bg-gradient-to-tr from-cyan-600 via-teal-600 to-emerald-500 text-white font-black flex items-center justify-center text-xs shadow-md border border-white/20 overflow-hidden shrink-0">
+          <div id="sidebar-owner-avatar" class="sidebar-owner-avatar-fixed w-10 h-10 aspect-square rounded-2xl bg-gradient-to-tr from-cyan-600 via-teal-600 to-emerald-500 text-white font-black flex items-center justify-center text-xs shadow-md border border-white/20 overflow-hidden shrink-0">
             SO
           </div>
           <!-- Live Radar Pulse Dot -->
@@ -4690,6 +4714,16 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <!-- RIGHT: Language Toggle [🌐] + Theme Slider [⚪|🔵] (+ New Order on desktop) -->
       <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
         
+        <!-- Counter On-Duty Operator Pill (Single PC Shop Terminal Workflow) -->
+        <button onclick="openUserSwitchModal()" class="cyber-header-user-btn px-2.5 sm:px-3 py-1.5 rounded-xl border border-ios-border bg-white/5 hover:bg-white/10 active:scale-95 transition-all flex items-center gap-2 cursor-pointer shrink-0" title="Counter Shift Duty: Click to switch operator (কাউন্টার অপারেটর পরিবর্তন)">
+          <div class="relative flex items-center justify-center">
+            <span class="text-xs">👤</span>
+            <span id="header-user-avatar-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse absolute -bottom-0.5 -right-0.5"></span>
+          </div>
+          <span id="header-user-name" class="text-xs font-bold text-ios-text max-w-[85px] sm:max-w-[120px] truncate">Shop Operator</span>
+          <span id="header-user-role-badge" class="hidden sm:inline-block text-[9px] px-1.5 py-0.2 rounded font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">DUTY</span>
+        </button>
+
         <!-- Language Switcher: Compact Glass Icon Button -->
         <button onclick="toggleLanguage()" class="p-2 sm:px-3 sm:py-1.5 rounded-xl border border-ios-border bg-white/5 hover:bg-white/15 text-xs font-bold text-ios-text transition-all active:scale-95 flex items-center gap-1 shrink-0" title="Language (ভাষা পরিবর্তন)">
           <span class="text-sm">🌐</span>
@@ -8415,6 +8449,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <span>•</span>
               <span id="sp-phone">📞 01711002233</span>
               <span>•</span>
+              <span id="sp-email" class="text-purple-300">✉ rahim@gmail.com</span>
+              <span>•</span>
               <span id="sp-experience">⭐ 12 Years Exp</span>
             </div>
           </div>
@@ -8426,6 +8462,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <div class="flex flex-wrap items-center gap-2">
         <a id="sp-call-btn" href="tel:" class="px-3 py-1.5 rounded-xl bg-slate-800 text-cyan-300 border border-cyan-500/30 text-xs font-bold hover:bg-cyan-500/20 transition-all flex items-center gap-1.5">
           <span>📞</span> <span>Call</span>
+        </a>
+        <a id="sp-email-btn" href="mailto:" class="px-3 py-1.5 rounded-xl bg-slate-800 text-purple-300 border border-purple-500/30 text-xs font-bold hover:bg-purple-500/20 transition-all flex items-center gap-1.5">
+          <span>✉️</span> <span>Email</span>
         </a>
         <button onclick="sendActiveStaffWhatsAppJobSheet()" class="px-3 py-1.5 rounded-xl bg-emerald-600/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold hover:bg-emerald-600/30 transition-all flex items-center gap-1.5">
           <span>💬</span> <span>WhatsApp Job Sheet</span>
@@ -11453,9 +11492,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         if (q) {
           const matchName = (s.name || '').toLowerCase().includes(q);
           const matchPhone = (s.phone || '').toLowerCase().includes(q);
+          const matchEmail = (s.email || '').toLowerCase().includes(q);
           const matchRole = (s.role || '').toLowerCase().includes(q);
           const matchSpecialty = (s.specialty || '').toLowerCase().includes(q);
-          if (!matchName && !matchPhone && !matchRole && !matchSpecialty) return false;
+          if (!matchName && !matchPhone && !matchEmail && !matchRole && !matchSpecialty) return false;
         }
         if (staffRoleFilter !== 'ALL') {
           if (s.role !== staffRoleFilter) return false;
@@ -11504,8 +11544,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                             <span>${safeText(s.name)}</span>
                             <span class="text-[10px] px-2 py-0.5 rounded-full bg-violet-500/15 text-violet-400 border border-violet-500/20 font-mono">${safeText(s.role)}</span>
                           </div>
-                          <div class="text-xs text-ios-subtext flex items-center gap-2 mt-0.5">
+                          <div class="text-xs text-ios-subtext flex items-center gap-2 mt-0.5 flex-wrap">
                             <span class="font-mono">📞 ${safeText(s.phone)}</span>
+                            ${s.email ? `<span class="text-purple-300 font-mono text-[11px] truncate max-w-[170px]">✉ ${safeText(s.email)}</span>` : ''}
                           </div>
                         </div>
                       </div>
@@ -11675,6 +11716,24 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       document.getElementById('sp-role-badge').textContent = `✂️ ${s.role}`;
       document.getElementById('sp-id').textContent = s.id;
       document.getElementById('sp-phone').textContent = `📞 ${s.phone}`;
+      const elEmail = document.getElementById('sp-email');
+      if (elEmail) {
+        if (s.email) {
+          elEmail.textContent = `✉ ${s.email}`;
+          elEmail.style.display = 'inline';
+        } else {
+          elEmail.style.display = 'none';
+        }
+      }
+      const elEmailBtn = document.getElementById('sp-email-btn');
+      if (elEmailBtn) {
+        if (s.email) {
+          elEmailBtn.href = `mailto:${s.email}`;
+          elEmailBtn.style.display = 'inline-flex';
+        } else {
+          elEmailBtn.style.display = 'none';
+        }
+      }
       document.getElementById('sp-experience').textContent = `⭐ ${s.experience || 'Experienced'}`;
       document.getElementById('sp-address').textContent = s.address || 'Dhaka';
       document.getElementById('sp-specialty').textContent = s.specialty || 'General Tailoring & Fitting Specialist';
@@ -13114,7 +13173,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
     const ssFieldSets={
       customer:[['name','Customer name','text'],['phone','Mobile number','tel'],['address','Address','text'],['notes','Notes','text']],
-      staff:[['name','Karigar / Staff name','text'],['phone','Mobile number','tel'],['role','Role (Master Tailor / Cutter / Stitcher / Finishing)','text'],['rate','Rate per garment (৳)','number'],['specialty','Specialty / Craft Focus','text'],['experience','Experience (e.g. 8 Years)','text'],['address','Address / Location','text'],['status','Status (Active/Inactive)','text']],
+      staff:[['name','Karigar / Staff name','text'],['phone','Mobile number','tel'],['email','Email Address (ইমেইল এড্রেস)','email'],['role','Role (Master Tailor / Cutter / Stitcher / Finishing)','text'],['rate','Rate per garment (৳)','number'],['specialty','Specialty / Craft Focus','text'],['experience','Experience (e.g. 8 Years)','text'],['address','Address / Location','text'],['status','Status (Active/Inactive)','text']],
       fabric:[['name','Material name','text'],['sku','SKU / Code','text'],['stock','Current stock','number'],['unit','Unit (yard/pcs)','text'],['cost','Unit cost (৳)','number'],['minimum','Low-stock threshold','number']]
     };
     function openDataModal(kind,record){
@@ -18544,11 +18603,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     // ============================================================
 
     const DEFAULT_SYSTEM_USERS = [
-      { id: 'usr-owner', name: 'Al-Amin Masum', role: 'owner', phone: '01700-112233', pin: '1234', avatarColor: 'from-amber-400 to-orange-500', status: 'active', lastActive: 'Just now' },
-      { id: 'usr-mgr', name: 'Tanvir Ahmed', role: 'manager', phone: '01811-223344', pin: '2233', avatarColor: 'from-cyan-400 to-blue-500', status: 'active', lastActive: '12m ago' },
-      { id: 'usr-cutter', name: 'Master Rafiqul', role: 'master', phone: '01922-334455', pin: '3344', avatarColor: 'from-purple-400 to-indigo-500', status: 'active', lastActive: '1h ago' },
-      { id: 'usr-karigar', name: 'Shafiqul Islam', role: 'karigar', phone: '01633-445566', pin: '4455', avatarColor: 'from-emerald-400 to-teal-500', status: 'active', lastActive: '30m ago' },
-      { id: 'usr-cashier', name: 'Sumon Roy', role: 'cashier', phone: '01744-556677', pin: '5566', avatarColor: 'from-pink-400 to-rose-500', status: 'active', lastActive: '2h ago' }
+      { id: 'usr-owner', name: 'Al-Amin Masum', role: 'owner', email: 'admin@selaisathi.com', phone: '01700-112233', pin: '1234', avatarColor: 'from-amber-400 to-orange-500', status: 'active', lastActive: 'Just now' },
+      { id: 'usr-mgr', name: 'Tanvir Ahmed', role: 'manager', email: 'tanvir@selaisathi.com', phone: '01811-223344', pin: '2233', avatarColor: 'from-cyan-400 to-blue-500', status: 'active', lastActive: '12m ago' },
+      { id: 'usr-cutter', name: 'Master Rafiqul', role: 'master', email: 'rafiqul.cutter@gmail.com', phone: '01922-334455', pin: '3344', avatarColor: 'from-purple-400 to-indigo-500', status: 'active', lastActive: '1h ago' },
+      { id: 'usr-karigar', name: 'Shafiqul Islam', role: 'karigar', email: 'shafiqul.karigar@gmail.com', phone: '01633-445566', pin: '4455', avatarColor: 'from-emerald-400 to-teal-500', status: 'active', lastActive: '30m ago' },
+      { id: 'usr-cashier', name: 'Sumon Roy', role: 'cashier', email: 'sumon.cashier@gmail.com', phone: '01744-556677', pin: '5566', avatarColor: 'from-pink-400 to-rose-500', status: 'active', lastActive: '2h ago' }
     ];
 
     const ROLE_DEFINITIONS = {
@@ -18671,13 +18730,17 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     function updateHeaderUserPill() {
       const op = getActiveOperator();
       if (!op) return;
-      const roleDef = ROLE_DEFINITIONS[op.role] || { label: op.role, badge: op.role.toUpperCase() };
+      const roleDef = ROLE_DEFINITIONS[op.role] || { label: op.role, badge: op.role.toUpperCase(), badgeClass: 'bg-purple-500/20 text-purple-300 border-purple-500/30' };
 
       const elName = document.getElementById('header-user-name');
       const elBadge = document.getElementById('header-user-role-badge');
       const elAvatarDot = document.getElementById('header-user-avatar-dot');
 
       if (elName) elName.textContent = (op.role === 'owner' ? '👑 ' : '') + op.name;
+      if (elBadge) {
+        elBadge.textContent = roleDef.badge.replace(/^[^a-zA-Z0-9]+/, '').trim();
+        elBadge.className = 'hidden sm:inline-block text-[9px] px-1.5 py-0.2 rounded font-mono font-bold border ' + roleDef.badgeClass;
+      }
       if (elBadge) {
         elBadge.textContent = roleDef.badge.replace(/^[^a-zA-Z0-9]+/, '').trim();
       }
@@ -18819,7 +18882,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                   '<span>' + safeText(u.name) + '</span>' +
                   (isActiveSession ? '<span class="text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-mono font-bold border border-emerald-500/30">CURRENT</span>' : '') +
                 '</div>' +
-                '<div class="text-[11px] text-ios-subtext font-mono mt-0.5">' + (u.phone || 'No phone') + '</div>' +
+                '<div class="text-[11px] text-ios-subtext font-mono mt-0.5 flex items-center gap-1.5 flex-wrap"><span>' + (u.phone || 'No phone') + '</span>' + (u.email ? '<span>•</span><span class="text-purple-300">✉ ' + safeText(u.email) + '</span>' : '') + '</div>' +
               '</div>' +
             '</div>' +
             '<span class="text-[9px] font-mono px-2 py-0.5 rounded-lg border font-bold ' + roleDef.badgeClass + '">' + roleDef.badge + '</span>' +
@@ -18919,6 +18982,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       document.getElementById('usr-form-id').value = '';
       document.getElementById('usr-form-name').value = '';
       document.getElementById('usr-form-phone').value = '';
+      if (document.getElementById('usr-form-email')) document.getElementById('usr-form-email').value = '';
       document.getElementById('usr-form-role').value = 'manager';
       document.getElementById('usr-form-pin').value = '';
       document.getElementById('usr-form-status').value = 'active';
@@ -18934,6 +18998,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       document.getElementById('usr-form-id').value = u.id;
       document.getElementById('usr-form-name').value = u.name;
       document.getElementById('usr-form-phone').value = u.phone || '';
+      if (document.getElementById('usr-form-email')) document.getElementById('usr-form-email').value = u.email || '';
       document.getElementById('usr-form-role').value = u.role;
       document.getElementById('usr-form-pin').value = u.pin;
       document.getElementById('usr-form-status').value = u.status || 'active';
@@ -18955,6 +19020,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const id = document.getElementById('usr-form-id').value.trim();
       const name = document.getElementById('usr-form-name').value.trim();
       const phone = document.getElementById('usr-form-phone').value.trim();
+      const email = document.getElementById('usr-form-email')?.value.trim() || '';
       const role = document.getElementById('usr-form-role').value;
       const pin = document.getElementById('usr-form-pin').value.trim();
       const status = document.getElementById('usr-form-status').value;
@@ -18970,13 +19036,13 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         // Edit existing
         const idx = users.findIndex(u => u.id === id);
         if (idx !== -1) {
-          users[idx] = { ...users[idx], name, phone, role, pin, status, avatarColor };
+          users[idx] = { ...users[idx], name, phone, email, role, pin, status, avatarColor };
           logSecurityAudit('USER_UPDATE', 'Updated operator profile for ' + name + ' (' + role + ')', 'INFO');
         }
       } else {
         // Create new
         const newId = 'usr-' + Date.now();
-        users.push({ id: newId, name, phone, role, pin, status, avatarColor, lastActive: 'New' });
+        users.push({ id: newId, name, phone, email, role, pin, status, avatarColor, lastActive: 'New' });
         logSecurityAudit('USER_CREATE', 'Created new operator profile: ' + name + ' (' + role + ')', 'INFO');
       }
 
@@ -19563,6 +19629,197 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       }
     }
 
+
+    // ============================================================
+    // 👑 CHANGE ADMIN & OWNERSHIP TRANSFER CONTROLLER
+    // ============================================================
+    function openChangeAdminModal() {
+      const modal = document.getElementById('modal-change-admin');
+      if (!modal) return;
+
+      const users = getSystemUsers();
+      const owner = users.find(u => u.role === 'owner') || users[0] || DEFAULT_SYSTEM_USERS[0];
+      const gUser = getGoogleAuthUser();
+      const pUser = getPhoneAuthUser();
+
+      // Pre-fill Edit Tab
+      const nameInput = document.getElementById('admin-edit-name');
+      const emailInput = document.getElementById('admin-edit-email');
+      const phoneInput = document.getElementById('admin-edit-phone');
+      const pinInput = document.getElementById('admin-edit-pin');
+
+      if (nameInput) nameInput.value = gUser ? gUser.name : (pUser ? pUser.name : owner.name);
+      if (emailInput) emailInput.value = gUser ? gUser.email : (owner.email || getShopSettings().email || '');
+      if (phoneInput) phoneInput.value = pUser ? pUser.phone : (owner.phone || getShopSettings().phone || '');
+      if (pinInput) pinInput.value = owner.pin || '1234';
+
+      // Pre-fill Transfer Dropdown
+      const selectStaff = document.getElementById('transfer-target-staff');
+      if (selectStaff) {
+        const candidates = users.filter(u => u.id !== owner.id && u.status === 'active');
+        if (candidates.length === 0) {
+          selectStaff.innerHTML = '<option value="">No other staff members available</option>';
+        } else {
+          selectStaff.innerHTML = candidates.map(c => {
+            const roleDef = ROLE_DEFINITIONS[c.role] || { label: c.role };
+            return '<option value="' + c.id + '">' + safeText(c.name) + ' (' + safeText(roleDef.label) + ' - ' + (c.phone || 'No phone') + ')</option>';
+          }).join('');
+        }
+      }
+
+      switchChangeAdminTab('edit');
+      modal.classList.remove('hidden');
+    }
+
+    function closeChangeAdminModal() {
+      const modal = document.getElementById('modal-change-admin');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function switchChangeAdminTab(tab) {
+      const formEdit = document.getElementById('form-edit-admin');
+      const formTransfer = document.getElementById('form-transfer-admin');
+      const btnEdit = document.getElementById('tab-btn-admin-edit');
+      const btnTransfer = document.getElementById('tab-btn-admin-transfer');
+
+      if (tab === 'edit') {
+        formEdit?.classList.remove('hidden');
+        formTransfer?.classList.add('hidden');
+        btnEdit?.classList.add('bg-amber-500', 'text-slate-950', 'shadow-md');
+        btnEdit?.classList.remove('text-gray-400');
+        btnTransfer?.classList.remove('bg-amber-500', 'text-slate-950', 'shadow-md');
+        btnTransfer?.classList.add('text-gray-400');
+      } else {
+        formEdit?.classList.add('hidden');
+        formTransfer?.classList.remove('hidden');
+        btnTransfer?.classList.add('bg-amber-500', 'text-slate-950', 'shadow-md');
+        btnTransfer?.classList.remove('text-gray-400');
+        btnEdit?.classList.remove('bg-amber-500', 'text-slate-950', 'shadow-md');
+        btnEdit?.classList.add('text-gray-400');
+      }
+    }
+
+    function saveAdminProfileChanges(event) {
+      if (event) event.preventDefault();
+      const newName = document.getElementById('admin-edit-name')?.value.trim();
+      const newEmail = document.getElementById('admin-edit-email')?.value.trim();
+      const newPhone = document.getElementById('admin-edit-phone')?.value.trim();
+      const newPin = document.getElementById('admin-edit-pin')?.value.trim();
+
+      if (!newName || !newPin || newPin.length !== 4) {
+        alert('অনুগ্রহ করে সঠিক এডমিন নাম ও ৪-সংখ্যার পিন প্রদান করুন।');
+        return;
+      }
+
+      const users = getSystemUsers();
+      let owner = users.find(u => u.role === 'owner');
+      if (!owner) {
+        owner = users[0];
+        owner.role = 'owner';
+      }
+
+      owner.name = newName;
+      if (newEmail) owner.email = newEmail;
+      if (newPhone) owner.phone = newPhone;
+      owner.pin = newPin;
+
+      saveSystemUsers(users);
+
+      // Update active Google or Phone Auth session if connected
+      const gUser = getGoogleAuthUser();
+      if (gUser) {
+        gUser.name = newName;
+        if (newEmail) gUser.email = newEmail;
+        saveGoogleAuthUser(gUser);
+      }
+
+      const pUser = getPhoneAuthUser();
+      if (pUser) {
+        pUser.name = newName;
+        if (newPhone) pUser.phone = newPhone;
+        savePhoneAuthUser(pUser);
+      }
+
+      // Update Shop Settings email/phone if unset
+      const set = getShopSettings();
+      if (newEmail) set.email = newEmail;
+      if (newPhone) set.phone = newPhone;
+      saveShopSettings(set);
+
+      closeChangeAdminModal();
+      openShopOwnerModal();
+      updateSidebarOwnerChip();
+      updateHeaderUserPill();
+
+      logSecurityAudit('ADMIN_UPDATE', 'Admin profile updated: ' + newName + ' (' + newEmail + ')', 'INFO');
+
+      if (window.CyberDialog) {
+        CyberDialog.alert('দোকান প্রধান এডমিন (Super Admin)-এর প্রোফাইল ও সিকিউরিটি পিন সফলভাবে আপডেট করা হয়েছে!', {
+          icon: '👑',
+          title: 'ADMIN PROFILE UPDATED'
+        });
+      } else {
+        alert('Admin profile updated successfully!');
+      }
+    }
+
+    function transferAdminOwnership(event) {
+      if (event) event.preventDefault();
+      const targetUserId = document.getElementById('transfer-target-staff')?.value;
+      const confirmPin = document.getElementById('transfer-confirm-pin')?.value.trim();
+
+      if (!targetUserId) {
+        alert('অনুগ্রহ করে নতুন এডমিন নির্বাচন করুন।');
+        return;
+      }
+
+      const users = getSystemUsers();
+      const currentOwner = users.find(u => u.role === 'owner') || users[0];
+      const targetUser = users.find(u => u.id === targetUserId);
+
+      if (!targetUser) {
+        alert('নির্বাচিত কর্মী খুঁজে পাওয়া যায়নি।');
+        return;
+      }
+
+      if (currentOwner.pin && currentOwner.pin !== confirmPin) {
+        alert('বর্তমান এডমিন সিকিউরিটি পিন সঠিক নয়। অনুগ্রহ করে সঠিক পিন দিন।');
+        return;
+      }
+
+      // Transfer Roles: Old owner becomes Manager, Target user becomes Owner
+      currentOwner.role = 'manager';
+      targetUser.role = 'owner';
+
+      // Set active operator to the new owner
+      setActiveOperator(targetUser.id);
+      saveSystemUsers(users);
+
+      // Update session names
+      const gUser = getGoogleAuthUser();
+      if (gUser) {
+        gUser.name = targetUser.name;
+        if (targetUser.email) gUser.email = targetUser.email;
+        saveGoogleAuthUser(gUser);
+      }
+
+      closeChangeAdminModal();
+      openShopOwnerModal();
+      updateSidebarOwnerChip();
+      updateHeaderUserPill();
+
+      logSecurityAudit('OWNERSHIP_TRANSFER', 'Ownership transferred from ' + currentOwner.name + ' to ' + targetUser.name, 'WARN');
+
+      if (window.CyberDialog) {
+        CyberDialog.alert('অভিনন্দন! দোকান মালিকানা ও প্রধান এডমিন ক্ষমতা সফলভাবে <strong>' + safeText(targetUser.name) + '</strong>-এর কাছে হস্তান্তর করা হয়েছে।', {
+          icon: '👑',
+          title: 'ADMIN OWNERSHIP TRANSFERRED'
+        });
+      } else {
+        alert('Admin ownership transferred successfully!');
+      }
+    }
+
     function getGoogleAuthUser() {
       try {
         const saved = JSON.parse(localStorage.getItem('selaisathi_google_user') || 'null');
@@ -19722,24 +19979,15 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           try {
             // Offscreen canvas compression to 180x180 max
             const canvas = document.createElement('canvas');
-            const maxDim = 180;
-            let w = img.width;
-            let h = img.height;
-            if (w > h) {
-              if (w > maxDim) {
-                h = Math.round((h * maxDim) / w);
-                w = maxDim;
-              }
-            } else {
-              if (h > maxDim) {
-                w = Math.round((w * maxDim) / h);
-                h = maxDim;
-              }
-            }
-            canvas.width = w;
-            canvas.height = h;
+            // Center-crop to perfect 180x180 square avatar
+            const targetDim = 180;
+            canvas.width = targetDim;
+            canvas.height = targetDim;
             const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, w, h);
+            const minSide = Math.min(img.width, img.height);
+            const sx = (img.width - minSide) / 2;
+            const sy = (img.height - minSide) / 2;
+            ctx.drawImage(img, sx, sy, minSide, minSide, 0, 0, targetDim, targetDim);
 
             // Highly optimized data URL
             const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
@@ -20355,10 +20603,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (elAvatar) {
         if (photoUrl) {
           elAvatar.innerHTML = '<img src="' + photoUrl + '" alt="' + safeText(displayName) + '" class="w-full h-full object-cover" />';
-          elAvatar.className = 'w-9.5 h-9.5 rounded-2xl border border-white/20 shadow-sm overflow-hidden shrink-0';
+          elAvatar.className = 'sidebar-owner-avatar-fixed w-10 h-10 aspect-square rounded-2xl border border-white/20 shadow-sm overflow-hidden shrink-0';
         } else {
           elAvatar.innerHTML = initials;
-          elAvatar.className = 'w-9.5 h-9.5 rounded-2xl bg-gradient-to-tr from-cyan-600 via-teal-600 to-emerald-500 text-white font-black flex items-center justify-center text-xs shadow-md border border-white/20 overflow-hidden shrink-0';
+          elAvatar.className = 'sidebar-owner-avatar-fixed w-10 h-10 aspect-square rounded-2xl bg-gradient-to-tr from-cyan-600 via-teal-600 to-emerald-500 text-white font-black flex items-center justify-center text-xs shadow-md border border-white/20 overflow-hidden shrink-0';
         }
       }
 
@@ -20586,6 +20834,20 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <!-- Hidden File Input for Profile Photo -->
       <input type="file" id="owner-photo-file-input" accept="image/*" class="hidden" onchange="handleOwnerPhotoUpload(event)" />
 
+      <!-- 👑 Admin Management & Ownership Control Banner -->
+      <div class="p-3.5 rounded-2xl bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border border-amber-500/30 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center text-sm font-bold border border-amber-500/30 shrink-0">👑</div>
+          <div class="min-w-0">
+            <div class="text-xs font-bold text-amber-300 truncate">Admin Profile & Ownership</div>
+            <div class="text-[10px] text-gray-400 truncate">দোকানের প্রধান এডমিন পরিবর্তন বা দায়িত্ব হস্তান্তর করুন</div>
+          </div>
+        </div>
+        <button type="button" onclick="openChangeAdminModal()" class="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 text-xs font-bold active:scale-95 transition-all cursor-pointer shrink-0">
+          Change Admin →
+        </button>
+      </div>
+
       <!-- Futuristic Telemetry HUD Grid -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
         <div class="p-2 rounded-xl bg-white/[0.02] border border-ios-border">
@@ -20654,66 +20916,269 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
   <!-- 🔐 HOLOGRAPHIC 4-DIGIT QUICK PIN SWITCHER MODAL             -->
   <!-- ======================================================== -->
     <!-- ======================================================== -->
-  <!-- 👑 SHOP OWNER & GOOGLE ACCOUNT PROFILE MODAL             -->
+  <!-- 🔐 HOLOGRAPHIC 4-DIGIT QUICK PIN SWITCHER MODAL             -->
   <!-- ======================================================== -->
-  <div id="modal-shop-owner" class="hidden fixed inset-0 z-[85] bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="bento-card max-w-md w-full p-6 space-y-5 rounded-3xl bg-slate-900 border border-ios-border shadow-2xl relative">
-      <div class="flex items-center justify-between border-b border-ios-border pb-3">
+  <div id="modal-user-switcher" class="hidden fixed inset-0 z-[96] bg-black/85 backdrop-blur-xl flex items-center justify-center p-4">
+    <div class="bento-card max-w-md w-full p-6 space-y-4 rounded-3xl bg-slate-950/95 border border-cyan-500/40 shadow-[0_0_50px_rgba(6,182,212,0.25)] relative overflow-hidden text-left">
+      <!-- Glow ambient -->
+      <div class="absolute -top-16 -right-16 w-48 h-48 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="flex items-center justify-between border-b border-ios-border pb-3 relative z-10">
         <div class="flex items-center gap-2.5">
-          <span class="w-8 h-8 rounded-xl bg-purple-500/20 text-purple-300 flex items-center justify-center text-sm font-bold border border-purple-500/30">👑</span>
+          <span class="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center text-sm font-bold border border-cyan-500/30">🔐</span>
           <div>
-            <h3 class="font-bold text-sm text-ios-text">Shop Owner Account</h3>
-            <p class="text-[10px] text-ios-subtext">Google Sign-in, Cloud Sync & Session</p>
+            <h3 class="font-bold text-sm text-ios-text flex items-center gap-2">
+              <span>Counter Operator Shift</span>
+              <span class="text-[10px] font-mono text-cyan-400 uppercase tracking-widest">// DUTY</span>
+            </h3>
+            <p class="text-[10px] text-ios-subtext">কাউন্টার অপারেটর সিলেক্ট করে পিন কোড দিন</p>
           </div>
         </div>
-        <button onclick="closeShopOwnerModal()" class="text-gray-400 hover:text-white text-lg p-1 transition-colors cursor-pointer">✕</button>
+        <button onclick="closeUserSwitchModal()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-all cursor-pointer">✕</button>
       </div>
 
-      <!-- User Profile Header Card -->
-      <div id="modal-owner-profile-card" class="p-4 rounded-2xl bg-white/[0.03] border border-ios-border flex items-center gap-3.5">
-        <div id="modal-owner-avatar" class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white font-extrabold flex items-center justify-center text-sm shadow-md overflow-hidden shrink-0">
-          SO
-        </div>
-        <div class="min-w-0 flex-1">
-          <div class="flex items-center gap-2">
-            <h4 id="modal-owner-name" class="font-black text-sm text-ios-text truncate">Shop Owner</h4>
-            <span id="modal-owner-badge" class="text-[9px] px-1.5 py-0.5 rounded font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">PRO</span>
-          </div>
-          <p id="modal-owner-email" class="text-xs text-ios-subtext truncate mt-0.5">Owner • New Market, Dhaka</p>
-          <div class="flex items-center gap-1.5 mt-1.5">
-            <span id="modal-owner-sync-dot" class="w-2 h-2 rounded-full bg-emerald-400"></span>
-            <span id="modal-owner-sync-status" class="text-[10px] font-mono text-emerald-400 font-bold">Local Mode</span>
-          </div>
+      <!-- Horizontal Operator Selector Bar -->
+      <div class="space-y-1.5 relative z-10">
+        <label class="text-[10px] font-mono uppercase tracking-wider text-gray-400 block">Select Operator Profile</label>
+        <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none" id="pin-modal-operator-chips">
+          <!-- Rendered via renderPinModalOperators() -->
         </div>
       </div>
 
-      <!-- Google Cloud Account Status Box -->
-      <div id="modal-owner-google-box" class="p-4 rounded-2xl border border-ios-border space-y-3">
-        <!-- Rendered dynamically -->
+      <!-- Active Selected Operator Profile Display -->
+      <div class="p-3.5 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-between relative z-10">
+        <div class="flex items-center gap-3">
+          <div id="pin-modal-avatar" class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 text-slate-950 font-black text-sm flex items-center justify-center shadow-md">
+            AM
+          </div>
+          <div>
+            <div id="pin-modal-name" class="font-bold text-sm text-ios-text">Al-Amin Masum</div>
+            <div id="pin-modal-role" class="text-[10px] font-mono text-cyan-400 uppercase">👑 Super Admin / Owner</div>
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="text-[9px] font-mono px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold">READY</span>
+        </div>
       </div>
 
-      <!-- Quick Shortcuts Menu -->
-      <div class="space-y-1.5 border-t border-ios-border pt-3 text-xs">
-        <button onclick="closeShopOwnerModal(); navigateTo('backups');" class="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-white/5 text-ios-text transition-all cursor-pointer">
-          <span class="flex items-center gap-2"><span>☁️</span> <span>Open Cloud Backups Hub</span></span>
-          <span class="text-gray-400">→</span>
+      <!-- 4-Digit Visual PIN Indicator -->
+      <div class="text-center space-y-1.5 relative z-10">
+        <div class="text-[11px] font-mono text-gray-400 uppercase tracking-wider">ENTER 4-DIGIT SECURITY PIN</div>
+        <div class="flex items-center justify-center gap-4 my-2" id="pin-dots-container">
+          <div class="pin-dot w-3.5 h-3.5 rounded-full border-2 border-cyan-400/50 bg-transparent transition-all"></div>
+          <div class="pin-dot w-3.5 h-3.5 rounded-full border-2 border-cyan-400/50 bg-transparent transition-all"></div>
+          <div class="pin-dot w-3.5 h-3.5 rounded-full border-2 border-cyan-400/50 bg-transparent transition-all"></div>
+          <div class="pin-dot w-3.5 h-3.5 rounded-full border-2 border-cyan-400/50 bg-transparent transition-all"></div>
+        </div>
+        <div id="pin-error-feedback" class="text-xs font-mono text-rose-400 h-4 transition-all"></div>
+      </div>
+
+      <!-- Holographic Numeric Keypad -->
+      <div class="grid grid-cols-3 gap-2 text-sm font-mono font-bold max-w-[280px] mx-auto relative z-10">
+        <button type="button" onclick="handlePinDigit('1')" class="pin-key-btn py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 active:scale-95 text-ios-text transition-all text-base cursor-pointer">1</button>
+        <button type="button" onclick="handlePinDigit('2')" class="pin-key-btn py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 active:scale-95 text-ios-text transition-all text-base cursor-pointer">2</button>
+        <button type="button" onclick="handlePinDigit('3')" class="pin-key-btn py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 active:scale-95 text-ios-text transition-all text-base cursor-pointer">3</button>
+        <button type="button" onclick="handlePinDigit('4')" class="pin-key-btn py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 active:scale-95 text-ios-text transition-all text-base cursor-pointer">4</button>
+        <button type="button" onclick="handlePinDigit('5')" class="pin-key-btn py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 active:scale-95 text-ios-text transition-all text-base cursor-pointer">5</button>
+        <button type="button" onclick="handlePinDigit('6')" class="pin-key-btn py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 active:scale-95 text-ios-text transition-all text-base cursor-pointer">6</button>
+        <button type="button" onclick="handlePinDigit('7')" class="pin-key-btn py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 active:scale-95 text-ios-text transition-all text-base cursor-pointer">7</button>
+        <button type="button" onclick="handlePinDigit('8')" class="pin-key-btn py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 active:scale-95 text-ios-text transition-all text-base cursor-pointer">8</button>
+        <button type="button" onclick="handlePinDigit('9')" class="pin-key-btn py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 active:scale-95 text-ios-text transition-all text-base cursor-pointer">9</button>
+        <button type="button" onclick="handlePinDigit('clear')" class="pin-key-btn py-3 rounded-2xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 active:scale-95 text-rose-400 text-xs uppercase transition-all cursor-pointer">CLR</button>
+        <button type="button" onclick="handlePinDigit('0')" class="pin-key-btn py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 active:scale-95 text-ios-text transition-all text-base cursor-pointer">0</button>
+        <button type="button" onclick="handlePinDigit('back')" class="pin-key-btn py-3 rounded-2xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 active:scale-95 text-ios-text transition-all text-sm cursor-pointer">⌫</button>
+      </div>
+
+      <div class="text-center pt-1 border-t border-ios-border relative z-10">
+        <button type="button" onclick="bypassPinForDemo()" class="text-[11px] text-cyan-400 hover:underline font-mono cursor-pointer">⚡ Quick Switch Without PIN</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 👥 OPERATOR REGISTRATION / EDIT MODAL                    -->
+  <!-- ======================================================== -->
+  <div id="modal-user-form" class="hidden fixed inset-0 z-[96] bg-black/85 backdrop-blur-xl flex items-center justify-center p-4">
+    <div class="bento-card max-w-lg w-full p-6 space-y-4 rounded-3xl bg-slate-950/95 border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.8)] relative text-left overflow-hidden">
+      <div class="flex items-center justify-between border-b border-ios-border pb-3">
+        <h3 class="font-bold text-sm sm:text-base text-ios-text flex items-center gap-2">
+          <span>👤</span> <span id="modal-user-form-title">Register System Operator</span>
+        </h3>
+        <button onclick="closeUserFormModal()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-all cursor-pointer">✕</button>
+      </div>
+
+      <form onsubmit="saveUserForm(event)" class="space-y-3.5 text-xs">
+        <input type="hidden" id="usr-form-id" value="" />
+
+        <div>
+          <label class="block font-bold text-gray-300 mb-1">Operator Full Name (কর্মীর পুরো নাম) *</label>
+          <input type="text" id="usr-form-name" required placeholder="e.g. Master Rafiqul Islam" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-ios-text font-medium focus:border-cyan-400 outline-none" />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-gray-300 mb-1">Phone Number (মোবাইল নম্বর)</label>
+            <input type="tel" id="usr-form-phone" placeholder="01700-112233" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-ios-text font-mono focus:border-cyan-400 outline-none" />
+          </div>
+
+          <div>
+            <label class="block font-bold text-gray-300 mb-1">Email Address (ইমেইল এড্রেস)</label>
+            <input type="email" id="usr-form-email" placeholder="e.g. rafiqul@gmail.com" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-ios-text font-mono focus:border-cyan-400 outline-none" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-gray-300 mb-1">Assigned Role (পদবী ও ভূমিকা) *</label>
+            <select id="usr-form-role" required class="w-full bg-slate-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-ios-text font-medium focus:border-cyan-400 outline-none">
+              <option value="owner">👑 Super Admin / Owner</option>
+              <option value="manager" selected>👔 Shop Manager</option>
+              <option value="master">✂️ Cutting Master</option>
+              <option value="karigar">🧵 Karigar / Artisan</option>
+              <option value="cashier">💰 Cashier / Accounts</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-bold text-gray-300 mb-1">4-Digit Security PIN (৪-সংখ্যার পিন) *</label>
+            <input type="password" id="usr-form-pin" required maxlength="4" pattern="[0-9]{4}" placeholder="••••" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-ios-text font-mono text-center tracking-[0.4em] text-sm focus:border-cyan-400 outline-none" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-gray-300 mb-1">Account Status (স্ট্যাটাস)</label>
+          <select id="usr-form-status" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-ios-text font-medium focus:border-cyan-400 outline-none">
+            <option value="active" selected>🟢 Active (সক্রিয়)</option>
+            <option value="suspended">🔴 Suspended (স্থগিত)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-gray-300 mb-1.5">Avatar Color Theme</label>
+          <div class="flex items-center gap-3">
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="radio" name="usr-avatar-color" value="from-amber-400 to-orange-500" checked class="text-amber-500" />
+              <span class="w-6 h-6 rounded-lg bg-gradient-to-br from-amber-400 to-orange-500 inline-block"></span>
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="radio" name="usr-avatar-color" value="from-cyan-400 to-blue-500" class="text-cyan-500" />
+              <span class="w-6 h-6 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-500 inline-block"></span>
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="radio" name="usr-avatar-color" value="from-purple-400 to-indigo-500" class="text-purple-500" />
+              <span class="w-6 h-6 rounded-lg bg-gradient-to-br from-purple-400 to-indigo-500 inline-block"></span>
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="radio" name="usr-avatar-color" value="from-emerald-400 to-teal-500" class="text-emerald-500" />
+              <span class="w-6 h-6 rounded-lg bg-gradient-to-br from-emerald-400 to-teal-500 inline-block"></span>
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="radio" name="usr-avatar-color" value="from-pink-400 to-rose-500" class="text-rose-500" />
+              <span class="w-6 h-6 rounded-lg bg-gradient-to-br from-pink-400 to-rose-500 inline-block"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-3 pt-3 border-t border-ios-border">
+          <button type="button" onclick="closeUserFormModal()" class="px-4 py-2 rounded-xl text-gray-400 hover:text-white font-bold transition-all cursor-pointer">Cancel</button>
+          <button type="submit" class="px-5 py-2.5 rounded-xl font-bold bg-gradient-to-r from-cyan-500 to-blue-600 hover:brightness-110 active:scale-95 text-slate-950 shadow-md transition-all cursor-pointer">
+            💾 Save Operator Profile
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 👑 CHANGE ADMIN & TRANSFER OWNERSHIP MODAL              -->
+  <!-- ======================================================== -->
+  <div id="modal-change-admin" class="hidden fixed inset-0 z-[97] bg-black/85 backdrop-blur-xl flex items-center justify-center p-4">
+    <div class="bento-card max-w-lg w-full p-6 space-y-4 rounded-3xl bg-slate-950/95 border border-amber-500/30 shadow-[0_0_50px_rgba(245,158,11,0.2)] relative text-left overflow-hidden">
+      
+      <!-- Top Amber Ambient Aura -->
+      <div class="absolute -top-16 left-1/2 -translate-x-1/2 w-48 h-48 bg-amber-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Header -->
+      <div class="flex items-center justify-between border-b border-ios-border pb-3 relative z-10">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-600 text-slate-950 flex items-center justify-center text-sm font-black shadow-lg shadow-amber-500/30">
+            👑
+          </div>
+          <div>
+            <h3 class="font-black text-sm sm:text-base text-ios-text tracking-tight">Change Admin / এডমিন পরিবর্তন</h3>
+            <p class="text-[11px] text-ios-subtext">দোকান মালিকের তথ্য আপডেট করুন বা অন্য কর্মচারীকে এডমিন বানান</p>
+          </div>
+        </div>
+        <button onclick="closeChangeAdminModal()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-all cursor-pointer">✕</button>
+      </div>
+
+      <!-- Segment Tabs (Update Current Admin vs Transfer Role) -->
+      <div class="flex items-center gap-1 p-1 rounded-2xl bg-slate-900 border border-white/10 relative z-10">
+        <button type="button" onclick="switchChangeAdminTab('edit')" id="tab-btn-admin-edit" class="flex-1 py-2 rounded-xl text-xs font-black transition-all bg-amber-500 text-slate-950 shadow-md flex items-center justify-center gap-1.5 cursor-pointer">
+          <span>✏️</span> <span>Update Current Admin</span>
         </button>
-        <button onclick="closeShopOwnerModal(); navigateTo('settings');" class="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-white/5 text-ios-text transition-all cursor-pointer">
-          <span class="flex items-center gap-2"><span>⚙️</span> <span>Shop Branding & Settings</span></span>
-          <span class="text-gray-400">→</span>
-        </button>
-        <button onclick="closeShopOwnerModal(); navigateTo('users');" class="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-white/5 text-ios-text transition-all cursor-pointer">
-          <span class="flex items-center gap-2"><span>👥</span> <span>Staff & Role Permissions</span></span>
-          <span class="text-gray-400">→</span>
+        <button type="button" onclick="switchChangeAdminTab('transfer')" id="tab-btn-admin-transfer" class="flex-1 py-2 rounded-xl text-xs font-bold transition-all text-gray-400 hover:text-white flex items-center justify-center gap-1.5 cursor-pointer">
+          <span>🔄</span> <span>Transfer Ownership</span>
         </button>
       </div>
 
-      <div class="border-t border-ios-border pt-3 flex items-center justify-between text-xs">
-        <span class="text-gray-400 text-[11px] font-mono">v2.0.4 • Enterprise CAD</span>
-        <button onclick="closeShopOwnerModal()" class="px-4 py-1.5 rounded-xl text-xs font-bold text-gray-400 hover:text-white border border-ios-border active:scale-95 transition-all cursor-pointer">
-          Close
-        </button>
-      </div>
+      <!-- TAB 1: Edit Current Admin -->
+      <form id="form-edit-admin" onsubmit="saveAdminProfileChanges(event)" class="space-y-3 pt-1 relative z-10">
+        <div>
+          <label class="block text-[11px] font-mono text-gray-400 mb-1 uppercase tracking-wider">Admin Full Name (দোকান মালিকের নাম) *</label>
+          <input type="text" id="admin-edit-name" required placeholder="e.g. Al-Amin Masum" class="w-full bg-slate-900/80 border border-white/10 focus:border-amber-400 rounded-2xl px-3.5 py-2.5 text-xs text-ios-text outline-none transition-all font-medium" />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[11px] font-mono text-gray-400 mb-1 uppercase tracking-wider">Admin Email (ইমেইল এড্রেস) *</label>
+            <input type="email" id="admin-edit-email" required placeholder="admin@gmail.com" class="w-full bg-slate-900/80 border border-white/10 focus:border-amber-400 rounded-2xl px-3.5 py-2.5 text-xs text-ios-text outline-none transition-all font-mono" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-mono text-gray-400 mb-1 uppercase tracking-wider">Admin Phone (মোবাইল নম্বর)</label>
+            <input type="tel" id="admin-edit-phone" placeholder="01700-112233" class="w-full bg-slate-900/80 border border-white/10 focus:border-amber-400 rounded-2xl px-3.5 py-2.5 text-xs text-ios-text outline-none transition-all font-mono" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-mono text-gray-400 mb-1 uppercase tracking-wider">Security PIN (৪-সংখ্যার গোপন পিন) *</label>
+          <input type="password" id="admin-edit-pin" required maxlength="4" pattern="[0-9]{4}" placeholder="••••" class="w-full bg-slate-900/80 border border-white/10 focus:border-amber-400 rounded-2xl px-3.5 py-2.5 text-center text-base font-black font-mono tracking-[0.4em] text-amber-300 outline-none transition-all" />
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-2.5">
+          <button type="button" onclick="closeChangeAdminModal()" class="px-4 py-2.5 rounded-xl text-xs font-bold text-gray-400 hover:text-white transition-all cursor-pointer">Cancel</button>
+          <button type="submit" class="px-5 py-2.5 rounded-xl font-black bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 text-xs shadow-md shadow-amber-500/20 active:scale-95 transition-all cursor-pointer">
+            💾 Save Admin Changes
+          </button>
+        </div>
+      </form>
+
+      <!-- TAB 2: Transfer Ownership to Another Staff -->
+      <form id="form-transfer-admin" onsubmit="transferAdminOwnership(event)" class="hidden space-y-3 pt-1 relative z-10">
+        <div class="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-200">
+          ⚠️ <b>মালিকানা হস্তান্তর সতর্কতা:</b> আপনি যদি অন্য কাউকে Super Admin বানান, তাহলে আপনার বর্তমান অ্যাকাউন্ট ম্যানেজার রোলে পরিবর্তন হবে এবং নির্বাচিত ব্যক্তি দোকানের মূল এডমিন ক্ষমতা পাবেন।
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-mono text-gray-400 mb-1 uppercase tracking-wider">Select New Admin (নতুন এডমিন নির্বাচন করুন) *</label>
+          <select id="transfer-target-staff" required class="w-full bg-slate-900/80 border border-white/10 focus:border-amber-400 rounded-2xl px-3.5 py-2.5 text-xs text-ios-text outline-none transition-all">
+            <!-- Populated dynamically with current staff/managers -->
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-mono text-gray-400 mb-1 uppercase tracking-wider">Confirm Current Owner PIN (বর্তমান পিন কোড) *</label>
+          <input type="password" id="transfer-confirm-pin" required maxlength="4" pattern="[0-9]{4}" placeholder="••••" class="w-full bg-slate-900/80 border border-white/10 focus:border-amber-400 rounded-2xl px-3.5 py-2.5 text-center text-base font-black font-mono tracking-[0.4em] text-amber-300 outline-none transition-all" />
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-2.5">
+          <button type="button" onclick="closeChangeAdminModal()" class="px-4 py-2.5 rounded-xl text-xs font-bold text-gray-400 hover:text-white transition-all cursor-pointer">Cancel</button>
+          <button type="submit" class="px-5 py-2.5 rounded-xl font-black bg-gradient-to-r from-amber-500 to-rose-600 text-slate-950 text-xs shadow-md shadow-amber-500/20 active:scale-95 transition-all cursor-pointer">
+            👑 Transfer Ownership Now
+          </button>
+        </div>
+      </form>
+
     </div>
   </div>
 
