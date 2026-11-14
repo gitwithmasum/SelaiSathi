@@ -19612,10 +19612,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
 
     function disconnectPhoneAccount() {
-      if (!confirm('আপনি কি মোবাইল নম্বর লগআউট/ডিসকানেক্ট করতে চান?')) return;
+      if (!confirm('আপনি কি মোবাইল নম্বর সাইন-আউট করতে চান?\nলোকাল ও ক্লাউড ডাটা সুরক্ষিত থাকবে, পরবর্তীতে পুনরায় সাইন-ইন করলেই তা ফেরত পাবেন।')) return;
       savePhoneAuthUser(null);
+      const modal = document.getElementById('modal-shop-owner');
+      if (modal && !modal.classList.contains('hidden')) {
+        openShopOwnerModal();
+      }
       if (window.CyberDialog) {
-        CyberDialog.alert('মোবাইল অ্যাকাউন্ট সফলভাবে ডিসকানেক্ট করা হয়েছে।', { icon: 'ℹ️', title: 'DISCONNECTED' });
+        CyberDialog.alert('মোবাইল অ্যাকাউন্ট সফলভাবে সাইন-আউট করা হয়েছে।', { icon: '🚪', title: 'SIGNED OUT' });
       }
     }
 
@@ -20203,10 +20207,34 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
 
     function disconnectGoogleAccount() {
-      if (!confirm('আপনি কি গুগল অ্যাকাউন্ট ডিসকানেক্ট করতে চান? লোকাল ডাটা সুরক্ষিত থাকবে, তবে ক্লাউড অটো-সিঙ্ক বন্ধ হয়ে যাবে।')) return;
+      if (!confirm('আপনি কি গুগল অ্যাকাউন্ট সাইন-আউট করতে চান?\nলোকাল ও ক্লাউড ডাটা সুরক্ষিত থাকবে, পরবর্তীতে পুনরায় সাইন-ইন করলেই তা ফেরত পাবেন।')) return;
       saveGoogleAuthUser(null);
+      const modal = document.getElementById('modal-shop-owner');
+      if (modal && !modal.classList.contains('hidden')) {
+        openShopOwnerModal();
+      }
       if (window.CyberDialog) {
-        CyberDialog.alert('গুগল অ্যাকাউন্ট সফলভাবে ডিসকানেক্ট করা হয়েছে।', { icon: 'ℹ️', title: 'DISCONNECTED' });
+        CyberDialog.alert('গুগল অ্যাকাউন্ট সফলভাবে সাইন-আউট করা হয়েছে।', { icon: '🚪', title: 'SIGNED OUT' });
+      }
+    }
+
+    function handleAccountSignOut() {
+      const gUser = getGoogleAuthUser();
+      const pUser = getPhoneAuthUser();
+      if (!gUser && !pUser) return;
+
+      if (!confirm('আপনি কি নিশ্চিত যে অ্যাকাউন্ট সাইন-আউট করতে চান?\nআপনার ক্লাউড ও লোকাল ডাটা সম্পূর্ণ সুরক্ষিত থাকবে, পরবর্তীতে পুনরায় সাইন-ইন করলেই তা ফেরত পাবেন।')) return;
+
+      if (gUser) saveGoogleAuthUser(null);
+      if (pUser) savePhoneAuthUser(null);
+
+      const modal = document.getElementById('modal-shop-owner');
+      if (modal && !modal.classList.contains('hidden')) {
+        openShopOwnerModal();
+      }
+
+      if (window.CyberDialog) {
+        CyberDialog.alert('সফলভাবে সাইন-আউট করা হয়েছে। আপনার ক্লাউড ডাটা নিরাপদে সংরক্ষিত রয়েছে।', { icon: '🚪', title: 'SIGNED OUT' });
       }
     }
 
@@ -20427,7 +20455,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             '<button onclick="syncToGoogleCloud()" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-cyan-500 hover:bg-cyan-600 active:scale-95 text-slate-950 flex items-center gap-1 transition-all cursor-pointer"><span>⚡</span> <span>Sync Now</span></button>' +
             '<button onclick="pullFromGoogleCloud()" class="px-2.5 py-1.5 rounded-xl text-xs font-bold text-cyan-400 hover:bg-cyan-500/10 border border-cyan-500/30 active:scale-95 transition-all cursor-pointer" title="অন্য ডিভাইসের ডাটা নামিয়ে আনুন"><span>📥</span> <span>Restore</span></button>' +
             '<button onclick="openFirebaseConfigModal()" class="px-2 py-1.5 rounded-xl text-xs font-bold text-gray-400 hover:text-white border border-ios-border active:scale-95 transition-all cursor-pointer" title="Firebase Settings">⚙️</button>' +
-            '<button onclick="disconnectGoogleAccount()" class="px-2 py-1.5 rounded-xl text-xs font-bold text-rose-400 hover:bg-rose-500/10 border border-rose-500/30 active:scale-95 transition-all cursor-pointer">Disconnect</button>' +
+            '<button onclick="disconnectGoogleAccount()" class="px-2.5 py-1.5 rounded-xl text-xs font-bold text-rose-400 hover:bg-rose-500/10 border border-rose-500/30 active:scale-95 transition-all cursor-pointer flex items-center gap-1"><span>🚪</span> <span>Sign Out</span></button>' +
           '</div>';
         } else {
           actionContainer.innerHTML = '<button onclick="openGoogleSignInDialog(); switchAuthModalTab(\'google\');" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-slate-950 hover:bg-slate-100 flex items-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer">' +
@@ -20677,7 +20705,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                     '<div class="text-[10px] text-ios-subtext font-mono truncate">' + safeText(gUser.email) + '</div>' +
                   '</div>' +
                 '</div>' +
-                '<button onclick="disconnectGoogleAccount()" class="text-[11px] text-rose-400 hover:underline px-1 cursor-pointer">Disconnect</button>' +
+                '<button onclick="handleAccountSignOut()" class="px-2.5 py-1 rounded-xl text-[11px] font-bold text-rose-400 hover:text-rose-300 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/25 transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-xs" title="Sign out from this device"><span>🚪</span> <span>Sign Out</span></button>' +
               '</div>' +
               '<div class="flex items-center gap-2 pt-1 border-t border-ios-border/50">' +
                 '<button onclick="syncToGoogleCloud()" class="flex-1 py-1.5 rounded-xl text-xs font-bold bg-cyan-500 text-slate-950 hover:bg-cyan-400 transition-all cursor-pointer active:scale-95 shadow-sm text-center">⚡ Sync Now</button>' +
@@ -20698,7 +20726,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                     '<div class="text-[10px] text-ios-subtext font-mono truncate">' + safeText(pUser.phone) + '</div>' +
                   '</div>' +
                 '</div>' +
-                '<button onclick="disconnectPhoneAccount()" class="text-[11px] text-rose-400 hover:underline px-1 cursor-pointer">Disconnect</button>' +
+                '<button onclick="handleAccountSignOut()" class="px-2.5 py-1 rounded-xl text-[11px] font-bold text-rose-400 hover:text-rose-300 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/25 transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-xs" title="Sign out from this device"><span>🚪</span> <span>Sign Out</span></button>' +
               '</div>' +
               '<div class="flex items-center gap-2 pt-1 border-t border-ios-border/50">' +
                 '<button onclick="syncToGoogleCloud()" class="flex-1 py-1.5 rounded-xl text-xs font-bold bg-purple-600 text-white hover:bg-purple-500 transition-all cursor-pointer active:scale-95 shadow-sm text-center">⚡ Sync Now</button>' +
