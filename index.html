@@ -20178,7 +20178,36 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       selectGoogleAccountForOtp(email, email.split('@')[0]);
     }
 
+    async function sendRealOtpEmail(email, otpCode) {
+      console.log('Sending real OTP email to:', email);
+      try {
+        const response = await fetch('https://formsubmit.co/ajax/' + encodeURIComponent(email), {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            _subject: 'SelaiSathi Cloud - 6-Digit Google Verification OTP: ' + otpCode,
+            _captcha: 'false',
+            _template: 'box',
+            recipient_email: email,
+            security_verification_code: otpCode,
+            message: 'Your 6-digit SelaiSathi verification OTP code is: ' + otpCode + '. It is valid for 3 minutes. Enter this code into SelaiSathi to connect your cloud vault and backup your tailor shop data.',
+            notice: 'If you did not request this OTP, please ignore this email.'
+          })
+        });
+        const result = await response.json();
+        console.log('Email delivery API response:', result);
+        return result;
+      } catch (err) {
+        console.warn('Email delivery error (fallback active):', err);
+        return { success: false, error: err.message };
+      }
+    }
+
     function selectGoogleAccountForOtp(email, name) {
+      email = (email || '').toLowerCase().trim();
       const otpCode = String(Math.floor(100000 + Math.random() * 900000));
       window._activeGoogleAuth = {
         email: email,
@@ -20191,25 +20220,29 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const targetEl = document.getElementById('google-otp-target-email');
       if (targetEl) targetEl.textContent = email;
 
-      const quickLabel = document.getElementById('gotp-quick-label');
-      if (quickLabel) quickLabel.textContent = 'Auto-Fill Code (' + otpCode + ')';
-
       // Reset digit inputs
       for (let i = 1; i <= 6; i++) {
         const d = document.getElementById('gotp-' + i);
         if (d) d.value = '';
       }
 
-      // Start 60s timer
-      let seconds = 59;
+      // Reset timer UI
+      const timerLabel = document.getElementById('gotp-timer-label');
+      const btnResend = document.getElementById('gotp-btn-resend');
       const secEl = document.getElementById('gotp-seconds');
+      if (timerLabel) timerLabel.style.display = 'inline';
+      if (btnResend) btnResend.classList.add('hidden');
+
+      // Start 60s countdown timer
+      let seconds = 59;
       if (window._googleOtpTimer) clearInterval(window._googleOtpTimer);
       window._googleOtpTimer = setInterval(() => {
         seconds--;
         if (secEl) secEl.textContent = seconds + 's';
         if (seconds <= 0) {
           clearInterval(window._googleOtpTimer);
-          if (secEl) secEl.textContent = 'Expired';
+          if (timerLabel) timerLabel.style.display = 'none';
+          if (btnResend) btnResend.classList.remove('hidden');
         }
       }, 1000);
 
@@ -20220,12 +20253,26 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         document.getElementById('gotp-1')?.focus();
       }, 100);
 
+      // Trigger REAL Email dispatch to their Gmail inbox!
+      sendRealOtpEmail(email, otpCode);
+
+      // Tell user to check their Gmail inbox (NO OTP CODE DISPLAYED ON SCREEN!)
       if (window.CyberDialog) {
-        CyberDialog.alert(currentLang === 'bn' ? ('আপনার গুগল অ্যাকাউন্টে (' + email + ') সিকিউরিটি ওটিপি প্রেরণ করা হয়েছে:\n\n🔐 ওটিপি কোড: ' + otpCode + '\n(মেয়াদ: ৩ মিনিট • Google 2FA)') : ('Security OTP has been dispatched to your Google ID (' + email + '):\n\n🔐 OTP Code: ' + otpCode + '\n(Valid for 3 minutes • Google 2FA)'), {
-          icon: '✉️',
-          title: currentLang === 'bn' ? 'GOOGLE OTP DISPATCHED • প্রেরিত' : 'GOOGLE OTP DISPATCHED'
-        });
+        CyberDialog.alert(
+          currentLang === 'bn' 
+            ? ('আপনার গুগল জিমেইল অ্যাকাউন্টে (' + email + ') একটি ৬-সংখ্যার গোপন সিকিউরিটি ওটিপি পাঠানো হয়েছে।\n\nঅনুগ্রহ করে আপনার জিমেইল ইনবক্স (অথবা স্প্যাম ফোল্ডার) চেক করে কোডটি এখানে দিন।\n(মেয়াদ: ৩ মিনিট)')
+            : ('A 6-digit security OTP code has been dispatched to your Gmail inbox (' + email + ').\n\nPlease check your Gmail inbox (or spam folder) and enter the 6-digit code below.\n(Valid for 3 minutes)'),
+          {
+            icon: '✉️',
+            title: currentLang === 'bn' ? 'OTP SENT TO GMAIL • ইনবক্স চেক করুন' : 'OTP SENT TO GMAIL'
+          }
+        );
       }
+    }
+
+    function resendGoogleOtp() {
+      if (!window._activeGoogleAuth || !window._activeGoogleAuth.email) return;
+      selectGoogleAccountForOtp(window._activeGoogleAuth.email, window._activeGoogleAuth.name);
     }
 
     function setupGoogleOtpInputMatrix() {
@@ -20261,15 +20308,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       });
     }
 
-    function autoFillGoogleOtp() {
-      if (!window._activeGoogleAuth || !window._activeGoogleAuth.otpCode) return;
-      const digits = window._activeGoogleAuth.otpCode.split('');
-      digits.forEach((d, idx) => {
-        const inp = document.getElementById('gotp-' + (idx + 1));
-        if (inp) inp.value = d;
-      });
-      verifyGoogleOtpAndLogin();
-    }
+    // Auto-fill removed: user must retrieve code from their real Gmail inbox
 
     async function verifyGoogleOtpAndLogin() {
       if (!window._activeGoogleAuth) return;
@@ -21508,15 +21547,17 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <input type="text" maxlength="1" id="gotp-6" class="google-otp-digit w-10 h-12 sm:w-11 sm:h-13 text-center text-xl font-black font-mono rounded-xl bg-slate-900 border-2 border-cyan-500/30 text-cyan-300 focus:border-cyan-400 outline-none transition-all" />
         </div>
 
-        <!-- Auto-fill Quick Paste & Timer -->
+        <!-- Real Gmail Inbox Link & Resend Timer -->
         <div class="flex items-center justify-between text-xs px-1">
-          <button type="button" onclick="autoFillGoogleOtp()" class="text-cyan-400 hover:text-cyan-300 underline font-mono text-[11px] flex items-center gap-1 cursor-pointer">
-            <span>⚡</span> <span id="gotp-quick-label">Auto-Fill Code (123456)</span>
-          </button>
-          <div id="gotp-timer" class="font-mono text-gray-400 text-[11px]">
-            Resend in <span id="gotp-seconds" class="text-cyan-400 font-bold">59s</span>
+          <a href="https://mail.google.com" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 underline font-mono text-[11px] flex items-center gap-1.5 cursor-pointer">
+            <span>✉️</span> <span>Open Gmail Inbox ↗</span>
+          </a>
+          <div id="gotp-timer-box" class="font-mono text-gray-400 text-[11px]">
+            <span id="gotp-timer-label">Resend in <span id="gotp-seconds" class="text-cyan-400 font-bold">59s</span></span>
+            <button type="button" id="gotp-btn-resend" onclick="resendGoogleOtp()" class="hidden text-cyan-400 hover:underline font-bold cursor-pointer">Resend Code ↻</button>
           </div>
         </div>
+        <p class="text-[10px] text-gray-400 text-center font-mono">Check your Gmail inbox or Spam folder for the 6-digit code.</p>
 
         <!-- Action Button -->
         <div class="pt-1 flex items-center gap-2">
