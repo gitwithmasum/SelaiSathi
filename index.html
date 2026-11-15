@@ -3499,6 +3499,15 @@ body.theme-white #view-measurements #meas-quick-matrix {
       background: #F0F9FF !important;
       border-color: #BAE6FD !important;
     }
+    body.theme-white #custom-google-input-box {
+      background: #F0F9FF !important;
+      border-color: #BAE6FD !important;
+    }
+    body.theme-white #custom-google-input-box input {
+      background: #FFFFFF !important;
+      border-color: #CBD5E1 !important;
+      color: #082F49 !important;
+    }
     body.theme-white .google-account-card:hover {
       background: #E0F2FE !important;
       border-color: #0284C7 !important;
@@ -10079,6 +10088,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         auth_modal_sub: 'Sign in with Google to protect shop data in cloud',
         picker_sub: 'Select an account to access SelaiSathi Cloud',
         auth_use_another: 'Use another account',
+        auth_switch_account: 'Change / Use Another Google ID',
+        auth_switch_account_sub: 'Switch or replace owner backup account',
+        auth_change_note: 'A 6-digit OTP will be sent to verify and set this as the new shop owner Google ID.',
+        auth_verify_switch_btn: 'Verify & Switch Account →',
         auth_enter_gmail: 'Enter your Google email:',
         auth_select_this_acc: 'Select this account →',
         auth_otp_sub: 'Security OTP code for your Google ID verification:',
@@ -10127,6 +10140,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         auth_modal_sub: 'দোকানের ডাটা ক্লাউডে সুরক্ষিত রাখতে গুগল দিয়ে সাইন-ইন করুন',
         picker_sub: 'SelaiSathi ক্লাউড অ্যাক্সেস করতে একাউন্ট সিলেক্ট করুন',
         auth_use_another: 'অন্য জিমেইল ব্যবহার করুন',
+        auth_switch_account: 'গুগল অ্যাকাউন্ট পরিবর্তন / অন্য আইডি',
+        auth_switch_account_sub: 'মালিকের ক্লাউড ব্যাকআপ অ্যাকাউন্ট পরিবর্তন করুন',
+        auth_change_note: 'নতুন গুগল আইডি সেট করতে ৬-সংখ্যার সিকিউরিটি ওটিপি কোড দিয়ে ভেরিফাই করা হবে।',
+        auth_verify_switch_btn: 'ভেরিফাই ও অ্যাকাউন্ট পরিবর্তন করুন →',
         auth_enter_gmail: 'আপনার গুগল ইমেইল দিন:',
         auth_select_this_acc: 'এই একাউন্ট নির্বাচন করুন →',
         auth_otp_sub: 'আপনার গুগল আইডি ভেরিফিকেশনের জন্য ওটিপি কোড:',
@@ -18329,7 +18346,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       name: 'SELAISATHI TAILORS',
       branch: 'New Market Branch',
       phone: '01700-112233',
-      email: 'info@selaisathi.com',
+      email: 'sciencefiction844@gmail.com',
       address: 'Shop 12, New Market, Dhaka',
       tagline: 'স্মার্ট দরজি ও নিখুঁত ফিটিং ব্যবস্থা',
       printerType: '58mm',
@@ -18349,9 +18366,35 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       tmplDue: 'সম্মানিত {customer} ভাই/ম্যাডাম, {shop} থেকে শুভেচ্ছা। অর্ডার নং {orderId}-এর বকেয়া বাকি আছে {due}। ডেলিভারির পূর্বে পরিশোধের অনুরোধ জানানো হলো।'
     };
 
+    function getOwnerGoogleEmail() {
+      const gUser = getGoogleAuthUser();
+      if (gUser && gUser.email) return gUser.email.toLowerCase().trim();
+      const saved = localStorage.getItem('selaisathi_owner_google_email');
+      if (saved && saved.includes('@')) return saved.toLowerCase().trim();
+      const shop = JSON.parse(localStorage.getItem('selaisathi_shop_settings') || '{}');
+      if (shop.email && shop.email.includes('@') && !shop.email.includes('selaisathi.com')) return shop.email.toLowerCase().trim();
+      return 'sciencefiction844@gmail.com';
+    }
+
+    function setOwnerGoogleEmail(email) {
+      if (!email || !email.includes('@')) return;
+      email = email.toLowerCase().trim();
+      localStorage.setItem('selaisathi_owner_google_email', email);
+      localStorage.setItem('selaisathi_last_google_email', email);
+      try {
+        const shop = getShopSettings();
+        shop.email = email;
+        saveShopSettings(shop);
+      } catch(e) {}
+    }
+
     function getShopSettings() {
       try {
         const saved = JSON.parse(localStorage.getItem('selaisathi_shop_settings') || '{}');
+        if (saved.email === 'info@selaisathi.com') {
+          saved.email = getOwnerGoogleEmail();
+          localStorage.setItem('selaisathi_shop_settings', JSON.stringify(saved));
+        }
         return { ...DEFAULT_SHOP_SETTINGS, ...saved };
       } catch(e) {
         return DEFAULT_SHOP_SETTINGS;
@@ -19725,14 +19768,18 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
     function getActiveCloudKey() {
       const gUser = getGoogleAuthUser();
-      const pUser = getPhoneAuthUser();
       if (gUser && gUser.email) {
-        return 'google_' + (gUser.uid || gUser.email.replace(/[^a-zA-Z0-9]/g, '_'));
+        return 'google_' + gUser.email.toLowerCase().trim().replace(/[^a-z0-9]/g, '_');
       }
+      const ownerEmail = getOwnerGoogleEmail();
+      if (ownerEmail) {
+        return 'google_' + ownerEmail.toLowerCase().trim().replace(/[^a-z0-9]/g, '_');
+      }
+      const pUser = getPhoneAuthUser();
       if (pUser && pUser.phone) {
         return 'phone_' + pUser.phone.replace(/\D/g, '');
       }
-      return null;
+      return 'google_sciencefiction844_gmail_com';
     }
 
     function getFirebaseConfig() {
@@ -20024,7 +20071,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const gUser = getGoogleAuthUser();
       const emailInput = document.getElementById('g-signin-email');
       const nameInput = document.getElementById('g-signin-name');
-      if (emailInput) emailInput.value = gUser ? gUser.email : (getShopSettings().email || '');
+      if (emailInput) emailInput.value = getOwnerGoogleEmail();
       if (nameInput) nameInput.value = gUser ? gUser.name : (getBrandName() || 'Shop Owner');
       document.getElementById('modal-google-signin')?.classList.remove('hidden');
     }
@@ -20073,43 +20120,42 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (!container) return;
 
       const shop = getShopSettings();
-      const shopName = shop.shopName || 'SELAISATHI TAILORS';
-      const defaultEmail = 'sciencefiction844@gmail.com';
-      const lastEmail = localStorage.getItem('selaisathi_last_google_email') || defaultEmail;
+      const shopName = shop.name || shop.shopName || 'SELAISATHI TAILORS';
+      const ownerEmail = getOwnerGoogleEmail();
+      const photoUrl = getOwnerCustomPhoto();
 
-      const accounts = [
-        {
-          name: shopName,
-          email: lastEmail,
-          role: 'Shop Owner Account',
-          initials: 'SO'
-        }
-      ];
-
-      // If there is an alternate email registered
-      if (shop.email && shop.email.includes('@') && shop.email !== lastEmail) {
-        accounts.push({
-          name: 'SelaiSathi Cloud Identity',
-          email: shop.email,
-          role: 'Cloud Backup ID',
-          initials: 'SC'
-        });
+      let avatarInner = '';
+      if (photoUrl) {
+        avatarInner = '<img src="' + photoUrl + '" alt="Owner" class="w-full h-full object-cover rounded-2xl" />';
+      } else {
+        const initials = shopName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'SO';
+        avatarInner = initials;
       }
 
-      container.innerHTML = accounts.map(acc => 
-        '<div onclick="selectGoogleAccountForOtp(\'' + acc.email + '\', \'' + safeText(acc.name) + '\')" class="google-account-card p-3 rounded-2xl bg-white/[0.04] hover:bg-cyan-500/10 border border-white/10 hover:border-cyan-400/40 transition-all cursor-pointer flex items-center justify-between gap-3 group active:scale-[0.98]">' +
-          '<div class="flex items-center gap-3 min-w-0">' +
-            '<div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-600 via-teal-600 to-emerald-500 text-white font-black flex items-center justify-center text-sm shadow-md shrink-0 border border-white/20">' +
-              acc.initials +
+      // Single Unified Primary Shop Owner Google Account
+      container.innerHTML = 
+        '<div onclick="selectGoogleAccountForOtp(\'' + ownerEmail + '\', \'' + safeText(shopName) + '\')" class="google-account-card p-3.5 rounded-2xl bg-cyan-500/10 hover:bg-cyan-500/20 border-2 border-cyan-400/50 hover:border-cyan-300 transition-all cursor-pointer flex items-center justify-between gap-3 group active:scale-[0.98] shadow-lg shadow-cyan-500/15 relative overflow-hidden">' +
+          '<div class="absolute -right-8 -top-8 w-24 h-24 bg-cyan-400/10 rounded-full blur-xl pointer-events-none"></div>' +
+          '<div class="flex items-center gap-3 min-w-0 relative z-10">' +
+            '<div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-cyan-600 via-teal-600 to-emerald-500 text-white font-black flex items-center justify-center text-sm shadow-md shrink-0 border border-white/25 overflow-hidden">' +
+              avatarInner +
             '</div>' +
             '<div class="min-w-0">' +
-              '<div class="text-xs font-bold text-white group-hover:text-cyan-300 transition-colors truncate">' + safeText(acc.name) + '</div>' +
-              '<div class="text-[11px] text-gray-400 font-mono truncate">' + safeText(acc.email) + '</div>' +
+              '<div class="text-xs font-black text-white group-hover:text-cyan-300 transition-colors truncate flex items-center gap-1.5">' +
+                '<span>' + safeText(shopName) + '</span>' +
+                '<span class="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/25 text-cyan-300 border border-cyan-400/40 tracking-wider">OWNER</span>' +
+              '</div>' +
+              '<div class="text-[11px] text-cyan-300 font-mono font-medium truncate mt-0.5 flex items-center gap-1">' +
+                '<span>' + safeText(ownerEmail) + '</span>' +
+              '</div>' +
+              '<div class="text-[10px] text-gray-400 truncate mt-0.5">' + (currentLang === 'bn' ? 'দোকানের মূল ক্লাউড ব্যাকআপ অ্যাকাউন্ট' : 'Primary shop cloud vault account') + '</div>' +
             '</div>' +
           '</div>' +
-          '<span class="text-[9px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 shrink-0 font-bold">' + acc.role + '</span>' +
-        '</div>'
-      ).join('');
+          '<div class="flex flex-col items-end gap-1 shrink-0 relative z-10">' +
+            '<span class="text-[9px] font-mono px-2 py-0.5 rounded-md bg-cyan-500/25 text-cyan-300 border border-cyan-400/50 font-bold tracking-wider">VERIFY & SYNC</span>' +
+            '<span class="text-xs text-cyan-400 group-hover:translate-x-1 transition-transform font-bold flex items-center gap-0.5">OTP <span>→</span></span>' +
+          '</div>' +
+        '</div>';
     }
 
     function toggleCustomGoogleInput() {
@@ -20263,11 +20309,13 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         uid: 'gid_' + authData.email.replace(/[^a-zA-Z0-9]/g, '_'),
         email: authData.email,
         name: authData.name || 'Shop Owner',
-        picture: '',
+        picture: getOwnerCustomPhoto() || '',
         connectedAt: new Date().toISOString(),
         provider: 'Google 2FA Verified'
       };
 
+      // Set as Primary Shop Owner Google Account across the entire app
+      setOwnerGoogleEmail(authData.email);
       saveGoogleAuthUser(user);
       closeGoogleSignInDialog();
       closeShopOwnerModal();
@@ -20277,10 +20325,15 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       }
 
       if (window.CyberDialog) {
-        CyberDialog.alert(currentLang === 'bn' ? ('অভিনন্দন ' + user.name + '! আপনার গুগল আইডি (' + user.email + ') ওটিপি ভেরিফিকেশনের মাধ্যমে সফলভাবে কানেক্ট হয়েছে। সমস্ত ডাটা ক্লাউডে সুরক্ষিত থাকবে।') : ('Congratulations ' + user.name + '! Your Google account (' + user.email + ') has been verified and connected. All shop data is safely synced to the cloud.'), {
-          icon: '🟢',
-          title: currentLang === 'bn' ? 'GOOGLE 2FA LOGIN SUCCESS • সফল' : 'GOOGLE 2FA LOGIN SUCCESS'
-        });
+        CyberDialog.alert(
+          currentLang === 'bn'
+            ? ('অভিনন্দন ' + user.name + '! আপনার গুগল আইডি (' + user.email + ') সফলভাবে ভেরিফাই ও শপ ওনার অ্যাকাউন্ট হিসেবে যুক্ত হয়েছে। সমস্ত ক্লাউড ব্যাকআপ এই অ্যাকাউন্টে সংরক্ষিত হবে।')
+            : ('Congratulations ' + user.name + '! Your Google ID (' + user.email + ') has been verified and set as the Primary Shop Owner Account. All cloud backups are synced to this account across all devices.'),
+          {
+            icon: '🟢',
+            title: currentLang === 'bn' ? 'GOOGLE ACCOUNT CONNECTED • সফল' : 'GOOGLE ACCOUNT CONNECTED'
+          }
+        );
       }
 
       // Check & Restore / Sync from Cloud
@@ -20844,7 +20897,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                     '<div class="text-[10px] text-ios-subtext font-mono truncate">' + safeText(gUser.email) + '</div>' +
                   '</div>' +
                 '</div>' +
-                '<button onclick="handleAccountSignOut()" class="px-2.5 py-1 rounded-xl text-[11px] font-bold text-rose-400 hover:text-rose-300 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/25 transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-xs" title="Sign out from this device"><span>🚪</span> <span>Sign Out</span></button>' +
+                '<div class="flex items-center gap-1.5"><button onclick="closeShopOwnerModal(); openGoogleAccountPicker();" class="px-2.5 py-1 rounded-xl text-[11px] font-bold text-cyan-400 hover:text-cyan-300 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/25 transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-xs" title="' + (currentLang === 'bn' ? 'গুগল অ্যাকাউন্ট পরিবর্তন বা সুইচ করুন' : 'Change or switch Google account') + '"><span>🔄</span> <span>' + (currentLang === 'bn' ? 'অ্যাকাউন্ট পরিবর্তন' : 'Switch Account') + '</span></button><button onclick="handleAccountSignOut()" class="px-2.5 py-1 rounded-xl text-[11px] font-bold text-rose-400 hover:text-rose-300 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/25 transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-xs" title="' + (currentLang === 'bn' ? 'এই ডিভাইস থেকে সাইন আউট করুন' : 'Sign out from this device') + '"><span>🚪</span> <span>' + (currentLang === 'bn' ? 'সাইন আউট' : 'Sign Out') + '</span></button></div>' +
               '</div>' +
               '<div class="flex items-center gap-2 pt-1 border-t border-ios-border/50">' +
                 '<button onclick="syncToGoogleCloud()" class="flex-1 py-1.5 rounded-xl text-xs font-bold bg-cyan-500 text-slate-950 hover:bg-cyan-400 transition-all cursor-pointer active:scale-95 shadow-sm text-center">⚡ Sync Now</button>' +
@@ -21395,21 +21448,31 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <!-- Populated dynamically via JS -->
         </div>
 
-        <!-- Use Another Account Option -->
-        <div onclick="toggleCustomGoogleInput()" class="google-account-card p-3 rounded-2xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 transition-all cursor-pointer flex items-center gap-3">
-          <div class="w-9 h-9 rounded-xl bg-white/5 text-gray-300 flex items-center justify-center text-base font-bold border border-white/10 shrink-0">
-            +
+        <!-- Change / Switch Google Account Option -->
+        <div onclick="toggleCustomGoogleInput()" class="google-account-card p-3 rounded-2xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 hover:border-cyan-500/40 transition-all cursor-pointer flex items-center justify-between gap-3 group">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-white/5 text-gray-300 group-hover:text-cyan-300 group-hover:bg-cyan-500/10 flex items-center justify-center text-sm font-bold border border-white/10 group-hover:border-cyan-500/30 shrink-0 transition-colors">
+              🔄
+            </div>
+            <div>
+              <div class="text-xs font-bold text-gray-300 group-hover:text-white transition-colors" data-i18n="auth_switch_account">Change / Use Another Google ID</div>
+              <div class="text-[10px] text-gray-500" data-i18n="auth_switch_account_sub">Switch or replace owner backup account</div>
+            </div>
           </div>
-          <div class="text-xs font-bold text-gray-300" data-i18n="auth_use_another">Use another account</div>
+          <span class="text-xs text-gray-400 group-hover:text-cyan-300 transition-colors">✎</span>
         </div>
 
         <!-- Hidden input for custom Google email -->
-        <div id="custom-google-input-box" class="hidden p-3 rounded-2xl bg-white/[0.02] border border-cyan-500/30 space-y-2">
-          <label class="block text-[11px] font-mono text-cyan-400" data-i18n="auth_enter_gmail">Enter your Google email:</label>
-          <input type="email" id="custom-picker-email" placeholder="example@gmail.com" class="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-xs font-mono text-white outline-none" />
-          <button type="button" onclick="submitCustomPickerAccount()" class="w-full py-2 rounded-xl text-xs font-bold bg-cyan-500 text-slate-950 hover:bg-cyan-400 transition-all cursor-pointer">
-            <span data-i18n="auth_select_this_acc">Select this account →</span>
-          </button>
+        <div id="custom-google-input-box" class="hidden p-3.5 rounded-2xl bg-slate-900/95 border border-cyan-500/40 space-y-2.5 shadow-xl">
+          <label class="block text-[11px] font-mono text-cyan-300" data-i18n="auth_enter_gmail">Enter new Google account (Gmail):</label>
+          <input type="email" id="custom-picker-email" placeholder="new.owner@gmail.com" class="w-full bg-slate-950 border border-white/20 focus:border-cyan-400 rounded-xl px-3.5 py-2.5 text-xs font-mono text-white outline-none" />
+          <p class="text-[10px] text-gray-400" data-i18n="auth_change_note">A 6-digit OTP will be sent to verify and set this as the new shop owner Google ID.</p>
+          <div class="flex items-center gap-2 pt-1">
+            <button type="button" onclick="submitCustomPickerAccount()" class="flex-1 py-2 rounded-xl text-xs font-bold bg-cyan-500 text-slate-950 hover:bg-cyan-400 transition-all cursor-pointer shadow-md">
+              <span data-i18n="auth_verify_switch_btn">Verify & Switch Account →</span>
+            </button>
+            <button type="button" onclick="toggleCustomGoogleInput()" class="px-3 py-2 rounded-xl text-xs text-gray-400 hover:text-white border border-white/10 transition-colors">Cancel</button>
+          </div>
         </div>
 
         <div class="pt-2 flex items-center justify-between border-t border-ios-border text-xs">
