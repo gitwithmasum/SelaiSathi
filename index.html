@@ -2326,9 +2326,9 @@
       position: fixed;
       inset: 0;
       z-index: 99999999;
-      background: rgba(3, 7, 18, 0.72);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: rgba(2, 6, 18, 0.78);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -2342,20 +2342,20 @@
     .cyber-dialog-card {
       position: relative;
       width: 100%;
-      max-width: 440px;
-      background: linear-gradient(155deg, rgba(13, 22, 41, 0.96) 0%, rgba(6, 12, 26, 0.98) 100%);
-      border: 1px solid rgba(34, 211, 238, 0.38);
-      border-radius: 24px;
-      padding: 22px;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 40px rgba(34, 211, 238, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      max-width: 390px;
+      background: linear-gradient(155deg, rgba(8, 14, 28, 0.96) 0%, rgba(3, 7, 16, 0.98) 100%);
+      border: 1px solid rgba(34, 211, 238, 0.28);
+      border-radius: 26px;
+      padding: 20px 22px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9), 0 0 35px rgba(6, 182, 212, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.1);
       color: #f1f6ff;
       font-family: Inter, "Hind Siliguri", sans-serif;
       overflow: hidden;
       transform-origin: center center;
-      animation: cyberDialogScaleIn 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: cyberDialogScaleIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     }
     @keyframes cyberDialogScaleIn {
-      from { opacity: 0; transform: scale(0.9) translateY(12px); }
+      from { opacity: 0; transform: scale(0.92) translateY(10px); }
       to { opacity: 1; transform: scale(1) translateY(0); }
     }
     .cyber-dialog-glow-bar {
@@ -2363,10 +2363,10 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #06b6d4, #3b82f6, #10b981, #a855f7);
+      height: 2px;
+      background: linear-gradient(90deg, #06b6d4, #3b82f6, #a855f7, #06b6d4);
       background-size: 200% 100%;
-      animation: cyberGlowBarMove 3s linear infinite;
+      animation: cyberGlowBarMove 2.5s linear infinite;
     }
     @keyframes cyberGlowBarMove {
       0% { background-position: 0% 50%; }
@@ -2374,37 +2374,37 @@
     }
     .cyber-dialog-dot {
       display: inline-block;
-      width: 8px;
-      height: 8px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background: #22d3ee;
-      box-shadow: 0 0 8px #22d3ee;
+      box-shadow: 0 0 10px #22d3ee;
       animation: cyberPulseDot 1.5s infinite;
     }
     @keyframes cyberPulseDot {
       0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.85); }
+      50% { opacity: 0.35; transform: scale(0.8); }
     }
     .cyber-dialog-title {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 800;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: #38bdf8;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     }
     .cyber-dialog-close {
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 9px;
-      background: rgba(255, 255, 255, 0.06);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.08);
       color: #94a3b8;
       cursor: pointer;
-      font-size: 12px;
+      font-size: 10px;
       transition: all 0.15s;
     }
     .cyber-dialog-close:hover {
@@ -2414,32 +2414,32 @@
     }
     .cyber-dialog-icon-badge {
       flex-shrink: 0;
-      width: 52px;
-      height: 52px;
-      border-radius: 18px;
-      background: radial-gradient(circle, rgba(34, 211, 238, 0.2) 0%, rgba(14, 23, 42, 0.4) 100%);
-      border: 1px solid rgba(34, 211, 238, 0.45);
-      box-shadow: 0 0 20px rgba(34, 211, 238, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: radial-gradient(circle at 35% 35%, rgba(34, 211, 238, 0.2) 0%, rgba(14, 23, 42, 0.6) 100%);
+      border: 1px solid rgba(34, 211, 238, 0.35);
+      box-shadow: 0 0 18px rgba(34, 211, 238, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
+      font-size: 20px;
     }
     .cyber-dialog-icon-badge.is-danger {
-      background: radial-gradient(circle, rgba(239, 68, 68, 0.25) 0%, rgba(14, 23, 42, 0.4) 100%);
+      background: radial-gradient(circle at 35% 35%, rgba(239, 68, 68, 0.25) 0%, rgba(14, 23, 42, 0.5) 100%);
       border-color: rgba(239, 68, 68, 0.5);
-      box-shadow: 0 0 20px rgba(239, 68, 68, 0.35);
+      box-shadow: 0 0 18px rgba(239, 68, 68, 0.3);
     }
     .cyber-dialog-icon-badge.is-success {
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, rgba(14, 23, 42, 0.4) 100%);
+      background: radial-gradient(circle at 35% 35%, rgba(16, 185, 129, 0.25) 0%, rgba(14, 23, 42, 0.5) 100%);
       border-color: rgba(16, 185, 129, 0.5);
-      box-shadow: 0 0 20px rgba(16, 185, 129, 0.35);
+      box-shadow: 0 0 18px rgba(16, 185, 129, 0.3);
     }
     .cyber-dialog-message {
-      font-size: 14px;
-      line-height: 1.6;
-      font-weight: 600;
-      color: #e2e8f0;
+      font-size: 13px;
+      line-height: 1.55;
+      font-weight: 500;
+      color: #cbd5e1;
       word-break: break-word;
     }
     .cyber-btn {
@@ -2447,69 +2447,71 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      padding: 9px 18px;
-      border-radius: 13px;
-      font-size: 13px;
+      padding: 8px 20px;
+      border-radius: 9999px;
+      font-size: 12px;
       font-weight: 700;
       cursor: pointer;
       user-select: none;
-      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .cyber-btn-primary {
       background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%);
       border: 1px solid rgba(255, 255, 255, 0.25);
-      color: #ffffff;
-      box-shadow: 0 4px 18px rgba(6, 182, 212, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      color: #020617;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.35);
     }
     .cyber-btn-primary:hover {
-      box-shadow: 0 6px 24px rgba(6, 182, 212, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      box-shadow: 0 0 30px rgba(6, 182, 212, 0.55);
       transform: translateY(-1px);
     }
     .cyber-btn-danger {
       background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
       border: 1px solid rgba(255, 255, 255, 0.25);
       color: #ffffff;
-      box-shadow: 0 4px 18px rgba(239, 68, 68, 0.45);
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.35);
     }
     .cyber-btn-danger:hover {
-      box-shadow: 0 6px 24px rgba(239, 68, 68, 0.65);
+      box-shadow: 0 0 30px rgba(239, 68, 68, 0.55);
       transform: translateY(-1px);
     }
     .cyber-btn-ghost {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #cbd5e1;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #94a3b8;
     }
     .cyber-btn-ghost:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
       color: #ffffff;
     }
 
     /* White Theme Dialog Overrides */
     body.theme-white .cyber-dialog-overlay {
-      background: rgba(25, 35, 30, 0.45) !important;
+      background: rgba(15, 23, 42, 0.4) !important;
     }
     body.theme-white .cyber-dialog-card {
       background: rgba(255, 255, 255, 0.98) !important;
       border: 1px solid #7DD3FC !important;
-      box-shadow: 0 25px 60px rgba(37, 51, 44, 0.18), 0 0 0 1px rgba(16, 185, 129, 0.15) !important;
+      box-shadow: 0 25px 60px rgba(12, 35, 64, 0.12), 0 0 25px rgba(56, 189, 248, 0.15) !important;
       color: #0C2340 !important;
     }
     body.theme-white .cyber-dialog-border {
-      border-color: #E6EDE8 !important;
+      border-color: #E2E8F0 !important;
     }
     body.theme-white .cyber-dialog-title {
-      color: #10B981 !important;
+      color: #0284C7 !important;
     }
     body.theme-white .cyber-dialog-dot {
-      background: #10B981 !important;
-      box-shadow: 0 0 8px #10B981 !important;
+      background: #0284C7 !important;
+      box-shadow: 0 0 8px #0284C7 !important;
     }
     body.theme-white .cyber-dialog-close {
-      background: #E0F2FE !important;
-      border-color: #7DD3FC !important;
-      color: #556B5F !important;
+      background: #F1F5F9 !important;
+      border-color: #E2E8F0 !important;
+      color: #64748B !important;
     }
     body.theme-white .cyber-dialog-close:hover {
       background: #FEE2E2 !important;
@@ -2517,25 +2519,26 @@
       color: #DC2626 !important;
     }
     body.theme-white .cyber-dialog-icon-badge {
-      background: radial-gradient(circle, #E8F5EE 0%, #FFFFFF 100%) !important;
-      border-color: #A7F3D0 !important;
-      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.15) !important;
+      background: radial-gradient(circle at 35% 35%, #E0F2FE 0%, #FFFFFF 100%) !important;
+      border-color: #7DD3FC !important;
+      box-shadow: 0 4px 16px rgba(2, 132, 199, 0.15) !important;
     }
     body.theme-white .cyber-dialog-message {
       color: #0C2340 !important;
     }
     body.theme-white .cyber-btn-primary {
-      background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important;
-      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.35) !important;
+      background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%) !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 16px rgba(2, 132, 199, 0.3) !important;
     }
     body.theme-white .cyber-btn-ghost {
-      background: #E0F2FE !important;
-      border-color: #7DD3FC !important;
-      color: #4A5B52 !important;
+      background: #F1F5F9 !important;
+      border-color: #E2E8F0 !important;
+      color: #475569 !important;
     }
     body.theme-white .cyber-btn-ghost:hover {
-      background: #E5EDE8 !important;
-      color: #1A2E22 !important;
+      background: #E2E8F0 !important;
+      color: #0F172A !important;
     }
 
     /* ======================================================== */
@@ -3512,8 +3515,13 @@ body.theme-white #view-measurements #meas-quick-matrix {
       background: #E0F2FE !important;
       border-color: #0284C7 !important;
     }
-    body.theme-white .google-account-card .text-white {
+    body.theme-white .google-account-card .text-white,
+    body.theme-white #auth-step-otp .text-white {
       color: #082F49 !important;
+    }
+    body.theme-white #auth-step-otp .bg-cyan-500\/10 {
+      background-color: #E0F2FE !important;
+      border-color: #7DD3FC !important;
     }
     body.theme-white .google-otp-digit {
       background: #F8FAFC !important;
@@ -3523,6 +3531,7 @@ body.theme-white #view-measurements #meas-quick-matrix {
     body.theme-white .google-otp-digit:focus {
       border-color: #0284C7 !important;
       background: #FFFFFF !important;
+      box-shadow: 0 0 16px rgba(2, 132, 199, 0.25) !important;
     }
     body.theme-white #sidebar-owner-avatar {
       border: 2px solid #FFFFFF !important;
@@ -10027,17 +10036,17 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       </div>
 
       <!-- Body with Cyber Icon and Message -->
-      <div class="flex items-start gap-4 py-4">
+      <div class="flex items-start gap-3.5 py-4">
         <div class="cyber-dialog-icon-badge" id="cyber-dialog-icon">⚡</div>
-        <div class="flex-1 space-y-1">
+        <div class="flex-1 min-w-0 space-y-1">
           <div class="cyber-dialog-message" id="cyber-dialog-message">Notification message</div>
         </div>
       </div>
 
       <!-- Action Buttons -->
       <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-white/10 cyber-dialog-border" id="cyber-dialog-actions">
-        <button type="button" class="cyber-btn cyber-btn-ghost hidden" id="cyber-dialog-cancel" onclick="CyberDialog.handleCancel()">বাতিল (Cancel)</button>
-        <button type="button" class="cyber-btn cyber-btn-primary" id="cyber-dialog-ok" onclick="CyberDialog.handleOk()">ঠিক আছে (OK) ✓</button>
+        <button type="button" class="cyber-btn cyber-btn-ghost hidden" id="cyber-dialog-cancel" onclick="CyberDialog.handleCancel()">Cancel</button>
+        <button type="button" class="cyber-btn cyber-btn-primary" id="cyber-dialog-ok" onclick="CyberDialog.handleOk()">OK ✓</button>
       </div>
     </div>
   </div>
@@ -10094,7 +10103,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         auth_verify_switch_btn: 'Verify & Switch Account →',
         auth_enter_gmail: 'Enter your Google email:',
         auth_select_this_acc: 'Select this account →',
-        auth_otp_sub: 'Security OTP code for your Google ID verification:',
+        auth_otp_sub: 'Enter the 6-digit OTP code sent to your Gmail',
+        auth_otp_sent_to: 'Code Sent To:',
         backups_desc: 'Google Cloud sync, automated backup schedules, and offline database security.',
         btn_sync_now: 'Sync Now',
         users_tab_operators: 'Operators List',
@@ -10146,7 +10156,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         auth_verify_switch_btn: 'ভেরিফাই ও অ্যাকাউন্ট পরিবর্তন করুন →',
         auth_enter_gmail: 'আপনার গুগল ইমেইল দিন:',
         auth_select_this_acc: 'এই একাউন্ট নির্বাচন করুন →',
-        auth_otp_sub: 'আপনার গুগল আইডি ভেরিফিকেশনের জন্য ওটিপি কোড:',
+        auth_otp_sub: 'আপনার জিমেইলে প্রেরিত ৬-সংখ্যার ওটিপি কোডটি দিন',
+        auth_otp_sent_to: 'কোড পাঠানো হয়েছে:',
         backups_desc: 'গুগল ক্লাউড সিঙ্ক, স্বয়ংক্রিয় ব্যাকআপ শিডিউল এবং অফলাইন ডাটাবেজ নিরাপত্তা।',
         btn_sync_now: 'সিঙ্ক করুন',
         users_tab_operators: 'কর্মী তালিকা',
@@ -17659,7 +17670,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             this.cancelBtn.style.display = 'none';
           }
           if (this.okBtn) {
-            this.okBtn.textContent = options.okText || (isBnMode ? 'ঠিক আছে (OK) ✓' : 'OK ✓');
+            this.okBtn.textContent = options.okText || (isBnMode ? 'ঠিক আছে ✓' : 'OK ✓');
             this.okBtn.className = 'cyber-btn cyber-btn-primary';
           }
 
@@ -17691,13 +17702,13 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           }
 
           if (this.cancelBtn) {
-            this.cancelBtn.textContent = options.cancelText || (isBnMode ? 'বাতিল (Cancel)' : 'Cancel');
+            this.cancelBtn.textContent = options.cancelText || (isBnMode ? 'বাতিল' : 'Cancel');
             this.cancelBtn.classList.remove('hidden');
             this.cancelBtn.style.display = 'inline-flex';
           }
 
           if (this.okBtn) {
-            this.okBtn.textContent = options.confirmText || (isDanger ? (isBnMode ? 'হ্যাঁ, ডিলিট করুন ✓' : 'Yes, Delete ✓') : (isBnMode ? 'ঠিক আছে (OK) ✓' : 'OK ✓'));
+            this.okBtn.textContent = options.confirmText || (isDanger ? (isBnMode ? 'হ্যাঁ, ডিলিট করুন ✓' : 'Yes, Delete ✓') : (isBnMode ? 'ঠিক আছে ✓' : 'Confirm ✓'));
             this.okBtn.className = 'cyber-btn ' + (isDanger ? 'cyber-btn-danger' : 'cyber-btn-primary');
           }
 
@@ -20105,8 +20116,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         if (title) title.textContent = currentLang === 'bn' ? 'গুগল অ্যাকাউন্ট নির্বাচন' : 'Choose a Google Account';
         if (sub) sub.textContent = currentLang === 'bn' ? 'লগইন করতে আপনার গুগল অ্যাকাউন্ট নির্বাচন করুন' : 'Select an account to access SelaiSathi Cloud';
       } else if (step === 'otp') {
-        if (title) title.textContent = 'Google 2-Step Verification';
-        if (sub) sub.textContent = currentLang === 'bn' ? 'আপনার অ্যাকাউন্টের ওটিপি ভেরিফিকেশন সম্পন্ন করুন' : 'Security OTP code for your Google ID verification:';
+        if (title) title.textContent = currentLang === 'bn' ? 'গুগল ২-ধাপ যাচাইকরণ' : 'Google 2-Step Verification';
+        if (sub) sub.textContent = currentLang === 'bn' ? 'আপনার জিমেইলে প্রেরিত ৬-সংখ্যার ওটিপি কোডটি দিন' : 'Enter the 6-digit OTP code sent to your Gmail';
       }
     }
 
@@ -20260,11 +20271,12 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (window.CyberDialog) {
         CyberDialog.alert(
           currentLang === 'bn' 
-            ? ('আপনার গুগল জিমেইল অ্যাকাউন্টে (' + email + ') একটি ৬-সংখ্যার গোপন সিকিউরিটি ওটিপি পাঠানো হয়েছে।\n\nঅনুগ্রহ করে আপনার জিমেইল ইনবক্স (অথবা স্প্যাম ফোল্ডার) চেক করে কোডটি এখানে দিন।\n(মেয়াদ: ৩ মিনিট)')
-            : ('A 6-digit security OTP code has been dispatched to your Gmail inbox (' + email + ').\n\nPlease check your Gmail inbox (or spam folder) and enter the 6-digit code below.\n(Valid for 3 minutes)'),
+            ? ('আপনার গুগল জিমেইলে ৬-সংখ্যার সিকিউরিটি ওটিপি কোড পাঠানো হয়েছে:<div class="my-2.5 px-3 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 font-mono text-xs text-cyan-300 font-bold text-center">' + email + '</div><div class="text-[11px] text-gray-400">ইনবক্স বা স্প্যাম ফোল্ডার চেক করে কোডটি দিন। (মেয়াদ ৩ মিনিট)</div>')
+            : ('A 6-digit security OTP has been dispatched to:<div class="my-2.5 px-3 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 font-mono text-xs text-cyan-300 font-bold text-center">' + email + '</div><div class="text-[11px] text-gray-400">Check your Gmail inbox or spam folder. (Valid for 3 mins)</div>'),
           {
             icon: '✉️',
-            title: currentLang === 'bn' ? 'OTP SENT TO GMAIL • ইনবক্স চেক করুন' : 'OTP SENT TO GMAIL'
+            title: currentLang === 'bn' ? 'OTP SENT TO GMAIL • ইনবক্স চেক করুন' : 'OTP SENT TO GMAIL',
+            okText: currentLang === 'bn' ? 'কোড দিন →' : 'Got it ✓'
           }
         );
       }
@@ -21526,45 +21538,48 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <!-- STEP 3: GOOGLE OTP VERIFICATION               -->
       <!-- ============================================== -->
       <div id="auth-step-otp" class="hidden space-y-4 pt-1 relative z-10 text-center">
-        <div class="space-y-1">
-          <div class="w-10 h-10 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center text-lg mx-auto shadow-inner">
-            🛡️
-          </div>
-          <h4 class="font-black text-sm text-ios-text tracking-wide">Google 2-Step Verification</h4>
-          <p class="text-[11px] text-ios-subtext" id="otp-sub" data-i18n="auth_otp_sub">Security OTP code for your Google ID verification:</p>
-          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-xs font-mono font-bold text-cyan-300">
-            <span>✉️</span> <span id="google-otp-target-email">sciencefiction844@gmail.com</span>
+        <!-- Sleek Holographic Email Target Badge -->
+        <div class="flex items-center justify-center pt-1">
+          <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-xs font-mono text-cyan-300 shadow-[0_0_18px_rgba(6,182,212,0.18)] backdrop-blur-md">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400 shadow-[0_0_8px_#22d3ee]"></span>
+            </span>
+            <span class="text-gray-400 text-[11px]" data-i18n="auth_otp_sent_to">Code Sent To:</span>
+            <span id="google-otp-target-email" class="font-bold text-white tracking-wide">sciencefiction844@gmail.com</span>
           </div>
         </div>
 
         <!-- 6-Digit Matrix -->
-        <div class="flex items-center justify-center gap-2 py-1">
-          <input type="text" maxlength="1" id="gotp-1" class="google-otp-digit w-10 h-12 sm:w-11 sm:h-13 text-center text-xl font-black font-mono rounded-xl bg-slate-900 border-2 border-cyan-500/30 text-cyan-300 focus:border-cyan-400 outline-none transition-all" />
-          <input type="text" maxlength="1" id="gotp-2" class="google-otp-digit w-10 h-12 sm:w-11 sm:h-13 text-center text-xl font-black font-mono rounded-xl bg-slate-900 border-2 border-cyan-500/30 text-cyan-300 focus:border-cyan-400 outline-none transition-all" />
-          <input type="text" maxlength="1" id="gotp-3" class="google-otp-digit w-10 h-12 sm:w-11 sm:h-13 text-center text-xl font-black font-mono rounded-xl bg-slate-900 border-2 border-cyan-500/30 text-cyan-300 focus:border-cyan-400 outline-none transition-all" />
-          <input type="text" maxlength="1" id="gotp-4" class="google-otp-digit w-10 h-12 sm:w-11 sm:h-13 text-center text-xl font-black font-mono rounded-xl bg-slate-900 border-2 border-cyan-500/30 text-cyan-300 focus:border-cyan-400 outline-none transition-all" />
-          <input type="text" maxlength="1" id="gotp-5" class="google-otp-digit w-10 h-12 sm:w-11 sm:h-13 text-center text-xl font-black font-mono rounded-xl bg-slate-900 border-2 border-cyan-500/30 text-cyan-300 focus:border-cyan-400 outline-none transition-all" />
-          <input type="text" maxlength="1" id="gotp-6" class="google-otp-digit w-10 h-12 sm:w-11 sm:h-13 text-center text-xl font-black font-mono rounded-xl bg-slate-900 border-2 border-cyan-500/30 text-cyan-300 focus:border-cyan-400 outline-none transition-all" />
+        <div class="flex items-center justify-center gap-2 sm:gap-2.5 py-1">
+          <input type="text" maxlength="1" id="gotp-1" class="google-otp-digit w-10 h-13 sm:w-12 sm:h-15 text-center text-xl sm:text-2xl font-black font-mono rounded-2xl bg-slate-900/90 border border-cyan-500/30 text-cyan-300 focus:border-cyan-400 focus:bg-slate-950 focus:shadow-[0_0_20px_rgba(6,182,212,0.45),inset_0_0_10px_rgba(6,182,212,0.2)] focus:scale-105 outline-none transition-all duration-200" />
+          <input type="text" maxlength="1" id="gotp-2" class="google-otp-digit w-10 h-13 sm:w-12 sm:h-15 text-center text-xl sm:text-2xl font-black font-mono rounded-2xl bg-slate-900/90 border border-cyan-500/30 text-cyan-300 focus:border-cyan-400 focus:bg-slate-950 focus:shadow-[0_0_20px_rgba(6,182,212,0.45),inset_0_0_10px_rgba(6,182,212,0.2)] focus:scale-105 outline-none transition-all duration-200" />
+          <input type="text" maxlength="1" id="gotp-3" class="google-otp-digit w-10 h-13 sm:w-12 sm:h-15 text-center text-xl sm:text-2xl font-black font-mono rounded-2xl bg-slate-900/90 border border-cyan-500/30 text-cyan-300 focus:border-cyan-400 focus:bg-slate-950 focus:shadow-[0_0_20px_rgba(6,182,212,0.45),inset_0_0_10px_rgba(6,182,212,0.2)] focus:scale-105 outline-none transition-all duration-200" />
+          <input type="text" maxlength="1" id="gotp-4" class="google-otp-digit w-10 h-13 sm:w-12 sm:h-15 text-center text-xl sm:text-2xl font-black font-mono rounded-2xl bg-slate-900/90 border border-cyan-500/30 text-cyan-300 focus:border-cyan-400 focus:bg-slate-950 focus:shadow-[0_0_20px_rgba(6,182,212,0.45),inset_0_0_10px_rgba(6,182,212,0.2)] focus:scale-105 outline-none transition-all duration-200" />
+          <input type="text" maxlength="1" id="gotp-5" class="google-otp-digit w-10 h-13 sm:w-12 sm:h-15 text-center text-xl sm:text-2xl font-black font-mono rounded-2xl bg-slate-900/90 border border-cyan-500/30 text-cyan-300 focus:border-cyan-400 focus:bg-slate-950 focus:shadow-[0_0_20px_rgba(6,182,212,0.45),inset_0_0_10px_rgba(6,182,212,0.2)] focus:scale-105 outline-none transition-all duration-200" />
+          <input type="text" maxlength="1" id="gotp-6" class="google-otp-digit w-10 h-13 sm:w-12 sm:h-15 text-center text-xl sm:text-2xl font-black font-mono rounded-2xl bg-slate-900/90 border border-cyan-500/30 text-cyan-300 focus:border-cyan-400 focus:bg-slate-950 focus:shadow-[0_0_20px_rgba(6,182,212,0.45),inset_0_0_10px_rgba(6,182,212,0.2)] focus:scale-105 outline-none transition-all duration-200" />
         </div>
 
-        <!-- Real Gmail Inbox Link & Resend Timer -->
-        <div class="flex items-center justify-between text-xs px-1">
-          <a href="https://mail.google.com" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 underline font-mono text-[11px] flex items-center gap-1.5 cursor-pointer">
-            <span>✉️</span> <span>Open Gmail Inbox ↗</span>
+        <!-- Telemetry HUD Bar: Gmail Quick Link & Countdown -->
+        <div class="flex items-center justify-between text-xs px-1 pt-0.5">
+          <a href="https://mail.google.com" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/[0.04] hover:bg-cyan-500/10 border border-white/10 hover:border-cyan-500/30 text-[11px] font-mono text-cyan-400 hover:text-cyan-300 transition-all cursor-pointer">
+            <span class="group-hover:scale-110 transition-transform">✉</span>
+            <span>Open Gmail Inbox ↗</span>
           </a>
-          <div id="gotp-timer-box" class="font-mono text-gray-400 text-[11px]">
-            <span id="gotp-timer-label">Resend in <span id="gotp-seconds" class="text-cyan-400 font-bold">59s</span></span>
-            <button type="button" id="gotp-btn-resend" onclick="resendGoogleOtp()" class="hidden text-cyan-400 hover:underline font-bold cursor-pointer">Resend Code ↻</button>
+          <div id="gotp-timer-box" class="font-mono text-[11px] px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 text-gray-400 flex items-center gap-1.5">
+            <span id="gotp-timer-label">Expires in <span id="gotp-seconds" class="text-cyan-400 font-bold">59s</span></span>
+            <button type="button" id="gotp-btn-resend" onclick="resendGoogleOtp()" class="hidden text-cyan-400 hover:text-cyan-300 font-bold cursor-pointer transition-colors">Resend Code ↻</button>
           </div>
         </div>
-        <p class="text-[10px] text-gray-400 text-center font-mono">Check your Gmail inbox or Spam folder for the 6-digit code.</p>
 
-        <!-- Action Button -->
-        <div class="pt-1 flex items-center gap-2">
-          <button type="button" onclick="switchAuthStep('picker')" class="px-3.5 py-2.5 rounded-xl text-xs font-bold text-gray-400 hover:text-white border border-ios-border cursor-pointer">
+        <p class="text-[10.5px] text-gray-400 text-center font-mono tracking-tight">Check inbox or spam folder • 256-bit encrypted 2FA</p>
+
+        <!-- Futuristic Action Buttons -->
+        <div class="pt-2 flex items-center gap-2.5">
+          <button type="button" onclick="switchAuthStep('picker')" class="px-4 py-3 rounded-2xl text-xs font-bold text-gray-400 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-white/20 transition-all cursor-pointer">
             ← Change
           </button>
-          <button type="button" onclick="verifyGoogleOtpAndLogin()" class="flex-1 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-lg shadow-cyan-500/25 active:scale-95 transition-all cursor-pointer">
+          <button type="button" onclick="verifyGoogleOtpAndLogin()" class="flex-1 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(6,182,212,0.35)] hover:shadow-[0_0_35px_rgba(6,182,212,0.5)] active:scale-[0.98] transition-all cursor-pointer">
             <span>⚡</span> <span>Verify & Log In</span>
           </button>
         </div>
