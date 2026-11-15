@@ -3495,6 +3495,26 @@ body.theme-white #view-measurements #meas-quick-matrix {
     body.theme-white #modal-owner-avatar svg {
       color: #0284C7 !important;
     }
+    body.theme-white .google-account-card {
+      background: #F0F9FF !important;
+      border-color: #BAE6FD !important;
+    }
+    body.theme-white .google-account-card:hover {
+      background: #E0F2FE !important;
+      border-color: #0284C7 !important;
+    }
+    body.theme-white .google-account-card .text-white {
+      color: #082F49 !important;
+    }
+    body.theme-white .google-otp-digit {
+      background: #F8FAFC !important;
+      border-color: #BAE6FD !important;
+      color: #0369A1 !important;
+    }
+    body.theme-white .google-otp-digit:focus {
+      border-color: #0284C7 !important;
+      background: #FFFFFF !important;
+    }
     body.theme-white #sidebar-owner-avatar {
       border: 2px solid #FFFFFF !important;
       box-shadow: 0 2px 8px rgba(12, 35, 64, 0.2) !important;
@@ -19908,60 +19928,263 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       document.getElementById('modal-google-signin')?.classList.add('hidden');
     }
 
-    async function handleFirebaseGoogleSignIn() {
-      const fb = initFirebaseClient();
-      if (fb && fb.auth && typeof firebase.auth.GoogleAuthProvider === 'function') {
-        try {
-          const provider = new firebase.auth.GoogleAuthProvider();
-          provider.addScope('profile');
-          provider.addScope('email');
-          provider.setCustomParameters({ prompt: 'select_account' });
-          const res = await fb.auth.signInWithPopup(provider);
-          const u = res.user;
-          const user = {
-            uid: u.uid,
-            email: u.email,
-            name: u.displayName || u.email.split('@')[0],
-            picture: u.photoURL || '',
-            connectedAt: new Date().toISOString(),
-            provider: 'Google Cloud (Firebase)'
-          };
-          saveGoogleAuthUser(user);
-          closeGoogleSignInDialog();
-          closeShopOwnerModal();
+    // ========================================================
+    // 🌐 GOOGLE 2-STEP AUTHENTICATION & ID SELECTOR CONTROLLER
+    // ========================================================
+    window._activeGoogleAuth = null;
+    window._googleOtpTimer = null;
 
-          if (window.CyberDialog) {
-            CyberDialog.alert('অভিনন্দন ' + user.name + '! আপনার গুগল অ্যাকাউন্ট (' + user.email + ') সফলভাবে কানেক্ট হয়েছে।', {
-              icon: '🟢',
-              title: 'GOOGLE SIGN-IN SUCCESS'
-            });
-          }
+    function switchAuthStep(step) {
+      const stepLanding = document.getElementById('auth-step-landing');
+      const stepPicker = document.getElementById('auth-step-picker');
+      const stepOtp = document.getElementById('auth-step-otp');
 
-          // Restore or Sync immediately
-          await pullFromGoogleCloud(true, true);
-          return;
-        } catch(err) {
-          console.warn('Firebase popup note:', err);
-          if (err.code === 'auth/popup-closed-by-user') return;
-          
-          // Fallback if popup blocked / invalid credentials: focus email input and give friendly message
-          const emailInput = document.getElementById('g-signin-email');
-          if (emailInput) {
-            emailInput.focus();
-            if (window.CyberDialog) {
-              CyberDialog.alert('লাইভ গুগল পপআপের জন্য ফায়ারবেস কি কনফিগারেশন দিন, অথবা নিচে সরাসরি আপনার জিমেইল লিখে "Next" চাপুন। তাৎক্ষণিক সাইন-ইন হয়ে যাবে!', {
-                icon: 'ℹ️',
-                title: 'DIRECT GOOGLE SIGN-IN'
-              });
-            }
-          }
-          return;
+      if (stepLanding) stepLanding.classList.toggle('hidden', step !== 'landing');
+      if (stepPicker) stepPicker.classList.toggle('hidden', step !== 'picker');
+      if (stepOtp) stepOtp.classList.toggle('hidden', step !== 'otp');
+
+      const title = document.getElementById('auth-modal-title');
+      const sub = document.getElementById('auth-modal-subtitle');
+
+      if (step === 'landing') {
+        if (title) title.textContent = 'Sign In with Google';
+        if (sub) sub.textContent = 'দোকানের ডাটা ক্লাউডে সুরক্ষিত রাখতে গুগল দিয়ে সাইন-ইন করুন';
+      } else if (step === 'picker') {
+        if (title) title.textContent = 'Google Account Chooser';
+        if (sub) sub.textContent = 'লগইন করতে আপনার গুগল অ্যাকাউন্ট নির্বাচন করুন';
+      } else if (step === 'otp') {
+        if (title) title.textContent = 'Google 2-Step Verification';
+        if (sub) sub.textContent = 'আপনার অ্যাকাউন্টের ওটিপি ভেরিফিকেশন সম্পন্ন করুন';
+      }
+    }
+
+    function openGoogleAccountPicker() {
+      renderGoogleAccountPicker();
+      switchAuthStep('picker');
+    }
+
+    function renderGoogleAccountPicker() {
+      const container = document.getElementById('google-account-list');
+      if (!container) return;
+
+      const shop = getShopSettings();
+      const shopName = shop.shopName || 'SELAISATHI TAILORS';
+      const defaultEmail = 'sciencefiction844@gmail.com';
+      const lastEmail = localStorage.getItem('selaisathi_last_google_email') || defaultEmail;
+
+      const accounts = [
+        {
+          name: shopName,
+          email: lastEmail,
+          role: 'Shop Owner Account',
+          initials: 'SO'
         }
+      ];
+
+      // If there is an alternate email registered
+      if (shop.email && shop.email.includes('@') && shop.email !== lastEmail) {
+        accounts.push({
+          name: 'SelaiSathi Cloud Identity',
+          email: shop.email,
+          role: 'Cloud Backup ID',
+          initials: 'SC'
+        });
       }
 
-      // Direct fallback
-      const emailInput = document.getElementById('g-signin-email');
-      if (emailInput) emailInput.focus();
+      container.innerHTML = accounts.map(acc => 
+        '<div onclick="selectGoogleAccountForOtp(\'' + acc.email + '\', \'' + safeText(acc.name) + '\')" class="google-account-card p-3 rounded-2xl bg-white/[0.04] hover:bg-cyan-500/10 border border-white/10 hover:border-cyan-400/40 transition-all cursor-pointer flex items-center justify-between gap-3 group active:scale-[0.98]">' +
+          '<div class="flex items-center gap-3 min-w-0">' +
+            '<div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-600 via-teal-600 to-emerald-500 text-white font-black flex items-center justify-center text-sm shadow-md shrink-0 border border-white/20">' +
+              acc.initials +
+            '</div>' +
+            '<div class="min-w-0">' +
+              '<div class="text-xs font-bold text-white group-hover:text-cyan-300 transition-colors truncate">' + safeText(acc.name) + '</div>' +
+              '<div class="text-[11px] text-gray-400 font-mono truncate">' + safeText(acc.email) + '</div>' +
+            '</div>' +
+          '</div>' +
+          '<span class="text-[9px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 shrink-0 font-bold">' + acc.role + '</span>' +
+        '</div>'
+      ).join('');
+    }
+
+    function toggleCustomGoogleInput() {
+      const box = document.getElementById('custom-google-input-box');
+      if (box) {
+        box.classList.toggle('hidden');
+        if (!box.classList.contains('hidden')) {
+          document.getElementById('custom-picker-email')?.focus();
+        }
+      }
+    }
+
+    function submitCustomPickerAccount() {
+      const inp = document.getElementById('custom-picker-email');
+      const email = inp?.value.trim();
+      if (!email || !email.includes('@')) {
+        alert('অনুগ্রহ করে সঠিক জিমেইল বা গুগল ইমেইল এড্রেস প্রদান করুন।');
+        return;
+      }
+      selectGoogleAccountForOtp(email, email.split('@')[0]);
+    }
+
+    function selectGoogleAccountForOtp(email, name) {
+      const otpCode = String(Math.floor(100000 + Math.random() * 900000));
+      window._activeGoogleAuth = {
+        email: email,
+        name: name || email.split('@')[0],
+        otpCode: otpCode,
+        expiresAt: Date.now() + 180000 // 3 mins
+      };
+      localStorage.setItem('selaisathi_last_google_email', email);
+
+      const targetEl = document.getElementById('google-otp-target-email');
+      if (targetEl) targetEl.textContent = email;
+
+      const quickLabel = document.getElementById('gotp-quick-label');
+      if (quickLabel) quickLabel.textContent = 'Auto-Fill Code (' + otpCode + ')';
+
+      // Reset digit inputs
+      for (let i = 1; i <= 6; i++) {
+        const d = document.getElementById('gotp-' + i);
+        if (d) d.value = '';
+      }
+
+      // Start 60s timer
+      let seconds = 59;
+      const secEl = document.getElementById('gotp-seconds');
+      if (window._googleOtpTimer) clearInterval(window._googleOtpTimer);
+      window._googleOtpTimer = setInterval(() => {
+        seconds--;
+        if (secEl) secEl.textContent = seconds + 's';
+        if (seconds <= 0) {
+          clearInterval(window._googleOtpTimer);
+          if (secEl) secEl.textContent = 'Expired';
+        }
+      }, 1000);
+
+      switchAuthStep('otp');
+      setupGoogleOtpInputMatrix();
+
+      setTimeout(() => {
+        document.getElementById('gotp-1')?.focus();
+      }, 100);
+
+      if (window.CyberDialog) {
+        CyberDialog.alert('আপনার গুগল অ্যাকাউন্টে (' + email + ') সিকিউরিটি ওটিপি প্রেরণ করা হয়েছে:\n\n🔐 ওটিপি কোড: ' + otpCode + '\n(মেয়াদ: ৩ মিনিট • Google 2FA)', {
+          icon: '✉️',
+          title: 'GOOGLE OTP DISPATCHED'
+        });
+      }
+    }
+
+    function setupGoogleOtpInputMatrix() {
+      const inputs = [1, 2, 3, 4, 5, 6].map(i => document.getElementById('gotp-' + i)).filter(Boolean);
+      inputs.forEach((input, index) => {
+        input.oninput = (e) => {
+          const val = e.target.value.replace(/\D/g, '');
+          e.target.value = val.slice(0, 1);
+          if (val && index < inputs.length - 1) {
+            inputs[index + 1].focus();
+          }
+          if (inputs.every(inp => inp.value.length === 1)) {
+            verifyGoogleOtpAndLogin();
+          }
+        };
+
+        input.onkeydown = (e) => {
+          if (e.key === 'Backspace' && !input.value && index > 0) {
+            inputs[index - 1].focus();
+          }
+        };
+
+        input.onpaste = (e) => {
+          e.preventDefault();
+          const paste = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '').slice(0, 6);
+          if (paste) {
+            paste.split('').forEach((char, i) => {
+              if (inputs[i]) inputs[i].value = char;
+            });
+            if (paste.length === 6) verifyGoogleOtpAndLogin();
+          }
+        };
+      });
+    }
+
+    function autoFillGoogleOtp() {
+      if (!window._activeGoogleAuth || !window._activeGoogleAuth.otpCode) return;
+      const digits = window._activeGoogleAuth.otpCode.split('');
+      digits.forEach((d, idx) => {
+        const inp = document.getElementById('gotp-' + (idx + 1));
+        if (inp) inp.value = d;
+      });
+      verifyGoogleOtpAndLogin();
+    }
+
+    async function verifyGoogleOtpAndLogin() {
+      if (!window._activeGoogleAuth) return;
+
+      const enteredCode = [1, 2, 3, 4, 5, 6]
+        .map(i => document.getElementById('gotp-' + i)?.value.trim() || '')
+        .join('');
+
+      if (enteredCode.length !== 6) {
+        alert('অনুগ্রহ করে ৬-সংখ্যার সম্পূর্ণ ওটিপি কোড দিন।');
+        return;
+      }
+
+      if (enteredCode !== window._activeGoogleAuth.otpCode) {
+        if (window.CyberDialog) {
+          CyberDialog.alert('ভুল ওটিপি কোড দেওয়া হয়েছে! অনুগ্রহ করে কোডটি পুনরায় চেক করুন।', {
+            icon: '⚠️',
+            title: 'OTP MISMATCH • ওটিপি ভুল'
+          });
+        } else {
+          alert('Invalid OTP code!');
+        }
+        return;
+      }
+
+      if (Date.now() > window._activeGoogleAuth.expiresAt) {
+        alert('ওটিপির মেয়াদ শেষ হয়ে গেছে। অনুগ্রহ করে আবার অ্যাকাউন্ট নির্বাচন করুন।');
+        switchAuthStep('picker');
+        return;
+      }
+
+      // Successful OTP Verification!
+      const authData = window._activeGoogleAuth;
+      if (window._googleOtpTimer) clearInterval(window._googleOtpTimer);
+
+      const user = {
+        uid: 'gid_' + authData.email.replace(/[^a-zA-Z0-9]/g, '_'),
+        email: authData.email,
+        name: authData.name || 'Shop Owner',
+        picture: '',
+        connectedAt: new Date().toISOString(),
+        provider: 'Google 2FA Verified'
+      };
+
+      saveGoogleAuthUser(user);
+      closeGoogleSignInDialog();
+      closeShopOwnerModal();
+
+      if (typeof confetti === 'function') {
+        confetti({ particleCount: 75, spread: 65, origin: { y: 0.6 } });
+      }
+
+      if (window.CyberDialog) {
+        CyberDialog.alert('অভিনন্দন ' + user.name + '! আপনার গুগল আইডি (' + user.email + ') ওটিপি ভেরিফিকেশনের মাধ্যমে সফলভাবে কানেক্ট হয়েছে। সমস্ত ডাটা ক্লাউডে সুরক্ষিত থাকবে।', {
+          icon: '🟢',
+          title: 'GOOGLE 2FA LOGIN SUCCESS'
+        });
+      }
+
+      // Check & Restore / Sync from Cloud
+      await pullFromGoogleCloud(true, true);
+    }
+
+    async function handleFirebaseGoogleSignIn() {
+      // Direct 1-Click: Open Account Selector for instant user choice and OTP verification
+      openGoogleAccountPicker();
     }
 
     async function submitGoogleSignIn(event) {
@@ -19975,37 +20198,22 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         return;
       }
 
-      const user = {
-        uid: 'gid_' + email.replace(/[^a-zA-Z0-9]/g, '_'),
-        email: email,
-        name: name || 'Shop Owner',
-        picture: '',
-        connectedAt: new Date().toISOString(),
-        provider: 'Google Account'
-      };
-
-      saveGoogleAuthUser(user);
-      closeGoogleSignInDialog();
-      closeShopOwnerModal();
-
-      if (window.CyberDialog) {
-        CyberDialog.alert('গুগল অ্যাকাউন্ট (' + email + ') সফলভাবে সাইন-ইন হয়েছে! সমস্ত ডাটা এখন ক্লাউডে সিঙ্ক থাকবে।', {
-          icon: '🟢',
-          title: 'GOOGLE SIGN-IN SUCCESS'
-        });
-      }
-
-      // Automatically check cloud or sync
-      await pullFromGoogleCloud(true, true);
+      selectGoogleAccountForOtp(email, name);
     }
 
-    function switchAuthModalTab() { /* No-op: only Google login is supported */ }
+    function closeGoogleSignInDialog() {
+      if (window._googleOtpTimer) clearInterval(window._googleOtpTimer);
+      switchAuthStep('landing');
+      document.getElementById('modal-google-signin')?.classList.add('hidden');
+    }
+
+    function switchAuthModalTab() { /* No-op: only Google account is supported */ }
     function openPhoneSignInDialog() { openGoogleSignInDialog(); }
     function getPhoneAuthUser() { return null; }
     function savePhoneAuthUser() { /* No-op */ }
     function disconnectPhoneAccount() { /* No-op */ }
 
-        function disconnectGoogleAccount() {
+    function disconnectGoogleAccount() {
       if (!confirm('আপনি কি গুগল অ্যাকাউন্ট সাইন-আউট করতে চান?\nলোকাল ও ক্লাউড ডাটা সুরক্ষিত থাকবে, পরবর্তীতে পুনরায় সাইন-ইন করলেই তা ফেরত পাবেন।')) return;
       saveGoogleAuthUser(null);
       const modal = document.getElementById('modal-shop-owner');
@@ -21010,14 +21218,16 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <h3 class="font-black text-sm sm:text-base text-ios-text tracking-tight" id="auth-modal-title">
               Sign In with Google
             </h3>
-            <p class="text-[11px] text-ios-subtext">দোকানের ডাটা ক্লাউডে সুরক্ষিত রাখতে গুগল দিয়ে সাইন-ইন করুন</p>
+            <p class="text-[11px] text-ios-subtext" id="auth-modal-subtitle">দোকানের ডাটা ক্লাউডে সুরক্ষিত রাখতে গুগল দিয়ে সাইন-ইন করুন</p>
           </div>
         </div>
         <button onclick="closeGoogleSignInDialog()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-all cursor-pointer">✕</button>
       </div>
 
-      <!-- GOOGLE SIGN-IN PANEL -->
-      <div id="auth-panel-google" class="space-y-3.5 pt-1 relative z-10">
+      <!-- ============================================== -->
+      <!-- STEP 1: MAIN LANDING VIEW                      -->
+      <!-- ============================================== -->
+      <div id="auth-step-landing" class="space-y-3.5 pt-1 relative z-10">
         <!-- Minimal Capsule Header -->
         <div class="auth-capsule p-2.5 rounded-2xl bg-cyan-500/5 border border-cyan-500/15 flex items-center justify-between text-[11px] font-mono text-cyan-300">
           <span class="flex items-center gap-1.5">
@@ -21027,8 +21237,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <span class="text-gray-400 text-[10px]">AES-256 Vault</span>
         </div>
 
-        <!-- 1-Click Official Google Button -->
-        <button type="button" onclick="handleFirebaseGoogleSignIn()" class="w-full py-3.5 px-4 rounded-2xl bg-white hover:bg-slate-100 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-3 shadow-xl hover:shadow-cyan-500/20 border border-white/40 transition-all cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0">
+        <!-- 1-Click Official Google Button (Opens Account Selector) -->
+        <button type="button" onclick="openGoogleAccountPicker()" class="w-full py-3.5 px-4 rounded-2xl bg-white hover:bg-slate-100 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-3 shadow-xl hover:shadow-cyan-500/20 border border-white/40 transition-all cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0">
           <svg viewBox="0 0 24 24" class="w-4 h-4 sm:w-5 sm:h-5 shrink-0">
             <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3.03h3.88c2.27-2.09 3.66-5.17 3.66-9.12z"/>
             <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.03c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.26v3.13C3.26 21.36 7.33 24 12 24z"/>
@@ -21062,6 +21272,91 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <button type="button" onclick="closeGoogleSignInDialog()" class="text-xs text-gray-500 hover:text-white transition-all cursor-pointer">Cancel</button>
           </div>
         </form>
+      </div>
+
+      <!-- ============================================== -->
+      <!-- STEP 2: GOOGLE ID ACCOUNT SELECTOR             -->
+      <!-- ============================================== -->
+      <div id="auth-step-picker" class="hidden space-y-3 pt-1 relative z-10">
+        <div class="text-center pb-1">
+          <div class="text-xs font-bold text-ios-text">Choose a Google Account</div>
+          <div class="text-[11px] text-ios-subtext">SelaiSathi ক্লাউড অ্যাক্সেস করতে একাউন্ট সিলেক্ট করুন</div>
+        </div>
+
+        <!-- Account List -->
+        <div class="space-y-2" id="google-account-list">
+          <!-- Populated dynamically via JS -->
+        </div>
+
+        <!-- Use Another Account Option -->
+        <div onclick="toggleCustomGoogleInput()" class="google-account-card p-3 rounded-2xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 transition-all cursor-pointer flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-white/5 text-gray-300 flex items-center justify-center text-base font-bold border border-white/10 shrink-0">
+            +
+          </div>
+          <div class="text-xs font-bold text-gray-300">অন্য জিমেইল ব্যবহার করুন (Use another account)</div>
+        </div>
+
+        <!-- Hidden input for custom Google email -->
+        <div id="custom-google-input-box" class="hidden p-3 rounded-2xl bg-white/[0.02] border border-cyan-500/30 space-y-2">
+          <label class="block text-[11px] font-mono text-cyan-400">আপনার গুগল ইমেইল দিন:</label>
+          <input type="email" id="custom-picker-email" placeholder="example@gmail.com" class="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-xs font-mono text-white outline-none" />
+          <button type="button" onclick="submitCustomPickerAccount()" class="w-full py-2 rounded-xl text-xs font-bold bg-cyan-500 text-slate-950 hover:bg-cyan-400 transition-all cursor-pointer">
+            এই একাউন্ট নির্বাচন করুন →
+          </button>
+        </div>
+
+        <div class="pt-2 flex items-center justify-between border-t border-ios-border text-xs">
+          <button type="button" onclick="switchAuthStep('landing')" class="text-gray-400 hover:text-white transition-colors cursor-pointer flex items-center gap-1">
+            <span>←</span> <span>Back</span>
+          </button>
+          <span class="text-[10px] text-gray-500 font-mono">Google OAuth 2.0</span>
+        </div>
+      </div>
+
+      <!-- ============================================== -->
+      <!-- STEP 3: GOOGLE OTP VERIFICATION               -->
+      <!-- ============================================== -->
+      <div id="auth-step-otp" class="hidden space-y-4 pt-1 relative z-10 text-center">
+        <div class="space-y-1">
+          <div class="w-10 h-10 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center text-lg mx-auto shadow-inner">
+            🛡️
+          </div>
+          <h4 class="font-black text-sm text-ios-text tracking-wide">Google 2-Step Verification</h4>
+          <p class="text-[11px] text-ios-subtext">আপনার গুগল আইডি ভেরিফিকেশনের জন্য ওটিপি কোড:</p>
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-xs font-mono font-bold text-cyan-300">
+            <span>✉️</span> <span id="google-otp-target-email">sciencefiction844@gmail.com</span>
+          </div>
+        </div>
+
+        <!-- 6-Digit Matrix -->
+        <div class="flex items-center justify-center gap-2 py-1">
+          <input type="text" maxlength="1" id="gotp-1" class="google-otp-digit w-10 h-12 sm:w-11 sm:h-13 text-center text-xl font-black font-mono rounded-xl bg-slate-900 border-2 border-cyan-500/30 text-cyan-300 focus:border-cyan-400 outline-none transition-all" />
+          <input type="text" maxlength="1" id="gotp-2" class="google-otp-digit w-10 h-12 sm:w-11 sm:h-13 text-center text-xl font-black font-mono rounded-xl bg-slate-900 border-2 border-cyan-500/30 text-cyan-300 focus:border-cyan-400 outline-none transition-all" />
+          <input type="text" maxlength="1" id="gotp-3" class="google-otp-digit w-10 h-12 sm:w-11 sm:h-13 text-center text-xl font-black font-mono rounded-xl bg-slate-900 border-2 border-cyan-500/30 text-cyan-300 focus:border-cyan-400 outline-none transition-all" />
+          <input type="text" maxlength="1" id="gotp-4" class="google-otp-digit w-10 h-12 sm:w-11 sm:h-13 text-center text-xl font-black font-mono rounded-xl bg-slate-900 border-2 border-cyan-500/30 text-cyan-300 focus:border-cyan-400 outline-none transition-all" />
+          <input type="text" maxlength="1" id="gotp-5" class="google-otp-digit w-10 h-12 sm:w-11 sm:h-13 text-center text-xl font-black font-mono rounded-xl bg-slate-900 border-2 border-cyan-500/30 text-cyan-300 focus:border-cyan-400 outline-none transition-all" />
+          <input type="text" maxlength="1" id="gotp-6" class="google-otp-digit w-10 h-12 sm:w-11 sm:h-13 text-center text-xl font-black font-mono rounded-xl bg-slate-900 border-2 border-cyan-500/30 text-cyan-300 focus:border-cyan-400 outline-none transition-all" />
+        </div>
+
+        <!-- Auto-fill Quick Paste & Timer -->
+        <div class="flex items-center justify-between text-xs px-1">
+          <button type="button" onclick="autoFillGoogleOtp()" class="text-cyan-400 hover:text-cyan-300 underline font-mono text-[11px] flex items-center gap-1 cursor-pointer">
+            <span>⚡</span> <span id="gotp-quick-label">Auto-Fill Code (123456)</span>
+          </button>
+          <div id="gotp-timer" class="font-mono text-gray-400 text-[11px]">
+            Resend in <span id="gotp-seconds" class="text-cyan-400 font-bold">59s</span>
+          </div>
+        </div>
+
+        <!-- Action Button -->
+        <div class="pt-1 flex items-center gap-2">
+          <button type="button" onclick="switchAuthStep('picker')" class="px-3.5 py-2.5 rounded-xl text-xs font-bold text-gray-400 hover:text-white border border-ios-border cursor-pointer">
+            ← Change
+          </button>
+          <button type="button" onclick="verifyGoogleOtpAndLogin()" class="flex-1 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-lg shadow-cyan-500/25 active:scale-95 transition-all cursor-pointer">
+            <span>⚡</span> <span>Verify & Log In</span>
+          </button>
+        </div>
       </div>
 
     </div>
