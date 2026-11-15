@@ -4564,7 +4564,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     <div class="flex flex-col flex-1 overflow-y-auto z-10">
       
       <!-- Futuristic Brand Header (Click to collapse on Desktop) -->
-      <div onclick="handleSidebarBrandClick()" class="h-20 flex items-center justify-between px-5 border-b border-white/5 cursor-pointer group hover:bg-white/[0.04] transition-colors select-none" title="Click to collapse sidebar (সাইডবার বন্ধ করুন)">
+      <div onclick="handleSidebarBrandClick()" class="h-20 flex items-center justify-between px-5 border-b border-white/5 cursor-pointer group hover:bg-white/[0.04] transition-colors select-none" title="Collapse Sidebar" data-i18n-title="tooltip_collapse_sidebar">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-2xl overflow-hidden brand-glow shrink-0 shadow-md shadow-emerald-500/25 border border-emerald-400/30 group-hover:scale-105 transition-transform">
             <img src="assets/logo.png" alt="SelaiSathi Logo" class="w-full h-full object-cover rounded-2xl">
@@ -4577,12 +4577,12 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             </div>
             <div class="text-[11px] text-emerald-400/90 font-medium tracking-wide flex items-center gap-1 mt-0.5">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              সেলাই সাথী • OS
+              <span id="sidebar-brand-os" data-i18n="brand_os">SelaiSathi • OS</span>
             </div>
           </div>
         </div>
         <!-- Desktop Collapse Chevron Icon -->
-        <div class="hidden lg:flex items-center justify-center w-8 h-8 rounded-xl bg-white/5 group-hover:bg-cyan-500/20 text-gray-400 group-hover:text-cyan-300 transition-all border border-white/5 group-hover:border-cyan-400/30 shadow-xs" title="Collapse Sidebar (সাইডবার বন্ধ করুন)">
+        <div class="hidden lg:flex items-center justify-center w-8 h-8 rounded-xl bg-white/5 group-hover:bg-cyan-500/20 text-gray-400 group-hover:text-cyan-300 transition-all border border-white/5 group-hover:border-cyan-400/30 shadow-xs" title="Collapse Sidebar" data-i18n-title="tooltip_collapse_sidebar">
           <svg class="w-4 h-4 transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path></svg>
         </div>
       </div>
@@ -4702,12 +4702,12 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <!-- LEFT: Hamburger Menu [☰] + Search Icon [🔍] -->
       <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
         <!-- Hamburger (mobile/tablet only) -->
-        <button onclick="handleHeaderMenuClick()" id="btn-header-hamburger" class="lg:hidden p-2 rounded-xl border border-ios-border bg-white/5 hover:bg-white/15 text-ios-text active:scale-95 transition-all flex items-center justify-center shrink-0 cursor-pointer" aria-label="Toggle Navigation Menu" title="Navigation Menu (মেনু)">
+        <button onclick="handleHeaderMenuClick()" id="btn-header-hamburger" class="lg:hidden p-2 rounded-xl border border-ios-border bg-white/5 hover:bg-white/15 text-ios-text active:scale-95 transition-all flex items-center justify-center shrink-0 cursor-pointer" aria-label="Toggle Navigation Menu" title="Navigation Menu" data-i18n-title="tooltip_nav_menu">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
         </button>
 
         <!-- Search Icon Button (Beside hamburger, toggles search bar) -->
-        <button onclick="toggleMobileSearch()" id="btn-mobile-search-toggle" class="p-2 rounded-xl border border-ios-border bg-white/5 hover:bg-cyan-500/15 text-ios-text active:scale-95 transition-all flex items-center justify-center relative shrink-0" title="Search (অনুসন্ধান)">
+        <button onclick="toggleMobileSearch()" id="btn-mobile-search-toggle" class="p-2 rounded-xl border border-ios-border bg-white/5 hover:bg-cyan-500/15 text-ios-text active:scale-95 transition-all flex items-center justify-center relative shrink-0" title="Search" data-i18n-title="tooltip_search">
           <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </button>
       </div>
@@ -4726,7 +4726,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
         
         <!-- Language Switcher: Compact Glass Icon Button -->
-        <button onclick="toggleLanguage()" class="p-2 sm:px-3 sm:py-1.5 rounded-xl border border-ios-border bg-white/5 hover:bg-white/15 text-xs font-bold text-ios-text transition-all active:scale-95 flex items-center gap-1 shrink-0" title="Language (ভাষা পরিবর্তন)">
+        <button onclick="toggleLanguage()" class="p-2 sm:px-3 sm:py-1.5 rounded-xl border border-ios-border bg-white/5 hover:bg-white/15 text-xs font-bold text-ios-text transition-all active:scale-95 flex items-center gap-1 shrink-0" title="Change Language" data-i18n-title="tooltip_lang">
           <span class="text-sm">🌐</span>
           <span id="lang-indicator" class="hidden sm:inline text-[11px]">বাংলা</span>
         </button>
@@ -4784,23 +4784,23 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <div>
             <div class="text-[10px] font-mono font-bold tracking-[.25em] text-cyan-400 uppercase">FACTORY MATERIALS &amp; TRIMS CONTROL</div>
             <h1 class="text-2xl sm:text-3xl font-black text-ios-text mt-1 flex items-center gap-2">
-              <span>📦</span> <span>Inventory &amp; Materials Hub (কারখানা ইনভেন্টরি)</span>
+              <span>📦</span> <span data-i18n="inv_hub_title">Inventory &amp; Materials Hub</span>
             </h1>
             <p class="text-xs sm:text-sm text-ios-subtext mt-1">সেলাই অনুষঙ্গ (Trims), বোতাম, কলার বক্রম, সুতা, প্যাকেজিং, কাটপিস ও স্বয়ংক্রিয় অর্ডার কনজাম্পশন (BOM)।</p>
           </div>
 
           <div class="flex flex-wrap items-center gap-2">
             <button onclick="openBarcodeScannerModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 active:scale-95 transition-all flex items-center gap-1.5" title="Camera Barcode &amp; QR Scanner">
-              <span>📷</span> <span>বারকোড স্ক্যান</span>
+              <span>📷</span> <span data-i18n="btn_barcode">Barcode Scan</span>
             </button>
             <button onclick="openBOMDeductModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-purple-500/30 bg-purple-500/10 text-purple-300 hover:bg-purple-500/20 active:scale-95 transition-all flex items-center gap-1.5" title="Bill of Materials Garment Production Deduct">
-              <span>✂️</span> <span>BOM কনজাম্পশন</span>
+              <span>✂️</span> <span data-i18n="btn_bom">BOM Consumption</span>
             </button>
             <button onclick="openStockAuditModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-amber-500/30 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 active:scale-95 transition-all flex items-center gap-1.5" title="Physical Stock Audit &amp; Wastage Log">
-              <span>📋</span> <span>স্টক অডিট</span>
+              <span>📋</span> <span data-i18n="btn_stock_audit">Stock Audit</span>
             </button>
             <button onclick="openInventoryItemModal()" class="px-4 py-2 bg-gradient-to-r from-cyan-600 via-teal-600 to-emerald-600 hover:brightness-110 text-white rounded-xl text-xs font-bold shadow-md shadow-cyan-600/20 active:scale-95 transition-all flex items-center gap-1.5">
-              <span class="text-sm leading-none">＋</span> <span>নতুন উপাদান</span>
+              <span class="text-sm leading-none">＋</span> <span data-i18n="btn_new_item">New Item</span>
             </button>
             <button onclick="printInventoryReport()" class="p-2 border border-slate-700 bg-slate-800/60 rounded-xl text-xs text-slate-300 hover:text-white" title="Print Inventory Audit Sheet">
               <span>🖨️</span>
@@ -4819,7 +4819,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <span class="text-base">📦</span>
             </div>
             <div class="text-2xl sm:text-3xl font-black font-mono text-ios-text mt-2" id="inv-total-items">0</div>
-            <div class="text-[11px] text-ios-subtext mt-0.5">সব ক্যাটাগরি মিলিয়ে উপকরণ</div>
+            <div class="text-[11px] text-ios-subtext mt-0.5">Total items across all categories</div>
           </div>
 
           <div class="bento-card p-4 sm:p-5">
@@ -4828,7 +4828,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <span class="text-base">💰</span>
             </div>
             <div class="text-2xl sm:text-3xl font-black font-mono text-emerald-400 mt-2" id="inv-total-value">৳0</div>
-            <div class="text-[11px] text-ios-subtext mt-0.5">মোট বর্তমান ক্রয়মূল্য সম্পদ</div>
+            <div class="text-[11px] text-ios-subtext mt-0.5">Total inventory asset valuation</div>
           </div>
 
           <div class="bento-card p-4 sm:p-5 cursor-pointer hover:border-amber-500/50 transition-all" onclick="filterLowStockInventory()" title="Click to view low stock materials">
@@ -4837,7 +4837,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <span class="text-base">⚠️</span>
             </div>
             <div class="text-2xl sm:text-3xl font-black font-mono text-amber-400 mt-2" id="inv-total-low">0</div>
-            <div class="text-[11px] text-amber-300/80 mt-0.5">রিঅর্ডার প্রয়োজন (&le; ন্যূনতম স্টক)</div>
+            <div class="text-[11px] text-amber-300/80 mt-0.5">Reorder required (&le; min stock)</div>
           </div>
 
           <div class="bento-card p-4 sm:p-5 cursor-pointer hover:border-cyan-500/50 transition-all" onclick="setInventoryTab('remnants')" title="Click to view fabric remnants">
@@ -4846,7 +4846,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <span class="text-base">✂️</span>
             </div>
             <div class="text-2xl sm:text-3xl font-black font-mono text-cyan-300 mt-2" id="inv-total-remnants">0</div>
-            <div class="text-[11px] text-ios-subtext mt-0.5" id="inv-remnants-sub">ব্যবহারযোগ্য ছাঁট কাপড়</div>
+            <div class="text-[11px] text-ios-subtext mt-0.5" id="inv-remnants-sub">Reusable fabric remnants</div>
           </div>
         </div>
 
@@ -4856,7 +4856,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <div class="flex items-center gap-2">
               <span class="text-lg">✂️</span>
               <div>
-                <h3 class="font-black text-sm text-ios-text">স্মার্ট অর্ডার কনজাম্পশন (BOM Garment Production Deduct)</h3>
+                <h3 class="font-black text-sm text-ios-text">Smart Order Consumption (BOM Production Deduct)</h3>
                 <p class="text-[11px] text-ios-subtext">পোশাক তৈরির সময় কাপড়, বোতাম, চেইন ও কলার বক্রম ১-ক্লিকে ইনভেন্টরি থেকে স্বয়ংক্রিয়ভাবে মাইনাস করুন।</p>
               </div>
             </div>
@@ -4907,16 +4907,16 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <!-- Main Tab Switcher -->
           <div class="flex flex-wrap items-center gap-1.5 pb-2.5 border-b border-ios-border" id="inventory-tab-bar">
             <button onclick="setInventoryTab('items')" id="inv-tab-items" class="inv-cat-pill active px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-all flex items-center gap-1.5">
-              <span>📦</span> <span>মালামাল তালিকা (Stock Items)</span>
+              <span>📦</span> <span data-i18n="inv_tab_stock">Stock Items</span>
             </button>
             <button onclick="setInventoryTab('remnants')" id="inv-tab-remnants" class="inv-cat-pill px-3.5 py-1.5 rounded-xl text-xs font-medium border transition-all flex items-center gap-1.5">
-              <span>✂️</span> <span>কাটপিস ও ছাঁট কাপড় (Remnants)</span>
+              <span>✂️</span> <span data-i18n="inv_tab_remnants">Fabric Remnants</span>
             </button>
             <button onclick="setInventoryTab('suppliers')" id="inv-tab-suppliers" class="inv-cat-pill px-3.5 py-1.5 rounded-xl text-xs font-medium border transition-all flex items-center gap-1.5">
-              <span>🏪</span> <span>সাপ্লায়ার ও মহাজন খাতা (Suppliers)</span>
+              <span>🏪</span> <span data-i18n="inv_tab_suppliers">Suppliers</span>
             </button>
             <button onclick="setInventoryTab('audit')" id="inv-tab-audit" class="inv-cat-pill px-3.5 py-1.5 rounded-xl text-xs font-medium border transition-all flex items-center gap-1.5">
-              <span>📋</span> <span>স্টক অডিট লগ (Audit Register)</span>
+              <span>📋</span> <span data-i18n="inv_tab_audit">Audit Register</span>
             </button>
           </div>
 
@@ -4932,12 +4932,12 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <div class="flex flex-wrap items-center gap-2">
               <!-- Shelf / Rack Filter Dropdown -->
               <select id="inv-rack-filter" onchange="renderInventory()" class="px-3 py-2 rounded-xl text-xs bg-slate-900/60 border border-slate-700/80 text-gray-300 focus:outline-none focus:border-cyan-400">
-                <option value="all">All Shelves (সব র‍্যাক)</option>
-                <option value="Rack A">Rack A (র‍্যাক এ)</option>
-                <option value="Rack B">Rack B (র‍্যাক বি)</option>
-                <option value="Rack C">Rack C (র‍্যাক সি)</option>
-                <option value="Shelf S">Shelf S (সেলফ এস)</option>
-                <option value="Drawer D">Drawer D (ড্রয়ার ডি)</option>
+                <option value="all">All Shelves</option>
+                <option value="Rack A">Rack A</option>
+                <option value="Rack B">Rack B</option>
+                <option value="Rack C">Rack C</option>
+                <option value="Shelf S">Shelf S</option>
+                <option value="Drawer D">Drawer D</option>
                 <option value="Bin">Bin (টুকরো বিন)</option>
               </select>
 
@@ -5137,19 +5137,19 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <!-- FEATURE 1: Quick Action Launchpad (High-Efficiency HUD) -->
         <div class="dash-quick-bar">
           <button onclick="openNewOrderModal()" class="dash-quick-btn bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-md shadow-emerald-500/25 hover:brightness-110">
-            <span>+</span> <span>নতুন অর্ডার (New Order)</span>
+            <span>+</span> <span data-i18n="btn_new_order">New Order</span>
           </button>
           <button onclick="navigateTo('measurements')" class="dash-quick-btn dash-quick-btn-subtle bg-slate-900/60 text-cyan-300 border border-cyan-500/30 hover:border-cyan-400 hover:bg-cyan-500/10">
-            <span>✂️</span> <span>মাপ এন্ট্রি (Measurements)</span>
+            <span>✂️</span> <span data-i18n="menu_measurements">Measurements</span>
           </button>
           <button onclick="navigateTo('accounts')" class="dash-quick-btn dash-quick-btn-subtle bg-slate-900/60 text-amber-300 border border-amber-500/30 hover:border-amber-400 hover:bg-amber-500/10">
-            <span>💰</span> <span>বাকি কালেকশন (Collect Due)</span>
+            <span>💰</span> <span data-i18n="btn_collect_due">Collect Due</span>
           </button>
           <button onclick="sendQuickDeliverySms()" class="dash-quick-btn dash-quick-btn-subtle bg-slate-900/60 text-purple-300 border border-purple-500/30 hover:border-purple-400 hover:bg-purple-500/10">
-            <span>💬</span> <span>রেডি SMS পাঠান (Ready SMS)</span>
+            <span>💬</span> <span data-i18n="btn_ready_sms">Ready SMS</span>
           </button>
           <button onclick="navigateTo('fabrics')" class="dash-quick-btn dash-quick-btn-subtle bg-slate-900/60 text-cyan-300 border border-cyan-500/30 hover:border-cyan-400 hover:bg-cyan-500/10">
-            <span>🧵</span> <span>কাপড় ও থান স্টক (Fabrics Hub)</span>
+            <span>🧵</span> <span data-i18n="menu_fabrics">Fabrics Hub</span>
           </button>
         </div>
 
@@ -5268,10 +5268,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 <span class="text-xs font-bold text-ios-subtext uppercase tracking-wider">WORKSHOP PRODUCTION PIPELINE</span>
                 <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">48 Active</span>
               </div>
-              <h3 class="text-base font-black text-ios-text mt-0.5">কারখানা প্রোডাকশন লাইভ পাইপলাইন</h3>
+              <h3 class="text-base font-black text-ios-text mt-0.5">Workshop Production Live Pipeline</h3>
             </div>
             <button onclick="navigateTo('orders')" class="text-xs text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1">
-              <span>অর্ডার টেবিলে দেখুন</span> <span>→</span>
+              <span data-i18n="btn_view_orders_table">View in Orders Table</span> <span>→</span>
             </button>
           </div>
 
@@ -5279,7 +5279,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <!-- Stage 1: Cutting -->
             <div onclick="navigateTo('orders')" class="cursor-pointer p-4 rounded-2xl dash-surface-card bg-slate-900/40 border border-slate-700/60 hover:border-cyan-400/50 hover:bg-slate-900/60 transition-all group">
               <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-bold text-gray-400 group-hover:text-cyan-300 transition-colors">✂️ কাটিং চলছে (Cutting)</span>
+                <span class="text-xs font-bold text-gray-400 group-hover:text-cyan-300 transition-colors">✂️ Cutting</span>
                 <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-indigo-500/20 text-indigo-300">8 Orders</span>
               </div>
               <div class="text-2xl font-black font-mono text-indigo-400">8 <span class="text-xs text-gray-400 font-normal">items</span></div>
@@ -5295,7 +5295,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <!-- Stage 2: Sewing / Stitching -->
             <div onclick="navigateTo('orders')" class="cursor-pointer p-4 rounded-2xl dash-surface-card bg-slate-900/40 border border-slate-700/60 hover:border-amber-400/50 hover:bg-slate-900/60 transition-all group">
               <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-bold text-gray-400 group-hover:text-amber-300 transition-colors">🪡 সেলাই চলছে (Sewing)</span>
+                <span class="text-xs font-bold text-gray-400 group-hover:text-amber-300 transition-colors">🪡 Sewing</span>
                 <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-amber-500/20 text-amber-300">14 Orders</span>
               </div>
               <div class="text-2xl font-black font-mono text-amber-400">14 <span class="text-xs text-gray-400 font-normal">items</span></div>
@@ -5311,7 +5311,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <!-- Stage 3: Finishing & Buttoning -->
             <div onclick="navigateTo('orders')" class="cursor-pointer p-4 rounded-2xl dash-surface-card bg-slate-900/40 border border-slate-700/60 hover:border-purple-400/50 hover:bg-slate-900/60 transition-all group">
               <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-bold text-gray-400 group-hover:text-purple-300 transition-colors">👔 বাটন ও আয়রন (Finishing)</span>
+                <span class="text-xs font-bold text-gray-400 group-hover:text-purple-300 transition-colors">👔 Finishing</span>
                 <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-purple-500/20 text-purple-300">6 Orders</span>
               </div>
               <div class="text-2xl font-black font-mono text-purple-400">6 <span class="text-xs text-gray-400 font-normal">items</span></div>
@@ -5327,7 +5327,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <!-- Stage 4: Ready for Delivery -->
             <div onclick="navigateTo('orders')" class="cursor-pointer p-4 rounded-2xl dash-surface-card bg-slate-900/40 border border-slate-700/60 hover:border-emerald-400/50 hover:bg-slate-900/60 transition-all group">
               <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-bold text-gray-400 group-hover:text-emerald-300 transition-colors">✨ ডেলিভারি রেডি (Ready)</span>
+                <span class="text-xs font-bold text-gray-400 group-hover:text-emerald-300 transition-colors">✨ Ready</span>
                 <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-emerald-500/20 text-emerald-300">20 Orders</span>
               </div>
               <div class="text-2xl font-black font-mono text-emerald-400">20 <span class="text-xs text-gray-400 font-normal">items</span></div>
@@ -5353,7 +5353,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                   <span class="text-xs font-bold text-ios-subtext uppercase tracking-wider">URGENT DELIVERY RADAR</span>
                   <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">1 Overdue</span>
                 </div>
-                <h3 class="text-base font-black text-ios-text mt-0.5">আজকের ও বকেয়া ডেলিভারি কিউ</h3>
+                <h3 class="text-base font-black text-ios-text mt-0.5">Today's & Pending Delivery Queue</h3>
               </div>
               <span class="text-xs text-gray-400 font-mono">3 Items Priority</span>
             </div>
@@ -5449,32 +5449,32 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <div class="flex items-center justify-between pb-3 border-b border-ios-border">
                 <div class="flex items-center gap-2">
                   <span class="text-base">💵</span>
-                  <h3 class="text-xs font-bold text-ios-subtext uppercase">আজকের ক্যাশ ড্রয়ার</h3>
+                  <h3 class="text-xs font-bold text-ios-subtext uppercase">TODAY'S CASH DRAWER</h3>
                 </div>
                 <span class="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300">RECONCILE</span>
               </div>
 
               <div class="space-y-2 text-xs font-mono">
                 <div class="flex justify-between text-gray-400">
-                  <span class="font-sans">সকালের ক্যাশ (Opening):</span>
+                  <span class="font-sans">Opening Cash:</span>
                   <span class="font-bold text-ios-text">৳২,৫০০</span>
                 </div>
                 <div class="flex justify-between text-emerald-400 font-bold">
-                  <span class="font-sans">+ আজকের জমা (Cash In):</span>
+                  <span class="font-sans">+ Cash In:</span>
                   <span>+৳১,৩০০</span>
                 </div>
                 <div class="flex justify-between text-rose-400 font-bold">
-                  <span class="font-sans">- আজকের খরচ (Cash Out):</span>
+                  <span class="font-sans">- Cash Out:</span>
                   <span>-৳২২০</span>
                 </div>
                 <div class="pt-3 border-t border-ios-border flex justify-between items-baseline">
-                  <span class="font-sans font-black text-ios-text text-sm">ড্রয়ারে মোট টাকা:</span>
+                  <span class="font-sans font-black text-ios-text text-sm">Total In Drawer:</span>
                   <span class="text-2xl font-black text-emerald-400 font-mono" id="dash-drawer-total">৳৩,৫৮০</span>
                 </div>
               </div>
 
               <button onclick="toggleDrawerReconciled(this)" class="w-full py-2.5 rounded-xl text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-500/30 transition-all flex items-center justify-center gap-2">
-                <span>✓</span> <span>ক্যাশ ড্রয়ার মিলানো সম্পন্ন</span>
+                <span>✓</span> <span>Cash Drawer Balanced</span>
               </button>
             </div>
 
@@ -5483,16 +5483,16 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <div class="flex items-center justify-between pb-3 border-b border-ios-border">
                 <div class="flex items-center gap-2">
                   <span class="text-base">🧵</span>
-                  <h3 class="text-xs font-bold text-ios-subtext uppercase">লো-স্টক অ্যালার্ট</h3>
+                  <h3 class="text-xs font-bold text-ios-subtext uppercase">LOW-STOCK ALERTS</h3>
                 </div>
-                <button onclick="navigateTo('fabrics')" class="text-[11px] text-cyan-400 hover:underline font-bold">কাপড় ও থান রেজিস্ট্রি ↗</button>
+                <button onclick="navigateTo('fabrics')" class="text-[11px] text-cyan-400 hover:underline font-bold">Fabrics Registry ↗</button>
               </div>
 
               <div class="space-y-2.5">
                 <div class="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-between text-xs">
                   <div>
                     <div class="font-bold text-ios-text">White Cotton Voile</div>
-                    <div class="text-[10px] text-amber-400">সতর্কতা মাত্রা: ১০ গজ</div>
+                    <div class="text-[10px] text-amber-400">Threshold: 10 yds</div>
                   </div>
                   <span class="font-mono font-black text-amber-400 bg-amber-500/20 px-2 py-1 rounded-lg">৪.৫ গজ</span>
                 </div>
@@ -5500,7 +5500,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 <div class="p-2.5 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-between text-xs">
                   <div>
                     <div class="font-bold text-ios-text">Golden Metal Buttons</div>
-                    <div class="text-[10px] text-rose-400">সতর্কতা মাত্রা: ৫০ পিস</div>
+                    <div class="text-[10px] text-rose-400">Threshold: 50 pcs</div>
                   </div>
                   <span class="font-mono font-black text-rose-400 bg-rose-500/20 px-2 py-1 rounded-lg">১২ পিস</span>
                 </div>
@@ -5508,7 +5508,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 <div class="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-between text-xs">
                   <div>
                     <div class="font-bold text-ios-text">Black Silk Thread Reel</div>
-                    <div class="text-[10px] text-amber-400">সতর্কতা মাত্রা: ৫ রিল</div>
+                    <div class="text-[10px] text-amber-400">Threshold: 5 spools</div>
                   </div>
                   <span class="font-mono font-black text-amber-400 bg-amber-500/20 px-2 py-1 rounded-lg">২ রিল</span>
                 </div>
@@ -7159,7 +7159,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <span class="text-xs text-ios-subtext">Access & Operators</span>
             </div>
             <h1 class="text-2xl sm:text-3xl font-black text-ios-text tracking-tight mt-1">Users & Roles</h1>
-            <p class="text-xs text-ios-subtext mt-1">কর্মচারীদের পদবী, ৪-ডিজিটের দ্রুত পিন লগইন এবং নির্দিষ্ট পারমিশন ব্যবস্থাপনা।</p>
+            <p class="text-xs text-ios-subtext mt-1">Staff designations, 4-digit quick PIN login, and permission control.</p>
           </div>
 
           <div class="flex flex-wrap items-center gap-2">
@@ -7223,7 +7223,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <div class="flex items-center justify-between gap-3 border-b border-ios-border pb-2">
           <div class="flex items-center gap-1.5 p-1 rounded-2xl bg-black/20 border border-ios-border" id="users-subnav-container">
             <button onclick="switchUsersSubTab('operators')" id="users-subtab-btn-operators" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-purple-600 text-white shadow-sm flex items-center gap-1.5 cursor-pointer">
-              <span>👥</span> <span>Operators (কর্মী তালিকা)</span>
+              <span>👥</span> <span data-i18n="users_tab_operators">Operators List</span>
             </button>
             <button onclick="switchUsersSubTab('permissions')" id="users-subtab-btn-permissions" class="px-4 py-2 rounded-xl text-xs font-bold transition-all text-gray-400 hover:text-white flex items-center gap-1.5 cursor-pointer">
               <span>🛡️</span> <span>Permissions Matrix</span>
@@ -7261,7 +7261,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-ios-border pb-3">
               <div>
                 <h3 class="font-bold text-sm text-ios-text">Role Permissions Matrix</h3>
-                <p class="text-xs text-ios-subtext">কোন পদবীর কর্মীরা কী কী কাজ করতে পারবে তা নির্ধারণ করুন</p>
+                <p class="text-xs text-ios-subtext">Configure role permissions and access levels</p>
               </div>
               <div class="flex items-center gap-2">
                 <button onclick="resetRolePermissionsToDefault()" class="px-3 py-1.5 rounded-xl text-xs font-bold text-gray-400 hover:text-white border border-ios-border active:scale-95 transition-all cursor-pointer">
@@ -7301,14 +7301,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <div class="bento-card p-5 space-y-3">
               <div class="border-b border-ios-border pb-2.5">
                 <h3 class="font-bold text-xs uppercase tracking-wider text-purple-400">Terminal Access Security</h3>
-                <p class="text-[11px] text-ios-subtext">Quick PIN ও সেশন সুইচিং নীতিমালা</p>
+                <p class="text-[11px] text-ios-subtext">Quick PIN & Session Switching Policy</p>
               </div>
 
               <div class="space-y-2.5 pt-1">
                 <label class="flex items-start justify-between gap-3 p-3 rounded-2xl bg-white/[0.02] border border-ios-border hover:border-purple-400/40 transition-all cursor-pointer">
                   <div>
                     <div class="font-bold text-xs text-ios-text">Enforce 4-Digit PIN</div>
-                    <div class="text-[11px] text-ios-subtext">অপারেটর পরিবর্তনের সময় ৪-সংখ্যার পিন আবশ্যক</div>
+                    <div class="text-[11px] text-ios-subtext">Require 4-digit PIN when switching operators</div>
                   </div>
                   <input type="checkbox" id="users-view-policy-pin-switch" onchange="updateSecurityPolicy('pinSwitch', this.checked)" checked class="w-4 h-4 rounded text-purple-600 focus:ring-0 cursor-pointer mt-0.5" />
                 </label>
@@ -7316,7 +7316,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 <label class="flex items-start justify-between gap-3 p-3 rounded-2xl bg-white/[0.02] border border-ios-border hover:border-purple-400/40 transition-all cursor-pointer">
                   <div>
                     <div class="font-bold text-xs text-ios-text">Order Deletion Admin Lock</div>
-                    <div class="text-[11px] text-ios-subtext">মালিক ছাড়া অর্ডার ডিলিট করা বন্ধ রাখুন</div>
+                    <div class="text-[11px] text-ios-subtext">Restrict order deletion to shop owner only</div>
                   </div>
                   <input type="checkbox" id="users-view-policy-delete-lock" onchange="updateSecurityPolicy('deleteLock', this.checked)" checked class="w-4 h-4 rounded text-purple-600 focus:ring-0 cursor-pointer mt-0.5" />
                 </label>
@@ -7326,14 +7326,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <div class="bento-card p-5 space-y-3">
               <div class="border-b border-ios-border pb-2.5">
                 <h3 class="font-bold text-xs uppercase tracking-wider text-cyan-400">Privacy & Financial Guard</h3>
-                <p class="text-[11px] text-ios-subtext">গ্রাহকের ডাটা ও আর্থিক তথ্য সুরক্ষা</p>
+                <p class="text-[11px] text-ios-subtext">Customer Data & Financial Privacy</p>
               </div>
 
               <div class="space-y-2.5 pt-1">
                 <label class="flex items-start justify-between gap-3 p-3 rounded-2xl bg-white/[0.02] border border-ios-border hover:border-cyan-400/40 transition-all cursor-pointer">
                   <div>
                     <div class="font-bold text-xs text-ios-text">Customer Phone Masking</div>
-                    <div class="text-[11px] text-ios-subtext">কারিগরদের স্ক্রিনে ফোন নম্বর মাস্ক (01712***890) থাকবে</div>
+                    <div class="text-[11px] text-ios-subtext">Mask customer phone numbers on karigar screens</div>
                   </div>
                   <input type="checkbox" id="users-view-policy-phone-mask" onchange="updateSecurityPolicy('phoneMask', this.checked)" checked class="w-4 h-4 rounded text-purple-600 focus:ring-0 cursor-pointer mt-0.5" />
                 </label>
@@ -7341,7 +7341,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 <label class="flex items-start justify-between gap-3 p-3 rounded-2xl bg-white/[0.02] border border-ios-border hover:border-cyan-400/40 transition-all cursor-pointer">
                   <div>
                     <div class="font-bold text-xs text-ios-text">Redact Financial Totals</div>
-                    <div class="text-[11px] text-ios-subtext">সাধারণ কর্মীদের স্ক্রিনে মোট লাভ ও ব্যালেন্স লুকানো থাকবে</div>
+                    <div class="text-[11px] text-ios-subtext">Hide net profit and cash balance from staff screens</div>
                   </div>
                   <input type="checkbox" id="users-view-policy-finance-redact" onchange="updateSecurityPolicy('financeRedact', this.checked)" checked class="w-4 h-4 rounded text-purple-600 focus:ring-0 cursor-pointer mt-0.5" />
                 </label>
@@ -7356,7 +7356,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 <span class="text-sm">📜</span>
                 <div>
                   <h3 class="font-bold text-xs text-ios-text">Security & Access Audit Trail</h3>
-                  <p class="text-[11px] text-ios-subtext">অপারেটর লগইন ও স্পর্শকাতর কাজের রিয়েল-টাইম হিস্ট্রি</p>
+                  <p class="text-[11px] text-ios-subtext">Real-time activity audit log for operator logins</p>
                 </div>
               </div>
               <div class="flex items-center gap-2">
@@ -7387,12 +7387,12 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <span class="text-xs text-ios-subtext">Google Drive & Disaster Recovery</span>
             </div>
             <h1 class="text-2xl sm:text-3xl font-black text-ios-text tracking-tight mt-1">Cloud Backups & Data Vault</h1>
-            <p class="text-xs text-ios-subtext mt-1">গুগল ক্লাউড সিঙ্ক, স্বয়ংক্রিয় ব্যাকআপ শিডিউল এবং অফলাইন ডাটাবেজ নিরাপত্তা।</p>
+            <p class="text-xs text-ios-subtext mt-1" data-i18n="backups_desc">Google Cloud sync, automated backup schedules, and offline database security.</p>
           </div>
 
           <div class="flex flex-wrap items-center gap-2">
             <button onclick="syncToGoogleCloud()" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-cyan-500 hover:bg-cyan-600 text-white shadow-sm flex items-center gap-1.5 active:scale-95 transition-all cursor-pointer">
-              <span>⚡</span> <span>Sync Now (সিঙ্ক করুন)</span>
+              <span>⚡</span> <span data-i18n="btn_sync_now">Sync Now</span>
             </button>
             <button onclick="downloadCompleteBackupJSON()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-ios-border bg-white/5 hover:bg-white/10 text-ios-text active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer">
               <span>📥</span> <span>Download Backup (.json)</span>
@@ -7469,7 +7469,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                   </div>
                   <div>
                     <h3 class="font-bold text-sm text-ios-text">Google Cloud & Drive Sync</h3>
-                    <p class="text-[11px] text-ios-subtext">অটোমেটিক ক্লাউড এনক্রিপ্টেড ব্যাকআপ</p>
+                    <p class="text-[11px] text-ios-subtext">Automatic Encrypted Cloud Backup</p>
                   </div>
                 </div>
                 <div id="google-auth-action-container"></div>
@@ -7490,7 +7490,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                   <span class="w-8 h-8 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-sm font-bold border border-cyan-500/30">🔥</span>
                   <div>
                     <h3 class="font-bold text-sm text-ios-text">Google Firestore Live Sync</h3>
-                    <p class="text-[11px] text-ios-subtext">রিয়েল-টাইম ক্লাউড ডাটাবেজ সিকিউরিটি</p>
+                    <p class="text-[11px] text-ios-subtext">Real-time Cloud Database Security</p>
                   </div>
                 </div>
                 <button onclick="openFirebaseConfigModal()" class="px-2.5 py-1.5 rounded-xl text-xs font-bold text-cyan-400 border border-cyan-500/30 hover:bg-cyan-500/10 transition-all cursor-pointer flex items-center gap-1">
@@ -7527,7 +7527,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <span class="text-lg">⚙️</span>
               <div>
                 <h3 class="text-sm font-bold text-ios-text">Cloud Synchronization Policies</h3>
-                <p class="text-xs text-ios-subtext">স্বয়ংক্রিয় ব্যাকআপ ট্র্রিগার ও শিডিউল কনফিগারেশন</p>
+                <p class="text-xs text-ios-subtext">Automated Backup Trigger & Schedule Configuration</p>
               </div>
             </div>
 
@@ -7535,7 +7535,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <label class="flex items-start justify-between gap-3 p-3.5 rounded-2xl bg-white/[0.02] border border-ios-border hover:border-cyan-400/40 transition-all cursor-pointer">
                 <div>
                   <div class="font-bold text-xs text-ios-text">Real-time Order Auto-Sync</div>
-                  <div class="text-[11px] text-ios-subtext">নতুন অর্ডার বা কাস্টমার মাপ সেভ হওয়ার সাথে সাথে ক্লাউডে ব্যাকআপ হবে</div>
+                  <div class="text-[11px] text-ios-subtext">Auto-sync immediately when orders or measurements are saved</div>
                 </div>
                 <input type="checkbox" id="sync-policy-realtime" onchange="updateSyncPolicy('realtime', this.checked)" checked class="w-4 h-4 rounded text-cyan-500 focus:ring-0 cursor-pointer mt-0.5" />
               </label>
@@ -7543,7 +7543,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <label class="flex items-start justify-between gap-3 p-3.5 rounded-2xl bg-white/[0.02] border border-ios-border hover:border-cyan-400/40 transition-all cursor-pointer">
                 <div>
                   <div class="font-bold text-xs text-ios-text">Daily Midnight Drive Snapshot</div>
-                  <div class="text-[11px] text-ios-subtext">প্রতিদিন রাত ১০:০০ টায় গুগল ড্রাইভে একটি স্বতন্ত্র স্ন্যাপশট ফাইল তৈরি হবে</div>
+                  <div class="text-[11px] text-ios-subtext">Daily automated snapshot created at 10:00 PM</div>
                 </div>
                 <input type="checkbox" id="sync-policy-daily" onchange="updateSyncPolicy('daily', this.checked)" checked class="w-4 h-4 rounded text-cyan-500 focus:ring-0 cursor-pointer mt-0.5" />
               </label>
@@ -7555,7 +7555,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <span class="text-lg">💾</span>
               <div>
                 <h3 class="text-sm font-bold text-ios-text">Manual Snapshot & Offline Export</h3>
-                <p class="text-xs text-ios-subtext">পেনড্রাইভ বা নিজস্ব কম্পিউটারে অফলাইন ফাইল হিসেবে সংরক্ষণ</p>
+                <p class="text-xs text-ios-subtext">Offline JSON storage for USB drives or local PC</p>
               </div>
             </div>
 
@@ -7563,7 +7563,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <div class="p-3.5 rounded-2xl bg-white/[0.02] border border-ios-border flex items-center justify-between gap-3">
                 <div>
                   <div class="font-bold text-xs text-ios-text">Download Complete Shop Database</div>
-                  <div class="text-[11px] text-ios-subtext">অর্ডার, মাপ, স্টাফ ও লেজারসহ এনক্রিপ্টেড JSON ফাইল</div>
+                  <div class="text-[11px] text-ios-subtext">Encrypted JSON file with orders, measurements, staff, and ledgers</div>
                 </div>
                 <button onclick="downloadCompleteBackupJSON()" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-white/5 hover:bg-white/10 text-ios-text border border-ios-border active:scale-95 transition-all cursor-pointer shrink-0">
                   📥 Export
@@ -7573,7 +7573,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <div class="p-3.5 rounded-2xl bg-white/[0.02] border border-ios-border flex items-center justify-between gap-3">
                 <div>
                   <div class="font-bold text-xs text-ios-text">Restore Database from File</div>
-                  <div class="text-[11px] text-ios-subtext">পূর্বে ডাউনলোড করা যেকোনো ব্যাকআপ ফাইল থেকে সম্পূর্ণ রিস্টোর</div>
+                  <div class="text-[11px] text-ios-subtext">Full restore from any previously downloaded backup file</div>
                 </div>
                 <label class="px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 active:scale-95 transition-all cursor-pointer shrink-0">
                   📤 Restore
@@ -7591,7 +7591,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <span class="text-base">📜</span>
               <div>
                 <h3 class="font-bold text-sm text-ios-text">Recent Cloud Snapshots & Disaster Recovery</h3>
-                <p class="text-[11px] text-ios-subtext">ভুলবশত কোনো ডাটা মুছে গেলে পূর্বের স্ন্যাপশট থেকে ১-ক্লিকে ফিরিয়ে আনার ব্যবস্থা</p>
+                <p class="text-[11px] text-ios-subtext">1-click recovery from snapshot if data is accidentally deleted</p>
               </div>
             </div>
             <button onclick="syncToGoogleCloud()" class="px-3 py-1.5 rounded-xl text-xs font-bold text-cyan-400 hover:bg-cyan-500/10 border border-ios-border active:scale-95 transition-all cursor-pointer">
@@ -7725,7 +7725,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 </button>
                 <select id="order-filter-due" onchange="filterOrders()" class="sr-only" style="display:none !important;" aria-hidden="true" tabindex="-1">
                   <option value="ALL">All Payments (সব পেমেন্ট)</option>
-                  <option value="DUE">বকেয়া আছে (Due Only)</option>
+                  <option value="DUE">Due Only</option>
                   <option value="PAID">পরিশোধিত (Fully Paid)</option>
                 </select>
               </div>
@@ -7851,14 +7851,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <!-- Status / Due Filter -->
               <div class="relative">
                 <button type="button" class="cyber-select-trigger" id="customer-filter-status-btn" onclick="CyberSelect.openForSelect(this, 'customer-filter-status')">
-                  <span id="customer-filter-status-label">All Customers (সকল গ্রাহক)</span>
+                  <span id="customer-filter-status-label">All Customers</span>
                   <span class="cyber-select-chevron">▾</span>
                 </button>
                 <select id="customer-filter-status" onchange="renderCustomers()" class="sr-only" style="display:none !important;" aria-hidden="true" tabindex="-1">
                   <option value="ALL">All Customers (সকল গ্রাহক)</option>
                   <option value="DUE">বকেয়া আছে (Due Only)</option>
-                  <option value="PAID">পরিশোধিত (Zero Due)</option>
-                  <option value="VIP">⭐ VIP Clients (নিয়মিত)</option>
+                  <option value="PAID">Zero Due</option>
+                  <option value="VIP">⭐ VIP Clients</option>
                 </select>
               </div>
 
@@ -7885,7 +7885,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           </div>
           <div id="customers-empty" class="hidden text-center py-10 space-y-2">
             <span class="text-3xl">👥</span>
-            <div class="text-sm font-bold text-ios-text">কোনো গ্রাহক পাওয়া যায়নি</div>
+            <div class="text-sm font-bold text-ios-text">No customers found</div>
             <p class="text-xs text-gray-400">ফিল্টার পরিবর্তন করুন অথবা "＋ Add Customer" বাটনে ক্লিক করে নতুন গ্রাহক যোগ করুন।</p>
           </div>
         </div>
@@ -7990,14 +7990,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <!-- Attendance Status Filter (CyberSelect) -->
               <div class="relative">
                 <button type="button" class="cyber-select-trigger" id="staff-attendance-filter-btn" onclick="CyberSelect.openForSelect(this, 'staff-attendance-filter')">
-                  <span id="staff-attendance-filter-label">All Attendance (সবাই)</span>
+                  <span id="staff-attendance-filter-label">All Attendance</span>
                   <span class="cyber-select-chevron">▾</span>
                 </button>
                 <select id="staff-attendance-filter" onchange="renderStaff()" class="sr-only" style="display:none !important;" aria-hidden="true" tabindex="-1">
                   <option value="ALL">All Attendance (সবাই)</option>
-                  <option value="Present">🟢 Present (উপস্থিত)</option>
-                  <option value="Half-Day">🟡 Half-Day (অর্ধবেলা)</option>
-                  <option value="Absent">🔴 Absent (অনুপস্থিত)</option>
+                  <option value="Present">🟢 Present</option>
+                  <option value="Half-Day">🟡 Half-Day</option>
+                  <option value="Absent">🔴 Absent</option>
                 </select>
               </div>
 
@@ -8025,7 +8025,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <!-- Empty State -->
         <div id="staff-empty" class="hidden bento-card p-12 text-center space-y-3">
           <span class="text-4xl">✂️</span>
-          <div class="text-base font-bold text-ios-text">কোনো কারিগর পাওয়া যায়নি</div>
+          <div class="text-base font-bold text-ios-text">No staff found</div>
           <p class="text-xs text-gray-400">ফিল্টার পরিবর্তন করুন অথবা "＋ Add Karigar" বাটনে ক্লিক করে নতুন কারিগর যোগ করুন।</p>
         </div>
 
@@ -10038,10 +10038,23 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
   <!-- ======================================================== -->
   <script>
     let currentLang = 'en';
+    try {
+      currentLang = localStorage.getItem('selaisathi_lang') || 'en';
+    } catch(e) {}
+
+    function isBn() {
+      return typeof currentLang !== 'undefined' && currentLang === 'bn';
+    }
+
+    function t(enText, bnText) {
+      return isBn() ? bnText : enText;
+    }
+
     const translations = {
       en: {
         sec_shop: 'SHOP OS',
         sec_admin: 'SYSTEM ADMIN',
+        brand_os: 'SelaiSathi • OS',
         menu_dashboard: 'Dashboard',
         menu_orders: 'Orders',
         menu_customers: 'Customers',
@@ -10057,10 +10070,39 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         menu_activity: 'Activity log',
         btn_new_order: 'New order',
         inv_title: 'Inventory',
+        btn_collect_due: 'Collect Due',
+        btn_ready_sms: 'Ready SMS',
+        btn_view_orders_table: 'View in Orders Table',
+        owner_sub: 'Ownership & Cloud Sync',
+        admin_sub: 'Change primary shop admin',
+        admin_transfer_desc: 'Update shop owner profile or transfer admin role',
+        auth_modal_sub: 'Sign in with Google to protect shop data in cloud',
+        picker_sub: 'Select an account to access SelaiSathi Cloud',
+        auth_use_another: 'Use another account',
+        auth_enter_gmail: 'Enter your Google email:',
+        auth_select_this_acc: 'Select this account →',
+        auth_otp_sub: 'Security OTP code for your Google ID verification:',
+        backups_desc: 'Google Cloud sync, automated backup schedules, and offline database security.',
+        btn_sync_now: 'Sync Now',
+        users_tab_operators: 'Operators List',
+        inv_hub_title: 'Inventory & Materials Hub',
+        btn_barcode: 'Barcode Scan',
+        btn_bom: 'BOM Consumption',
+        btn_stock_audit: 'Stock Audit',
+        btn_new_item: 'New Item',
+        inv_tab_stock: 'Stock Items',
+        inv_tab_remnants: 'Fabric Remnants',
+        inv_tab_suppliers: 'Suppliers',
+        inv_tab_audit: 'Audit Register',
+        tooltip_collapse_sidebar: 'Collapse Sidebar',
+        tooltip_nav_menu: 'Navigation Menu',
+        tooltip_search: 'Search',
+        tooltip_lang: 'Change Language'
       },
       bn: {
         sec_shop: 'দোকান (Shop OS)',
         sec_admin: 'সিস্টেম অ্যাডমিন',
+        brand_os: 'সেলাই সাথী • OS',
         menu_dashboard: 'ড্যাশবোর্ড',
         menu_orders: 'অর্ডারসমূহ',
         menu_customers: 'গ্রাহক খাতা',
@@ -10076,23 +10118,82 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         menu_activity: 'অ্যাক্টিভিটি লগ',
         btn_new_order: 'নতুন অর্ডার',
         inv_title: 'ইনভেন্টরি ও ফ্যাব্রিক স্টক',
+        btn_collect_due: 'বাকি কালেকশন',
+        btn_ready_sms: 'রেডি SMS পাঠান',
+        btn_view_orders_table: 'অর্ডার টেবিলে দেখুন',
+        owner_sub: 'মালিকানা ও ক্লাউড সিঙ্ক',
+        admin_sub: 'দোকানের প্রধান এডমিন পরিবর্তন করুন',
+        admin_transfer_desc: 'দোকান মালিকের তথ্য আপডেট করুন বা অন্য কর্মচারীকে এডমিন বানান',
+        auth_modal_sub: 'দোকানের ডাটা ক্লাউডে সুরক্ষিত রাখতে গুগল দিয়ে সাইন-ইন করুন',
+        picker_sub: 'SelaiSathi ক্লাউড অ্যাক্সেস করতে একাউন্ট সিলেক্ট করুন',
+        auth_use_another: 'অন্য জিমেইল ব্যবহার করুন',
+        auth_enter_gmail: 'আপনার গুগল ইমেইল দিন:',
+        auth_select_this_acc: 'এই একাউন্ট নির্বাচন করুন →',
+        auth_otp_sub: 'আপনার গুগল আইডি ভেরিফিকেশনের জন্য ওটিপি কোড:',
+        backups_desc: 'গুগল ক্লাউড সিঙ্ক, স্বয়ংক্রিয় ব্যাকআপ শিডিউল এবং অফলাইন ডাটাবেজ নিরাপত্তা।',
+        btn_sync_now: 'সিঙ্ক করুন',
+        users_tab_operators: 'কর্মী তালিকা',
+        inv_hub_title: 'কারখানা ইনভেন্টরি ও ম্যাটেরিয়ালস',
+        btn_barcode: 'বারকোড স্ক্যান',
+        btn_bom: 'BOM কনজাম্পশন',
+        btn_stock_audit: 'স্টক অডিট',
+        btn_new_item: 'নতুন উপাদান',
+        inv_tab_stock: 'মালামাল তালিকা',
+        inv_tab_remnants: 'কাটপিস ও ছাঁট কাপড়',
+        inv_tab_suppliers: 'সাপ্লায়ার ও মহাজন খাতা',
+        inv_tab_audit: 'স্টক অডিট লগ',
+        tooltip_collapse_sidebar: 'সাইডবার বন্ধ করুন',
+        tooltip_nav_menu: 'মেনু',
+        tooltip_search: 'অনুসন্ধান',
+        tooltip_lang: 'ভাষা পরিবর্তন'
       }
     };
 
-    function toggleLanguage() {      currentLang = currentLang === 'en' ? 'bn' : 'en';
-      document.getElementById('lang-indicator').innerText = currentLang === 'en' ? 'বাংলা' : 'English';
+    function applyLanguage(lang) {
+      currentLang = lang;
+      try {
+        localStorage.setItem('selaisathi_lang', currentLang);
+      } catch(e) {}
+
+      const ind = document.getElementById('lang-indicator');
+      if (ind) ind.innerText = currentLang === 'en' ? 'বাংলা' : 'English';
       
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (translations[currentLang][key]) {
-          el.innerText = translations[currentLang][key];
+        if (translations[currentLang] && translations[currentLang][key]) {
+          el.innerHTML = translations[currentLang][key];
         }
       });
 
-      if (currentLang === 'bn') {
-        document.getElementById('dash-greeting').innerText = 'শুভ অপরাহ্ন, শপ ওনার';
-      } else {
-        document.getElementById('dash-greeting').innerText = 'Good Evening, Shop Owner';      }
+      document.querySelectorAll('[data-i18n-title]').forEach(el => {
+        const key = el.getAttribute('data-i18n-title');
+        if (translations[currentLang] && translations[currentLang][key]) {
+          el.title = translations[currentLang][key];
+        }
+      });
+
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (translations[currentLang] && translations[currentLang][key]) {
+          el.placeholder = translations[currentLang][key];
+        }
+      });
+
+      const dashGreeting = document.getElementById('dash-greeting');
+      if (dashGreeting) {
+        dashGreeting.innerText = currentLang === 'bn' ? 'শুভ অপরাহ্ন, শপ ওনার' : 'Good Evening, Shop Owner';
+      }
+
+      if (typeof updateSidebarOwnerChip === 'function') updateSidebarOwnerChip();
+      const shopOwnerModal = document.getElementById('modal-shop-owner');
+      if (shopOwnerModal && !shopOwnerModal.classList.contains('hidden') && typeof openShopOwnerModal === 'function') {
+        openShopOwnerModal();
+      }
+    }
+
+    function toggleLanguage() {
+      const nextLang = currentLang === 'en' ? 'bn' : 'en';
+      applyLanguage(nextLang);
     }
     
     // --- Mobile Off-Canvas Drawer Navigation ---
@@ -13189,7 +13290,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
     const ssFieldSets={
       customer:[['name','Customer name','text'],['phone','Mobile number','tel'],['address','Address','text'],['notes','Notes','text']],
-      staff:[['name','Karigar / Staff name','text'],['phone','Mobile number','tel'],['email','Email Address (ইমেইল এড্রেস)','email'],['role','Role (Master Tailor / Cutter / Stitcher / Finishing)','text'],['rate','Rate per garment (৳)','number'],['specialty','Specialty / Craft Focus','text'],['experience','Experience (e.g. 8 Years)','text'],['address','Address / Location','text'],['status','Status (Active/Inactive)','text']],
+      staff:[['name','Karigar / Staff name','text'],['phone','Mobile number','tel'],['email','Email Address','email'],['role','Role (Master Tailor / Cutter / Stitcher / Finishing)','text'],['rate','Rate per garment (৳)','number'],['specialty','Specialty / Craft Focus','text'],['experience','Experience (e.g. 8 Years)','text'],['address','Address / Location','text'],['status','Status (Active/Inactive)','text']],
       fabric:[['name','Material name','text'],['sku','SKU / Code','text'],['stock','Current stock','number'],['unit','Unit (yard/pcs)','text'],['cost','Unit cost (৳)','number'],['minimum','Low-stock threshold','number']]
     };
     function openDataModal(kind,record){
@@ -17507,23 +17608,24 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           this.currentResolve = resolve;
           this.isOpen = true;
 
+          const isBnMode = typeof currentLang !== 'undefined' && currentLang === 'bn';
           let defaultIcon = '✨';
-          let defaultTitle = 'SELAISATHI AI 2.0 • SYSTEM NOTICE';
+          let defaultTitle = isBnMode ? 'SELAISATHI • নোটিশ' : 'SELAISATHI • SYSTEM NOTICE';
           let isDanger = false;
           let isSuccess = false;
 
           const text = String(message || '');
-          if (text.includes('সফল') || text.includes('success') || text.includes('সংরক্ষিত') || text.includes('🎉')) {
+          if (text.includes('সফল') || text.includes('success') || text.includes('Success') || text.includes('সংরক্ষিত') || text.includes('saved') || text.includes('🎉')) {
             defaultIcon = '🎉';
-            defaultTitle = 'SUCCESSFUL • সম্পন্ন হয়েছে';
+            defaultTitle = isBnMode ? 'SUCCESSFUL • সম্পন্ন হয়েছে' : 'SUCCESSFUL';
             isSuccess = true;
-          } else if (text.includes('মুছে') || text.includes('ভুল') || text.includes('Error') || text.includes('Not found') || text.includes('Invalid') || text.includes('cannot') || text.includes('negative') || text.includes('সতর্ক')) {
+          } else if (text.includes('মুছে') || text.includes('ভুল') || text.includes('Error') || text.includes('Not found') || text.includes('Invalid') || text.includes('cannot') || text.includes('negative') || text.includes('সতর্ক') || text.includes('Mismatch')) {
             defaultIcon = '⚠️';
-            defaultTitle = 'ATTENTION • সতর্কবার্তা';
-            isDanger = text.includes('মুছে') || text.includes('Error');
+            defaultTitle = isBnMode ? 'ATTENTION • সতর্কবার্তা' : 'ATTENTION';
+            isDanger = text.includes('মুছে') || text.includes('Error') || text.includes('delete');
           } else if (text.includes('SMS') || text.includes('বার্তা')) {
             defaultIcon = '📲';
-            defaultTitle = 'SMS DISPATCHED • প্রেরিত বার্তা';
+            defaultTitle = isBnMode ? 'SMS DISPATCHED • প্রেরিত বার্তা' : 'SMS DISPATCHED';
             isSuccess = true;
           }
 
@@ -17540,7 +17642,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             this.cancelBtn.style.display = 'none';
           }
           if (this.okBtn) {
-            this.okBtn.textContent = options.okText || 'ঠিক আছে (OK) ✓';
+            this.okBtn.textContent = options.okText || (isBnMode ? 'ঠিক আছে (OK) ✓' : 'OK ✓');
             this.okBtn.className = 'cyber-btn cyber-btn-primary';
           }
 
@@ -17561,8 +17663,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           };
           this.isOpen = true;
 
+          const isBnMode = typeof currentLang !== 'undefined' && currentLang === 'bn';
           const isDanger = options.danger || false;
-          if (this.titleEl) this.titleEl.textContent = options.title || 'CONFIRM ACTION • নিশ্চিতকরণ';
+          if (this.titleEl) this.titleEl.textContent = options.title || (isBnMode ? 'CONFIRM ACTION • নিশ্চিতকরণ' : 'CONFIRM ACTION');
           if (this.messageEl) this.messageEl.innerHTML = String(message || '').replace(/\n/g, '<br>');
           
           if (this.iconEl) {
@@ -17571,13 +17674,13 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           }
 
           if (this.cancelBtn) {
-            this.cancelBtn.textContent = options.cancelText || 'বাতিল (Cancel)';
+            this.cancelBtn.textContent = options.cancelText || (isBnMode ? 'বাতিল (Cancel)' : 'Cancel');
             this.cancelBtn.classList.remove('hidden');
             this.cancelBtn.style.display = 'inline-flex';
           }
 
           if (this.okBtn) {
-            this.okBtn.textContent = options.confirmText || (isDanger ? 'হ্যাঁ, ডিলিট করুন ✓' : 'ঠিক আছে (OK) ✓');
+            this.okBtn.textContent = options.confirmText || (isDanger ? (isBnMode ? 'হ্যাঁ, ডিলিট করুন ✓' : 'Yes, Delete ✓') : (isBnMode ? 'ঠিক আছে (OK) ✓' : 'OK ✓'));
             this.okBtn.className = 'cyber-btn ' + (isDanger ? 'cyber-btn-danger' : 'cyber-btn-primary');
           }
 
@@ -17819,6 +17922,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
     // Auto initialize on load
     document.addEventListener('DOMContentLoaded', () => {
+      applyLanguage(currentLang);
       applyThemeSliderState();
       CyberDialog.init();
       CyberCalendar.init();
@@ -17829,6 +17933,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       initMeasurementsRegistry();
       if (typeof applyBrandToUI === "function") applyBrandToUI();
     });
+    applyLanguage(currentLang);
     applyThemeSliderState();
     CyberDialog.init();
     CyberCalendar.init();
@@ -19532,9 +19637,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       logSecurityAudit('ADMIN_UPDATE', 'Admin profile updated: ' + newName + ' (' + newEmail + ')', 'INFO');
 
       if (window.CyberDialog) {
-        CyberDialog.alert('দোকান প্রধান এডমিন (Super Admin)-এর প্রোফাইল ও সিকিউরিটি পিন সফলভাবে আপডেট করা হয়েছে!', {
+        CyberDialog.alert(currentLang === 'bn' ? 'দোকান প্রধান এডমিন (Super Admin)-এর প্রোফাইল ও সিকিউরিটি পিন সফলভাবে আপডেট করা হয়েছে!' : 'Primary shop admin profile and security PIN have been updated successfully!', {
           icon: '👑',
-          title: 'ADMIN PROFILE UPDATED'
+          title: currentLang === 'bn' ? 'ADMIN PROFILE UPDATED • সফল' : 'ADMIN PROFILE UPDATED'
         });
       } else {
         alert('Admin profile updated successfully!');
@@ -19547,7 +19652,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const confirmPin = document.getElementById('transfer-confirm-pin')?.value.trim();
 
       if (!targetUserId) {
-        alert('অনুগ্রহ করে নতুন এডমিন নির্বাচন করুন।');
+        CyberDialog.alert(currentLang === 'bn' ? 'অনুগ্রহ করে নতুন এডমিন নির্বাচন করুন।' : 'Please select the successor admin.', { icon: '⚠️', title: currentLang === 'bn' ? 'REQUIRED • আবশ্যক' : 'REQUIRED' });
         return;
       }
 
@@ -19556,12 +19661,12 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const targetUser = users.find(u => u.id === targetUserId);
 
       if (!targetUser) {
-        alert('নির্বাচিত কর্মী খুঁজে পাওয়া যায়নি।');
+        CyberDialog.alert(currentLang === 'bn' ? 'নির্বাচিত কর্মী খুঁজে পাওয়া যায়নি।' : 'Selected operator not found.', { icon: '⚠️', title: currentLang === 'bn' ? 'NOT FOUND • পাওয়া যায়নি' : 'NOT FOUND' });
         return;
       }
 
       if (currentOwner.pin && currentOwner.pin !== confirmPin) {
-        alert('বর্তমান এডমিন সিকিউরিটি পিন সঠিক নয়। অনুগ্রহ করে সঠিক পিন দিন।');
+        CyberDialog.alert(currentLang === 'bn' ? 'বর্তমান এডমিন সিকিউরিটি পিন সঠিক নয়। অনুগ্রহ করে সঠিক পিন দিন।' : 'Current admin security PIN is incorrect. Please enter the valid PIN.', { icon: '⚠️', title: currentLang === 'bn' ? 'INVALID PIN • পিন ভুল' : 'INVALID PIN' });
         return;
       }
 
@@ -19589,9 +19694,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       logSecurityAudit('OWNERSHIP_TRANSFER', 'Ownership transferred from ' + currentOwner.name + ' to ' + targetUser.name, 'WARN');
 
       if (window.CyberDialog) {
-        CyberDialog.alert('অভিনন্দন! দোকান মালিকানা ও প্রধান এডমিন ক্ষমতা সফলভাবে <strong>' + safeText(targetUser.name) + '</strong>-এর কাছে হস্তান্তর করা হয়েছে।', {
+        CyberDialog.alert(currentLang === 'bn' ? ('অভিনন্দন! দোকান মালিকানা ও প্রধান এডমিন ক্ষমতা সফলভাবে <strong>' + safeText(targetUser.name) + '</strong>-এর কাছে হস্তান্তর করা হয়েছে।') : ('Congratulations! Shop ownership and primary admin authority has been transferred to <strong>' + safeText(targetUser.name) + '</strong>.'), {
           icon: '👑',
-          title: 'ADMIN OWNERSHIP TRANSFERRED'
+          title: currentLang === 'bn' ? 'ADMIN OWNERSHIP TRANSFERRED • সফল' : 'ADMIN OWNERSHIP TRANSFERRED'
         });
       } else {
         alert('Admin ownership transferred successfully!');
@@ -19698,7 +19803,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const app = document.getElementById('fb-cfg-appid')?.value.trim();
 
       if (!key || !proj) {
-        alert('অনুগ্রহ করে অন্তত Firebase API Key এবং Project ID পূরণ করুন।');
+        CyberDialog.alert(currentLang === 'bn' ? 'অনুগ্রহ করে অন্তত Firebase API Key এবং Project ID পূরণ করুন।' : 'Please enter at least the Firebase API Key and Project ID.', { icon: '⚠️', title: currentLang === 'bn' ? 'CONFIG REQUIRED • আবশ্যক' : 'CONFIG REQUIRED' });
         return;
       }
 
@@ -19710,9 +19815,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       closeFirebaseConfigModal();
 
       if (window.CyberDialog) {
-        CyberDialog.alert('Firebase ক্লাউড সেটিংস সফলভাবে সংরক্ষিত হয়েছে। লাইভ সিঙ্ক রিস্টার্ট হচ্ছে...', {
+        CyberDialog.alert(currentLang === 'bn' ? 'Firebase ক্লাউড সেটিংস সফলভাবে সংরক্ষিত হয়েছে। লাইভ সিঙ্ক রিস্টার্ট হচ্ছে...' : 'Firebase cloud settings saved successfully. Live sync is restarting...', {
           icon: '🔥',
-          title: 'FIREBASE CONFIG SAVED • সফল'
+          title: currentLang === 'bn' ? 'FIREBASE CONFIG SAVED • সফল' : 'FIREBASE CONFIG SAVED'
         });
       } else {
         alert('Firebase configuration saved successfully!');
@@ -19721,7 +19826,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
 
     function resetFirebaseConfigDefault() {
-      if (!confirm('আপনি কি ডিফল্ট Firebase সেটিংস রিস্টোর করতে চান?')) return;
+      if (!confirm(currentLang === 'bn' ? 'আপনি কি ডিফল্ট Firebase সেটিংস রিস্টোর করতে চান?' : 'Are you sure you want to reset to default Firebase settings?')) return;
       localStorage.removeItem('selaisathi_firebase_config');
       _firebaseApp = null;
       _firestoreDb = null;
@@ -19746,7 +19851,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (!file) return;
 
       if (!file.type.startsWith('image/')) {
-        alert('অনুগ্রহ করে একটি সঠিক ছবি ফাইল (.jpg, .png, .webp) নির্বাচন করুন।');
+        CyberDialog.alert(currentLang === 'bn' ? 'অনুগ্রহ করে একটি সঠিক ছবি ফাইল (.jpg, .png, .webp) নির্বাচন করুন।' : 'Please select a valid image file (.jpg, .png, .webp).', { icon: '⚠️', title: currentLang === 'bn' ? 'INVALID IMAGE • ভুল ফাইল' : 'INVALID IMAGE' });
         return;
       }
 
@@ -19795,9 +19900,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             }
 
             if (window.CyberDialog) {
-              CyberDialog.alert('অভিনন্দন! আপনার প্রোফাইল ফটো সফলভাবে সংরক্ষিত ও ক্লাউডে সিঙ্ক হয়েছে।', {
+              CyberDialog.alert(currentLang === 'bn' ? 'অভিনন্দন! আপনার প্রোফাইল ফটো সফলভাবে সংরক্ষিত ও ক্লাউডে সিঙ্ক হয়েছে।' : 'Profile photo updated and synced to cloud successfully.', {
                 icon: '📸',
-                title: 'PHOTO SAVED • সফল'
+                title: currentLang === 'bn' ? 'PHOTO SAVED • সফল' : 'PHOTO SAVED'
               });
             } else {
               alert('Profile photo updated successfully!');
@@ -19813,7 +19918,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
 
     function removeOwnerPhoto() {
-      if (!confirm('আপনি কি আপনার প্রোফাইল ফটো রিমুভ করতে চান?')) return;
+      if (!confirm(currentLang === 'bn' ? 'আপনি কি আপনার প্রোফাইল ফটো রিমুভ করতে চান?' : 'Are you sure you want to remove your custom profile photo?')) return;
       localStorage.removeItem('selaisathi_owner_photo');
       const gUser = getGoogleAuthUser();
       if (gUser) {
@@ -19948,13 +20053,13 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       if (step === 'landing') {
         if (title) title.textContent = 'Sign In with Google';
-        if (sub) sub.textContent = 'দোকানের ডাটা ক্লাউডে সুরক্ষিত রাখতে গুগল দিয়ে সাইন-ইন করুন';
+        if (sub) sub.textContent = currentLang === 'bn' ? 'দোকানের ডাটা ক্লাউডে সুরক্ষিত রাখতে গুগল দিয়ে সাইন-ইন করুন' : 'Sign in with Google to protect shop data in cloud';
       } else if (step === 'picker') {
-        if (title) title.textContent = 'Google Account Chooser';
-        if (sub) sub.textContent = 'লগইন করতে আপনার গুগল অ্যাকাউন্ট নির্বাচন করুন';
+        if (title) title.textContent = currentLang === 'bn' ? 'গুগল অ্যাকাউন্ট নির্বাচন' : 'Choose a Google Account';
+        if (sub) sub.textContent = currentLang === 'bn' ? 'লগইন করতে আপনার গুগল অ্যাকাউন্ট নির্বাচন করুন' : 'Select an account to access SelaiSathi Cloud';
       } else if (step === 'otp') {
         if (title) title.textContent = 'Google 2-Step Verification';
-        if (sub) sub.textContent = 'আপনার অ্যাকাউন্টের ওটিপি ভেরিফিকেশন সম্পন্ন করুন';
+        if (sub) sub.textContent = currentLang === 'bn' ? 'আপনার অ্যাকাউন্টের ওটিপি ভেরিফিকেশন সম্পন্ন করুন' : 'Security OTP code for your Google ID verification:';
       }
     }
 
@@ -20021,7 +20126,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const inp = document.getElementById('custom-picker-email');
       const email = inp?.value.trim();
       if (!email || !email.includes('@')) {
-        alert('অনুগ্রহ করে সঠিক জিমেইল বা গুগল ইমেইল এড্রেস প্রদান করুন।');
+        CyberDialog.alert(currentLang === 'bn' ? 'অনুগ্রহ করে সঠিক জিমেইল বা গুগল ইমেইল এড্রেস প্রদান করুন।' : 'Please enter a valid Gmail or Google email address.', { icon: '⚠️', title: currentLang === 'bn' ? 'INVALID EMAIL • ভুল ইমেইল' : 'INVALID EMAIL' });
         return;
       }
       selectGoogleAccountForOtp(email, email.split('@')[0]);
@@ -20070,9 +20175,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       }, 100);
 
       if (window.CyberDialog) {
-        CyberDialog.alert('আপনার গুগল অ্যাকাউন্টে (' + email + ') সিকিউরিটি ওটিপি প্রেরণ করা হয়েছে:\n\n🔐 ওটিপি কোড: ' + otpCode + '\n(মেয়াদ: ৩ মিনিট • Google 2FA)', {
+        CyberDialog.alert(currentLang === 'bn' ? ('আপনার গুগল অ্যাকাউন্টে (' + email + ') সিকিউরিটি ওটিপি প্রেরণ করা হয়েছে:\n\n🔐 ওটিপি কোড: ' + otpCode + '\n(মেয়াদ: ৩ মিনিট • Google 2FA)') : ('Security OTP has been dispatched to your Google ID (' + email + '):\n\n🔐 OTP Code: ' + otpCode + '\n(Valid for 3 minutes • Google 2FA)'), {
           icon: '✉️',
-          title: 'GOOGLE OTP DISPATCHED'
+          title: currentLang === 'bn' ? 'GOOGLE OTP DISPATCHED • প্রেরিত' : 'GOOGLE OTP DISPATCHED'
         });
       }
     }
@@ -20128,15 +20233,15 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         .join('');
 
       if (enteredCode.length !== 6) {
-        alert('অনুগ্রহ করে ৬-সংখ্যার সম্পূর্ণ ওটিপি কোড দিন।');
+        CyberDialog.alert(currentLang === 'bn' ? 'অনুগ্রহ করে ৬-সংখ্যার সম্পূর্ণ ওটিপি কোড দিন।' : 'Please enter the complete 6-digit OTP code.', { icon: '⚠️', title: currentLang === 'bn' ? 'INCOMPLETE OTP • অসম্পূর্ণ ওটিপি' : 'INCOMPLETE OTP' });
         return;
       }
 
       if (enteredCode !== window._activeGoogleAuth.otpCode) {
         if (window.CyberDialog) {
-          CyberDialog.alert('ভুল ওটিপি কোড দেওয়া হয়েছে! অনুগ্রহ করে কোডটি পুনরায় চেক করুন।', {
+          CyberDialog.alert(currentLang === 'bn' ? 'ভুল ওটিপি কোড দেওয়া হয়েছে! অনুগ্রহ করে কোডটি পুনরায় চেক করুন।' : 'Invalid OTP code! Please verify the code and try again.', {
             icon: '⚠️',
-            title: 'OTP MISMATCH • ওটিপি ভুল'
+            title: currentLang === 'bn' ? 'OTP MISMATCH • ওটিপি ভুল' : 'OTP MISMATCH'
           });
         } else {
           alert('Invalid OTP code!');
@@ -20145,7 +20250,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       }
 
       if (Date.now() > window._activeGoogleAuth.expiresAt) {
-        alert('ওটিপির মেয়াদ শেষ হয়ে গেছে। অনুগ্রহ করে আবার অ্যাকাউন্ট নির্বাচন করুন।');
+        CyberDialog.alert(currentLang === 'bn' ? 'ওটিপির মেয়াদ শেষ হয়ে গেছে। অনুগ্রহ করে আবার অ্যাকাউন্ট নির্বাচন করুন।' : 'OTP has expired. Please select your account again.', { icon: '⚠️', title: currentLang === 'bn' ? 'OTP EXPIRED • মেয়াদোত্তীর্ণ' : 'OTP EXPIRED' });
         switchAuthStep('picker');
         return;
       }
@@ -20172,9 +20277,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       }
 
       if (window.CyberDialog) {
-        CyberDialog.alert('অভিনন্দন ' + user.name + '! আপনার গুগল আইডি (' + user.email + ') ওটিপি ভেরিফিকেশনের মাধ্যমে সফলভাবে কানেক্ট হয়েছে। সমস্ত ডাটা ক্লাউডে সুরক্ষিত থাকবে।', {
+        CyberDialog.alert(currentLang === 'bn' ? ('অভিনন্দন ' + user.name + '! আপনার গুগল আইডি (' + user.email + ') ওটিপি ভেরিফিকেশনের মাধ্যমে সফলভাবে কানেক্ট হয়েছে। সমস্ত ডাটা ক্লাউডে সুরক্ষিত থাকবে।') : ('Congratulations ' + user.name + '! Your Google account (' + user.email + ') has been verified and connected. All shop data is safely synced to the cloud.'), {
           icon: '🟢',
-          title: 'GOOGLE 2FA LOGIN SUCCESS'
+          title: currentLang === 'bn' ? 'GOOGLE 2FA LOGIN SUCCESS • সফল' : 'GOOGLE 2FA LOGIN SUCCESS'
         });
       }
 
@@ -20194,7 +20299,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const name = document.getElementById('g-signin-name')?.value.trim() || (email ? email.split('@')[0] : 'Shop Owner');
 
       if (!email || !email.includes('@')) {
-        alert('অনুগ্রহ করে একটি বৈধ জিমেইল বা গুগল ইমেইল এড্রেস প্রদান করুন।');
+        CyberDialog.alert(currentLang === 'bn' ? 'অনুগ্রহ করে একটি বৈধ জিমেইল বা গুগল ইমেইল এড্রেস প্রদান করুন।' : 'Please enter a valid Gmail or Google email address.', { icon: '⚠️', title: currentLang === 'bn' ? 'INVALID EMAIL • ভুল ইমেইল' : 'INVALID EMAIL' });
         return;
       }
 
@@ -20214,14 +20319,15 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     function disconnectPhoneAccount() { /* No-op */ }
 
     function disconnectGoogleAccount() {
-      if (!confirm('আপনি কি গুগল অ্যাকাউন্ট সাইন-আউট করতে চান?\nলোকাল ও ক্লাউড ডাটা সুরক্ষিত থাকবে, পরবর্তীতে পুনরায় সাইন-ইন করলেই তা ফেরত পাবেন।')) return;
+      const confirmText = currentLang === 'bn' ? 'আপনি কি গুগল অ্যাকাউন্ট সাইন-আউট করতে চান?\nলোকাল ও ক্লাউড ডাটা সুরক্ষিত থাকবে, পরবর্তীতে পুনরায় সাইন-ইন করলেই তা ফেরত পাবেন।' : 'Are you sure you want to sign out of your Google account?\nLocal and cloud data will remain safe, and will restore when you sign in again.';
+      if (!confirm(confirmText)) return;
       saveGoogleAuthUser(null);
       const modal = document.getElementById('modal-shop-owner');
       if (modal && !modal.classList.contains('hidden')) {
         openShopOwnerModal();
       }
       if (window.CyberDialog) {
-        CyberDialog.alert('গুগল অ্যাকাউন্ট সফলভাবে সাইন-আউট করা হয়েছে।', { icon: '🚪', title: 'SIGNED OUT' });
+        CyberDialog.alert(currentLang === 'bn' ? 'গুগল অ্যাকাউন্ট সফলভাবে সাইন-আউট করা হয়েছে।' : 'Google account signed out successfully.', { icon: '🚪', title: currentLang === 'bn' ? 'SIGNED OUT • সাইন আউট' : 'SIGNED OUT' });
       }
     }
 
@@ -20230,7 +20336,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const pUser = getPhoneAuthUser();
       if (!gUser && !pUser) return;
 
-      if (!confirm('আপনি কি নিশ্চিত যে অ্যাকাউন্ট সাইন-আউট করতে চান?\nআপনার ক্লাউড ও লোকাল ডাটা সম্পূর্ণ সুরক্ষিত থাকবে, পরবর্তীতে পুনরায় সাইন-ইন করলেই তা ফেরত পাবেন।')) return;
+      const confirmText = currentLang === 'bn' ? 'আপনি কি নিশ্চিত যে অ্যাকাউন্ট সাইন-আউট করতে চান?\nআপনার ক্লাউড ও লোকাল ডাটা সম্পূর্ণ সুরক্ষিত থাকবে, পরবর্তীতে পুনরায় সাইন-ইন করলেই তা ফেরত পাবেন।' : 'Are you sure you want to sign out?\nAll your local and cloud data will remain completely safe.';
+      if (!confirm(confirmText)) return;
 
       if (gUser) saveGoogleAuthUser(null);
       if (pUser) savePhoneAuthUser(null);
@@ -20241,7 +20348,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       }
 
       if (window.CyberDialog) {
-        CyberDialog.alert('সফলভাবে সাইন-আউট করা হয়েছে। আপনার ক্লাউড ডাটা নিরাপদে সংরক্ষিত রয়েছে।', { icon: '🚪', title: 'SIGNED OUT' });
+        CyberDialog.alert(currentLang === 'bn' ? 'সফলভাবে সাইন-আউট করা হয়েছে। আপনার ক্লাউড ডাটা নিরাপদে সংরক্ষিত রয়েছে।' : 'Signed out successfully. Your cloud data remains safe and secure.', { icon: '🚪', title: currentLang === 'bn' ? 'SIGNED OUT • সাইন আউট' : 'SIGNED OUT' });
       }
     }
 
@@ -20336,9 +20443,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (!silent) {
         const ownerIdentity = gUser ? gUser.email : (pUser ? pUser.phone : 'Local Vault');
         if (window.CyberDialog) {
-          CyberDialog.alert('অভিনন্দন! আপনার সমস্ত কাস্টমার (' + totalCust + ' জন), মাপ ও অর্ডার ডাটা সফলভাবে ক্লাউড ডাটাবেজে (' + ownerIdentity + ') সেভ হয়েছে। অন্য যেকোনো ফোনে লগইন করলে স্বয়ংক্রিয়ভাবে ডাটা লোড হয়ে যাবে!', {
+          CyberDialog.alert(currentLang === 'bn' ? ('অভিনন্দন! আপনার সমস্ত কাস্টমার (' + totalCust + ' জন), মাপ ও অর্ডার ডাটা সফলভাবে ক্লাউড ডাটাবেজে (' + ownerIdentity + ') সেভ হয়েছে। অন্য যেকোনো ফোনে লগইন করলে স্বয়ংক্রিয়ভাবে ডাটা লোড হয়ে যাবে!') : ('Congratulations! All your customers (' + totalCust + '), measurements, and orders have been securely synced to your cloud database (' + ownerIdentity + ').'), {
             icon: '☁️',
-            title: 'LIVE CLOUD SYNC COMPLETED • সফল'
+            title: currentLang === 'bn' ? 'LIVE CLOUD SYNC COMPLETED • সফল' : 'LIVE CLOUD SYNC COMPLETED'
           });
         } else {
           alert('Cloud synchronization successful! All data saved to cloud.');
@@ -20388,16 +20495,16 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         const cloudOrders = (cloudBundle.orders || []).length;
 
         if (localTotal === 0 || (autoDetect && cloudCust > localCust) || !autoDetect) {
-          const confirmMsg = 'ক্লাউডে (' + ownerIdentity + ') সংরক্ষিত ডাটা পাওয়া গেছে:\n\n• কাস্টমার: ' + cloudCust + ' জন\n• অর্ডার: ' + cloudOrders + ' টি\n• ক্লাউড সেভ টাইম: ' + new Date(cloudBundle.exportedAt || Date.now()).toLocaleString() + '\n\nআপনি কি এই ডিভাইসে সমস্ত ডাটা রিস্টোর করতে চান?';
+          const confirmMsg = currentLang === 'bn' ? ('ক্লাউডে (' + ownerIdentity + ') সংরক্ষিত ডাটা পাওয়া গেছে:\n\n• কাস্টমার: ' + cloudCust + ' জন\n• অর্ডার: ' + cloudOrders + ' টি\n• ক্লাউড সেভ টাইম: ' + new Date(cloudBundle.exportedAt || Date.now()).toLocaleString() + '\n\nআপনি কি এই ডিভাইসে সমস্ত ডাটা রিস্টোর করতে চান?') : ('Cloud backup found for (' + ownerIdentity + '):\n\n• Customers: ' + cloudCust + '\n• Orders: ' + cloudOrders + '\n• Cloud timestamp: ' + new Date(cloudBundle.exportedAt || Date.now()).toLocaleString() + '\n\nDo you want to restore this data to this device?');
           
           if (!autoDetect || confirm(confirmMsg)) {
             applyFullDatabaseImport(cloudBundle);
             logSecurityAudit('CLOUD_RESTORE', 'Restored ' + cloudCust + ' customers & ' + cloudOrders + ' orders from cloud (' + ownerIdentity + ')', 'INFO');
             
             if (window.CyberDialog) {
-              CyberDialog.alert('অভিনন্দন! আপনার অ্যাকাউন্ট (' + ownerIdentity + ') থেকে ' + cloudCust + ' জন কাস্টমার এবং ' + cloudOrders + ' টি অর্ডার এই ডিভাইসে সফলভাবে লোড হয়েছে! পৃষ্ঠাটি রিফ্রেশ হচ্ছে...', {
+              CyberDialog.alert(currentLang === 'bn' ? ('অভিনন্দন! আপনার অ্যাকাউন্ট (' + ownerIdentity + ') থেকে ' + cloudCust + ' জন কাস্টমার এবং ' + cloudOrders + ' টি অর্ডার এই ডিভাইসে সফলভাবে লোড হয়েছে! পৃষ্ঠাটি রিফ্রেশ হচ্ছে...') : ('Congratulations! ' + cloudCust + ' customers and ' + cloudOrders + ' orders have been successfully restored from your cloud vault (' + ownerIdentity + '). Refreshing...'), {
                 icon: '🎉',
-                title: 'CLOUD RESTORE COMPLETE • সফল'
+                title: currentLang === 'bn' ? 'CLOUD RESTORE COMPLETE • সফল' : 'CLOUD RESTORE COMPLETE'
               }).then(() => location.reload());
             } else {
               alert('Cloud restore complete! ' + cloudCust + ' customers and ' + cloudOrders + ' orders loaded.');
@@ -20412,9 +20519,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         await syncToGoogleCloud(true);
       } else if (!autoDetect) {
         if (window.CyberDialog) {
-          CyberDialog.alert('ক্লাউডে কোনো পূর্ববর্তী ব্যাকআপ পাওয়া যায়নি অথবা বর্তমান ডিভাইসের ডাটাই লেটেস্ট।', {
+          CyberDialog.alert(currentLang === 'bn' ? 'ক্লাউডে কোনো পূর্ববর্তী ব্যাকআপ পাওয়া যায়নি অথবা বর্তমান ডিভাইসের ডাটাই লেটেস্ট।' : 'No newer backup found in cloud, or current device data is already up to date.', {
             icon: 'ℹ️',
-            title: 'CLOUD STATUS • ক্লাউড স্ট্যাটাস'
+            title: currentLang === 'bn' ? 'CLOUD STATUS • ক্লাউড স্ট্যাটাস' : 'CLOUD STATUS'
           });
         }
       }
@@ -20675,8 +20782,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       const isConnected = !!(gUser || pUser);
       // Strictly NO personal staff/operator names when logged out!
-      const name = gUser ? gUser.name : (pUser ? pUser.name : 'Guest Mode');
-      const sub = gUser ? gUser.email : (pUser ? pUser.phone : 'ক্লাউড ব্যাকআপের জন্য সাইন-ইন করুন');
+      const name = gUser ? gUser.name : (pUser ? pUser.name : (currentLang === 'bn' ? 'গেস্ট মোড' : 'Guest Mode'));
+      const sub = gUser ? gUser.email : (pUser ? pUser.phone : (currentLang === 'bn' ? 'ক্লাউড ব্যাকআপের জন্য সাইন-ইন করুন' : 'Sign in to protect data in cloud'));
 
       if (elName) elName.textContent = name;
       if (elEmail) elEmail.textContent = sub;
@@ -20741,7 +20848,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               '</div>' +
               '<div class="flex items-center gap-2 pt-1 border-t border-ios-border/50">' +
                 '<button onclick="syncToGoogleCloud()" class="flex-1 py-1.5 rounded-xl text-xs font-bold bg-cyan-500 text-slate-950 hover:bg-cyan-400 transition-all cursor-pointer active:scale-95 shadow-sm text-center">⚡ Sync Now</button>' +
-                '<button onclick="pullFromGoogleCloud()" class="px-3 py-1.5 rounded-xl text-xs font-bold text-cyan-400 border border-cyan-500/30 hover:bg-cyan-500/10 transition-all cursor-pointer" title="অন্য ডিভাইস থেকে ডাটা রিফ্রেস করুন">📥 Restore</button>' +
+                '<button onclick="pullFromGoogleCloud()" class="px-3 py-1.5 rounded-xl text-xs font-bold text-cyan-400 border border-cyan-500/30 hover:bg-cyan-500/10 transition-all cursor-pointer" title="' + (currentLang === 'bn' ? 'অন্য ডিভাইস থেকে ডাটা রিস্টোর করুন' : 'Restore data from cloud') + '">📥 ' + (currentLang === 'bn' ? 'রিস্টোর' : 'Restore') + '</button>' +
               '</div>' +
             '</div>';
         } else if (pUser) {
@@ -20772,7 +20879,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 '<span class="text-xl shrink-0">☁️</span>' +
                 '<div class="min-w-0">' +
                   '<div class="font-bold text-xs text-ios-text">Cloud Storage Offline</div>' +
-                  '<div class="text-[10px] text-ios-subtext">ডাটা ক্লাউডে সুরক্ষিত রাখতে লগইন করুন</div>' +
+                  '<div class="text-[10px] text-ios-subtext">' + (currentLang === 'bn' ? 'ডাটা ক্লাউডে সুরক্ষিত রাখতে লগইন করুন' : 'Sign in to protect data in cloud') + '</div>' +
                 '</div>' +
               '</div>' +
               '<button onclick="closeShopOwnerModal(); openGoogleSignInDialog();" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 hover:opacity-90 transition-all cursor-pointer active:scale-95 shadow-sm shrink-0">' +
@@ -20855,7 +20962,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <h3 class="font-bold text-sm text-ios-text tracking-wide flex items-center gap-1.5">
               Shop Profile
             </h3>
-            <p class="text-[10px] text-ios-subtext">মালিকানা ও ক্লাউড সিঙ্ক</p>
+            <p class="text-[10px] text-ios-subtext" id="owner-modal-subtitle" data-i18n="owner_sub">Ownership & Cloud Sync</p>
           </div>
         </div>
         <button onclick="closeShopOwnerModal()" class="text-gray-400 hover:text-white text-base p-1.5 rounded-lg hover:bg-white/10 transition-colors cursor-pointer" title="Close">✕</button>
@@ -20903,7 +21010,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <span class="text-base shrink-0">👑</span>
           <div class="min-w-0">
             <div class="text-xs font-bold text-amber-300 truncate">Admin Settings</div>
-            <div class="text-[10px] text-ios-subtext truncate">দোকানের প্রধান এডমিন পরিবর্তন করুন</div>
+            <div class="text-[10px] text-ios-subtext truncate" id="admin-row-subtitle" data-i18n="admin_sub">Change primary shop admin</div>
           </div>
         </div>
         <button type="button" onclick="closeShopOwnerModal(); openChangeAdminModal();" class="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/30 text-amber-300 text-xs font-bold active:scale-95 transition-all cursor-pointer shrink-0">
@@ -20945,7 +21052,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <span>Counter Operator Shift</span>
               <span class="text-[10px] font-mono text-cyan-400 uppercase tracking-widest">// DUTY</span>
             </h3>
-            <p class="text-[10px] text-ios-subtext">কাউন্টার অপারেটর সিলেক্ট করে পিন কোড দিন</p>
+            <p class="text-[10px] text-ios-subtext" data-i18n="operator_shift_sub">Select counter operator and enter PIN code</p>
           </div>
         </div>
         <button onclick="closeUserSwitchModal()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-all cursor-pointer">✕</button>
@@ -21025,25 +21132,25 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <input type="hidden" id="usr-form-id" value="" />
 
         <div>
-          <label class="block font-bold text-gray-300 mb-1">Operator Full Name (কর্মীর পুরো নাম) *</label>
+          <label class="block font-bold text-gray-300 mb-1">Operator Full Name *</label>
           <input type="text" id="usr-form-name" required placeholder="e.g. Master Rafiqul Islam" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-ios-text font-medium focus:border-cyan-400 outline-none" />
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label class="block font-bold text-gray-300 mb-1">Phone Number (মোবাইল নম্বর)</label>
+            <label class="block font-bold text-gray-300 mb-1">Phone Number</label>
             <input type="tel" id="usr-form-phone" placeholder="01700-112233" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-ios-text font-mono focus:border-cyan-400 outline-none" />
           </div>
 
           <div>
-            <label class="block font-bold text-gray-300 mb-1">Email Address (ইমেইল এড্রেস)</label>
+            <label class="block font-bold text-gray-300 mb-1">Email Address</label>
             <input type="email" id="usr-form-email" placeholder="e.g. rafiqul@gmail.com" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-ios-text font-mono focus:border-cyan-400 outline-none" />
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label class="block font-bold text-gray-300 mb-1">Assigned Role (পদবী ও ভূমিকা) *</label>
+            <label class="block font-bold text-gray-300 mb-1">Assigned Role *</label>
             <select id="usr-form-role" required class="w-full bg-slate-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-ios-text font-medium focus:border-cyan-400 outline-none">
               <option value="owner">👑 Super Admin / Owner</option>
               <option value="manager" selected>👔 Shop Manager</option>
@@ -21054,16 +21161,16 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           </div>
 
           <div>
-            <label class="block font-bold text-gray-300 mb-1">4-Digit Security PIN (৪-সংখ্যার পিন) *</label>
+            <label class="block font-bold text-gray-300 mb-1">4-Digit Security PIN *</label>
             <input type="password" id="usr-form-pin" required maxlength="4" pattern="[0-9]{4}" placeholder="••••" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-ios-text font-mono text-center tracking-[0.4em] text-sm focus:border-cyan-400 outline-none" />
           </div>
         </div>
 
         <div>
-          <label class="block font-bold text-gray-300 mb-1">Account Status (স্ট্যাটাস)</label>
+          <label class="block font-bold text-gray-300 mb-1">Account Status</label>
           <select id="usr-form-status" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3.5 py-2.5 text-ios-text font-medium focus:border-cyan-400 outline-none">
-            <option value="active" selected>🟢 Active (সক্রিয়)</option>
-            <option value="suspended">🔴 Suspended (স্থগিত)</option>
+            <option value="active" selected>🟢 Active</option>
+            <option value="suspended">🔴 Suspended</option>
           </select>
         </div>
 
@@ -21119,8 +21226,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             👑
           </div>
           <div>
-            <h3 class="font-black text-sm sm:text-base text-ios-text tracking-tight">Change Admin / এডমিন পরিবর্তন</h3>
-            <p class="text-[11px] text-ios-subtext">দোকান মালিকের তথ্য আপডেট করুন বা অন্য কর্মচারীকে এডমিন বানান</p>
+            <h3 class="font-black text-sm sm:text-base text-ios-text tracking-tight">Change Admin</h3>
+            <p class="text-[11px] text-ios-subtext" data-i18n="admin_transfer_desc">Update shop owner profile or transfer admin role</p>
           </div>
         </div>
         <button onclick="closeChangeAdminModal()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-all cursor-pointer">✕</button>
@@ -21139,23 +21246,23 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <!-- TAB 1: Edit Current Admin -->
       <form id="form-edit-admin" onsubmit="saveAdminProfileChanges(event)" class="space-y-3 pt-1 relative z-10">
         <div>
-          <label class="block text-[11px] font-mono text-gray-400 mb-1 uppercase tracking-wider">Admin Full Name (দোকান মালিকের নাম) *</label>
+          <label class="block text-[11px] font-mono text-gray-400 mb-1 uppercase tracking-wider">Admin Full Name *</label>
           <input type="text" id="admin-edit-name" required placeholder="e.g. Al-Amin Masum" class="w-full bg-slate-900/80 border border-white/10 focus:border-amber-400 rounded-2xl px-3.5 py-2.5 text-xs text-ios-text outline-none transition-all font-medium" />
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label class="block text-[11px] font-mono text-gray-400 mb-1 uppercase tracking-wider">Admin Email (ইমেইল এড্রেস) *</label>
+            <label class="block text-[11px] font-mono text-gray-400 mb-1 uppercase tracking-wider">Admin Email Address *</label>
             <input type="email" id="admin-edit-email" required placeholder="admin@gmail.com" class="w-full bg-slate-900/80 border border-white/10 focus:border-amber-400 rounded-2xl px-3.5 py-2.5 text-xs text-ios-text outline-none transition-all font-mono" />
           </div>
           <div>
-            <label class="block text-[11px] font-mono text-gray-400 mb-1 uppercase tracking-wider">Admin Phone (মোবাইল নম্বর)</label>
+            <label class="block text-[11px] font-mono text-gray-400 mb-1 uppercase tracking-wider">Admin Phone Number</label>
             <input type="tel" id="admin-edit-phone" placeholder="01700-112233" class="w-full bg-slate-900/80 border border-white/10 focus:border-amber-400 rounded-2xl px-3.5 py-2.5 text-xs text-ios-text outline-none transition-all font-mono" />
           </div>
         </div>
 
         <div>
-          <label class="block text-[11px] font-mono text-gray-400 mb-1 uppercase tracking-wider">Security PIN (৪-সংখ্যার গোপন পিন) *</label>
+          <label class="block text-[11px] font-mono text-gray-400 mb-1 uppercase tracking-wider">Security PIN (4-Digits) *</label>
           <input type="password" id="admin-edit-pin" required maxlength="4" pattern="[0-9]{4}" placeholder="••••" class="w-full bg-slate-900/80 border border-white/10 focus:border-amber-400 rounded-2xl px-3.5 py-2.5 text-center text-base font-black font-mono tracking-[0.4em] text-amber-300 outline-none transition-all" />
         </div>
 
@@ -21170,18 +21277,18 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <!-- TAB 2: Transfer Ownership to Another Staff -->
       <form id="form-transfer-admin" onsubmit="transferAdminOwnership(event)" class="hidden space-y-3 pt-1 relative z-10">
         <div class="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-200">
-          ⚠️ <b>মালিকানা হস্তান্তর সতর্কতা:</b> আপনি যদি অন্য কাউকে Super Admin বানান, তাহলে আপনার বর্তমান অ্যাকাউন্ট ম্যানেজার রোলে পরিবর্তন হবে এবং নির্বাচিত ব্যক্তি দোকানের মূল এডমিন ক্ষমতা পাবেন।
+          ⚠️ <b>Ownership Transfer Notice:</b> If you assign primary admin privileges to another staff member, your account role will change to Manager and the selected person will become the Primary Admin.
         </div>
 
         <div>
-          <label class="block text-[11px] font-mono text-gray-400 mb-1 uppercase tracking-wider">Select New Admin (নতুন এডমিন নির্বাচন করুন) *</label>
+          <label class="block text-[11px] font-mono text-gray-400 mb-1 uppercase tracking-wider">Select New Admin *</label>
           <select id="transfer-target-staff" required class="w-full bg-slate-900/80 border border-white/10 focus:border-amber-400 rounded-2xl px-3.5 py-2.5 text-xs text-ios-text outline-none transition-all">
             <!-- Populated dynamically with current staff/managers -->
           </select>
         </div>
 
         <div>
-          <label class="block text-[11px] font-mono text-gray-400 mb-1 uppercase tracking-wider">Confirm Current Owner PIN (বর্তমান পিন কোড) *</label>
+          <label class="block text-[11px] font-mono text-gray-400 mb-1 uppercase tracking-wider">Confirm Current Owner PIN *</label>
           <input type="password" id="transfer-confirm-pin" required maxlength="4" pattern="[0-9]{4}" placeholder="••••" class="w-full bg-slate-900/80 border border-white/10 focus:border-amber-400 rounded-2xl px-3.5 py-2.5 text-center text-base font-black font-mono tracking-[0.4em] text-amber-300 outline-none transition-all" />
         </div>
 
@@ -21218,7 +21325,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <h3 class="font-black text-sm sm:text-base text-ios-text tracking-tight" id="auth-modal-title">
               Sign In with Google
             </h3>
-            <p class="text-[11px] text-ios-subtext" id="auth-modal-subtitle">দোকানের ডাটা ক্লাউডে সুরক্ষিত রাখতে গুগল দিয়ে সাইন-ইন করুন</p>
+            <p class="text-[11px] text-ios-subtext" id="auth-modal-subtitle" data-i18n="auth_modal_sub">Sign in with Google to protect shop data in cloud</p>
           </div>
         </div>
         <button onclick="closeGoogleSignInDialog()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-all cursor-pointer">✕</button>
@@ -21280,7 +21387,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <div id="auth-step-picker" class="hidden space-y-3 pt-1 relative z-10">
         <div class="text-center pb-1">
           <div class="text-xs font-bold text-ios-text">Choose a Google Account</div>
-          <div class="text-[11px] text-ios-subtext">SelaiSathi ক্লাউড অ্যাক্সেস করতে একাউন্ট সিলেক্ট করুন</div>
+          <div class="text-[11px] text-ios-subtext" id="picker-sub" data-i18n="picker_sub">Select an account to access SelaiSathi Cloud</div>
         </div>
 
         <!-- Account List -->
@@ -21293,15 +21400,15 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <div class="w-9 h-9 rounded-xl bg-white/5 text-gray-300 flex items-center justify-center text-base font-bold border border-white/10 shrink-0">
             +
           </div>
-          <div class="text-xs font-bold text-gray-300">অন্য জিমেইল ব্যবহার করুন (Use another account)</div>
+          <div class="text-xs font-bold text-gray-300" data-i18n="auth_use_another">Use another account</div>
         </div>
 
         <!-- Hidden input for custom Google email -->
         <div id="custom-google-input-box" class="hidden p-3 rounded-2xl bg-white/[0.02] border border-cyan-500/30 space-y-2">
-          <label class="block text-[11px] font-mono text-cyan-400">আপনার গুগল ইমেইল দিন:</label>
+          <label class="block text-[11px] font-mono text-cyan-400" data-i18n="auth_enter_gmail">Enter your Google email:</label>
           <input type="email" id="custom-picker-email" placeholder="example@gmail.com" class="w-full bg-slate-900 border border-white/15 focus:border-cyan-400 rounded-xl px-3 py-2 text-xs font-mono text-white outline-none" />
           <button type="button" onclick="submitCustomPickerAccount()" class="w-full py-2 rounded-xl text-xs font-bold bg-cyan-500 text-slate-950 hover:bg-cyan-400 transition-all cursor-pointer">
-            এই একাউন্ট নির্বাচন করুন →
+            <span data-i18n="auth_select_this_acc">Select this account →</span>
           </button>
         </div>
 
@@ -21322,7 +21429,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             🛡️
           </div>
           <h4 class="font-black text-sm text-ios-text tracking-wide">Google 2-Step Verification</h4>
-          <p class="text-[11px] text-ios-subtext">আপনার গুগল আইডি ভেরিফিকেশনের জন্য ওটিপি কোড:</p>
+          <p class="text-[11px] text-ios-subtext" id="otp-sub" data-i18n="auth_otp_sub">Security OTP code for your Google ID verification:</p>
           <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-xs font-mono font-bold text-cyan-300">
             <span>✉️</span> <span id="google-otp-target-email">sciencefiction844@gmail.com</span>
           </div>
