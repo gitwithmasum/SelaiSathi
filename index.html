@@ -5206,8 +5206,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 💳
               </div>
             </div>
-            <div class="text-3xl font-black text-red-600 font-mono">৳130,856</div>
-            <div class="text-[11px] text-red-600/80 font-bold mt-1">Across 37 customers</div>
+            <div class="text-3xl font-black text-red-600 font-mono" id="dash-kpi-due-val">৳০</div>
+            <div class="text-[11px] text-red-600/80 font-bold mt-1" id="dash-kpi-due-sub">No pending dues</div>
           </div>
 
           <!-- Card 2: Deliveries Today (Gold Amber) -->
@@ -5218,8 +5218,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 ⏰
               </div>
             </div>
-            <div class="text-3xl font-black text-amber-600 font-mono">1</div>
-            <div class="text-[11px] text-amber-700/80 font-semibold mt-1">0 delivered · 1 remaining</div>
+            <div class="text-3xl font-black text-amber-600 font-mono" id="dash-kpi-today-deliveries">0</div>
+            <div class="text-[11px] text-amber-700/80 font-semibold mt-1">Ready queue</div>
           </div>
 
           <!-- Card 3: Ready for pickup (Emerald Green) -->
@@ -5230,8 +5230,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 ✓
               </div>
             </div>
-            <div class="text-3xl font-black text-emerald-700 font-mono">21</div>
-            <div class="text-[11px] text-emerald-700/80 font-semibold mt-1">20 waiting > 3 days</div>
+            <div class="text-3xl font-black text-emerald-700 font-mono" id="dash-kpi-ready-val">0</div>
+            <div class="text-[11px] text-emerald-700/80 font-semibold mt-1">Ready for delivery</div>
           </div>
 
           <!-- Card 4: Active orders (Electric Cyan) -->
@@ -5242,8 +5242,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 📋
               </div>
             </div>
-            <div class="text-3xl font-black text-cyan-800 font-mono">48</div>
-            <div class="text-[11px] text-cyan-700 font-bold mt-1">+2 since yesterday</div>
+            <div class="text-3xl font-black text-cyan-800 font-mono" id="dash-kpi-active-val">0</div>
+            <div class="text-[11px] text-cyan-700 font-bold mt-1">Live in workshop</div>
           </div>
 
         </div>
@@ -5376,86 +5376,12 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <span class="text-xs text-gray-400 font-mono">3 Items Priority</span>
             </div>
 
-            <div class="space-y-3">
-              <!-- Item 1: Overdue -->
-              <div class="p-3.5 rounded-2xl dash-urgent-item is-overdue bg-rose-500/10 border border-rose-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-xl bg-rose-500 text-white font-mono font-black text-xs flex items-center justify-center shrink-0 shadow-md shadow-rose-500/30">
-                    OVER
-                  </div>
-                  <div>
-                    <div class="flex items-center gap-2">
-                      <span class="font-bold text-sm text-ios-text">Tanvir Ahmed</span>
-                      <span class="font-mono text-xs px-2 py-0.5 rounded-md bg-rose-500/20 text-rose-400 font-bold">TAG-4412</span>
-                      <span class="text-[10px] px-1.5 py-0.5 rounded bg-rose-600 text-white font-bold">Overdue 1 Day</span>
-                    </div>
-                    <div class="text-xs text-gray-400 mt-0.5">
-                      Blazer 2-Piece · <span class="font-mono text-amber-300 font-bold">বাকি: ৳১,২০০</span> · 01711223344
-                    </div>
-                  </div>
-                </div>
-                <div class="flex items-center gap-2">
-                  <button onclick="sendDirectSms('Tanvir Ahmed', '01711223344')" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-800 text-rose-300 border border-rose-500/30 hover:bg-rose-500/20 transition-colors">
-                    💬 SMS
-                  </button>
-                  <button onclick="markDeliveryComplete(this, 'TAG-4412')" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-rose-500 hover:bg-rose-600 text-white shadow-sm transition-colors">
-                    ডেলিভার্ড ✓
-                  </button>
-                </div>
-              </div>
-
-              <!-- Item 2: Today 4 PM -->
-              <div class="p-3.5 rounded-2xl dash-urgent-item bg-slate-900/40 border border-slate-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-xl bg-amber-500 text-white font-mono font-black text-xs flex items-center justify-center shrink-0 shadow-md shadow-amber-500/30">
-                    4PM
-                  </div>
-                  <div>
-                    <div class="flex items-center gap-2">
-                      <span class="font-bold text-sm text-ios-text">Shahadat Hossain</span>
-                      <span class="font-mono text-xs px-2 py-0.5 rounded-md bg-cyan-500/20 text-cyan-400 font-bold">TAG-1044</span>
-                      <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 font-bold">Today 4:00 PM</span>
-                    </div>
-                    <div class="text-xs text-gray-400 mt-0.5">
-                      Cotton Panjabi · <span class="font-mono text-amber-300 font-bold">বাকি: ৳৫৫০</span> · 01591463333
-                    </div>
-                  </div>
-                </div>
-                <div class="flex items-center gap-2">
-                  <button onclick="sendDirectSms('Shahadat Hossain', '01591463333')" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-800 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500/20 transition-colors">
-                    💬 SMS
-                  </button>
-                  <button onclick="markDeliveryComplete(this, 'TAG-1044')" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition-colors">
-                    ডেলিভার্ড ✓
-                  </button>
-                </div>
-              </div>
-
-              <!-- Item 3: Tomorrow -->
-              <div class="p-3.5 rounded-2xl dash-urgent-item bg-slate-900/40 border border-slate-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-xl bg-cyan-500 text-white font-mono font-black text-xs flex items-center justify-center shrink-0 shadow-md shadow-cyan-500/30">
-                    TOM
-                  </div>
-                  <div>
-                    <div class="flex items-center gap-2">
-                      <span class="font-bold text-sm text-ios-text">Kamrul Hasan</span>
-                      <span class="font-mono text-xs px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-400 font-bold">TAG-9104</span>
-                      <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold">Tomorrow</span>
-                    </div>
-                    <div class="text-xs text-gray-400 mt-0.5">
-                      Formal Shirt · <span class="font-mono text-emerald-400 font-bold">পরিশোধিত (Paid)</span> · 01819988776
-                    </div>
-                  </div>
-                </div>
-                <div class="flex items-center gap-2">
-                  <button onclick="sendDirectSms('Kamrul Hasan', '01819988776')" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-800 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500/20 transition-colors">
-                    💬 SMS
-                  </button>
-                  <button onclick="markDeliveryComplete(this, 'TAG-9104')" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-700 hover:bg-slate-600 text-white shadow-sm transition-colors">
-                    রেডি ✓
-                  </button>
-                </div>
+            <div id="dash-urgent-radar-container" class="space-y-3">
+              <!-- Dynamically populated via renderDashboardLive() -->
+              <div class="p-6 text-center space-y-2 rounded-2xl bg-slate-900/30 border border-slate-800">
+                <span class="text-2xl">✨</span>
+                <div class="text-xs font-bold text-ios-text">কোনো পেন্ডিং অর্ডার নেই • No Pending Deliveries</div>
+                <p class="text-[11px] text-gray-400">নতুন অর্ডারের মেমো তৈরি করতে "＋ New Order" চাপুন।</p>
               </div>
             </div>
           </div>
@@ -7785,10 +7711,17 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <div id="dynamic-orders-table" class="space-y-3">
             <!-- Dynamically populated via renderOrdersTable() -->
           </div>
-          <div id="orders-empty-state" class="hidden text-center py-10 space-y-2">
-            <span class="text-3xl">🔍</span>
-            <div class="text-sm font-bold text-ios-text">কোনো অর্ডার পাওয়া যায়নি</div>
-            <p class="text-xs text-gray-400">ফিল্টার রিসেট করুন অথবা নতুন অর্ডার তৈরি করুন।</p>
+          <div id="orders-empty-state" class="hidden text-center py-12 px-4 space-y-4 max-w-md mx-auto">
+            <div class="w-16 h-16 mx-auto rounded-3xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-3xl shadow-lg shadow-cyan-500/5">
+              📦
+            </div>
+            <div>
+              <div class="text-base font-bold text-ios-text">কোনো অর্ডার নেই • No Orders Found</div>
+              <p class="text-xs text-gray-400 mt-1">আপনার শপে নতুন গ্রাহকের অর্ডার তৈরি করে কাজ শুরু করুন।</p>
+            </div>
+            <button onclick="toggleNewOrderModal()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-xs shadow-md shadow-cyan-500/20 active:scale-95 transition-all inline-flex items-center gap-2 cursor-pointer">
+              <span>＋</span> <span>নতুন অর্ডার তৈরি করুন (Create Order)</span>
+            </button>
           </div>
         </div>
 
@@ -7901,10 +7834,17 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <div id="customers-display-container">
             <!-- Table View or Grid Cards rendered dynamically -->
           </div>
-          <div id="customers-empty" class="hidden text-center py-10 space-y-2">
-            <span class="text-3xl">👥</span>
-            <div class="text-sm font-bold text-ios-text">No customers found</div>
-            <p class="text-xs text-gray-400">ফিল্টার পরিবর্তন করুন অথবা "＋ Add Customer" বাটনে ক্লিক করে নতুন গ্রাহক যোগ করুন।</p>
+          <div id="customers-empty" class="hidden text-center py-12 px-4 space-y-4 max-w-md mx-auto">
+            <div class="w-16 h-16 mx-auto rounded-3xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-3xl shadow-lg shadow-cyan-500/5">
+              👥
+            </div>
+            <div>
+              <div class="text-base font-bold text-ios-text">কোনো কাস্টমার নেই • No Customers Found</div>
+              <p class="text-xs text-gray-400 mt-1">আপনার শপের প্রথম কাস্টমার প্রোফাইল যুক্ত করে শুরু করুন।</p>
+            </div>
+            <button onclick="openDataModal('customer')" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-xs shadow-md shadow-cyan-500/20 active:scale-95 transition-all inline-flex items-center gap-2 cursor-pointer">
+              <span>＋</span> <span>নতুন কাস্টমার যোগ করুন (Add Customer)</span>
+            </button>
           </div>
         </div>
       </section>
@@ -8041,10 +7981,17 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         </div>
 
         <!-- Empty State -->
-        <div id="staff-empty" class="hidden bento-card p-12 text-center space-y-3">
-          <span class="text-4xl">✂️</span>
-          <div class="text-base font-bold text-ios-text">No staff found</div>
-          <p class="text-xs text-gray-400">ফিল্টার পরিবর্তন করুন অথবা "＋ Add Karigar" বাটনে ক্লিক করে নতুন কারিগর যোগ করুন।</p>
+        <div id="staff-empty" class="hidden bento-card p-12 text-center space-y-4 max-w-md mx-auto">
+          <div class="w-16 h-16 mx-auto rounded-3xl bg-violet-500/10 border border-violet-500/20 text-violet-400 flex items-center justify-center text-3xl shadow-lg shadow-violet-500/5">
+            ✂️
+          </div>
+          <div>
+            <div class="text-base font-bold text-ios-text">কোনো কারিগর বা স্টাফ নেই • No Staff Found</div>
+            <p class="text-xs text-gray-400 mt-1">আপনার কারিগর ও মাস্টারদের যোগ করে কাজ ও মজুরি হিসাব শুরু করুন।</p>
+          </div>
+          <button onclick="openDataModal('staff')" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-bold text-xs shadow-md shadow-violet-500/20 active:scale-95 transition-all inline-flex items-center gap-2 cursor-pointer">
+            <span>＋</span> <span>নতুন কারিগর যোগ করুন (Add Karigar)</span>
+          </button>
         </div>
 
       </section>
@@ -8232,10 +8179,17 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         </div>
 
         <!-- Empty State -->
-        <div id="fabrics-empty" class="hidden text-center py-12 text-sm text-ios-subtext space-y-2">
-          <div class="text-4xl mb-1">🧵</div>
-          <div class="font-bold text-base text-ios-text">কোনো কাপড় বা ম্যাটেরিয়াল পাওয়া যায়নি</div>
-          <p class="text-xs">ফিল্টার পরিবর্তন করুন অথবা "＋ নতুন কাপড় এন্ট্রি" বাটনে ক্লিক করে নতুন থান বা ম্যাটেরিয়াল যোগ করুন।</p>
+        <div id="fabrics-empty" class="hidden text-center py-12 px-4 space-y-4 max-w-md mx-auto">
+          <div class="w-16 h-16 mx-auto rounded-3xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-3xl shadow-lg shadow-emerald-500/5">
+            🧵
+          </div>
+          <div>
+            <div class="font-bold text-base text-ios-text">কোনো কাপড় বা ম্যাটেরিয়াল নেই • No Fabrics</div>
+            <p class="text-xs text-gray-400 mt-1">আপনার দোকানের থান ও কাপড় রেজিস্ট্রি যোগ করে স্টক পরিচালনা করুন।</p>
+          </div>
+          <button onclick="openFabricModal()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs shadow-md shadow-emerald-500/20 active:scale-95 transition-all inline-flex items-center gap-2 cursor-pointer">
+            <span>＋</span> <span>নতুন কাপড় এন্ট্রি করুন (Add Fabric)</span>
+          </button>
         </div>
       </section>
 
@@ -10305,6 +10259,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         closeMobileSidebar();
       }
 
+      if (viewId === 'dashboard') { if (typeof renderDashboardLive === 'function') renderDashboardLive(); }
       if (viewId === 'settings') renderShopSettingsForm();
       if (viewId === 'users') renderUsersSettingsUI();
       if (viewId === 'backups') renderBackupsView();
@@ -10316,11 +10271,24 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (viewId === 'reports') renderReports();
     }
 
+    function isCleanSlateWorkspace() {
+      try {
+        if (localStorage.getItem('selaisathi_clean_slate_active') === 'true') return true;
+        if (localStorage.getItem('selaisathi_google_user')) return true;
+      } catch(e) {}
+      return false;
+    }
+    window.isCleanSlateWorkspace = isCleanSlateWorkspace;
+
     let ordersData = (function() {
       try {
         const saved = JSON.parse(localStorage.getItem('ss_orders_store') || 'null');
-        if (Array.isArray(saved) && saved.length > 0) return saved;
+        if (Array.isArray(saved)) return saved;
       } catch(e) {}
+      if (isCleanSlateWorkspace()) {
+        try { localStorage.setItem('ss_orders_store', JSON.stringify([])); } catch(e) {}
+        return [];
+      }
       const initialOrders = [
         { id: 'ORD-2610-0022', tag: 'TAG-1044', name: 'Shahadat Hossain', phone: '01591463333', garment: 'Cotton Panjabi', stage: 'STITCHING', total: 850, advance: 300, due: 550, date: '15 Nov 2026', assignedStaffId: 'S-103' },
         { id: 'ORD-2610-0021', tag: 'TAG-1043', name: 'Arif Hossain', phone: '01324941964', garment: 'Formal Shirt', stage: 'CUTTING', total: 450, advance: 200, due: 250, date: '14 Nov 2026', assignedStaffId: 'S-102' },
@@ -10330,6 +10298,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       try { localStorage.setItem('ss_orders_store', JSON.stringify(initialOrders)); } catch(e) {}
       return initialOrders;
     })();
+    window.ordersData = ordersData;
 
     function persistOrdersData() {
       try {
@@ -10886,8 +10855,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     const ssRecords = (() => {
       try {
         const saved = JSON.parse(localStorage.getItem(ssStoreKey) || '{}');
+        const isClean = isCleanSlateWorkspace();
         return {
-          customers: Array.isArray(saved.customers) && saved.customers.length ? saved.customers : [
+          customers: Array.isArray(saved.customers) ? saved.customers : (isClean ? [] : [
             {
               id: 'C-1001',
               name: 'Shahadat Hossain',
@@ -10920,8 +10890,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               notes: 'Royal Blazer client',
               measurements: { length: '30', chest: '42', waist: '36', sleeve: '25', neck: '16.5', shoulder: '19' }
             }
-          ],
-          staff: Array.isArray(saved.staff) && saved.staff.length ? saved.staff : [
+          ]),
+          staff: Array.isArray(saved.staff) ? saved.staff : (isClean ? [] : [
             {
               id: 'S-101',
               name: 'Rahim Uddin',
@@ -10988,18 +10958,20 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 { id: 'PAY-3', date: '05 Nov 2026', amount: 300, type: 'advance', method: 'Cash', note: 'Conveyance' }
               ]
             }
-          ],
-          fabrics: Array.isArray(saved.fabrics) && saved.fabrics.length ? saved.fabrics : [
+          ]),
+          fabrics: Array.isArray(saved.fabrics) ? saved.fabrics : (isClean ? [] : [
             { id: 'F-101', name: 'Egyptian Giza Cotton (মিশরীয় সুতি)', sku: 'GIZA-WHT-58', boltId: 'BOLT-101', category: 'Cotton', color: '#ffffff', colorName: 'Pure White', width: '58" ডাবল বহর', unit: 'yard', stock: 42.5, initialStock: 50, cost: 480, price: 650, minimum: 10, rack: 'Rack A-01, Shelf 2', supplier: 'Narayanganj Textile Mills', supplierPhone: '01711223344', notes: 'Super fine 80s yarn, ideal for Eid panjabi' },
             { id: 'F-102', name: 'Raymond Super 120s Wool Suiting', sku: 'RAY-NVY-120', boltId: 'BOLT-102', category: 'Suiting', color: '#1e293b', colorName: 'Midnight Navy', width: '58" ডাবল বহর', unit: 'yard', stock: 18.0, initialStock: 30, cost: 1450, price: 2100, minimum: 6, rack: 'Rack B-04', supplier: 'Raymond Authorized Dealer', supplierPhone: '01819887766', notes: 'Wrinkle resistant, Italian cut finish' },
             { id: 'F-103', name: 'Pakistani Pure Lawn Linen (সবুজ লিনেন)', sku: 'LIN-PAK-GRN', boltId: 'BOLT-103', category: 'Linen', color: '#047857', colorName: 'Emerald Green', width: '44" সিঙ্গেল বহর', unit: 'yard', stock: 5.5, initialStock: 25, cost: 380, price: 520, minimum: 8, rack: 'Rack A-03', supplier: 'Islampur Cloth Market', supplierPhone: '01912345678', notes: 'Breathable summer wear' },
             { id: 'F-104', name: 'Kabli Twill Gabardine (খাকি গ্যাবার্ডিন)', sku: 'GAB-TWL-KHK', boltId: 'BOLT-104', category: 'Gabardine', color: '#78350f', colorName: 'Desert Khaki', width: '58" ডাবল বহর', unit: 'yard', stock: 26.0, initialStock: 40, cost: 420, price: 580, minimum: 10, rack: 'Rack C-02', supplier: 'Chittagong Twill Depot', supplierPhone: '01811554433', notes: 'Heavyweight durable fabric for Kabli & Pants' },
             { id: 'F-105', name: 'Mulberry Silk Blend (রয়েল সিল্ক)', sku: 'SLK-ROY-MRN', boltId: 'BOLT-105', category: 'Silk', color: '#881337', colorName: 'Maroon Red', width: '44" সিঙ্গেল বহর', unit: 'yard', stock: 4.0, initialStock: 20, cost: 850, price: 1250, minimum: 6, rack: 'Rack B-01', supplier: 'Rajshahi Silk Center', supplierPhone: '01712998877', notes: 'Rich festive finish with subtle luster' },
             { id: 'F-106', name: 'Premium Horn Buttons (বোতাম বক্স)', sku: 'ACC-BTN-HRN', boltId: 'ACC-201', category: 'Accessories', color: '#475569', colorName: 'Smoke Grey', width: 'N/A', unit: 'pcs', stock: 15, initialStock: 25, cost: 160, price: 250, minimum: 5, rack: 'Drawer D-1', supplier: 'Dhaka Accessories Mart', supplierPhone: '01611009988', notes: 'Laser engraved bespoke jacket buttons' }
-          ]
+          ]),
+          measurements: Array.isArray(saved.measurements) ? saved.measurements : []
         };
-      } catch(e) { return {customers:[],staff:[],fabrics:[]}; }
+      } catch(e) { return {customers:[],staff:[],fabrics:[],measurements:[]}; }
     })();
+    window.ssRecords = ssRecords;
     function triggerRealtimeCloudSync() {
       const gUser = typeof getGoogleAuthUser === 'function' ? getGoogleAuthUser() : null;
       const pUser = typeof getPhoneAuthUser === 'function' ? getPhoneAuthUser() : null;
@@ -12444,6 +12416,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
 
     function initFabricSampleSeeds() {
+      if (typeof isCleanSlateWorkspace === 'function' && isCleanSlateWorkspace()) return;
       if (!ssRecords.fabrics || ssRecords.fabrics.length === 0) {
         ssRecords.fabrics = [
           {
@@ -13718,10 +13691,12 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
 
     function getActiveMeasurementCustomer() {
-      return ssRecords.customers.find(c => c.id === activeMeasurementCustomerId) || ssRecords.customers[0];
+      if (!ssRecords || !ssRecords.customers || !ssRecords.customers.length) return null;
+      return ssRecords.customers.find(c => c.id === activeMeasurementCustomerId) || ssRecords.customers[0] || null;
     }
 
     function getActiveGarmentProfile(cust, garment) {
+      if (!cust) return { currentVersion: 'v1', fitStyle: 'Regular Fit', versions: [] };
       ensureCustomerMeasurementProfiles(cust);
       if (!cust.measurementProfiles[garment]) {
         // Create initial v1 based on defaults
@@ -13742,15 +13717,21 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
     function renderMeasurementsPage() {
       const cust = getActiveMeasurementCustomer();
-      if (!cust) return;
-      ensureCustomerMeasurementProfiles(cust);
-
-      // 1. Update Customer Pill
       const avatarEl = document.getElementById('meas-cust-avatar');
       const nameEl = document.getElementById('meas-cust-name');
       const phoneEl = document.getElementById('meas-cust-phone');
       const versionsBadge = document.getElementById('meas-cust-versions-badge');
 
+      if (!cust) {
+        if (avatarEl) avatarEl.textContent = '—';
+        if (nameEl) nameEl.textContent = (typeof currentLang !== 'undefined' && currentLang === 'bn') ? 'কোনো কাস্টমার যুক্ত নেই' : 'No Customer Selected';
+        if (phoneEl) phoneEl.textContent = (typeof currentLang !== 'undefined' && currentLang === 'bn') ? 'পরিমাপ নিতে প্রথমে কাস্টমার যোগ করুন' : 'Add a customer to record measurements';
+        if (versionsBadge) versionsBadge.textContent = '0 versions';
+        return;
+      }
+      ensureCustomerMeasurementProfiles(cust);
+
+      // 1. Update Customer Pill
       if (avatarEl) {
         const initials = (cust.name || 'C').split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
         avatarEl.textContent = initials;
@@ -14523,12 +14504,16 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
     let ssLedgerTransactions = (() => {
       try {
-        const v = JSON.parse(localStorage.getItem(ssLedgerKey) || '[]');
-        if (Array.isArray(v) && v.length) return v;
+        const v = JSON.parse(localStorage.getItem(ssLedgerKey) || 'null');
+        if (Array.isArray(v)) return v;
+        if (typeof isCleanSlateWorkspace === 'function' && isCleanSlateWorkspace()) {
+          try { localStorage.setItem(ssLedgerKey, JSON.stringify([])); } catch(e) {}
+          return [];
+        }
         localStorage.setItem(ssLedgerKey, JSON.stringify(defaultLedgerTxns));
         return defaultLedgerTxns;
       } catch(e) {
-        return defaultLedgerTxns;
+        return (typeof isCleanSlateWorkspace === 'function' && isCleanSlateWorkspace()) ? [] : defaultLedgerTxns;
       }
     })();
     window.ssLedgerTransactions = ssLedgerTransactions;
@@ -15407,143 +15392,159 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     let activeInventoryTab = 'items';
 
     // Seed Suppliers if not present
-    let ssSuppliers = JSON.parse(localStorage.getItem('selaisathi_suppliers') || '[]');
-    if (!ssSuppliers || ssSuppliers.length === 0) {
-      ssSuppliers = [
-        {
-          id: 'SUP-01',
-          name: 'Narayanganj Textile Mills Ltd.',
-          contactPerson: 'Alhaj Rafiqul Islam',
-          phone: '01711223344',
-          category: 'Fabrics & Voile',
-          address: 'Tanbazar, Narayanganj',
-          balanceDue: 18500,
-          totalPurchased: 145000,
-          notes: 'Best for Egyptian Giza Cotton & Panjabi Voile'
-        },
-        {
-          id: 'SUP-02',
-          name: 'Raymond Authorized Dealer (Dhaka)',
-          contactPerson: 'Mr. Zahirul Haque',
-          phone: '01819887766',
-          category: 'Suiting & Wool',
-          address: 'Elephant Road, Dhaka',
-          balanceDue: 0,
-          totalPurchased: 280000,
-          notes: 'Super 120s & 140s Wool, Italian blend'
-        },
-        {
-          id: 'SUP-03',
-          name: 'Babu Bazar Accessories & Trims',
-          contactPerson: 'Mohammad Younus',
-          phone: '01912334455',
-          category: 'Buttons, Zippers & Buckram',
-          address: 'Babu Bazar, Old Dhaka',
-          balanceDue: 4200,
-          totalPurchased: 62000,
-          notes: 'YKK Zippers, Horn Buttons, Fusible Canvas'
-        },
-        {
-          id: 'SUP-04',
-          name: 'Coats & Astra Thread Agency',
-          contactPerson: 'Shahabuddin Bhai',
-          phone: '01552331122',
-          category: 'Sewing & Embroidery Threads',
-          address: 'Islampur, Dhaka',
-          balanceDue: 1200,
-          totalPurchased: 35000,
-          notes: 'Poly-core Spun Thread #40 and Golden Zari'
-        }
-      ];
-      localStorage.setItem('selaisathi_suppliers', JSON.stringify(ssSuppliers));
-    }
+    let ssSuppliers = (function() {
+      try {
+        const saved = JSON.parse(localStorage.getItem('selaisathi_suppliers') || 'null');
+        if (Array.isArray(saved)) return saved;
+        if (typeof isCleanSlateWorkspace === 'function' && isCleanSlateWorkspace()) return [];
+        const init = [
+          {
+            id: 'SUP-01',
+            name: 'Narayanganj Textile Mills Ltd.',
+            contactPerson: 'Alhaj Rafiqul Islam',
+            phone: '01711223344',
+            category: 'Fabrics & Voile',
+            address: 'Tanbazar, Narayanganj',
+            balanceDue: 18500,
+            totalPurchased: 145000,
+            notes: 'Best for Egyptian Giza Cotton & Panjabi Voile'
+          },
+          {
+            id: 'SUP-02',
+            name: 'Raymond Authorized Dealer (Dhaka)',
+            contactPerson: 'Mr. Zahirul Haque',
+            phone: '01819887766',
+            category: 'Suiting & Wool',
+            address: 'Elephant Road, Dhaka',
+            balanceDue: 0,
+            totalPurchased: 280000,
+            notes: 'Super 120s & 140s Wool, Italian blend'
+          },
+          {
+            id: 'SUP-03',
+            name: 'Babu Bazar Accessories & Trims',
+            contactPerson: 'Mohammad Younus',
+            phone: '01912334455',
+            category: 'Buttons, Zippers & Buckram',
+            address: 'Babu Bazar, Old Dhaka',
+            balanceDue: 4200,
+            totalPurchased: 62000,
+            notes: 'YKK Zippers, Horn Buttons, Fusible Canvas'
+          },
+          {
+            id: 'SUP-04',
+            name: 'Coats & Astra Thread Agency',
+            contactPerson: 'Shahabuddin Bhai',
+            phone: '01552331122',
+            category: 'Sewing & Embroidery Threads',
+            address: 'Islampur, Dhaka',
+            balanceDue: 1200,
+            totalPurchased: 35000,
+            notes: 'Poly-core Spun Thread #40 and Golden Zari'
+          }
+        ];
+        localStorage.setItem('selaisathi_suppliers', JSON.stringify(init));
+        return init;
+      } catch(e) { return []; }
+    })();
 
     // Seed Remnants / Scraps if not present
-    let ssRemnants = JSON.parse(localStorage.getItem('selaisathi_remnants') || '[]');
-    if (!ssRemnants || ssRemnants.length === 0) {
-      ssRemnants = [
-        {
-          id: 'REM-101',
-          name: 'Pure White Giza Cotton Cutpiece',
-          fabricType: 'Cotton',
-          length: '0.85 গজ (30 ইঞ্চি)',
-          suitable: 'Collar & Cuff',
-          bin: 'Scrap Bin A-1',
-          price: 180,
-          color: '#ffffff',
-          colorName: 'Pure White',
-          dateAdded: '2026-11-10'
-        },
-        {
-          id: 'REM-102',
-          name: 'Raymond Navy Wool Blazer Strip',
-          fabricType: 'Suiting',
-          length: '0.60 গজ (22 ইঞ্চি)',
-          suitable: 'Pocketing Lining',
-          bin: 'Scrap Bin B-2',
-          price: 350,
-          color: '#1e293b',
-          colorName: 'Midnight Navy',
-          dateAdded: '2026-11-11'
-        },
-        {
-          id: 'REM-103',
-          name: 'Emerald Green Linen Piece',
-          fabricType: 'Linen',
-          length: '1.20 গজ (43 ইঞ্চি)',
-          suitable: 'Kids Panjabi / Shirt',
-          bin: 'Scrap Bin A-2',
-          price: 450,
-          color: '#047857',
-          colorName: 'Emerald Green',
-          dateAdded: '2026-11-11'
-        },
-        {
-          id: 'REM-104',
-          name: 'Charcoal Suiting Scrap for Mask',
-          fabricType: 'Suiting',
-          length: '0.40 গজ (15 ইঞ্চি)',
-          suitable: 'Face Mask / Pouch',
-          bin: 'Scrap Bin C-1',
-          price: 90,
-          color: '#334155',
-          colorName: 'Charcoal Grey',
-          dateAdded: '2026-11-12'
-        }
-      ];
-      localStorage.setItem('selaisathi_remnants', JSON.stringify(ssRemnants));
-    }
+    let ssRemnants = (function() {
+      try {
+        const saved = JSON.parse(localStorage.getItem('selaisathi_remnants') || 'null');
+        if (Array.isArray(saved)) return saved;
+        if (typeof isCleanSlateWorkspace === 'function' && isCleanSlateWorkspace()) return [];
+        const init = [
+          {
+            id: 'REM-101',
+            name: 'Pure White Giza Cotton Cutpiece',
+            fabricType: 'Cotton',
+            length: '0.85 গজ (30 ইঞ্চি)',
+            suitable: 'Collar & Cuff',
+            bin: 'Scrap Bin A-1',
+            price: 180,
+            color: '#ffffff',
+            colorName: 'Pure White',
+            dateAdded: '2026-11-10'
+          },
+          {
+            id: 'REM-102',
+            name: 'Raymond Navy Wool Blazer Strip',
+            fabricType: 'Suiting',
+            length: '0.60 গজ (22 ইঞ্চি)',
+            suitable: 'Pocketing Lining',
+            bin: 'Scrap Bin B-2',
+            price: 350,
+            color: '#1e293b',
+            colorName: 'Midnight Navy',
+            dateAdded: '2026-11-11'
+          },
+          {
+            id: 'REM-103',
+            name: 'Emerald Green Linen Piece',
+            fabricType: 'Linen',
+            length: '1.20 গজ (43 ইঞ্চি)',
+            suitable: 'Kids Panjabi / Shirt',
+            bin: 'Scrap Bin A-2',
+            price: 450,
+            color: '#047857',
+            colorName: 'Emerald Green',
+            dateAdded: '2026-11-11'
+          },
+          {
+            id: 'REM-104',
+            name: 'Charcoal Suiting Scrap for Mask',
+            fabricType: 'Suiting',
+            length: '0.40 গজ (15 ইঞ্চি)',
+            suitable: 'Face Mask / Pouch',
+            bin: 'Scrap Bin C-1',
+            price: 90,
+            color: '#334155',
+            colorName: 'Charcoal Grey',
+            dateAdded: '2026-11-12'
+          }
+        ];
+        localStorage.setItem('selaisathi_remnants', JSON.stringify(init));
+        return init;
+      } catch(e) { return []; }
+    })();
 
     // Seed Stock Audits if not present
-    let ssAudits = JSON.parse(localStorage.getItem('selaisathi_stock_audits') || '[]');
-    if (!ssAudits || ssAudits.length === 0) {
-      ssAudits = [
-        {
-          id: 'AUD-2026-01',
-          date: '2026-11-01',
-          auditor: 'Master Masum',
-          itemsAuditedCount: 8,
-          totalVariance: '-2.5 yds',
-          varianceValue: 1200,
-          reason: 'Cutting Wastage',
-          notes: 'Monthly pre-Eid stock audit. Normal cutting scrap wastage.'
-        },
-        {
-          id: 'AUD-2026-02',
-          date: '2026-11-08',
-          auditor: 'Kabir Master',
-          itemsAuditedCount: 5,
-          totalVariance: '-1 pc',
-          varianceValue: 450,
-          reason: 'Damaged / Defective',
-          notes: 'Defective zipper batch replaced.'
-        }
-      ];
-      localStorage.setItem('selaisathi_stock_audits', JSON.stringify(ssAudits));
-    }
+    let ssAudits = (function() {
+      try {
+        const saved = JSON.parse(localStorage.getItem('selaisathi_stock_audits') || 'null');
+        if (Array.isArray(saved)) return saved;
+        if (typeof isCleanSlateWorkspace === 'function' && isCleanSlateWorkspace()) return [];
+        const init = [
+          {
+            id: 'AUD-2026-01',
+            date: '2026-11-01',
+            auditor: 'Master Masum',
+            itemsAuditedCount: 8,
+            totalVariance: '-2.5 yds',
+            varianceValue: 1200,
+            reason: 'Cutting Wastage',
+            notes: 'Monthly pre-Eid stock audit. Normal cutting scrap wastage.'
+          },
+          {
+            id: 'AUD-2026-02',
+            date: '2026-11-08',
+            auditor: 'Kabir Master',
+            itemsAuditedCount: 5,
+            totalVariance: '-1 pc',
+            varianceValue: 450,
+            reason: 'Damaged / Defective',
+            notes: 'Defective zipper batch replaced.'
+          }
+        ];
+        localStorage.setItem('selaisathi_stock_audits', JSON.stringify(init));
+        return init;
+      } catch(e) { return []; }
+    })();
 
     // Ensure non-fabric trims exist in ssRecords.fabrics for factory completeness
     function seedTrimsInInventory() {
+      if (typeof isCleanSlateWorkspace === 'function' && isCleanSlateWorkspace()) return;
       if (!ssRecords.fabrics) ssRecords.fabrics = [];
       const hasButtons = ssRecords.fabrics.some(x => x.category === 'Buttons');
       const hasZippers = ssRecords.fabrics.some(x => x.category === 'Zippers');
@@ -17749,6 +17750,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       confirm(message, onConfirm, options = {}) {
         return new Promise((resolve) => {
           if (!this.overlay) this.init();
+          this.currentOnCancel = options.onCancel || null;
           this.currentResolve = (result) => {
             if (result && typeof onConfirm === 'function') onConfirm();
             resolve(result);
@@ -17786,6 +17788,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       handleOk() {
         this.close();
+        this.currentOnCancel = null;
         if (typeof this.currentResolve === 'function') {
           const fn = this.currentResolve;
           this.currentResolve = null;
@@ -17795,6 +17798,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       handleCancel() {
         this.close();
+        if (typeof this.currentOnCancel === 'function') {
+          const cancelFn = this.currentOnCancel;
+          this.currentOnCancel = null;
+          try { cancelFn(); } catch(e){}
+        }
         if (typeof this.currentResolve === 'function') {
           const fn = this.currentResolve;
           this.currentResolve = null;
@@ -17811,6 +17819,164 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       }
     };
     window.CyberDialog = CyberDialog;
+
+    /* ======================================================== */
+    /* CLEAN SLATE & DEMO DATA MANAGEMENT ENGINE                */
+    /* ======================================================== */
+    function hasDemoRecords() {
+      const demoCustIds = ['C-1001', 'C-1002', 'C-1003', 'C-1004'];
+      const demoStaffIds = ['S-101', 'S-102', 'S-103', 'S-104'];
+      const demoOrderIds = ['ORD-2610-0022', 'ORD-2610-0021', 'ORD-2610-0020', 'ORD-2610-0019'];
+
+      const hasDemoCust = Array.isArray(window.ssRecords && window.ssRecords.customers) && window.ssRecords.customers.some(c => demoCustIds.includes(c.id));
+      const hasDemoStaff = Array.isArray(window.ssRecords && window.ssRecords.staff) && window.ssRecords.staff.some(s => demoStaffIds.includes(s.id));
+      const hasDemoOrders = Array.isArray(window.ordersData) && window.ordersData.some(o => demoOrderIds.includes(o.id));
+
+      return hasDemoCust || hasDemoStaff || hasDemoOrders;
+    }
+    window.hasDemoRecords = hasDemoRecords;
+
+    function renderDashboardLive() {
+      const orders = window.ordersData || [];
+      const totalOrders = orders.length;
+      const activeOrders = orders.filter(o => o.stage !== 'DELIVERED').length;
+      const readyOrders = orders.filter(o => o.stage === 'READY').length;
+      const totalDue = orders.reduce((sum, o) => sum + (Number(o.due) || 0), 0);
+      const dueCount = orders.filter(o => (Number(o.due) || 0) > 0).length;
+
+      const elDueVal = document.getElementById('dash-kpi-due-val');
+      const elDueSub = document.getElementById('dash-kpi-due-sub');
+      const elReadyVal = document.getElementById('dash-kpi-ready-val');
+      const elActiveVal = document.getElementById('dash-kpi-active-val');
+      const elTodayDeliveries = document.getElementById('dash-kpi-today-deliveries');
+
+      if (elDueVal) elDueVal.textContent = '৳' + totalDue.toLocaleString('en-BD');
+      if (elDueSub) elDueSub.textContent = dueCount > 0 ? (dueCount + ' orders with pending due') : 'No pending dues';
+      if (elReadyVal) elReadyVal.textContent = readyOrders;
+      if (elActiveVal) elActiveVal.textContent = activeOrders;
+      if (elTodayDeliveries) elTodayDeliveries.textContent = orders.filter(o => o.stage === 'READY' || o.stage === 'STITCHING').length;
+
+      const elRadar = document.getElementById('dash-urgent-radar-container');
+      if (elRadar) {
+        const pendingList = orders.filter(o => o.stage !== 'DELIVERED').slice(0, 3);
+        if (pendingList.length === 0) {
+          elRadar.innerHTML = `
+            <div class="p-6 text-center space-y-2 rounded-2xl bg-slate-900/30 border border-slate-800">
+              <span class="text-2xl">✨</span>
+              <div class="text-xs font-bold text-ios-text">কোনো পেন্ডিং অর্ডার নেই • No Pending Deliveries</div>
+              <p class="text-[11px] text-gray-400">নতুন অর্ডারের মেমো তৈরি করতে "＋ New Order" চাপুন।</p>
+            </div>
+          `;
+        } else {
+          elRadar.innerHTML = pendingList.map(o => {
+            const isDue = (Number(o.due) || 0) > 0;
+            return `
+              <div class="p-3.5 rounded-2xl dash-urgent-item bg-slate-900/40 border border-slate-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-cyan-500 text-white font-mono font-black text-xs flex items-center justify-center shrink-0 shadow-md shadow-cyan-500/30">
+                    ${safeText(o.stage.slice(0, 4))}
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="font-bold text-sm text-ios-text">${safeText(o.name)}</span>
+                      <span class="font-mono text-xs px-2 py-0.5 rounded-md bg-cyan-500/20 text-cyan-400 font-bold">${safeText(o.tag || o.id)}</span>
+                    </div>
+                    <div class="text-xs text-gray-400 mt-0.5">
+                      ${safeText(o.garment)} · <span class="font-mono ${isDue ? 'text-amber-300' : 'text-emerald-400'} font-bold">${isDue ? 'বাকি: ৳' + Number(o.due).toLocaleString('en-BD') : 'পরিশোধিত (Paid)'}</span> · ${safeText(o.phone)}
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button onclick="sendDirectSms('${safeText(o.name)}', '${safeText(o.phone)}')" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-800 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500/20 transition-colors cursor-pointer">
+                    💬 SMS
+                  </button>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+    }
+    window.renderDashboardLive = renderDashboardLive;
+
+    function wipeLocalDemoDataForOwner(silent = false) {
+      window.ordersData = [];
+      ordersData = window.ordersData;
+
+      if (!window.ssRecords) window.ssRecords = {};
+      window.ssRecords.customers = [];
+      window.ssRecords.staff = [];
+      window.ssRecords.fabrics = [];
+      window.ssRecords.measurements = [];
+
+      window.ssLedgerTransactions = [];
+      ssLedgerTransactions = window.ssLedgerTransactions;
+
+      ssSuppliers = [];
+      ssRemnants = [];
+      ssAudits = [];
+
+      try {
+        localStorage.setItem('selaisathi_clean_slate_active', 'true');
+        localStorage.setItem('ss_orders_store', JSON.stringify([]));
+        localStorage.setItem(ssStoreKey, JSON.stringify(window.ssRecords));
+        localStorage.setItem(ssLedgerKey, JSON.stringify([]));
+        localStorage.setItem('selaisathi_suppliers', JSON.stringify([]));
+        localStorage.setItem('selaisathi_remnants', JSON.stringify([]));
+        localStorage.setItem('selaisathi_stock_audits', JSON.stringify([]));
+        localStorage.setItem('ss_opening_cash', '0');
+      } catch(e) {
+        console.warn('Wipe demo data storage error:', e);
+      }
+
+      try { if (typeof updateOrdersKPI === 'function') updateOrdersKPI(); } catch(e){}
+      try { if (typeof renderOrdersTable === 'function') renderOrdersTable(); } catch(e){}
+      try { if (typeof renderCustomers === 'function') renderCustomers(); } catch(e){}
+      try { if (typeof renderStaff === 'function') renderStaff(); } catch(e){}
+      try { if (typeof renderFabrics === 'function') renderFabrics(); } catch(e){}
+      try { if (typeof renderLedger === 'function') renderLedger(); } catch(e){}
+      try { if (typeof renderInventory === 'function') renderInventory(); } catch(e){}
+      try { if (typeof renderMeasurementsPage === 'function') renderMeasurementsPage(); } catch(e){}
+      try { if (typeof renderBackupsView === 'function') renderBackupsView(); } catch(e){}
+      try { if (typeof renderDashboardLive === 'function') renderDashboardLive(); } catch(e){}
+
+      const gUser = typeof getGoogleAuthUser === 'function' ? getGoogleAuthUser() : null;
+      if (gUser && typeof syncToGoogleCloud === 'function') {
+        syncToGoogleCloud(true);
+      }
+    }
+    window.wipeLocalDemoDataForOwner = wipeLocalDemoDataForOwner;
+
+    function wipeLocalDemoDataForOwnerConfirm() {
+      const isBn = typeof currentLang !== 'undefined' && currentLang === 'bn';
+      const msg = isBn
+        ? 'আপনি কি সমস্ত ডেমো ডাটা (অর্ডার, কাস্টমার, কারিগর, কাপড়) মুছে একটি সম্পূর্ণ নতুন ও পরিষ্কার (Clean Slate) শপ শুরু করতে চান?\n\nএর ফলে পূর্ববর্তী স্যাম্পল ডাটা মুছে যাবে এবং আপনি সম্পূর্ণ ফ্রেশ অবস্থায় আপনার নিজস্ব ডাটা যুক্ত করতে পারবেন।'
+        : 'Are you sure you want to clear all demo data (orders, customers, staff, fabrics) and start with a clean slate?\n\nThis will remove sample data so you can add your own real shop data from scratch.';
+
+      if (window.CyberDialog) {
+        CyberDialog.confirm(
+          msg,
+          () => {
+            wipeLocalDemoDataForOwner();
+            CyberDialog.alert(
+              isBn ? 'সকল ডেমো ডাটা মুছে ফেলা হয়েছে! আপনার শপ এখন সম্পূর্ণ ফ্রেশ ও প্রস্তুত।' : 'Demo data cleared! Your workspace is fresh and ready.',
+              { icon: '✨', title: isBn ? 'CLEAN SLATE • প্রস্তুত' : 'CLEAN SLATE' }
+            );
+          },
+          {
+            title: isBn ? 'RESET TO CLEAN SLATE • ক্লিন শপ' : 'RESET TO CLEAN SLATE',
+            icon: '🧹',
+            confirmText: isBn ? 'মুছে ফেলুন ✓' : 'Clear Demo Data ✓',
+            cancelText: isBn ? 'বাতিল' : 'Cancel',
+            danger: true
+          }
+        );
+      } else if (confirm(msg)) {
+        wipeLocalDemoDataForOwner();
+        alert('All demo data cleared!');
+      }
+    }
+    window.wipeLocalDemoDataForOwnerConfirm = wipeLocalDemoDataForOwnerConfirm;
 
     /* ======================================================== */
     /* FUTURISTIC CYBER-DROPDOWN & SELECT SYSTEM ENGINE         */
@@ -19594,6 +19760,15 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       } catch(e) {
         console.error('Error initializing User & RBAC system:', e);
       }
+      try {
+        const gUser = typeof getGoogleAuthUser === 'function' ? getGoogleAuthUser() : null;
+        if (gUser && typeof hasDemoRecords === 'function' && hasDemoRecords()) {
+          console.log('SelaiSathi: Owner Google account connected. Wiping demo data for clean slate.');
+          wipeLocalDemoDataForOwner(true);
+        }
+      } catch(e) {
+        console.warn('Auto clean slate check error:', e);
+      }
     });
 
 
@@ -20455,6 +20630,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       // Set as Primary Shop Owner Google Account across the entire app
       setOwnerGoogleEmail(authData.email);
       saveGoogleAuthUser(user);
+      localStorage.setItem('selaisathi_clean_slate_active', 'true');
       closeGoogleSignInDialog();
       closeShopOwnerModal();
 
@@ -20462,20 +20638,99 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         confetti({ particleCount: 75, spread: 65, origin: { y: 0.6 } });
       }
 
-      if (window.CyberDialog) {
-        CyberDialog.alert(
-          currentLang === 'bn'
-            ? ('অভিনন্দন ' + user.name + '! আপনার গুগল আইডি (' + user.email + ') সফলভাবে ভেরিফাই ও শপ ওনার অ্যাকাউন্ট হিসেবে যুক্ত হয়েছে। সমস্ত ক্লাউড ব্যাকআপ এই অ্যাকাউন্টে সংরক্ষিত হবে।')
-            : ('Congratulations ' + user.name + '! Your Google ID (' + user.email + ') has been verified and set as the Primary Shop Owner Account. All cloud backups are synced to this account across all devices.'),
-          {
-            icon: '🟢',
-            title: currentLang === 'bn' ? 'GOOGLE ACCOUNT CONNECTED • সফল' : 'GOOGLE ACCOUNT CONNECTED'
-          }
-        );
+      // Check Cloud Vault for this Google ID
+      const cloudKey = getActiveCloudKey();
+      let cloudBundle = null;
+      const fb = initFirebaseClient();
+      if (fb && fb.db && cloudKey) {
+        try {
+          const snap = await fb.db.collection('shops').doc(cloudKey).get();
+          if (snap.exists) cloudBundle = snap.data();
+        } catch(e) {}
+      }
+      if (!cloudBundle && cloudKey) {
+        try {
+          cloudBundle = JSON.parse(localStorage.getItem('selaisathi_cloud_bundle_' + cloudKey) || 'null');
+        } catch(e) {}
       }
 
-      // Check & Restore / Sync from Cloud
-      await pullFromGoogleCloud(true, true);
+      const isDemoCloud = (bundle) => {
+        if (!bundle) return false;
+        const cList = (bundle.records && bundle.records.customers) || [];
+        const oList = bundle.orders || [];
+        if (cList.length === 0 && oList.length === 0) return false;
+        const allDemoC = cList.every(c => ['C-1001','C-1002','C-1003','C-1004'].includes(c.id));
+        const allDemoO = oList.every(o => ['ORD-2610-0022','ORD-2610-0021','ORD-2610-0020','ORD-2610-0019'].includes(o.id));
+        return allDemoC && allDemoO;
+      };
+
+      const cloudCustCount = (cloudBundle && cloudBundle.records && cloudBundle.records.customers && cloudBundle.records.customers.length) || 0;
+      const cloudOrderCount = (cloudBundle && cloudBundle.orders && cloudBundle.orders.length) || 0;
+      const hasRealCloudData = cloudBundle && (cloudCustCount > 0 || cloudOrderCount > 0) && !isDemoCloud(cloudBundle);
+
+      if (hasRealCloudData) {
+        const confirmMsg = currentLang === 'bn'
+          ? ('আপনার গুগল ক্লাউড ভল্টে (' + user.email + ') পূর্ববর্তী সংরক্ষিত ব্যাকআপ পাওয়া গেছে:<br><br>' +
+             '• কাস্টমার: <b>' + cloudCustCount + ' জন</b><br>' +
+             '• অর্ডার: <b>' + cloudOrderCount + ' টি</b><br><br>' +
+             'আপনি কি ক্লাউড ব্যাকআপ রিস্টোর করতে চান, নাকি লোকাল ডেমো ডাটা মুছে সম্পূর্ণ নতুন (Clean Slate) শপ শুরু করতে চান?')
+          : ('Existing cloud backup found for (' + user.email + '):<br><br>' +
+             '• Customers: <b>' + cloudCustCount + '</b><br>' +
+             '• Orders: <b>' + cloudOrderCount + '</b><br><br>' +
+             'Do you want to restore your cloud backup, or start fresh with a clean slate?');
+
+        if (window.CyberDialog) {
+          CyberDialog.confirm(
+            confirmMsg,
+            () => {
+              applyFullDatabaseImport(cloudBundle);
+              CyberDialog.alert(
+                currentLang === 'bn' ? 'ক্লাউড ব্যাকআপ সফলভাবে এই ডিভাইসে রিস্টোর হয়েছে!' : 'Cloud backup successfully restored to this device!',
+                { icon: '☁️', title: currentLang === 'bn' ? 'RESTORE SUCCESSFUL • সফল' : 'RESTORE SUCCESSFUL' }
+              ).then(() => location.reload());
+            },
+            {
+              title: currentLang === 'bn' ? 'CLOUD BACKUP FOUND • ক্লাউড ব্যাকআপ' : 'CLOUD BACKUP FOUND',
+              icon: '☁️',
+              confirmText: currentLang === 'bn' ? 'ক্লাউড রিস্টোর করুন ✓' : 'Restore Cloud Data ✓',
+              cancelText: currentLang === 'bn' ? 'সম্পূর্ণ নতুন শুরু (Clean Slate)' : 'Start Clean Slate',
+              onCancel: () => {
+                wipeLocalDemoDataForOwner();
+                CyberDialog.alert(
+                  currentLang === 'bn'
+                    ? ('অভিনন্দন ' + user.name + '! পূর্ববর্তী সকল লোকাল ডাটা মুছে সম্পূর্ণ ফ্রেশ শপ প্রস্তুত করা হয়েছে। এখন আপনার নিজস্ব কাস্টমার ও কারিগর যুক্ত করুন।')
+                    : ('Congratulations ' + user.name + '! All local demo data has been cleared. Your workspace is ready for you to add your customers and staff.'),
+                  { icon: '✨', title: currentLang === 'bn' ? 'CLEAN SLATE READY • নতুন শপ রেডি' : 'CLEAN SLATE READY' }
+                );
+              }
+            }
+          );
+        } else if (confirm(confirmMsg.replace(/<[^>]+>/g, ''))) {
+          applyFullDatabaseImport(cloudBundle);
+          location.reload();
+        } else {
+          wipeLocalDemoDataForOwner();
+        }
+      } else {
+        // No real cloud backup: wipe local demo data immediately for a 100% clean slate!
+        wipeLocalDemoDataForOwner();
+
+        if (window.CyberDialog) {
+          CyberDialog.alert(
+            currentLang === 'bn'
+              ? ('অভিনন্দন <b>' + user.name + '</b>!<br><br>' +
+                 'আপনার গুগল আইডি (<b>' + user.email + '</b>) সফলভাবে ভেরিফাই ও শপ ওনার হিসেবে যুক্ত হয়েছে।<br><br>' +
+                 '✨ <b>ক্লিন শপ প্রস্তুত:</b> পূর্ববর্তী সকল লোকাল ডেমো ডাটা (অর্ডার, কাস্টমার, কারিগর, কাপড় ইত্যাদি) স্বয়ংক্রিয়ভাবে মুছে সম্পূর্ণ পরিষ্কার শপ রেডি করা হয়েছে। এখন আপনি সম্পূর্ণ নতুনভাবে আপনার নিজস্ব কাস্টমার ও কারিগর যুক্ত করে কাজ শুরু করতে পারবেন।')
+              : ('Congratulations <b>' + user.name + '</b>!<br><br>' +
+                 'Your Google ID (<b>' + user.email + '</b>) has been verified and set as Shop Owner.<br><br>' +
+                 '✨ <b>Clean Slate Ready:</b> All local demo data has been cleared. Your workspace is now 100% clean and ready for you to add your own real customers and staff.'),
+            {
+              icon: '✨',
+              title: currentLang === 'bn' ? 'GOOGLE CONNECTED • ক্লিন শপ রেডি' : 'GOOGLE CONNECTED • CLEAN SLATE'
+            }
+          );
+        }
+      }
     }
 
     async function handleFirebaseGoogleSignIn() {
@@ -20759,7 +21014,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       }
 
       if (localTotal > 0 && autoDetect) {
-        await syncToGoogleCloud(true);
+        if (typeof hasDemoRecords === 'function' && hasDemoRecords()) {
+          // Demo data detected; do not auto-push demo data to cloud!
+        } else {
+          await syncToGoogleCloud(true);
+        }
       } else if (!autoDetect) {
         if (window.CyberDialog) {
           CyberDialog.alert(
@@ -20803,7 +21062,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (elAccountSub) elAccountSub.textContent = gUser ? gUser.email : (pUser ? pUser.phone : 'Click below to sign in');
 
       const elRecs = document.getElementById('backup-kpi-record-count');
-      if (elRecs) elRecs.textContent = (totalRecs || 142) + ' Records Intact';
+      if (elRecs) elRecs.textContent = totalRecs > 0 ? (totalRecs + ' Records Intact') : '0 Records (Clean Slate)';
 
       const elLastSync = document.getElementById('backup-kpi-last-sync');
       if (elLastSync) elLastSync.textContent = lastSync;
@@ -20815,6 +21074,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           actionContainer.innerHTML = '<div class="flex items-center gap-1.5 flex-wrap">' +
             '<button onclick="syncToGoogleCloud()" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-cyan-500 hover:bg-cyan-600 active:scale-95 text-slate-950 flex items-center gap-1 transition-all cursor-pointer"><span>⚡</span> <span>Sync Now</span></button>' +
             '<button onclick="pullFromGoogleCloud()" class="px-2.5 py-1.5 rounded-xl text-xs font-bold text-cyan-400 hover:bg-cyan-500/10 border border-cyan-500/30 active:scale-95 transition-all cursor-pointer" title="অন্য ডিভাইসের ডাটা নামিয়ে আনুন"><span>📥</span> <span>Restore</span></button>' +
+            '<button onclick="wipeLocalDemoDataForOwnerConfirm()" class="px-2.5 py-1.5 rounded-xl text-xs font-bold text-amber-400 hover:bg-amber-500/10 border border-amber-500/30 active:scale-95 transition-all cursor-pointer flex items-center gap-1" title="সকল ডেমো ডাটা মুছে সম্পূর্ণ ফ্রেশ শুরু করুন"><span>🧹</span> <span>Clean Slate</span></button>' +
             '<button onclick="openFirebaseConfigModal()" class="px-2 py-1.5 rounded-xl text-xs font-bold text-gray-400 hover:text-white border border-ios-border active:scale-95 transition-all cursor-pointer" title="Firebase Settings">⚙️</button>' +
             '<button onclick="disconnectGoogleAccount()" class="px-2.5 py-1.5 rounded-xl text-xs font-bold text-rose-400 hover:bg-rose-500/10 border border-rose-500/30 active:scale-95 transition-all cursor-pointer flex items-center gap-1"><span>🚪</span> <span>Sign Out</span></button>' +
           '</div>';
