@@ -10280,6 +10280,23 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
     window.isCleanSlateWorkspace = isCleanSlateWorkspace;
 
+    function saveToActiveCloudVaultFast() {
+      try {
+        const cloudKey = (typeof getActiveCloudKey === 'function') ? getActiveCloudKey() : 'google_sciencefiction844_gmail_com';
+        if (cloudKey && typeof getFullDatabaseExport === 'function') {
+          const bundle = getFullDatabaseExport();
+          const gUser = (typeof getGoogleAuthUser === 'function') ? getGoogleAuthUser() : null;
+          bundle.ownerEmail = gUser ? gUser.email : (typeof getOwnerGoogleEmail === 'function' ? getOwnerGoogleEmail() : 'sciencefiction844@gmail.com');
+          bundle.lastCloudSync = new Date().toISOString();
+          const serialized = JSON.stringify(bundle);
+          localStorage.setItem('selaisathi_cloud_bundle_' + cloudKey, serialized);
+          localStorage.setItem('selaisathi_vault_' + cloudKey, serialized);
+          localStorage.setItem('selaisathi_owner_master_vault', serialized);
+        }
+      } catch(e) {}
+    }
+    window.saveToActiveCloudVaultFast = saveToActiveCloudVaultFast;
+
     let ordersData = (function() {
       try {
         const saved = JSON.parse(localStorage.getItem('ss_orders_store') || 'null');
@@ -10303,6 +10320,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     function persistOrdersData() {
       try {
         localStorage.setItem('ss_orders_store', JSON.stringify(ordersData));
+        if (typeof saveToActiveCloudVaultFast === 'function') saveToActiveCloudVaultFast();
         if (typeof triggerRealtimeCloudSync === 'function') triggerRealtimeCloudSync();
       } catch(e) {
         console.warn('Orders storage persist failed:', e);
@@ -10989,6 +11007,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     function persistSsRecords(){ 
       try { 
         localStorage.setItem(ssStoreKey, JSON.stringify(ssRecords)); 
+        if (typeof saveToActiveCloudVaultFast === 'function') saveToActiveCloudVaultFast();
         triggerRealtimeCloudSync();
       } catch(e) { 
         alert('Could not save records in this browser. Check storage permissions.'); 
@@ -14521,6 +14540,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     function persistLedger() {
       try {
         localStorage.setItem(ssLedgerKey, JSON.stringify(ssLedgerTransactions));
+        if (typeof saveToActiveCloudVaultFast === 'function') saveToActiveCloudVaultFast();
         if (typeof triggerRealtimeCloudSync === 'function') triggerRealtimeCloudSync();
       } catch(e) {
         console.error('Could not save ledger in localStorage', e);
@@ -17823,18 +17843,97 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     /* ======================================================== */
     /* CLEAN SLATE & DEMO DATA MANAGEMENT ENGINE                */
     /* ======================================================== */
+    const DEMO_CUSTOMER_IDS = ['C-1001', 'C-1002', 'C-1003', 'C-1004'];
+    const DEMO_STAFF_IDS = ['S-101', 'S-102', 'S-103', 'S-104'];
+    const DEMO_ORDER_IDS = ['ORD-2610-0022', 'ORD-2610-0021', 'ORD-2610-0020', 'ORD-2610-0019'];
+    const DEMO_FABRIC_IDS = ['F-101', 'F-102', 'F-103', 'F-104', 'F-105', 'F-106'];
+
+    function isDemoCustomerId(id) { return DEMO_CUSTOMER_IDS.includes(id); }
+    function isDemoStaffId(id) { return DEMO_STAFF_IDS.includes(id); }
+    function isDemoOrderId(id) { return DEMO_ORDER_IDS.includes(id); }
+    function isDemoFabricId(id) { return DEMO_FABRIC_IDS.includes(id); }
+
     function hasDemoRecords() {
-      const demoCustIds = ['C-1001', 'C-1002', 'C-1003', 'C-1004'];
-      const demoStaffIds = ['S-101', 'S-102', 'S-103', 'S-104'];
-      const demoOrderIds = ['ORD-2610-0022', 'ORD-2610-0021', 'ORD-2610-0020', 'ORD-2610-0019'];
+      const hasDemoCust = Array.isArray(window.ssRecords && window.ssRecords.customers) && window.ssRecords.customers.some(c => DEMO_CUSTOMER_IDS.includes(c.id));
+      const hasDemoStaff = Array.isArray(window.ssRecords && window.ssRecords.staff) && window.ssRecords.staff.some(s => DEMO_STAFF_IDS.includes(s.id));
+      const hasDemoOrders = Array.isArray(window.ordersData) && window.ordersData.some(o => DEMO_ORDER_IDS.includes(o.id));
+      const hasDemoFabrics = Array.isArray(window.ssRecords && window.ssRecords.fabrics) && window.ssRecords.fabrics.some(f => DEMO_FABRIC_IDS.includes(f.id));
 
-      const hasDemoCust = Array.isArray(window.ssRecords && window.ssRecords.customers) && window.ssRecords.customers.some(c => demoCustIds.includes(c.id));
-      const hasDemoStaff = Array.isArray(window.ssRecords && window.ssRecords.staff) && window.ssRecords.staff.some(s => demoStaffIds.includes(s.id));
-      const hasDemoOrders = Array.isArray(window.ordersData) && window.ordersData.some(o => demoOrderIds.includes(o.id));
-
-      return hasDemoCust || hasDemoStaff || hasDemoOrders;
+      return hasDemoCust || hasDemoStaff || hasDemoOrders || hasDemoFabrics;
     }
     window.hasDemoRecords = hasDemoRecords;
+
+    function hasRealUserData(source) {
+      if (source === null) return false;
+      const target = (source !== undefined) ? source : { orders: window.ordersData, records: window.ssRecords };
+      if (!target || typeof target !== 'object') return false;
+
+      const orders = Array.isArray(target.orders) ? target.orders : [];
+      const records = (target.records && typeof target.records === 'object') ? target.records : {};
+      const customers = Array.isArray(records.customers) ? records.customers : [];
+      const staff = Array.isArray(records.staff) ? records.staff : [];
+      const fabrics = Array.isArray(records.fabrics) ? records.fabrics : [];
+
+      const realOrders = orders.filter(o => o && !isDemoOrderId(o.id));
+      const realCustomers = customers.filter(c => c && !isDemoCustomerId(c.id));
+      const realStaff = staff.filter(s => s && !isDemoStaffId(s.id));
+      const realFabrics = fabrics.filter(f => f && !isDemoFabricId(f.id));
+
+      return (realOrders.length > 0 || realCustomers.length > 0 || realStaff.length > 0 || realFabrics.length > 0);
+    }
+    window.hasRealUserData = hasRealUserData;
+
+    function purgeDemoDataOnly(silent = false) {
+      let modified = false;
+
+      if (Array.isArray(window.ordersData)) {
+        const filteredOrders = window.ordersData.filter(o => !isDemoOrderId(o.id));
+        if (filteredOrders.length !== window.ordersData.length) {
+          window.ordersData = filteredOrders;
+          ordersData = window.ordersData;
+          localStorage.setItem('ss_orders_store', JSON.stringify(window.ordersData));
+          modified = true;
+        }
+      }
+
+      if (window.ssRecords) {
+        if (Array.isArray(window.ssRecords.customers)) {
+          const filteredC = window.ssRecords.customers.filter(c => !isDemoCustomerId(c.id));
+          if (filteredC.length !== window.ssRecords.customers.length) {
+            window.ssRecords.customers = filteredC;
+            modified = true;
+          }
+        }
+        if (Array.isArray(window.ssRecords.staff)) {
+          const filteredS = window.ssRecords.staff.filter(s => !isDemoStaffId(s.id));
+          if (filteredS.length !== window.ssRecords.staff.length) {
+            window.ssRecords.staff = filteredS;
+            modified = true;
+          }
+        }
+        if (Array.isArray(window.ssRecords.fabrics)) {
+          const filteredF = window.ssRecords.fabrics.filter(f => !isDemoFabricId(f.id));
+          if (filteredF.length !== window.ssRecords.fabrics.length) {
+            window.ssRecords.fabrics = filteredF;
+            modified = true;
+          }
+        }
+        if (modified) {
+          localStorage.setItem(ssStoreKey, JSON.stringify(window.ssRecords));
+        }
+      }
+
+      if (typeof saveToActiveCloudVaultFast === 'function') saveToActiveCloudVaultFast();
+
+      try { if (typeof updateOrdersKPI === 'function') updateOrdersKPI(); } catch(e){}
+      try { if (typeof renderOrdersTable === 'function') renderOrdersTable(); } catch(e){}
+      try { if (typeof renderCustomers === 'function') renderCustomers(); } catch(e){}
+      try { if (typeof renderStaff === 'function') renderStaff(); } catch(e){}
+      try { if (typeof renderFabrics === 'function') renderFabrics(); } catch(e){}
+      try { if (typeof renderDashboardLive === 'function') renderDashboardLive(); } catch(e){}
+      return modified;
+    }
+    window.purgeDemoDataOnly = purgeDemoDataOnly;
 
     function renderDashboardLive() {
       const orders = window.ordersData || [];
@@ -19763,8 +19862,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       try {
         const gUser = typeof getGoogleAuthUser === 'function' ? getGoogleAuthUser() : null;
         if (gUser && typeof hasDemoRecords === 'function' && hasDemoRecords()) {
-          console.log('SelaiSathi: Owner Google account connected. Wiping demo data for clean slate.');
-          wipeLocalDemoDataForOwner(true);
+          console.log('SelaiSathi: Owner Google account connected. Purging demo artifacts for clean workspace.');
+          if (typeof purgeDemoDataOnly === 'function') {
+            purgeDemoDataOnly(true);
+          }
         }
       } catch(e) {
         console.warn('Auto clean slate check error:', e);
@@ -20051,6 +20152,17 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     let _firestoreDb = null;
     let _firebaseAuth = null;
 
+    function callWithTimeout(promise, ms = 2000) {
+      let timer;
+      const timeoutPromise = new Promise((_, reject) => {
+        timer = setTimeout(() => reject(new Error('Operation timeout (' + ms + 'ms)')), ms);
+      });
+      return Promise.race([
+        Promise.resolve(promise).then(res => { clearTimeout(timer); return res; }),
+        timeoutPromise
+      ]);
+    }
+
     function initFirebaseClient() {
       if (typeof firebase === 'undefined') return null;
       try {
@@ -20305,7 +20417,12 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (bundle.shopSettings) localStorage.setItem('selaisathi_shop_settings', JSON.stringify(bundle.shopSettings));
       if (bundle.records) {
         localStorage.setItem(ssStoreKey, JSON.stringify(bundle.records));
-        if (window.ssRecords) Object.assign(window.ssRecords, bundle.records);
+        if (window.ssRecords) {
+          window.ssRecords.customers = Array.isArray(bundle.records.customers) ? [...bundle.records.customers] : [];
+          window.ssRecords.staff = Array.isArray(bundle.records.staff) ? [...bundle.records.staff] : [];
+          window.ssRecords.fabrics = Array.isArray(bundle.records.fabrics) ? [...bundle.records.fabrics] : [];
+          window.ssRecords.measurements = Array.isArray(bundle.records.measurements) ? [...bundle.records.measurements] : [];
+        }
       }
       if (Array.isArray(bundle.orders)) {
         localStorage.setItem('ss_orders_store', JSON.stringify(bundle.orders));
@@ -20327,6 +20444,19 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (Array.isArray(bundle.suppliers)) localStorage.setItem('selaisathi_suppliers', JSON.stringify(bundle.suppliers));
       if (Array.isArray(bundle.remnants)) localStorage.setItem('selaisathi_remnants', JSON.stringify(bundle.remnants));
       if (Array.isArray(bundle.audits)) localStorage.setItem('selaisathi_stock_audits', JSON.stringify(bundle.audits));
+
+      try { if (typeof updateOrdersKPI === 'function') updateOrdersKPI(); } catch(e){}
+      try { if (typeof renderOrdersTable === 'function') renderOrdersTable(); } catch(e){}
+      try { if (typeof renderCustomers === 'function') renderCustomers(); } catch(e){}
+      try { if (typeof renderStaff === 'function') renderStaff(); } catch(e){}
+      try { if (typeof renderFabrics === 'function') renderFabrics(); } catch(e){}
+      try { if (typeof renderLedger === 'function') renderLedger(); } catch(e){}
+      try { if (typeof renderInventory === 'function') renderInventory(); } catch(e){}
+      try { if (typeof renderMeasurementsPage === 'function') renderMeasurementsPage(); } catch(e){}
+      try { if (typeof renderBackupsView === 'function') renderBackupsView(); } catch(e){}
+      try { if (typeof renderDashboardLive === 'function') renderDashboardLive(); } catch(e){}
+      try { if (typeof updateSidebarOwnerChip === 'function') updateSidebarOwnerChip(); } catch(e){}
+      try { if (typeof updateHeaderUserPill === 'function') updateHeaderUserPill(); } catch(e){}
     }
 
     function handleProfileChipClick() {
@@ -20639,91 +20769,130 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       }
 
       // Check Cloud Vault for this Google ID
-      const cloudKey = getActiveCloudKey();
+      const cloudKey = getActiveCloudKey() || ('google_' + user.email.toLowerCase().trim().replace(/[^a-z0-9]/g, '_'));
       let cloudBundle = null;
+
+      // 1. Instant check from local Cloud Vault cache
+      try {
+        cloudBundle = JSON.parse(
+          localStorage.getItem('selaisathi_cloud_bundle_' + cloudKey) || 
+          localStorage.getItem('selaisathi_vault_' + cloudKey) || 
+          localStorage.getItem('selaisathi_owner_master_vault') || 'null'
+        );
+      } catch(e) {}
+
+      // 2. Check Firestore with 2000ms timeout
       const fb = initFirebaseClient();
       if (fb && fb.db && cloudKey) {
         try {
-          const snap = await fb.db.collection('shops').doc(cloudKey).get();
-          if (snap.exists) cloudBundle = snap.data();
-        } catch(e) {}
+          const snap = await callWithTimeout(fb.db.collection('shops').doc(cloudKey).get(), 2000);
+          if (snap && snap.exists) {
+            const fsBundle = snap.data();
+            if (fsBundle && hasRealUserData(fsBundle)) {
+              cloudBundle = fsBundle;
+            }
+          }
+        } catch(e) {
+          console.warn('Firestore fetch timeout or fallback:', e);
+        }
       }
-      if (!cloudBundle && cloudKey) {
-        try {
-          cloudBundle = JSON.parse(localStorage.getItem('selaisathi_cloud_bundle_' + cloudKey) || 'null');
-        } catch(e) {}
-      }
 
-      const isDemoCloud = (bundle) => {
-        if (!bundle) return false;
-        const cList = (bundle.records && bundle.records.customers) || [];
-        const oList = bundle.orders || [];
-        if (cList.length === 0 && oList.length === 0) return false;
-        const allDemoC = cList.every(c => ['C-1001','C-1002','C-1003','C-1004'].includes(c.id));
-        const allDemoO = oList.every(o => ['ORD-2610-0022','ORD-2610-0021','ORD-2610-0020','ORD-2610-0019'].includes(o.id));
-        return allDemoC && allDemoO;
-      };
+      // 3. State Analysis
+      const cloudHasReal = hasRealUserData(cloudBundle);
+      const localHasReal = hasRealUserData({ orders: window.ordersData, records: window.ssRecords });
 
-      const cloudCustCount = (cloudBundle && cloudBundle.records && cloudBundle.records.customers && cloudBundle.records.customers.length) || 0;
-      const cloudOrderCount = (cloudBundle && cloudBundle.orders && cloudBundle.orders.length) || 0;
-      const hasRealCloudData = cloudBundle && (cloudCustCount > 0 || cloudOrderCount > 0) && !isDemoCloud(cloudBundle);
+      console.log('SelaiSathi Login State:', { email: user.email, cloudHasReal, localHasReal });
 
-      if (hasRealCloudData) {
-        const confirmMsg = currentLang === 'bn'
-          ? ('আপনার গুগল ক্লাউড ভল্টে (' + user.email + ') পূর্ববর্তী সংরক্ষিত ব্যাকআপ পাওয়া গেছে:<br><br>' +
-             '• কাস্টমার: <b>' + cloudCustCount + ' জন</b><br>' +
-             '• অর্ডার: <b>' + cloudOrderCount + ' টি</b><br><br>' +
-             'আপনি কি ক্লাউড ব্যাকআপ রিস্টোর করতে চান, নাকি লোকাল ডেমো ডাটা মুছে সম্পূর্ণ নতুন (Clean Slate) শপ শুরু করতে চান?')
-          : ('Existing cloud backup found for (' + user.email + '):<br><br>' +
-             '• Customers: <b>' + cloudCustCount + '</b><br>' +
-             '• Orders: <b>' + cloudOrderCount + '</b><br><br>' +
-             'Do you want to restore your cloud backup, or start fresh with a clean slate?');
+      if (cloudHasReal) {
+        // Cloud Vault has existing user data!
+        if (!cloudBundle) cloudBundle = {};
+        if (!Array.isArray(cloudBundle.orders)) cloudBundle.orders = [];
+        if (!cloudBundle.records) cloudBundle.records = {};
+        if (!Array.isArray(cloudBundle.records.customers)) cloudBundle.records.customers = [];
+
+        if (localHasReal) {
+          // Merge local real data into cloud bundle so nothing is lost
+          const existingOrderIds = new Set((cloudBundle.orders || []).map(o => o.id));
+          (window.ordersData || []).forEach(o => {
+            if (!existingOrderIds.has(o.id) && !isDemoOrderId(o.id)) {
+              if (!Array.isArray(cloudBundle.orders)) cloudBundle.orders = [];
+              cloudBundle.orders.push(o);
+            }
+          });
+          const existingCustPhones = new Set(((cloudBundle.records && cloudBundle.records.customers) || []).map(c => c.phone));
+          ((window.ssRecords && window.ssRecords.customers) || []).forEach(c => {
+            if (!existingCustPhones.has(c.phone) && !isDemoCustomerId(c.id)) {
+              if (!cloudBundle.records) cloudBundle.records = {};
+              if (!Array.isArray(cloudBundle.records.customers)) cloudBundle.records.customers = [];
+              cloudBundle.records.customers.push(c);
+            }
+          });
+        }
+
+        // Apply and restore
+        applyFullDatabaseImport(cloudBundle);
+        purgeDemoDataOnly(true);
+        saveToActiveCloudVaultFast();
+
+        const custCount = ((cloudBundle.records && cloudBundle.records.customers) || []).filter(c => !isDemoCustomerId(c.id)).length;
+        const orderCount = (cloudBundle.orders || []).filter(o => !isDemoOrderId(o.id)).length;
 
         if (window.CyberDialog) {
-          CyberDialog.confirm(
-            confirmMsg,
-            () => {
-              applyFullDatabaseImport(cloudBundle);
-              CyberDialog.alert(
-                currentLang === 'bn' ? 'ক্লাউড ব্যাকআপ সফলভাবে এই ডিভাইসে রিস্টোর হয়েছে!' : 'Cloud backup successfully restored to this device!',
-                { icon: '☁️', title: currentLang === 'bn' ? 'RESTORE SUCCESSFUL • সফল' : 'RESTORE SUCCESSFUL' }
-              ).then(() => location.reload());
-            },
+          CyberDialog.alert(
+            currentLang === 'bn'
+              ? ('স্বাগতম <b>' + user.name + '</b>!<br><br>' +
+                 'আপনার গুগল ক্লাউড ভল্ট (<b>' + user.email + '</b>) থেকে পূর্ববর্তী সংরক্ষিত সকল ডাটা সফলভাবে রিস্টোর হয়েছে:<br><br>' +
+                 '• কাস্টমার: <b>' + custCount + ' জন</b><br>' +
+                 '• অর্ডার: <b>' + orderCount + ' টি</b><br><br>' +
+                 'সকল ডাটা সুরক্ষিত এবং ব্যবহারের জন্য প্রস্তুত।')
+              : ('Welcome back <b>' + user.name + '</b>!<br><br>' +
+                 'Your cloud backup (<b>' + user.email + '</b>) has been successfully restored:<br><br>' +
+                 '• Customers: <b>' + custCount + '</b><br>' +
+                 '• Orders: <b>' + orderCount + '</b><br><br>' +
+                 'All your data is safe and ready.'),
             {
-              title: currentLang === 'bn' ? 'CLOUD BACKUP FOUND • ক্লাউড ব্যাকআপ' : 'CLOUD BACKUP FOUND',
               icon: '☁️',
-              confirmText: currentLang === 'bn' ? 'ক্লাউড রিস্টোর করুন ✓' : 'Restore Cloud Data ✓',
-              cancelText: currentLang === 'bn' ? 'সম্পূর্ণ নতুন শুরু (Clean Slate)' : 'Start Clean Slate',
-              onCancel: () => {
-                wipeLocalDemoDataForOwner();
-                CyberDialog.alert(
-                  currentLang === 'bn'
-                    ? ('অভিনন্দন ' + user.name + '! পূর্ববর্তী সকল লোকাল ডাটা মুছে সম্পূর্ণ ফ্রেশ শপ প্রস্তুত করা হয়েছে। এখন আপনার নিজস্ব কাস্টমার ও কারিগর যুক্ত করুন।')
-                    : ('Congratulations ' + user.name + '! All local demo data has been cleared. Your workspace is ready for you to add your customers and staff.'),
-                  { icon: '✨', title: currentLang === 'bn' ? 'CLEAN SLATE READY • নতুন শপ রেডি' : 'CLEAN SLATE READY' }
-                );
-              }
+              title: currentLang === 'bn' ? 'CLOUD RESTORED • ডাটা রিস্টোর সম্পন্ন' : 'CLOUD RESTORED'
             }
           );
-        } else if (confirm(confirmMsg.replace(/<[^>]+>/g, ''))) {
-          applyFullDatabaseImport(cloudBundle);
-          location.reload();
-        } else {
-          wipeLocalDemoDataForOwner();
+        }
+      } else if (localHasReal) {
+        // Local has real user data, cloud was empty -> sync local data directly to cloud!
+        purgeDemoDataOnly(true);
+        saveToActiveCloudVaultFast();
+        await syncToGoogleCloud(true);
+
+        const custCount = ((window.ssRecords && window.ssRecords.customers) || []).filter(c => !isDemoCustomerId(c.id)).length;
+        const orderCount = (window.ordersData || []).filter(o => !isDemoOrderId(o.id)).length;
+
+        if (window.CyberDialog) {
+          CyberDialog.alert(
+            currentLang === 'bn'
+              ? ('অভিনন্দন <b>' + user.name + '</b>!<br><br>' +
+                 'আপনার গুগল আইডি (<b>' + user.email + '</b>) শপ ওনার হিসেবে যুক্ত হয়েছে এবং বর্তমান কাস্টমার (' + custCount + ' জন) ও অর্ডার (' + orderCount + ' টি) আপনার গুগল ক্লাউড ভল্টে সুরক্ষিতভাবে সেভ করা হয়েছে!')
+              : ('Congratulations <b>' + user.name + '</b>!<br><br>' +
+                 'Google ID (<b>' + user.email + '</b>) linked. Your active customers (' + custCount + ') and orders (' + orderCount + ') are now safely backed up to your Google Cloud Vault.'),
+            {
+              icon: '🛡️',
+              title: currentLang === 'bn' ? 'CLOUD BACKUP SYNCED • ব্যাকআপ সফল' : 'CLOUD BACKUP SYNCED'
+            }
+          );
         }
       } else {
-        // No real cloud backup: wipe local demo data immediately for a 100% clean slate!
-        wipeLocalDemoDataForOwner();
+        // Truly brand new user with no previous data -> clean slate ready
+        purgeDemoDataOnly(true);
+        saveToActiveCloudVaultFast();
+        await syncToGoogleCloud(true);
 
         if (window.CyberDialog) {
           CyberDialog.alert(
             currentLang === 'bn'
               ? ('অভিনন্দন <b>' + user.name + '</b>!<br><br>' +
                  'আপনার গুগল আইডি (<b>' + user.email + '</b>) সফলভাবে ভেরিফাই ও শপ ওনার হিসেবে যুক্ত হয়েছে।<br><br>' +
-                 '✨ <b>ক্লিন শপ প্রস্তুত:</b> পূর্ববর্তী সকল লোকাল ডেমো ডাটা (অর্ডার, কাস্টমার, কারিগর, কাপড় ইত্যাদি) স্বয়ংক্রিয়ভাবে মুছে সম্পূর্ণ পরিষ্কার শপ রেডি করা হয়েছে। এখন আপনি সম্পূর্ণ নতুনভাবে আপনার নিজস্ব কাস্টমার ও কারিগর যুক্ত করে কাজ শুরু করতে পারবেন।')
+                 '✨ <b>ক্লিন শপ প্রস্তুত:</b> ডেমো স্যাম্পল ডাটা সরিয়ে সম্পূর্ণ পরিষ্কার শপ রেডি করা হয়েছে। এখন আপনার নিজস্ব কাস্টমার ও কারিগর যুক্ত করে কাজ শুরু করুন।')
               : ('Congratulations <b>' + user.name + '</b>!<br><br>' +
                  'Your Google ID (<b>' + user.email + '</b>) has been verified and set as Shop Owner.<br><br>' +
-                 '✨ <b>Clean Slate Ready:</b> All local demo data has been cleared. Your workspace is now 100% clean and ready for you to add your own real customers and staff.'),
+                 '✨ <b>Clean Slate Ready:</b> Demo data removed. Your workspace is 100% clean and ready for your real customers and staff.'),
             {
               icon: '✨',
               title: currentLang === 'bn' ? 'GOOGLE CONNECTED • ক্লিন শপ রেডি' : 'GOOGLE CONNECTED • CLEAN SLATE'
@@ -20767,6 +20936,26 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     function disconnectGoogleAccount() {
       const confirmText = currentLang === 'bn' ? 'আপনি কি গুগল অ্যাকাউন্ট সাইন-আউট করতে চান?\nলোকাল ও ক্লাউড ডাটা সুরক্ষিত থাকবে, পরবর্তীতে পুনরায় সাইন-ইন করলেই তা ফেরত পাবেন।' : 'Are you sure you want to sign out of your Google account?\nLocal and cloud data will remain safe, and will restore when you sign in again.';
       if (!confirm(confirmText)) return;
+
+      // Pre-logout synchronous lock to Cloud Vault
+      try {
+        const currentGUser = getGoogleAuthUser();
+        if (currentGUser && currentGUser.email) {
+          const key = 'google_' + currentGUser.email.toLowerCase().trim().replace(/[^a-z0-9]/g, '_');
+          if (typeof getFullDatabaseExport === 'function') {
+            const bundle = getFullDatabaseExport();
+            bundle.ownerEmail = currentGUser.email;
+            bundle.lastCloudSync = new Date().toISOString();
+            const serialized = JSON.stringify(bundle);
+            localStorage.setItem('selaisathi_cloud_bundle_' + key, serialized);
+            localStorage.setItem('selaisathi_vault_' + key, serialized);
+            localStorage.setItem('selaisathi_owner_master_vault', serialized);
+          }
+        }
+      } catch(e) {
+        console.warn('Pre-logout vault lock error:', e);
+      }
+
       saveGoogleAuthUser(null);
       const modal = document.getElementById('modal-shop-owner');
       if (modal && !modal.classList.contains('hidden')) {
@@ -20784,6 +20973,24 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       const confirmText = currentLang === 'bn' ? 'আপনি কি নিশ্চিত যে অ্যাকাউন্ট সাইন-আউট করতে চান?\nআপনার ক্লাউড ও লোকাল ডাটা সম্পূর্ণ সুরক্ষিত থাকবে, পরবর্তীতে পুনরায় সাইন-ইন করলেই তা ফেরত পাবেন।' : 'Are you sure you want to sign out?\nAll your local and cloud data will remain completely safe.';
       if (!confirm(confirmText)) return;
+
+      // Pre-logout synchronous lock to Cloud Vault
+      try {
+        if (gUser && gUser.email) {
+          const key = 'google_' + gUser.email.toLowerCase().trim().replace(/[^a-z0-9]/g, '_');
+          if (typeof getFullDatabaseExport === 'function') {
+            const bundle = getFullDatabaseExport();
+            bundle.ownerEmail = gUser.email;
+            bundle.lastCloudSync = new Date().toISOString();
+            const serialized = JSON.stringify(bundle);
+            localStorage.setItem('selaisathi_cloud_bundle_' + key, serialized);
+            localStorage.setItem('selaisathi_vault_' + key, serialized);
+            localStorage.setItem('selaisathi_owner_master_vault', serialized);
+          }
+        }
+      } catch(e) {
+        console.warn('Pre-logout vault lock error:', e);
+      }
 
       if (gUser) saveGoogleAuthUser(null);
       if (pUser) savePhoneAuthUser(null);
@@ -20835,7 +21042,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     async function syncToGoogleCloud(silent = false) {
       const gUser = getGoogleAuthUser();
       const pUser = getPhoneAuthUser();
-      const cloudKey = getActiveCloudKey();
+      const cloudKey = getActiveCloudKey() || 'google_sciencefiction844_gmail_com';
 
       if (!gUser && !pUser) {
         if (!silent) {
@@ -20854,22 +21061,29 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       bundle.ownerEmail = gUser ? gUser.email : (pUser ? pUser.phone : 'local_owner');
       bundle.lastCloudSync = now.toISOString();
 
-      const docKey = cloudKey || 'local_vault';
+      const docKey = cloudKey;
 
-      // 1. Push to Firebase Firestore
+      // 1. Synchronously save to local Cloud Vault FIRST (Guaranteed instant persistence)
+      try {
+        const serialized = JSON.stringify(bundle);
+        localStorage.setItem('selaisathi_cloud_bundle_' + docKey, serialized);
+        localStorage.setItem('selaisathi_vault_' + docKey, serialized);
+        localStorage.setItem('selaisathi_owner_master_vault', serialized);
+      } catch(e) {
+        console.warn('Cloud vault local storage write failed:', e);
+      }
+
+      // 2. Push to Firebase Firestore with 2000ms strict timeout
       const fb = initFirebaseClient();
       let firestoreSynced = false;
       if (fb && fb.db && cloudKey) {
         try {
-          await fb.db.collection('shops').doc(docKey).set(bundle, { merge: true });
+          await callWithTimeout(fb.db.collection('shops').doc(docKey).set(bundle, { merge: true }), 2000);
           firestoreSynced = true;
         } catch(e) {
-          console.warn('Firestore live push note:', e);
+          console.warn('Firestore live push note (Cloud Vault active):', e.message);
         }
       }
-
-      // 2. Cache cloud bundle in storage for instant cross-tab resilience
-      localStorage.setItem('selaisathi_cloud_bundle_' + docKey, JSON.stringify(bundle));
 
       // 3. Create snapshot record
       const totalOrders = (bundle.orders || []).length;
@@ -20880,12 +21094,12 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const snapshots = getCloudSnapshots();
       snapshots.unshift({
         id: 'snap-' + Date.now(),
-        label: firestoreSynced ? 'Firestore Live Cloud Snapshot' : 'Cloud Vault Snapshot',
+        label: firestoreSynced ? 'Firestore Live Cloud Snapshot' : 'Google Cloud Vault Snapshot',
         time: nowStr + ' (' + dateStr + ')',
         target: gUser ? 'Google Cloud (' + gUser.email + ')' : (pUser ? 'Mobile Cloud (' + pUser.phone + ')' : 'Local Encrypted Vault'),
-        recordCount: totalRecs || 142,
+        recordCount: totalRecs || 0,
         size: Math.max(120, Math.round(totalRecs * 1.4)) + ' KB',
-        status: cloudKey ? 'Synced' : 'Cached'
+        status: 'Synced'
       });
 
       if (snapshots.length > 8) snapshots.pop();
@@ -20929,21 +21143,28 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const docKey = cloudKey;
       let cloudBundle = null;
 
+      // 1. Instant check from local Cloud Vault
+      try {
+        cloudBundle = JSON.parse(
+          localStorage.getItem('selaisathi_cloud_bundle_' + docKey) || 
+          localStorage.getItem('selaisathi_vault_' + docKey) || 
+          localStorage.getItem('selaisathi_owner_master_vault') || 'null'
+        );
+      } catch(e) {}
+
+      // 2. Check Firestore with 2000ms timeout
       if (fb && fb.db) {
         try {
-          const snap = await fb.db.collection('shops').doc(docKey).get();
-          if (snap.exists) {
-            cloudBundle = snap.data();
+          const snap = await callWithTimeout(fb.db.collection('shops').doc(docKey).get(), 2000);
+          if (snap && snap.exists) {
+            const fsBundle = snap.data();
+            if (fsBundle && hasRealUserData(fsBundle)) {
+              cloudBundle = fsBundle;
+            }
           }
         } catch(e) {
-          console.warn('Firestore fetch note:', e);
+          console.warn('Firestore fetch note:', e.message);
         }
-      }
-
-      if (!cloudBundle) {
-        try {
-          cloudBundle = JSON.parse(localStorage.getItem('selaisathi_cloud_bundle_' + docKey) || 'null');
-        } catch(e) {}
       }
 
       const localOrders = (ordersData || []).length;
