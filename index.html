@@ -10316,12 +10316,29 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (viewId === 'reports') renderReports();
     }
 
-    let ordersData = [
-      { id: 'ORD-2610-0022', tag: 'TAG-1044', name: 'Shahadat Hossain', phone: '01591463333', garment: 'Cotton Panjabi', stage: 'STITCHING', total: 850, advance: 300, due: 550, date: '15 Nov 2026', assignedStaffId: 'S-103' },
-      { id: 'ORD-2610-0021', tag: 'TAG-1043', name: 'Arif Hossain', phone: '01324941964', garment: 'Formal Shirt', stage: 'CUTTING', total: 450, advance: 200, due: 250, date: '14 Nov 2026', assignedStaffId: 'S-102' },
-      { id: 'ORD-2610-0020', tag: 'TAG-1042', name: 'Kamrul Hasan', phone: '01548694019', garment: 'Gabardine Pant', stage: 'READY', total: 550, advance: 550, due: 0, date: '12 Nov 2026', assignedStaffId: 'S-101' },
-      { id: 'ORD-2610-0019', tag: 'TAG-1041', name: 'Rakibul Islam', phone: '01864357068', garment: 'Royal Blazer', stage: 'DELIVERED', total: 2200, advance: 2200, due: 0, date: '10 Nov 2026', assignedStaffId: 'S-101' },
-    ];
+    let ordersData = (function() {
+      try {
+        const saved = JSON.parse(localStorage.getItem('ss_orders_store') || 'null');
+        if (Array.isArray(saved) && saved.length > 0) return saved;
+      } catch(e) {}
+      const initialOrders = [
+        { id: 'ORD-2610-0022', tag: 'TAG-1044', name: 'Shahadat Hossain', phone: '01591463333', garment: 'Cotton Panjabi', stage: 'STITCHING', total: 850, advance: 300, due: 550, date: '15 Nov 2026', assignedStaffId: 'S-103' },
+        { id: 'ORD-2610-0021', tag: 'TAG-1043', name: 'Arif Hossain', phone: '01324941964', garment: 'Formal Shirt', stage: 'CUTTING', total: 450, advance: 200, due: 250, date: '14 Nov 2026', assignedStaffId: 'S-102' },
+        { id: 'ORD-2610-0020', tag: 'TAG-1042', name: 'Kamrul Hasan', phone: '01548694019', garment: 'Gabardine Pant', stage: 'READY', total: 550, advance: 550, due: 0, date: '12 Nov 2026', assignedStaffId: 'S-101' },
+        { id: 'ORD-2610-0019', tag: 'TAG-1041', name: 'Rakibul Islam', phone: '01864357068', garment: 'Royal Blazer', stage: 'DELIVERED', total: 2200, advance: 2200, due: 0, date: '10 Nov 2026', assignedStaffId: 'S-101' },
+      ];
+      try { localStorage.setItem('ss_orders_store', JSON.stringify(initialOrders)); } catch(e) {}
+      return initialOrders;
+    })();
+
+    function persistOrdersData() {
+      try {
+        localStorage.setItem('ss_orders_store', JSON.stringify(ordersData));
+        if (typeof triggerRealtimeCloudSync === 'function') triggerRealtimeCloudSync();
+      } catch(e) {
+        console.warn('Orders storage persist failed:', e);
+      }
+    }
 
     let orderSearchQuery = '';
     let orderFilterStage = 'ALL';
@@ -10682,6 +10699,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         date
       };
 
+      persistOrdersData();
       closeModal('modal-edit-order');
       confetti({ particleCount: 50, spread: 55 });
       renderOrdersTable();
@@ -10699,6 +10717,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         const idx = ordersData.findIndex(o => o.id === orderId);
         if (idx !== -1) {
           ordersData.splice(idx, 1);
+          persistOrdersData();
         }
         closeModal('modal-edit-order');
         renderOrdersTable();
@@ -10727,6 +10746,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const order = ordersData.find(o => o.id === orderId);
       if (!order) return;
       order.stage = newStage;
+      persistOrdersData();
       renderOrdersTable();
       confetti({ particleCount: 30, spread: 45 });
     }
@@ -10796,6 +10816,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         return;
       }
 
+      const totalVal = parseFloat(document.getElementById('no-total').value) || 850;
+      const advVal = parseFloat(document.getElementById('no-advance').value) || 300;
+      const dueVal = Math.max(0, totalVal - advVal);
+
       ordersData.unshift({
         id: `ORD-2610-002${ordersData.length + 1}`,
         tag: `TAG-${Math.floor(1000 + Math.random() * 9000)}`,
@@ -10803,11 +10827,38 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         phone,
         garment: document.getElementById('no-garment').value,
         stage: 'CUTTING',
-        total: parseFloat(document.getElementById('no-total').value) || 850,
-        advance: parseFloat(document.getElementById('no-advance').value) || 300,
-        due: Math.max(0, (parseFloat(document.getElementById('no-total').value) || 850) - (parseFloat(document.getElementById('no-advance').value) || 300)),
+        total: totalVal,
+        advance: advVal,
+        due: dueVal,
         date: (window.CyberCalendar && document.getElementById('no-date')?.value) ? CyberCalendar.formatHuman(document.getElementById('no-date').value) : '18 Nov 2026'
       });
+
+      persistOrdersData();
+
+      // Ensure customer is registered in ssRecords.customers
+      if (typeof ssRecords !== 'undefined' && Array.isArray(ssRecords.customers)) {
+        let existing = ssRecords.customers.find(c => c.phone === phone);
+        if (!existing) {
+          const newCustId = 'C-' + (100 + ssRecords.customers.length + 1);
+          ssRecords.customers.unshift({
+            id: newCustId,
+            name: name,
+            phone: phone,
+            city: 'Dhaka',
+            totalOrders: 1,
+            totalSpent: totalVal,
+            due: dueVal,
+            lastOrder: 'Just now'
+          });
+          persistSsRecords();
+        } else {
+          existing.totalOrders = (existing.totalOrders || 0) + 1;
+          existing.totalSpent = (existing.totalSpent || 0) + totalVal;
+          existing.due = (existing.due || 0) + dueVal;
+          existing.lastOrder = 'Just now';
+          persistSsRecords();
+        }
+      }
 
       closeModal('modal-new-order');
       confetti({ particleCount: 70, spread: 60 });
@@ -10949,15 +11000,24 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         };
       } catch(e) { return {customers:[],staff:[],fabrics:[]}; }
     })();
+    function triggerRealtimeCloudSync() {
+      const gUser = typeof getGoogleAuthUser === 'function' ? getGoogleAuthUser() : null;
+      const pUser = typeof getPhoneAuthUser === 'function' ? getPhoneAuthUser() : null;
+      if (!gUser && !pUser) return;
+      const policies = typeof getSyncPolicies === 'function' ? getSyncPolicies() : { realtime: true };
+      if (!policies.realtime) return;
+      if (window._cloudSyncDebounceTimer) clearTimeout(window._cloudSyncDebounceTimer);
+      window._cloudSyncDebounceTimer = setTimeout(() => {
+        if (typeof syncToGoogleCloud === 'function') {
+          syncToGoogleCloud(true);
+        }
+      }, 1500);
+    }
+
     function persistSsRecords(){ 
       try { 
         localStorage.setItem(ssStoreKey, JSON.stringify(ssRecords)); 
-        if (typeof getGoogleAuthUser === 'function' && getGoogleAuthUser() && typeof getSyncPolicies === 'function' && getSyncPolicies().realtime) {
-          if (window._cloudSyncDebounceTimer) clearTimeout(window._cloudSyncDebounceTimer);
-          window._cloudSyncDebounceTimer = setTimeout(() => {
-            if (typeof syncToGoogleCloud === 'function') syncToGoogleCloud(true);
-          }, 3000);
-        }
+        triggerRealtimeCloudSync();
       } catch(e) { 
         alert('Could not save records in this browser. Check storage permissions.'); 
       } 
@@ -12099,6 +12159,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       }
 
       order.assignedStaffId = staffId;
+      persistOrdersData();
       closeModal('modal-staff-assign');
       renderStaff();
       if (typeof renderOrdersTable === 'function') renderOrdersTable();
@@ -12120,6 +12181,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       const nextStage = stages[curIdx + 1];
       order.stage = nextStage;
+      persistOrdersData();
 
       // If finished, increment worker completed count
       if (nextStage === 'READY' && order.assignedStaffId) {
@@ -14474,6 +14536,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     function persistLedger() {
       try {
         localStorage.setItem(ssLedgerKey, JSON.stringify(ssLedgerTransactions));
+        if (typeof triggerRealtimeCloudSync === 'function') triggerRealtimeCloudSync();
       } catch(e) {
         console.error('Could not save ledger in localStorage', e);
       }
@@ -14874,6 +14937,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const prevDue = Number(order.due) || 0;
       order.advance = (Number(order.advance) || 0) + amount;
       order.due = Math.max(0, Number(order.total) - order.advance);
+      persistOrdersData();
 
       const txnId = 'TXN-' + Date.now().toString(36).toUpperCase();
       const todayStr = new Date().toISOString().slice(0, 10);
@@ -20017,9 +20081,32 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         txns = window.ssLedgerTransactions || [];
       }
 
+      let suppliers = [];
+      try {
+        suppliers = JSON.parse(localStorage.getItem('selaisathi_suppliers') || 'null') || (recs && recs.suppliers) || [];
+      } catch(e) {
+        suppliers = (recs && recs.suppliers) || [];
+      }
+
+      let remnants = [];
+      try {
+        remnants = JSON.parse(localStorage.getItem('selaisathi_remnants') || 'null') || (recs && recs.remnants) || [];
+      } catch(e) {
+        remnants = (recs && recs.remnants) || [];
+      }
+
+      let audits = [];
+      try {
+        audits = JSON.parse(localStorage.getItem('selaisathi_stock_audits') || 'null') || (recs && recs.stock_audits) || [];
+      } catch(e) {
+        audits = (recs && recs.stock_audits) || [];
+      }
+
+      const now = new Date();
       return {
         version: '2.0-cloud',
-        exportedAt: new Date().toISOString(),
+        exportedAt: now.toISOString(),
+        exportedAtMs: now.getTime(),
         ownerPhoto: getOwnerCustomPhoto(),
         shopSettings: JSON.parse(JSON.stringify(getShopSettings())),
         records: JSON.parse(JSON.stringify(recs)),
@@ -20028,9 +20115,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         users: getSystemUsers(),
         rolePerms: getRolePermissions(),
         securityPolicies: getSecurityPolicies(),
-        suppliers: (recs && recs.suppliers) || [],
-        remnants: (recs && recs.remnants) || [],
-        audits: (recs && recs.stock_audits) || []
+        suppliers: suppliers,
+        remnants: remnants,
+        audits: audits
       };
     }
 
@@ -20495,13 +20582,22 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const pUser = getPhoneAuthUser();
       const cloudKey = getActiveCloudKey();
 
-      const nowStr = new Date().toLocaleTimeString();
-      const dateStr = new Date().toISOString().slice(0, 10);
+      if (!gUser && !pUser) {
+        if (!silent) {
+          openGoogleSignInDialog();
+        }
+        return false;
+      }
+
+      const now = new Date();
+      const nowStr = now.toLocaleTimeString();
+      const dateStr = now.toISOString().slice(0, 10);
       localStorage.setItem('selaisathi_last_sync_time', nowStr + ', ' + dateStr);
+      localStorage.setItem('selaisathi_last_sync_time_ms', String(now.getTime()));
 
       const bundle = getFullDatabaseExport();
       bundle.ownerEmail = gUser ? gUser.email : (pUser ? pUser.phone : 'local_owner');
-      bundle.lastCloudSync = new Date().toISOString();
+      bundle.lastCloudSync = now.toISOString();
 
       const docKey = cloudKey || 'local_vault';
 
@@ -20547,14 +20643,21 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (!silent) {
         const ownerIdentity = gUser ? gUser.email : (pUser ? pUser.phone : 'Local Vault');
         if (window.CyberDialog) {
-          CyberDialog.alert(currentLang === 'bn' ? ('অভিনন্দন! আপনার সমস্ত কাস্টমার (' + totalCust + ' জন), মাপ ও অর্ডার ডাটা সফলভাবে ক্লাউড ডাটাবেজে (' + ownerIdentity + ') সেভ হয়েছে। অন্য যেকোনো ফোনে লগইন করলে স্বয়ংক্রিয়ভাবে ডাটা লোড হয়ে যাবে!') : ('Congratulations! All your customers (' + totalCust + '), measurements, and orders have been securely synced to your cloud database (' + ownerIdentity + ').'), {
-            icon: '☁️',
-            title: currentLang === 'bn' ? 'LIVE CLOUD SYNC COMPLETED • সফল' : 'LIVE CLOUD SYNC COMPLETED'
-          });
+          CyberDialog.alert(
+            currentLang === 'bn' 
+              ? ('অভিনন্দন! আপনার সমস্ত কাস্টমার (' + totalCust + ' জন), মাপ ও অর্ডার ডাটা সফলভাবে ক্লাউড ডাটাবেজে (' + ownerIdentity + ') সেভ হয়েছে। অন্য যেকোনো ডিভাইসে লগইন করলে স্বয়ংক্রিয়ভাবে ডাটা লোড হয়ে যাবে!') 
+              : ('Congratulations! All your customers (' + totalCust + '), measurements, and orders have been securely synced to your cloud database (' + ownerIdentity + ').'), 
+            {
+              icon: '☁️',
+              title: currentLang === 'bn' ? 'LIVE CLOUD SYNC COMPLETED • সফল' : 'LIVE CLOUD SYNC COMPLETED',
+              okText: currentLang === 'bn' ? 'ঠিক আছে ✓' : 'OK ✓'
+            }
+          );
         } else {
           alert('Cloud synchronization successful! All data saved to cloud.');
         }
       }
+      return true;
     }
 
     async function pullFromGoogleCloud(autoDetect = false, promptOnNewerCloud = false) {
@@ -20591,31 +20694,67 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const localOrders = (ordersData || []).length;
       const localCust = ((ssRecords && ssRecords.customers) || []).length;
       const localTotal = localOrders + localCust;
+      const localLastSyncMs = Number(localStorage.getItem('selaisathi_last_sync_time_ms') || 0);
 
       const ownerIdentity = gUser ? gUser.email : (pUser ? pUser.phone : 'Cloud Vault');
 
       if (cloudBundle && cloudBundle.records) {
         const cloudCust = ((cloudBundle.records && cloudBundle.records.customers) || []).length;
         const cloudOrders = (cloudBundle.orders || []).length;
+        const cloudExportMs = Number(cloudBundle.exportedAtMs || new Date(cloudBundle.exportedAt || 0).getTime());
 
-        if (localTotal === 0 || (autoDetect && cloudCust > localCust) || !autoDetect) {
-          const confirmMsg = currentLang === 'bn' ? ('ক্লাউডে (' + ownerIdentity + ') সংরক্ষিত ডাটা পাওয়া গেছে:\n\n• কাস্টমার: ' + cloudCust + ' জন\n• অর্ডার: ' + cloudOrders + ' টি\n• ক্লাউড সেভ টাইম: ' + new Date(cloudBundle.exportedAt || Date.now()).toLocaleString() + '\n\nআপনি কি এই ডিভাইসে সমস্ত ডাটা রিস্টোর করতে চান?') : ('Cloud backup found for (' + ownerIdentity + '):\n\n• Customers: ' + cloudCust + '\n• Orders: ' + cloudOrders + '\n• Cloud timestamp: ' + new Date(cloudBundle.exportedAt || Date.now()).toLocaleString() + '\n\nDo you want to restore this data to this device?');
-          
-          if (!autoDetect || confirm(confirmMsg)) {
+        const isCloudNewer = (cloudExportMs > localLastSyncMs) || (cloudCust > localCust) || (cloudOrders > localOrders);
+        const isDeviceFresh = (localLastSyncMs === 0);
+
+        if (localTotal === 0 || (autoDetect && (isCloudNewer || isDeviceFresh)) || !autoDetect) {
+          const doRestore = () => {
             applyFullDatabaseImport(cloudBundle);
+            localStorage.setItem('selaisathi_last_sync_time_ms', String(cloudExportMs || Date.now()));
+            const now = new Date();
+            localStorage.setItem('selaisathi_last_sync_time', now.toLocaleTimeString() + ', ' + now.toISOString().slice(0, 10));
             logSecurityAudit('CLOUD_RESTORE', 'Restored ' + cloudCust + ' customers & ' + cloudOrders + ' orders from cloud (' + ownerIdentity + ')', 'INFO');
             
             if (window.CyberDialog) {
-              CyberDialog.alert(currentLang === 'bn' ? ('অভিনন্দন! আপনার অ্যাকাউন্ট (' + ownerIdentity + ') থেকে ' + cloudCust + ' জন কাস্টমার এবং ' + cloudOrders + ' টি অর্ডার এই ডিভাইসে সফলভাবে লোড হয়েছে! পৃষ্ঠাটি রিফ্রেশ হচ্ছে...') : ('Congratulations! ' + cloudCust + ' customers and ' + cloudOrders + ' orders have been successfully restored from your cloud vault (' + ownerIdentity + '). Refreshing...'), {
-                icon: '🎉',
-                title: currentLang === 'bn' ? 'CLOUD RESTORE COMPLETE • সফল' : 'CLOUD RESTORE COMPLETE'
-              }).then(() => location.reload());
+              CyberDialog.alert(
+                currentLang === 'bn' 
+                  ? ('অভিনন্দন! আপনার অ্যাকাউন্ট (' + ownerIdentity + ') থেকে ' + cloudCust + ' জন কাস্টমার এবং ' + cloudOrders + ' টি অর্ডার এই ডিভাইসে সফলভাবে লোড হয়েছে! পৃষ্ঠাটি রিফ্রেশ হচ্ছে...') 
+                  : ('Congratulations! ' + cloudCust + ' customers and ' + cloudOrders + ' orders have been successfully restored from your cloud vault (' + ownerIdentity + '). Refreshing...'), 
+                {
+                  icon: '🎉',
+                  title: currentLang === 'bn' ? 'CLOUD RESTORE COMPLETE • সফল' : 'CLOUD RESTORE COMPLETE',
+                  okText: currentLang === 'bn' ? 'ঠিক আছে ✓' : 'OK ✓'
+                }
+              ).then(() => location.reload());
             } else {
               alert('Cloud restore complete! ' + cloudCust + ' customers and ' + cloudOrders + ' orders loaded.');
               location.reload();
             }
+          };
+
+          const confirmMsg = currentLang === 'bn' 
+            ? ('ক্লাউডে (' + ownerIdentity + ') সংরক্ষিত ব্যাকআপ পাওয়া গেছে:<br><br>• কাস্টমার: <b>' + cloudCust + ' জন</b><br>• অর্ডার: <b>' + cloudOrders + ' টি</b><br>• ক্লাউড সেভ টাইম: ' + new Date(cloudBundle.exportedAt || Date.now()).toLocaleString() + '<br><br>আপনি কি ক্লাউড থেকে সমস্ত ডাটা এই ডিভাইসে রিস্টোর করতে চান?') 
+            : ('Cloud backup found for (' + ownerIdentity + '):<br><br>• Customers: <b>' + cloudCust + '</b><br>• Orders: <b>' + cloudOrders + '</b><br>• Cloud timestamp: ' + new Date(cloudBundle.exportedAt || Date.now()).toLocaleString() + '<br><br>Do you want to restore all data to this device?');
+          
+          if (localTotal === 0) {
+            doRestore();
             return;
           }
+
+          if (window.CyberDialog) {
+            CyberDialog.confirm(
+              confirmMsg, 
+              doRestore, 
+              {
+                title: currentLang === 'bn' ? 'CLOUD RESTORE • ক্লাউড রিস্টোর' : 'CLOUD RESTORE',
+                icon: '☁️',
+                confirmText: currentLang === 'bn' ? 'রিস্টোর করুন ✓' : 'Restore Now ✓',
+                cancelText: currentLang === 'bn' ? 'বাতিল' : 'Cancel'
+              }
+            );
+          } else if (confirm(confirmMsg.replace(/<[^>]+>/g, ''))) {
+            doRestore();
+          }
+          return;
         }
       }
 
@@ -20623,10 +20762,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         await syncToGoogleCloud(true);
       } else if (!autoDetect) {
         if (window.CyberDialog) {
-          CyberDialog.alert(currentLang === 'bn' ? 'ক্লাউডে কোনো পূর্ববর্তী ব্যাকআপ পাওয়া যায়নি অথবা বর্তমান ডিভাইসের ডাটাই লেটেস্ট।' : 'No newer backup found in cloud, or current device data is already up to date.', {
-            icon: 'ℹ️',
-            title: currentLang === 'bn' ? 'CLOUD STATUS • ক্লাউড স্ট্যাটাস' : 'CLOUD STATUS'
-          });
+          CyberDialog.alert(
+            currentLang === 'bn' ? 'ক্লাউডে কোনো পূর্ববর্তী ব্যাকআপ পাওয়া যায়নি অথবা বর্তমান ডিভাইসের ডাটাই লেটেস্ট।' : 'No newer backup found in cloud, or current device data is already up to date.', 
+            {
+              icon: 'ℹ️',
+              title: currentLang === 'bn' ? 'CLOUD STATUS • ক্লাউড স্ট্যাটাস' : 'CLOUD STATUS',
+              okText: currentLang === 'bn' ? 'ঠিক আছে ✓' : 'OK ✓'
+            }
+          );
         }
       }
     }
