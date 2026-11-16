@@ -5751,7 +5751,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <!-- Active Customer Pill & Live Search -->
           <div class="flex flex-col sm:flex-row sm:items-center gap-3 flex-1 min-w-0">
             <!-- Active Customer Pill -->
-            <div id="meas-active-customer-pill" class="flex items-center gap-3 p-2 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl shrink-0">
+            <div id="meas-active-customer-pill" onclick="document.getElementById('meas-customer-search')?.focus()" class="flex items-center gap-3 p-2 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl shrink-0 cursor-pointer hover:border-emerald-400/60 transition-all" title="Click to search / switch customer">
               <div id="meas-cust-avatar" class="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 text-slate-950 font-black text-xs flex items-center justify-center shadow-sm">
                 SH
               </div>
@@ -8479,8 +8479,95 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
   <!-- 3. MODALS (New Order, Edit Order, 58mm Thermal Slip)     -->
   <!-- ======================================================== -->
 
+  <!-- MODAL: FABRIC & RATE CALCULATOR (গজ-গিরা-ইঞ্চি ক্যালকুলেটর) -->
+  <div id="modal-fabric-calc" onclick="if(event.target===this)toggleFabricCalcModal()" class="hidden fixed inset-0 z-[75] bg-black/75 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bento-card relative overflow-hidden max-w-lg w-full p-6 space-y-5 rounded-3xl border border-amber-500/30 shadow-2xl bg-slate-950/95 backdrop-blur-2xl max-h-[90vh] overflow-y-auto">
+      <div class="absolute -top-14 -right-14 w-36 h-36 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+      
+      <!-- Header -->
+      <div class="flex justify-between items-center pb-3 border-b border-slate-800 relative z-10">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center text-lg shadow-xs">
+            🧮
+          </div>
+          <div>
+            <h3 class="text-base font-black text-white tracking-tight flex items-center gap-2">
+              <span>Fabric & Rate Calculator</span>
+              <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">গজ-গিরা-ইঞ্চি</span>
+            </h3>
+            <p class="text-[11px] text-slate-400 font-mono">টেইলার্স গজ, গিরা, ইঞ্চি ও মিটার কনভার্টার এবং কাপড়ের মোট হিসাব</p>
+          </div>
+        </div>
+        <button type="button" onclick="toggleFabricCalcModal()" class="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white flex items-center justify-center text-sm transition-all cursor-pointer">✕</button>
+      </div>
+
+      <!-- Quick Preset Pills -->
+      <div class="space-y-1.5 relative z-10">
+        <label class="block text-[11px] font-mono text-slate-400 uppercase tracking-wider">সাধারণ কাপড়ের মাপের প্রিসেট (Quick Presets):</label>
+        <div class="flex flex-wrap gap-1.5 text-xs">
+          <button type="button" onclick="document.getElementById('calc-input-goj').value='2.25'; calcConvert('goj');" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 hover:border-amber-400 text-slate-300 hover:text-white transition-all cursor-pointer">👔 শার্ট (২.২৫ গজ)</button>
+          <button type="button" onclick="document.getElementById('calc-input-goj').value='1.25'; calcConvert('goj');" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 hover:border-amber-400 text-slate-300 hover:text-white transition-all cursor-pointer">👖 প্যান্ট (১.২৫ গজ)</button>
+          <button type="button" onclick="document.getElementById('calc-input-goj').value='2.75'; calcConvert('goj');" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 hover:border-amber-400 text-slate-300 hover:text-white transition-all cursor-pointer">🥻 পাঞ্জাবি (২.৭৫ গজ)</button>
+          <button type="button" onclick="document.getElementById('calc-input-goj').value='4.5'; calcConvert('goj');" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 hover:border-amber-400 text-slate-300 hover:text-white transition-all cursor-pointer">👗 থ্রি-পিস (৪.৫ গজ)</button>
+        </div>
+      </div>
+
+      <!-- 4 Unit Converters -->
+      <div class="grid grid-cols-2 gap-3 relative z-10">
+        <div class="space-y-1">
+          <label class="block text-xs font-semibold text-amber-300">গজ (Goj / Yard)</label>
+          <input type="number" step="0.01" id="calc-input-goj" oninput="calcConvert('goj')" placeholder="যেমন: 2.25" class="w-full px-3 py-2 rounded-xl text-sm font-mono font-bold bg-slate-900 text-amber-300 border border-amber-500/40 focus:border-amber-400 focus:outline-none">
+        </div>
+        <div class="space-y-1">
+          <label class="block text-xs font-semibold text-cyan-300">গিরা (Gira - ১৬ গিরায় ১ গজ)</label>
+          <input type="number" step="0.1" id="calc-input-gira" oninput="calcConvert('gira')" placeholder="যেমন: 36" class="w-full px-3 py-2 rounded-xl text-sm font-mono font-bold bg-slate-900 text-cyan-300 border border-cyan-500/40 focus:border-cyan-400 focus:outline-none">
+        </div>
+        <div class="space-y-1">
+          <label class="block text-xs font-semibold text-slate-300">ইঞ্চি (Inches - ৩৬ ইঞ্চিতে ১ গজ)</label>
+          <input type="number" step="0.5" id="calc-input-inch" oninput="calcConvert('inch')" placeholder="যেমন: 81" class="w-full px-3 py-2 rounded-xl text-sm font-mono font-bold bg-slate-900 text-white border border-slate-700 focus:border-cyan-400 focus:outline-none">
+        </div>
+        <div class="space-y-1">
+          <label class="block text-xs font-semibold text-slate-300">মিটার (Meters)</label>
+          <input type="number" step="0.01" id="calc-input-meter" oninput="calcConvert('meter')" placeholder="যেমন: 2.05" class="w-full px-3 py-2 rounded-xl text-sm font-mono font-bold bg-slate-900 text-white border border-slate-700 focus:border-cyan-400 focus:outline-none">
+        </div>
+      </div>
+
+      <!-- Pricing Section -->
+      <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3 relative z-10">
+        <div class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center justify-between">
+          <span>মূল্য ও মজুরি নির্ধারণ (Pricing & Making)</span>
+          <span class="text-[10px] text-emerald-400 font-mono">লাইভ ক্যালকুলেশন</span>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[11px] text-slate-400 mb-1">প্রতি গজ কাপড়ের দর (৳)</label>
+            <input type="number" id="calc-rate-per-goj" oninput="calcPrice()" placeholder="যেমন: 250" class="w-full px-3 py-2 rounded-xl text-xs font-mono font-bold bg-slate-950 text-emerald-300 border border-slate-700 focus:border-emerald-400 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-[11px] text-slate-400 mb-1">মজুরি / সেলাই খরচ (৳)</label>
+            <input type="number" id="calc-making-charge" oninput="calcPrice()" placeholder="যেমন: 400" class="w-full px-3 py-2 rounded-xl text-xs font-mono font-bold bg-slate-950 text-cyan-300 border border-slate-700 focus:border-cyan-400 focus:outline-none">
+          </div>
+        </div>
+        <div class="flex items-center justify-between p-3 rounded-xl bg-slate-950 border border-emerald-500/30">
+          <div>
+            <div class="text-[10px] text-slate-400 uppercase font-mono">সর্বমোট আনুমানিক খরচ</div>
+            <div class="text-xs text-slate-500 font-mono">(কাপড় + সেলাই মজুরি)</div>
+          </div>
+          <div id="calc-total-result" class="text-xl font-black font-mono text-emerald-400">৳0</div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="flex justify-end pt-2 border-t border-slate-800 relative z-10">
+        <button type="button" onclick="toggleFabricCalcModal()" class="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold transition-all cursor-pointer">
+          সম্পন্ন (Done)
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- MODAL: MEASUREMENT VERSION DIFF MATRIX -->
-  <div id="modal-measurement-diff" class="hidden fixed inset-0 z-[75] bg-black/75 backdrop-blur-md flex items-center justify-center p-4">
+  <div id="modal-measurement-diff" onclick="if(event.target===this)closeModal('modal-measurement-diff')" class="hidden fixed inset-0 z-[75] bg-black/75 backdrop-blur-md flex items-center justify-center p-4">
     <div class="bento-card max-w-2xl w-full p-6 space-y-5 shadow-2xl max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center border-b border-ios-border pb-3.5">
         <div>
@@ -13732,8 +13819,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       renderCustomers();
       renderStaff();
       renderFabrics();
-      if(rawKind==='customer'&&activeProfileCustomerId===editId){
-        openCustomerProfile(editId);
+      if(rawKind==='customer'){
+        activeMeasurementCustomerId = editId || record.id;
+        if (typeof renderMeasurementsPage === 'function') renderMeasurementsPage();
+        if (activeProfileCustomerId === editId) openCustomerProfile(editId);
       }
       if(rawKind==='staff'&&activeProfileStaffId===editId){
         openStaffProfile(editId);
@@ -13999,8 +14088,13 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
 
     function getActiveMeasurementCustomer() {
-      if (!ssRecords || !ssRecords.customers || !ssRecords.customers.length) return null;
-      return ssRecords.customers.find(c => c.id === activeMeasurementCustomerId) || ssRecords.customers[0] || null;
+      if (!ssRecords || !Array.isArray(ssRecords.customers) || !ssRecords.customers.length) return null;
+      let found = ssRecords.customers.find(c => c.id === activeMeasurementCustomerId);
+      if (!found && ssRecords.customers.length > 0) {
+        found = ssRecords.customers[0];
+        activeMeasurementCustomerId = found.id;
+      }
+      return found || null;
     }
 
     function getActiveGarmentProfile(cust, garment) {
@@ -14031,23 +14125,22 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const versionsBadge = document.getElementById('meas-cust-versions-badge');
 
       if (!cust) {
-        if (avatarEl) avatarEl.textContent = '—';
-        if (nameEl) nameEl.textContent = (typeof currentLang !== 'undefined' && currentLang === 'bn') ? 'কোনো কাস্টমার যুক্ত নেই' : 'No Customer Selected';
-        if (phoneEl) phoneEl.textContent = (typeof currentLang !== 'undefined' && currentLang === 'bn') ? 'পরিমাপ নিতে প্রথমে কাস্টমার যোগ করুন' : 'Add a customer to record measurements';
+        if (avatarEl) avatarEl.textContent = '🔍';
+        if (nameEl) nameEl.textContent = (typeof currentLang !== 'undefined' && currentLang === 'bn') ? 'গ্রাহক নির্বাচন করুন' : 'Select Customer';
+        if (phoneEl) phoneEl.textContent = (typeof currentLang !== 'undefined' && currentLang === 'bn') ? 'পরিমাপ সেভ করতে কাস্টমার নির্বাচন বা যোগ করুন' : 'Click search or + New Client to select';
         if (versionsBadge) versionsBadge.textContent = '0 versions';
-        return;
+      } else {
+        ensureCustomerMeasurementProfiles(cust);
+        // 1. Update Customer Pill
+        if (avatarEl) {
+          const initials = (cust.name || 'C').split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
+          avatarEl.textContent = initials;
+        }
+        if (nameEl) nameEl.textContent = cust.name;
+        if (phoneEl) phoneEl.textContent = cust.phone + (cust.address ? ' · ' + cust.address : '');
       }
-      ensureCustomerMeasurementProfiles(cust);
 
-      // 1. Update Customer Pill
-      if (avatarEl) {
-        const initials = (cust.name || 'C').split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
-        avatarEl.textContent = initials;
-      }
-      if (nameEl) nameEl.textContent = cust.name;
-      if (phoneEl) phoneEl.textContent = cust.phone + (cust.address ? ' · ' + cust.address : '');
-
-      const prof = getActiveGarmentProfile(cust, activeMeasurementGarment);
+      const prof = cust ? getActiveGarmentProfile(cust, activeMeasurementGarment) : { currentVersion: 'v1', fitStyle: activeMeasurementFit || 'Regular Fit', versions: [] };
       if (versionsBadge) {
         const count = prof.versions ? prof.versions.length : 1;
         versionsBadge.textContent = `${count} version${count > 1 ? 's' : ''}`;
@@ -14263,7 +14356,12 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
     function saveMeasurementVersion() {
       const cust = getActiveMeasurementCustomer();
-      if (!cust) return;
+      if (!cust) {
+        if (window.CyberDialog) CyberDialog.alert('পরিমাপ সংরক্ষণ করতে প্রথমে একজন গ্রাহক নির্বাচন করুন অথবা "+ New Client" বাটনে ক্লিক করুন।', { icon: '📏', title: 'CUSTOMER REQUIRED' });
+        else alert('Please select or add a customer first.');
+        document.getElementById('meas-customer-search')?.focus();
+        return;
+      }
       const prof = getActiveGarmentProfile(cust, activeMeasurementGarment);
       const gDef = MEASUREMENT_GARMENTS[activeMeasurementGarment];
       if (!gDef) return;
@@ -14406,9 +14504,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
     function openMeasurementDiffModal() {
       const cust = getActiveMeasurementCustomer();
+      if (!cust) {
+        if (window.CyberDialog) CyberDialog.alert('সংস্করণ তুলনা দেখতে প্রথমে একজন গ্রাহক নির্বাচন করুন।', { icon: '📊', title: 'NO CLIENT SELECTED' });
+        else alert('Please select a customer first.');
+        return;
+      }
       const prof = getActiveGarmentProfile(cust, activeMeasurementGarment);
       const gDef = MEASUREMENT_GARMENTS[activeMeasurementGarment];
-      if (!cust || !gDef) return;
+      if (!gDef) return;
 
       const titleEl = document.getElementById('meas-diff-garment-title');
       const subEl = document.getElementById('meas-diff-customer-subtitle');
@@ -14458,7 +14561,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         return;
       }
 
-      const matches = ssRecords.customers.filter(c => 
+      const custList = (ssRecords && Array.isArray(ssRecords.customers)) ? ssRecords.customers : [];
+      const matches = custList.filter(c => 
         (c.name || '').toLowerCase().includes(q) || 
         (c.phone || '').includes(q) || 
         (c.id || '').toLowerCase().includes(q)
@@ -14505,9 +14609,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
     function copyMeasurementText() {
       const cust = getActiveMeasurementCustomer();
+      if (!cust) {
+        if (window.CyberDialog) CyberDialog.alert('মাপের বিবরণ কপি করতে প্রথমে একজন গ্রাহক নির্বাচন করুন।', { icon: '📋', title: 'NO CLIENT SELECTED' });
+        else alert('Please select a customer first.');
+        return;
+      }
       const prof = getActiveGarmentProfile(cust, activeMeasurementGarment);
       const gDef = MEASUREMENT_GARMENTS[activeMeasurementGarment];
-      if (!cust || !gDef) return;
+      if (!gDef) return;
 
       let lines = [
         `✂️ সেলাই সাথী — পোশাকের সংরক্ষিত মাপ`,
@@ -14537,9 +14646,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
     function sendMeasurementWhatsApp() {
       const cust = getActiveMeasurementCustomer();
+      if (!cust) {
+        if (window.CyberDialog) CyberDialog.alert('গ্রাহকের হোয়াটসঅ্যাপে মাপ পাঠাতে প্রথমে একজন গ্রাহক নির্বাচন করুন।', { icon: '💬', title: 'NO CLIENT SELECTED' });
+        else alert('Please select a customer first.');
+        return;
+      }
       const prof = getActiveGarmentProfile(cust, activeMeasurementGarment);
       const gDef = MEASUREMENT_GARMENTS[activeMeasurementGarment];
-      if (!cust || !gDef) return;
+      if (!gDef) return;
 
       const cleanPhone = (cust.phone || '').replace(/[^0-9]/g, '').replace(/^0/, '');
       if (!cleanPhone) {
@@ -14646,22 +14760,37 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <div>Delivery Tag: TAG-${Math.floor(1000 + Math.random() * 9000)}</div>
           </div>
 
-          <' + 'script>window.onload=function(){window.print();};<' + '/script>
+          <` + `script>
+            window.onload = function() {
+              setTimeout(function() { window.print(); }, 200);
+            };
+          <` + `/script>
         </body>
         </html>
       `);
       w.document.close();
+      setTimeout(() => { try { w.print(); } catch(e){} }, 400);
     }
 
     function createOrderWithMeasurement() {
       const cust = getActiveMeasurementCustomer();
-      if (!cust) return;
+      if (!cust) {
+        if (window.CyberDialog) {
+          CyberDialog.alert('পরিমাপ দিয়ে সরাসরি অর্ডার তৈরি করতে প্রথমে একজন গ্রাহক নির্বাচন করুন অথবা "+ New Client" বাটনে ক্লিক করুন।', { icon: '👤', title: 'CUSTOMER REQUIRED' });
+        } else {
+          alert('Please select or add a customer first.');
+        }
+        document.getElementById('meas-customer-search')?.focus();
+        return;
+      }
       quickCreateOrderForCustomer(cust.phone, cust.name);
       const garmentSelect = document.getElementById('no-garment');
       if (garmentSelect && garmentSelect.options && garmentSelect.options.length) {
         for (let i = 0; i < garmentSelect.options.length; i++) {
           if (garmentSelect.options[i].text && garmentSelect.options[i].text.toLowerCase().includes(activeMeasurementGarment.toLowerCase())) {
             garmentSelect.selectedIndex = i;
+            const labelEl = document.getElementById('no-garment-label');
+            if (labelEl) labelEl.textContent = garmentSelect.options[i].text;
             break;
           }
         }
