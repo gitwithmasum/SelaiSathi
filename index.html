@@ -3451,10 +3451,56 @@ body.theme-white #view-measurements #meas-quick-matrix {
       display: block !important;
       border-radius: inherit !important;
     }
+    /* Futuristic Cloud Vault Glass Component */
+    .cyber-vault-card {
+      position: relative;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.88) 0%, rgba(8, 14, 28, 0.96) 100%);
+      border: 1px solid rgba(6, 182, 212, 0.28);
+      box-shadow: 0 4px 20px -3px rgba(6, 182, 212, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .cyber-vault-card:hover {
+      border-color: rgba(6, 182, 212, 0.45);
+      box-shadow: 0 8px 30px -4px rgba(6, 182, 212, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+    .cyber-pulse-orb {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cyber-pulse-orb::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 9999px;
+      border: 1px solid rgba(52, 211, 153, 0.45);
+      animation: cyberPing 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+    .cyber-pulse-orb-purple::after {
+      border-color: rgba(192, 132, 252, 0.45) !important;
+    }
+    @keyframes cyberPing {
+      0% { transform: scale(0.9); opacity: 0.85; }
+      80%, 100% { transform: scale(1.6); opacity: 0; }
+    }
     body.theme-white #modal-owner-google-box,
     body.theme-white #google-account-status-card {
       background: #F8FAFC !important;
       border-color: #E2E8F0 !important;
+    }
+    body.theme-white .cyber-vault-card {
+      background: #FFFFFF !important;
+      border-color: #CBD5E1 !important;
+      box-shadow: 0 4px 20px -3px rgba(2, 132, 199, 0.08) !important;
+    }
+    body.theme-white .cyber-vault-card .text-slate-100 {
+      color: #0F172A !important;
+    }
+    body.theme-white .cyber-vault-card .text-cyan-300\/80 {
+      color: #0369A1 !important;
     }
     body.theme-white #nav-backups.active {
       background: #E0F2FE !important;
@@ -21683,11 +21729,25 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (actionContainer) {
         if (gUser) {
           actionContainer.innerHTML = '<div class="flex items-center gap-1.5 flex-wrap">' +
-            '<button onclick="syncToGoogleCloud()" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-cyan-500 hover:bg-cyan-600 active:scale-95 text-slate-950 flex items-center gap-1 transition-all cursor-pointer"><span>⚡</span> <span>Sync Now</span></button>' +
-            '<button onclick="pullFromGoogleCloud()" class="px-2.5 py-1.5 rounded-xl text-xs font-bold text-cyan-400 hover:bg-cyan-500/10 border border-cyan-500/30 active:scale-95 transition-all cursor-pointer" title="অন্য ডিভাইসের ডাটা নামিয়ে আনুন"><span>📥</span> <span>Restore</span></button>' +
-            '<button onclick="wipeLocalDemoDataForOwnerConfirm()" class="px-2.5 py-1.5 rounded-xl text-xs font-bold text-amber-400 hover:bg-amber-500/10 border border-amber-500/30 active:scale-95 transition-all cursor-pointer flex items-center gap-1" title="সকল ডেমো ডাটা মুছে সম্পূর্ণ ফ্রেশ শুরু করুন"><span>🧹</span> <span>Clean Slate</span></button>' +
-            '<button onclick="openFirebaseConfigModal()" class="px-2 py-1.5 rounded-xl text-xs font-bold text-gray-400 hover:text-white border border-ios-border active:scale-95 transition-all cursor-pointer" title="Firebase Settings">⚙️</button>' +
-            '<button onclick="disconnectGoogleAccount()" class="px-2.5 py-1.5 rounded-xl text-xs font-bold text-rose-400 hover:bg-rose-500/10 border border-rose-500/30 active:scale-95 transition-all cursor-pointer flex items-center gap-1"><span>🚪</span> <span>Sign Out</span></button>' +
+            '<button type="button" onclick="syncToGoogleCloud()" class="px-3 py-1.5 rounded-xl text-xs font-black tracking-wide bg-gradient-to-r from-cyan-500 to-teal-400 hover:brightness-110 active:scale-95 text-slate-950 flex items-center gap-1.5 shadow-[0_2px_10px_-2px_rgba(6,182,212,0.4)] transition-all cursor-pointer">' +
+              '<svg class="w-3.5 h-3.5 text-slate-950" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>' +
+              '<span>Sync Now</span>' +
+            '</button>' +
+            '<button type="button" onclick="pullFromGoogleCloud()" class="px-2.5 py-1.5 rounded-xl text-xs font-bold text-cyan-300 hover:text-white bg-slate-800/80 hover:bg-cyan-500/15 border border-cyan-500/30 hover:border-cyan-400/60 active:scale-95 transition-all cursor-pointer flex items-center gap-1" title="' + (currentLang === 'bn' ? 'অন্য ডিভাইসের ডাটা নামিয়ে আনুন' : 'Restore from cloud') + '">' +
+              '<svg class="w-3.5 h-3.5 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
+              '<span>Restore</span>' +
+            '</button>' +
+            '<button type="button" onclick="wipeLocalDemoDataForOwnerConfirm()" class="px-2.5 py-1.5 rounded-xl text-xs font-bold text-amber-300 hover:text-white bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 active:scale-95 transition-all cursor-pointer flex items-center gap-1" title="' + (currentLang === 'bn' ? 'সকল ডেমো ডাটা মুছে সম্পূর্ণ ফ্রেশ শুরু করুন' : 'Clear demo data for clean slate') + '">' +
+              '<svg class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>' +
+              '<span>Clean Slate</span>' +
+            '</button>' +
+            '<button type="button" onclick="openFirebaseConfigModal()" class="p-1.5 px-2 rounded-xl text-xs font-bold text-gray-400 hover:text-white border border-slate-700/80 hover:border-slate-500 bg-slate-900/60 active:scale-95 transition-all cursor-pointer" title="Firebase Settings">' +
+              '<svg class="w-3.5 h-3.5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>' +
+            '</button>' +
+            '<button type="button" onclick="disconnectGoogleAccount()" class="px-2.5 py-1.5 rounded-xl text-xs font-bold text-rose-400 hover:text-rose-300 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/25 active:scale-95 transition-all cursor-pointer flex items-center gap-1">' +
+              '<svg class="w-3.5 h-3.5 text-rose-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>' +
+              '<span>Sign Out</span>' +
+            '</button>' +
           '</div>';
         } else {
           actionContainer.innerHTML = '<button onclick="openGoogleSignInDialog(); switchAuthModalTab(\'google\');" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-slate-950 hover:bg-slate-100 flex items-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer">' +
@@ -21945,63 +22005,123 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         }
       }
 
-      // Minimalist Cloud status box inside modal
+      // Futuristic Minimalist Cloud status box inside modal
       const box = document.getElementById('modal-owner-google-box');
       if (box) {
         if (gUser) {
           box.innerHTML = 
-            '<div class="p-3 rounded-2xl bg-white/[0.03] border border-ios-border space-y-2.5">' +
-              '<div class="flex items-center justify-between flex-wrap gap-2">' +
-                '<div class="flex items-center gap-2 min-w-0">' +
-                  '<span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>' +
+            '<div class="cyber-vault-card relative overflow-hidden rounded-2xl p-3.5 space-y-3">' +
+              '<div class="absolute -top-10 -right-10 w-28 h-28 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none"></div>' +
+              '<div class="flex items-center justify-between gap-2 relative z-10">' +
+                '<div class="flex items-center gap-2.5 min-w-0">' +
+                  '<div class="cyber-pulse-orb w-7 h-7 rounded-xl bg-cyan-500/10 border border-cyan-500/30 shrink-0">' +
+                    '<span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]"></span>' +
+                  '</div>' +
                   '<div class="min-w-0">' +
-                    '<div class="font-bold text-xs text-ios-text flex items-center gap-1.5 truncate">' +
-                      '<span>Google Cloud Synced</span>' +
-                      '<span class="text-[8px] font-mono px-1 rounded bg-emerald-500/20 text-emerald-400">ACTIVE</span>' +
+                    '<div class="flex items-center gap-1.5 flex-wrap">' +
+                      '<span class="text-xs font-black tracking-wider uppercase text-slate-100">Google Cloud Vault</span>' +
+                      '<span class="inline-flex items-center gap-1 text-[8px] font-mono font-bold px-1.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 leading-none">' +
+                        '<span class="w-1 h-1 rounded-full bg-emerald-400 animate-pulse"></span>' +
+                        'ACTIVE' +
+                      '</span>' +
                     '</div>' +
-                    '<div class="text-[10px] text-ios-subtext font-mono truncate">' + safeText(gUser.email) + '</div>' +
+                    '<div class="text-[10px] text-cyan-300/80 font-mono truncate tracking-tight flex items-center gap-1 mt-0.5">' +
+                      '<svg class="w-2.5 h-2.5 text-cyan-400 shrink-0 opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>' +
+                      '<span class="truncate">' + safeText(gUser.email) + '</span>' +
+                    '</div>' +
                   '</div>' +
                 '</div>' +
-                '<div class="flex items-center gap-1.5"><button onclick="closeShopOwnerModal(); openGoogleAccountPicker();" class="px-2.5 py-1 rounded-xl text-[11px] font-bold text-cyan-400 hover:text-cyan-300 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/25 transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-xs" title="' + (currentLang === 'bn' ? 'গুগল অ্যাকাউন্ট পরিবর্তন বা সুইচ করুন' : 'Change or switch Google account') + '"><span>🔄</span> <span>' + (currentLang === 'bn' ? 'অ্যাকাউন্ট পরিবর্তন' : 'Switch Account') + '</span></button><button onclick="handleAccountSignOut()" class="px-2.5 py-1 rounded-xl text-[11px] font-bold text-rose-400 hover:text-rose-300 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/25 transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-xs" title="' + (currentLang === 'bn' ? 'এই ডিভাইস থেকে সাইন আউট করুন' : 'Sign out from this device') + '"><span>🚪</span> <span>' + (currentLang === 'bn' ? 'সাইন আউট' : 'Sign Out') + '</span></button></div>' +
+                '<div class="flex items-center gap-1 shrink-0">' +
+                  '<button type="button" onclick="closeShopOwnerModal(); openGoogleAccountPicker();" class="py-1 px-2.5 rounded-lg text-[10px] font-mono font-bold text-cyan-300 hover:text-white bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/25 hover:border-cyan-400/50 transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-xs" title="' + (currentLang === 'bn' ? 'গুগল অ্যাকাউন্ট সুইচ করুন' : 'Switch Google Account') + '">' +
+                    '<svg class="w-3 h-3 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>' +
+                    '<span>' + (currentLang === 'bn' ? 'সুইচ' : 'Switch') + '</span>' +
+                  '</button>' +
+                  '<button type="button" onclick="handleAccountSignOut()" class="py-1 px-2 rounded-lg text-[10px] font-mono font-bold text-rose-400/80 hover:text-rose-300 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 hover:border-rose-500/40 transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-xs" title="' + (currentLang === 'bn' ? 'সাইন আউট' : 'Sign Out') + '">' +
+                    '<svg class="w-3 h-3 text-rose-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>' +
+                  '</button>' +
+                '</div>' +
               '</div>' +
-              '<div class="flex items-center gap-2 pt-1 border-t border-ios-border/50">' +
-                '<button onclick="syncToGoogleCloud()" class="flex-1 py-1.5 rounded-xl text-xs font-bold bg-cyan-500 text-slate-950 hover:bg-cyan-400 transition-all cursor-pointer active:scale-95 shadow-sm text-center">⚡ Sync Now</button>' +
-                '<button onclick="pullFromGoogleCloud()" class="px-3 py-1.5 rounded-xl text-xs font-bold text-cyan-400 border border-cyan-500/30 hover:bg-cyan-500/10 transition-all cursor-pointer" title="' + (currentLang === 'bn' ? 'অন্য ডিভাইস থেকে ডাটা রিস্টোর করুন' : 'Restore data from cloud') + '">📥 ' + (currentLang === 'bn' ? 'রিস্টোর' : 'Restore') + '</button>' +
+              '<div class="grid grid-cols-5 gap-2 pt-1 border-t border-cyan-500/15 relative z-10">' +
+                '<button type="button" onclick="syncToGoogleCloud()" class="col-span-3 py-2 px-3 rounded-xl text-xs font-black tracking-wide bg-gradient-to-r from-cyan-500 via-teal-400 to-cyan-500 hover:from-cyan-400 hover:to-teal-300 text-slate-950 flex items-center justify-center gap-1.5 shadow-[0_2px_14px_-2px_rgba(6,182,212,0.45)] hover:shadow-[0_4px_20px_0_rgba(6,182,212,0.6)] active:scale-[0.98] transition-all cursor-pointer group">' +
+                  '<svg class="w-3.5 h-3.5 text-slate-950 group-hover:rotate-180 transition-transform duration-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>' +
+                  '<span>' + (currentLang === 'bn' ? 'সিঙ্ক ক্লাউড ⚡' : 'Sync Cloud ⚡') + '</span>' +
+                '</button>' +
+                '<button type="button" onclick="pullFromGoogleCloud()" class="col-span-2 py-2 px-2.5 rounded-xl text-xs font-bold text-cyan-300 hover:text-white bg-slate-800/80 hover:bg-cyan-500/15 border border-cyan-500/30 hover:border-cyan-400/60 flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all cursor-pointer shadow-xs" title="' + (currentLang === 'bn' ? 'অন্য ডিভাইস থেকে ডাটা রিস্টোর করুন' : 'Restore data from cloud') + '">' +
+                  '<svg class="w-3.5 h-3.5 text-cyan-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
+                  '<span>' + (currentLang === 'bn' ? 'রিস্টোর' : 'Restore') + '</span>' +
+                '</button>' +
+              '</div>' +
+              '<div class="flex items-center justify-between text-[8px] font-mono text-slate-500 tracking-wider pt-0.5">' +
+                '<span class="flex items-center gap-1">' +
+                  '<span class="w-1 h-1 rounded-full bg-cyan-400"></span>' +
+                  'REALTIME TELEMETRY' +
+                '</span>' +
+                '<span>FIRESTORE 256-BIT</span>' +
               '</div>' +
             '</div>';
         } else if (pUser) {
           box.innerHTML = 
-            '<div class="p-3 rounded-2xl bg-white/[0.03] border border-ios-border space-y-2.5">' +
-              '<div class="flex items-center justify-between flex-wrap gap-2">' +
-                '<div class="flex items-center gap-2 min-w-0">' +
-                  '<span class="w-2.5 h-2.5 rounded-full bg-purple-400 animate-pulse shrink-0"></span>' +
+            '<div class="cyber-vault-card relative overflow-hidden rounded-2xl p-3.5 space-y-3 border-purple-500/30 shadow-[0_0_20px_-3px_rgba(168,85,247,0.15)]">' +
+              '<div class="absolute -top-10 -right-10 w-28 h-28 bg-purple-500/10 rounded-full blur-2xl pointer-events-none"></div>' +
+              '<div class="flex items-center justify-between gap-2 relative z-10">' +
+                '<div class="flex items-center gap-2.5 min-w-0">' +
+                  '<div class="cyber-pulse-orb cyber-pulse-orb-purple w-7 h-7 rounded-xl bg-purple-500/10 border border-purple-500/30 shrink-0">' +
+                    '<span class="w-2 h-2 rounded-full bg-purple-400 shadow-[0_0_8px_#c084fc]"></span>' +
+                  '</div>' +
                   '<div class="min-w-0">' +
-                    '<div class="font-bold text-xs text-ios-text flex items-center gap-1.5 truncate">' +
-                      '<span>Mobile Cloud Synced</span>' +
-                      '<span class="text-[8px] font-mono px-1 rounded bg-purple-500/20 text-purple-300">ACTIVE</span>' +
+                    '<div class="flex items-center gap-1.5 flex-wrap">' +
+                      '<span class="text-xs font-black tracking-wider uppercase text-slate-100">Mobile Cloud Vault</span>' +
+                      '<span class="inline-flex items-center gap-1 text-[8px] font-mono font-bold px-1.5 py-0.5 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/30 leading-none">' +
+                        '<span class="w-1 h-1 rounded-full bg-purple-400"></span>' +
+                        '2FA LINKED' +
+                      '</span>' +
                     '</div>' +
-                    '<div class="text-[10px] text-ios-subtext font-mono truncate">' + safeText(pUser.phone) + '</div>' +
+                    '<div class="text-[10px] text-purple-300/80 font-mono truncate tracking-tight flex items-center gap-1 mt-0.5">' +
+                      '<svg class="w-2.5 h-2.5 text-purple-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>' +
+                      '<span class="truncate">' + safeText(pUser.phone) + '</span>' +
+                    '</div>' +
                   '</div>' +
                 '</div>' +
-                '<button onclick="handleAccountSignOut()" class="px-2.5 py-1 rounded-xl text-[11px] font-bold text-rose-400 hover:text-rose-300 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/25 transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-xs" title="Sign out from this device"><span>🚪</span> <span>Sign Out</span></button>' +
+                '<button type="button" onclick="handleAccountSignOut()" class="py-1 px-2.5 rounded-lg text-[10px] font-mono font-bold text-rose-400/80 hover:text-rose-300 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 hover:border-rose-500/40 transition-all cursor-pointer flex items-center gap-1 active:scale-95" title="Sign Out">' +
+                  '<svg class="w-3 h-3 text-rose-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>' +
+                  '<span>Disconnect</span>' +
+                '</button>' +
               '</div>' +
-              '<div class="flex items-center gap-2 pt-1 border-t border-ios-border/50">' +
-                '<button onclick="syncToGoogleCloud()" class="flex-1 py-1.5 rounded-xl text-xs font-bold bg-purple-600 text-white hover:bg-purple-500 transition-all cursor-pointer active:scale-95 shadow-sm text-center">⚡ Sync Now</button>' +
-                '<button onclick="pullFromGoogleCloud()" class="px-3 py-1.5 rounded-xl text-xs font-bold text-purple-300 border border-purple-500/30 hover:bg-purple-500/10 transition-all cursor-pointer" title="অন্য ডিভাইস থেকে ডাটা রিফ্রেস করুন">📥 Restore</button>' +
+              '<div class="grid grid-cols-5 gap-2 pt-1 border-t border-purple-500/15 relative z-10">' +
+                '<button type="button" onclick="syncToGoogleCloud()" class="col-span-3 py-2 px-3 rounded-xl text-xs font-black tracking-wide bg-gradient-to-r from-purple-600 via-fuchsia-500 to-purple-600 hover:from-purple-500 hover:to-fuchsia-400 text-white flex items-center justify-center gap-1.5 shadow-[0_2px_14px_-2px_rgba(168,85,247,0.45)] hover:shadow-[0_4px_20px_0_rgba(168,85,247,0.6)] active:scale-[0.98] transition-all cursor-pointer">' +
+                  '<svg class="w-3.5 h-3.5 text-white shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>' +
+                  '<span>Sync Cloud ⚡</span>' +
+                '</button>' +
+                '<button type="button" onclick="pullFromGoogleCloud()" class="col-span-2 py-2 px-2.5 rounded-xl text-xs font-bold text-purple-300 hover:text-white bg-slate-800/80 hover:bg-purple-500/15 border border-purple-500/30 hover:border-purple-400/60 flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all cursor-pointer shadow-xs">' +
+                  '<svg class="w-3.5 h-3.5 text-purple-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
+                  '<span>Restore</span>' +
+                '</button>' +
+              '</div>' +
+              '<div class="flex items-center justify-between text-[8px] font-mono text-slate-500 tracking-wider pt-0.5">' +
+                '<span class="flex items-center gap-1">' +
+                  '<span class="w-1 h-1 rounded-full bg-purple-400"></span>' +
+                  'AUTO-SYNC: 2FA SECURED' +
+                '</span>' +
+                '<span>FIRESTORE BACKUP</span>' +
               '</div>' +
             '</div>';
         } else {
           box.innerHTML = 
-            '<div class="p-3.5 rounded-2xl bg-white/[0.02] border border-dashed border-ios-border flex items-center justify-between gap-3">' +
+            '<div class="cyber-vault-card relative overflow-hidden rounded-2xl p-3.5 border-dashed border-cyan-500/30 hover:border-cyan-400/50 flex items-center justify-between gap-3 shadow-inner">' +
               '<div class="flex items-center gap-2.5 min-w-0">' +
-                '<span class="text-xl shrink-0">☁️</span>' +
+                '<div class="w-7 h-7 rounded-xl bg-slate-800/80 border border-slate-700/80 flex items-center justify-center shrink-0 text-cyan-400 text-xs">' +
+                  '☁️' +
+                '</div>' +
                 '<div class="min-w-0">' +
-                  '<div class="font-bold text-xs text-ios-text">Cloud Storage Offline</div>' +
-                  '<div class="text-[10px] text-ios-subtext">' + (currentLang === 'bn' ? 'ডাটা ক্লাউডে সুরক্ষিত রাখতে লগইন করুন' : 'Sign in to protect data in cloud') + '</div>' +
+                  '<div class="font-bold text-xs text-ios-text flex items-center gap-1.5">' +
+                    '<span>Cloud Storage Offline</span>' +
+                    '<span class="text-[8px] font-mono px-1 rounded bg-slate-700 text-slate-400">STANDBY</span>' +
+                  '</div>' +
+                  '<div class="text-[10px] text-ios-subtext truncate">' + (currentLang === 'bn' ? 'ডাটা ক্লাউডে সুরক্ষিত রাখতে কানেক্ট করুন' : 'Connect cloud vault for live backup') + '</div>' +
                 '</div>' +
               '</div>' +
-              '<button onclick="closeShopOwnerModal(); openGoogleSignInDialog();" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 hover:opacity-90 transition-all cursor-pointer active:scale-95 shadow-sm shrink-0">' +
-                'Connect Cloud →' +
+              '<button type="button" onclick="closeShopOwnerModal(); openGoogleSignInDialog();" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-cyan-500 to-blue-600 hover:brightness-110 text-slate-950 shadow-md shadow-cyan-500/20 active:scale-95 transition-all cursor-pointer flex items-center gap-1 shrink-0">' +
+                '<span>Connect</span> <span>→</span>' +
               '</button>' +
             '</div>';
         }
