@@ -1262,6 +1262,30 @@
     body.theme-white #modal-new-order select,
     body.theme-white #modal-edit-order input,
     body.theme-white #modal-edit-order select,
+    /* Customer & Data Entry Modal Inputs (Dark Theme) */
+    #modal-data-entry input {
+      background: #090d16 !important;
+      color: #f8fafc !important;
+      border: 1px solid #334155 !important;
+      border-radius: 12px !important;
+      padding: 10px 14px !important;
+      font-size: 13px !important;
+      width: 100% !important;
+      display: block !important;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+      transition: all 0.2s ease !important;
+    }
+    #modal-data-entry input:focus {
+      outline: none !important;
+      border-color: #22d3ee !important;
+      background: #0f172a !important;
+      box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.25), inset 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+    }
+    #modal-data-entry input::placeholder {
+      color: #64748b !important;
+      opacity: 0.8 !important;
+    }
+
     body.theme-white #modal-data-entry input {
       background: #FFFFFF !important;
       color: #0C2340 !important;
@@ -8243,12 +8267,39 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       </section>
 
       <!-- SHARED DATA ENTRY MODAL -->
-      <div id="modal-data-entry" class="hidden fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm items-center justify-center p-4">
-        <div class="bento-card w-full max-w-lg p-6 space-y-4 max-h-[90vh] overflow-y-auto">
-          <div class="flex items-center justify-between"><h3 id="data-modal-title" class="text-lg font-bold">Add record</h3><button onclick="closeDataModal()" class="text-xl text-gray-400">×</button></div>
-          <input id="data-kind" type="hidden"><input id="data-edit-id" type="hidden">
-          <div id="data-modal-fields" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
-          <div class="flex justify-end gap-2 pt-2"><button onclick="closeDataModal()" class="px-4 py-2 rounded-xl border border-slate-600 text-xs">Cancel</button><button onclick="saveDataRecord()" class="px-5 py-2 rounded-xl bg-cyan-600 text-white text-xs font-bold">Save record</button></div>
+      <div id="modal-data-entry" onclick="if(event.target===this)closeDataModal()" class="hidden fixed inset-0 z-[60] bg-black/75 backdrop-blur-md items-center justify-center p-4">
+        <div class="bento-card relative overflow-hidden w-full max-w-lg p-6 space-y-4 max-h-[90vh] overflow-y-auto rounded-3xl border border-cyan-500/20 shadow-2xl bg-slate-950/95 backdrop-blur-2xl">
+          <div class="absolute -top-14 -right-14 w-36 h-36 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none"></div>
+          <div class="absolute -bottom-14 -left-14 w-36 h-36 bg-blue-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+          <!-- Modal Header -->
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800/80 relative z-10">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center text-base shadow-xs" id="data-modal-icon">
+                👤
+              </div>
+              <div>
+                <h3 id="data-modal-title" class="text-base font-bold text-white tracking-tight">Add customer</h3>
+                <p id="data-modal-subtitle" class="text-[11px] text-slate-400 font-mono">Fill in client details to store in vault</p>
+              </div>
+            </div>
+            <button type="button" onclick="closeDataModal()" class="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white flex items-center justify-center text-sm transition-all cursor-pointer">✕</button>
+          </div>
+
+          <input id="data-kind" type="hidden">
+          <input id="data-edit-id" type="hidden">
+
+          <!-- Fields Grid -->
+          <div id="data-modal-fields" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 relative z-10"></div>
+
+          <!-- Modal Actions -->
+          <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-800/80 relative z-10">
+            <button type="button" onclick="closeDataModal()" class="px-4 py-2.5 rounded-xl border border-slate-700 hover:bg-white/5 text-slate-300 hover:text-white text-xs font-semibold transition-all active:scale-95 cursor-pointer">Cancel</button>
+            <button type="button" onclick="saveDataRecord()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-cyan-500 hover:from-cyan-400 hover:to-teal-300 text-slate-950 text-xs font-black tracking-wide shadow-md shadow-cyan-500/20 hover:shadow-cyan-500/40 active:scale-95 transition-all cursor-pointer flex items-center gap-1.5">
+              <span>Save record</span>
+              <span class="font-bold">✓</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -13506,28 +13557,73 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       staff:[['name','Karigar / Staff name','text'],['phone','Mobile number','tel'],['email','Email Address','email'],['role','Role (Master Tailor / Cutter / Stitcher / Finishing)','text'],['rate','Rate per garment (৳)','number'],['specialty','Specialty / Craft Focus','text'],['experience','Experience (e.g. 8 Years)','text'],['address','Address / Location','text'],['status','Status (Active/Inactive)','text']],
       fabric:[['name','Material name','text'],['sku','SKU / Code','text'],['stock','Current stock','number'],['unit','Unit (yard/pcs)','text'],['cost','Unit cost (৳)','number'],['minimum','Low-stock threshold','number']]
     };
-    function openDataModal(kind,record){
-      if(kind==='fabric'){openFabricModal(record?.id);return;}
-      const fields=ssFieldSets[kind];
-      const modal=document.getElementById('modal-data-entry');
-      const title=document.getElementById('data-modal-title');
-      const fieldsHost=document.getElementById('data-modal-fields');
-      const kindInput=document.getElementById('data-kind');
-      const editInput=document.getElementById('data-edit-id');
-      if(!fields||!modal||!title||!fieldsHost||!kindInput||!editInput){
+    function openDataModal(kind, record) {
+      if (kind === 'fabric') { openFabricModal(record?.id); return; }
+      const fields = ssFieldSets[kind];
+      const modal = document.getElementById('modal-data-entry');
+      const title = document.getElementById('data-modal-title');
+      const subtitle = document.getElementById('data-modal-subtitle');
+      const iconEl = document.getElementById('data-modal-icon');
+      const fieldsHost = document.getElementById('data-modal-fields');
+      const kindInput = document.getElementById('data-kind');
+      const editInput = document.getElementById('data-edit-id');
+      if (!fields || !modal || !title || !fieldsHost || !kindInput || !editInput) {
         console.error('SelaiSathi: customer data modal is missing required elements.');
         CyberDialog.alert('Edit window could not be opened. Please refresh the page and try again.', { icon: '⚠️', title: 'MODAL ERROR' });
         return;
       }
-      kindInput.value=kind;
-      editInput.value=record?.id||'';
-      title.textContent=(record?'Edit ':'Add ')+(kind==='customer'?'customer':kind==='staff'?'staff member':'material');
-      fieldsHost.innerHTML=fields.map(([key,label,type])=>'<label class="text-xs text-gray-300">'+label+'<input id="data-field-'+key+'" type="'+type+'" value="'+safeText(record?.[key]??'')+'" class="block w-full mt-1 px-3 py-2 rounded-xl text-sm" /></label>').join('');
+      kindInput.value = kind;
+      editInput.value = record?.id || '';
+
+      const isBn = typeof currentLang !== 'undefined' && currentLang === 'bn';
+      const kindLabel = kind === 'customer' ? (isBn ? 'কাস্টমার' : 'Customer') :
+                        kind === 'staff' ? (isBn ? 'স্টাফ / কারিগর' : 'Staff Member') :
+                        (isBn ? 'ম্যাটেরিয়াল' : 'Material');
+      title.textContent = (record ? (isBn ? 'এডিট ' : 'Edit ') : (isBn ? 'নতুন ' : 'Add ')) + kindLabel;
+      if (subtitle) {
+        subtitle.textContent = kind === 'customer' ? (isBn ? 'গ্রাহকের নাম ও ফোন নম্বর দিয়ে ডাটাবেজে যুক্ত করুন' : 'Enter customer profile & contact details') :
+                               kind === 'staff' ? (isBn ? 'কারিগর বা কর্মচারীর তথ্য ও পারিশ্রমিক নির্ধারণ করুন' : 'Assign workshop role, rate & contact') :
+                               (isBn ? 'ফ্যাব্রিক ও উপকরণের বিবরণ' : 'Inventory fabric item details');
+      }
+      if (iconEl) {
+        iconEl.textContent = kind === 'customer' ? '👤' : kind === 'staff' ? '✂️' : '🧵';
+      }
+
+      const placeholders = {
+        name: kind === 'customer' ? (isBn ? 'যেমন: রহিম উদ্দিন' : 'e.g. Rahim Uddin') : (isBn ? 'যেমন: মো: কাশেম' : 'e.g. Master Kashem'),
+        phone: '017XXXXXXXX',
+        address: isBn ? 'যেমন: বাড়ি ১২, রোড ৪, ধানমন্ডি' : 'e.g. House 12, Road 4, Dhanmondi',
+        notes: isBn ? 'বিশেষ কোনো পছন্দ বা নির্দেশনা...' : 'Special fit preferences or notes...',
+        email: 'karigor@example.com',
+        role: isBn ? 'যেমন: কাটিং মাস্টার / সেলাই কারিগর' : 'e.g. Master Tailor / Cutter',
+        rate: '350',
+        specialty: isBn ? 'যেমন: শার্ট, ব্লেজার ও পাঞ্জাবি' : 'e.g. Suit & Sherwani Specialist',
+        experience: isBn ? '৮ বছর' : '8 Years',
+        status: 'Active'
+      };
+
+      const requiredKeys = kind === 'customer' ? ['name', 'phone'] : kind === 'staff' ? ['name', 'phone', 'role'] : ['name', 'sku', 'stock'];
+
+      fieldsHost.innerHTML = fields.map(([key, label, type]) => {
+        const isRequired = requiredKeys.includes(key);
+        const isFullWidth = (key === 'address' || key === 'notes' || key === 'specialty');
+        const ph = placeholders[key] || '';
+        return '<div class="' + (isFullWidth ? 'col-span-1 sm:col-span-2' : '') + ' space-y-1.5">' +
+          '<label class="block text-xs font-semibold text-slate-300" for="data-field-' + key + '">' +
+            label + (isRequired ? ' <span class="text-rose-400 font-bold">*</span>' : '') +
+          '</label>' +
+          '<input id="data-field-' + key + '" type="' + type + '" value="' + safeText(record?.[key] ?? '') + '" ' +
+            'placeholder="' + ph + '" ' +
+            'onkeydown="if(event.key===\'Enter\'){event.preventDefault();saveDataRecord();}" ' +
+            'class="block w-full px-3.5 py-2.5 rounded-xl text-sm font-medium bg-slate-900/90 text-white placeholder-slate-500 border border-slate-700/80 focus:border-cyan-400 focus:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-400/20 transition-all shadow-inner" />' +
+        '</div>';
+      }).join('');
+
       modal.classList.remove('hidden');
       modal.classList.add('flex');
-      modal.style.display='flex';
-      modal.setAttribute('aria-hidden','false');
-      requestAnimationFrame(()=>fieldsHost.querySelector('input')?.focus());
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden', 'false');
+      requestAnimationFrame(() => fieldsHost.querySelector('input')?.focus());
     }
     function closeDataModal(){
       const modal=document.getElementById('modal-data-entry');
