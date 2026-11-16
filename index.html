@@ -5043,6 +5043,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <h3 class="font-black text-sm text-ios-text">🏪 মহাজন ও সাপ্লায়ার খাতা (Suppliers Ledger)</h3>
               <p class="text-xs text-ios-subtext mt-0.5">কাপড়, বোতাম ও সুতার মহাজনদের তালিকা, বকেয়া হিসাব এবং ১-ক্লিকে ক্রয় রিকুইজিশন।</p>
             </div>
+            <button onclick="openSupplierModal()" class="px-3.5 py-1.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:brightness-110 text-white rounded-xl text-xs font-bold active:scale-95 shadow-sm flex items-center gap-1.5 cursor-pointer">
+              <span>＋</span> <span>নতুন মহাজন যোগ করুন</span>
+            </button>
           </div>
           <div id="inventory-suppliers-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             <!-- Suppliers populated dynamically -->
@@ -9830,6 +9833,69 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
   </div>
 
   <!-- ======================================================== -->
+  <!-- MODAL: ADD / EDIT SUPPLIER (মহাজন খাতা)                  -->
+  <!-- ======================================================== -->
+  <div id="modal-supplier-entry" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bento-card max-w-md w-full p-6 space-y-4 shadow-2xl max-h-[92vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b border-ios-border pb-3">
+        <div>
+          <h3 class="text-base font-black text-ios-text flex items-center gap-2" id="supplier-modal-title">
+            <span>🏪</span> <span>Add New Supplier (নতুন মহাজন যোগ)</span>
+          </h3>
+          <p class="text-[11px] text-ios-subtext mt-0.5">কাপড়, সুতা, বোতাম বা আনুষঙ্গিক সাপ্লায়ারের বিবরণ লিখুন।</p>
+        </div>
+        <button onclick="closeModal('modal-supplier-entry')" class="text-gray-400 hover:text-ios-text font-bold text-lg cursor-pointer">✕</button>
+      </div>
+
+      <input type="hidden" id="sup-edit-id">
+
+      <div class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-bold text-ios-text mb-1">Supplier / Mill Name (দোকান বা মিলের নাম) *</label>
+          <input type="text" id="sup-name" placeholder="যেমন: নারায়ণগঞ্জ টেক্সটাইল মিলস" class="w-full border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-ios-text mb-1">Contact Person (মালিক / ম্যানেজার)</label>
+            <input type="text" id="sup-contact" placeholder="যেমন: রফিকুল ইসলাম" class="w-full border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
+          </div>
+          <div>
+            <label class="block font-bold text-ios-text mb-1">Phone Number (মোবাইল নম্বর) *</label>
+            <input type="tel" id="sup-phone" placeholder="017xxxxxxxx" class="w-full border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-ios-text mb-1">Supply Category (পণ্য)</label>
+            <select id="sup-category" class="w-full border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400 font-bold">
+              <option value="Fabrics">🧵 Fabrics (কাপড়/থান)</option>
+              <option value="Buttons & Trims">🔘 Buttons & Trims (বোতাম)</option>
+              <option value="Sewing Threads">🧶 Threads (সুতা)</option>
+              <option value="Zippers & Pullers">🤐 Zippers (চেইন)</option>
+              <option value="Packaging & Bags">🛍️ Packaging (ব্যাগ/কভার)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-ios-text mb-1">Balance Due (বকেয়া ৳)</label>
+            <input type="number" id="sup-due" value="0" min="0" class="w-full border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
+          </div>
+        </div>
+        <div>
+          <label class="block font-bold text-ios-text mb-1">Address / Market Location (ঠিকানা / মার্কেট)</label>
+          <input type="text" id="sup-address" placeholder="যেমন: ইসলামপুর মার্কেট, ঢাকা" class="w-full border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-2 pt-3 border-t border-ios-border">
+        <button onclick="closeModal('modal-supplier-entry')" class="px-4 py-2 border border-ios-border rounded-xl text-xs font-bold text-ios-subtext hover:bg-white/10 cursor-pointer">Cancel</button>
+        <button onclick="saveSupplierRecord()" class="px-5 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:brightness-110 text-white rounded-xl text-xs font-bold active:scale-95 shadow-md cursor-pointer">
+          সংরক্ষণ করুন ✓
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
   <!-- MODAL: ADD / EDIT FABRIC REMNANT (কাটপিস কাপড়)           -->
   <!-- ======================================================== -->
   <div id="modal-remnant-entry" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
@@ -13425,12 +13491,28 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       modal.style.display='none';
       modal.setAttribute('aria-hidden','true');
     }
+    function getRecordCollectionKey(kind) {
+      if (!kind) return '';
+      const k = String(kind).toLowerCase().trim();
+      if (k === 'customer' || k === 'customers') return 'customers';
+      if (k === 'staff') return 'staff';
+      if (k === 'fabric' || k === 'fabrics') return 'fabrics';
+      if (k === 'measurement' || k === 'measurements') return 'measurements';
+      if (k === 'transaction' || k === 'transactions') return 'transactions';
+      return k;
+    }
+    window.getRecordCollectionKey = getRecordCollectionKey;
+
     function saveDataRecord(){
-      const kind=document.getElementById('data-kind')?.value;
+      const rawKind=document.getElementById('data-kind')?.value;
       const editId=document.getElementById('data-edit-id')?.value||'';
-      if(!ssFieldSets[kind])return;
+      if(!rawKind || !ssFieldSets[rawKind])return;
+      const collKey = getRecordCollectionKey(rawKind);
+      if(!ssRecords[collKey] || !Array.isArray(ssRecords[collKey])) {
+        ssRecords[collKey] = [];
+      }
       const record={};
-      for(const [key] of ssFieldSets[kind]){
+      for(const [key] of ssFieldSets[rawKind]){
         const field=document.getElementById('data-field-'+key);
         if(!field){
           CyberDialog.alert('A required form field is missing. Please reopen the edit window.', { icon: '⚠️', title: 'FIELD MISSING' });
@@ -13438,45 +13520,48 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         }
         record[key]=field.value.trim();
       }
-      const required=kind==='customer'?['name','phone']:kind==='staff'?['name','phone','role']:['name','sku','stock'];
+      const required=rawKind==='customer'?['name','phone']:rawKind==='staff'?['name','phone','role']:['name','sku','stock'];
       if(required.some(k=>!record[k])){
         CyberDialog.alert('Please complete the required fields.', { icon: '⚠️', title: 'REQUIRED FIELD' });
         return;
       }
-      if(kind==='customer'&&!/^\\+?[0-9\\s-]{7,16}$/.test(record.phone)){
+      if(rawKind==='customer'&&!/^\\+?[0-9\\s-]{7,16}$/.test(record.phone)){
         CyberDialog.alert('Enter a valid phone number.', { icon: '⚠️', title: 'INVALID PHONE' });
         return;
       }
-      if(kind==='fabric'&&(!Number.isFinite(Number(record.stock))||Number(record.stock)<0)){
+      if(rawKind==='fabric'&&(!Number.isFinite(Number(record.stock))||Number(record.stock)<0)){
         CyberDialog.alert('Enter a valid, non-negative stock value.', { icon: '⚠️', title: 'INVALID VALUE' });
         return;
       }
+      record.isDemo = false;
       if(editId){
-        const i=ssRecords[kind].findIndex(x=>String(x.id)===String(editId));
+        const i=ssRecords[collKey].findIndex(x=>String(x.id)===String(editId));
         if(i<0){
           CyberDialog.alert('This record could not be found. Refresh the page and try again.', { icon: '⚠️', title: 'NOT FOUND' });
           return;
         }
-        ssRecords[kind][i]={...ssRecords[kind][i],...record};
+        ssRecords[collKey][i]={...ssRecords[collKey][i],...record,id:editId};
       }else{
-        record.id=kind[0].toUpperCase()+'-'+Date.now().toString(36).toUpperCase();
-        ssRecords[kind].unshift(record);
+        record.id=rawKind[0].toUpperCase()+'-'+Date.now().toString(36).toUpperCase();
+        ssRecords[collKey].unshift(record);
       }
       persistSsRecords();
       closeDataModal();
       renderCustomers();
       renderStaff();
       renderFabrics();
-      if(kind==='customer'&&activeProfileCustomerId===editId){
+      if(rawKind==='customer'&&activeProfileCustomerId===editId){
         openCustomerProfile(editId);
       }
-      if(kind==='staff'&&activeProfileStaffId===editId){
+      if(rawKind==='staff'&&activeProfileStaffId===editId){
         openStaffProfile(editId);
       }
       if(window.CyberDialog)CyberDialog.alert('Record successfully saved.',{icon:'✓',title:'RECORD SAVED'});
     }
     function editDataRecord(kind,id){
-      const record=ssRecords[kind]?.find(x=>String(x.id)===String(id));
+      const collKey = getRecordCollectionKey(kind);
+      const list = ssRecords[collKey] || [];
+      const record = list.find(x=>String(x.id)===String(id));
       if(!record){
         CyberDialog.alert('Record not found. Please refresh and try again.', { icon: '⚠️', title: 'NOT FOUND' });
         return;
@@ -13484,29 +13569,32 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       openDataModal(kind,record);
     }
     function deleteDataRecord(kind,id){
-      const list = ssRecords[kind] || [];
+      const collKey = getRecordCollectionKey(kind);
+      const list = ssRecords[collKey] || [];
       const record = list.find(x=>String(x.id)===String(id));
       if(!record){
         CyberDialog.alert('Record not found. Please refresh and try again.', { icon: '⚠️', title: 'NOT FOUND' });
         return;
       }
       const recordName = record.name || 'this record';
-      const kindLabel = kind === 'staff' ? 'কারিগর' : kind === 'customer' ? 'গ্রাহক' : 'উপাদান';
-      const confirmTitle = kind === 'staff' ? 'CONFIRM KARIGAR REMOVAL' : kind === 'customer' ? 'CONFIRM CUSTOMER REMOVAL' : 'CONFIRM MATERIAL REMOVAL';
-      const confirmMsg = kind === 'staff'
+      const isStaff = (kind === 'staff' || collKey === 'staff');
+      const isCust = (kind === 'customer' || collKey === 'customers');
+      const kindLabel = isStaff ? 'কারিগর' : isCust ? 'গ্রাহক' : 'উপাদান';
+      const confirmTitle = isStaff ? 'CONFIRM KARIGAR REMOVAL' : isCust ? 'CONFIRM CUSTOMER REMOVAL' : 'CONFIRM MATERIAL REMOVAL';
+      const confirmMsg = isStaff
         ? `আপনি কি নিশ্চিতভাবে কারিগর <strong>"${safeText(recordName)}"</strong> (${safeText(record.role || '')})-এর রেকর্ড মুছে ফেলতে চান?<br><br><span class="text-xs text-rose-400">⚠️ সতর্কতা: এই পরিবর্তনটি স্থায়ী এবং পূর্বাবস্থায় ফিরিয়ে আনা যাবে না।</span>`
-        : kind === 'customer'
+        : isCust
         ? `আপনি কি নিশ্চিতভাবে গ্রাহক <strong>"${safeText(recordName)}"</strong>-কে মুছে ফেলতে চান?<br><br><span class="text-xs text-rose-400">⚠️ সতর্কতা: এই পরিবর্তনটি স্থায়ী এবং পূর্বাবস্থায় ফিরিয়ে আনা যাবে না।</span>`
         : `আপনি কি নিশ্চিতভাবে উপাদান <strong>"${safeText(recordName)}"</strong> মুছে ফেলতে চান?`;
 
       const doDelete=()=>{
-        ssRecords[kind]=ssRecords[kind].filter(x=>String(x.id)!==String(id));
+        ssRecords[collKey]=ssRecords[collKey].filter(x=>String(x.id)!==String(id));
         persistSsRecords();
-        if(kind==='customer'&&String(activeProfileCustomerId)===String(id)){
+        if(isCust&&String(activeProfileCustomerId)===String(id)){
           activeProfileCustomerId=null;
           closeCustomerProfileModal();
         }
-        if(kind==='staff'&&String(activeProfileStaffId)===String(id)){
+        if(isStaff&&String(activeProfileStaffId)===String(id)){
           activeProfileStaffId=null;
           closeModal('modal-staff-profile');
         }
@@ -13519,7 +13607,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       CyberDialog.confirm(confirmMsg, doDelete, {
         danger: true,
         title: confirmTitle,
-        confirmText: kind === 'staff' ? 'হ্যাঁ, কারিগর মুছুন' : kind === 'customer' ? 'হ্যাঁ, গ্রাহক মুছুন' : 'হ্যাঁ, মুছুন',
+        confirmText: isStaff ? 'হ্যাঁ, কারিগর মুছুন' : isCust ? 'হ্যাঁ, গ্রাহক মুছুন' : 'হ্যাঁ, মুছুন',
         cancelText: 'না, বাতিল'
       });
     }
@@ -15486,6 +15574,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         return init;
       } catch(e) { return []; }
     })();
+    window.ssSuppliers = ssSuppliers;
 
     // Seed Remnants / Scraps if not present
     let ssRemnants = (function() {
@@ -15547,6 +15636,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         return init;
       } catch(e) { return []; }
     })();
+    window.ssRemnants = ssRemnants;
 
     // Seed Stock Audits if not present
     let ssAudits = (function() {
@@ -16175,6 +16265,17 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         return text.includes(q);
       });
 
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full text-center py-10 text-xs text-ios-subtext space-y-2">
+            <div class="text-3xl">🏪</div>
+            <div class="font-bold text-ios-text">কোনো মহাজন বা সাপ্লায়ার পাওয়া যায়নি</div>
+            <p>নতুন কাপড়, সুতা বা বোতামের মহাজন যুক্ত করতে "＋ নতুন মহাজন যোগ করুন" বাটনে ক্লিক করুন।</p>
+          </div>
+        `;
+        return;
+      }
+
       container.innerHTML = filtered.map(sup => {
         const hasDue = Number(sup.balanceDue) > 0;
         return `
@@ -16203,14 +16304,126 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <button onclick="openSupplierPOModal('${sup.id}')" class="flex-1 py-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:brightness-110 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1 active:scale-95 shadow-sm">
                 <span>💬</span> <span>অর্ডার পাঠান</span>
               </button>
+              <button onclick="openSupplierModal('${sup.id}')" class="p-2 border border-ios-border rounded-xl text-xs text-cyan-400 hover:bg-cyan-500/10 transition-colors" title="সম্পাদনা করুন">
+                ✏️
+              </button>
               <a href="tel:${sup.phone}" class="p-2 border border-ios-border rounded-xl text-xs text-ios-subtext hover:text-white" title="কল করুন">
                 📞
               </a>
+              <button onclick="deleteSupplier('${sup.id}')" class="p-2 border border-ios-border rounded-xl text-xs text-rose-400 hover:bg-rose-500/10 transition-colors" title="মহাজন মুছুন">
+                🗑️
+              </button>
             </div>
           </div>
         `;
       }).join('');
     }
+
+    function openSupplierModal(editId) {
+      const modal = document.getElementById('modal-supplier-entry');
+      if (!modal) return;
+      document.getElementById('sup-edit-id').value = editId || '';
+      document.getElementById('supplier-modal-title').textContent = editId ? 'Edit Supplier (মহাজন খাতা সম্পাদনা)' : 'Add New Supplier (নতুন মহাজন যোগ)';
+      if (editId) {
+        const item = (ssSuppliers || []).find(x => String(x.id) === String(editId));
+        if (item) {
+          document.getElementById('sup-name').value = item.name || '';
+          document.getElementById('sup-contact').value = item.contactPerson || '';
+          document.getElementById('sup-phone').value = item.phone || '';
+          document.getElementById('sup-category').value = item.category || 'Fabrics';
+          document.getElementById('sup-address').value = item.address || '';
+          document.getElementById('sup-due').value = item.balanceDue || 0;
+        }
+      } else {
+        document.getElementById('sup-name').value = '';
+        document.getElementById('sup-contact').value = '';
+        document.getElementById('sup-phone').value = '';
+        document.getElementById('sup-category').value = 'Fabrics';
+        document.getElementById('sup-address').value = '';
+        document.getElementById('sup-due').value = '0';
+      }
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      modal.style.display = 'flex';
+    }
+
+    function saveSupplierRecord() {
+      const editId = document.getElementById('sup-edit-id')?.value || '';
+      const name = document.getElementById('sup-name')?.value.trim();
+      const contactPerson = document.getElementById('sup-contact')?.value.trim();
+      const phone = document.getElementById('sup-phone')?.value.trim();
+      const category = document.getElementById('sup-category')?.value || 'Fabrics';
+      const address = document.getElementById('sup-address')?.value.trim();
+      const balanceDue = Number(document.getElementById('sup-due')?.value) || 0;
+
+      if (!name || !phone) {
+        if (window.CyberDialog) CyberDialog.alert('মহাজন এর নাম এবং ফোন নম্বর আবশ্যক।', { icon: '⚠️', title: 'REQUIRED FIELD' });
+        else alert('মহাজন এর নাম এবং ফোন নম্বর আবশ্যক।');
+        return;
+      }
+
+      if (!Array.isArray(ssSuppliers)) ssSuppliers = [];
+
+      if (editId) {
+        const idx = ssSuppliers.findIndex(x => String(x.id) === String(editId));
+        if (idx !== -1) {
+          ssSuppliers[idx] = { ...ssSuppliers[idx], name, contactPerson, phone, category, address, balanceDue };
+        }
+      } else {
+        ssSuppliers.unshift({
+          id: 'SUP-' + Date.now().toString(36).toUpperCase(),
+          name,
+          contactPerson,
+          phone,
+          category,
+          address,
+          balanceDue,
+          totalPurchased: 0,
+          isDemo: false
+        });
+      }
+
+      window.ssSuppliers = ssSuppliers;
+      localStorage.setItem('selaisathi_suppliers', JSON.stringify(ssSuppliers));
+      if (typeof saveToActiveCloudVaultFast === 'function') saveToActiveCloudVaultFast();
+      if (typeof triggerRealtimeCloudSync === 'function') triggerRealtimeCloudSync();
+      closeModal('modal-supplier-entry');
+      renderInventory();
+      if (window.CyberDialog) CyberDialog.alert(`মহাজন "${safeText(name)}" সফলভাবে সংরক্ষিত হয়েছে।`, { icon: '✨', title: 'SUPPLIER SAVED' });
+    }
+
+    function deleteSupplier(id) {
+      const sup = (ssSuppliers || []).find(s => String(s.id) === String(id));
+      if (!sup) {
+        if (window.CyberDialog) CyberDialog.alert('মহাজন পাওয়া যায়নি।', { icon: '⚠️', title: 'NOT FOUND' });
+        return;
+      }
+      const confirmMsg = `আপনি কি নিশ্চিতভাবে মহাজন <strong>"${safeText(sup.name)}"</strong>-এর রেকর্ড মুছে ফেলতে চান?`;
+      const doDelete = () => {
+        ssSuppliers = (ssSuppliers || []).filter(s => String(s.id) !== String(id));
+        window.ssSuppliers = ssSuppliers;
+        localStorage.setItem('selaisathi_suppliers', JSON.stringify(ssSuppliers));
+        if (typeof saveToActiveCloudVaultFast === 'function') saveToActiveCloudVaultFast();
+        if (typeof triggerRealtimeCloudSync === 'function') triggerRealtimeCloudSync();
+        renderInventory();
+        if (window.CyberDialog) {
+          CyberDialog.alert(`মহাজন "${safeText(sup.name)}" মুছে ফেলা হয়েছে।`, { icon: '🗑️', title: 'DELETED' });
+        }
+      };
+      if (window.CyberDialog) {
+        CyberDialog.confirm(confirmMsg, doDelete, {
+          danger: true,
+          title: 'CONFIRM REMOVAL',
+          confirmText: 'হ্যাঁ, মুছুন',
+          cancelText: 'না, বাতিল'
+        });
+      } else if (confirm(confirmMsg.replace(/<[^>]+>/g, ''))) {
+        doDelete();
+      }
+    }
+    window.openSupplierModal = openSupplierModal;
+    window.saveSupplierRecord = saveSupplierRecord;
+    window.deleteSupplier = deleteSupplier;
 
     // --- 4. RENDER STOCK AUDIT LOGS TAB ---
     function renderInventoryAudits() {
@@ -16914,14 +17127,20 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (!item) return;
 
       ssRemnants = ssRemnants.filter(x => x.id !== id);
+      window.ssRemnants = ssRemnants;
       localStorage.setItem('selaisathi_remnants', JSON.stringify(ssRemnants));
+      if (typeof saveToActiveCloudVaultFast === 'function') saveToActiveCloudVaultFast();
+      if (typeof triggerRealtimeCloudSync === 'function') triggerRealtimeCloudSync();
       renderInventory();
       showCyberToast(`${item.name} উৎপাদনে ব্যবহার করা হয়েছে।`, 'success');
     }
 
     function deleteRemnant(id) {
       ssRemnants = ssRemnants.filter(x => x.id !== id);
+      window.ssRemnants = ssRemnants;
       localStorage.setItem('selaisathi_remnants', JSON.stringify(ssRemnants));
+      if (typeof saveToActiveCloudVaultFast === 'function') saveToActiveCloudVaultFast();
+      if (typeof triggerRealtimeCloudSync === 'function') triggerRealtimeCloudSync();
       renderInventory();
       showCyberToast('কাটপিস রেকর্ড মুছে ফেলা হয়েছে', 'info');
     }
@@ -17866,8 +18085,13 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     const DEMO_STAFF_IDS = ['S-101', 'S-102', 'S-103', 'S-104'];
     const DEMO_ORDER_IDS = ['ORD-2610-0022', 'ORD-2610-0021', 'ORD-2610-0020', 'ORD-2610-0019'];
     const DEMO_FABRIC_IDS = ['F-101', 'F-102', 'F-103', 'F-104', 'F-105', 'F-106'];
+    const DEMO_SUPPLIER_IDS = ['SUP-01', 'SUP-02', 'SUP-03', 'SUP-04'];
+    const DEMO_REMNANT_IDS = ['REM-101', 'REM-102', 'REM-103', 'REM-104', 'REM-105'];
     const DEMO_SAMPLE_PHONES = ['01591463333', '01324941964', '01548694019', '01864357068'];
     const DEMO_SAMPLE_NAMES = ['Shahadat Hossain', 'Arif Hossain', 'Kamrul Hasan', 'Rakibul Islam'];
+
+    function isDemoSupplierId(id) { return DEMO_SUPPLIER_IDS.includes(id); }
+    function isDemoRemnantId(id) { return DEMO_REMNANT_IDS.includes(id); }
 
     function isDemoCustomerId(id, c) {
       if (c && c.isDemo === false) return false;
@@ -17900,8 +18124,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const hasDemoStaff = Array.isArray(window.ssRecords && window.ssRecords.staff) && window.ssRecords.staff.some(s => isDemoStaffId(s.id, s));
       const hasDemoOrders = Array.isArray(window.ordersData) && window.ordersData.some(o => isDemoOrderId(o.id, o));
       const hasDemoFabrics = Array.isArray(window.ssRecords && window.ssRecords.fabrics) && window.ssRecords.fabrics.some(f => DEMO_FABRIC_IDS.includes(f.id));
+      const hasDemoSuppliers = Array.isArray(window.ssSuppliers) && window.ssSuppliers.some(s => DEMO_SUPPLIER_IDS.includes(s.id));
+      const hasDemoRemnants = Array.isArray(window.ssRemnants) && window.ssRemnants.some(r => DEMO_REMNANT_IDS.includes(r.id));
 
-      return hasDemoCust || hasDemoStaff || hasDemoOrders || hasDemoFabrics;
+      return hasDemoCust || hasDemoStaff || hasDemoOrders || hasDemoFabrics || hasDemoSuppliers || hasDemoRemnants;
     }
     window.hasDemoRecords = hasDemoRecords;
 
@@ -17965,6 +18191,26 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         }
       }
 
+      if (Array.isArray(window.ssSuppliers)) {
+        const filteredSup = window.ssSuppliers.filter(s => !isDemoSupplierId(s.id));
+        if (filteredSup.length !== window.ssSuppliers.length) {
+          window.ssSuppliers = filteredSup;
+          ssSuppliers = filteredSup;
+          localStorage.setItem('selaisathi_suppliers', JSON.stringify(window.ssSuppliers));
+          modified = true;
+        }
+      }
+
+      if (Array.isArray(window.ssRemnants)) {
+        const filteredRem = window.ssRemnants.filter(r => !isDemoRemnantId(r.id));
+        if (filteredRem.length !== window.ssRemnants.length) {
+          window.ssRemnants = filteredRem;
+          ssRemnants = filteredRem;
+          localStorage.setItem('selaisathi_remnants', JSON.stringify(window.ssRemnants));
+          modified = true;
+        }
+      }
+
       if (typeof saveToActiveCloudVaultFast === 'function') saveToActiveCloudVaultFast();
 
       try { if (typeof updateOrdersKPI === 'function') updateOrdersKPI(); } catch(e){}
@@ -17972,6 +18218,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       try { if (typeof renderCustomers === 'function') renderCustomers(); } catch(e){}
       try { if (typeof renderStaff === 'function') renderStaff(); } catch(e){}
       try { if (typeof renderFabrics === 'function') renderFabrics(); } catch(e){}
+      try { if (typeof renderInventory === 'function') renderInventory(); } catch(e){}
       try { if (typeof renderDashboardLive === 'function') renderDashboardLive(); } catch(e){}
       return modified;
     }
@@ -18054,7 +18301,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       ssLedgerTransactions = window.ssLedgerTransactions;
 
       ssSuppliers = [];
+      window.ssSuppliers = [];
       ssRemnants = [];
+      window.ssRemnants = [];
       ssAudits = [];
 
       try {
@@ -18080,6 +18329,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       try { if (typeof renderMeasurementsPage === 'function') renderMeasurementsPage(); } catch(e){}
       try { if (typeof renderBackupsView === 'function') renderBackupsView(); } catch(e){}
       try { if (typeof renderDashboardLive === 'function') renderDashboardLive(); } catch(e){}
+
+      if (typeof saveToActiveCloudVaultFast === 'function') saveToActiveCloudVaultFast();
 
       const gUser = typeof getGoogleAuthUser === 'function' ? getGoogleAuthUser() : null;
       if (gUser && typeof syncToGoogleCloud === 'function') {
@@ -19929,20 +20180,63 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               applyFullDatabaseImport(localVault);
             }
           }
-          // 2. Query Firestore in background and sync if newer
+          // 2. Non-destructive background Firestore sync (never wipes local data)
           const fb = typeof initFirebaseClient === 'function' ? initFirebaseClient() : null;
           if (fb && fb.db) {
             callWithTimeout(fb.db.collection('shops').doc(cloudKey).get(), 2500)
               .then(snap => {
                 if (snap && snap.exists) {
                   const cloudBundle = snap.data();
-                  if (cloudBundle && hasRealUserData(cloudBundle)) {
-                    const localOrders = (window.ordersData || []).filter(o => !isDemoOrderId(o.id, o)).length;
-                    const cloudOrders = (cloudBundle.orders || []).filter(o => !isDemoOrderId(o.id, o)).length;
-                    if (cloudOrders > localOrders || localOrders === 0) {
-                      console.log('SelaiSathi: Newer data detected in Firestore. Auto-syncing to UI.');
-                      applyFullDatabaseImport(cloudBundle);
+                  if (!cloudBundle) return;
+
+                  let changed = false;
+                  // Non-destructive merge: Only import orders that don't exist locally
+                  if (Array.isArray(cloudBundle.orders) && cloudBundle.orders.length > 0) {
+                    if (!Array.isArray(window.ordersData)) window.ordersData = [];
+                    const localOrderIds = new Set(window.ordersData.map(o => String(o.id)));
+                    cloudBundle.orders.forEach(co => {
+                      if (co && co.id && !localOrderIds.has(String(co.id)) && !isDemoOrderId(co.id, co)) {
+                        window.ordersData.push(co);
+                        localOrderIds.add(String(co.id));
+                        changed = true;
+                      }
+                    });
+                    if (changed) {
+                      localStorage.setItem('ss_orders_store', JSON.stringify(window.ordersData));
                     }
+                  }
+
+                  // Non-destructive merge: Only import customers that don't exist locally
+                  if (cloudBundle.records && Array.isArray(cloudBundle.records.customers) && cloudBundle.records.customers.length > 0) {
+                    if (!window.ssRecords) window.ssRecords = {};
+                    if (!Array.isArray(window.ssRecords.customers)) window.ssRecords.customers = [];
+                    const localCustKeys = new Set(window.ssRecords.customers.map(c => String(c.phone || c.id)));
+                    cloudBundle.records.customers.forEach(cc => {
+                      const key = String(cc.phone || cc.id);
+                      if (key && !localCustKeys.has(key) && !isDemoCustomerId(cc.id, cc)) {
+                        window.ssRecords.customers.push(cc);
+                        localCustKeys.add(key);
+                        changed = true;
+                      }
+                    });
+                    if (changed) {
+                      localStorage.setItem(ssStoreKey, JSON.stringify(window.ssRecords));
+                    }
+                  }
+
+                  // If local has real orders that were NOT in Firestore, push them so cloud stays up to date
+                  const localRealOrders = (window.ordersData || []).filter(o => !isDemoOrderId(o.id, o));
+                  const cloudRealOrders = (Array.isArray(cloudBundle.orders) ? cloudBundle.orders : []).filter(o => !isDemoOrderId(o.id, o));
+                  if (localRealOrders.length > cloudRealOrders.length) {
+                    console.log('SelaiSathi: Local has newer unsynced orders. Pushing to Firestore.');
+                    if (typeof syncToGoogleCloud === 'function') syncToGoogleCloud(true);
+                  }
+
+                  if (changed) {
+                    try { if (typeof updateOrdersKPI === 'function') updateOrdersKPI(); } catch(e){}
+                    try { if (typeof renderOrdersTable === 'function') renderOrdersTable(); } catch(e){}
+                    try { if (typeof renderCustomers === 'function') renderCustomers(); } catch(e){}
+                    try { if (typeof renderDashboardLive === 'function') renderDashboardLive(); } catch(e){}
                   }
                 }
               })
@@ -20524,8 +20818,16 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (Array.isArray(bundle.users)) localStorage.setItem('selaisathi_users', JSON.stringify(bundle.users));
       if (bundle.rolePerms) localStorage.setItem('selaisathi_role_perms', JSON.stringify(bundle.rolePerms));
       if (bundle.securityPolicies) localStorage.setItem('selaisathi_security_policies', JSON.stringify(bundle.securityPolicies));
-      if (Array.isArray(bundle.suppliers)) localStorage.setItem('selaisathi_suppliers', JSON.stringify(bundle.suppliers));
-      if (Array.isArray(bundle.remnants)) localStorage.setItem('selaisathi_remnants', JSON.stringify(bundle.remnants));
+      if (Array.isArray(bundle.suppliers)) {
+        localStorage.setItem('selaisathi_suppliers', JSON.stringify(bundle.suppliers));
+        ssSuppliers = bundle.suppliers;
+        window.ssSuppliers = bundle.suppliers;
+      }
+      if (Array.isArray(bundle.remnants)) {
+        localStorage.setItem('selaisathi_remnants', JSON.stringify(bundle.remnants));
+        ssRemnants = bundle.remnants;
+        window.ssRemnants = bundle.remnants;
+      }
       if (Array.isArray(bundle.audits)) localStorage.setItem('selaisathi_stock_audits', JSON.stringify(bundle.audits));
 
       try { if (typeof updateOrdersKPI === 'function') updateOrdersKPI(); } catch(e){}
@@ -20881,10 +21183,15 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       }
 
       // 3. State Analysis
-      const cloudHasReal = hasRealUserData(cloudBundle);
-      const localHasReal = hasRealUserData({ orders: window.ordersData, records: window.ssRecords });
+      const custCountCloud = ((cloudBundle && cloudBundle.records && cloudBundle.records.customers) || []).filter(c => !isDemoCustomerId(c.id, c)).length;
+      const orderCountCloud = ((cloudBundle && cloudBundle.orders) || []).filter(o => !isDemoOrderId(o.id, o)).length;
+      const cloudHasReal = (orderCountCloud > 0 || custCountCloud > 0);
 
-      console.log('SelaiSathi Login State:', { email: user.email, cloudHasReal, localHasReal });
+      const custCountLocal = ((window.ssRecords && window.ssRecords.customers) || []).filter(c => !isDemoCustomerId(c.id, c)).length;
+      const orderCountLocal = (window.ordersData || []).filter(o => !isDemoOrderId(o.id, o)).length;
+      const localHasReal = (orderCountLocal > 0 || custCountLocal > 0);
+
+      console.log('SelaiSathi Login State:', { email: user.email, cloudHasReal, localHasReal, orderCountCloud, orderCountLocal });
 
       if (cloudHasReal) {
         // Cloud Vault has existing user data!
@@ -20962,8 +21269,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           );
         }
       } else {
-        // Truly brand new user with no previous data -> clean slate ready
-        purgeDemoDataOnly(true);
+        // Truly brand new user with no previous data -> 100% clean slate ready
+        wipeLocalDemoDataForOwner(true);
         saveToActiveCloudVaultFast();
         await syncToGoogleCloud(true);
 
