@@ -7792,7 +7792,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <div class="text-base font-bold text-ios-text">কোনো অর্ডার নেই • No Orders Found</div>
               <p class="text-xs text-gray-400 mt-1">আপনার শপে নতুন গ্রাহকের অর্ডার তৈরি করে কাজ শুরু করুন।</p>
             </div>
-            <button onclick="toggleNewOrderModal()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-xs shadow-md shadow-cyan-500/20 active:scale-95 transition-all inline-flex items-center gap-2 cursor-pointer">
+            <button onclick="openNewOrderModal()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-xs shadow-md shadow-cyan-500/20 active:scale-95 transition-all inline-flex items-center gap-2 cursor-pointer">
               <span>＋</span> <span>নতুন অর্ডার তৈরি করুন (Create Order)</span>
             </button>
           </div>
@@ -8843,7 +8843,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
   </div>
 
   <!-- MODAL: + NEW ORDER -->
-  <div id="modal-new-order" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+  <div id="modal-new-order" onclick="if(event.target===this)closeModal('modal-new-order')" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bento-card max-w-lg w-full p-7 space-y-5 shadow-2xl max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center border-b border-ios-border pb-3.5">
         <h3 class="text-lg font-black text-ios-text flex items-center gap-2">
@@ -10964,11 +10964,51 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
 
     function openNewOrderModal() {
-      document.getElementById('modal-new-order').classList.remove('hidden');
+      const modal = document.getElementById('modal-new-order');
+      if (!modal) return;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden', 'false');
+
+      // Update date picker default if needed
+      const dateHidden = document.getElementById('no-date');
+      const dateLabel = document.getElementById('no-date-label');
+      if (dateHidden && (!dateHidden.value || dateHidden.value === '2026-11-15')) {
+        const d = new Date();
+        d.setDate(d.getDate() + 3);
+        const yyyy = d.getFullYear();
+        const mm = String(d.getMonth() + 1).padStart(2, '0');
+        const dd = String(d.getDate()).padStart(2, '0');
+        dateHidden.value = `${yyyy}-${mm}-${dd}`;
+        if (dateLabel) {
+          dateLabel.textContent = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+        }
+      }
+
+      // Generate a dynamic Pin Tag
+      const tagEl = document.querySelector('#modal-new-order .font-mono.font-black.text-amber-300');
+      if (tagEl) {
+        tagEl.textContent = '📌 TAG-' + Math.floor(1000 + Math.random() * 9000);
+      }
+
+      const nameInput = document.getElementById('no-cust-name');
+      if (nameInput) {
+        requestAnimationFrame(() => nameInput.focus());
+      }
     }
+    window.openNewOrderModal = openNewOrderModal;
+    window.toggleNewOrderModal = openNewOrderModal;
+
     function closeModal(id) {
-      document.getElementById(id).classList.add('hidden');
+      const modal = document.getElementById(id);
+      if (!modal) return;
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
     }
+    window.closeModal = closeModal;
 
     function submitNewOrder() {
       const name = document.getElementById('no-cust-name').value.trim();
