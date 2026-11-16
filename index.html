@@ -10300,20 +10300,33 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     let ordersData = (function() {
       try {
         const saved = JSON.parse(localStorage.getItem('ss_orders_store') || 'null');
+        if (Array.isArray(saved) && saved.length > 0) return saved;
+      } catch(e) {}
+
+      // Check Cloud Vault if ss_orders_store was empty or missing
+      try {
+        const cloudKey = localStorage.getItem('selaisathi_owner_google_email')
+          ? ('google_' + localStorage.getItem('selaisathi_owner_google_email').toLowerCase().trim().replace(/[^a-z0-9]/g, '_'))
+          : 'google_sciencefiction844_gmail_com';
+        const vault = JSON.parse(localStorage.getItem('selaisathi_cloud_bundle_' + cloudKey) || 
+                                 localStorage.getItem('selaisathi_vault_' + cloudKey) || 
+                                 localStorage.getItem('selaisathi_owner_master_vault') || 'null');
+        if (vault && Array.isArray(vault.orders) && vault.orders.length > 0) {
+          localStorage.setItem('ss_orders_store', JSON.stringify(vault.orders));
+          return vault.orders;
+        }
+      } catch(e) {}
+
+      try {
+        const saved = JSON.parse(localStorage.getItem('ss_orders_store') || 'null');
         if (Array.isArray(saved)) return saved;
       } catch(e) {}
+
       if (isCleanSlateWorkspace()) {
         try { localStorage.setItem('ss_orders_store', JSON.stringify([])); } catch(e) {}
         return [];
       }
-      const initialOrders = [
-        { id: 'ORD-2610-0022', tag: 'TAG-1044', name: 'Shahadat Hossain', phone: '01591463333', garment: 'Cotton Panjabi', stage: 'STITCHING', total: 850, advance: 300, due: 550, date: '15 Nov 2026', assignedStaffId: 'S-103' },
-        { id: 'ORD-2610-0021', tag: 'TAG-1043', name: 'Arif Hossain', phone: '01324941964', garment: 'Formal Shirt', stage: 'CUTTING', total: 450, advance: 200, due: 250, date: '14 Nov 2026', assignedStaffId: 'S-102' },
-        { id: 'ORD-2610-0020', tag: 'TAG-1042', name: 'Kamrul Hasan', phone: '01548694019', garment: 'Gabardine Pant', stage: 'READY', total: 550, advance: 550, due: 0, date: '12 Nov 2026', assignedStaffId: 'S-101' },
-        { id: 'ORD-2610-0019', tag: 'TAG-1041', name: 'Rakibul Islam', phone: '01864357068', garment: 'Royal Blazer', stage: 'DELIVERED', total: 2200, advance: 2200, due: 0, date: '10 Nov 2026', assignedStaffId: 'S-101' },
-      ];
-      try { localStorage.setItem('ss_orders_store', JSON.stringify(initialOrders)); } catch(e) {}
-      return initialOrders;
+      return [];
     })();
     window.ordersData = ordersData;
 
@@ -10807,8 +10820,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const advVal = parseFloat(document.getElementById('no-advance').value) || 300;
       const dueVal = Math.max(0, totalVal - advVal);
 
+      const uniqueSerial = Date.now().toString().slice(-4) + Math.floor(10 + Math.random() * 90);
+      const generatedOrderId = `ORD-${new Date().getFullYear()}-${uniqueSerial}`;
+
       ordersData.unshift({
-        id: `ORD-2610-002${ordersData.length + 1}`,
+        id: generatedOrderId,
         tag: `TAG-${Math.floor(1000 + Math.random() * 9000)}`,
         name,
         phone,
@@ -10817,7 +10833,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         total: totalVal,
         advance: advVal,
         due: dueVal,
-        date: (window.CyberCalendar && document.getElementById('no-date')?.value) ? CyberCalendar.formatHuman(document.getElementById('no-date').value) : '18 Nov 2026'
+        date: (window.CyberCalendar && document.getElementById('no-date')?.value) ? CyberCalendar.formatHuman(document.getElementById('no-date').value) : '18 Nov 2026',
+        isDemo: false
       });
 
       persistOrdersData();
@@ -10826,7 +10843,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (typeof ssRecords !== 'undefined' && Array.isArray(ssRecords.customers)) {
         let existing = ssRecords.customers.find(c => c.phone === phone);
         if (!existing) {
-          const newCustId = 'C-' + (100 + ssRecords.customers.length + 1);
+          const newCustId = 'C-' + (200 + (ssRecords.customers || []).length + 1);
           ssRecords.customers.unshift({
             id: newCustId,
             name: name,
@@ -10835,7 +10852,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             totalOrders: 1,
             totalSpent: totalVal,
             due: dueVal,
-            lastOrder: 'Just now'
+            lastOrder: 'Just now',
+            isDemo: false
           });
           persistSsRecords();
         } else {
@@ -10843,6 +10861,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           existing.totalSpent = (existing.totalSpent || 0) + totalVal;
           existing.due = (existing.due || 0) + dueVal;
           existing.lastOrder = 'Just now';
+          existing.isDemo = false;
           persistSsRecords();
         }
       }
@@ -17847,16 +17866,39 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     const DEMO_STAFF_IDS = ['S-101', 'S-102', 'S-103', 'S-104'];
     const DEMO_ORDER_IDS = ['ORD-2610-0022', 'ORD-2610-0021', 'ORD-2610-0020', 'ORD-2610-0019'];
     const DEMO_FABRIC_IDS = ['F-101', 'F-102', 'F-103', 'F-104', 'F-105', 'F-106'];
+    const DEMO_SAMPLE_PHONES = ['01591463333', '01324941964', '01548694019', '01864357068'];
+    const DEMO_SAMPLE_NAMES = ['Shahadat Hossain', 'Arif Hossain', 'Kamrul Hasan', 'Rakibul Islam'];
 
-    function isDemoCustomerId(id) { return DEMO_CUSTOMER_IDS.includes(id); }
-    function isDemoStaffId(id) { return DEMO_STAFF_IDS.includes(id); }
-    function isDemoOrderId(id) { return DEMO_ORDER_IDS.includes(id); }
+    function isDemoCustomerId(id, c) {
+      if (c && c.isDemo === false) return false;
+      if (c && (c.phone || c.name)) {
+        return DEMO_CUSTOMER_IDS.includes(id) && (DEMO_SAMPLE_PHONES.includes(c.phone) || DEMO_SAMPLE_NAMES.includes(c.name));
+      }
+      return DEMO_CUSTOMER_IDS.includes(id);
+    }
+
+    function isDemoStaffId(id, s) {
+      if (s && s.isDemo === false) return false;
+      if (s && s.name) {
+        return DEMO_STAFF_IDS.includes(id) && ['Rahim Uddin', 'Karim Mia', 'Abdul Alim', 'Sumon Barua'].includes(s.name);
+      }
+      return DEMO_STAFF_IDS.includes(id);
+    }
+
+    function isDemoOrderId(id, o) {
+      if (o && o.isDemo === false) return false;
+      if (o && (o.phone || o.name)) {
+        return DEMO_ORDER_IDS.includes(id) && (DEMO_SAMPLE_PHONES.includes(o.phone) || DEMO_SAMPLE_NAMES.includes(o.name));
+      }
+      return DEMO_ORDER_IDS.includes(id);
+    }
+
     function isDemoFabricId(id) { return DEMO_FABRIC_IDS.includes(id); }
 
     function hasDemoRecords() {
-      const hasDemoCust = Array.isArray(window.ssRecords && window.ssRecords.customers) && window.ssRecords.customers.some(c => DEMO_CUSTOMER_IDS.includes(c.id));
-      const hasDemoStaff = Array.isArray(window.ssRecords && window.ssRecords.staff) && window.ssRecords.staff.some(s => DEMO_STAFF_IDS.includes(s.id));
-      const hasDemoOrders = Array.isArray(window.ordersData) && window.ordersData.some(o => DEMO_ORDER_IDS.includes(o.id));
+      const hasDemoCust = Array.isArray(window.ssRecords && window.ssRecords.customers) && window.ssRecords.customers.some(c => isDemoCustomerId(c.id, c));
+      const hasDemoStaff = Array.isArray(window.ssRecords && window.ssRecords.staff) && window.ssRecords.staff.some(s => isDemoStaffId(s.id, s));
+      const hasDemoOrders = Array.isArray(window.ordersData) && window.ordersData.some(o => isDemoOrderId(o.id, o));
       const hasDemoFabrics = Array.isArray(window.ssRecords && window.ssRecords.fabrics) && window.ssRecords.fabrics.some(f => DEMO_FABRIC_IDS.includes(f.id));
 
       return hasDemoCust || hasDemoStaff || hasDemoOrders || hasDemoFabrics;
@@ -17874,9 +17916,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const staff = Array.isArray(records.staff) ? records.staff : [];
       const fabrics = Array.isArray(records.fabrics) ? records.fabrics : [];
 
-      const realOrders = orders.filter(o => o && !isDemoOrderId(o.id));
-      const realCustomers = customers.filter(c => c && !isDemoCustomerId(c.id));
-      const realStaff = staff.filter(s => s && !isDemoStaffId(s.id));
+      const realOrders = orders.filter(o => o && !isDemoOrderId(o.id, o));
+      const realCustomers = customers.filter(c => c && !isDemoCustomerId(c.id, c));
+      const realStaff = staff.filter(s => s && !isDemoStaffId(s.id, s));
       const realFabrics = fabrics.filter(f => f && !isDemoFabricId(f.id));
 
       return (realOrders.length > 0 || realCustomers.length > 0 || realStaff.length > 0 || realFabrics.length > 0);
@@ -17887,7 +17929,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       let modified = false;
 
       if (Array.isArray(window.ordersData)) {
-        const filteredOrders = window.ordersData.filter(o => !isDemoOrderId(o.id));
+        const filteredOrders = window.ordersData.filter(o => !isDemoOrderId(o.id, o));
         if (filteredOrders.length !== window.ordersData.length) {
           window.ordersData = filteredOrders;
           ordersData = window.ordersData;
@@ -17898,14 +17940,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       if (window.ssRecords) {
         if (Array.isArray(window.ssRecords.customers)) {
-          const filteredC = window.ssRecords.customers.filter(c => !isDemoCustomerId(c.id));
+          const filteredC = window.ssRecords.customers.filter(c => !isDemoCustomerId(c.id, c));
           if (filteredC.length !== window.ssRecords.customers.length) {
             window.ssRecords.customers = filteredC;
             modified = true;
           }
         }
         if (Array.isArray(window.ssRecords.staff)) {
-          const filteredS = window.ssRecords.staff.filter(s => !isDemoStaffId(s.id));
+          const filteredS = window.ssRecords.staff.filter(s => !isDemoStaffId(s.id, s));
           if (filteredS.length !== window.ssRecords.staff.length) {
             window.ssRecords.staff = filteredS;
             modified = true;
@@ -19869,6 +19911,46 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         }
       } catch(e) {
         console.warn('Auto clean slate check error:', e);
+      }
+
+      // Auto-check and restore from Firestore/Cloud Vault on page load
+      try {
+        const cloudKey = typeof getActiveCloudKey === 'function' ? getActiveCloudKey() : null;
+        if (cloudKey) {
+          // 1. Instant check from local vault cache if UI is empty
+          if (!hasRealUserData({ orders: window.ordersData, records: window.ssRecords })) {
+            const localVault = JSON.parse(
+              localStorage.getItem('selaisathi_cloud_bundle_' + cloudKey) ||
+              localStorage.getItem('selaisathi_vault_' + cloudKey) ||
+              localStorage.getItem('selaisathi_owner_master_vault') || 'null'
+            );
+            if (localVault && hasRealUserData(localVault)) {
+              console.log('SelaiSathi: Auto-restored from Cloud Vault cache on load');
+              applyFullDatabaseImport(localVault);
+            }
+          }
+          // 2. Query Firestore in background and sync if newer
+          const fb = typeof initFirebaseClient === 'function' ? initFirebaseClient() : null;
+          if (fb && fb.db) {
+            callWithTimeout(fb.db.collection('shops').doc(cloudKey).get(), 2500)
+              .then(snap => {
+                if (snap && snap.exists) {
+                  const cloudBundle = snap.data();
+                  if (cloudBundle && hasRealUserData(cloudBundle)) {
+                    const localOrders = (window.ordersData || []).filter(o => !isDemoOrderId(o.id, o)).length;
+                    const cloudOrders = (cloudBundle.orders || []).filter(o => !isDemoOrderId(o.id, o)).length;
+                    if (cloudOrders > localOrders || localOrders === 0) {
+                      console.log('SelaiSathi: Newer data detected in Firestore. Auto-syncing to UI.');
+                      applyFullDatabaseImport(cloudBundle);
+                    }
+                  }
+                }
+              })
+              .catch(e => console.log('Background Firestore check note:', e.message));
+          }
+        }
+      } catch(e) {
+        console.warn('Auto cloud restore error:', e);
       }
     });
 
