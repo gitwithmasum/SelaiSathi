@@ -20136,15 +20136,16 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     function getFirebaseConfig() {
       try {
         const saved = JSON.parse(localStorage.getItem('selaisathi_firebase_config') || 'null');
-        if (saved && saved.apiKey && saved.projectId) return saved;
+        if (saved && saved.apiKey && saved.projectId && saved.projectId !== 'selaisathi-tailor-cloud') return saved;
       } catch(e) {}
       return {
-        apiKey: "AIzaSyB_SelaiSathi_CloudVault2026_LiveSync",
-        authDomain: "selaisathi-tailor-cloud.firebaseapp.com",
-        projectId: "selaisathi-tailor-cloud",
-        storageBucket: "selaisathi-tailor-cloud.appspot.com",
-        messagingSenderId: "987654321098",
-        appId: "1:987654321098:web:abcdef1234567890"
+        apiKey: "AIzaSyBlCjqCgsmrdJjOmMdop35ytkquLB4ncv8",
+        authDomain: "selaisathi.firebaseapp.com",
+        projectId: "selaisathi",
+        storageBucket: "selaisathi.firebasestorage.app",
+        messagingSenderId: "1079539630919",
+        appId: "1:1079539630919:web:f105a5f1e499bd0dd98262",
+        measurementId: "G-L9FCCV37Y2"
       };
     }
 
