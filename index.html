@@ -7384,7 +7384,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           </div>
 
           <div class="flex flex-wrap items-center gap-2">
-            <button onclick="syncToGoogleCloud()" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-cyan-500 hover:bg-cyan-600 text-white shadow-sm flex items-center gap-1.5 active:scale-95 transition-all cursor-pointer">
+            <button onclick="handleCloudSyncClick(this)" class="btn-cloud-sync px-3.5 py-2 rounded-xl text-xs font-bold bg-cyan-500 hover:bg-cyan-600 text-white shadow-sm flex items-center gap-1.5 active:scale-95 transition-all cursor-pointer">
               <span>⚡</span> <span data-i18n="btn_sync_now">Sync Now</span>
             </button>
             <button onclick="downloadCompleteBackupJSON()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-ios-border bg-white/5 hover:bg-white/10 text-ios-text active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer">
@@ -7587,7 +7587,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 <p class="text-[11px] text-ios-subtext">1-click recovery from snapshot if data is accidentally deleted</p>
               </div>
             </div>
-            <button onclick="syncToGoogleCloud()" class="px-3 py-1.5 rounded-xl text-xs font-bold text-cyan-400 hover:bg-cyan-500/10 border border-ios-border active:scale-95 transition-all cursor-pointer">
+            <button onclick="handleCloudSyncClick(this)" class="btn-cloud-sync px-3 py-1.5 rounded-xl text-xs font-bold text-cyan-400 hover:bg-cyan-500/10 border border-ios-border active:scale-95 transition-all cursor-pointer">
               ⚡ Create New Snapshot
             </button>
           </div>
@@ -21475,6 +21475,76 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       return initial;
     }
 
+    /* ======================================================== */
+    /* 🚀 FUTURISTIC CYBER-HUD NOTIFICATION SYSTEM              */
+    /* ======================================================== */
+    function showCyberHudNotification(title, message, icon = '☁️', type = 'cyan') {
+      let host = document.getElementById('cyber-hud-host');
+      if (!host) {
+        host = document.createElement('div');
+        host.id = 'cyber-hud-host';
+        host.className = 'fixed top-5 left-1/2 -translate-x-1/2 z-[99999] pointer-events-none flex flex-col items-center gap-2 max-w-md w-[92vw] sm:w-auto';
+        document.body.appendChild(host);
+      }
+
+      const borderClass = type === 'emerald' ? 'border-emerald-400/50 shadow-[0_4px_30px_rgba(16,185,129,0.35)]' :
+                          type === 'purple' ? 'border-purple-400/50 shadow-[0_4px_30px_rgba(168,85,247,0.35)]' :
+                          'border-cyan-400/50 shadow-[0_4px_30px_rgba(6,182,212,0.35)]';
+
+      const dotClass = type === 'emerald' ? 'bg-emerald-400 shadow-[0_0_8px_#34d399]' :
+                       type === 'purple' ? 'bg-purple-400 shadow-[0_0_8px_#c084fc]' :
+                       'bg-cyan-400 shadow-[0_0_8px_#38bdf8]';
+
+      const toast = document.createElement('div');
+      toast.className = 'cyber-hud-toast pointer-events-auto flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-slate-950/92 backdrop-blur-2xl border ' + borderClass + ' text-white shadow-2xl transition-all duration-300 transform -translate-y-4 opacity-0';
+
+      toast.innerHTML = 
+        '<div class="relative flex items-center justify-center w-7 h-7 rounded-xl bg-white/[0.06] border border-white/10 shrink-0 text-sm">' +
+          '<span>' + icon + '</span>' +
+          '<span class="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full ' + dotClass + ' animate-ping"></span>' +
+        '</div>' +
+        '<div class="min-w-0 pr-1">' +
+          '<div class="text-[11px] font-black font-mono tracking-wider uppercase text-slate-100 flex items-center gap-2">' +
+            '<span>' + title + '</span>' +
+            '<span class="text-[8px] px-1.5 py-0.2 rounded font-mono font-bold bg-white/10 text-cyan-300">LIVE</span>' +
+          '</div>' +
+          '<div class="text-[10px] text-slate-400 truncate mt-0.5">' + message + '</div>' +
+        '</div>' +
+        '<button onclick="this.parentElement.remove()" class="text-slate-500 hover:text-white text-xs pl-1 cursor-pointer">✕</button>';
+
+      host.appendChild(toast);
+      requestAnimationFrame(() => {
+        toast.classList.remove('-translate-y-4', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+      });
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('-translate-y-4', 'opacity-0');
+        setTimeout(() => toast.remove(), 350);
+      }, 2600);
+    }
+    window.showCyberHudNotification = showCyberHudNotification;
+
+    async function handleCloudSyncClick(btn) {
+      if (btn) {
+        btn.dataset.prevHtml = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = 
+          '<svg class="w-3.5 h-3.5 animate-spin text-slate-950 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"/><path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/></svg>' +
+          '<span>' + (typeof currentLang !== 'undefined' && currentLang === 'bn' ? 'সিঙ্ক হচ্ছে...' : 'Syncing...') + '</span>';
+      }
+      try {
+        await syncToGoogleCloud(false);
+      } catch(e) {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = btn.dataset.prevHtml || 'Sync Cloud ⚡';
+        }
+      }
+    }
+    window.handleCloudSyncClick = handleCloudSyncClick;
+
     async function syncToGoogleCloud(silent = false) {
       const gUser = getGoogleAuthUser();
       const pUser = getPhoneAuthUser();
@@ -21545,22 +21615,40 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       renderBackupsView();
       updateSidebarOwnerChip();
 
+      // Instant Futuristic Feedback: Button Animation & Telemetry Update
+      const syncButtons = document.querySelectorAll('.btn-cloud-sync, #btn-sync-cloud-modal');
+      syncButtons.forEach(btn => {
+        btn.innerHTML = 
+          '<svg class="w-3.5 h-3.5 text-slate-950 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>' +
+          '<span>' + (typeof currentLang !== 'undefined' && currentLang === 'bn' ? 'সিঙ্ক সম্পন্ন ✓' : '100% Synced ✓') + '</span>';
+        btn.classList.add('shadow-[0_0_22px_#10b981]');
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.classList.remove('shadow-[0_0_22px_#10b981]');
+          btn.innerHTML = btn.dataset.prevHtml || (
+            '<svg class="w-3.5 h-3.5 text-slate-950 group-hover:rotate-180 transition-transform duration-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>' +
+            '<span>' + (typeof currentLang !== 'undefined' && currentLang === 'bn' ? 'সিঙ্ক ক্লাউড ⚡' : 'Sync Cloud ⚡') + '</span>'
+          );
+        }, 2200);
+      });
+
+      // Update in-modal cloud card telemetry if open
+      const syncTimeEl = document.getElementById('modal-cloud-last-sync-time');
+      if (syncTimeEl) {
+        syncTimeEl.textContent = 'Just now';
+        syncTimeEl.classList.add('text-emerald-400');
+      }
+
       if (!silent) {
         const ownerIdentity = gUser ? gUser.email : (pUser ? pUser.phone : 'Local Vault');
-        if (window.CyberDialog) {
-          CyberDialog.alert(
-            currentLang === 'bn' 
-              ? ('অভিনন্দন! আপনার সমস্ত কাস্টমার (' + totalCust + ' জন), মাপ ও অর্ডার ডাটা সফলভাবে ক্লাউড ডাটাবেজে (' + ownerIdentity + ') সেভ হয়েছে। অন্য যেকোনো ডিভাইসে লগইন করলে স্বয়ংক্রিয়ভাবে ডাটা লোড হয়ে যাবে!') 
-              : ('Congratulations! All your customers (' + totalCust + '), measurements, and orders have been securely synced to your cloud database (' + ownerIdentity + ').'), 
-            {
-              icon: '☁️',
-              title: currentLang === 'bn' ? 'LIVE CLOUD SYNC COMPLETED • সফল' : 'LIVE CLOUD SYNC COMPLETED',
-              okText: currentLang === 'bn' ? 'ঠিক আছে ✓' : 'OK ✓'
-            }
-          );
-        } else {
-          alert('Cloud synchronization successful! All data saved to cloud.');
-        }
+        showCyberHudNotification(
+          typeof currentLang !== 'undefined' && currentLang === 'bn' ? 'ক্লাউড সিঙ্ক সফল' : 'CLOUD VAULT SYNCED',
+          typeof currentLang !== 'undefined' && currentLang === 'bn' 
+            ? totalCust + ' গ্রাহক ও ' + totalOrders + ' অর্ডার ক্লাউডে সুরক্ষিত হয়েছে (' + ownerIdentity + ')'
+            : totalCust + ' Customers & ' + totalOrders + ' Orders secured to Firestore (' + ownerIdentity + ')',
+          '☁️',
+          'emerald'
+        );
       }
       return true;
     }
@@ -21729,7 +21817,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (actionContainer) {
         if (gUser) {
           actionContainer.innerHTML = '<div class="flex items-center gap-1.5 flex-wrap">' +
-            '<button type="button" onclick="syncToGoogleCloud()" class="px-3 py-1.5 rounded-xl text-xs font-black tracking-wide bg-gradient-to-r from-cyan-500 to-teal-400 hover:brightness-110 active:scale-95 text-slate-950 flex items-center gap-1.5 shadow-[0_2px_10px_-2px_rgba(6,182,212,0.4)] transition-all cursor-pointer">' +
+            '<button type="button" onclick="handleCloudSyncClick(this)" class="btn-cloud-sync px-3 py-1.5 rounded-xl text-xs font-black tracking-wide bg-gradient-to-r from-cyan-500 to-teal-400 hover:brightness-110 active:scale-95 text-slate-950 flex items-center gap-1.5 shadow-[0_2px_10px_-2px_rgba(6,182,212,0.4)] transition-all cursor-pointer">' +
               '<svg class="w-3.5 h-3.5 text-slate-950" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>' +
               '<span>Sync Now</span>' +
             '</button>' +
@@ -21789,7 +21877,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (phoneAction) {
         if (pUser) {
           phoneAction.innerHTML = '<div class="flex items-center gap-1.5">' +
-            '<button onclick="syncToGoogleCloud()" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-purple-600 text-white hover:bg-purple-500 transition-all cursor-pointer">⚡ Sync</button>' +
+            '<button onclick="handleCloudSyncClick(this)" class="btn-cloud-sync px-2.5 py-1 rounded-lg text-xs font-bold bg-purple-600 text-white hover:bg-purple-500 transition-all cursor-pointer">⚡ Sync</button>' +
             '<button onclick="pullFromGoogleCloud()" class="px-2 py-1 rounded-lg text-xs font-bold text-purple-300 border border-purple-500/30 hover:bg-purple-500/10 transition-all cursor-pointer">📥 Restore</button>' +
             '<button onclick="disconnectPhoneAccount()" class="px-2 py-1 rounded-lg text-xs font-bold text-rose-400 hover:bg-rose-500/10 border border-rose-500/30 transition-all cursor-pointer">Disconnect</button>' +
           '</div>';
@@ -22005,12 +22093,23 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         }
       }
 
-      // Futuristic Minimalist Cloud status box inside modal
+      // Futuristic Minimalist Cloud status box inside modal with realtime telemetry
       const box = document.getElementById('modal-owner-google-box');
       if (box) {
+        const liveOrdersCount = (Array.isArray(window.ordersData) ? window.ordersData : []).length;
+        const liveCustCount = ((window.ssRecords && Array.isArray(window.ssRecords.customers)) ? window.ssRecords.customers : []).length;
+        const lastSyncMs = Number(localStorage.getItem('selaisathi_last_sync_time_ms') || 0);
+        let lastSyncLabel = (currentLang === 'bn' ? 'কখনো নয়' : 'Never');
+        if (lastSyncMs > 0) {
+          const diffSec = Math.round((Date.now() - lastSyncMs) / 1000);
+          if (diffSec < 60) lastSyncLabel = (currentLang === 'bn' ? 'এইমাত্র' : 'Just now');
+          else if (diffSec < 3600) lastSyncLabel = Math.round(diffSec / 60) + 'm ago';
+          else lastSyncLabel = new Date(lastSyncMs).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
         if (gUser) {
           box.innerHTML = 
-            '<div class="cyber-vault-card relative overflow-hidden rounded-2xl p-3.5 space-y-3">' +
+            '<div class="cyber-vault-card relative overflow-hidden rounded-2xl p-3.5 space-y-2.5">' +
               '<div class="absolute -top-10 -right-10 w-28 h-28 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none"></div>' +
               '<div class="flex items-center justify-between gap-2 relative z-10">' +
                 '<div class="flex items-center gap-2.5 min-w-0">' +
@@ -22041,8 +22140,26 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                   '</button>' +
                 '</div>' +
               '</div>' +
+
+              // Live Telemetry Grid
+              '<div class="grid grid-cols-3 gap-1.5 p-2 rounded-xl bg-slate-950/60 border border-cyan-500/15 text-[10px] font-mono relative z-10">' +
+                '<div class="text-center">' +
+                  '<div class="text-[9px] text-slate-500 uppercase tracking-wider">' + (currentLang === 'bn' ? 'গ্রাহক' : 'Clients') + '</div>' +
+                  '<div class="font-bold text-cyan-300 mt-0.5">' + liveCustCount + '</div>' +
+                '</div>' +
+                '<div class="text-center border-x border-slate-800">' +
+                  '<div class="text-[9px] text-slate-500 uppercase tracking-wider">' + (currentLang === 'bn' ? 'অর্ডার' : 'Orders') + '</div>' +
+                  '<div class="font-bold text-cyan-300 mt-0.5">' + liveOrdersCount + '</div>' +
+                '</div>' +
+                '<div class="text-center">' +
+                  '<div class="text-[9px] text-slate-500 uppercase tracking-wider">' + (currentLang === 'bn' ? 'সর্বশেষ সিঙ্ক' : 'Synced') + '</div>' +
+                  '<div class="font-bold text-emerald-400 mt-0.5 truncate" id="modal-cloud-last-sync-time">' + lastSyncLabel + '</div>' +
+                '</div>' +
+              '</div>' +
+
+              // Command Action Strip
               '<div class="grid grid-cols-5 gap-2 pt-1 border-t border-cyan-500/15 relative z-10">' +
-                '<button type="button" onclick="syncToGoogleCloud()" class="col-span-3 py-2 px-3 rounded-xl text-xs font-black tracking-wide bg-gradient-to-r from-cyan-500 via-teal-400 to-cyan-500 hover:from-cyan-400 hover:to-teal-300 text-slate-950 flex items-center justify-center gap-1.5 shadow-[0_2px_14px_-2px_rgba(6,182,212,0.45)] hover:shadow-[0_4px_20px_0_rgba(6,182,212,0.6)] active:scale-[0.98] transition-all cursor-pointer group">' +
+                '<button type="button" id="btn-sync-cloud-modal" onclick="handleCloudSyncClick(this)" class="btn-cloud-sync col-span-3 py-2 px-3 rounded-xl text-xs font-black tracking-wide bg-gradient-to-r from-cyan-500 via-teal-400 to-cyan-500 hover:from-cyan-400 hover:to-teal-300 text-slate-950 flex items-center justify-center gap-1.5 shadow-[0_2px_14px_-2px_rgba(6,182,212,0.45)] hover:shadow-[0_4px_20px_0_rgba(6,182,212,0.6)] active:scale-[0.98] transition-all cursor-pointer group">' +
                   '<svg class="w-3.5 h-3.5 text-slate-950 group-hover:rotate-180 transition-transform duration-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>' +
                   '<span>' + (currentLang === 'bn' ? 'সিঙ্ক ক্লাউড ⚡' : 'Sync Cloud ⚡') + '</span>' +
                 '</button>' +
@@ -22061,7 +22178,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             '</div>';
         } else if (pUser) {
           box.innerHTML = 
-            '<div class="cyber-vault-card relative overflow-hidden rounded-2xl p-3.5 space-y-3 border-purple-500/30 shadow-[0_0_20px_-3px_rgba(168,85,247,0.15)]">' +
+            '<div class="cyber-vault-card relative overflow-hidden rounded-2xl p-3.5 space-y-2.5 border-purple-500/30 shadow-[0_0_20px_-3px_rgba(168,85,247,0.15)]">' +
               '<div class="absolute -top-10 -right-10 w-28 h-28 bg-purple-500/10 rounded-full blur-2xl pointer-events-none"></div>' +
               '<div class="flex items-center justify-between gap-2 relative z-10">' +
                 '<div class="flex items-center gap-2.5 min-w-0">' +
@@ -22087,8 +22204,22 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                   '<span>Disconnect</span>' +
                 '</button>' +
               '</div>' +
+              '<div class="grid grid-cols-3 gap-1.5 p-2 rounded-xl bg-slate-950/60 border border-purple-500/15 text-[10px] font-mono relative z-10">' +
+                '<div class="text-center">' +
+                  '<div class="text-[9px] text-slate-500 uppercase tracking-wider">' + (currentLang === 'bn' ? 'গ্রাহক' : 'Clients') + '</div>' +
+                  '<div class="font-bold text-purple-300 mt-0.5">' + liveCustCount + '</div>' +
+                '</div>' +
+                '<div class="text-center border-x border-slate-800">' +
+                  '<div class="text-[9px] text-slate-500 uppercase tracking-wider">' + (currentLang === 'bn' ? 'অর্ডার' : 'Orders') + '</div>' +
+                  '<div class="font-bold text-purple-300 mt-0.5">' + liveOrdersCount + '</div>' +
+                '</div>' +
+                '<div class="text-center">' +
+                  '<div class="text-[9px] text-slate-500 uppercase tracking-wider">' + (currentLang === 'bn' ? 'সর্বশেষ সিঙ্ক' : 'Synced') + '</div>' +
+                  '<div class="font-bold text-purple-400 mt-0.5 truncate">' + lastSyncLabel + '</div>' +
+                '</div>' +
+              '</div>' +
               '<div class="grid grid-cols-5 gap-2 pt-1 border-t border-purple-500/15 relative z-10">' +
-                '<button type="button" onclick="syncToGoogleCloud()" class="col-span-3 py-2 px-3 rounded-xl text-xs font-black tracking-wide bg-gradient-to-r from-purple-600 via-fuchsia-500 to-purple-600 hover:from-purple-500 hover:to-fuchsia-400 text-white flex items-center justify-center gap-1.5 shadow-[0_2px_14px_-2px_rgba(168,85,247,0.45)] hover:shadow-[0_4px_20px_0_rgba(168,85,247,0.6)] active:scale-[0.98] transition-all cursor-pointer">' +
+                '<button type="button" id="btn-sync-cloud-modal" onclick="handleCloudSyncClick(this)" class="btn-cloud-sync col-span-3 py-2 px-3 rounded-xl text-xs font-black tracking-wide bg-gradient-to-r from-purple-600 via-fuchsia-500 to-purple-600 hover:from-purple-500 hover:to-fuchsia-400 text-white flex items-center justify-center gap-1.5 shadow-[0_2px_14px_-2px_rgba(168,85,247,0.45)] hover:shadow-[0_4px_20px_0_rgba(168,85,247,0.6)] active:scale-[0.98] transition-all cursor-pointer">' +
                   '<svg class="w-3.5 h-3.5 text-white shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>' +
                   '<span>Sync Cloud ⚡</span>' +
                 '</button>' +
