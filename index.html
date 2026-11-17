@@ -9164,32 +9164,32 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
         <div class="flex justify-between text-[11px] pt-1">
           <span>ORDER: <strong id="rcpt-order-no">ORD-2610-0022</strong></span>
-          <span class="bg-black text-white px-1">TAG-1044</span>
+          <span class="bg-black text-white px-1" id="rcpt-order-tag">TAG-1044</span>
         </div>
 
         <div class="text-[10px] text-gray-700">
           <div>Customer: <strong id="rcpt-name">Shahadat Hossain</strong></div>
           <div>Phone: <strong id="rcpt-phone">01591463333</strong></div>
-          <div>Delivery: <strong>15/11/2026</strong></div>
+          <div>Delivery: <strong id="rcpt-delivery-date">15/11/2026</strong></div>
         </div>
 
         <div class="border-t border-b border-dashed border-gray-300 py-1 flex justify-between">
-          <span>Panjabi Stitching (1x)</span>
-          <span>৳850</span>
+          <span id="rcpt-item-title">Panjabi Stitching (1x)</span>
+          <span id="rcpt-item-price">৳850</span>
         </div>
 
         <div class="space-y-0.5 text-[11px]">
           <div class="flex justify-between">
             <span>Total Bill:</span>
-            <span>৳850</span>
+            <span id="rcpt-total-bill">৳850</span>
           </div>
           <div class="flex justify-between font-bold text-emerald-800">
             <span>Advance:</span>
-            <span>৳300</span>
+            <span id="rcpt-advance-amt">৳300</span>
           </div>
           <div class="flex justify-between font-bold text-red-600">
             <span>Due Amount:</span>
-            <span>৳550</span>
+            <span id="rcpt-due-amt">৳550</span>
           </div>
         </div>
 
@@ -9199,13 +9199,18 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         </div>
       </div>
 
-      <div class="flex justify-end gap-2 pt-2">
-        <button onclick="closeModal('modal-receipt')" class="px-4 py-2 border border-ios-border rounded-2xl text-xs font-bold text-gray-600 hover:bg-gray-50">
-          Close
+      <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-ios-border">
+        <button onclick="sendOrderSlipWhatsApp(document.getElementById('rcpt-order-no').innerText)" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1.5 transition-all active:scale-95">
+          <span>💬</span> <span>WhatsApp Slip</span>
         </button>
-        <button onclick="window.print()" class="px-5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl text-xs font-bold shadow-sm">
-          Print POS 🖨️
-        </button>
+        <div class="flex items-center gap-2">
+          <button onclick="closeModal('modal-receipt')" class="px-3.5 py-2 border border-ios-border rounded-xl text-xs font-bold text-ios-text hover:bg-white/10">
+            Close
+          </button>
+          <button onclick="window.print()" class="px-4 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:brightness-110 text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1.5 active:scale-95">
+            <span>Print POS</span> <span>🖨️</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -10883,8 +10888,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               </div>
               <div class="text-xs text-gray-500 dark:text-gray-400 font-mono flex items-center justify-between">
                 <span>📞 ${o.phone}</span>
-                <button onclick="sendDirectSms('${o.name}', '${o.phone}')" title="Send WhatsApp/SMS" class="text-purple-400 hover:text-purple-300 hover:underline flex items-center gap-1 text-[11px]">
-                  <span>💬</span> <span>SMS</span>
+                <button onclick="sendOrderSlipWhatsApp('${o.id}')" title="Send WhatsApp Slip" class="text-emerald-400 hover:text-emerald-300 hover:underline flex items-center gap-1 text-[11px] font-bold">
+                  <span>💬</span> <span>WhatsApp</span>
                 </button>
               </div>
             </div>
@@ -10907,13 +10912,17 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             </div>
 
             <!-- Actions Bar -->
-            <div class="flex items-center justify-between gap-2 pt-2 border-t border-ios-border">
-              <button onclick="showPosReceipt('${o.id}', '${o.name}', '${o.phone}')" title="Print 58mm Thermal POS Receipt" class="flex-1 py-1.5 bg-white/10 hover:bg-white/20 border border-ios-border rounded-xl text-xs font-bold text-ios-text active:scale-95 shadow-xs flex items-center justify-center gap-1.5 transition-all">
+            <div class="flex items-center justify-between gap-1.5 pt-2 border-t border-ios-border">
+              <button onclick="showPosReceipt('${o.id}', '${o.name}', '${o.phone}')" title="Print 58mm Thermal POS Receipt" class="flex-1 py-1.5 px-2 bg-white/10 hover:bg-white/20 border border-ios-border rounded-xl text-xs font-bold text-ios-text active:scale-95 shadow-xs flex items-center justify-center gap-1 transition-all">
                 <span>🖨️</span> <span>Receipt</span>
               </button>
 
-              <button onclick="openEditOrderModal('${o.id}')" title="Edit Order" class="flex-1 py-1.5 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 rounded-xl text-xs font-bold active:scale-95 shadow-xs flex items-center justify-center gap-1 transition-all">
-                <span>✏️</span> <span>Edit</span>
+              <button onclick="sendOrderSlipWhatsApp('${o.id}')" title="Send Digital Order Slip via WhatsApp" class="flex-1 py-1.5 px-2 bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/30 rounded-xl text-xs font-bold active:scale-95 shadow-xs flex items-center justify-center gap-1 transition-all">
+                <span>💬</span> <span>WhatsApp</span>
+              </button>
+
+              <button onclick="openEditOrderModal('${o.id}')" title="Edit Order" class="px-2.5 py-1.5 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 rounded-xl text-xs font-bold active:scale-95 shadow-xs flex items-center justify-center transition-all">
+                <span>✏️</span>
               </button>
 
               <button onclick="deleteOrder('${o.id}')" title="Delete Order" class="px-2.5 py-1.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded-xl text-xs font-bold active:scale-95 shadow-xs flex items-center justify-center transition-all">
@@ -10973,14 +10982,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 <span>🖨️</span> <span>Receipt</span>
               </button>
 
+              <!-- WhatsApp Slip Button -->
+              <button onclick="sendOrderSlipWhatsApp('${o.id}')" title="Send Digital Order Slip via WhatsApp" class="px-2.5 py-1.5 bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/30 rounded-xl text-xs font-bold active:scale-95 shadow-xs flex items-center gap-1 transition-all">
+                <span>💬</span> <span>WhatsApp</span>
+              </button>
+
               <!-- Edit Order Button -->
               <button onclick="openEditOrderModal('${o.id}')" title="Edit Customer, Garment, Stage & Financials" class="px-2.5 py-1.5 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 rounded-xl text-xs font-bold active:scale-95 shadow-xs flex items-center gap-1 transition-all">
                 <span>✏️</span> <span>Edit</span>
-              </button>
-
-              <!-- SMS/WhatsApp Direct Button -->
-              <button onclick="sendDirectSms('${o.name}', '${o.phone}')" title="Send SMS/WhatsApp Status Notification" class="px-2 py-1.5 bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 border border-purple-500/30 rounded-xl text-xs font-bold active:scale-95 shadow-xs flex items-center transition-all">
-                <span>💬</span>
               </button>
 
               <!-- Delete Order Button -->
@@ -11297,17 +11306,144 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       closeModal('modal-new-order');
       confetti({ particleCount: 70, spread: 60 });
-      if (window.CyberDialog) CyberDialog.alert('Order successfully created with Fabric Pin Tag!', { icon: '🎉', title: 'ORDER CREATED' });
-      else alert('Order successfully created with Fabric Pin Tag!');
       renderOrdersTable();
+      if (typeof renderDashboardLive === 'function') renderDashboardLive();
+
+      const isBn = typeof currentLang !== 'undefined' && currentLang === 'bn';
+      const promptMsg = isBn
+        ? `অর্ডার #${generatedOrderId} সফলভাবে তৈরি হয়েছে!\n\nগ্রাহক "${name}"-কে এখনই WhatsApp-এ ডিজিটাল স্লিপ পাঠাতে চান?`
+        : `Order #${generatedOrderId} created successfully!\n\nWould you like to send the digital slip to "${name}" via WhatsApp now?`;
+
+      if (window.CyberDialog && typeof CyberDialog.confirm === 'function') {
+        CyberDialog.confirm(
+          promptMsg,
+          () => {
+            sendOrderSlipWhatsApp(generatedOrderId);
+          },
+          {
+            icon: '💬',
+            title: isBn ? 'WHATSAPP SLIP • ডিজিটাল স্লিপ' : 'WHATSAPP SLIP DISPATCH',
+            confirmText: isBn ? 'WhatsApp-এ স্লিপ পাঠান 💬' : 'Send WhatsApp Slip 💬',
+            cancelText: isBn ? 'পরে পাঠাব' : 'Later'
+          }
+        );
+      } else {
+        alert('Order successfully created with Fabric Pin Tag!');
+      }
     }
+
+    function formatWhatsAppNumber(phone) {
+      if (!phone) return '';
+      const bnToEnMap = { '০':'0','১':'1','২':'2','৩':'3','৪':'4','৫':'5','৬':'6','৭':'7','৮':'8','৯':'9' };
+      let cleaned = String(phone).replace(/[০-৯]/g, d => bnToEnMap[d] || d).replace(/[^0-9+]/g, '');
+      if (cleaned.startsWith('+')) cleaned = cleaned.slice(1);
+      if (cleaned.startsWith('01') && cleaned.length === 11) {
+        cleaned = '88' + cleaned;
+      }
+      return cleaned;
+    }
+    window.formatWhatsAppNumber = formatWhatsAppNumber;
+
+    function sendOrderSlipWhatsApp(orderIdOrName, phoneFallback) {
+      let order = null;
+      if (typeof ordersData !== 'undefined' && Array.isArray(ordersData)) {
+        order = ordersData.find(o => o.id === orderIdOrName || o.name === orderIdOrName);
+      }
+
+      const name = order ? order.name : (orderIdOrName || 'সম্মানিত গ্রাহক');
+      const phone = order ? order.phone : (phoneFallback || '');
+      const waPhone = formatWhatsAppNumber(phone);
+
+      if (!waPhone) {
+        if (window.CyberDialog) CyberDialog.alert('গ্রাহকের কোনো বৈধ ফোন নম্বর পাওয়া যায়নি!', { icon: '⚠️', title: 'INVALID PHONE' });
+        else alert('গ্রাহকের কোনো বৈধ ফোন নম্বর পাওয়া যায়নি!');
+        return;
+      }
+
+      const brandName = typeof getBrandName === 'function' ? getBrandName() : 'SELAISATHI TAILORS';
+      const brandAddress = typeof getBrandAddress === 'function' ? getBrandAddress() : 'Shop 12, New Market, Dhaka';
+      const brandPhone = typeof getBrandPhone === 'function' ? getBrandPhone() : '01700-112233';
+
+      const orderId = order ? order.id : (orderIdOrName || 'ORD-NEW');
+      const orderTag = order ? (order.tag || 'N/A') : 'N/A';
+      const garment = order ? (order.garment || 'কাস্টম পোশাক') : 'কাস্টম পোশাক';
+      const deliveryDate = order ? (order.date || 'শীঘ্রই') : 'শীঘ্রই';
+      const total = order ? Number(order.total || 0) : 0;
+      const advance = order ? Number(order.advance || 0) : 0;
+      const due = order ? Number(order.due || Math.max(0, total - advance)) : Math.max(0, total - advance);
+
+      const stageLabels = {
+        'CUTTING': 'কাটিং চলছে (Cutting)',
+        'STITCHING': 'সেলাই চলছে (Stitching)',
+        'FINISHING': 'ফিনিশিং চলছে (Finishing)',
+        'READY': 'ডেলিভারির জন্য প্রস্তুত (Ready)',
+        'DELIVERED': 'ডেলিভারি সম্পন্ন (Delivered)'
+      };
+      const currentStage = (order && stageLabels[order.stage]) ? stageLabels[order.stage] : 'প্রক্রিয়াধীন';
+
+      const dueText = due <= 0
+        ? '✨ *পরিশোধের অবস্থা:* সম্পূর্ণ পরিশোধিত (PAID ✓)'
+        : `⚠️ *অবশিষ্ট বকেয়া:* ৳${due.toLocaleString('en-BD')}`;
+
+      const messageLines = [
+        `🧵 *${brandName}*`,
+        `📋 *ডিজিটাল অর্ডার স্লিপ / মেমো*`,
+        `──────────────────────────`,
+        `📌 *অর্ডার নং:* ${orderId}`,
+        `🏷️ *পিন ট্যাগ:* ${orderTag}`,
+        `👤 *গ্রাহকের নাম:* ${name}`,
+        `📱 *মোবাইল:* ${phone}`,
+        `👗 *পোশাক:* ${garment}`,
+        `📅 *সম্ভাব্য ডেলিভারি:* ${deliveryDate}`,
+        `🔄 *বর্তমান অবস্থা:* ${currentStage}`,
+        `──────────────────────────`,
+        `💰 *মোট বিল:* ৳${total.toLocaleString('en-BD')}`,
+        `✅ *অগ্রিম জমা:* ৳${advance.toLocaleString('en-BD')}`,
+        `${dueText}`,
+        `──────────────────────────`,
+        `📍 *ঠিকানা:* ${brandAddress}`,
+        `📞 *হটলাইন:* ${brandPhone}`,
+        ``,
+        `_আমাদের শপে অর্ডার করার জন্য আন্তরিক ধন্যবাদ!_`
+      ];
+
+      const waUrl = `https://wa.me/${waPhone}?text=${encodeURIComponent(messageLines.join('\n'))}`;
+
+      if (typeof logActivityEvent === 'function') {
+        logActivityEvent('orders', 'WhatsApp Slip Dispatched', `ডিজিটাল অর্ডার স্লিপ WhatsApp-এ পাঠানো হয়েছে: ${name} (${orderId})`);
+      }
+
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+    }
+    window.sendOrderSlipWhatsApp = sendOrderSlipWhatsApp;
 
     function showPosReceipt(ordId, name, phone) {
       applyBrandToUI();
-      document.getElementById('rcpt-order-no').innerText = ordId;
-      document.getElementById('rcpt-name').innerText = name;
-      document.getElementById('rcpt-phone').innerText = phone;
-      document.getElementById('modal-receipt').classList.remove('hidden');
+      const order = (typeof ordersData !== 'undefined' && Array.isArray(ordersData))
+        ? (ordersData.find(o => o.id === ordId) || { id: ordId, name, phone, garment: 'Custom Stitching', tag: 'TAG-XXXX', total: 850, advance: 300, due: 550, date: '15/11/2026' })
+        : { id: ordId, name, phone, garment: 'Custom Stitching', tag: 'TAG-XXXX', total: 850, advance: 300, due: 550, date: '15/11/2026' };
+
+      const setTxt = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = val;
+      };
+
+      setTxt('rcpt-order-no', order.id);
+      setTxt('rcpt-order-tag', order.tag || 'TAG-XXXX');
+      setTxt('rcpt-name', order.name);
+      setTxt('rcpt-phone', order.phone);
+      setTxt('rcpt-delivery-date', order.date || '15/11/2026');
+      setTxt('rcpt-item-title', `${order.garment || 'Custom'} Stitching (1x)`);
+      setTxt('rcpt-item-price', `৳${order.total || 0}`);
+      setTxt('rcpt-total-bill', `৳${order.total || 0}`);
+      setTxt('rcpt-advance-amt', `৳${order.advance || 0}`);
+      setTxt('rcpt-due-amt', `৳${order.due || 0}`);
+
+      const receiptModal = document.getElementById('modal-receipt');
+      if (receiptModal) {
+        receiptModal.classList.remove('hidden');
+        receiptModal.style.display = 'flex';
+      }
     }
 
     function setThemeAccent(color) {
@@ -19308,8 +19444,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                   </div>
                 </div>
                 <div class="flex items-center gap-2">
-                  <button onclick="sendDirectSms('${safeText(o.name)}', '${safeText(o.phone)}')" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-800 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500/20 transition-colors cursor-pointer">
-                    💬 SMS
+                  <button onclick="sendOrderSlipWhatsApp('${safeText(o.id)}')" title="Send WhatsApp Slip" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/25 transition-colors cursor-pointer flex items-center gap-1">
+                    <span>💬</span> <span>WhatsApp</span>
                   </button>
                 </div>
               </div>
@@ -19573,7 +19709,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
 
     function sendDirectSms(name, phone) {
-      CyberDialog.alert(`${safeText(name)} (${safeText(phone)})-এর ফোনে ডেলিভারি রিমাইন্ডার SMS সফলভাবে প্রেরণ করা হয়েছে।`, { icon: '📲', title: 'SMS DISPATCHED' });
+      sendOrderSlipWhatsApp(name, phone);
     }
 
     function markDeliveryComplete(btn, tag) {
