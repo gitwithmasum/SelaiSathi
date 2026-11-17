@@ -5943,27 +5943,25 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <div>
             <div class="flex items-center gap-2">
               <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-amber-500/20 text-amber-400 border border-amber-500/30" data-i18n="acc_sec_tag">FINANCIAL CONTROL CENTER</span>
-              <span class="text-xs text-ios-subtext" data-i18n="acc_sec_sub">Cash Drawer · Due Recovery · Wallets & Ledger</span>
             </div>
             <h1 class="text-3xl font-black text-ios-text tracking-tight mt-1" data-i18n="acc_title">Accounts & Financial Hub</h1>
-            <p class="text-xs text-ios-subtext mt-1" data-i18n="acc_desc">Real-time cash drawer, 1-click due recovery, payment wallets, artisan wages and daily balance sheet.</p>
           </div>
 
           <!-- Top Action Buttons -->
-          <div class="flex flex-wrap items-center gap-2">
-            <button onclick="openAddExpenseModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-rose-500/40 bg-rose-500/10 text-rose-300 hover:bg-rose-500/20 transition-all flex items-center gap-1.5 active:scale-95 shadow-xs">
-              <span>💸</span> <span data-i18n="acc_add_expense">＋ Add Expense</span>
+          <div class="flex flex-wrap items-center gap-1.5">
+            <button onclick="openAddExpenseModal()" class="px-2.5 py-1.5 rounded-lg text-[11px] font-semibold border border-rose-500/40 bg-rose-500/10 text-rose-300 hover:bg-rose-500/20 transition-all flex items-center gap-1 active:scale-95 shadow-xs" title="Add Shop Expense">
+              <span>💸</span> <span data-i18n="acc_add_expense">＋ Expense</span>
             </button>
-            <button onclick="openReceivePaymentModal()" class="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:brightness-110 transition-all flex items-center gap-1.5 active:scale-95 shadow-md shadow-emerald-500/20">
-              <span>💰</span> <span data-i18n="acc_receive_payment">＋ Receive Payment</span>
+            <button onclick="openReceivePaymentModal()" class="px-3 py-1.5 rounded-lg text-[11px] font-semibold bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:brightness-110 transition-all flex items-center gap-1 active:scale-95 shadow-sm shadow-emerald-500/20" title="Receive Customer Due or Payment">
+              <span>💰</span> <span data-i18n="acc_receive_payment">＋ Payment</span>
             </button>
-            <button onclick="openCashCloseModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-amber-500/40 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 transition-all flex items-center gap-1.5 active:scale-95">
+            <button onclick="openCashCloseModal()" class="px-2.5 py-1.5 rounded-lg text-[11px] font-semibold border border-amber-500/40 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 transition-all flex items-center gap-1 active:scale-95" title="Daily Cash Register Close">
               <span>🔒</span> <span data-i18n="acc_day_close">Day Close</span>
             </button>
-            <button onclick="printAccountsStatement()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 transition-all flex items-center gap-1.5 active:scale-95">
+            <button onclick="printAccountsStatement()" class="px-2.5 py-1.5 rounded-lg text-[11px] font-semibold border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 transition-all flex items-center gap-1 active:scale-95" title="Print Financial & Ledger Statement">
               <span>🖨️</span> <span data-i18n="acc_statement">Statement</span>
             </button>
-            <button onclick="exportLedgerCSV()" class="px-3 py-2 rounded-xl text-xs font-bold border border-ios-border bg-white/5 hover:bg-white/10 text-ios-text transition-all flex items-center gap-1 active:scale-95" title="Export Ledger as CSV">
+            <button onclick="exportLedgerCSV()" class="px-2.5 py-1.5 rounded-lg text-[11px] font-semibold border border-ios-border bg-white/5 hover:bg-white/10 text-ios-text transition-all flex items-center gap-1 active:scale-95" title="Export Ledger as CSV">
               <span>↓</span> <span>CSV</span>
             </button>
           </div>
@@ -10465,8 +10463,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         acc_sec_sub: 'Cash Drawer · Due Recovery · Wallets & Ledger',
         acc_title: 'Accounts & Financial Hub',
         acc_desc: 'Real-time cash drawer, 1-click due recovery, payment wallets, artisan wages and daily balance sheet.',
-        acc_add_expense: '＋ Add Expense',
-        acc_receive_payment: '＋ Receive Payment',
+        acc_add_expense: '＋ Expense',
+        acc_receive_payment: '＋ Payment',
         acc_day_close: 'Day Close',
         acc_statement: 'Statement',
         acc_period: 'Period:',
@@ -10729,8 +10727,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         acc_sec_sub: 'ক্যাশ ড্রয়ার · বকেয়া তাগাদা · ওয়ালেট ও খতিয়ান',
         acc_title: 'হিসাব খাতা ও আর্থিক নিয়ন্ত্রণ',
         acc_desc: 'রিয়েল-টাইম ক্যাশবাক্স, ১-ক্লিক বকেয়া তাগাদা, পেমেন্ট ওয়ালেট, কারিগর মজুরি ও দৈনিক ব্যালেন্স শিট।',
-        acc_add_expense: '＋ খরচ এন্ট্রি',
-        acc_receive_payment: '＋ পেমেন্ট জমা',
+        acc_add_expense: '＋ খরচ',
+        acc_receive_payment: '＋ জমা',
         acc_day_close: 'ক্যাশ ক্লোজ',
         acc_statement: 'স্টেটমেন্ট',
         acc_period: 'সময়সীমা:',
