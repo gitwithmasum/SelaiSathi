@@ -3370,27 +3370,20 @@ body.theme-white #view-measurements #meas-quick-matrix {
     /* SelaiSathi Futuristic Auth Modal Card with Glowing Multi-Color Border */
     #modal-google-signin .selaisathi-auth-card {
       position: relative;
-      background: radial-gradient(circle at 50% 10%, rgba(24, 27, 65, 0.75) 0%, rgba(9, 13, 28, 0.96) 80%);
-      border-radius: 32px;
-      box-shadow: 0 0 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(99, 102, 241, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.12);
+      background: 
+        linear-gradient(rgba(11, 16, 32, 0.92), rgba(8, 12, 26, 0.97)) padding-box,
+        linear-gradient(135deg, rgba(168, 85, 247, 0.95) 0%, rgba(59, 130, 246, 0.9) 35%, rgba(6, 182, 212, 0.85) 60%, rgba(245, 158, 11, 0.95) 100%) border-box;
       border: 1.5px solid transparent;
-      background-clip: padding-box;
-    }
-    #modal-google-signin .selaisathi-auth-card-border {
-      position: absolute;
-      inset: -1.5px;
-      border-radius: 33.5px;
-      background: linear-gradient(135deg, rgba(168, 85, 247, 0.95) 0%, rgba(59, 130, 246, 0.9) 35%, rgba(6, 182, 212, 0.85) 60%, rgba(245, 158, 11, 0.95) 100%);
-      z-index: 0;
-      pointer-events-none;
-      box-shadow: 0 0 30px rgba(168, 85, 247, 0.3), 0 0 30px rgba(245, 158, 11, 0.25);
+      border-radius: 32px;
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      box-shadow: 0 0 60px rgba(0, 0, 0, 0.85), 0 0 30px rgba(168, 85, 247, 0.22), 0 0 30px rgba(245, 158, 11, 0.22), inset 0 1px 1px rgba(255, 255, 255, 0.12);
     }
     body.theme-white #modal-google-signin .selaisathi-auth-card {
-      background: #FFFFFF !important;
-      box-shadow: 0 10px 40px rgba(12, 35, 64, 0.15) !important;
-    }
-    body.theme-white #modal-google-signin .selaisathi-auth-card-border {
-      background: linear-gradient(135deg, rgba(168, 85, 247, 0.7) 0%, rgba(59, 130, 246, 0.7) 35%, rgba(6, 182, 212, 0.7) 60%, rgba(245, 158, 11, 0.7) 100%) !important;
+      background: 
+        linear-gradient(#FFFFFF, #F8FAFC) padding-box,
+        linear-gradient(135deg, rgba(168, 85, 247, 0.7) 0%, rgba(59, 130, 246, 0.7) 35%, rgba(6, 182, 212, 0.7) 60%, rgba(245, 158, 11, 0.7) 100%) border-box !important;
+      box-shadow: 0 10px 40px rgba(12, 35, 64, 0.12) !important;
     }
     body.theme-white #modal-google-signin h2 {
       color: #082F49 !important;
@@ -24682,11 +24675,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
   <div id="modal-google-signin" onclick="if(event.target === this) closeGoogleSignInDialog()" class="hidden fixed inset-0 z-[95] bg-black/85 backdrop-blur-2xl flex items-center justify-center p-4">
     <div class="selaisathi-auth-card max-w-md w-full p-6 sm:p-7 space-y-4 rounded-[32px] relative text-center overflow-hidden">
       
-      <!-- Multi-Color Glowing Border Layer (Purple -> Blue -> Golden Amber) -->
-      <div class="selaisathi-auth-card-border"></div>
-
-      <!-- Top Ambient Glow Aura -->
-      <div class="absolute -top-16 left-1/2 -translate-x-1/2 w-48 h-48 bg-gradient-to-r from-purple-500/25 via-blue-500/25 to-amber-500/25 rounded-full blur-3xl pointer-events-none"></div>
+      <!-- Subtle Ambient Glow Auras -->
+      <div class="absolute -top-16 -left-16 w-36 h-36 bg-purple-600/15 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-16 -right-16 w-36 h-36 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"></div>
 
       <!-- Close Button (Top Right) -->
       <button type="button" onclick="closeGoogleSignInDialog()" class="absolute right-4 top-4 w-7 h-7 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white flex items-center justify-center text-xs transition-all cursor-pointer z-20" title="Close">
@@ -24707,7 +24698,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           </div>
 
           <!-- Glass Sphere Orb -->
-          <div class="w-20 h-20 sm:w-22 sm:h-22 rounded-full relative flex items-center justify-center bg-radial from-amber-400/20 via-purple-600/15 to-slate-950/85 border border-amber-300/40 shadow-[0_0_30px_rgba(168,85,247,0.35),0_0_20px_rgba(245,158,11,0.4),inset_0_2px_4px_rgba(255,255,255,0.4)] backdrop-blur-md overflow-hidden">
+          <div class="w-20 h-20 sm:w-22 sm:h-22 rounded-full relative flex items-center justify-center border border-amber-300/40 shadow-[0_0_25px_rgba(168,85,247,0.3),0_0_20px_rgba(245,158,11,0.35),inset_0_2px_6px_rgba(255,255,255,0.35)] backdrop-blur-md overflow-hidden" style="background: radial-gradient(circle at 50% 30%, rgba(254, 240, 138, 0.22) 0%, rgba(168, 85, 247, 0.15) 45%, rgba(10, 15, 30, 0.92) 80%);">
             <!-- Glass highlight reflection -->
             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-8 bg-gradient-to-b from-white/30 to-transparent rounded-full pointer-events-none"></div>
             
