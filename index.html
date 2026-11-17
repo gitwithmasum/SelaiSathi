@@ -6336,23 +6336,23 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       <!-- Futuristic Holographic Navigation Matrix (Tabs) -->
       <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none" id="settings-tabs-container">
-        <button onclick="switchSettingsTab('profile')" id="stab-btn-profile" class="settings-tab-btn active px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-[0_0_15px_rgba(6,182,212,0.2)] flex items-center gap-2 whitespace-nowrap active:scale-95">
-          <span>// 01</span> <span>🏪 Brand & Identity Deck</span>
+        <button onclick="switchSettingsTab('profile')" id="stab-btn-profile" class="settings-tab-btn active px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm flex items-center gap-1.5 whitespace-nowrap active:scale-95">
+          <span>🪪</span> <span>Brand Identity</span>
         </button>
-        <button onclick="switchSettingsTab('invoice')" id="stab-btn-invoice" class="settings-tab-btn px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-2 whitespace-nowrap active:scale-95">
-          <span>// 02</span> <span>🧾 POS & Thermal Hardware</span>
+        <button onclick="switchSettingsTab('invoice')" id="stab-btn-invoice" class="settings-tab-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-1.5 whitespace-nowrap active:scale-95">
+          <span>🧾</span> <span>POS & Receipts</span>
         </button>
-        <button onclick="switchSettingsTab('catalog')" id="stab-btn-catalog" class="settings-tab-btn px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-2 whitespace-nowrap active:scale-95">
-          <span>// 03</span> <span>✂️ Garments & Profit Margin</span>
+        <button onclick="switchSettingsTab('catalog')" id="stab-btn-catalog" class="settings-tab-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-1.5 whitespace-nowrap active:scale-95">
+          <span>✂️</span> <span>Garments & Rates</span>
         </button>
-        <button onclick="switchSettingsTab('templates')" id="stab-btn-templates" class="settings-tab-btn px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-2 whitespace-nowrap active:scale-95">
-          <span>// 04</span> <span>📲 Neural Dispatch (WhatsApp)</span>
+        <button onclick="switchSettingsTab('templates')" id="stab-btn-templates" class="settings-tab-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-1.5 whitespace-nowrap active:scale-95">
+          <span>📲</span> <span>WhatsApp & SMS</span>
         </button>
-        <button onclick="switchSettingsTab('backup')" id="stab-btn-backup" class="settings-tab-btn px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-2 whitespace-nowrap active:scale-95">
-          <span>// 05</span> <span>💾 Encrypted Vault (Backup)</span>
+        <button onclick="switchSettingsTab('backup')" id="stab-btn-backup" class="settings-tab-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-1.5 whitespace-nowrap active:scale-95">
+          <span>💾</span> <span>Backup & Vault</span>
         </button>
-        <button onclick="switchSettingsTab('users')" id="stab-btn-users" class="settings-tab-btn px-5 py-3 rounded-2xl text-xs font-mono font-bold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-2 whitespace-nowrap active:scale-95 cursor-pointer">
-          <span>// 06</span> <span>👥 Users & Access Matrix (RBAC)</span>
+        <button onclick="switchSettingsTab('users')" id="stab-btn-users" class="settings-tab-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent flex items-center gap-1.5 whitespace-nowrap active:scale-95 cursor-pointer">
+          <span>👥</span> <span>Users & Roles</span>
         </button>
       </div>
 
@@ -6363,88 +6363,72 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
           <!-- Left: Futuristic Inputs (7 cols) -->
-          <div class="lg:col-span-7 bento-card p-6 sm:p-7 space-y-5 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl shadow-xl">
-            <div class="flex items-center justify-between border-b border-white/10 pb-4">
-              <div class="flex items-center gap-2.5">
-                <span class="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-sm border border-cyan-500/30">01</span>
-                <div>
-                  <h2 class="text-base font-bold text-white tracking-wide">Enterprise Profile & Branding Matrix</h2>
-                  <p class="text-xs text-gray-400">Configure global brand identity, custom receipts and export titles</p>
-                </div>
-              </div>
-              <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">LIVE SYNAPSE</span>
+          <div class="lg:col-span-7 bento-card p-5 sm:p-6 space-y-4 rounded-3xl bg-slate-900/60 border border-white/10 backdrop-blur-xl shadow-xl">
+            <div class="border-b border-white/10 pb-3">
+              <h2 class="text-base font-bold text-white tracking-wide">Enterprise Profile & Branding</h2>
+              <p class="text-xs text-gray-400 mt-0.5">Configure store identity, custom receipts and export titles.</p>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="sm:col-span-2">
-                <label class="text-xs font-bold text-gray-300 flex items-center justify-between mb-1.5">
-                  <span class="flex items-center gap-1.5"><span>🏪</span> Shop / Brand Name (দোকানের নাম) <span class="text-rose-400">*</span></span>
-                  <span class="font-mono text-[10px] text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded">[PRIMARY IDENTITY]</span>
+                <label class="text-xs font-semibold text-gray-300 block mb-1.5">
+                  Shop / Brand Name (দোকানের নাম) <span class="text-rose-400">*</span>
                 </label>
                 <div class="relative">
-                  <input type="text" id="set-shop-name" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-2xl px-4 py-3 text-white font-black text-sm focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.25)] outline-none transition-all" placeholder="e.g. Royale Bespoke Tailors" />
-                  <span class="absolute right-3.5 top-3.5 text-xs text-cyan-400/60 pointer-events-none">✨</span>
+                  <input type="text" id="set-shop-name" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl px-4 py-2.5 text-white font-black text-sm focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.25)] outline-none transition-all" placeholder="e.g. Royale Bespoke Tailors" />
+                  <span class="absolute right-3.5 top-3 text-xs text-cyan-400/60 pointer-events-none">✨</span>
                 </div>
               </div>
 
               <div>
-                <label class="text-xs font-bold text-gray-300 flex items-center justify-between mb-1.5">
-                  <span>Branch / Outlet (শাখা)</span>
-                  <span class="font-mono text-[10px] text-gray-400">[OUTLET]</span>
+                <label class="text-xs font-semibold text-gray-300 block mb-1.5">
+                  Branch / Outlet (শাখা)
                 </label>
-                <input type="text" id="set-shop-branch" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-2xl px-4 py-2.5 text-white text-xs focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.25)] outline-none transition-all" placeholder="e.g. New Market Branch" />
+                <input type="text" id="set-shop-branch" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl px-4 py-2 text-white text-xs focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.25)] outline-none transition-all" placeholder="e.g. New Market Branch" />
               </div>
 
               <div>
-                <label class="text-xs font-bold text-gray-300 flex items-center justify-between mb-1.5">
-                  <span class="flex items-center gap-1">Primary Phone (মোবাইল নম্বর) <span class="text-rose-400">*</span></span>
-                  <span class="font-mono text-[10px] text-gray-400">[COMM]</span>
+                <label class="text-xs font-semibold text-gray-300 block mb-1.5">
+                  Primary Phone (মোবাইল নম্বর) <span class="text-rose-400">*</span>
                 </label>
-                <input type="text" id="set-shop-phone" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-2xl px-4 py-2.5 text-white font-mono text-xs focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.25)] outline-none transition-all" placeholder="01700-112233" />
+                <input type="text" id="set-shop-phone" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl px-4 py-2 text-white font-mono text-xs focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.25)] outline-none transition-all" placeholder="01700-112233" />
               </div>
 
               <div>
-                <label class="text-xs font-bold text-gray-300 flex items-center justify-between mb-1.5">
-                  <span>Support Email</span>
-                  <span class="font-mono text-[10px] text-gray-400">[NET]</span>
+                <label class="text-xs font-semibold text-gray-300 block mb-1.5">
+                  Support Email
                 </label>
-                <input type="text" id="set-shop-email" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-2xl px-4 py-2.5 text-white text-xs focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.25)] outline-none transition-all" placeholder="info@yourbrand.com" />
+                <input type="text" id="set-shop-email" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl px-4 py-2 text-white text-xs focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.25)] outline-none transition-all" placeholder="info@yourbrand.com" />
               </div>
 
               <div>
-                <label class="text-xs font-bold text-gray-300 flex items-center justify-between mb-1.5">
-                  <span>Website / Tracking URL</span>
-                  <span class="font-mono text-[10px] text-gray-400">[WEB]</span>
+                <label class="text-xs font-semibold text-gray-300 block mb-1.5">
+                  Website / Tracking URL
                 </label>
-                <input type="text" id="set-shop-web" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-2xl px-4 py-2.5 text-white text-xs focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.25)] outline-none transition-all" placeholder="selaisathi.com/track" />
+                <input type="text" id="set-shop-web" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl px-4 py-2 text-white text-xs focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.25)] outline-none transition-all" placeholder="selaisathi.com/track" />
               </div>
 
               <div class="sm:col-span-2">
-                <label class="text-xs font-bold text-gray-300 flex items-center justify-between mb-1.5">
-                  <span class="flex items-center gap-1">Physical Address (পূর্ণ ঠিকানা) <span class="text-rose-400">*</span></span>
-                  <span class="font-mono text-[10px] text-gray-400">[GEO]</span>
+                <label class="text-xs font-semibold text-gray-300 block mb-1.5">
+                  Physical Address (পূর্ণ ঠিকানা) <span class="text-rose-400">*</span>
                 </label>
-                <input type="text" id="set-shop-address" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-2xl px-4 py-2.5 text-white text-xs focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.25)] outline-none transition-all" placeholder="Shop 12, Level 2, New Market, Dhaka" />
+                <input type="text" id="set-shop-address" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl px-4 py-2 text-white text-xs focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.25)] outline-none transition-all" placeholder="Shop 12, Level 2, New Market, Dhaka" />
               </div>
 
               <div class="sm:col-span-2">
-                <label class="text-xs font-bold text-gray-300 flex items-center justify-between mb-1.5">
-                  <span>Brand Tagline / Slogan (স্লোগান)</span>
-                  <span class="font-mono text-[10px] text-gray-400">[MOTTO]</span>
+                <label class="text-xs font-semibold text-gray-300 block mb-1.5">
+                  Brand Tagline / Slogan (স্লোগান)
                 </label>
-                <input type="text" id="set-shop-tagline" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-2xl px-4 py-2.5 text-white text-xs focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.25)] outline-none transition-all" placeholder="বিশ্বাস ও আধুনিক ফ্যাশনের মেলবন্ধন" />
+                <input type="text" id="set-shop-tagline" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl px-4 py-2 text-white text-xs focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.25)] outline-none transition-all" placeholder="বিশ্বাস ও আধুনিক ফ্যাশনের মেলবন্ধন" />
               </div>
             </div>
 
             <!-- Dynamic Branding Guarantee Banner -->
-            <div class="p-4 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-slate-900/60 to-emerald-950/40 border border-cyan-500/20 text-xs text-cyan-200/90 flex items-start gap-3">
-              <span class="text-lg">⚡</span>
-              <div class="space-y-0.5">
-                <strong class="text-white block font-mono text-[11px] tracking-wide uppercase">AUTONOMOUS BRAND PROPAGATION:</strong>
-                <p class="text-[11px] text-gray-300">
-                  এখানে যে দোকানের নাম ও ঠিকানা দেবেন, ক্যাশ মেমো, মানি রিসিট, কারিগর মজুরি শিট, কাটিং স্লিপ, Excel রিপোর্ট এবং PDF অডিট শিটে <span class="text-cyan-400 font-bold">SelaiSathi</span>-র পরিবর্তে আপনার ব্র্যান্ড স্বয়ংক্রিয়ভাবে উপস্থাপিত হবে।
-                </p>
-              </div>
+            <div class="p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-xs flex items-start gap-2.5">
+              <span class="text-sm">⚡</span>
+              <p class="text-[11px] text-cyan-200/90 leading-relaxed">
+                এখানে দেওয়া দোকানের নাম ও ঠিকানা স্বয়ংক্রিয়ভাবে ক্যাশ মেমো, মানি রিসিট, কাটিং স্লিপ, Excel ও PDF রিপোর্টে আপনার ব্র্যান্ড হিসেবে উপস্থাপিত হবে।
+              </p>
             </div>
           </div>
 
@@ -6456,15 +6440,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <!-- Hardware LEDs & Header -->
               <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-4">
                 <div class="flex items-center gap-2">
-                  <div class="flex items-center gap-1.5">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(6,182,212,0.8)]"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400/80"></span>
-                  </div>
-                  <span class="text-[11px] font-mono font-bold text-gray-300 tracking-wider">HUD THERMAL SIMULATOR</span>
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]"></span>
+                  <span class="text-[11px] font-mono font-bold text-gray-300 tracking-wider">RECEIPT SIMULATOR</span>
                 </div>
                 <div class="flex items-center gap-1 text-[10px] font-mono text-cyan-300 bg-cyan-500/10 px-2 py-0.5 rounded-md border border-cyan-500/20">
-                  <span>REALTIME SYNC</span>
+                  <span>REALTIME</span>
                 </div>
               </div>
 
