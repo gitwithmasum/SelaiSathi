@@ -8234,20 +8234,18 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <div>
             <div class="flex items-center gap-2">
               <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded-lg bg-cyan-500/15 text-cyan-400 border border-cyan-500/30">AUDIT TRAIL OS</span>
-              <span class="text-xs text-ios-subtext">Cryptographic Telemetry & Audit Feed</span>
             </div>
-            <h1 class="text-2xl sm:text-3xl font-black text-ios-text tracking-tight mt-1">Activity Log & Audit Hub (কর্মকাণ্ড ও অডিট)</h1>
-            <p class="text-xs text-ios-subtext mt-1">রিয়েল-টাইম শপ অ্যাক্টিভিটি, অর্ডার স্টেজ, পেমেন্ট হিসাব, ক্লাউড সিঙ্ক ও অপারেটর লগ পরিদর্শন।</p>
+            <h1 class="text-3xl font-black text-ios-text tracking-tight mt-1">Activity Log & Audit Hub</h1>
           </div>
 
-          <div class="flex flex-wrap items-center gap-2">
-            <button type="button" onclick="exportActivityCSV()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-slate-700 bg-slate-800/60 hover:bg-slate-700/80 text-gray-300 hover:text-white transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer shadow-xs" title="Export Activities as CSV">
-              <span>📥</span> <span>Export CSV</span>
+          <div class="flex flex-wrap items-center gap-1.5">
+            <button type="button" onclick="exportActivityCSV()" class="px-2.5 py-1.5 rounded-lg text-[11px] font-semibold border border-slate-700 bg-slate-800/60 hover:bg-slate-700/80 text-gray-300 hover:text-white transition-all flex items-center gap-1 active:scale-95 cursor-pointer shadow-xs" title="Export Activity Log as CSV">
+              <span>📥</span> <span>CSV</span>
             </button>
-            <button type="button" onclick="printActivityAuditSheet()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer shadow-xs" title="Print Daily Audit Sheet">
-              <span>🖨️</span> <span>Print Audit Sheet</span>
+            <button type="button" onclick="printActivityAuditSheet()" class="px-2.5 py-1.5 rounded-lg text-[11px] font-semibold border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 transition-all flex items-center gap-1 active:scale-95 cursor-pointer shadow-xs" title="Print Daily Audit Sheet">
+              <span>🖨️</span> <span>Audit Sheet</span>
             </button>
-            <button type="button" onclick="clearActivityLogs()" class="px-3 py-2 rounded-xl text-xs font-bold border border-rose-500/25 bg-rose-500/10 text-rose-300 hover:bg-rose-500/20 transition-all flex items-center gap-1 active:scale-95 cursor-pointer" title="Clear non-critical logs">
+            <button type="button" onclick="clearActivityLogs()" class="px-2.5 py-1.5 rounded-lg text-[11px] font-semibold border border-rose-500/25 bg-rose-500/10 text-rose-300 hover:bg-rose-500/20 transition-all flex items-center gap-1 active:scale-95 cursor-pointer" title="Clear non-critical logs">
               <span>🗑️</span> <span>Clear</span>
             </button>
           </div>
