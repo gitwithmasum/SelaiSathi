@@ -7614,17 +7614,16 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">ACTIVE PRODUCTION</span>
             </div>
             <h1 class="text-3xl font-black text-ios-text tracking-tight mt-1">Orders & Vouchers</h1>
-            <p class="text-xs text-ios-subtext mt-1">Manage tailor orders, update production stages, print receipts and track dues.</p>
           </div>
 
-          <div class="staff-page-header-actions flex flex-wrap items-center gap-2.5">
-            <button onclick="exportOrdersCSV()" class="px-4 py-2.5 rounded-xl text-xs font-bold border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 active:scale-95 flex items-center gap-1.5 transition-colors">
-              <span>↓</span> <span>Export CSV</span>
+          <div class="staff-page-header-actions flex flex-wrap items-center gap-1.5">
+            <button onclick="exportOrdersCSV()" class="px-2.5 py-1.5 rounded-lg text-[11px] font-semibold border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 active:scale-95 flex items-center gap-1 transition-colors" title="Export Orders as CSV">
+              <span>↓</span> <span>CSV</span>
             </button>
-            <button onclick="exportOrdersExcel()" class="px-4 py-2.5 rounded-xl text-xs font-bold border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20 active:scale-95 flex items-center gap-1.5 transition-colors"><span>▦</span> <span>Excel</span></button>
-            <button onclick="exportOrdersPDF()" class="px-4 py-2.5 rounded-xl text-xs font-bold border border-rose-500/30 bg-rose-500/10 text-rose-300 hover:bg-rose-500/20 active:scale-95 flex items-center gap-1.5 transition-colors"><span>▤</span> <span>Export PDF</span></button>
-            <button onclick="openNewOrderModal()" class="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-700/20 active:scale-95 transition-all">
-              <span>+</span> New Order
+            <button onclick="exportOrdersExcel()" class="px-2.5 py-1.5 rounded-lg text-[11px] font-semibold border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20 active:scale-95 flex items-center gap-1 transition-colors" title="Export Orders as Excel"><span>▦</span> <span>Excel</span></button>
+            <button onclick="exportOrdersPDF()" class="px-2.5 py-1.5 rounded-lg text-[11px] font-semibold border border-rose-500/30 bg-rose-500/10 text-rose-300 hover:bg-rose-500/20 active:scale-95 flex items-center gap-1 transition-colors" title="Export Orders as PDF"><span>▤</span> <span>PDF</span></button>
+            <button onclick="openNewOrderModal()" class="flex items-center gap-1 px-3.5 py-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-lg text-[11px] font-semibold shadow-sm shadow-emerald-700/20 active:scale-95 transition-all" title="Create New Order">
+              <span>+</span> <span>New Order</span>
             </button>
           </div>
         </div>
