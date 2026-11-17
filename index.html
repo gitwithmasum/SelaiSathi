@@ -8072,22 +8072,23 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <!-- Top Title & Action Bar -->
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
-            <div class="text-[10px] font-mono font-bold tracking-[.25em] text-cyan-400 uppercase" data-i18n="fab_sec_tag">MATERIAL CONTROL & ROLL REGISTRY</div>
-            <h1 class="text-2xl sm:text-3xl font-black text-ios-text mt-1 flex items-center gap-2">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-cyan-500/20 text-cyan-400 border border-cyan-500/30" data-i18n="fab_sec_tag">MATERIAL CONTROL & ROLL REGISTRY</span>
+            </div>
+            <h1 class="text-3xl font-black text-ios-text tracking-tight mt-1 flex items-center gap-2">
               <span>🧵</span> <span data-i18n="fab_title">Fabrics & Materials</span>
             </h1>
-            <p class="text-xs sm:text-sm text-ios-subtext mt-1" data-i18n="fab_desc">Bolt & roll tracking, barcode tags, fabric consumption calculator, and 1-click supplier requisition.</p>
           </div>
 
-          <div class="flex flex-wrap items-center gap-2">
-            <button onclick="printFabricCatalog()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 active:scale-95 transition-all flex items-center gap-1.5">
-              <span>🖨️</span> <span data-i18n="fab_btn_print">Print Catalog</span>
+          <div class="flex flex-wrap items-center gap-1.5">
+            <button onclick="printFabricCatalog()" class="px-2.5 py-1.5 rounded-lg text-[11px] font-semibold border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 active:scale-95 transition-all flex items-center gap-1" title="Print Fabric Catalog">
+              <span>🖨️</span> <span data-i18n="fab_btn_print">Catalog</span>
             </button>
-            <button onclick="exportFabricCSV()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-slate-700 bg-slate-800/60 text-slate-300 hover:text-white active:scale-95 transition-all flex items-center gap-1.5">
-              <span>↓</span> <span data-i18n="fab_btn_csv">Export CSV</span>
+            <button onclick="exportFabricCSV()" class="px-2.5 py-1.5 rounded-lg text-[11px] font-semibold border border-slate-700 bg-slate-800/60 text-slate-300 hover:text-white active:scale-95 transition-all flex items-center gap-1" title="Export Fabrics as CSV">
+              <span>↓</span> <span data-i18n="fab_btn_csv">CSV</span>
             </button>
-            <button onclick="openFabricModal()" class="px-4 py-2 bg-gradient-to-r from-cyan-600 via-teal-600 to-emerald-600 hover:brightness-110 text-white rounded-xl text-xs font-bold shadow-md shadow-cyan-600/20 active:scale-95 transition-all flex items-center gap-1.5">
-              <span class="text-sm leading-none">＋</span> <span data-i18n="fab_btn_add">New Fabric Entry</span>
+            <button onclick="openFabricModal()" class="px-3.5 py-1.5 bg-gradient-to-r from-cyan-600 via-teal-600 to-emerald-600 hover:brightness-110 text-white rounded-lg text-[11px] font-semibold shadow-sm shadow-cyan-600/20 active:scale-95 transition-all flex items-center gap-1" title="Add New Fabric Entry">
+              <span class="text-xs leading-none">＋</span> <span data-i18n="fab_btn_add">New Fabric</span>
             </button>
           </div>
         </div>
@@ -10527,9 +10528,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         fab_sec_tag: 'MATERIAL CONTROL & ROLL REGISTRY',
         fab_title: 'Fabrics & Materials',
         fab_desc: 'Bolt & roll tracking, barcode tags, fabric consumption calculator, and 1-click supplier requisition.',
-        fab_btn_print: 'Print Catalog',
-        fab_btn_csv: 'Export CSV',
-        fab_btn_add: 'New Fabric Entry',
+        fab_btn_print: 'Catalog',
+        fab_btn_csv: 'CSV',
+        fab_btn_add: 'New Fabric',
         fab_kpi_types: 'Material Types',
         fab_kpi_types_sub: 'Registered Fabric Varieties',
         fab_kpi_stock: 'Total Fabric Stock',
@@ -10791,9 +10792,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         fab_sec_tag: 'ম্যাটেরিয়াল কন্ট্রোল ও রোল রেজিস্ট্রি',
         fab_title: 'কাপড় ও থান রেজিস্ট্রি',
         fab_desc: 'থান ও রোল ট্র্যাকিং, বারকোড ট্যাগ, কাপড় কনজাম্পশন ক্যালকুলেটর এবং ১-ক্লিক সাপ্লায়ার রিকুইজিশন।',
-        fab_btn_print: 'ক্যাটালগ প্রিন্ট',
-        fab_btn_csv: 'CSV এক্সপোর্ট',
-        fab_btn_add: 'নতুন কাপড় এন্ট্রি',
+        fab_btn_print: 'ক্যাটালগ',
+        fab_btn_csv: 'CSV',
+        fab_btn_add: 'নতুন কাপড়',
         fab_kpi_types: 'কাপড়ের ভ্যারাইটি',
         fab_kpi_types_sub: 'নিবন্ধিত কাপড়ের ভ্যারাইটি',
         fab_kpi_stock: 'মোট কাপড়ের স্টক',
