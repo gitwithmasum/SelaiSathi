@@ -14848,25 +14848,33 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (!gDef) return;
 
       const fields = gDef.fields || [];
-      const specItems = fields.map(f => {
+      const specItems = fields.map((f, i) => {
         const input = document.getElementById(`meas_input_${f.key}`);
         const val = input ? input.value : f.def;
+        const indexStr = String(i + 1).padStart(2, '0');
         return `
-          <div style="display:flex; justify-content:space-between; align-items:baseline; padding:6px 0; border-bottom:1px solid #e5e7eb;">
-            <div style="font-size:12px; color:#374151;">
-              <strong style="color:#111827;">${f.labelEn}</strong>
-              <span style="font-size:10px; color:#6b7280; margin-left:3px;">(${f.labelBn})</span>
+          <div style="display:flex; justify-content:space-between; align-items:baseline; padding:6px 0; border-bottom:1px solid #e5e7eb; position:relative;">
+            <div style="font-size:12px; color:#111827; display:flex; align-items:baseline; gap:6px;">
+              <span style="font-family:ui-monospace,monospace; font-size:9.5px; font-weight:700; color:#6b7280; letter-spacing:0.5px;">[${indexStr}]</span>
+              <strong style="text-transform:uppercase; letter-spacing:0.5px;">${f.labelEn}</strong>
+              <span style="font-size:10px; color:#6b7280; font-family:'Segoe UI',sans-serif;">${f.labelBn}</span>
             </div>
-            <div style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:14px; font-weight:800; color:#111827;">
-              ${val}"
+            <div style="display:flex; align-items:baseline; gap:3px;">
+              <span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:14.5px; font-weight:900; color:#0f172a; letter-spacing:-0.2px;">
+                ${val}"
+              </span>
+              <span style="font-family:ui-monospace,monospace; font-size:9px; color:#9ca3af; font-weight:700;">IN</span>
             </div>
           </div>
         `;
       }).join('');
 
       const notes = document.getElementById('meas-fitting-notes')?.value.trim() || prof.notes || '';
-      const dateStr = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       const tagId = 'TAG-' + Math.floor(1000 + Math.random() * 9000);
+      const hashStr = 'CAD-' + Math.random().toString(36).substring(2, 8).toUpperCase();
 
       const w = window.open('', '_blank');
       if (!w) {
@@ -14880,19 +14888,32 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <html>
         <head>
           <meta charset="utf-8">
-          <title>Cutting Ticket · ${safeText(cust.name)} · ${activeMeasurementGarment}</title>
+          <title>CAD Ticket // ${safeText(cust.name)} // ${activeMeasurementGarment}</title>
           <style>
-            @page { size: A4 portrait; margin: 12mm 16mm; }
+            @page { size: A4 portrait; margin: 10mm 15mm; }
             * { box-sizing: border-box; margin: 0; padding: 0; }
             body {
-              font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-              color: #111827;
+              font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+              color: #0f172a;
               background: #fff;
-              padding: 24px 32px;
-              max-width: 580px;
+              padding: 24px 28px;
+              max-width: 590px;
               margin: 0 auto;
               -webkit-font-smoothing: antialiased;
-              line-height: 1.4;
+              line-height: 1.35;
+            }
+            .cyber-corner-box {
+              position: relative;
+              border: 1px solid #111827;
+              padding: 12px 14px;
+            }
+            .cyber-corner-box::before, .cyber-corner-box::after {
+              content: '';
+              position: absolute;
+              width: 6px;
+              height: 6px;
+              border-color: #000;
+              border-style: solid;
             }
             @media print {
               body { padding: 0; max-width: 100%; }
@@ -14901,75 +14922,145 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           </style>
         </head>
         <body>
-          <!-- Sleek Minimalist Atelier Header -->
-          <div style="border-bottom: 2px solid #111827; padding-bottom: 12px; margin-bottom: 14px;">
-            <div style="display:flex; justify-content:space-between; align-items:flex-end;">
-              <div>
-                <div style="font-size: 16px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; color: #111827;">
-                  ${safeText(getBrandName())}
-                </div>
-                <div style="font-size: 10px; color: #6b7280; margin-top: 2px;">
-                  ${safeText(getBrandAddress())} · Phone: ${safeText(getBrandPhone())}
-                </div>
+          <!-- Telemetry System Bar -->
+          <div style="display:flex; justify-content:space-between; align-items:center; font-family:ui-monospace,SFMono-Regular,monospace; font-size:8.5px; color:#6b7280; letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; border-bottom:1px solid #e2e8f0; padding-bottom:4px;">
+            <span>SYS // SELAISATHI ATELIER CAD OS · SPEC REV 4.2</span>
+            <span>HASH: #${hashStr} · ${dateStr} ${timeStr}</span>
+          </div>
+
+          <!-- Futuristic Brand & Barcode Header -->
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px; padding-bottom:12px; border-bottom:2px solid #0f172a;">
+            <div>
+              <div style="font-size:18px; font-weight:900; letter-spacing:2px; text-transform:uppercase; color:#0f172a; display:flex; align-items:center; gap:6px;">
+                <span>${safeText(getBrandName())}</span>
+                <span style="font-family:ui-monospace,monospace; font-size:9px; font-weight:700; background:#0f172a; color:#fff; padding:1px 5px; border-radius:2px; letter-spacing:0.8px;">CAD MATRIX</span>
               </div>
-              <div style="text-align: right;">
-                <span style="display:inline-block; font-family:ui-monospace,monospace; font-size: 10px; font-weight: 800; padding: 2px 8px; border: 1.5px solid #111827; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px;">
-                  ${tagId}
-                </span>
-                <div style="font-size: 9px; color: #6b7280; font-family: ui-monospace, monospace; margin-top: 3px;">
-                  ${dateStr} · Ver: ${prof.currentVersion || 'v1'}
-                </div>
+              <div style="font-size:10px; color:#64748b; font-family:ui-monospace,monospace; margin-top:3px; letter-spacing:0.3px;">
+                ${safeText(getBrandAddress())} · TEL: ${safeText(getBrandPhone())}
               </div>
             </div>
+
+            <!-- Vector Barcode & Tech Tag -->
+            <div style="text-align:right;">
+              <!-- Geometric Simulation Barcode -->
+              <div style="display:inline-flex; align-items:flex-end; gap:1.5px; height:18px; margin-bottom:3px;" title="Laser Scanner Verification">
+                <span style="width:2.5px; height:100%; background:#0f172a;"></span>
+                <span style="width:1px; height:100%; background:#0f172a;"></span>
+                <span style="width:3px; height:85%; background:#0f172a;"></span>
+                <span style="width:1.5px; height:100%; background:#0f172a;"></span>
+                <span style="width:1px; height:90%; background:#0f172a;"></span>
+                <span style="width:4px; height:100%; background:#0f172a;"></span>
+                <span style="width:2px; height:85%; background:#0f172a;"></span>
+                <span style="width:1px; height:100%; background:#0f172a;"></span>
+                <span style="width:3px; height:95%; background:#0f172a;"></span>
+                <span style="width:1px; height:100%; background:#0f172a;"></span>
+                <span style="width:2.5px; height:100%; background:#0f172a;"></span>
+                <span style="width:1.5px; height:80%; background:#0f172a;"></span>
+                <span style="width:3px; height:100%; background:#0f172a;"></span>
+              </div>
+              <div style="font-family:ui-monospace,monospace; font-size:11px; font-weight:900; letter-spacing:1px; color:#0f172a;">
+                ${tagId}
+              </div>
+            </div>
           </div>
 
-          <!-- Ticket Subtitle Strip -->
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px dashed #d1d5db;">
-            <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #374151;">
-              MASTER CUTTING TICKET · কাটিং টিকেট
+          <!-- Document Code Header -->
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; font-family:ui-monospace,monospace; font-size:10.5px; font-weight:800; background:#0f172a; color:#fff; padding:5px 10px; border-radius:3px; letter-spacing:1px;">
+            <span>[01] // MASTER CUTTING TICKET · কাটিং টিকেট</span>
+            <span>GARMENT: ${activeMeasurementGarment.toUpperCase()} (${gDef.nameBn})</span>
+          </div>
+
+          <!-- Technical Specs & Client Grid (Cyber Matrix) -->
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; margin-bottom: 14px; font-size: 11px;">
+            <!-- Client Box -->
+            <div style="border: 1px solid #cbd5e1; padding: 8px 12px; border-radius: 4px; background: #fafafa;">
+              <div style="font-family:ui-monospace,monospace; font-size:8.5px; font-weight:800; color:#64748b; letter-spacing:0.8px; text-transform:uppercase;">
+                // CLIENT PROFILE
+              </div>
+              <div style="font-weight:900; color:#0f172a; font-size:13px; margin-top:2px;">
+                ${safeText(cust.name)}
+              </div>
+              <div style="font-family:ui-monospace,monospace; color:#334155; font-size:10.5px; margin-top:1px;">
+                📞 ${safeText(cust.phone)}
+              </div>
+              <div style="color:#64748b; font-size:10px; margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                ${safeText(cust.address || 'Dhaka, Bangladesh')}
+              </div>
             </div>
-            <div style="font-size: 12px; font-weight: 800; color: #111827;">
-              ${activeMeasurementGarment} <span style="font-size: 11px; color: #6b7280; font-weight: 500;">(${gDef.nameBn})</span>
+
+            <!-- Garment Calibration Box -->
+            <div style="border: 1px solid #cbd5e1; padding: 8px 12px; border-radius: 4px; background: #fafafa;">
+              <div style="font-family:ui-monospace,monospace; font-size:8.5px; font-weight:800; color:#64748b; letter-spacing:0.8px; text-transform:uppercase;">
+                // BESPOKE SPECIFICATION
+              </div>
+              <div style="font-weight:900; color:#0f172a; font-size:13px; margin-top:2px;">
+                ${safeText(activeMeasurementFit || 'Regular Fit')}
+              </div>
+              <div style="font-family:ui-monospace,monospace; font-size:10.5px; color:#0284c7; font-weight:700; margin-top:1px;">
+                CALIBRATION: ${prof.currentVersion || 'v1'} · ACTIVE
+              </div>
+              <div style="font-family:ui-monospace,monospace; font-size:10px; color:#64748b; margin-top:1px;">
+                TOLERANCE: ±0.125" (PRECISION CUT)
+              </div>
             </div>
           </div>
 
-          <!-- Client & Fitting Overview (Clean Key-Value Matrix) -->
-          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; margin-bottom: 16px; font-size: 11px; background:#f9fafb; padding: 10px 14px; border-radius: 8px; border: 1px solid #f3f4f6;">
-            <div>
-              <div style="font-size: 9px; font-weight: 700; text-transform: uppercase; color: #9ca3af; letter-spacing: 0.5px;">Client / গ্রাহক</div>
-              <div style="font-weight: 800; color: #111827; font-size: 13px; margin-top: 1px;">${safeText(cust.name)}</div>
-              <div style="color: #4b5563; font-family: ui-monospace, monospace; font-size: 11px; margin-top: 1px;">${safeText(cust.phone)}</div>
-            </div>
-            <div>
-              <div style="font-size: 9px; font-weight: 700; text-transform: uppercase; color: #9ca3af; letter-spacing: 0.5px;">Fit Silhouette / ফিটিং</div>
-              <div style="font-weight: 800; color: #111827; font-size: 13px; margin-top: 1px;">${safeText(activeMeasurementFit || 'Regular Fit')}</div>
-              <div style="color: #6b7280; font-size: 11px; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${safeText(cust.address || 'Dhaka')}</div>
-            </div>
-          </div>
-
-          <!-- Section Label -->
-          <div style="font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #6b7280; border-bottom: 1.5px solid #111827; padding-bottom: 4px; margin-bottom: 8px; display:flex; justify-content:space-between;">
-            <span>MEASUREMENT SPECIFICATIONS (মাপের বিবরণ)</span>
+          <!-- Technical Specs Strip Header -->
+          <div style="display:flex; justify-content:space-between; align-items:center; font-family:ui-monospace,monospace; font-size:9px; font-weight:800; letter-spacing:1px; color:#475569; border-bottom:1.5px solid #0f172a; padding-bottom:4px; margin-bottom:6px;">
+            <span>[02] // MEASUREMENT TELEMETRY (মাপের বিস্তারিত বিবরণ)</span>
             <span>INCHES (ইঞ্চি)</span>
           </div>
 
-          <!-- 2-Column Minimalist Specifications Grid -->
-          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 4px 24px; margin-bottom: 16px;">
+          <!-- 2-Column High-Tech Specifications Matrix -->
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 3px 20px; margin-bottom: 14px;">
             ${specItems}
           </div>
 
-          <!-- Cutter Notes (Minimal Accent Block) -->
+          <!-- Master Cutter Instructions (Cyber Callout) -->
           ${notes ? `
-          <div style="margin-bottom: 16px; padding: 8px 12px; border-left: 2.5px solid #111827; background: #fbfbfb; font-size: 11px;">
-            <div style="font-size: 9px; font-weight: 800; text-transform: uppercase; color: #6b7280; letter-spacing: 0.5px; margin-bottom: 2px;">Cutter Notes · কাটিং মাস্টারের বিশেষ নির্দেশনা:</div>
-            <div style="color: #1f2937; line-height: 1.4;">${safeText(notes)}</div>
+          <div style="margin-bottom:14px; padding:7px 12px; border-left:3px solid #0f172a; background:#f8fafc; font-size:11px; border-top:1px solid #f1f5f9; border-right:1px solid #f1f5f9; border-bottom:1px solid #f1f5f9;">
+            <div style="font-family:ui-monospace,monospace; font-size:8.5px; font-weight:800; color:#64748b; letter-spacing:0.8px; text-transform:uppercase; margin-bottom:2px;">
+              // 03 CUTTER MASTER DIRECTIVES (কাটিং নির্দেশিকা)
+            </div>
+            <div style="color:#1e293b; font-weight:600; line-height:1.4;">
+              ${safeText(notes)}
+            </div>
           </div>
           ` : ''}
 
-          <!-- Minimal Sign-off Strip -->
-          <div style="display:flex; justify-content:space-between; align-items:center; border-top: 1px dashed #d1d5db; padding-top: 12px; margin-top: 10px; font-size: 10px; color: #6b7280;">
-            <div>Cutting Master: _______________________</div>
-            <div style="font-family: ui-monospace, monospace; font-size: 9px; color: #9ca3af;">SELAISATHI BESPOKE CAD</div>
+          <!-- Verification Strip -->
+          <div style="display:flex; justify-content:space-between; align-items:center; font-family:ui-monospace,monospace; font-size:9.5px; color:#64748b; border-top:1px solid #e2e8f0; padding-top:8px; margin-bottom:14px;">
+            <div>CUTTER MASTER SIGN: ______________________</div>
+            <div>STATION: ATELIER-CAD-01</div>
+          </div>
+
+          <!-- DETACHABLE FABRIC PIN TICKET (ফেব্রিক পিন ট্যাগ) -->
+          <div style="border-top:1.5px dashed #94a3b8; padding-top:10px; margin-top:8px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; font-family:ui-monospace,monospace; font-size:8px; color:#94a3b8; letter-spacing:1px; margin-bottom:6px;">
+              <span>✂ DETACHABLE FABRIC PIN TICKET (কাপড়ে সেফটি পিন দিয়ে লাগানোর ট্যাগ)</span>
+              <span>ATTACH TO CLOTH ROLL</span>
+            </div>
+
+            <div style="border:1.5px solid #0f172a; padding:8px 12px; border-radius:4px; display:flex; justify-content:space-between; align-items:center; background:#fafafa;">
+              <div>
+                <div style="font-family:ui-monospace,monospace; font-size:8px; font-weight:800; color:#64748b; letter-spacing:0.5px;">CLIENT // PIN TAG</div>
+                <div style="font-size:13px; font-weight:900; color:#0f172a;">${safeText(cust.name)}</div>
+                <div style="font-family:ui-monospace,monospace; font-size:10px; color:#334155;">📞 ${safeText(cust.phone)}</div>
+              </div>
+
+              <div style="text-align:center;">
+                <div style="font-family:ui-monospace,monospace; font-size:8px; font-weight:800; color:#64748b;">GARMENT // FIT</div>
+                <div style="font-size:12px; font-weight:800; color:#0f172a;">${activeMeasurementGarment} (${gDef.nameBn})</div>
+                <div style="font-size:10px; color:#64748b;">${safeText(activeMeasurementFit || 'Regular Fit')}</div>
+              </div>
+
+              <div style="text-align:right;">
+                <div style="display:inline-block; font-family:ui-monospace,monospace; font-size:13px; font-weight:900; background:#0f172a; color:#fff; padding:3px 8px; border-radius:3px; letter-spacing:1px;">
+                  ${tagId}
+                </div>
+                <div style="font-family:ui-monospace,monospace; font-size:8px; color:#64748b; margin-top:2px;">${dateStr}</div>
+              </div>
+            </div>
           </div>
 
           <` + `script>
