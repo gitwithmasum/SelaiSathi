@@ -6206,14 +6206,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 <!-- VIEW 5: REPORTS (Comparative Dual Bar Chart Bento)   -->
       <!-- ==================================================== -->
       <section id="view-reports" class="app-view hidden space-y-6">
-  <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
     <div>
-      <div class="text-[10px] font-mono font-bold tracking-[.2em] text-cyan-300">BUSINESS INTELLIGENCE / REPORTS</div>
-      <h1 class="text-3xl font-black tracking-tight mt-2">Reports & Analytics</h1>
-      <p class="text-sm text-gray-400 mt-1">Review sales, cash flow, expenses and stock performance.</p>
+      <div class="flex items-center gap-2">
+        <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">BUSINESS INTELLIGENCE / REPORTS</span>
+      </div>
+      <h1 class="text-3xl font-black text-ios-text tracking-tight mt-1">Reports & Analytics</h1>
     </div>
     <div class="flex flex-wrap items-center gap-2">
-      <label class="text-xs text-gray-400">Reporting month</label>
       <div class="cyber-date-trigger" id="report-month-trigger" data-cyber-target="report-month" data-mode="month" title="Select Reporting Month">
         <span class="cyber-date-icon">📅</span>
         <span class="cyber-date-label" id="report-month-label">Nov 2026</span>
@@ -6221,13 +6221,13 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       </div>
       <!-- Export Buttons Group: CSV, Excel, PDF -->
       <div class="flex items-center gap-1.5 shrink-0">
-        <button onclick="exportReportsCSV()" class="px-3 py-2 rounded-xl text-xs font-bold border border-cyan-400/25 bg-cyan-500/10 text-cyan-200 hover:bg-cyan-500/20 active:scale-95 transition-all flex items-center gap-1" title="Export as CSV spreadsheet">
+        <button onclick="exportReportsCSV()" class="px-2.5 py-1.5 rounded-lg text-[11px] font-semibold border border-cyan-400/25 bg-cyan-500/10 text-cyan-200 hover:bg-cyan-500/20 active:scale-95 transition-all flex items-center gap-1" title="Export as CSV spreadsheet">
           <span>↓</span> <span>CSV</span>
         </button>
-        <button onclick="exportReportsExcel()" class="px-3 py-2 rounded-xl text-xs font-bold border border-emerald-400/25 bg-emerald-500/10 text-emerald-200 hover:bg-emerald-500/20 active:scale-95 transition-all flex items-center gap-1" title="Export as Microsoft Excel (.xls)">
+        <button onclick="exportReportsExcel()" class="px-2.5 py-1.5 rounded-lg text-[11px] font-semibold border border-emerald-400/25 bg-emerald-500/10 text-emerald-200 hover:bg-emerald-500/20 active:scale-95 transition-all flex items-center gap-1" title="Export as Microsoft Excel (.xls)">
           <span>📊</span> <span>Excel</span>
         </button>
-        <button onclick="exportReportsPDF()" class="px-3 py-2 rounded-xl text-xs font-bold border border-rose-400/25 bg-rose-500/10 text-rose-200 hover:bg-rose-500/20 active:scale-95 transition-all flex items-center gap-1" title="Export or Print as PDF document">
+        <button onclick="exportReportsPDF()" class="px-2.5 py-1.5 rounded-lg text-[11px] font-semibold border border-rose-400/25 bg-rose-500/10 text-rose-200 hover:bg-rose-500/20 active:scale-95 transition-all flex items-center gap-1" title="Export or Print as PDF document">
           <span>📄</span> <span>PDF</span>
         </button>
       </div>
