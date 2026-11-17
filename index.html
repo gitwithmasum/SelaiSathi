@@ -4872,30 +4872,31 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <!-- Top Action & Title Bar -->
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
-            <div class="text-[10px] font-mono font-bold tracking-[.25em] text-cyan-400 uppercase" data-i18n="inv_sec_tag">FACTORY MATERIALS &amp; TRIMS CONTROL</div>
-            <h1 class="text-2xl sm:text-3xl font-black text-ios-text mt-1 flex items-center gap-2">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-cyan-500/20 text-cyan-400 border border-cyan-500/30" data-i18n="inv_sec_tag">FACTORY MATERIALS &amp; TRIMS CONTROL</span>
+            </div>
+            <h1 class="text-3xl font-black text-ios-text tracking-tight mt-1 flex items-center gap-2">
               <span>📦</span> <span data-i18n="inv_hub_title">Inventory &amp; Materials Hub</span>
             </h1>
-            <p class="text-xs sm:text-sm text-ios-subtext mt-1" data-i18n="inv_hub_desc">Trims, buttons, collar interlining, threads, packaging, remnants, and automatic Bill of Materials (BOM) consumption.</p>
           </div>
 
-          <div class="flex flex-wrap items-center gap-2">
-            <button onclick="openBarcodeScannerModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 active:scale-95 transition-all flex items-center gap-1.5" title="Camera Barcode &amp; QR Scanner">
-              <span>📷</span> <span data-i18n="btn_barcode">Barcode Scan</span>
+          <div class="flex flex-wrap items-center gap-1.5">
+            <button onclick="openBarcodeScannerModal()" class="px-2.5 py-1.5 rounded-lg text-[11px] font-semibold border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 active:scale-95 transition-all flex items-center gap-1" title="Camera Barcode &amp; QR Scanner">
+              <span>📷</span> <span data-i18n="btn_barcode">Scan</span>
             </button>
-            <button onclick="openBOMDeductModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-purple-500/30 bg-purple-500/10 text-purple-300 hover:bg-purple-500/20 active:scale-95 transition-all flex items-center gap-1.5" title="Bill of Materials Garment Production Deduct">
-              <span>✂️</span> <span data-i18n="btn_bom">BOM Consumption</span>
+            <button onclick="openBOMDeductModal()" class="px-2.5 py-1.5 rounded-lg text-[11px] font-semibold border border-purple-500/30 bg-purple-500/10 text-purple-300 hover:bg-purple-500/20 active:scale-95 transition-all flex items-center gap-1" title="Bill of Materials Garment Production Deduct">
+              <span>✂️</span> <span data-i18n="btn_bom">BOM</span>
             </button>
-            <button onclick="openStockAuditModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-amber-500/30 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 active:scale-95 transition-all flex items-center gap-1.5" title="Physical Stock Audit &amp; Wastage Log">
-              <span>📋</span> <span data-i18n="btn_stock_audit">Stock Audit</span>
+            <button onclick="openStockAuditModal()" class="px-2.5 py-1.5 rounded-lg text-[11px] font-semibold border border-amber-500/30 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 active:scale-95 transition-all flex items-center gap-1" title="Physical Stock Audit &amp; Wastage Log">
+              <span>📋</span> <span data-i18n="btn_stock_audit">Audit</span>
             </button>
-            <button onclick="openInventoryItemModal()" class="px-4 py-2 bg-gradient-to-r from-cyan-600 via-teal-600 to-emerald-600 hover:brightness-110 text-white rounded-xl text-xs font-bold shadow-md shadow-cyan-600/20 active:scale-95 transition-all flex items-center gap-1.5">
-              <span class="text-sm leading-none">＋</span> <span data-i18n="btn_new_item">New Item</span>
+            <button onclick="openInventoryItemModal()" class="px-3 py-1.5 bg-gradient-to-r from-cyan-600 via-teal-600 to-emerald-600 hover:brightness-110 text-white rounded-lg text-[11px] font-semibold shadow-sm shadow-cyan-600/20 active:scale-95 transition-all flex items-center gap-1" title="Add New Inventory Material / Item">
+              <span class="text-xs leading-none">＋</span> <span data-i18n="btn_new_item">Item</span>
             </button>
-            <button onclick="printInventoryReport()" class="p-2 border border-slate-700 bg-slate-800/60 rounded-xl text-xs text-slate-300 hover:text-white" title="Print Inventory Audit Sheet">
+            <button onclick="printInventoryReport()" class="p-1.5 border border-slate-700 bg-slate-800/60 rounded-lg text-xs text-slate-300 hover:text-white transition-all flex items-center justify-center w-7 h-7" title="Print Inventory Audit Sheet">
               <span>🖨️</span>
             </button>
-            <button onclick="exportInventoryCSV()" class="p-2 border border-slate-700 bg-slate-800/60 rounded-xl text-xs text-slate-300 hover:text-white" title="Export CSV">
+            <button onclick="exportInventoryCSV()" class="p-1.5 border border-slate-700 bg-slate-800/60 rounded-lg text-xs text-slate-300 hover:text-white transition-all flex items-center justify-center w-7 h-7" title="Export CSV">
               <span>↓</span>
             </button>
           </div>
@@ -10448,10 +10449,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         btn_sync_now: 'Sync Now',
         users_tab_operators: 'Operators List',
         inv_hub_title: 'Inventory & Materials Hub',
-        btn_barcode: 'Barcode Scan',
-        btn_bom: 'BOM Consumption',
-        btn_stock_audit: 'Stock Audit',
-        btn_new_item: 'New Item',
+        btn_barcode: 'Scan',
+        btn_bom: 'BOM',
+        btn_stock_audit: 'Audit',
+        btn_new_item: 'Item',
         inv_tab_stock: 'Stock Items',
         inv_tab_remnants: 'Fabric Remnants',
         inv_tab_suppliers: 'Suppliers',
@@ -10667,10 +10668,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         inv_mov_title: 'Live Stock Movement Ledger',
         inv_mov_desc: 'Audit trail of factory material arrivals, usage, and BOM consumption.',
         inv_mov_empty: 'No stock movements recorded yet.',
-        btn_barcode: 'Barcode Scan',
-        btn_bom: 'BOM Consumption',
-        btn_audit: 'Stock Audit',
-        btn_new_item: '＋ Add Material'
+        btn_barcode: 'Scan',
+        btn_bom: 'BOM',
+        btn_audit: 'Audit',
+        btn_new_item: 'Item'
       },
       bn: {
         sec_shop: 'দোকান (Shop OS)',
@@ -10712,10 +10713,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         btn_sync_now: 'সিঙ্ক করুন',
         users_tab_operators: 'কর্মী তালিকা',
         inv_hub_title: 'কারখানা ইনভেন্টরি ও ম্যাটেরিয়ালস',
-        btn_barcode: 'বারকোড স্ক্যান',
-        btn_bom: 'BOM কনজাম্পশন',
-        btn_stock_audit: 'স্টক অডিট',
-        btn_new_item: 'নতুন উপাদান',
+        btn_barcode: 'স্ক্যান',
+        btn_bom: 'BOM',
+        btn_stock_audit: 'অডিট',
+        btn_new_item: 'উপাদান',
         inv_tab_stock: 'মালামাল তালিকা',
         inv_tab_remnants: 'কাটপিস ও ছাঁট কাপড়',
         inv_tab_suppliers: 'সাপ্লায়ার ও মহাজন খাতা',
@@ -10931,10 +10932,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         inv_mov_title: 'Live Stock Movement Ledger (স্টক ইন-আউট হিস্ট্রি)',
         inv_mov_desc: 'কারখানায় মালামাল আমদানি, ব্যবহার ও কাটিং কনজাম্পশন অডিট ট্রেইল',
         inv_mov_empty: 'এখনো কোনো স্টক মুভমেন্ট রেকর্ড করা হয়নি।',
-        btn_barcode: 'বারকোড স্ক্যান',
-        btn_bom: 'BOM কনজাম্পশন',
-        btn_audit: 'স্টক অডিট',
-        btn_new_item: '＋ নতুন উপাদান'
+        btn_barcode: 'স্ক্যান',
+        btn_bom: 'BOM',
+        btn_audit: 'অডিট',
+        btn_new_item: 'উপাদান'
       }
     };
 
