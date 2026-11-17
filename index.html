@@ -14838,22 +14838,40 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
     function printMasterCuttingSlip() {
       const cust = getActiveMeasurementCustomer();
+      if (!cust) {
+        if (window.CyberDialog) CyberDialog.alert('কাটিং স্লিপ প্রিন্ট করতে প্রথমে একজন গ্রাহক নির্বাচন করুন।', { icon: '🖨️', title: 'NO CLIENT SELECTED' });
+        else alert('Please select a customer first.');
+        return;
+      }
       const prof = getActiveGarmentProfile(cust, activeMeasurementGarment);
       const gDef = MEASUREMENT_GARMENTS[activeMeasurementGarment];
-      if (!cust || !gDef) return;
+      if (!gDef) return;
 
-      const rows = gDef.fields.map(f => {
+      const fields = gDef.fields || [];
+      const specItems = fields.map(f => {
         const input = document.getElementById(`meas_input_${f.key}`);
         const val = input ? input.value : f.def;
-        return `<tr><td style="padding:6px 8px;border:1px solid #cbd5e1;font-weight:bold">${f.labelEn} (${f.labelBn})</td><td style="padding:6px 8px;border:1px solid #cbd5e1;font-family:monospace;font-size:14px;font-weight:bold;text-align:right">${val}"</td></tr>`;
+        return `
+          <div style="display:flex; justify-content:space-between; align-items:baseline; padding:6px 0; border-bottom:1px solid #e5e7eb;">
+            <div style="font-size:12px; color:#374151;">
+              <strong style="color:#111827;">${f.labelEn}</strong>
+              <span style="font-size:10px; color:#6b7280; margin-left:3px;">(${f.labelBn})</span>
+            </div>
+            <div style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:14px; font-weight:800; color:#111827;">
+              ${val}"
+            </div>
+          </div>
+        `;
       }).join('');
 
-      const notes = document.getElementById('meas-fitting-notes')?.value.trim() || prof.notes || 'None';
+      const notes = document.getElementById('meas-fitting-notes')?.value.trim() || prof.notes || '';
       const dateStr = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+      const tagId = 'TAG-' + Math.floor(1000 + Math.random() * 9000);
 
       const w = window.open('', '_blank');
       if (!w) {
-        alert('Please allow popups to print master cutting slip.');
+        if (window.CyberDialog) CyberDialog.alert('ব্রাউজারের পপআপ ব্লক অন রয়েছে। দয়া করে কাটিং স্লিপ প্রিন্ট করার জন্য পপআপ অ্যালাউ করুন।', { icon: '⚠️', title: 'POPUP BLOCKED' });
+        else alert('Please allow popups to print cutting slip.');
         return;
       }
 
@@ -14862,54 +14880,96 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <html>
         <head>
           <meta charset="utf-8">
-          <title>Cutting Slip - ${cust.name} - ${activeMeasurementGarment}</title>
+          <title>Cutting Ticket · ${safeText(cust.name)} · ${activeMeasurementGarment}</title>
           <style>
-            body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; color: #0f172a; padding: 24px; max-width: 480px; margin: 0 auto; }
-            .header { text-align: center; border-bottom: 2px dashed #94a3b8; padding-bottom: 12px; margin-bottom: 16px; }
-            .shop-title { font-size: 18px; font-weight: 900; letter-spacing: 1px; color: #0f172a; }
-            .slip-title { font-size: 12px; font-weight: bold; color: #475569; text-transform: uppercase; margin-top: 4px; }
-            .client-box { background: #f1f5f9; padding: 12px; border-radius: 8px; margin-bottom: 16px; font-size: 12px; line-height: 1.5; }
-            table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 16px; }
-            .notes-box { border: 1px solid #cbd5e1; padding: 10px; border-radius: 8px; font-size: 11px; margin-bottom: 20px; background: #fff; }
-            .cutter-sig { display: flex; justify-content: space-between; font-size: 11px; border-top: 1px solid #94a3b8; padding-top: 14px; margin-top: 24px; }
-            @media print { body { padding: 0; } }
+            @page { size: A4 portrait; margin: 12mm 16mm; }
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+            body {
+              font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+              color: #111827;
+              background: #fff;
+              padding: 24px 32px;
+              max-width: 580px;
+              margin: 0 auto;
+              -webkit-font-smoothing: antialiased;
+              line-height: 1.4;
+            }
+            @media print {
+              body { padding: 0; max-width: 100%; }
+              .no-print { display: none !important; }
+            }
           </style>
         </head>
         <body>
-          <div class="header">
-            <div class="shop-title">${safeText(getBrandName())}</div>
-        <div style="font-size:9px;color:#555;margin-bottom:6px;">${safeText(getBrandAddress())} | Phone: ${safeText(getBrandPhone())}</div>
-            <div class="slip-title">MASTER CUTTING TICKET • কাটিং স্লিপ</div>
-            <div style="font-size:10px;color:#64748b;margin-top:2px;">Date: ${dateStr} · Version: ${prof.currentVersion || 'v1'}</div>
+          <!-- Sleek Minimalist Atelier Header -->
+          <div style="border-bottom: 2px solid #111827; padding-bottom: 12px; margin-bottom: 14px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+              <div>
+                <div style="font-size: 16px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; color: #111827;">
+                  ${safeText(getBrandName())}
+                </div>
+                <div style="font-size: 10px; color: #6b7280; margin-top: 2px;">
+                  ${safeText(getBrandAddress())} · Phone: ${safeText(getBrandPhone())}
+                </div>
+              </div>
+              <div style="text-align: right;">
+                <span style="display:inline-block; font-family:ui-monospace,monospace; font-size: 10px; font-weight: 800; padding: 2px 8px; border: 1.5px solid #111827; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px;">
+                  ${tagId}
+                </span>
+                <div style="font-size: 9px; color: #6b7280; font-family: ui-monospace, monospace; margin-top: 3px;">
+                  ${dateStr} · Ver: ${prof.currentVersion || 'v1'}
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div class="client-box">
-            <div><strong>Client:</strong> ${safeText(cust.name)} (${safeText(cust.phone)})</div>
-            <div><strong>Garment:</strong> ${activeMeasurementGarment} (${gDef.nameBn})</div>
-            <div><strong>Fit Silhouette:</strong> ${activeMeasurementFit}</div>
-            <div><strong>Address:</strong> ${safeText(cust.address || 'Dhaka')}</div>
+          <!-- Ticket Subtitle Strip -->
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px dashed #d1d5db;">
+            <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #374151;">
+              MASTER CUTTING TICKET · কাটিং টিকেট
+            </div>
+            <div style="font-size: 12px; font-weight: 800; color: #111827;">
+              ${activeMeasurementGarment} <span style="font-size: 11px; color: #6b7280; font-weight: 500;">(${gDef.nameBn})</span>
+            </div>
           </div>
 
-          <table>
-            <thead>
-              <tr style="background:#e2e8f0;text-align:left">
-                <th style="padding:6px 8px;border:1px solid #cbd5e1">Specification (মাপের অংশ)</th>
-                <th style="padding:6px 8px;border:1px solid #cbd5e1;text-align:right">Value (ইঞ্চি)</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${rows}
-            </tbody>
-          </table>
-
-          <div class="notes-box">
-            <strong>Cutter Master Notes (বিশেষ নির্দেশিকা):</strong><br>
-            ${safeText(notes)}
+          <!-- Client & Fitting Overview (Clean Key-Value Matrix) -->
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; margin-bottom: 16px; font-size: 11px; background:#f9fafb; padding: 10px 14px; border-radius: 8px; border: 1px solid #f3f4f6;">
+            <div>
+              <div style="font-size: 9px; font-weight: 700; text-transform: uppercase; color: #9ca3af; letter-spacing: 0.5px;">Client / গ্রাহক</div>
+              <div style="font-weight: 800; color: #111827; font-size: 13px; margin-top: 1px;">${safeText(cust.name)}</div>
+              <div style="color: #4b5563; font-family: ui-monospace, monospace; font-size: 11px; margin-top: 1px;">${safeText(cust.phone)}</div>
+            </div>
+            <div>
+              <div style="font-size: 9px; font-weight: 700; text-transform: uppercase; color: #9ca3af; letter-spacing: 0.5px;">Fit Silhouette / ফিটিং</div>
+              <div style="font-weight: 800; color: #111827; font-size: 13px; margin-top: 1px;">${safeText(activeMeasurementFit || 'Regular Fit')}</div>
+              <div style="color: #6b7280; font-size: 11px; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${safeText(cust.address || 'Dhaka')}</div>
+            </div>
           </div>
 
-          <div class="cutter-sig">
-            <div>Cutting Master: __________________</div>
-            <div>Delivery Tag: TAG-${Math.floor(1000 + Math.random() * 9000)}</div>
+          <!-- Section Label -->
+          <div style="font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #6b7280; border-bottom: 1.5px solid #111827; padding-bottom: 4px; margin-bottom: 8px; display:flex; justify-content:space-between;">
+            <span>MEASUREMENT SPECIFICATIONS (মাপের বিবরণ)</span>
+            <span>INCHES (ইঞ্চি)</span>
+          </div>
+
+          <!-- 2-Column Minimalist Specifications Grid -->
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 4px 24px; margin-bottom: 16px;">
+            ${specItems}
+          </div>
+
+          <!-- Cutter Notes (Minimal Accent Block) -->
+          ${notes ? `
+          <div style="margin-bottom: 16px; padding: 8px 12px; border-left: 2.5px solid #111827; background: #fbfbfb; font-size: 11px;">
+            <div style="font-size: 9px; font-weight: 800; text-transform: uppercase; color: #6b7280; letter-spacing: 0.5px; margin-bottom: 2px;">Cutter Notes · কাটিং মাস্টারের বিশেষ নির্দেশনা:</div>
+            <div style="color: #1f2937; line-height: 1.4;">${safeText(notes)}</div>
+          </div>
+          ` : ''}
+
+          <!-- Minimal Sign-off Strip -->
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top: 1px dashed #d1d5db; padding-top: 12px; margin-top: 10px; font-size: 10px; color: #6b7280;">
+            <div>Cutting Master: _______________________</div>
+            <div style="font-family: ui-monospace, monospace; font-size: 9px; color: #9ca3af;">SELAISATHI BESPOKE CAD</div>
           </div>
 
           <` + `script>
