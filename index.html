@@ -8078,22 +8078,22 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <!-- Top Title & Action Bar -->
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
-            <div class="text-[10px] font-mono font-bold tracking-[.25em] text-cyan-400 uppercase">MATERIAL CONTROL & ROLL REGISTRY</div>
+            <div class="text-[10px] font-mono font-bold tracking-[.25em] text-cyan-400 uppercase" data-i18n="fab_sec_tag">MATERIAL CONTROL & ROLL REGISTRY</div>
             <h1 class="text-2xl sm:text-3xl font-black text-ios-text mt-1 flex items-center gap-2">
-              <span>🧵</span> <span>Fabrics & Materials (কাপড় ও থান রেজিস্ট্রি)</span>
+              <span>🧵</span> <span data-i18n="fab_title">Fabrics & Materials</span>
             </h1>
-            <p class="text-xs sm:text-sm text-ios-subtext mt-1">থান ও রোল ট্র্যাকিং, বারকোড ট্যাগ, কাপড় কনজাম্পশন ক্যালকুলেটর এবং ১-ক্লিক সাপ্লায়ার রিকুইজিশন।</p>
+            <p class="text-xs sm:text-sm text-ios-subtext mt-1" data-i18n="fab_desc">Bolt & roll tracking, barcode tags, fabric consumption calculator, and 1-click supplier requisition.</p>
           </div>
 
           <div class="flex flex-wrap items-center gap-2">
             <button onclick="printFabricCatalog()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 active:scale-95 transition-all flex items-center gap-1.5">
-              <span>🖨️</span> <span>ক্যাটালগ প্রিন্ট</span>
+              <span>🖨️</span> <span data-i18n="fab_btn_print">Print Catalog</span>
             </button>
             <button onclick="exportFabricCSV()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-slate-700 bg-slate-800/60 text-slate-300 hover:text-white active:scale-95 transition-all flex items-center gap-1.5">
-              <span>↓</span> <span>CSV এক্সপোর্ট</span>
+              <span>↓</span> <span data-i18n="fab_btn_csv">Export CSV</span>
             </button>
             <button onclick="openFabricModal()" class="px-4 py-2 bg-gradient-to-r from-cyan-600 via-teal-600 to-emerald-600 hover:brightness-110 text-white rounded-xl text-xs font-bold shadow-md shadow-cyan-600/20 active:scale-95 transition-all flex items-center gap-1.5">
-              <span class="text-sm leading-none">＋</span> <span>নতুন কাপড় এন্ট্রি</span>
+              <span class="text-sm leading-none">＋</span> <span data-i18n="fab_btn_add">New Fabric Entry</span>
             </button>
           </div>
         </div>
@@ -8102,38 +8102,38 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
           <div class="bento-card p-4 sm:p-5">
             <div class="flex items-center justify-between text-xs text-ios-subtext">
-              <span class="font-bold uppercase tracking-wider text-[10px]">Material Types</span>
+              <span class="font-bold uppercase tracking-wider text-[10px]" data-i18n="fab_kpi_types">Material Types</span>
               <span class="text-base">🧵</span>
             </div>
             <div class="text-2xl sm:text-3xl font-black font-mono text-ios-text mt-2" id="fabric-total">0</div>
-            <div class="text-[11px] text-ios-subtext mt-0.5">নিবন্ধিত কাপড়ের ভ্যারাইটি</div>
+            <div class="text-[11px] text-ios-subtext mt-0.5" data-i18n="fab_kpi_types_sub">Registered Fabric Varieties</div>
           </div>
 
           <div class="bento-card p-4 sm:p-5">
             <div class="flex items-center justify-between text-xs text-cyan-400">
-              <span class="font-bold uppercase tracking-wider text-[10px]">Total Fabric Stock</span>
+              <span class="font-bold uppercase tracking-wider text-[10px]" data-i18n="fab_kpi_stock">Total Fabric Stock</span>
               <span class="text-base">📏</span>
             </div>
             <div class="text-2xl sm:text-3xl font-black font-mono text-cyan-300 mt-2" id="fabric-total-yards">0 yds</div>
-            <div class="text-[11px] text-ios-subtext mt-0.5" id="fabric-active-bolts">0টি থান / রোল সক্রিয়</div>
+            <div class="text-[11px] text-ios-subtext mt-0.5" id="fabric-active-bolts">0 Active Rolls</div>
           </div>
 
           <div class="bento-card p-4 sm:p-5">
             <div class="flex items-center justify-between text-xs text-emerald-400">
-              <span class="font-bold uppercase tracking-wider text-[10px]">Stock Valuation</span>
+              <span class="font-bold uppercase tracking-wider text-[10px]" data-i18n="fab_kpi_val">Stock Valuation</span>
               <span class="text-base">💰</span>
             </div>
             <div class="text-2xl sm:text-3xl font-black font-mono text-emerald-400 mt-2" id="fabric-value">৳0</div>
-            <div class="text-[11px] text-ios-subtext mt-0.5">মোট ক্রয়মূল্য ইনভেন্টরি সম্পদ</div>
+            <div class="text-[11px] text-ios-subtext mt-0.5" data-i18n="fab_kpi_val_sub">Total Inventory Asset Value</div>
           </div>
 
           <div class="bento-card p-4 sm:p-5 cursor-pointer hover:border-amber-500/50 transition-all" onclick="filterLowStockFabrics()" title="Click to view low stock items">
             <div class="flex items-center justify-between text-xs text-amber-400">
-              <span class="font-bold uppercase tracking-wider text-[10px]">Low-Stock Alerts</span>
+              <span class="font-bold uppercase tracking-wider text-[10px]" data-i18n="fab_kpi_low">Low-Stock Alerts</span>
               <span class="text-base">⚠️</span>
             </div>
             <div class="text-2xl sm:text-3xl font-black font-mono text-amber-400 mt-2" id="fabric-low">0</div>
-            <div class="text-[11px] text-amber-300/80 mt-0.5">রিঅর্ডার প্রয়োজন (&lt; ন্যূনতম স্টক)</div>
+            <div class="text-[11px] text-amber-300/80 mt-0.5" data-i18n="fab_kpi_low_sub">Reorder Needed (< Min Stock)</div>
           </div>
         </div>
 
@@ -8143,40 +8143,40 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <div class="flex items-center gap-2">
               <span class="text-lg">📐</span>
               <div>
-                <h3 class="font-black text-sm text-ios-text">স্মার্ট পোশাক কনজাম্পশন ক্যালকুলেটর (Quick Fabric Cut Estimator)</h3>
-                <p class="text-[11px] text-ios-subtext">থানে কত গজ কাপড় আছে দিলে কয়টি পাঞ্জাবি, শার্ট বা প্যান্ট তৈরি সম্ভব তা সাথে সাথে হিসাব করে নিন।</p>
+                <h3 class="font-black text-sm text-ios-text" data-i18n="fab_calc_title">Smart Fabric Consumption Calculator</h3>
+                <p class="text-[11px] text-ios-subtext" data-i18n="fab_calc_desc">Instantly calculate how many panjabis, shirts, or pants can be cut from available bolt yards.</p>
               </div>
             </div>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 font-bold self-start sm:self-auto">TAILOR MATH 2.0</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 font-bold self-start sm:self-auto" data-i18n="fab_calc_badge">TAILOR MATH 2.0</span>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-3 items-end">
             <div>
-              <label class="block text-[11px] font-bold text-ios-text mb-1">পোশাকের ধরন (Garment Type)</label>
+              <label class="block text-[11px] font-bold text-ios-text mb-1" data-i18n="fab_calc_garment_lbl">Garment Type</label>
               <select id="calc-garment-type" onchange="runFabricEstimator()" class="w-full px-3 py-2 rounded-xl text-xs bg-slate-900/90 border border-slate-700 text-ios-text focus:outline-none focus:border-cyan-400">
-                <option value="panjabi">পাঞ্জাবি (Panjabi - ২.৫০ গজ)</option>
-                <option value="shirt">ফরমাল শার্ট (Shirt - ২.২৫ গজ)</option>
-                <option value="pant">প্যান্ট (Pant - ১.৩০ গজ)</option>
-                <option value="kabli">কাবলি সেট (Kabli Set - ৩.২৫ গজ)</option>
-                <option value="blazer">ব্লেজার (Blazer - ২.০০ গজ)</option>
-                <option value="pajama">পায়জামা (Pajama - ১.৭৫ গজ)</option>
-                <option value="kurti">লেডিস কামিজ (Kurti - ২.৪০ গজ)</option>
+                <option value="panjabi">Panjabi (2.50 yds)</option>
+                <option value="shirt">Formal Shirt (2.25 yds)</option>
+                <option value="pant">Pant / Trouser (1.30 yds)</option>
+                <option value="kabli">Kabli Set (3.25 yds)</option>
+                <option value="blazer">Blazer (2.00 yds)</option>
+                <option value="pajama">Pajama (1.75 yds)</option>
+                <option value="kurti">Kurti / Kameez (2.40 yds)</option>
               </select>
             </div>
 
             <div>
-              <label class="block text-[11px] font-bold text-ios-text mb-1">মোট কাপড়ের পরিমাণ (গজ)</label>
+              <label class="block text-[11px] font-bold text-ios-text mb-1" data-i18n="fab_calc_yards_lbl">Total Fabric Length (Yards)</label>
               <input type="number" id="calc-fabric-yards" value="25" min="1" step="0.5" oninput="runFabricEstimator()" placeholder="Enter yards" class="w-full px-3 py-2 rounded-xl text-xs font-mono font-bold bg-slate-900/90 border border-slate-700 text-ios-text focus:outline-none focus:border-cyan-400">
             </div>
 
             <div class="sm:col-span-1 lg:col-span-2 p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/25 flex items-center justify-between">
               <div>
-                <div class="text-[10px] text-cyan-400 font-bold uppercase tracking-wider">সম্ভাব্য তৈরি হবে:</div>
-                <div class="text-base sm:text-lg font-black font-mono text-cyan-300" id="calc-result-text">১০টি পাঞ্জাবি তৈরি সম্ভব</div>
+                <div class="text-[10px] text-cyan-400 font-bold uppercase tracking-wider" data-i18n="fab_calc_res_lbl">ESTIMATED YIELD:</div>
+                <div class="text-base sm:text-lg font-black font-mono text-cyan-300" id="calc-result-text">Can yield 10 Panjabi(s)</div>
               </div>
               <div class="text-right">
-                <div class="text-[10px] text-ios-subtext">অবশিষ্ট কাপড় (Leftover):</div>
-                <div class="text-xs font-black font-mono text-emerald-400" id="calc-leftover-text">০.০ গজ</div>
+                <div class="text-[10px] text-ios-subtext" data-i18n="fab_calc_left_lbl">Leftover Fabric:</div>
+                <div class="text-xs font-black font-mono text-emerald-400" id="calc-leftover-text">0.0 yds</div>
               </div>
             </div>
           </div>
@@ -8187,7 +8187,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
             <!-- Search Input -->
             <div class="relative flex-1">
-              <input type="text" id="fabric-search" oninput="renderFabrics()" placeholder="Search fabric name, SKU, Bolt ID (e.g. BOLT-104), or Rack..." class="w-full px-4 py-2.5 pl-10 text-xs rounded-xl border border-ios-border bg-slate-900/60 focus:outline-none">
+              <input type="text" id="fabric-search" oninput="renderFabrics()" placeholder="Search fabric name, SKU, Bolt ID (e.g. BOLT-104), or Rack..." data-i18n-placeholder="fab_search_placeholder" class="w-full px-4 py-2.5 pl-10 text-xs rounded-xl border border-ios-border bg-slate-900/60 focus:outline-none">
               <span class="absolute left-3.5 top-2.5 text-gray-400 text-sm">🔍</span>
               <button onclick="clearFabricSearch()" id="fabric-search-clear" class="hidden absolute right-3.5 top-2.5 text-gray-400 hover:text-white text-xs">✕</button>
             </div>
@@ -8195,9 +8195,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <!-- Stock Status Filter -->
             <div class="flex items-center gap-2">
               <div class="due-aging-container flex items-center gap-1 text-[11px] p-1 bg-slate-900/60 rounded-xl border border-slate-800" id="fabric-stock-filters">
-                <button type="button" onclick="setFabricStockFilter('all')" id="fs-filter-all" class="due-aging-pill active px-3 py-1 rounded-lg text-xs font-bold transition-all">All Stock</button>
-                <button type="button" onclick="setFabricStockFilter('low')" id="fs-filter-low" class="due-aging-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all">⚠️ Low Stock</button>
-                <button type="button" onclick="setFabricStockFilter('instock')" id="fs-filter-instock" class="due-aging-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all">✓ In Stock</button>
+                <button type="button" onclick="setFabricStockFilter('all')" id="fs-filter-all" class="due-aging-pill active px-3 py-1 rounded-lg text-xs font-bold transition-all" data-i18n="fab_filter_all">All Stock</button>
+                <button type="button" onclick="setFabricStockFilter('low')" id="fs-filter-low" class="due-aging-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all" data-i18n="fab_filter_low">⚠️ Low Stock</button>
+                <button type="button" onclick="setFabricStockFilter('instock')" id="fs-filter-instock" class="due-aging-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all" data-i18n="fab_filter_instock">✓ In Stock</button>
               </div>
 
               <!-- Segmented View Toggle (Grid vs Table) -->
@@ -8216,13 +8216,13 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
           <!-- Category Filter Pills Bar -->
           <div class="flex flex-wrap items-center gap-1.5 pt-1 border-t border-ios-border" id="fabric-category-pills">
-            <button onclick="setFabricCategory('all')" class="fabric-cat-pill active px-3 py-1 rounded-xl text-xs font-bold border transition-all" data-cat="all">All Materials (সব)</button>
-            <button onclick="setFabricCategory('Cotton')" class="fabric-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Cotton">👔 Cotton (সুতি)</button>
-            <button onclick="setFabricCategory('Linen')" class="fabric-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Linen">🌿 Linen (লিনেন)</button>
-            <button onclick="setFabricCategory('Gabardine')" class="fabric-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Gabardine">👖 Gabardine (গ্যাবার্ডিন)</button>
-            <button onclick="setFabricCategory('Suiting')" class="fabric-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Suiting">🧥 Suiting (স্যুটিং)</button>
-            <button onclick="setFabricCategory('Silk')" class="fabric-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Silk">✨ Silk (সিল্ক)</button>
-            <button onclick="setFabricCategory('Accessories')" class="fabric-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Accessories">🧵 Accessories (বোতাম/জিপার)</button>
+            <button onclick="setFabricCategory('all')" class="fabric-cat-pill active px-3 py-1 rounded-xl text-xs font-bold border transition-all" data-cat="all" data-i18n="fab_cat_all">All Materials</button>
+            <button onclick="setFabricCategory('Cotton')" class="fabric-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Cotton" data-i18n="fab_cat_cotton">👔 Cotton</button>
+            <button onclick="setFabricCategory('Linen')" class="fabric-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Linen" data-i18n="fab_cat_linen">🌿 Linen</button>
+            <button onclick="setFabricCategory('Gabardine')" class="fabric-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Gabardine" data-i18n="fab_cat_gabardine">👖 Gabardine</button>
+            <button onclick="setFabricCategory('Suiting')" class="fabric-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Suiting" data-i18n="fab_cat_suiting">🧥 Suiting</button>
+            <button onclick="setFabricCategory('Silk')" class="fabric-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Silk" data-i18n="fab_cat_silk">✨ Silk</button>
+            <button onclick="setFabricCategory('Accessories')" class="fabric-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Accessories" data-i18n="fab_cat_accessories">🧵 Accessories</button>
           </div>
         </div>
 
@@ -8236,14 +8236,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <table class="w-full text-left text-xs">
               <thead>
                 <tr class="border-b border-ios-border text-ios-subtext">
-                  <th class="p-3">Material & Color</th>
-                  <th class="p-3">Bolt Tag & Rack</th>
-                  <th class="p-3">Category</th>
-                  <th class="p-3">Remaining Stock</th>
-                  <th class="p-3">Unit Cost / Price</th>
-                  <th class="p-3">Yield Potential</th>
-                  <th class="p-3">Status</th>
-                  <th class="p-3 text-right">Actions</th>
+                  <th class="p-3" data-i18n="fab_th_mat">Material & Color</th>
+                  <th class="p-3" data-i18n="fab_th_bolt">Bolt Tag & Rack</th>
+                  <th class="p-3" data-i18n="fab_th_cat">Category</th>
+                  <th class="p-3" data-i18n="fab_th_stock">Remaining Stock</th>
+                  <th class="p-3" data-i18n="fab_th_price">Unit Cost / Price</th>
+                  <th class="p-3" data-i18n="fab_th_yield">Yield Potential</th>
+                  <th class="p-3" data-i18n="fab_th_status">Status</th>
+                  <th class="p-3 text-right" data-i18n="fab_th_actions">Actions</th>
                 </tr>
               </thead>
               <tbody id="fabrics-table" class="divide-y divide-ios-border">
@@ -8259,11 +8259,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             🧵
           </div>
           <div>
-            <div class="font-bold text-base text-ios-text">কোনো কাপড় বা ম্যাটেরিয়াল নেই • No Fabrics</div>
-            <p class="text-xs text-gray-400 mt-1">আপনার দোকানের থান ও কাপড় রেজিস্ট্রি যোগ করে স্টক পরিচালনা করুন।</p>
+            <div class="font-bold text-base text-ios-text" data-i18n="fab_empty_title">No Fabrics or Materials Found</div>
+            <p class="text-xs text-gray-400 mt-1" data-i18n="fab_empty_desc">Add rolls and fabrics to your shop registry to start tracking material inventory.</p>
           </div>
           <button onclick="openFabricModal()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs shadow-md shadow-emerald-500/20 active:scale-95 transition-all inline-flex items-center gap-2 cursor-pointer">
-            <span>＋</span> <span>নতুন কাপড় এন্ট্রি করুন (Add Fabric)</span>
+            <span>＋</span> <span data-i18n="fab_empty_btn">Add Fabric Entry</span>
           </button>
         </div>
       </section>
@@ -8627,10 +8627,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           </div>
           <div>
             <h3 class="text-base font-black text-white tracking-tight flex items-center gap-2">
-              <span>Fabric & Rate Calculator</span>
-              <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">গজ-গিরা-ইঞ্চি</span>
+              <span data-i18n="fc_modal_title">Fabric & Rate Calculator</span>
+              <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30" data-i18n="fc_modal_badge">Yards-Gira-Inches</span>
             </h3>
-            <p class="text-[11px] text-slate-400 font-mono">টেইলার্স গজ, গিরা, ইঞ্চি ও মিটার কনভার্টার এবং কাপড়ের মোট হিসাব</p>
+            <p class="text-[11px] text-slate-400 font-mono" data-i18n="fc_modal_sub">Bespoke Goj, Gira, Inch & Meter Converter</p>
           </div>
         </div>
         <button type="button" onclick="toggleFabricCalcModal()" class="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white flex items-center justify-center text-sm transition-all cursor-pointer">✕</button>
@@ -8638,55 +8638,55 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       <!-- Quick Preset Pills -->
       <div class="space-y-1.5 relative z-10">
-        <label class="block text-[11px] font-mono text-slate-400 uppercase tracking-wider">সাধারণ কাপড়ের মাপের প্রিসেট (Quick Presets):</label>
+        <label class="block text-[11px] font-mono text-slate-400 uppercase tracking-wider" data-i18n="fc_lbl_presets">Quick Garment Presets:</label>
         <div class="flex flex-wrap gap-1.5 text-xs">
-          <button type="button" onclick="document.getElementById('calc-input-goj').value='2.25'; calcConvert('goj');" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 hover:border-amber-400 text-slate-300 hover:text-white transition-all cursor-pointer">👔 শার্ট (২.২৫ গজ)</button>
-          <button type="button" onclick="document.getElementById('calc-input-goj').value='1.25'; calcConvert('goj');" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 hover:border-amber-400 text-slate-300 hover:text-white transition-all cursor-pointer">👖 প্যান্ট (১.২৫ গজ)</button>
-          <button type="button" onclick="document.getElementById('calc-input-goj').value='2.75'; calcConvert('goj');" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 hover:border-amber-400 text-slate-300 hover:text-white transition-all cursor-pointer">🥻 পাঞ্জাবি (২.৭৫ গজ)</button>
-          <button type="button" onclick="document.getElementById('calc-input-goj').value='4.5'; calcConvert('goj');" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 hover:border-amber-400 text-slate-300 hover:text-white transition-all cursor-pointer">👗 থ্রি-পিস (৪.৫ গজ)</button>
+          <button type="button" onclick="document.getElementById('calc-input-goj').value='2.25'; calcConvert('goj');" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 hover:border-amber-400 text-slate-300 hover:text-white transition-all cursor-pointer" data-i18n="fc_opt_shirt">👔 Shirt (2.25 yds)</button>
+          <button type="button" onclick="document.getElementById('calc-input-goj').value='1.25'; calcConvert('goj');" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 hover:border-amber-400 text-slate-300 hover:text-white transition-all cursor-pointer" data-i18n="fc_opt_pant">👖 Pant (1.25 yds)</button>
+          <button type="button" onclick="document.getElementById('calc-input-goj').value='2.75'; calcConvert('goj');" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 hover:border-amber-400 text-slate-300 hover:text-white transition-all cursor-pointer" data-i18n="fc_opt_panjabi">🥻 Panjabi (2.75 yds)</button>
+          <button type="button" onclick="document.getElementById('calc-input-goj').value='4.5'; calcConvert('goj');" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 hover:border-amber-400 text-slate-300 hover:text-white transition-all cursor-pointer" data-i18n="fc_opt_threepiece">👗 Three-Piece (4.5 yds)</button>
         </div>
       </div>
 
       <!-- 4 Unit Converters -->
       <div class="grid grid-cols-2 gap-3 relative z-10">
         <div class="space-y-1">
-          <label class="block text-xs font-semibold text-amber-300">গজ (Goj / Yard)</label>
-          <input type="number" step="0.01" id="calc-input-goj" oninput="calcConvert('goj')" placeholder="যেমন: 2.25" class="w-full px-3 py-2 rounded-xl text-sm font-mono font-bold bg-slate-900 text-amber-300 border border-amber-500/40 focus:border-amber-400 focus:outline-none">
+          <label class="block text-xs font-semibold text-amber-300" data-i18n="fc_lbl_goj">Yards (Goj)</label>
+          <input type="number" step="0.01" id="calc-input-goj" oninput="calcConvert('goj')" placeholder="e.g. 2.25" class="w-full px-3 py-2 rounded-xl text-sm font-mono font-bold bg-slate-900 text-amber-300 border border-amber-500/40 focus:border-amber-400 focus:outline-none">
         </div>
         <div class="space-y-1">
-          <label class="block text-xs font-semibold text-cyan-300">গিরা (Gira - ১৬ গিরায় ১ গজ)</label>
-          <input type="number" step="0.1" id="calc-input-gira" oninput="calcConvert('gira')" placeholder="যেমন: 36" class="w-full px-3 py-2 rounded-xl text-sm font-mono font-bold bg-slate-900 text-cyan-300 border border-cyan-500/40 focus:border-cyan-400 focus:outline-none">
+          <label class="block text-xs font-semibold text-cyan-300" data-i18n="fc_lbl_gira">Gira (16 Gira = 1 Yard)</label>
+          <input type="number" step="0.1" id="calc-input-gira" oninput="calcConvert('gira')" placeholder="e.g. 36" class="w-full px-3 py-2 rounded-xl text-sm font-mono font-bold bg-slate-900 text-cyan-300 border border-cyan-500/40 focus:border-cyan-400 focus:outline-none">
         </div>
         <div class="space-y-1">
-          <label class="block text-xs font-semibold text-slate-300">ইঞ্চি (Inches - ৩৬ ইঞ্চিতে ১ গজ)</label>
-          <input type="number" step="0.5" id="calc-input-inch" oninput="calcConvert('inch')" placeholder="যেমন: 81" class="w-full px-3 py-2 rounded-xl text-sm font-mono font-bold bg-slate-900 text-white border border-slate-700 focus:border-cyan-400 focus:outline-none">
+          <label class="block text-xs font-semibold text-slate-300" data-i18n="fc_lbl_inch">Inches (36 Inches = 1 Yard)</label>
+          <input type="number" step="0.5" id="calc-input-inch" oninput="calcConvert('inch')" placeholder="e.g. 81" class="w-full px-3 py-2 rounded-xl text-sm font-mono font-bold bg-slate-900 text-white border border-slate-700 focus:border-cyan-400 focus:outline-none">
         </div>
         <div class="space-y-1">
-          <label class="block text-xs font-semibold text-slate-300">মিটার (Meters)</label>
-          <input type="number" step="0.01" id="calc-input-meter" oninput="calcConvert('meter')" placeholder="যেমন: 2.05" class="w-full px-3 py-2 rounded-xl text-sm font-mono font-bold bg-slate-900 text-white border border-slate-700 focus:border-cyan-400 focus:outline-none">
+          <label class="block text-xs font-semibold text-slate-300" data-i18n="fc_lbl_meter">Meters</label>
+          <input type="number" step="0.01" id="calc-input-meter" oninput="calcConvert('meter')" placeholder="e.g. 2.05" class="w-full px-3 py-2 rounded-xl text-sm font-mono font-bold bg-slate-900 text-white border border-slate-700 focus:border-cyan-400 focus:outline-none">
         </div>
       </div>
 
       <!-- Pricing Section -->
       <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3 relative z-10">
         <div class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center justify-between">
-          <span>মূল্য ও মজুরি নির্ধারণ (Pricing & Making)</span>
-          <span class="text-[10px] text-emerald-400 font-mono">লাইভ ক্যালকুলেশন</span>
+          <span data-i18n="fc_sec_pricing">Pricing & Making Charges</span>
+          <span class="text-[10px] text-emerald-400 font-mono" data-i18n="fc_badge_live">Live Calculation</span>
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-[11px] text-slate-400 mb-1">প্রতি গজ কাপড়ের দর (৳)</label>
-            <input type="number" id="calc-rate-per-goj" oninput="calcPrice()" placeholder="যেমন: 250" class="w-full px-3 py-2 rounded-xl text-xs font-mono font-bold bg-slate-950 text-emerald-300 border border-slate-700 focus:border-emerald-400 focus:outline-none">
+            <label class="block text-[11px] text-slate-400 mb-1" data-i18n="fc_lbl_rate">Fabric Rate per Yard (৳)</label>
+            <input type="number" id="calc-rate-per-goj" oninput="calcPrice()" placeholder="e.g. 250" class="w-full px-3 py-2 rounded-xl text-xs font-mono font-bold bg-slate-950 text-emerald-300 border border-slate-700 focus:border-emerald-400 focus:outline-none">
           </div>
           <div>
-            <label class="block text-[11px] text-slate-400 mb-1">মজুরি / সেলাই খরচ (৳)</label>
-            <input type="number" id="calc-making-charge" oninput="calcPrice()" placeholder="যেমন: 400" class="w-full px-3 py-2 rounded-xl text-xs font-mono font-bold bg-slate-950 text-cyan-300 border border-slate-700 focus:border-cyan-400 focus:outline-none">
+            <label class="block text-[11px] text-slate-400 mb-1" data-i18n="fc_lbl_making">Making / Tailoring Charge (৳)</label>
+            <input type="number" id="calc-making-charge" oninput="calcPrice()" placeholder="e.g. 400" class="w-full px-3 py-2 rounded-xl text-xs font-mono font-bold bg-slate-950 text-cyan-300 border border-slate-700 focus:border-cyan-400 focus:outline-none">
           </div>
         </div>
         <div class="flex items-center justify-between p-3 rounded-xl bg-slate-950 border border-emerald-500/30">
           <div>
-            <div class="text-[10px] text-slate-400 uppercase font-mono">সর্বমোট আনুমানিক খরচ</div>
-            <div class="text-xs text-slate-500 font-mono">(কাপড় + সেলাই মজুরি)</div>
+            <div class="text-[10px] text-slate-400 uppercase font-mono" data-i18n="fc_lbl_total">Total Estimated Cost</div>
+            <div class="text-xs text-slate-500 font-mono" data-i18n="fc_lbl_total_sub">(Fabric + Tailoring Fee)</div>
           </div>
           <div id="calc-total-result" class="text-xl font-black font-mono text-emerald-400">৳0</div>
         </div>
@@ -8694,8 +8694,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       <!-- Footer -->
       <div class="flex justify-end pt-2 border-t border-slate-800 relative z-10">
-        <button type="button" onclick="toggleFabricCalcModal()" class="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold transition-all cursor-pointer">
-          সম্পন্ন (Done)
+        <button type="button" onclick="toggleFabricCalcModal()" class="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold transition-all cursor-pointer" data-i18n="fc_btn_done">
+          Done
         </button>
       </div>
     </div>
@@ -9527,7 +9527,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     <div class="bento-card max-w-xl w-full p-6 sm:p-7 space-y-4 shadow-2xl max-h-[92vh] overflow-y-auto">
       <div class="flex justify-between items-center border-b border-ios-border pb-3.5">
         <h3 class="text-lg font-black text-ios-text flex items-center gap-2" id="fabric-modal-title">
-          <span>🧵</span> <span>Fabric & Material Registration (নতুন কাপড় এন্ট্রি)</span>
+          <span>🧵</span> <span data-i18n="fe_modal_title">Fabric & Material Registration</span>
         </h3>
         <button onclick="closeModal('modal-fabric-entry')" class="text-gray-400 hover:text-ios-text font-bold text-xl">✕</button>
       </div>
@@ -9536,29 +9536,29 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       <div class="space-y-3.5 text-xs">
         <div>
-          <label class="block font-bold text-ios-text mb-1">Material Name * (কাপড়ের নাম)</label>
-          <input type="text" id="fe-name" placeholder="e.g. Egyptian Giza Cotton (মিশরীয় সুতি)" class="w-full border border-slate-700/80 rounded-2xl px-4 py-2.5 text-sm text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
+          <label class="block font-bold text-ios-text mb-1" data-i18n="fe_lbl_name">Material Name *</label>
+          <input type="text" id="fe-name" placeholder="e.g. Egyptian Giza Cotton" class="w-full border border-slate-700/80 rounded-2xl px-4 py-2.5 text-sm text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div>
-            <label class="block font-bold text-ios-text mb-1">Category (ধরন)</label>
+            <label class="block font-bold text-ios-text mb-1" data-i18n="fe_lbl_cat">Category</label>
             <select id="fe-category" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
-              <option value="Cotton">👔 Cotton (সুতি)</option>
-              <option value="Linen">🌿 Linen (লিনেন)</option>
-              <option value="Gabardine">👖 Gabardine (গ্যাবার্ডিন)</option>
-              <option value="Suiting">🧥 Suiting (স্যুটিং)</option>
-              <option value="Silk">✨ Silk (সিল্ক)</option>
-              <option value="Voile">💨 Voile (ভয়েল)</option>
-              <option value="Accessories">🧵 Accessories (বোতাম/জিপার)</option>
+              <option value="Cotton">👔 Cotton</option>
+              <option value="Linen">🌿 Linen</option>
+              <option value="Gabardine">👖 Gabardine</option>
+              <option value="Suiting">🧥 Suiting</option>
+              <option value="Silk">✨ Silk</option>
+              <option value="Voile">💨 Voile</option>
+              <option value="Accessories">🧵 Accessories</option>
             </select>
           </div>
           <div>
-            <label class="block font-bold text-ios-text mb-1">Bolt / Roll ID (থান কোড)</label>
+            <label class="block font-bold text-ios-text mb-1" data-i18n="fe_lbl_bolt">Bolt / Roll ID</label>
             <input type="text" id="fe-bolt-id" placeholder="e.g. BOLT-108" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs font-mono font-bold text-cyan-300 bg-slate-900/90 focus:outline-none focus:border-cyan-400">
           </div>
           <div>
-            <label class="block font-bold text-ios-text mb-1">SKU / Barcode</label>
+            <label class="block font-bold text-ios-text mb-1" data-i18n="fe_lbl_sku">SKU / Barcode</label>
             <input type="text" id="fe-sku" placeholder="e.g. FAB-EGY-08" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs font-mono text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
           </div>
         </div>
@@ -9569,23 +9569,23 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <div class="flex items-center gap-2.5">
               <span class="w-5 h-5 rounded-full border border-white/30 shadow-md shrink-0 transition-colors" id="fe-color-preview-dot" style="background-color: #ffffff;"></span>
               <div>
-                <span class="font-bold text-ios-text text-xs">Digital Color Swatch (কাপড়ের রঙ)</span>
+                <span class="font-bold text-ios-text text-xs" data-i18n="fe_lbl_swatch">Digital Color Swatch</span>
                 <span class="text-[10px] text-ios-subtext font-mono block" id="fe-color-hex-label">#FFFFFF</span>
               </div>
             </div>
             <div class="flex items-center gap-2">
               <label for="fe-color-picker" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/80 border border-slate-700 hover:border-cyan-400 cursor-pointer text-xs text-gray-300 hover:text-white transition-all shadow-sm active:scale-95" title="Pick custom color">
                 <span>🎨</span>
-                <span class="font-bold text-[11px]">কাস্টম রঙ</span>
+                <span class="font-bold text-[11px]" data-i18n="fe_btn_custom_color">Custom Color</span>
                 <input type="color" id="fe-color-picker" value="#ffffff" oninput="syncFabricColorHex(this.value, 'Custom Shade')" class="sr-only">
               </label>
-              <input type="text" id="fe-color-name" value="Pure White" placeholder="রঙের নাম (e.g. Pure White)" class="border border-slate-700/80 rounded-xl px-3 py-1.5 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400 w-36 sm:w-44 font-medium">
+              <input type="text" id="fe-color-name" value="Pure White" placeholder="e.g. Pure White" class="border border-slate-700/80 rounded-xl px-3 py-1.5 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400 w-36 sm:w-44 font-medium">
             </div>
           </div>
 
           <!-- Color Preset Chips Row -->
           <div>
-            <div class="text-[10px] uppercase font-bold tracking-wider text-ios-subtext mb-1.5">Preset Swatches (জনপ্রিয় কালার প্যালেট):</div>
+            <div class="text-[10px] uppercase font-bold tracking-wider text-ios-subtext mb-1.5" data-i18n="fe_lbl_presets">Preset Swatches:</div>
             <div class="flex flex-wrap items-center gap-2.5" id="fe-color-presets">
               <!-- Preset circular color dots injected via JS -->
             </div>
@@ -9595,66 +9595,66 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div>
-            <label class="block font-bold text-ios-text mb-1">Width (বহর)</label>
+            <label class="block font-bold text-ios-text mb-1" data-i18n="fe_lbl_width">Width</label>
             <select id="fe-width" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
-              <option value='58" ডাবল বহর'>58" ডাবল বহর</option>
-              <option value='54" চওড়া বহর'>54" চওড়া বহর</option>
-              <option value='44" সিঙ্গেল বহর'>44" সিঙ্গেল বহর</option>
-              <option value='36" বহর'>36" বহর</option>
-              <option value="N/A">N/A (এক্সেসরিজ)</option>
+              <option value='58" Double Width'>58" Double Width</option>
+              <option value='54" Wide Width'>54" Wide Width</option>
+              <option value='44" Single Width'>44" Single Width</option>
+              <option value='36" Standard Width'>36" Standard Width</option>
+              <option value="N/A">N/A (Accessories / Trims)</option>
             </select>
           </div>
           <div>
-            <label class="block font-bold text-ios-text mb-1">Unit (একক)</label>
+            <label class="block font-bold text-ios-text mb-1" data-i18n="fe_lbl_unit">Unit</label>
             <select id="fe-unit" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
-              <option value="yard">Yard (গজ)</option>
-              <option value="meter">Meter (মিটার)</option>
-              <option value="pcs">Pieces (পিস)</option>
-              <option value="reel">Reel (রিল)</option>
+              <option value="yard">Yard</option>
+              <option value="meter">Meter</option>
+              <option value="pcs">Pieces</option>
+              <option value="reel">Reel</option>
             </select>
           </div>
           <div>
-            <label class="block font-bold text-ios-text mb-1">Stock (মজুদ) *</label>
+            <label class="block font-bold text-ios-text mb-1" data-i18n="fe_lbl_stock">Stock *</label>
             <input type="number" id="fe-stock" step="0.25" placeholder="0" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs font-mono font-bold text-emerald-400 bg-slate-900/90 focus:outline-none focus:border-cyan-400">
           </div>
           <div>
-            <label class="block font-bold text-ios-text mb-1">Initial Roll (শুরুতে কত)</label>
+            <label class="block font-bold text-ios-text mb-1" data-i18n="fe_lbl_init_stock">Initial Roll</label>
             <input type="number" id="fe-initial-stock" step="0.25" placeholder="50" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs font-mono text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div>
-            <label class="block font-bold text-ios-text mb-1">Cost / Unit (ক্রয়দর ৳) *</label>
+            <label class="block font-bold text-ios-text mb-1" data-i18n="fe_lbl_cost">Cost / Unit (৳) *</label>
             <input type="number" id="fe-cost" placeholder="0" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs font-mono font-bold text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
           </div>
           <div>
-            <label class="block font-bold text-ios-text mb-1">Selling / Unit (বিক্রয়দর ৳)</label>
+            <label class="block font-bold text-ios-text mb-1" data-i18n="fe_lbl_price">Selling / Unit (৳)</label>
             <input type="number" id="fe-price" placeholder="0" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs font-mono font-bold text-cyan-300 bg-slate-900/90 focus:outline-none focus:border-cyan-400">
           </div>
           <div>
-            <label class="block font-bold text-ios-text mb-1">Low-Stock Alert (ন্যূনতম স্টক)</label>
+            <label class="block font-bold text-ios-text mb-1" data-i18n="fe_lbl_min">Low-Stock Alert</label>
             <input type="number" id="fe-minimum" placeholder="10" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs font-mono text-amber-400 bg-slate-900/90 focus:outline-none focus:border-cyan-400">
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div>
-            <label class="block font-bold text-ios-text mb-1">Rack / Shelf (দোকানের সেলফ)</label>
+            <label class="block font-bold text-ios-text mb-1" data-i18n="fe_lbl_rack">Rack / Shelf</label>
             <input type="text" id="fe-rack" placeholder="e.g. Rack A-01, Shelf 2" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
           </div>
           <div>
-            <label class="block font-bold text-ios-text mb-1">Supplier (মহাজন/দোকান)</label>
+            <label class="block font-bold text-ios-text mb-1" data-i18n="fe_lbl_supplier">Supplier / Shop</label>
             <input type="text" id="fe-supplier" placeholder="e.g. Al-Madina Fabrics" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
           </div>
           <div>
-            <label class="block font-bold text-ios-text mb-1">Supplier Mobile / WA</label>
+            <label class="block font-bold text-ios-text mb-1" data-i18n="fe_lbl_supp_phone">Supplier Mobile / WA</label>
             <input type="tel" id="fe-supplier-phone" placeholder="017xxxxxxxx" class="w-full border border-slate-700/80 rounded-2xl px-3 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
           </div>
         </div>
 
         <div>
-          <label class="block font-bold text-ios-text mb-1">Notes / Care Information (ঐচ্ছিক মন্তব্য)</label>
+          <label class="block font-bold text-ios-text mb-1" data-i18n="fe_lbl_notes">Notes / Fabric Care Information</label>
           <input type="text" id="fe-notes" placeholder="e.g. Pre-washed cotton. Iron at medium heat. Best for slim fit panjabi." class="w-full border border-slate-700/80 rounded-2xl px-4 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
         </div>
       </div>
@@ -9663,8 +9663,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <button onclick="closeModal('modal-fabric-entry')" class="px-5 py-2.5 border border-slate-700 rounded-2xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 active:scale-95 transition-all">
           Cancel
         </button>
-        <button onclick="saveFabricRecord()" class="px-6 py-2.5 bg-gradient-to-r from-cyan-600 via-teal-600 to-emerald-600 hover:brightness-110 text-white rounded-2xl text-xs font-bold shadow-md active:scale-95">
-          সংরক্ষণ করুন ✓
+        <button onclick="saveFabricRecord()" class="px-6 py-2.5 bg-gradient-to-r from-cyan-600 via-teal-600 to-emerald-600 hover:brightness-110 text-white rounded-2xl text-xs font-bold shadow-md active:scale-95" data-i18n="fe_btn_save">
+          Save Record ✓
         </button>
       </div>
     </div>
@@ -9677,7 +9677,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     <div class="bento-card max-w-md w-full p-6 space-y-4 shadow-2xl">
       <div class="flex justify-between items-center border-b border-ios-border pb-3">
         <h3 class="text-base font-black text-ios-text flex items-center gap-2">
-          <span>📦</span> <span>Fabric Stock Adjustment (স্টক সমন্বয়)</span>
+          <span>📦</span> <span data-i18n="fso_modal_title">Fabric Stock Adjustment</span>
         </h3>
         <button onclick="closeModal('modal-fabric-stock-op')" class="text-gray-400 hover:text-ios-text font-bold text-lg">✕</button>
       </div>
@@ -9692,44 +9692,44 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <div class="text-[10px] text-ios-subtext font-mono" id="fso-details">BOLT-XXX · Rack</div>
         </div>
         <div class="text-right shrink-0">
-          <div class="text-[10px] text-ios-subtext">বর্তমান স্টক:</div>
+          <div class="text-[10px] text-ios-subtext" data-i18n="fso_cur_stock_lbl">Current Stock:</div>
           <div class="text-sm font-black font-mono text-cyan-300" id="fso-current-stock">0 yds</div>
         </div>
       </div>
 
       <div class="space-y-3.5 text-xs">
         <div>
-          <label class="block font-bold text-ios-text mb-1.5">অপারেশন নির্বাচন করুন *</label>
+          <label class="block font-bold text-ios-text mb-1.5" data-i18n="fso_lbl_op">Select Operation *</label>
           <div class="grid grid-cols-2 gap-2" id="fso-type-toggle">
             <button type="button" onclick="setFabricOpType('in')" id="fso-btn-in" class="p-2.5 rounded-xl border border-emerald-500/50 bg-emerald-500/20 text-emerald-300 font-bold flex items-center justify-center gap-1.5 transition-all">
-              <span>📥</span> <span>Stock In (ক্রয় / জমা)</span>
+              <span>📥</span> <span data-i18n="fso_btn_in">Stock In (Purchase)</span>
             </button>
             <button type="button" onclick="setFabricOpType('out')" id="fso-btn-out" class="p-2.5 rounded-xl border border-slate-700 bg-slate-800/60 text-slate-300 font-bold flex items-center justify-center gap-1.5 transition-all">
-              <span>✂️</span> <span>Stock Cut Out (ব্যবহার)</span>
+              <span>✂️</span> <span data-i18n="fso_btn_out">Stock Cut Out (Usage)</span>
             </button>
           </div>
           <input type="hidden" id="fso-type" value="in">
         </div>
 
         <div>
-          <label class="block font-bold text-ios-text mb-1">পরিমাণ (গজ / পিস) *</label>
+          <label class="block font-bold text-ios-text mb-1" data-i18n="fso_lbl_qty">Quantity *</label>
           <input type="number" id="fso-qty" step="0.25" placeholder="e.g. 10" class="w-full border border-slate-700/80 rounded-2xl px-4 py-2.5 text-base font-black font-mono text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
         </div>
 
         <div>
-          <label class="block font-bold text-ios-text mb-1">রেফারেন্স / অর্ডার নং / মেমো</label>
+          <label class="block font-bold text-ios-text mb-1" data-i18n="fso_lbl_ref">Reference / Order No. / Memo</label>
           <input type="text" id="fso-ref" placeholder="e.g. ORD-2610-0022 or MEMO-991" class="w-full border border-slate-700/80 rounded-2xl px-4 py-2 text-xs font-mono text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
         </div>
 
         <div>
-          <label class="block font-bold text-ios-text mb-1">বিবরণ / মন্তব্য (ঐচ্ছিক)</label>
+          <label class="block font-bold text-ios-text mb-1" data-i18n="fso_lbl_notes">Notes / Description (Optional)</label>
           <input type="text" id="fso-notes" placeholder="e.g. Cutting for 2 Panjabi by Master Karim" class="w-full border border-slate-700/80 rounded-2xl px-4 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
         </div>
 
         <!-- Optional Accounts Expense Logging Toggle -->
         <label id="fso-expense-container" class="flex items-center gap-2 p-3 bg-white/5 border border-ios-border rounded-2xl cursor-pointer">
           <input type="checkbox" id="fso-log-expense" class="rounded border-slate-700 text-rose-500 focus:ring-0">
-          <span class="text-[11px] text-ios-text font-bold">দোকান খরচ হিসেবে ক্যাশ রেজিস্টারে যোগ করুন (Add to Accounts Expense)</span>
+          <span class="text-[11px] text-ios-text font-bold" data-i18n="fso_lbl_expense">Log as shop expense in Accounts Cash Register</span>
         </label>
       </div>
 
@@ -9737,8 +9737,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <button onclick="closeModal('modal-fabric-stock-op')" class="px-4 py-2 border border-slate-700 rounded-xl text-xs font-bold text-slate-300 hover:text-white">
           Cancel
         </button>
-        <button onclick="submitFabricStockOp()" class="px-5 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-xs font-bold shadow-md active:scale-95">
-          সমন্বয় নিশ্চিত করুন ✓
+        <button onclick="submitFabricStockOp()" class="px-5 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-xs font-bold shadow-md active:scale-95" data-i18n="fso_btn_submit">
+          Confirm Adjustment ✓
         </button>
       </div>
     </div>
@@ -9751,7 +9751,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     <div class="bento-card max-w-sm w-full p-5 space-y-4 shadow-2xl">
       <div class="flex justify-between items-center border-b border-ios-border pb-2.5">
         <h3 class="text-sm font-black text-ios-text flex items-center gap-1.5">
-          <span>🏷️</span> <span>58mm Fabric Bolt Pin Tag</span>
+          <span>🏷️</span> <span data-i18n="fl_modal_title">58mm Fabric Bolt Pin Tag</span>
         </h3>
         <button onclick="closeModal('modal-fabric-label')" class="text-gray-400 hover:text-ios-text font-bold text-lg">✕</button>
       </div>
@@ -10527,7 +10527,109 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         close_lbl_physical: 'Physical Cash Counted (Actual in drawer) *',
         close_lbl_diff: 'Discrepancy / Balance:',
         close_lbl_notes: 'Shift Closing Remarks / Notes (Optional)',
-        close_btn_submit: 'Close Register & Print Summary 🔒'
+        close_btn_submit: 'Close Register & Print Summary 🔒',
+
+        // Fabrics & Materials Hub
+        fab_sec_tag: 'MATERIAL CONTROL & ROLL REGISTRY',
+        fab_title: 'Fabrics & Materials',
+        fab_desc: 'Bolt & roll tracking, barcode tags, fabric consumption calculator, and 1-click supplier requisition.',
+        fab_btn_print: 'Print Catalog',
+        fab_btn_csv: 'Export CSV',
+        fab_btn_add: 'New Fabric Entry',
+        fab_kpi_types: 'Material Types',
+        fab_kpi_types_sub: 'Registered Fabric Varieties',
+        fab_kpi_stock: 'Total Fabric Stock',
+        fab_kpi_stock_sub: 'Active Rolls',
+        fab_kpi_val: 'Stock Valuation',
+        fab_kpi_val_sub: 'Total Inventory Asset Value',
+        fab_kpi_low: 'Low-Stock Alerts',
+        fab_kpi_low_sub: 'Reorder Needed (< Min Stock)',
+        fab_calc_title: 'Smart Fabric Consumption Calculator',
+        fab_calc_desc: 'Instantly calculate how many panjabis, shirts, or pants can be cut from available bolt yards.',
+        fab_calc_badge: 'TAILOR MATH 2.0',
+        fab_calc_garment_lbl: 'Garment Type',
+        fab_calc_yards_lbl: 'Total Fabric Length (Yards)',
+        fab_calc_res_lbl: 'ESTIMATED YIELD:',
+        fab_calc_left_lbl: 'Leftover Fabric:',
+        fab_search_placeholder: 'Search fabric name, SKU, Bolt ID (e.g. BOLT-104), or Rack...',
+        fab_filter_all: 'All Stock',
+        fab_filter_low: '⚠️ Low Stock',
+        fab_filter_instock: '✓ In Stock',
+        fab_cat_all: 'All Materials',
+        fab_cat_cotton: '👔 Cotton',
+        fab_cat_linen: '🌿 Linen',
+        fab_cat_gabardine: '👖 Gabardine',
+        fab_cat_suiting: '🧥 Suiting',
+        fab_cat_silk: '✨ Silk',
+        fab_cat_accessories: '🧵 Accessories',
+        fab_th_mat: 'Material & Color',
+        fab_th_bolt: 'Bolt Tag & Rack',
+        fab_th_cat: 'Category',
+        fab_th_stock: 'Remaining Stock',
+        fab_th_price: 'Unit Cost / Price',
+        fab_th_yield: 'Yield Potential',
+        fab_th_status: 'Status',
+        fab_th_actions: 'Actions',
+        fab_empty_title: 'No Fabrics or Materials Found',
+        fab_empty_desc: 'Add rolls and fabrics to your shop registry to start tracking material inventory.',
+        fab_empty_btn: '＋ Add Fabric Entry',
+
+        // Fabric Modals
+        fe_modal_title: 'Fabric & Material Registration',
+        fe_lbl_name: 'Material Name *',
+        fe_lbl_cat: 'Category',
+        fe_lbl_bolt: 'Bolt / Roll ID',
+        fe_lbl_sku: 'SKU / Barcode',
+        fe_lbl_swatch: 'Digital Color Swatch',
+        fe_btn_custom_color: 'Custom Color',
+        fe_lbl_presets: 'Preset Swatches:',
+        fe_lbl_width: 'Fabric Width',
+        fe_lbl_unit: 'Unit of Measure',
+        fe_lbl_stock: 'Current Stock *',
+        fe_lbl_init_stock: 'Initial Roll Length',
+        fe_lbl_cost: 'Unit Cost (৳) *',
+        fe_lbl_price: 'Selling Price (৳)',
+        fe_lbl_min: 'Low-Stock Alert Level',
+        fe_lbl_rack: 'Rack / Shelf Location',
+        fe_lbl_supplier: 'Supplier / Wholesale Shop',
+        fe_lbl_supp_phone: 'Supplier Mobile / WhatsApp',
+        fe_lbl_notes: 'Notes / Fabric Care Instructions',
+        fe_btn_save: 'Save Record ✓',
+
+        fso_modal_title: 'Fabric Stock Adjustment',
+        fso_cur_stock_lbl: 'Current Stock:',
+        fso_lbl_op: 'Select Operation *',
+        fso_btn_in: 'Stock In (Purchase)',
+        fso_btn_out: 'Stock Cut Out (Usage)',
+        fso_lbl_qty: 'Quantity *',
+        fso_lbl_ref: 'Reference / Order No. / Memo',
+        fso_lbl_notes: 'Notes / Description (Optional)',
+        fso_lbl_expense: 'Log as Shop Expense in Accounts Register',
+        fso_btn_submit: 'Confirm Adjustment ✓',
+
+        fl_modal_title: '58mm Fabric Bolt Pin Tag',
+        fl_btn_print: 'Print Tag (58mm)',
+        fl_btn_close: 'Close',
+
+        fc_modal_title: 'Fabric & Rate Calculator',
+        fc_modal_badge: 'Yards-Gira-Inches',
+        fc_modal_sub: 'Bespoke Goj, Gira, Inch & Meter Converter',
+        fc_lbl_presets: 'Quick Garment Presets:',
+        fc_opt_shirt: '👔 Shirt (2.25 yds)',
+        fc_opt_pant: '👖 Pant (1.25 yds)',
+        fc_opt_panjabi: '🥻 Panjabi (2.75 yds)',
+        fc_opt_threepiece: '👗 Three-Piece (4.5 yds)',
+        fc_lbl_goj: 'Yards (Goj)',
+        fc_lbl_gira: 'Gira (16 Gira = 1 Yard)',
+        fc_lbl_inch: 'Inches (36 Inches = 1 Yard)',
+        fc_lbl_meter: 'Meters',
+        fc_sec_pricing: 'Pricing & Making Charges',
+        fc_badge_live: 'Live Calculation',
+        fc_lbl_rate: 'Fabric Rate per Yard (৳)',
+        fc_lbl_making: 'Making / Tailoring Charge (৳)',
+        fc_lbl_total: 'Total Estimated Cost',
+        fc_lbl_total_sub: '(Fabric + Tailoring Fee)',
+        fc_btn_done: 'Done'
       },
       bn: {
         sec_shop: 'দোকান (Shop OS)',
@@ -10643,7 +10745,109 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         close_lbl_physical: 'ড্রয়ার গুনে বাস্তবে কত পাওয়া গেল *',
         close_lbl_diff: 'পার্থক্য / মিল:',
         close_lbl_notes: 'ঐচ্ছিক মন্তব্য / নোট',
-        close_btn_submit: 'ক্যাশ ক্লোজ ও প্রিন্ট সামারি 🔒'
+        close_btn_submit: 'ক্যাশ ক্লোজ ও প্রিন্ট সামারি 🔒',
+
+        // Fabrics & Materials Hub
+        fab_sec_tag: 'ম্যাটেরিয়াল কন্ট্রোল ও রোল রেজিস্ট্রি',
+        fab_title: 'কাপড় ও থান রেজিস্ট্রি',
+        fab_desc: 'থান ও রোল ট্র্যাকিং, বারকোড ট্যাগ, কাপড় কনজাম্পশন ক্যালকুলেটর এবং ১-ক্লিক সাপ্লায়ার রিকুইজিশন।',
+        fab_btn_print: 'ক্যাটালগ প্রিন্ট',
+        fab_btn_csv: 'CSV এক্সপোর্ট',
+        fab_btn_add: 'নতুন কাপড় এন্ট্রি',
+        fab_kpi_types: 'কাপড়ের ভ্যারাইটি',
+        fab_kpi_types_sub: 'নিবন্ধিত কাপড়ের ভ্যারাইটি',
+        fab_kpi_stock: 'মোট কাপড়ের স্টক',
+        fab_kpi_stock_sub: 'সক্রিয় থান / রোল',
+        fab_kpi_val: 'স্টক মূল্যায়ন',
+        fab_kpi_val_sub: 'মোট ক্রয়মূল্য ইনভেন্টরি সম্পদ',
+        fab_kpi_low: 'লো-স্টক সতর্কতা',
+        fab_kpi_low_sub: 'রিঅর্ডার প্রয়োজন (< ন্যূনতম স্টক)',
+        fab_calc_title: 'স্মার্ট পোশাক কনজাম্পশন ক্যালকুলেটর',
+        fab_calc_desc: 'থানে কত গজ কাপড় আছে দিলে কয়টি পাঞ্জাবি, শার্ট বা প্যান্ট তৈরি সম্ভব তা সাথে সাথে হিসাব করে নিন।',
+        fab_calc_badge: 'টেইলার ম্যাথ ২.০',
+        fab_calc_garment_lbl: 'পোশাকের ধরন (Garment Type)',
+        fab_calc_yards_lbl: 'মোট কাপড়ের পরিমাণ (গজ)',
+        fab_calc_res_lbl: 'সম্ভাব্য তৈরি হবে:',
+        fab_calc_left_lbl: 'অবশিষ্ট কাপড় (Leftover):',
+        fab_search_placeholder: 'খুঁজুন (কাপড়ের নাম, SKU, থান কোড বা র্যাক)...',
+        fab_filter_all: 'সব স্টক',
+        fab_filter_low: '⚠️ লো স্টক',
+        fab_filter_instock: '✓ পর্যাপ্ত স্টক',
+        fab_cat_all: 'All Materials (সব)',
+        fab_cat_cotton: '👔 Cotton (সুতি)',
+        fab_cat_linen: '🌿 Linen (লিনেন)',
+        fab_cat_gabardine: '👖 Gabardine (গ্যাবার্ডিন)',
+        fab_cat_suiting: '🧥 Suiting (স্যুটিং)',
+        fab_cat_silk: '✨ Silk (সিল্ক)',
+        fab_cat_accessories: '🧵 Accessories (এক্সেসরিজ)',
+        fab_th_mat: 'কাপড় ও কালার',
+        fab_th_bolt: 'থান ট্যাগ ও র্যাক',
+        fab_th_cat: 'ক্যাটাগরি',
+        fab_th_stock: 'অবশিষ্ট স্টক',
+        fab_th_price: 'ক্রয় / বিক্রয়দর',
+        fab_th_yield: 'সম্ভাব্য আউটপুট',
+        fab_th_status: 'স্ট্যাটাস',
+        fab_th_actions: 'অ্যাকশন',
+        fab_empty_title: 'কোনো কাপড় বা ম্যাটেরিয়াল নেই',
+        fab_empty_desc: 'আপনার দোকানের থান ও কাপড় রেজিস্ট্রি যোগ করে স্টক পরিচালনা করুন।',
+        fab_empty_btn: '＋ নতুন কাপড় এন্ট্রি করুন',
+
+        // Fabric Modals
+        fe_modal_title: 'কাপড় ও উপাদান নিবন্ধন (Fabric Registration)',
+        fe_lbl_name: 'কাপড়ের নাম * (Material Name)',
+        fe_lbl_cat: 'ক্যাটাগরি (ধরন)',
+        fe_lbl_bolt: 'থান কোড (Bolt ID)',
+        fe_lbl_sku: 'বারকোড / SKU',
+        fe_lbl_swatch: 'ডিজিটাল কালার সোয়াচ (Digital Swatch)',
+        fe_btn_custom_color: 'কাস্টম রঙ',
+        fe_lbl_presets: 'জনপ্রিয় কালার প্যালেট:',
+        fe_lbl_width: 'বহর (Fabric Width)',
+        fe_lbl_unit: 'পরিমাপের একক (Unit)',
+        fe_lbl_stock: 'বর্তমান স্টক (মজুদ) *',
+        fe_lbl_init_stock: 'শুরুতে কত ছিল (Initial Roll)',
+        fe_lbl_cost: 'ক্রয়দর (প্রতি একক ৳) *',
+        fe_lbl_price: 'বিক্রয়দর (প্রতি একক ৳)',
+        fe_lbl_min: 'ন্যূনতম স্টক অ্যালার্ট',
+        fe_lbl_rack: 'দোকানের সেলফ / র্যাক',
+        fe_lbl_supplier: 'মহাজন / পাইকারি দোকান',
+        fe_lbl_supp_phone: 'মহাজনের মোবাইল / WA',
+        fe_lbl_notes: 'মন্তব্য / যত্নের নিয়মাবলী',
+        fe_btn_save: 'সংরক্ষণ করুন ✓',
+
+        fso_modal_title: 'কাপড় স্টক সমন্বয় (Fabric Stock Adjustment)',
+        fso_cur_stock_lbl: 'বর্তমান স্টক:',
+        fso_lbl_op: 'অপারেশন নির্বাচন করুন *',
+        fso_btn_in: 'Stock In (ক্রয় / জমা)',
+        fso_btn_out: 'Stock Cut Out (ব্যবহার / কাটিং)',
+        fso_lbl_qty: 'পরিমাণ (গজ / পিস) *',
+        fso_lbl_ref: 'রেফারেন্স / অর্ডার নং / মেমো',
+        fso_lbl_notes: 'বিবরণ / মন্তব্য (ঐচ্ছিক)',
+        fso_lbl_expense: 'দোকান খরচ হিসেবে ক্যাশ রেজিস্টারে যোগ করুন',
+        fso_btn_submit: 'সমন্বয় নিশ্চিত করুন ✓',
+
+        fl_modal_title: '৫৮মিমি থান পিন ট্যাগ (Fabric Bolt Tag)',
+        fl_btn_print: 'প্রিন্ট ট্যাগ (58mm)',
+        fl_btn_close: 'বন্ধ করুন',
+
+        fc_modal_title: 'গজ-গিরা-ইঞ্চি ক্যালকুলেটর',
+        fc_modal_badge: 'গজ-গিরা-ইঞ্চি',
+        fc_modal_sub: 'টেইলার্স গজ, গিরা, ইঞ্চি ও মিটার কনভার্টার এবং কাপড়ের মোট হিসাব',
+        fc_lbl_presets: 'সাধারণ কাপড়ের মাপের প্রিসেট:',
+        fc_opt_shirt: '👔 শার্ট (২.২৫ গজ)',
+        fc_opt_pant: '👖 প্যান্ট (১.২৫ গজ)',
+        fc_opt_panjabi: '🥻 পাঞ্জাবি (২.৭৫ গজ)',
+        fc_opt_threepiece: '👗 থ্রি-পিস (৪.৫ গজ)',
+        fc_lbl_goj: 'গজ (Goj / Yard)',
+        fc_lbl_gira: 'গিরা (১৬ গিরায় ১ গজ)',
+        fc_lbl_inch: 'ইঞ্চি (৩৬ ইঞ্চিতে ১ গজ)',
+        fc_lbl_meter: 'মিটার (Meters)',
+        fc_sec_pricing: 'মূল্য ও মজুরি নির্ধারণ',
+        fc_badge_live: 'লাইভ ক্যালকুলেশন',
+        fc_lbl_rate: 'প্রতি গজ কাপড়ের দর (৳)',
+        fc_lbl_making: 'মজুরি / সেলাই খরচ (৳)',
+        fc_lbl_total: 'সর্বমোট আনুমানিক খরচ',
+        fc_lbl_total_sub: '(কাপড় + সেলাই মজুরি)',
+        fc_btn_done: 'সম্পন্ন (Done)'
       }
     };
 
@@ -10685,6 +10889,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (typeof updateSidebarOwnerChip === 'function') updateSidebarOwnerChip();
       if (typeof renderLedger === 'function') renderLedger();
       if (typeof renderCustomerDues === 'function') renderCustomerDues();
+      if (typeof renderFabrics === 'function') renderFabrics();
+      if (typeof runFabricEstimator === 'function') runFabricEstimator();
       const shopOwnerModal = document.getElementById('modal-shop-owner');
       if (shopOwnerModal && !shopOwnerModal.classList.contains('hidden') && typeof openShopOwnerModal === 'function') {
         openShopOwnerModal();
@@ -13304,22 +13510,27 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const leftoverEl = document.getElementById('calc-leftover-text');
       if (!resultEl || !leftoverEl) return;
 
+      const isBn = typeof currentLang !== 'undefined' && currentLang === 'bn';
       const rates = {
-        panjabi: { per: 2.50, name: 'পাঞ্জাবি' },
-        shirt: { per: 2.25, name: 'শার্ট' },
-        pant: { per: 1.30, name: 'প্যান্ট' },
-        kabli: { per: 3.25, name: 'কাবলি সেট' },
-        blazer: { per: 2.00, name: 'ব্লেজার' },
-        pajama: { per: 1.75, name: 'পায়জামা' },
-        kurti: { per: 2.40, name: 'কামিজ' }
+        panjabi: { per: 2.50, name: isBn ? 'পাঞ্জাবি' : 'Panjabi' },
+        shirt: { per: 2.25, name: isBn ? 'শার্ট' : 'Shirt' },
+        pant: { per: 1.30, name: isBn ? 'প্যান্ট' : 'Pant' },
+        kabli: { per: 3.25, name: isBn ? 'কাবলি সেট' : 'Kabli Set' },
+        blazer: { per: 2.00, name: isBn ? 'ব্লেজার' : 'Blazer' },
+        pajama: { per: 1.75, name: isBn ? 'পায়জামা' : 'Pajama' },
+        kurti: { per: 2.40, name: isBn ? 'কামিজ' : 'Kurti' }
       };
 
       const selected = rates[type] || rates.panjabi;
       const count = Math.floor(yards / selected.per);
       const leftover = (yards - (count * selected.per)).toFixed(2);
 
-      resultEl.textContent = count > 0 ? count + 'টি ' + selected.name + ' তৈরি সম্ভব' : 'কাপড়ের পরিমাণ অপর্যাপ্ত';
-      leftoverEl.textContent = leftover + ' গজ';
+      if (count > 0) {
+        resultEl.textContent = isBn ? count + 'টি ' + selected.name + ' তৈরি সম্ভব' : 'Can yield ' + count + ' ' + selected.name + '(s)';
+      } else {
+        resultEl.textContent = isBn ? 'কাপড়ের পরিমাণ অপর্যাপ্ত' : 'Insufficient fabric length';
+      }
+      leftoverEl.textContent = isBn ? leftover + ' গজ' : leftover + ' yds';
     }
 
     function setFabricViewMode(mode) {
@@ -13414,6 +13625,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         list = list.filter(x => Number(x.stock) > Number(x.minimum));
       }
 
+      const isBn = typeof currentLang !== 'undefined' && currentLang === 'bn';
+
       // Update KPI Metric Cards
       const totalCount = all.length;
       const totalYards = all.reduce((s, x) => s + (x.unit === 'yard' ? Number(x.stock) || 0 : 0), 0);
@@ -13429,7 +13642,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       if (totalEl) totalEl.textContent = totalCount;
       if (yardsEl) yardsEl.textContent = totalYards.toFixed(1) + ' yds';
-      if (boltsEl) boltsEl.textContent = activeBoltsCount + 'টি থান / রোল সক্রিয়';
+      if (boltsEl) boltsEl.textContent = isBn ? (activeBoltsCount + 'টি থান / রোল সক্রিয়') : (activeBoltsCount + ' Active Roll(s)');
       if (valEl) valEl.textContent = moneyBDT(totalValue);
       if (lowEl) lowEl.textContent = lowStockCount;
 
@@ -13484,8 +13697,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 </div>
 
                 <div class="flex justify-between items-center text-[10px] text-ios-subtext pt-0.5">
-                  <span>দর: <strong class="text-ios-text font-mono">${moneyBDT(item.price)}</strong> / ${safeText(item.unit)}</span>
-                  <span>ক্রয়: <span class="font-mono">${moneyBDT(item.cost)}</span></span>
+                  <span>${isBn ? 'দর:' : 'Price:'} <strong class="text-ios-text font-mono">${moneyBDT(item.price)}</strong> / ${safeText(item.unit)}</span>
+                  <span>${isBn ? 'ক্রয়:' : 'Cost:'} <span class="font-mono">${moneyBDT(item.cost)}</span></span>
                 </div>
               </div>
 
@@ -13493,14 +13706,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               ${item.unit === 'yard' ? `
               <div class="p-2.5 rounded-xl bg-cyan-500/5 border border-cyan-500/15 text-[11px] space-y-1">
                 <div class="text-[9px] font-bold text-cyan-400 uppercase tracking-wider flex items-center justify-between">
-                  <span>✂️ সম্ভাব্য তৈরি করা যাবে</span>
-                  <span class="font-mono font-normal text-ios-subtext">Approx. Cut Yields</span>
+                  <span>${isBn ? '✂️ সম্ভাব্য তৈরি করা যাবে' : '✂️ Approx. Cut Yields'}</span>
+                  <span class="font-mono font-normal text-ios-subtext">${isBn ? 'Tailor Estimation' : 'Est. Yield'}</span>
                 </div>
                 <div class="flex flex-wrap items-center gap-1.5 text-[10px] font-bold">
-                  ${yields.panjabi > 0 ? `<span class="px-2 py-0.5 rounded-md bg-white/10 text-ios-text font-mono">👔 ${yields.panjabi} পাঞ্জাবি</span>` : ''}
-                  ${yields.shirt > 0 ? `<span class="px-2 py-0.5 rounded-md bg-white/10 text-ios-text font-mono">👕 ${yields.shirt} শার্ট</span>` : ''}
-                  ${yields.pant > 0 ? `<span class="px-2 py-0.5 rounded-md bg-white/10 text-ios-text font-mono">👖 ${yields.pant} প্যান্ট</span>` : ''}
-                  ${yields.panjabi === 0 && yields.shirt === 0 && yields.pant === 0 ? `<span class="text-rose-400/90 text-[10px]">কাপড়ের পরিমাণ কম, বড় পোশাকের জন্য অপর্যাপ্ত</span>` : ''}
+                  ${yields.panjabi > 0 ? `<span class="px-2 py-0.5 rounded-md bg-white/10 text-ios-text font-mono">👔 ${yields.panjabi} ${isBn ? 'পাঞ্জাবি' : 'Panjabi'}</span>` : ''}
+                  ${yields.shirt > 0 ? `<span class="px-2 py-0.5 rounded-md bg-white/10 text-ios-text font-mono">👕 ${yields.shirt} ${isBn ? 'শার্ট' : 'Shirt'}</span>` : ''}
+                  ${yields.pant > 0 ? `<span class="px-2 py-0.5 rounded-md bg-white/10 text-ios-text font-mono">👖 ${yields.pant} ${isBn ? 'প্যান্ট' : 'Pant'}</span>` : ''}
+                  ${yields.panjabi === 0 && yields.shirt === 0 && yields.pant === 0 ? `<span class="text-rose-400/90 text-[10px]">${isBn ? 'কাপড়ের পরিমাণ কম, বড় পোশাকের জন্য অপর্যাপ্ত' : 'Low stock, insufficient for large garments'}</span>` : ''}
                 </div>
               </div>` : ''}
 
@@ -13508,7 +13721,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <div class="flex items-center justify-between gap-1.5 pt-2 border-t border-ios-border text-xs">
                 <div class="flex items-center gap-1">
                   <button onclick="openFabricStockModal('${item.id}', 'in')" class="px-2.5 py-1.5 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 font-bold active:scale-95 transition-all" title="Stock In / Out">
-                    ± স্টক
+                    ${isBn ? '± স্টক' : '± Stock'}
                   </button>
                   <button onclick="openFabricBoltLabel('${item.id}')" class="p-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white" title="Print 58mm Thermal Tag">
                     🏷️
@@ -13562,7 +13775,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               </td>
               <td class="p-3">
                 <div class="font-mono font-bold text-xs text-ios-text">${moneyBDT(item.price)}</div>
-                <div class="text-[10px] text-ios-subtext">ক্রয়: ${moneyBDT(item.cost)}</div>
+                <div class="text-[10px] text-ios-subtext">${isBn ? 'ক্রয়:' : 'Cost:'} ${moneyBDT(item.cost)}</div>
               </td>
               <td class="p-3">
                 <div class="text-[11px] text-ios-text font-mono">
@@ -13573,7 +13786,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 ${isLow ? '<span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 animate-pulse">Low Stock</span>' : '<span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">In Stock</span>'}
               </td>
               <td class="p-3 text-right whitespace-nowrap">
-                <button onclick="openFabricStockModal('${item.id}', 'in')" class="text-cyan-400 hover:text-cyan-300 font-bold mr-2 text-xs">± স্টক</button>
+                <button onclick="openFabricStockModal('${item.id}', 'in')" class="text-cyan-400 hover:text-cyan-300 font-bold mr-2 text-xs">${isBn ? '± স্টক' : '± Stock'}</button>
                 <button onclick="openFabricBoltLabel('${item.id}')" class="text-gray-300 hover:text-white mr-2 text-xs" title="58mm Tag">🏷️</button>
                 <button onclick="sendFabricSupplierWhatsApp('${item.id}')" class="text-emerald-400 hover:text-emerald-300 mr-2 text-xs" title="WhatsApp Requisition">💬</button>
                 <button onclick="openFabricModal('${item.id}')" class="text-cyan-300 hover:underline mr-2 text-xs">Edit</button>
@@ -13662,14 +13875,15 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         }).join('');
       }
 
+      const isBn = typeof currentLang !== 'undefined' && currentLang === 'bn';
       if (editId) {
         const item = ssRecords.fabrics.find(x => String(x.id) === String(editId));
         if (!item) {
-          CyberDialog.alert('কাপড় রেকর্ডটি খুঁজে পাওয়া যায়নি।', { icon: '⚠️', title: 'NOT FOUND' });
+          CyberDialog.alert(isBn ? 'কাপড় রেকর্ডটি খুঁজে পাওয়া যায়নি।' : 'Fabric record not found.', { icon: '⚠️', title: 'NOT FOUND' });
           return;
         }
         const enriched = enrichFabricRecord(item);
-        if (titleEl) titleEl.innerHTML = '<span>🧵</span> <span>কাপড় ও থান তথ্য পরিবর্তন (Edit Material)</span>';
+        if (titleEl) titleEl.innerHTML = isBn ? '<span>🧵</span> <span>কাপড় ও থান তথ্য পরিবর্তন (Edit Material)</span>' : '<span>🧵</span> <span>Edit Fabric & Material Record</span>';
         if (editInput) editInput.value = enriched.id;
         if (nameInput) nameInput.value = enriched.name || '';
         if (catSelect) catSelect.value = enriched.category || 'Cotton';
@@ -13690,7 +13904,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         if (suppPhone) suppPhone.value = enriched.supplierPhone || '';
         if (notesInput) notesInput.value = enriched.notes || '';
       } else {
-        if (titleEl) titleEl.innerHTML = '<span>🧵</span> <span>নতুন কাপড় ও উপাদান নিবন্ধন (New Material)</span>';
+        if (titleEl) titleEl.innerHTML = isBn ? '<span>🧵</span> <span>নতুন কাপড় ও উপাদান নিবন্ধন (New Material)</span>' : '<span>🧵</span> <span>New Fabric & Material Registration</span>';
         if (editInput) editInput.value = '';
         if (nameInput) nameInput.value = '';
         if (catSelect) catSelect.value = 'Cotton';
@@ -13722,12 +13936,13 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const stockRaw = document.getElementById('fe-stock')?.value;
       const costRaw = document.getElementById('fe-cost')?.value;
 
+      const isBn = typeof currentLang !== 'undefined' && currentLang === 'bn';
       if (!name) {
-        CyberDialog.alert('অনুগ্রহ করে কাপড়ের নাম লিখুন।', { icon: '⚠️', title: 'REQUIRED FIELD' });
+        CyberDialog.alert(isBn ? 'অনুগ্রহ করে কাপড়ের নাম লিখুন।' : 'Please enter fabric material name.', { icon: '⚠️', title: 'REQUIRED FIELD' });
         return;
       }
       if (stockRaw === '' || isNaN(Number(stockRaw)) || Number(stockRaw) < 0) {
-        CyberDialog.alert('সঠিক মজুত স্টক (সংখ্যা) লিখুন।', { icon: '⚠️', title: 'INVALID STOCK' });
+        CyberDialog.alert(isBn ? 'সঠিক মজুত স্টক (সংখ্যা) লিখুন।' : 'Please enter a valid stock quantity.', { icon: '⚠️', title: 'INVALID STOCK' });
         return;
       }
 
@@ -13782,13 +13997,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       persistSsRecords();
       closeModal('modal-fabric-entry');
       renderFabrics();
-      CyberDialog.alert(`কাপড় ও থান "${safeText(name)}" সফলভাবে সংরক্ষিত হয়েছে।`, { icon: '✨', title: 'FABRIC SAVED' });
+      CyberDialog.alert(isBn ? `কাপড় ও থান "${safeText(name)}" সফলভাবে সংরক্ষিত হয়েছে।` : `Fabric material "${safeText(name)}" successfully saved.`, { icon: '✨', title: 'FABRIC SAVED' });
     }
 
     function openFabricStockModal(fabricId, opType = 'in') {
+      const isBn = typeof currentLang !== 'undefined' && currentLang === 'bn';
       const item = ssRecords.fabrics.find(x => String(x.id) === String(fabricId));
       if (!item) {
-        CyberDialog.alert('কাপড় রেকর্ডটি খুঁজে পাওয়া যায়নি।', { icon: '⚠️', title: 'NOT FOUND' });
+        CyberDialog.alert(isBn ? 'কাপড় রেকর্ডটি খুঁজে পাওয়া যায়নি।' : 'Fabric record not found.', { icon: '⚠️', title: 'NOT FOUND' });
         return;
       }
       const enriched = enrichFabricRecord(item);
@@ -13845,8 +14061,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const notes = document.getElementById('fso-notes')?.value.trim();
       const logExpense = document.getElementById('fso-log-expense')?.checked;
 
+      const isBn = typeof currentLang !== 'undefined' && currentLang === 'bn';
       if (!qty || qty <= 0) {
-        CyberDialog.alert('অনুগ্রহ করে সঠিক পরিমাণ লিখুন (০ এর বেশি)।', { icon: '⚠️', title: 'INVALID QTY' });
+        CyberDialog.alert(isBn ? 'অনুগ্রহ করে সঠিক পরিমাণ লিখুন (০ এর বেশি)।' : 'Please enter a valid quantity greater than 0.', { icon: '⚠️', title: 'INVALID QTY' });
         return;
       }
 
@@ -13855,7 +14072,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       const current = Number(item.stock) || 0;
       if (type === 'out' && qty > current) {
-        CyberDialog.alert(`মজুত কাপড়ের তুলনায় কাটার পরিমাণ বেশি! বর্তমান মজুত আছে: ${current} ${safeText(item.unit || 'yard')}`, { icon: '⚠️', title: 'INSUFFICIENT STOCK' });
+        CyberDialog.alert(isBn ? `মজুত কাপড়ের তুলনায় কাটার পরিমাণ বেশি! বর্তমান মজুত আছে: ${current} ${safeText(item.unit || 'yard')}` : `Quantity exceeds available stock! Current stock: ${current} ${safeText(item.unit || 'yard')}`, { icon: '⚠️', title: 'INSUFFICIENT STOCK' });
         return;
       }
 
@@ -13901,8 +14118,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       renderFabrics();
 
       const opMsg = type === 'in'
-        ? `সফলভাবে <strong>+${qty} ${safeText(item.unit || 'yd')}</strong> স্টক ইন সম্পন্ন হয়েছে! বর্তমান মোট স্টক: ${newStock} ${safeText(item.unit || 'yd')}।`
-        : `সফলভাবে <strong>-${qty} ${safeText(item.unit || 'yd')}</strong> কাট আউট সম্পন্ন হয়েছে। অবশিষ্ট স্টক: ${newStock} ${safeText(item.unit || 'yd')}।`;
+        ? (isBn ? `সফলভাবে <strong>+${qty} ${safeText(item.unit || 'yd')}</strong> স্টক ইন সম্পন্ন হয়েছে! বর্তমান মোট স্টক: ${newStock} ${safeText(item.unit || 'yd')}।` : `Successfully added <strong>+${qty} ${safeText(item.unit || 'yd')}</strong> to stock! Current stock: ${newStock} ${safeText(item.unit || 'yd')}.`)
+        : (isBn ? `সফলভাবে <strong>-${qty} ${safeText(item.unit || 'yd')}</strong> কাট আউট সম্পন্ন হয়েছে। অবশিষ্ট স্টক: ${newStock} ${safeText(item.unit || 'yd')}।` : `Successfully deducted <strong>-${qty} ${safeText(item.unit || 'yd')}</strong> cut out! Remaining stock: ${newStock} ${safeText(item.unit || 'yd')}.`);
 
       CyberDialog.alert(opMsg, { icon: '✓', title: 'STOCK UPDATED' });
     }
