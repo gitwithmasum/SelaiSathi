@@ -4872,11 +4872,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <!-- Top Action & Title Bar -->
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
-            <div class="text-[10px] font-mono font-bold tracking-[.25em] text-cyan-400 uppercase">FACTORY MATERIALS &amp; TRIMS CONTROL</div>
+            <div class="text-[10px] font-mono font-bold tracking-[.25em] text-cyan-400 uppercase" data-i18n="inv_sec_tag">FACTORY MATERIALS &amp; TRIMS CONTROL</div>
             <h1 class="text-2xl sm:text-3xl font-black text-ios-text mt-1 flex items-center gap-2">
               <span>📦</span> <span data-i18n="inv_hub_title">Inventory &amp; Materials Hub</span>
             </h1>
-            <p class="text-xs sm:text-sm text-ios-subtext mt-1">সেলাই অনুষঙ্গ (Trims), বোতাম, কলার বক্রম, সুতা, প্যাকেজিং, কাটপিস ও স্বয়ংক্রিয় অর্ডার কনজাম্পশন (BOM)।</p>
+            <p class="text-xs sm:text-sm text-ios-subtext mt-1" data-i18n="inv_hub_desc">Trims, buttons, collar interlining, threads, packaging, remnants, and automatic Bill of Materials (BOM) consumption.</p>
           </div>
 
           <div class="flex flex-wrap items-center gap-2">
@@ -4905,38 +4905,38 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
           <div class="bento-card p-4 sm:p-5">
             <div class="flex items-center justify-between text-xs text-ios-subtext">
-              <span class="font-bold uppercase tracking-wider text-[10px]">Tracked Items</span>
+              <span class="font-bold uppercase tracking-wider text-[10px]" data-i18n="inv_kpi_items">Tracked Items</span>
               <span class="text-base">📦</span>
             </div>
             <div class="text-2xl sm:text-3xl font-black font-mono text-ios-text mt-2" id="inv-total-items">0</div>
-            <div class="text-[11px] text-ios-subtext mt-0.5">Total items across all categories</div>
+            <div class="text-[11px] text-ios-subtext mt-0.5" data-i18n="inv_kpi_items_sub">Total items across all categories</div>
           </div>
 
           <div class="bento-card p-4 sm:p-5">
             <div class="flex items-center justify-between text-xs text-emerald-400">
-              <span class="font-bold uppercase tracking-wider text-[10px]">Total Valuation</span>
+              <span class="font-bold uppercase tracking-wider text-[10px]" data-i18n="inv_kpi_val">Total Valuation</span>
               <span class="text-base">💰</span>
             </div>
             <div class="text-2xl sm:text-3xl font-black font-mono text-emerald-400 mt-2" id="inv-total-value">৳0</div>
-            <div class="text-[11px] text-ios-subtext mt-0.5">Total inventory asset valuation</div>
+            <div class="text-[11px] text-ios-subtext mt-0.5" data-i18n="inv_kpi_val_sub">Total inventory asset valuation</div>
           </div>
 
           <div class="bento-card p-4 sm:p-5 cursor-pointer hover:border-amber-500/50 transition-all" onclick="filterLowStockInventory()" title="Click to view low stock materials">
             <div class="flex items-center justify-between text-xs text-amber-400">
-              <span class="font-bold uppercase tracking-wider text-[10px]">Low-Stock Alerts</span>
+              <span class="font-bold uppercase tracking-wider text-[10px]" data-i18n="inv_kpi_low">Low-Stock Alerts</span>
               <span class="text-base">⚠️</span>
             </div>
             <div class="text-2xl sm:text-3xl font-black font-mono text-amber-400 mt-2" id="inv-total-low">0</div>
-            <div class="text-[11px] text-amber-300/80 mt-0.5">Reorder required (&le; min stock)</div>
+            <div class="text-[11px] text-amber-300/80 mt-0.5" data-i18n="inv_kpi_low_sub">Reorder required (&le; min stock)</div>
           </div>
 
           <div class="bento-card p-4 sm:p-5 cursor-pointer hover:border-cyan-500/50 transition-all" onclick="setInventoryTab('remnants')" title="Click to view fabric remnants">
             <div class="flex items-center justify-between text-xs text-cyan-400">
-              <span class="font-bold uppercase tracking-wider text-[10px]">Remnants &amp; Scraps</span>
+              <span class="font-bold uppercase tracking-wider text-[10px]" data-i18n="inv_kpi_remnants">Remnants &amp; Scraps</span>
               <span class="text-base">✂️</span>
             </div>
             <div class="text-2xl sm:text-3xl font-black font-mono text-cyan-300 mt-2" id="inv-total-remnants">0</div>
-            <div class="text-[11px] text-ios-subtext mt-0.5" id="inv-remnants-sub">Reusable fabric remnants</div>
+            <div class="text-[11px] text-ios-subtext mt-0.5" id="inv-remnants-sub" data-i18n="inv_kpi_remnants_sub">Reusable fabric remnants</div>
           </div>
         </div>
 
@@ -4947,7 +4947,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <span class="text-lg">✂️</span>
               <div>
                 <h3 class="font-black text-sm text-ios-text">Smart Order Consumption (BOM Production Deduct)</h3>
-                <p class="text-[11px] text-ios-subtext">পোশাক তৈরির সময় কাপড়, বোতাম, চেইন ও কলার বক্রম ১-ক্লিকে ইনভেন্টরি থেকে স্বয়ংক্রিয়ভাবে মাইনাস করুন।</p>
+                <p class="text-[11px] text-ios-subtext" data-i18n="inv_bom_box_desc">1-click automatic deduction of fabrics, buttons, zippers, and collar buckram from inventory during garment cutting.</p>
               </div>
             </div>
             <span class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-300 border border-purple-500/20 font-bold self-start sm:self-auto">PRODUCTION AUTOMATION</span>
@@ -4959,8 +4959,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 <span class="text-xl">👔</span>
                 <span class="text-[10px] font-mono font-bold text-cyan-400 group-hover:translate-x-0.5 transition-transform">Deduct ↗</span>
               </div>
-              <div class="font-bold text-xs text-ios-text mt-1.5">পাঞ্জাবি (Panjabi)</div>
-              <div class="text-[10px] text-ios-subtext">২.৫০ গজ + বক্রম + ৬ বোতাম</div>
+              <div class="font-bold text-xs text-ios-text mt-1.5" data-i18n="inv_recipe_panjabi">Panjabi</div>
+              <div class="text-[10px] text-ios-subtext" data-i18n="inv_recipe_panjabi_sub">2.50 yds + Buckram + 6 Buttons</div>
             </button>
 
             <button onclick="openBOMDeductModal('suit')" class="p-3 rounded-2xl border border-ios-border bg-white/5 hover:border-purple-400 hover:bg-purple-500/10 transition-all text-left group">
@@ -4968,8 +4968,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 <span class="text-xl">🧥</span>
                 <span class="text-[10px] font-mono font-bold text-purple-400 group-hover:translate-x-0.5 transition-transform">Deduct ↗</span>
               </div>
-              <div class="font-bold text-xs text-ios-text mt-1.5">স্যুট / ব্লেজার (Suit)</div>
-              <div class="text-[10px] text-ios-subtext">২ গজ উল + আস্তর + প্যাড + কভার</div>
+              <div class="font-bold text-xs text-ios-text mt-1.5" data-i18n="inv_recipe_suit">Suit / Blazer</div>
+              <div class="text-[10px] text-ios-subtext" data-i18n="inv_recipe_suit_sub">2.00 yds Wool + Lining + Canvas</div>
             </button>
 
             <button onclick="openBOMDeductModal('shirt')" class="p-3 rounded-2xl border border-ios-border bg-white/5 hover:border-blue-400 hover:bg-blue-500/10 transition-all text-left group">
@@ -4977,8 +4977,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 <span class="text-xl">👕</span>
                 <span class="text-[10px] font-mono font-bold text-blue-400 group-hover:translate-x-0.5 transition-transform">Deduct ↗</span>
               </div>
-              <div class="font-bold text-xs text-ios-text mt-1.5">ফরমাল শার্ট (Shirt)</div>
-              <div class="text-[10px] text-ios-subtext">২.২৫ গজ + কলার পেস্টিং + ৮ বোতাম</div>
+              <div class="font-bold text-xs text-ios-text mt-1.5" data-i18n="inv_recipe_shirt">Formal Shirt</div>
+              <div class="text-[10px] text-ios-subtext" data-i18n="inv_recipe_shirt_sub">2.25 yds + Collar Pasting + 8 Buttons</div>
             </button>
 
             <button onclick="openBOMDeductModal('pant')" class="p-3 rounded-2xl border border-ios-border bg-white/5 hover:border-emerald-400 hover:bg-emerald-500/10 transition-all text-left group">
@@ -4986,8 +4986,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 <span class="text-xl">👖</span>
                 <span class="text-[10px] font-mono font-bold text-emerald-400 group-hover:translate-x-0.5 transition-transform">Deduct ↗</span>
               </div>
-              <div class="font-bold text-xs text-ios-text mt-1.5">ফরমাল প্যান্ট (Pant)</div>
-              <div class="text-[10px] text-ios-subtext">১.৩০ গজ + পকেট কাপড় + জিপার</div>
+              <div class="font-bold text-xs text-ios-text mt-1.5" data-i18n="inv_recipe_pant">Formal Pant</div>
+              <div class="text-[10px] text-ios-subtext" data-i18n="inv_recipe_pant_sub">1.30 yds + Pocketing + YKK Zipper</div>
             </button>
           </div>
         </div>
@@ -5028,7 +5028,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 <option value="Rack C">Rack C</option>
                 <option value="Shelf S">Shelf S</option>
                 <option value="Drawer D">Drawer D</option>
-                <option value="Bin">Bin (টুকরো বিন)</option>
+                <option value="Bin" data-i18n="inv_filter_bin">Bin (Scrap Bin)</option>
               </select>
 
               <!-- Stock Status Filter -->
@@ -5055,13 +5055,13 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
           <!-- Category Filter Pills Bar (For Stock Items Tab) -->
           <div class="flex flex-wrap items-center gap-1.5 pt-1 border-t border-ios-border" id="inv-category-pills">
-            <button onclick="setInventoryCategory('all')" class="inv-cat-pill active px-3 py-1 rounded-xl text-xs font-bold border transition-all" data-cat="all">All Categories (সব)</button>
-            <button onclick="setInventoryCategory('Fabric')" class="inv-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Fabric">🧵 Fabrics (থান)</button>
-            <button onclick="setInventoryCategory('Buttons')" class="inv-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Buttons">🔘 Buttons (বোতাম)</button>
-            <button onclick="setInventoryCategory('Zippers')" class="inv-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Zippers">🤐 Zippers (চেইন)</button>
-            <button onclick="setInventoryCategory('Interlining')" class="inv-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Interlining">📐 Interlining (বক্রম)</button>
-            <button onclick="setInventoryCategory('Threads')" class="inv-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Threads">🧶 Threads (সুতা)</button>
-            <button onclick="setInventoryCategory('Packaging')" class="inv-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Packaging">🛍️ Packaging (কভার/ব্যাগ)</button>
+            <button onclick="setInventoryCategory('all')" class="inv-cat-pill active px-3 py-1 rounded-xl text-xs font-bold border transition-all" data-cat="all" data-i18n="inv_cat_all">All Categories</button>
+            <button onclick="setInventoryCategory('Fabric')" class="inv-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Fabric" data-i18n="inv_cat_fabric">🧵 Fabrics</button>
+            <button onclick="setInventoryCategory('Buttons')" class="inv-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Buttons" data-i18n="inv_cat_buttons">🔘 Buttons</button>
+            <button onclick="setInventoryCategory('Zippers')" class="inv-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Zippers" data-i18n="inv_cat_zippers">🤐 Zippers</button>
+            <button onclick="setInventoryCategory('Interlining')" class="inv-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Interlining" data-i18n="inv_cat_interlining">📐 Interlining</button>
+            <button onclick="setInventoryCategory('Threads')" class="inv-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Threads" data-i18n="inv_cat_threads">🧶 Threads</button>
+            <button onclick="setInventoryCategory('Packaging')" class="inv-cat-pill px-3 py-1 rounded-xl text-xs font-medium border transition-all" data-cat="Packaging" data-i18n="inv_cat_packaging">🛍️ Packaging</button>
           </div>
         </div>
 
@@ -5096,11 +5096,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <div id="inventory-remnants-view" class="space-y-4 hidden">
           <div class="flex items-center justify-between">
             <div>
-              <h3 class="font-black text-sm text-ios-text">✂️ ছাঁট ও অবশিষ্ট কাটপিস কাপড় (Scraps &amp; Remnants)</h3>
-              <p class="text-xs text-ios-subtext mt-0.5">পোশাক কাটার পর অবশিষ্ট টুকরা কাপড় যা দিয়ে পকেট আস্তর, মাস্ক বা বাচ্চাদের পোশাক তৈরি সম্ভব।</p>
+              <h3 class="font-black text-sm text-ios-text">✂️ Fabric Scraps &amp; Leftover Remnants</h3>
+              <p class="text-xs text-ios-subtext mt-0.5" data-i18n="inv_rem_desc">Salvaged leftover fabrics from cutting suitable for pocket lining, masks, contrasts, or children wear.</p>
             </div>
-            <button onclick="openRemnantModal()" class="px-3.5 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-xs font-bold active:scale-95 shadow-sm">
-              ＋ নতুন কাটপিস যোগ করুন
+            <button onclick="openRemnantModal()" class="px-3.5 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-xs font-bold active:scale-95 shadow-sm" data-i18n="inv_rem_btn_add">
+              ＋ Add Remnant Record
             </button>
           </div>
           <div id="inventory-remnants-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -5112,11 +5112,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <div id="inventory-suppliers-view" class="space-y-4 hidden">
           <div class="flex items-center justify-between">
             <div>
-              <h3 class="font-black text-sm text-ios-text">🏪 মহাজন ও সাপ্লায়ার খাতা (Suppliers Ledger)</h3>
-              <p class="text-xs text-ios-subtext mt-0.5">কাপড়, বোতাম ও সুতার মহাজনদের তালিকা, বকেয়া হিসাব এবং ১-ক্লিকে ক্রয় রিকুইজিশন।</p>
-            </div>
-            <button onclick="openSupplierModal()" class="px-3.5 py-1.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:brightness-110 text-white rounded-xl text-xs font-bold active:scale-95 shadow-sm flex items-center gap-1.5 cursor-pointer">
-              <span>＋</span> <span>নতুন মহাজন যোগ করুন</span>
+              <h3 class="font-black text-sm text-ios-text">🏪 Suppliers Ledger &amp; Material Vendors</h3>
+            <p class="text-xs text-ios-subtext mt-0.5" data-i18n="inv_sup_desc">Directory of fabric, button, and thread vendors with payable dues balance and 1-click WhatsApp purchase orders.</p>
+          </div>
+          <button onclick="openSupplierModal()" class="px-4 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:brightness-110 text-white rounded-xl text-xs font-bold shadow-md active:scale-95 transition-all flex items-center gap-2 self-start sm:self-auto">
+            <span>＋</span> <span data-i18n="inv_sup_btn_add">Add New Supplier</span>
             </button>
           </div>
           <div id="inventory-suppliers-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -5128,11 +5128,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <div id="inventory-audit-view" class="space-y-4 hidden">
           <div class="flex items-center justify-between">
             <div>
-              <h3 class="font-black text-sm text-ios-text">📋 ইনভেন্টরি অডিট ও অপচয় লগ (Audit &amp; Wastage Ledger)</h3>
-              <p class="text-xs text-ios-subtext mt-0.5">বাস্তব গণনা vs সিস্টেম স্টকের অমিল, ছাঁট অপচয় এবং সমন্বয় রিপোর্ট।</p>
+              <h3 class="font-black text-sm text-ios-text">📋 Inventory Audit &amp; Wastage Discrepancy Ledger</h3>
+              <p class="text-xs text-ios-subtext mt-0.5" data-i18n="inv_aud_desc">Physical count vs system stock discrepancies, cutting waste, and inventory reconciliation audit trail.</p>
             </div>
-            <button onclick="openStockAuditModal()" class="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-xs font-bold active:scale-95 shadow-sm">
-              📋 নতুন অডিট চালান
+            <button onclick="openStockAuditModal()" class="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-xs font-bold active:scale-95 shadow-sm" data-i18n="inv_aud_btn_run">
+              📋 Run Stock Audit
             </button>
           </div>
           <div class="bento-card p-5">
@@ -5160,21 +5160,24 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <!-- Empty State Container -->
         <div id="inventory-empty" class="hidden text-center py-12 text-sm text-ios-subtext space-y-2">
           <div class="text-4xl mb-1">📦</div>
-          <div class="font-bold text-base text-ios-text">কোনো উপাদান বা মালামাল পাওয়া যায়নি</div>
-          <p class="text-xs">ফিল্টার পরিবর্তন করুন অথবা "＋ নতুন উপাদান" বাটনে ক্লিক করে নতুন মালামাল যোগ করুন।</p>
+          <div class="font-bold text-base text-ios-text">No inventory items found</div>
+        <p class="text-xs" data-i18n="inv_empty_desc">Try adjusting filters or search query, or click "+ Add Material" to register items.</p>
         </div>
 
         <!-- Stock Movements Live Ledger -->
         <div class="bento-card p-5 space-y-4">
           <div class="flex items-center justify-between">
             <div>
-              <h2 class="font-bold text-sm text-ios-text">Live Stock Movement Ledger (স্টক ইন-আউট হিস্ট্রি)</h2>
-              <p class="text-xs text-ios-subtext mt-0.5">কারখানায় মালামাল আমদানি, ব্যবহার ও কাটিং কনজাম্পশন অডিট ট্রেইল</p>
-            </div>
-            <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-md bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">LIVE AUDIT LOG</span>
-          </div>
-          <div id="inventory-movements" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
-          <div id="inventory-movements-empty" class="hidden text-center py-6 text-xs text-ios-subtext">এখনো কোনো স্টক মুভমেন্ট রেকর্ড করা হয়নি।</div>
+              <h2 class="font-bold text-sm text-ios-text">Live Stock Movement Ledger</h2>
+          <p class="text-xs text-ios-subtext mt-0.5" data-i18n="inv_mov_desc">Audit trail of factory material arrivals, usage, and BOM consumption.</p>
+        </div>
+        <span class="text-xs font-mono text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 px-2.5 py-1 rounded-lg">Realtime Ledger</span>
+      </div>
+
+      <div id="inventory-movements" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <!-- Rendered dynamically -->
+      </div>
+      <div id="inventory-movements-empty" class="hidden text-center py-6 text-xs text-ios-subtext" data-i18n="inv_mov_empty">No stock movements recorded yet.</div>
         </div>
       </section>
 
@@ -9887,11 +9890,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <div>
             <label class="block font-bold text-ios-text mb-1">Garment Type (পোশাকের ধরন)</label>
             <select id="bom-garment-type" onchange="updateBOMRecipe()" class="w-full border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400 font-bold">
-              <option value="panjabi">👔 Panjabi (পাঞ্জাবি) - ২.৫০ গজ + বক্রম + ৬ বোতাম</option>
-              <option value="suit">🧥 Suit / Blazer (স্যুট/ব্লেজার) - ২ গজ উল + আস্তর + প্যাড</option>
-              <option value="shirt">👕 Formal Shirt (ফরমাল শার্ট) - ২.২৫ গজ + কলার পেস্টিং + ৮ বোতাম</option>
-              <option value="pant">👖 Formal Pant (ফরমাল প্যান্ট) - ১.৩০ গজ + পকেট কাপড় + ১ জিপার</option>
-              <option value="waistcoat">🦺 Waistcoat / Mujib Coat (মুজিব কোট) - ১.৪০ গজ + মেটাল বোতাম</option>
+              <option value="panjabi">👔 Panjabi (2.50 yds + Buckram + 6 Buttons)</option>
+              <option value="suit">🧥 Suit / Blazer (2.00 yds Wool + Lining + Canvas)</option>
+              <option value="shirt">👕 Formal Shirt (2.25 yds + Collar Pasting + 8 Buttons)</option>
+              <option value="pant">👖 Formal Pant (1.30 yds + Pocketing + 1 Zipper)</option>
+              <option value="waistcoat">🦺 Waistcoat / Mujib Coat (1.40 yds + Metal Buttons)</option>
             </select>
           </div>
           <div>
@@ -9995,12 +9998,12 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <div>
           <label class="block font-bold text-ios-text mb-1">Reason / Wastage Category (অমিলের কারণ) *</label>
           <select id="audit-reason" class="w-full border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
-            <option value="Cutting Wastage">✂️ কাটিং ছাঁট অপচয় (Cutting Scraps Wastage)</option>
-            <option value="Damaged / Defective">❌ ক্ষতিগ্রস্ত / রিজেক্ট থান (Damaged / Defective Bolt)</option>
-            <option value="Miscount / Human Error">📝 পূর্বে ভুল গণনা হয়েছিল (Miscounted previously)</option>
-            <option value="Shrinkage / Wash">💧 ওয়াশ ও সংকোচন ঘাটতি (Shrinkage Loss)</option>
-            <option value="Theft / Unaccounted">❓ অনুপস্থিত / হিসাববিহীন (Unaccounted Discrepancy)</option>
-            <option value="Surplus / Extra Yield">🎁 উদ্বৃত্ত স্টক (Surplus Stock Found)</option>
+            <option value="Cutting Wastage">✂️ Cutting Scraps &amp; Wastage</option>
+            <option value="Damaged / Defective">❌ Damaged / Defective Bolt</option>
+            <option value="Miscount / Human Error">📝 Miscounted Previously (Physical Discrepancy)</option>
+            <option value="Shrinkage / Wash">💧 Shrinkage / Wash Loss</option>
+            <option value="Theft / Unaccounted">❓ Unaccounted Discrepancy</option>
+            <option value="Surplus / Extra Yield">🎁 Surplus Stock Found</option>
           </select>
         </div>
 
@@ -10246,11 +10249,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <div>
             <label class="block font-bold text-ios-text mb-1">Fabric Type (কাপড়ের ধরন)</label>
             <select id="remnant-fabric-type" class="w-full border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
-              <option value="Cotton">👔 Cotton (সুতি)</option>
-              <option value="Linen">🌿 Linen (লিনেন)</option>
-              <option value="Suiting">🧥 Suiting (স্যুটিং)</option>
-              <option value="Silk">✨ Silk (সিল্ক)</option>
-              <option value="Voile">💨 Voile (ভয়েল)</option>
+              <option value="Cotton">👔 Cotton</option>
+              <option value="Linen">🌿 Linen</option>
+              <option value="Suiting">🧥 Suiting</option>
+              <option value="Silk">✨ Silk</option>
+              <option value="Voile">💨 Voile</option>
             </select>
           </div>
           <div>
@@ -10629,7 +10632,53 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         fc_lbl_making: 'Making / Tailoring Charge (৳)',
         fc_lbl_total: 'Total Estimated Cost',
         fc_lbl_total_sub: '(Fabric + Tailoring Fee)',
-        fc_btn_done: 'Done'
+        fc_btn_done: 'Done',
+
+        // INVENTORY MODULE
+        inv_sec_tag: 'FACTORY MATERIALS & TRIMS CONTROL',
+        inv_hub_desc: 'Trims, buttons, collar interlining, threads, packaging, remnants, and automatic Bill of Materials (BOM) consumption.',
+        inv_kpi_items: 'Tracked Items',
+        inv_kpi_items_sub: 'Total items across all categories',
+        inv_kpi_val: 'Total Valuation',
+        inv_kpi_val_sub: 'Total inventory asset valuation',
+        inv_kpi_low: 'Low-Stock Alerts',
+        inv_kpi_low_sub: 'Reorder required (≤ min stock)',
+        inv_kpi_remnants: 'Remnants & Scraps',
+        inv_kpi_remnants_sub: 'Reusable fabric remnants',
+        inv_recipe_panjabi: 'Panjabi',
+        inv_recipe_panjabi_sub: '2.50 yds + Buckram + 6 Buttons',
+        inv_recipe_suit: 'Suit / Blazer',
+        inv_recipe_suit_sub: '2.00 yds Wool + Lining + Canvas',
+        inv_recipe_shirt: 'Formal Shirt',
+        inv_recipe_shirt_sub: '2.25 yds + Collar Pasting + 8 Buttons',
+        inv_recipe_pant: 'Formal Pant',
+        inv_recipe_pant_sub: '1.30 yds + Pocketing + YKK Zipper',
+        inv_cat_all: 'All Categories',
+        inv_cat_fabric: '🧵 Fabrics',
+        inv_cat_buttons: '🔘 Buttons',
+        inv_cat_zippers: '🤐 Zippers',
+        inv_cat_interlining: '📐 Interlining',
+        inv_cat_threads: '🧶 Threads',
+        inv_cat_packaging: '🛍️ Packaging',
+        inv_filter_bin: 'Scrap Bins',
+        inv_rem_title: '✂️ Fabric Scraps & Leftover Remnants',
+        inv_rem_desc: 'Salvaged leftover fabrics from cutting suitable for pocket lining, masks, contrasts, or children wear.',
+        inv_rem_btn_add: '＋ Add Remnant Record',
+        inv_sup_title: '🏪 Suppliers Ledger & Material Vendors',
+        inv_sup_desc: 'Directory of fabric, button, and thread vendors with payable dues balance and 1-click WhatsApp purchase orders.',
+        inv_sup_btn_add: '＋ Add New Supplier',
+        inv_aud_title: '📋 Inventory Audit & Wastage Discrepancy Ledger',
+        inv_aud_desc: 'Physical count vs system stock discrepancies, cutting waste, and inventory reconciliation audit trail.',
+        inv_aud_btn_run: '📋 Run Stock Audit',
+        inv_empty_title: 'No inventory items found',
+        inv_empty_desc: 'Try adjusting filters or search query, or click "+ Add Material" to register items.',
+        inv_mov_title: 'Live Stock Movement Ledger',
+        inv_mov_desc: 'Audit trail of factory material arrivals, usage, and BOM consumption.',
+        inv_mov_empty: 'No stock movements recorded yet.',
+        btn_barcode: 'Barcode Scan',
+        btn_bom: 'BOM Consumption',
+        btn_audit: 'Stock Audit',
+        btn_new_item: '＋ Add Material'
       },
       bn: {
         sec_shop: 'দোকান (Shop OS)',
@@ -10847,7 +10896,53 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         fc_lbl_making: 'মজুরি / সেলাই খরচ (৳)',
         fc_lbl_total: 'সর্বমোট আনুমানিক খরচ',
         fc_lbl_total_sub: '(কাপড় + সেলাই মজুরি)',
-        fc_btn_done: 'সম্পন্ন (Done)'
+        fc_btn_done: 'সম্পন্ন (Done)',
+
+        // INVENTORY MODULE
+        inv_sec_tag: 'ফ্যাক্টরি ইনভেন্টরি ও ম্যাটেরিয়াল কন্ট্রোল',
+        inv_hub_desc: 'সেলাই অনুষঙ্গ (Trims), বোতাম, কলার বক্রম, সুতা, প্যাকেজিং, কাটপিস ও স্বয়ংক্রিয় অর্ডার কনজাম্পশন (BOM)।',
+        inv_kpi_items: 'মোট তালিকাভুক্ত উপকরণ',
+        inv_kpi_items_sub: 'ফ্যাক্টরির সকল ক্যাটাগরির ট্রিমস',
+        inv_kpi_val: 'মোট ইনভেন্টরি সম্পদ',
+        inv_kpi_val_sub: 'মজুদ মালের মোট আর্থিক ক্রয়মূল্য',
+        inv_kpi_low: 'স্টক সংকট সতর্কতা',
+        inv_kpi_low_sub: 'রিঅর্ডার সীমা অতিক্রম করেছে',
+        inv_kpi_remnants: 'কাটপিস ও ছাঁট কাপড়',
+        inv_kpi_remnants_sub: 'পুনর্ব্যবহারযোগ্য অবশিষ্ট টুকরা',
+        inv_recipe_panjabi: 'পাঞ্জাবি (Panjabi)',
+        inv_recipe_panjabi_sub: '২.৫০ গজ + বক্রম + ৬ বোতাম',
+        inv_recipe_suit: 'স্যুট / ব্লেজার (Suit)',
+        inv_recipe_suit_sub: '২ গজ উল + আস্তর + প্যাড + কভার',
+        inv_recipe_shirt: 'ফরমাল শার্ট (Shirt)',
+        inv_recipe_shirt_sub: '২.২৫ গজ + কলার পেস্টিং + ৮ বোতাম',
+        inv_recipe_pant: 'ফরমাল প্যান্ট (Pant)',
+        inv_recipe_pant_sub: '১.৩০ গজ + পকেট কাপড় + ১ জিপার',
+        inv_cat_all: 'সব ক্যাটাগরি',
+        inv_cat_fabric: '🧵 কাপড় (Fabrics)',
+        inv_cat_buttons: '🔘 বোতাম (Buttons)',
+        inv_cat_zippers: '🤐 চেইন (Zippers)',
+        inv_cat_interlining: '📐 বক্রম (Interlining)',
+        inv_cat_threads: '🧶 সুতা (Threads)',
+        inv_cat_packaging: '🛍️ প্যাকেজিং (Packaging)',
+        inv_filter_bin: 'টুকরো বিন (Scrap Bin)',
+        inv_rem_title: 'ছাঁট ও অবশিষ্ট কাটপিস কাপড় (Scraps & Remnants)',
+        inv_rem_desc: 'পোশাক কাটার পর অবশিষ্ট টুকরা কাপড় যা দিয়ে পকেট আস্তর, মাস্ক বা বাচ্চাদের পোশাক তৈরি সম্ভব।',
+        inv_rem_btn_add: '＋ নতুন কাটপিস যোগ করুন',
+        inv_sup_title: 'মহাজন ও সাপ্লায়ার খাতা (Suppliers Ledger)',
+        inv_sup_desc: 'কাপড়, বোতাম ও সুতার মহাজনদের তালিকা, বকেয়া হিসাব এবং ১-ক্লিকে ক্রয় রিকুইজিশন।',
+        inv_sup_btn_add: '＋ নতুন মহাজন যোগ করুন',
+        inv_aud_title: 'ইনভেন্টরি অডিট ও অপচয় লগ (Audit & Wastage Ledger)',
+        inv_aud_desc: 'বাস্তব গণনা vs সিস্টেম স্টকের অমিল, ছাঁট অপচয় এবং সমন্বয় রিপোর্ট।',
+        inv_aud_btn_run: '📋 নতুন অডিট চালান',
+        inv_empty_title: 'কোনো উপাদান বা মালামাল পাওয়া যায়নি',
+        inv_empty_desc: 'ফিল্টার পরিবর্তন করুন অথবা "＋ নতুন উপাদান" বাটনে ক্লিক করে নতুন মালামাল যোগ করুন।',
+        inv_mov_title: 'Live Stock Movement Ledger (স্টক ইন-আউট হিস্ট্রি)',
+        inv_mov_desc: 'কারখানায় মালামাল আমদানি, ব্যবহার ও কাটিং কনজাম্পশন অডিট ট্রেইল',
+        inv_mov_empty: 'এখনো কোনো স্টক মুভমেন্ট রেকর্ড করা হয়নি।',
+        btn_barcode: 'বারকোড স্ক্যান',
+        btn_bom: 'BOM কনজাম্পশন',
+        btn_audit: 'স্টক অডিট',
+        btn_new_item: '＋ নতুন উপাদান'
       }
     };
 
@@ -10891,6 +10986,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (typeof renderCustomerDues === 'function') renderCustomerDues();
       if (typeof renderFabrics === 'function') renderFabrics();
       if (typeof runFabricEstimator === 'function') runFabricEstimator();
+      if (typeof renderInventory === 'function') renderInventory();
       const shopOwnerModal = document.getElementById('modal-shop-owner');
       if (shopOwnerModal && !shopOwnerModal.classList.contains('hidden') && typeof openShopOwnerModal === 'function') {
         openShopOwnerModal();
@@ -17785,6 +17881,33 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
 
     // --- MAIN RENDER FUNCTION ---
+    function formatMaterialName(name) {
+      if (!name) return '';
+      const isBn = (localStorage.getItem('ss_lang') || 'bn') === 'bn';
+      if (!isBn) {
+        return name.replace(/\s*\([\u0980-\u09FF\s\/\,\.\-–—]+\)/g, '').trim();
+      }
+      return name;
+    }
+
+    function formatMaterialWidth(w) {
+      if (!w) return '';
+      const isBn = (localStorage.getItem('ss_lang') || 'bn') === 'bn';
+      if (!isBn) {
+        return w.replace('ডাবল বহর', 'Double Width').replace('সিঙ্গেল বহর', 'Single Width').replace('বহর', 'Width');
+      }
+      return w;
+    }
+
+    function formatRemnantLength(l) {
+      if (!l) return '';
+      const isBn = (localStorage.getItem('ss_lang') || 'bn') === 'bn';
+      if (!isBn) {
+        return l.replace('গজ', 'yds').replace('ইঞ্চি', 'inches').replace('ইঞ্চিস', 'inches');
+      }
+      return l;
+    }
+
     function renderInventory() {
       const all = ssRecords.fabrics || [];
       const low = all.filter(x => Number(x.stock) <= Number(x.minimum));
@@ -17870,11 +17993,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       // Render Grid Cards
       const gridContainer = document.getElementById('inventory-grid-view');
       if (gridContainer) {
+        const isBn = (localStorage.getItem('ss_lang') || 'bn') === 'bn';
         gridContainer.innerHTML = filtered.map(item => {
           const stockQty = Number(item.stock) || 0;
           const isOut = stockQty <= 0;
           const isLow = !isOut && stockQty <= (Number(item.minimum) || 0);
           const val = stockQty * (Number(item.cost) || 0);
+          const formattedName = typeof formatMaterialName === 'function' ? formatMaterialName(item.name) : item.name;
+          const formattedWidth = typeof formatMaterialWidth === 'function' ? formatMaterialWidth(item.width) : item.width;
           const colorHex = item.color || '#38bdf8';
           const catIcon = item.category === 'Buttons' ? '🔘' :
                           item.category === 'Zippers' ? '🤐' :
@@ -17892,7 +18018,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                     </span>
                     <div>
                       <span class="text-[10px] font-mono px-2 py-0.5 rounded-md font-bold uppercase tracking-wider ${isOut ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' : isLow ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-cyan-500/10 text-cyan-300 border border-cyan-500/20'}">
-                        ${isOut ? '⛔ Out of Stock' : isLow ? '⚠️ Low Stock' : '✓ In Stock'}
+                        ${isOut ? (isBn ? '⛔ স্টক খালি' : '⛔ Out of Stock') : isLow ? (isBn ? '⚠️ কম স্টক' : '⚠️ Low Stock') : (isBn ? '✓ পর্যাপ্ত' : '✓ In Stock')}
                       </span>
                     </div>
                   </div>
@@ -17900,35 +18026,35 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 </div>
 
                 <div>
-                  <h4 class="font-black text-sm text-ios-text line-clamp-1" title="${safeText(item.name)}">${safeText(item.name)}</h4>
+                  <h4 class="font-black text-sm text-ios-text line-clamp-1" title="${safeText(formattedName)}">${safeText(formattedName)}</h4>
                   <div class="text-[11px] text-ios-subtext flex items-center gap-1.5 mt-0.5">
                     <span>${safeText(item.category)}</span>
-                    ${item.width ? `<span>·</span><span>${safeText(item.width)}</span>` : ''}
+                    ${item.width ? `<span>·</span><span>${safeText(formattedWidth)}</span>` : ''}
                   </div>
                 </div>
 
                 <div class="p-2.5 rounded-xl bg-slate-900/50 border border-ios-border flex items-center justify-between text-xs">
                   <div>
-                    <span class="text-[10px] text-ios-subtext block">Current Stock</span>
+                    <span class="text-[10px] text-ios-subtext block">${isBn ? 'বর্তমান স্টক' : 'Current Stock'}</span>
                     <span class="text-base font-black font-mono ${isLow ? 'text-amber-400' : 'text-cyan-300'}">${safeText(item.stock)} <span class="text-[11px] font-normal">${safeText(item.unit || 'yard')}</span></span>
                   </div>
                   <div class="text-right">
-                    <span class="text-[10px] text-ios-subtext block">Reorder at</span>
+                    <span class="text-[10px] text-ios-subtext block">${isBn ? 'রিঅর্ডার সীমা' : 'Reorder at'}</span>
                     <span class="font-mono text-ios-subtext font-bold">${safeText(item.minimum)} ${safeText(item.unit || 'yard')}</span>
                   </div>
                 </div>
 
                 <div class="space-y-1 text-[11px] text-ios-subtext pt-1">
                   <div class="flex items-center justify-between">
-                    <span>Shelf Location:</span>
+                    <span>${isBn ? 'সেলফ / র‍্যাক:' : 'Shelf Location:'}</span>
                     <span class="font-mono font-bold text-ios-text bg-white/5 px-2 py-0.5 rounded-md">${safeText(item.rack || 'Shelf 1')}</span>
                   </div>
                   <div class="flex items-center justify-between">
-                    <span>Unit Cost / Price:</span>
+                    <span>${isBn ? 'ক্রয় / বিক্রয় মূল্য:' : 'Unit Cost / Price:'}</span>
                     <span class="font-mono font-bold text-emerald-400">৳${safeText(item.cost || 0)} / ৳${safeText(item.price || 0)}</span>
                   </div>
                   <div class="flex items-center justify-between">
-                    <span>Stock Asset Value:</span>
+                    <span>${isBn ? 'মোট স্টক মূল্য:' : 'Stock Asset Value:'}</span>
                     <span class="font-mono font-bold text-ios-text">৳${moneyBDT(val).replace('৳', '')}</span>
                   </div>
                 </div>
@@ -17968,8 +18094,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 <div class="flex items-center gap-2">
                   <span class="w-3.5 h-3.5 rounded-full shrink-0 border border-white/20" style="background:${colorHex}"></span>
                   <div>
-                    <div class="font-bold text-ios-text">${safeText(item.name)}</div>
-                    <div class="text-[10px] text-ios-subtext">${safeText(item.category)} ${item.width ? '· ' + safeText(item.width) : ''}</div>
+                    <div class="font-bold text-ios-text">${safeText(typeof formatMaterialName === 'function' ? formatMaterialName(item.name) : item.name)}</div>
+                    <div class="text-[10px] text-ios-subtext">${safeText(item.category)} ${item.width ? '· ' + safeText(typeof formatMaterialWidth === 'function' ? formatMaterialWidth(item.width) : item.width) : ''}</div>
                   </div>
                 </div>
               </td>
@@ -17979,7 +18105,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <td class="p-3 font-mono text-emerald-400">৳${safeText(item.cost || 0)} / ৳${safeText(item.price || 0)}</td>
               <td class="p-3">
                 <span class="text-[10px] font-mono px-2 py-0.5 rounded-md font-bold uppercase tracking-wider ${isOut ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' : isLow ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/20'}">
-                  ${isOut ? '⛔ Out' : isLow ? '⚠️ Low' : '✓ In Stock'}
+                  ${isOut ? (isBn ? '⛔ স্টক খালি' : '⛔ Out of Stock') : isLow ? (isBn ? '⚠️ কম স্টক' : '⚠️ Low Stock') : (isBn ? '✓ পর্যাপ্ত' : '✓ In Stock')}
                 </span>
               </td>
               <td class="p-3 text-right whitespace-nowrap">
@@ -18014,6 +18140,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         return;
       }
 
+      const isBn = (localStorage.getItem('ss_lang') || 'bn') === 'bn';
       container.innerHTML = filtered.map(rem => {
         return `
           <div class="bento-card p-4 space-y-3 border-ios-border flex flex-col justify-between">
@@ -18027,24 +18154,24 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <h4 class="font-black text-xs text-ios-text line-clamp-1">${safeText(rem.name)}</h4>
               <div class="p-2 rounded-xl bg-slate-900/50 border border-ios-border text-[11px] space-y-1">
                 <div class="flex justify-between">
-                  <span class="text-ios-subtext">মাপ / বহর:</span>
-                  <span class="font-mono font-bold text-cyan-300">${safeText(rem.length)}</span>
+                  <span class="text-ios-subtext">${isBn ? 'মাপ / বহর:' : 'Length / Cut:'}</span>
+                  <span class="font-mono font-bold text-cyan-300">${safeText(typeof formatRemnantLength === 'function' ? formatRemnantLength(rem.length) : rem.length)}</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="text-ios-subtext">উপযোগী:</span>
+                  <span class="text-ios-subtext">${isBn ? 'উপযোগী:' : 'Ideal For:'}</span>
                   <span class="font-bold text-ios-text">${safeText(rem.suitable)}</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="text-ios-subtext">সংরক্ষণ বক্স:</span>
+                  <span class="text-ios-subtext">${isBn ? 'সংরক্ষণ বক্স:' : 'Storage Bin:'}</span>
                   <span class="font-mono text-ios-subtext">${safeText(rem.bin || 'Scrap Box')}</span>
                 </div>
               </div>
             </div>
             <div class="flex items-center gap-1.5 pt-2 border-t border-ios-border">
               <button onclick="useRemnantInProduction('${rem.id}')" class="flex-1 py-1 bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 border border-cyan-500/30 rounded-xl text-[11px] font-bold active:scale-95">
-                ব্যবহার করুন ✓
+                ${isBn ? 'ব্যবহার করুন ✓' : 'Use in Order ✓'}
               </button>
-              <button onclick="deleteRemnant('${rem.id}')" class="p-1 px-2 border border-ios-border rounded-xl text-rose-400 hover:bg-rose-500/10 text-xs" title="মুছে ফেলুন">
+              <button onclick="deleteRemnant('${rem.id}')" class="p-1 px-2 border border-ios-border rounded-xl text-rose-400 hover:bg-rose-500/10 text-xs" title="${isBn ? 'মুছে ফেলুন' : 'Delete'}">
                 ✕
               </button>
             </div>
@@ -18056,6 +18183,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     // --- 3. RENDER SUPPLIERS KHATA TAB ---
     function renderInventorySuppliers(q) {
       const container = document.getElementById('inventory-suppliers-grid');
+      const isBn = (localStorage.getItem('ss_lang') || 'bn') === 'bn';
       if (!container) return;
 
       let filtered = (ssSuppliers || []).filter(sup => {
@@ -18082,7 +18210,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <div class="flex items-start justify-between">
                 <span class="text-xl">🏪</span>
                 <span class="text-[10px] font-mono px-2 py-0.5 rounded-md font-bold uppercase tracking-wider ${hasDue ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'}">
-                  ${hasDue ? 'বকেয়া: ৳' + sup.balanceDue : 'পরিশোধিত ✓'}
+                  ${hasDue ? (isBn ? 'বকেয়া: ৳' : 'Due: ৳') + sup.balanceDue : (isBn ? 'পরিশোধিত ✓' : 'Settled ✓')}
                 </span>
               </div>
               <div>
@@ -18090,11 +18218,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
                 <div class="text-[11px] text-cyan-300 font-medium">${safeText(sup.contactPerson)} · <span class="font-mono text-ios-subtext">${safeText(sup.phone)}</span></div>
               </div>
               <div class="text-[11px] text-ios-subtext">
-                <div>ক্যাটাগরি: <span class="text-ios-text font-bold">${safeText(sup.category)}</span></div>
-                <div>ঠিকানা: ${safeText(sup.address)}</div>
+                <div>${isBn ? 'ক্যাটাগরি:' : 'Category:'} <span class="text-ios-text font-bold">${safeText(sup.category)}</span></div>
+                <div>${isBn ? 'ঠিকানা:' : 'Address:'} ${safeText(sup.address)}</div>
               </div>
               <div class="p-2 rounded-xl bg-slate-900/50 border border-ios-border flex items-center justify-between text-xs font-mono">
-                <span class="text-ios-subtext text-[10px]">মোট কেনাকাটা:</span>
+                <span class="text-ios-subtext text-[10px]">${isBn ? 'মোট কেনাকাটা:' : 'Total Purchased:'}</span>
                 <span class="font-bold text-emerald-400">৳${moneyBDT(sup.totalPurchased || 0).replace('৳', '')}</span>
               </div>
             </div>
@@ -18154,9 +18282,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const address = document.getElementById('sup-address')?.value.trim();
       const balanceDue = Number(document.getElementById('sup-due')?.value) || 0;
 
+      const isBn = (localStorage.getItem('ss_lang') || 'bn') === 'bn';
       if (!name || !phone) {
-        if (window.CyberDialog) CyberDialog.alert('মহাজন এর নাম এবং ফোন নম্বর আবশ্যক।', { icon: '⚠️', title: 'REQUIRED FIELD' });
-        else alert('মহাজন এর নাম এবং ফোন নম্বর আবশ্যক।');
+        if (window.CyberDialog) CyberDialog.alert(isBn ? 'মহাজন এর নাম এবং ফোন নম্বর আবশ্যক।' : 'Supplier name and mobile number are required.', { icon: '⚠️', title: 'REQUIRED FIELD' });
+        else alert(isBn ? 'মহাজন এর নাম এবং ফোন নম্বর আবশ্যক।' : 'Supplier name and mobile number are required.');
         return;
       }
 
@@ -18187,16 +18316,19 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (typeof triggerRealtimeCloudSync === 'function') triggerRealtimeCloudSync();
       closeModal('modal-supplier-entry');
       renderInventory();
-      if (window.CyberDialog) CyberDialog.alert(`মহাজন "${safeText(name)}" সফলভাবে সংরক্ষিত হয়েছে।`, { icon: '✨', title: 'SUPPLIER SAVED' });
+      if (window.CyberDialog) CyberDialog.alert(isBn ? `মহাজন "${safeText(name)}" সফলভাবে সংরক্ষিত হয়েছে।` : `Supplier "${safeText(name)}" saved successfully.`, { icon: '✨', title: 'SUPPLIER SAVED' });
     }
 
     function deleteSupplier(id) {
+      const isBn = (localStorage.getItem('ss_lang') || 'bn') === 'bn';
       const sup = (ssSuppliers || []).find(s => String(s.id) === String(id));
       if (!sup) {
-        if (window.CyberDialog) CyberDialog.alert('মহাজন পাওয়া যায়নি।', { icon: '⚠️', title: 'NOT FOUND' });
+        if (window.CyberDialog) CyberDialog.alert(isBn ? 'মহাজন পাওয়া যায়নি।' : 'Supplier record not found.', { icon: '⚠️', title: 'NOT FOUND' });
         return;
       }
-      const confirmMsg = `আপনি কি নিশ্চিতভাবে মহাজন <strong>"${safeText(sup.name)}"</strong>-এর রেকর্ড মুছে ফেলতে চান?`;
+      const confirmMsg = isBn
+        ? `আপনি কি নিশ্চিতভাবে মহাজন <strong>"${safeText(sup.name)}"</strong>-এর রেকর্ড মুছে ফেলতে চান?`
+        : `Are you sure you want to remove supplier <strong>"${safeText(sup.name)}"</strong>?`;
       const doDelete = () => {
         ssSuppliers = (ssSuppliers || []).filter(s => String(s.id) !== String(id));
         window.ssSuppliers = ssSuppliers;
@@ -18205,15 +18337,15 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         if (typeof triggerRealtimeCloudSync === 'function') triggerRealtimeCloudSync();
         renderInventory();
         if (window.CyberDialog) {
-          CyberDialog.alert(`মহাজন "${safeText(sup.name)}" মুছে ফেলা হয়েছে।`, { icon: '🗑️', title: 'DELETED' });
+          CyberDialog.alert(isBn ? `মহাজন "${safeText(sup.name)}" মুছে ফেলা হয়েছে।` : `Supplier "${safeText(sup.name)}" removed.`, { icon: '🗑️', title: 'DELETED' });
         }
       };
       if (window.CyberDialog) {
         CyberDialog.confirm(confirmMsg, doDelete, {
           danger: true,
           title: 'CONFIRM REMOVAL',
-          confirmText: 'হ্যাঁ, মুছুন',
-          cancelText: 'না, বাতিল'
+          confirmText: isBn ? 'হ্যাঁ, মুছুন' : 'Yes, Delete',
+          cancelText: isBn ? 'না, বাতিল' : 'Cancel'
         });
       } else if (confirm(confirmMsg.replace(/<[^>]+>/g, ''))) {
         doDelete();
@@ -18337,14 +18469,15 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const item = (ssRecords.fabrics || []).find(x => String(x.id) === String(itemId));
       if (!item) return;
 
+      const isBn = (localStorage.getItem('ss_lang') || 'bn') === 'bn';
       const qty = parseFloat(document.getElementById('inv-stock-op-qty').value);
       if (isNaN(qty) || qty <= 0) {
-        showCyberToast('সঠিক পরিমাণ উল্লেখ করুন (সংখ্যা আবশ্যক)', 'warning');
+        showCyberToast(isBn ? 'সঠিক পরিমাণ উল্লেখ করুন (সংখ্যা আবশ্যক)' : 'Enter a valid quantity (positive number required)', 'warning');
         return;
       }
 
       if (type === 'out' && qty > Number(item.stock)) {
-        showCyberToast(`পর্যাপ্ত স্টক নেই! বর্তমান স্টক: ${item.stock} ${item.unit || 'yard'}`, 'danger');
+        showCyberToast(isBn ? `পর্যাপ্ত স্টক নেই! বর্তমান স্টক: ${item.stock} ${item.unit || 'yard'}` : `Insufficient stock! Current stock: ${item.stock} ${item.unit || 'yard'}`, 'danger');
         return;
       }
 
@@ -18376,10 +18509,23 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       renderInventory();
       if (typeof renderFabrics === 'function') renderFabrics();
 
-      showCyberToast(`${item.name} এর স্টক ${type === 'in' ? 'যোগ' : 'মাইনাস'} করা হয়েছে (${qty} ${item.unit || 'yard'})`, 'success');
+      const dispName = typeof formatMaterialName === 'function' ? formatMaterialName(item.name) : item.name;
+      showCyberToast(isBn ? `${item.name} এর স্টক ${type === 'in' ? 'যোগ' : 'মাইনাস'} করা হয়েছে (${qty} ${item.unit || 'yard'})` : `${dispName}: ${type === 'in' ? 'Stock In (+)' : 'Stock Out (-)'} ${qty} ${item.unit || 'yard'}`, 'success');
     }
 
     // --- BOM GARMENT PRODUCTION DEDUCT ENGINE ---
+    function getBOMRecipeDisplayName(key) {
+      const isBn = (localStorage.getItem('ss_lang') || 'bn') === 'bn';
+      const names = {
+        panjabi: isBn ? 'পাঞ্জাবি (Panjabi)' : 'Panjabi',
+        suit: isBn ? 'স্যুট / ব্লেজার (Suit/Blazer)' : 'Suit / Blazer',
+        shirt: isBn ? 'ফরমাল শার্ট (Formal Shirt)' : 'Formal Shirt',
+        pant: isBn ? 'ফরমাল প্যান্ট (Formal Pant)' : 'Formal Pant',
+        waistcoat: isBn ? 'মুজিব কোট / ওয়েস্টকোট (Waistcoat)' : 'Waistcoat / Mujib Coat'
+      };
+      return names[key] || (BOM_RECIPES[key]?.name || key);
+    }
+
     const BOM_RECIPES = {
       panjabi: {
         name: 'পাঞ্জাবি (Panjabi)',
@@ -18475,8 +18621,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <div class="min-w-0">
                 <div class="font-bold text-ios-text truncate">${matchedItem ? safeText(matchedItem.name) : safeText(mat.defaultName)}</div>
                 <div class="text-[10px] text-ios-subtext">
-                  মজুদ: <span class="font-mono font-bold ${isSufficient ? 'text-emerald-400' : 'text-rose-400'}">${available} ${mat.unit}</span> · 
-                  প্রয়োজন: <span class="font-mono font-bold text-cyan-300">${requiredQty} ${mat.unit}</span>
+                  ${isBn ? 'মজুদ:' : 'Available:'} <span class="font-mono font-bold ${isSufficient ? 'text-emerald-400' : 'text-rose-400'}">${available} ${mat.unit}</span> · 
+                  ${isBn ? 'প্রয়োজন:' : 'Required:'} <span class="font-mono font-bold text-cyan-300">${requiredQty} ${mat.unit}</span>
                 </div>
               </div>
             </div>
@@ -18494,7 +18640,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (shortageAlert) shortageAlert.classList.toggle('hidden', !hasShortage);
       if (costPreview) costPreview.textContent = `৳${Math.round(totalCost)}`;
       if (statusSummary) {
-        statusSummary.textContent = hasShortage ? '⚠️ উপাদান সংকট রয়েছে' : '✓ সব উপাদান মজুদে আছে';
+        const isBn = (localStorage.getItem('ss_lang') || 'bn') === 'bn';
+        statusSummary.textContent = hasShortage ? (isBn ? '⚠️ উপাদান সংকট রয়েছে' : '⚠️ Material Shortage') : (isBn ? '✓ সব উপাদান মজুদে আছে' : '✓ All Materials In Stock');
         statusSummary.className = hasShortage ? 'text-[10px] font-mono text-rose-400 font-bold' : 'text-[10px] font-mono text-emerald-400 font-bold';
       }
       if (confirmBtn) {
@@ -18546,7 +18693,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       renderInventory();
       if (typeof renderFabrics === 'function') renderFabrics();
 
-      showCyberToast(`BOM সফল! ${recipe.name} (${count} পিস) এর উপকরণ ইনভেন্টরি থেকে সমন্বয় করা হয়েছে।`, 'success');
+      const isBn = (localStorage.getItem('ss_lang') || 'bn') === 'bn';
+      showCyberToast(isBn ? `BOM সফল! ${recipe.name} (${count} পিস) এর উপকরণ ইনভেন্টরি থেকে সমন্বয় করা হয়েছে।` : `BOM Deduction applied: ${recipe.name} (${count} pcs)`, 'success');
     }
 
     // --- STOCK AUDIT LOGIC ---
@@ -18612,9 +18760,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const item = (ssRecords.fabrics || []).find(x => String(x.id) === String(itemId));
       if (!item) return;
 
+      const isBn = (localStorage.getItem('ss_lang') || 'bn') === 'bn';
       const physical = parseFloat(document.getElementById('audit-physical-count')?.value);
       if (isNaN(physical) || physical < 0) {
-        showCyberToast('বাস্তব গণনা সঠিক সংখ্যায় দিন', 'warning');
+        showCyberToast(isBn ? 'বাস্তব গণনা সঠিক সংখ্যায় দিন' : 'Enter a valid physical count number', 'warning');
         return;
       }
 
@@ -18665,7 +18814,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       renderInventory();
       if (typeof renderFabrics === 'function') renderFabrics();
 
-      showCyberToast(`অডিট সম্পন্ন! ${item.name} এর নতুন স্টক: ${physical} ${item.unit || 'yard'}`, 'success');
+      showCyberToast(isBn ? `অডিট সম্পন্ন! ${item.name} এর নতুন স্টক: ${physical} ${item.unit || 'yard'}` : `Audit complete! ${typeof formatMaterialName === 'function' ? formatMaterialName(item.name) : item.name} new stock: ${physical} ${item.unit || 'yard'}`, 'success');
     }
 
     // --- BARCODE SCANNER SIMULATOR LOGIC ---
@@ -18698,9 +18847,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
 
     function executeScannerLookup() {
+      const isBn = (localStorage.getItem('ss_lang') || 'bn') === 'bn';
       const code = (document.getElementById('scanner-input')?.value || '').trim().toLowerCase();
       if (!code) {
-        showCyberToast('বারকোড বা SKU কোড প্রদান করুন', 'warning');
+        showCyberToast(isBn ? 'বারকোড বা SKU কোড প্রদান করুন' : 'Enter barcode or SKU code', 'warning');
         return;
       }
 
@@ -18715,26 +18865,29 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const resultCard = document.getElementById('scanner-result-card');
       if (!scannedFoundItem) {
         if (resultCard) resultCard.classList.add('hidden');
-        showCyberToast(`কোড "${code}" পাওয়া যায়নি`, 'danger');
+        showCyberToast(isBn ? `কোড "${code}" পাওয়া যায়নি` : `Code "${code}" not found`, 'danger');
         return;
       }
 
       if (resultCard) {
         resultCard.classList.remove('hidden');
-        document.getElementById('src-name').textContent = scannedFoundItem.name;
+        const displayName = typeof formatMaterialName === 'function' ? formatMaterialName(scannedFoundItem.name) : scannedFoundItem.name;
+        document.getElementById('src-name').textContent = displayName;
         document.getElementById('src-sku').textContent = `SKU: ${scannedFoundItem.sku || 'N/A'} · Roll: ${scannedFoundItem.boltId || 'N/A'}`;
         document.getElementById('src-stock-badge').textContent = `${scannedFoundItem.stock} ${scannedFoundItem.unit || 'yard'}`;
         document.getElementById('src-rack').textContent = scannedFoundItem.rack || 'Shelf 1';
         document.getElementById('src-price').textContent = `৳${scannedFoundItem.price || scannedFoundItem.cost || 0}`;
       }
 
-      showCyberToast(`আইটেম স্ক্যান সফল: ${scannedFoundItem.name}`, 'success');
+      const displayName = typeof formatMaterialName === 'function' ? formatMaterialName(scannedFoundItem.name) : scannedFoundItem.name;
+      showCyberToast(isBn ? `আইটেম স্ক্যান সফল: ${displayName}` : `Item scanned: ${displayName}`, 'success');
     }
 
     function scannerApplyStock(delta) {
       if (!scannedFoundItem) return;
+      const isBn = (localStorage.getItem('ss_lang') || 'bn') === 'bn';
       if (delta < 0 && Number(scannedFoundItem.stock) <= 0) {
-        showCyberToast('স্টক শূন্য! আর স্টক আউট করা সম্ভব নয়।', 'warning');
+        showCyberToast(isBn ? 'স্টক শূন্য! আর স্টক আউট করা সম্ভব নয়।' : 'Stock is zero! Cannot deduct further.', 'warning');
         return;
       }
 
@@ -18760,7 +18913,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (typeof renderFabrics === 'function') renderFabrics();
 
       document.getElementById('src-stock-badge').textContent = `${scannedFoundItem.stock} ${scannedFoundItem.unit || 'yard'}`;
-      showCyberToast(`${scannedFoundItem.name} এর স্টক ${delta > 0 ? '+1 যোগ' : '-1 মাইনাস'} করা হয়েছে`, 'success');
+      const scDispName = typeof formatMaterialName === 'function' ? formatMaterialName(scannedFoundItem.name) : scannedFoundItem.name;
+      showCyberToast(isBn ? `${scannedFoundItem.name} এর স্টক ${delta > 0 ? '+1 যোগ' : '-1 মাইনাস'} করা হয়েছে` : `${scDispName}: ${delta > 0 ? '+1 In' : '-1 Out'} (New: ${scannedFoundItem.stock} ${scannedFoundItem.unit || 'yard'})`, 'success');
     }
 
     // --- SUPPLIER REQUISITION & PO LOGIC ---
@@ -18836,23 +18990,27 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const preview = document.getElementById('po-message-preview');
       if (!preview || !sup) return;
 
-      const msg = `আসসালামু আলাইকুম ${sup.contactPerson} ভাই,\n\nসেলাইসাথী ট্রেইলার্স ফ্যাক্টরি থেকে জরুরি মাল ক্রয়ের নতুন রিকুইজিশন তালিকা:\n- ইজিপশিয়ান গিজা সুতি কাপড় (Pure White): ৫০ গজ\n- জার্মানি কলার বক্রম (Fusible Buckram): ২০ গজ\n- হোয়াইট সুতা কোন (Astra #40): ৫ কোন\n\nদয়া করে দ্রুত রেট ও ডেলিভারি কনফার্ম করবেন।\n\nধন্যবাদ,\nমাস্টার মাসুম\nসেলাইসাথী ট্রেইলার্স`;
+      const isBn = (localStorage.getItem('ss_lang') || 'bn') === 'bn';
+      const msg = isBn
+        ? `আসসালামু আলাইকুম ${sup.contactPerson} ভাই,\n\nসেলাইসাথী ট্রেইলার্স ফ্যাক্টরি থেকে জরুরি মাল ক্রয়ের নতুন রিকুইজিশন তালিকা:\n- ইজিপশিয়ান গিজা সুতি কাপড় (Pure White): ৫০ গজ\n- জার্মানি কলার বক্রম (Fusible Buckram): ২০ গজ\n- হোয়াইট সুতা কোন (Astra #40): ৫ কোন\n\nদয়া করে দ্রুত রেট ও ডেলিভারি কনফার্ম করবেন।\n\nধন্যবাদ,\nমাস্টার মাসুম\nসেলাইসাথী ট্রেইলার্স`
+        : `Dear ${sup.contactPerson || sup.name},\n\nUrgent Purchase Requisition from SelaiSathi Tailors Factory:\n- Egyptian Giza Cotton Fabric (Pure White): 50 yds\n- Fusible Collar Buckram: 20 yds\n- White Spun Polyester Thread (Astra #40): 5 cones\n\nPlease confirm availability, unit rate, and delivery schedule at your earliest convenience.\n\nThank you,\nMaster Cutter / Inventory In-charge\nSelaiSathi Tailors`;
       preview.value = msg;
     }
 
     function sendSupplierPOWhatsApp() {
+      const isBn = (localStorage.getItem('ss_lang') || 'bn') === 'bn';
       const phone = document.getElementById('po-supplier-phone')?.value.replace(/[^0-9]/g, '');
       const msg = document.getElementById('po-message-preview')?.value || '';
 
       if (!phone) {
-        showCyberToast('মহাজনের মোবাইল নম্বর প্রয়োজন', 'warning');
+        showCyberToast(isBn ? 'মহাজনের মোবাইল নম্বর প্রয়োজন' : 'Supplier mobile number is required', 'warning');
         return;
       }
 
       const waNumber = phone.startsWith('88') ? phone : '88' + phone;
       const url = `https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`;
       window.open(url, '_blank');
-      showCyberToast('WhatsApp Requisition খোলা হচ্ছে...', 'success');
+      showCyberToast(isBn ? 'WhatsApp Requisition খোলা হচ্ছে...' : 'Launching WhatsApp Purchase Order...', 'success');
       closeModal('modal-supplier-po');
     }
 
@@ -18940,20 +19098,21 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (typeof saveToActiveCloudVaultFast === 'function') saveToActiveCloudVaultFast();
       if (typeof triggerRealtimeCloudSync === 'function') triggerRealtimeCloudSync();
       renderInventory();
-      showCyberToast('কাটপিস রেকর্ড মুছে ফেলা হয়েছে', 'info');
+      const isBn = (localStorage.getItem('ss_lang') || 'bn') === 'bn'; showCyberToast(isBn ? 'কাটপিস রেকর্ড মুছে ফেলা হয়েছে' : 'Fabric remnant record removed', 'info');
     }
 
     // --- PRINT & EXPORT TOOLS ---
     function printInventoryReport() {
       const all = ssRecords.fabrics || [];
       const printWindow = window.open('', '_blank');
-      const dateStr = new Date().toLocaleDateString('bn-BD');
+      const isBn = (localStorage.getItem('ss_lang') || 'bn') === 'bn';
+      const dateStr = isBn ? new Date().toLocaleDateString('bn-BD') : new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
 
       let tableHtml = `
         <!DOCTYPE html>
         <html>
         <head>
-          <title>ইনভেন্টরি ও কারখানা অডিট রিপোর্ট - ${safeText(getBrandName())}</title>
+          <title>${isBn ? 'ইনভেন্টরি ও কারখানা অডিট রিপোর্ট' : 'Inventory & Factory Audit Sheet'} - ${safeText(getBrandName())}</title>
           <style>
             body { font-family: sans-serif; font-size: 12px; margin: 20px; color: #111; }
             h2, p { margin: 0 0 6px 0; }
@@ -18967,44 +19126,45 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           </style>
         </head>
         <body>
-          <h2>${safeText(getBrandName())} - ফ্যাক্টরি ইনভেন্টরি ও ম্যাটেরিয়াল অডিট শিট</h2>
-          <p style="font-size:11px;color:#555;margin:3px 0 6px 0;">${safeText(getBrandAddress())} · ফোন: ${safeText(getBrandPhone())}</p>
-          <p>তারিখ: ${dateStr} · সর্বমোট উপকরণ: ${all.length} টি</p>
+          <h2>${safeText(getBrandName())} - ${isBn ? 'ফ্যাক্টরি ইনভেন্টরি ও ম্যাটেরিয়াল অডিট শিট' : 'Factory Materials & Inventory Audit Sheet'}</h2>
+          <p style="font-size:11px;color:#555;margin:3px 0 6px 0;">${safeText(getBrandAddress())} · ${isBn ? 'ফোন:' : 'Phone:'} ${safeText(getBrandPhone())}</p>
+          <p>${isBn ? 'তারিখ:' : 'Date:'} ${dateStr} · ${isBn ? `সর্বমোট উপকরণ: ${all.length} টি` : `Total Tracked Items: ${all.length}`}</p>
           <table>
             <thead>
               <tr>
-                <th>উপকরণ ও বিবরণ</th>
-                <th>ক্যাটাগরি</th>
-                <th>র‍্যাক / সেলফ</th>
-                <th class="right">মজুদ</th>
-                <th class="right">ন্যূনতম স্টক</th>
-                <th class="right">একক ক্রয়মূল্য</th>
-                <th class="right">মোট মূল্য (৳)</th>
-                <th>স্ট্যাটাস</th>
+                <th>${isBn ? 'উপকরণ ও বিবরণ' : 'Material & SKU'}</th>
+                <th>${isBn ? 'ক্যাটাগরি' : 'Category'}</th>
+                <th>${isBn ? 'র‍্যাক / সেলফ' : 'Rack / Shelf'}</th>
+                <th class="right">${isBn ? 'মজুদ' : 'Stock'}</th>
+                <th class="right">${isBn ? 'ন্যূনতম স্টক' : 'Min Stock'}</th>
+                <th class="right">${isBn ? 'একক ক্রয়মূল্য' : 'Unit Cost'}</th>
+                <th class="right">${isBn ? 'মোট মূল্য (৳)' : 'Asset Value (৳)'}</th>
+                <th>${isBn ? 'স্ট্যাটাস' : 'Status'}</th>
               </tr>
             </thead>
             <tbody>
               ${all.map(x => {
                 const isLow = Number(x.stock) <= Number(x.minimum);
                 const total = (Number(x.stock) || 0) * (Number(x.cost) || 0);
+                const formattedName = typeof formatMaterialName === 'function' ? formatMaterialName(x.name) : x.name;
                 return `
                   <tr>
-                    <td><strong>${safeText(x.name)}</strong><br><small>${safeText(x.sku || x.boltId || '')}</small></td>
+                    <td><strong>${safeText(formattedName)}</strong><br><small>${safeText(x.sku || x.boltId || '')}</small></td>
                     <td>${safeText(x.category)}</td>
                     <td>${safeText(x.rack || 'Shelf 1')}</td>
                     <td class="right">${safeText(x.stock)} ${safeText(x.unit || 'yard')}</td>
                     <td class="right">${safeText(x.minimum)} ${safeText(x.unit || 'yard')}</td>
                     <td class="right">৳${safeText(x.cost || 0)}</td>
                     <td class="right">৳${total}</td>
-                    <td><span class="tag ${isLow ? 'low' : 'ok'}">${isLow ? 'Low Stock' : 'In Stock'}</span></td>
+                    <td><span class="tag ${isLow ? 'low' : 'ok'}">${isLow ? (isBn ? 'কম স্টক' : 'Low Stock') : (isBn ? 'পর্যাপ্ত' : 'In Stock')}</span></td>
                   </tr>
                 `;
               }).join('')}
             </tbody>
           </table>
           <div style="margin-top: 30px; display: flex; justify-content: space-between;">
-            <div>স্টোর কিপার স্বাক্ষর: _________________</div>
-            <div>মাস্টার টেইলার স্বাক্ষর: _________________</div>
+            <div>${isBn ? 'স্টোর কিপার স্বাক্ষর: _________________' : 'Store Keeper Signature: _________________'}</div>
+            <div>${isBn ? 'মাস্টার টেইলার স্বাক্ষর: _________________' : 'Master Tailor Signature: _________________'}</div>
           </div>
           ' + '<' + 'script>window.onload = function() { window.print(); }<' + '/script>' + '
         </body>
