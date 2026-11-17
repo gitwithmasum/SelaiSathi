@@ -4818,7 +4818,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <!-- Language Switcher: Compact Glass Icon Button -->
         <button onclick="toggleLanguage()" class="p-2 sm:px-3 sm:py-1.5 rounded-xl border border-ios-border bg-white/5 hover:bg-white/15 text-xs font-bold text-ios-text transition-all active:scale-95 flex items-center gap-1 shrink-0" title="Change Language" data-i18n-title="tooltip_lang">
           <span class="text-sm">🌐</span>
-          <span id="lang-indicator" class="hidden sm:inline text-[11px]">বাংলা</span>
+          <span id="lang-indicator" class="hidden sm:inline text-[11px]">English</span>
         </button>
 
         <!-- Futuristic iOS Pill Slider Switch -->
@@ -5942,26 +5942,26 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
           <div>
             <div class="flex items-center gap-2">
-              <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-amber-500/20 text-amber-400 border border-amber-500/30">FINANCIAL CONTROL CENTER</span>
-              <span class="text-xs text-ios-subtext">Cash Drawer · Due Recovery · Wallets & Ledger</span>
+              <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-amber-500/20 text-amber-400 border border-amber-500/30" data-i18n="acc_sec_tag">FINANCIAL CONTROL CENTER</span>
+              <span class="text-xs text-ios-subtext" data-i18n="acc_sec_sub">Cash Drawer · Due Recovery · Wallets & Ledger</span>
             </div>
-            <h1 class="text-3xl font-black text-ios-text tracking-tight mt-1">Accounts & Financial Hub (হিসাব খাতা)</h1>
-            <p class="text-xs text-ios-subtext mt-1">রিয়েল-টাইম ক্যাশবাক্স, ১-ক্লিক বকেয়া তাগাদা, পেমেন্ট ওয়ালেট, কারিগর মজুরি ও দৈনিক ব্যালেন্স শিট।</p>
+            <h1 class="text-3xl font-black text-ios-text tracking-tight mt-1" data-i18n="acc_title">Accounts & Financial Hub</h1>
+            <p class="text-xs text-ios-subtext mt-1" data-i18n="acc_desc">Real-time cash drawer, 1-click due recovery, payment wallets, artisan wages and daily balance sheet.</p>
           </div>
 
           <!-- Top Action Buttons -->
           <div class="flex flex-wrap items-center gap-2">
             <button onclick="openAddExpenseModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-rose-500/40 bg-rose-500/10 text-rose-300 hover:bg-rose-500/20 transition-all flex items-center gap-1.5 active:scale-95 shadow-xs">
-              <span>💸</span> <span>＋ Add Expense (খরচ)</span>
+              <span>💸</span> <span data-i18n="acc_add_expense">＋ Add Expense</span>
             </button>
             <button onclick="openReceivePaymentModal()" class="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:brightness-110 transition-all flex items-center gap-1.5 active:scale-95 shadow-md shadow-emerald-500/20">
-              <span>💰</span> <span>＋ Receive Payment (পেমেন্ট জমা)</span>
+              <span>💰</span> <span data-i18n="acc_receive_payment">＋ Receive Payment</span>
             </button>
             <button onclick="openCashCloseModal()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-amber-500/40 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 transition-all flex items-center gap-1.5 active:scale-95">
-              <span>🔒</span> <span>Day Close (ক্যাশ ক্লোজ)</span>
+              <span>🔒</span> <span data-i18n="acc_day_close">Day Close</span>
             </button>
             <button onclick="printAccountsStatement()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 transition-all flex items-center gap-1.5 active:scale-95">
-              <span>🖨️</span> <span>Statement</span>
+              <span>🖨️</span> <span data-i18n="acc_statement">Statement</span>
             </button>
             <button onclick="exportLedgerCSV()" class="px-3 py-2 rounded-xl text-xs font-bold border border-ios-border bg-white/5 hover:bg-white/10 text-ios-text transition-all flex items-center gap-1 active:scale-95" title="Export Ledger as CSV">
               <span>↓</span> <span>CSV</span>
@@ -5972,13 +5972,13 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <!-- Quick Time Filter Bar (Today, Yesterday, This Week, This Month, All Time) -->
         <div class="flex flex-wrap items-center justify-between gap-3 p-2 rounded-2xl bento-card border-ios-border">
           <div class="flex items-center gap-1.5 text-xs">
-            <span class="text-xs text-ios-subtext px-2 font-semibold">সময়সীমা:</span>
+            <span class="text-xs text-ios-subtext px-2 font-semibold" data-i18n="acc_period">Period:</span>
             <div class="flex flex-wrap items-center gap-1 p-1 bg-slate-900/60 rounded-xl border border-slate-800" id="acc-time-filters">
-              <button onclick="setAccountsTimeFilter('today')" id="acc-time-today" class="acc-time-pill active px-3 py-1 rounded-lg text-xs font-bold transition-all">📅 Today (আজ)</button>
-              <button onclick="setAccountsTimeFilter('yesterday')" id="acc-time-yesterday" class="acc-time-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all">⏪ Yesterday (গতকাল)</button>
-              <button onclick="setAccountsTimeFilter('week')" id="acc-time-week" class="acc-time-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all">🗓️ This Week (সপ্তাহ)</button>
-              <button onclick="setAccountsTimeFilter('month')" id="acc-time-month" class="acc-time-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all">📊 This Month (মাস)</button>
-              <button onclick="setAccountsTimeFilter('all')" id="acc-time-all" class="acc-time-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all">🌐 All Time (সব)</button>
+              <button onclick="setAccountsTimeFilter('today')" id="acc-time-today" class="acc-time-pill active px-3 py-1 rounded-lg text-xs font-bold transition-all" data-i18n="acc_today">📅 Today</button>
+              <button onclick="setAccountsTimeFilter('yesterday')" id="acc-time-yesterday" class="acc-time-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all" data-i18n="acc_yesterday">⏪ Yesterday</button>
+              <button onclick="setAccountsTimeFilter('week')" id="acc-time-week" class="acc-time-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all" data-i18n="acc_week">🗓️ This Week</button>
+              <button onclick="setAccountsTimeFilter('month')" id="acc-time-month" class="acc-time-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all" data-i18n="acc_month">📊 This Month</button>
+              <button onclick="setAccountsTimeFilter('all')" id="acc-time-all" class="acc-time-pill px-3 py-1 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all" data-i18n="acc_all">🌐 All Time</button>
             </div>
           </div>
           <div class="text-[11px] text-ios-subtext font-mono flex items-center gap-2 pr-2">
@@ -6057,18 +6057,18 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <div class="flex items-center gap-3">
               <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center text-lg font-black shrink-0">💵</div>
               <div>
-                <div class="text-[11px] text-ios-subtext font-bold">নগদ ক্যাশবাক্স (Drawer)</div>
+                <div class="text-[11px] text-ios-subtext font-bold" data-i18n="acc_wallet_drawer">Cash Drawer</div>
                 <div id="acc-wallet-cash" class="text-lg font-black font-mono text-emerald-400">৳0</div>
               </div>
             </div>
-            <button onclick="openCashCloseModal()" class="text-[10px] font-mono font-bold text-emerald-400 px-2 py-1 rounded bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20">মিলান ▾</button>
+            <button onclick="openCashCloseModal()" class="text-[10px] font-mono font-bold text-emerald-400 px-2 py-1 rounded bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20" data-i18n="acc_wallet_reconcile">Reconcile ▾</button>
           </div>
 
           <!-- bKash Wallet -->
           <div class="bento-card p-3.5 flex items-center gap-3 bg-gradient-to-r from-pink-950/20 to-rose-950/10 border-pink-500/20">
             <div class="w-9 h-9 rounded-xl bg-pink-500/20 text-pink-300 flex items-center justify-center text-base font-black shrink-0">📱</div>
             <div>
-              <div class="text-[11px] text-ios-subtext font-bold">বিকাশ (bKash Wallet)</div>
+              <div class="text-[11px] text-ios-subtext font-bold" data-i18n="acc_wallet_bkash">bKash Wallet</div>
               <div id="acc-wallet-bkash" class="text-lg font-black font-mono text-pink-400">৳0</div>
             </div>
           </div>
@@ -6077,7 +6077,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <div class="bento-card p-3.5 flex items-center gap-3 bg-gradient-to-r from-amber-950/20 to-orange-950/10 border-amber-500/20">
             <div class="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center text-base font-black shrink-0">🟠</div>
             <div>
-              <div class="text-[11px] text-ios-subtext font-bold">নগদ ওয়ালেট (Nagad)</div>
+              <div class="text-[11px] text-ios-subtext font-bold" data-i18n="acc_wallet_nagad">Nagad Wallet</div>
               <div id="acc-wallet-nagad" class="text-lg font-black font-mono text-amber-400">৳0</div>
             </div>
           </div>
@@ -6086,7 +6086,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <div class="bento-card p-3.5 flex items-center gap-3 bg-gradient-to-r from-blue-950/20 to-indigo-950/10 border-blue-500/20">
             <div class="w-9 h-9 rounded-xl bg-blue-500/20 text-blue-300 flex items-center justify-center text-base font-black shrink-0">🏦</div>
             <div>
-              <div class="text-[11px] text-ios-subtext font-bold">ব্যাংক একাউন্ট (Bank)</div>
+              <div class="text-[11px] text-ios-subtext font-bold" data-i18n="acc_wallet_bank">Bank Account</div>
               <div id="acc-wallet-bank" class="text-lg font-black font-mono text-blue-400">৳0</div>
             </div>
           </div>
@@ -6101,12 +6101,12 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-ios-border">
               <div>
                 <h2 class="font-black text-lg text-ios-text flex items-center gap-2">
-                  <span>📜</span> <span>Transactions Ledger (জমা-খরচ ও খতিয়ান)</span>
+                  <span>📜</span> <span data-i18n="acc_ledger_title">Transactions Ledger</span>
                 </h2>
-                <p class="text-xs text-ios-subtext mt-0.5">সব ধরনের সেলস কালেকশন, দোকান খরচ ও কারিগর মজুরির লাইভ ট্র্যাকিং।</p>
+                <p class="text-xs text-ios-subtext mt-0.5" data-i18n="acc_ledger_desc">Live tracking of sales collections, shop expenses, and staff wages.</p>
               </div>
               <div class="relative sm:w-64">
-                <input id="ledger-search" oninput="renderLedger()" class="w-full pl-8 pr-3 py-1.5 rounded-xl text-xs bg-slate-900/60 border border-slate-700/80 text-ios-text placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition-all" placeholder="খুঁজুন (বিবরণ, কাস্টমার, অর্ডার)...">
+                <input id="ledger-search" oninput="renderLedger()" class="w-full pl-8 pr-3 py-1.5 rounded-xl text-xs bg-slate-900/60 border border-slate-700/80 text-ios-text placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition-all" placeholder="Search (description, customer, order)..." data-i18n-placeholder="acc_ledger_search_placeholder">
                 <span class="absolute left-2.5 top-2 text-xs text-gray-400">🔍</span>
               </div>
             </div>
@@ -6114,10 +6114,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <!-- Ledger Filter Pills -->
             <div class="flex flex-wrap items-center justify-between gap-2">
               <div class="flex flex-wrap items-center gap-1.5 text-xs">
-                <button id="ledger-filter-all" onclick="setLedgerFilter('all')" class="acc-tab-pill active px-3 py-1.5 rounded-xl font-bold transition-all">All (সব এন্ট্রি)</button>
-                <button id="ledger-filter-income" onclick="setLedgerFilter('income')" class="acc-tab-pill px-3 py-1.5 rounded-xl font-medium text-gray-400 hover:text-white transition-all">📥 Income (আদায়/জমা)</button>
-                <button id="ledger-filter-expense" onclick="setLedgerFilter('expense')" class="acc-tab-pill px-3 py-1.5 rounded-xl font-medium text-gray-400 hover:text-white transition-all">📤 Expenses (দোকান খরচ)</button>
-                <button id="ledger-filter-karigar" onclick="setLedgerFilter('karigar')" class="acc-tab-pill px-3 py-1.5 rounded-xl font-medium text-gray-400 hover:text-white transition-all">👥 Karigar Wages (মজুরি ও খোরাকি)</button>
+                <button id="ledger-filter-all" onclick="setLedgerFilter('all')" class="acc-tab-pill active px-3 py-1.5 rounded-xl font-bold transition-all" data-i18n="acc_filter_all">All Entries</button>
+                <button id="ledger-filter-income" onclick="setLedgerFilter('income')" class="acc-tab-pill px-3 py-1.5 rounded-xl font-medium text-gray-400 hover:text-white transition-all" data-i18n="acc_filter_income">📥 Income</button>
+                <button id="ledger-filter-expense" onclick="setLedgerFilter('expense')" class="acc-tab-pill px-3 py-1.5 rounded-xl font-medium text-gray-400 hover:text-white transition-all" data-i18n="acc_filter_expense">📤 Expenses</button>
+                <button id="ledger-filter-karigar" onclick="setLedgerFilter('karigar')" class="acc-tab-pill px-3 py-1.5 rounded-xl font-medium text-gray-400 hover:text-white transition-all" data-i18n="acc_filter_karigar">👥 Staff Wages</button>
               </div>
               <span id="ledger-tx-count" class="text-[11px] font-mono text-ios-subtext">0 transactions</span>
             </div>
@@ -6127,11 +6127,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <table class="w-full min-w-[620px] text-left text-xs">
                 <thead>
                   <tr class="border-b border-ios-border bg-slate-900/40 text-ios-subtext">
-                    <th class="p-3">তারিখ ও সময়</th>
-                    <th class="p-3">বিবরণ ও ক্যাটাগরি</th>
-                    <th class="p-3">মাধ্যম</th>
-                    <th class="p-3 text-right">টাকার পরিমাণ</th>
-                    <th class="p-3 text-center w-16">রসিদ</th>
+                    <th class="p-3" data-i18n="acc_th_datetime">Date & Time</th>
+                    <th class="p-3" data-i18n="acc_th_desc">Description & Category</th>
+                    <th class="p-3" data-i18n="acc_th_method">Method</th>
+                    <th class="p-3 text-right" data-i18n="acc_th_amount">Amount</th>
+                    <th class="p-3 text-center w-16" data-i18n="acc_th_receipt">Receipt</th>
                   </tr>
                 </thead>
                 <tbody id="ledger-table" class="divide-y divide-slate-800/40"></tbody>
@@ -6140,7 +6140,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
             <div id="ledger-empty" class="hidden text-center py-10 text-xs text-ios-subtext">
               <div class="text-3xl mb-2">📭</div>
-              <span>কোনো ট্রানজ্যাকশন পাওয়া যায়নি।</span>
+              <span data-i18n="acc_no_tx">No transactions found.</span>
             </div>
           </div>
 
@@ -6152,9 +6152,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <div class="flex items-center justify-between pb-2 border-b border-ios-border">
                 <div>
                   <h2 class="font-black text-base text-ios-text flex items-center gap-1.5">
-                    <span>⚠️</span> <span>Smart Due Recovery (বকেয়া তাগাদা)</span>
+                    <span>⚠️</span> <span data-i18n="acc_due_title">Smart Due Recovery</span>
                   </h2>
-                  <p class="text-xs text-ios-subtext mt-0.5">১-ক্লিক WhatsApp মেসেজ ও বকেয়া কালেকশন।</p>
+                  <p class="text-xs text-ios-subtext mt-0.5" data-i18n="acc_due_desc">1-click WhatsApp reminder & due collection.</p>
                 </div>
                 <span id="acc-due-summary-badge" class="px-2 py-0.5 text-xs font-mono font-bold rounded-lg bg-amber-500/20 text-amber-400 border border-amber-500/30">৳0 Due</span>
               </div>
@@ -6171,7 +6171,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <div id="ledger-customer-dues" class="space-y-2.5 max-h-[360px] overflow-y-auto pr-1"></div>
               <div id="ledger-dues-empty" class="hidden text-center py-6 text-xs text-ios-subtext">
                 <div class="text-2xl mb-1">🎉</div>
-                <span>আলহামদুলিল্লাহ! কোনো বকেয়া নেই।</span>
+                <span data-i18n="acc_no_dues">All cleared! No outstanding dues.</span>
               </div>
             </div>
 
@@ -6180,15 +6180,15 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <div class="flex items-center justify-between pb-2 border-b border-ios-border">
                 <div>
                   <h2 class="font-black text-base text-ios-text flex items-center gap-1.5">
-                    <span>📊</span> <span>Expense Categories (দোকান খরচ বিশ্লেষণ)</span>
+                    <span>📊</span> <span data-i18n="acc_exp_cat_title">Expense Categories</span>
                   </h2>
-                  <p class="text-xs text-ios-subtext mt-0.5">কাঁচামাল, ইউটিলিটি, আপ্যায়ন ও কারিগর মজুরি।</p>
+                  <p class="text-xs text-ios-subtext mt-0.5" data-i18n="acc_exp_cat_desc">Raw materials, utilities, refreshments and staff wages.</p>
                 </div>
-                <button onclick="openAddExpenseModal()" class="text-xs text-rose-400 hover:underline font-bold">＋ খরচ এন্ট্রি</button>
+                <button onclick="openAddExpenseModal()" class="text-xs text-rose-400 hover:underline font-bold" data-i18n="acc_exp_add_btn">＋ Add Expense</button>
               </div>
 
               <div id="acc-expense-categories" class="space-y-3"></div>
-              <div id="acc-expense-empty" class="hidden text-center py-4 text-xs text-ios-subtext">কোনো খরচ রেকর্ড করা হয়নি।</div>
+              <div id="acc-expense-empty" class="hidden text-center py-4 text-xs text-ios-subtext" data-i18n="acc_no_expenses">No expenses recorded.</div>
             </div>
 
           </div>
@@ -6197,9 +6197,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <div class="bento-card p-4 text-xs text-ios-subtext flex flex-col sm:flex-row items-center justify-between gap-3">
           <div class="flex items-center gap-2">
             <span>🛡️</span>
-            <span>Local Financial Encryption · সব ট্রানজ্যাকশন ও ক্যাশবাক্স হিসাব লোকাল ব্রাউজারে সুরক্ষিত সংরক্ষিত থাকে।</span>
+            <span data-i18n="acc_encryption_note">Local Financial Encryption · All transactions and cash drawer records are securely stored in your local browser.</span>
           </div>
-          <button onclick="printAccountsStatement()" class="text-cyan-400 hover:underline font-bold text-xs shrink-0">🖨️ A4 ব্যালেন্স শিট প্রিন্ট করুন</button>
+          <button onclick="printAccountsStatement()" class="text-cyan-400 hover:underline font-bold text-xs shrink-0" data-i18n="acc_print_sheet">🖨️ Print Balance Statement</button>
         </div>
 
       </section>
@@ -9222,14 +9222,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     <div class="bento-card max-w-lg w-full p-6 sm:p-7 space-y-5 shadow-2xl max-h-[92vh] overflow-y-auto">
       <div class="flex justify-between items-center border-b border-ios-border pb-3.5">
         <h3 class="text-lg font-black text-ios-text flex items-center gap-2">
-          <span>💰</span> <span>Receive Payment (পেমেন্ট ও বকেয়া জমা)</span>
+          <span>💰</span> <span data-i18n="rcv_modal_title">Receive Payment & Collect Due</span>
         </h3>
         <button onclick="closeModal('modal-receive-payment')" class="text-gray-400 hover:text-ios-text font-bold text-xl">✕</button>
       </div>
 
       <div class="space-y-3.5 text-xs">
         <div>
-          <label class="block font-bold text-ios-text mb-1.5">Select Order / Customer * (বকেয়া অর্ডার নির্বাচন)</label>
+          <label class="block font-bold text-ios-text mb-1.5" data-i18n="rcv_lbl_order">Select Order / Customer *</label>
           <div class="relative">
             <button type="button" class="cyber-select-trigger w-full !py-2.5 !rounded-2xl" id="rcv-order-btn" onclick="CyberSelect.openForSelect(this, 'rcv-order')">
               <span id="rcv-order-label">Select Order with Due...</span>
@@ -9254,37 +9254,37 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <div class="grid grid-cols-2 gap-3.5">
           <div>
             <div class="flex items-center justify-between mb-1.5">
-              <label class="font-bold text-ios-text">Amount Received (৳) *</label>
-              <button type="button" onclick="fillFullDueAmount()" class="text-[10px] font-bold text-emerald-400 hover:underline">Full Due</button>
+              <label class="font-bold text-ios-text" data-i18n="rcv_lbl_amount">Amount Received (৳) *</label>
+              <button type="button" onclick="fillFullDueAmount()" class="text-[10px] font-bold text-emerald-400 hover:underline" data-i18n="rcv_full_due">Full Due</button>
             </div>
             <input type="number" id="rcv-amount" placeholder="0" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm font-black font-mono text-ios-text focus:outline-none focus:border-emerald-500">
           </div>
           <div>
-            <label class="block font-bold text-ios-text mb-1.5">Payment Method *</label>
+            <label class="block font-bold text-ios-text mb-1.5" data-i18n="rcv_lbl_method">Payment Method *</label>
             <div class="relative">
               <button type="button" class="cyber-select-trigger w-full !py-2.5 !rounded-2xl" id="rcv-method-btn" onclick="CyberSelect.openForSelect(this, 'rcv-method')">
-                <span id="rcv-method-label">Cash (নগদ ড্রয়ার)</span>
+                <span id="rcv-method-label">Cash (Drawer)</span>
                 <span class="cyber-select-chevron">▾</span>
               </button>
               <select id="rcv-method" class="sr-only" style="display:none !important;" aria-hidden="true" tabindex="-1">
-                <option value="Cash">Cash (নগদ ড্রয়ার)</option>
-                <option value="bKash">bKash (বিকাশ ওয়ালেট)</option>
-                <option value="Nagad">Nagad (নগদ ওয়ালেট)</option>
-                <option value="Bank">Bank Transfer (ব্যাংক)</option>
+                <option value="Cash">Cash (Drawer)</option>
+                <option value="bKash">bKash (Wallet)</option>
+                <option value="Nagad">Nagad (Wallet)</option>
+                <option value="Bank">Bank Transfer</option>
               </select>
             </div>
           </div>
         </div>
 
         <div>
-          <label class="block font-bold text-ios-text mb-1.5">Remarks / Note (ঐচ্ছিক বিবরণ)</label>
+          <label class="block font-bold text-ios-text mb-1.5" data-i18n="rcv_lbl_notes">Remarks / Note (Optional)</label>
           <input type="text" id="rcv-notes" placeholder="e.g. Final delivery collection / partial advance" class="w-full border border-ios-border rounded-2xl px-4 py-2 text-xs text-ios-text focus:outline-none focus:border-emerald-500">
         </div>
 
         <!-- Money Receipt option -->
         <label class="flex items-center gap-2 p-3 bg-white/5 border border-ios-border rounded-2xl cursor-pointer">
           <input type="checkbox" id="rcv-print-receipt" checked class="rounded border-slate-700 text-emerald-600 focus:ring-0">
-          <span class="text-xs text-ios-text font-bold">পেমেন্ট জমার পর সাথে সাথে 58mm Money Receipt প্রিন্ট করুন 🖨️</span>
+          <span class="text-xs text-ios-text font-bold" data-i18n="rcv_lbl_print_check">Auto-print 58mm Money Receipt after payment 🖨️</span>
         </label>
       </div>
 
@@ -9292,8 +9292,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <button onclick="closeModal('modal-receive-payment')" class="px-5 py-2.5 border border-ios-border rounded-2xl text-xs font-bold text-ios-subtext hover:bg-white/10 active:scale-95">
           Cancel
         </button>
-        <button onclick="submitReceivePayment()" class="px-6 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:brightness-110 text-white rounded-2xl text-xs font-bold shadow-md active:scale-95">
-          জমা রেকর্ড করুন ✓
+        <button onclick="submitReceivePayment()" class="px-6 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:brightness-110 text-white rounded-2xl text-xs font-bold shadow-md active:scale-95" data-i18n="rcv_btn_submit">
+          Record Payment ✓
         </button>
       </div>
     </div>
@@ -9306,46 +9306,46 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     <div class="bento-card max-w-lg w-full p-6 sm:p-7 space-y-5 shadow-2xl max-h-[92vh] overflow-y-auto">
       <div class="flex justify-between items-center border-b border-ios-border pb-3.5">
         <h3 class="text-lg font-black text-ios-text flex items-center gap-2">
-          <span>💸</span> <span>Add Shop Expense (দোকান খরচ এন্ট্রি)</span>
+          <span>💸</span> <span data-i18n="exp_modal_title">Add Shop Expense</span>
         </h3>
         <button onclick="closeModal('modal-add-expense')" class="text-gray-400 hover:text-ios-text font-bold text-xl">✕</button>
       </div>
 
       <div class="space-y-3.5 text-xs">
         <div>
-          <label class="block font-bold text-ios-text mb-1.5">Expense Category * (খরচের খাত)</label>
+          <label class="block font-bold text-ios-text mb-1.5" data-i18n="exp_lbl_cat">Expense Category *</label>
           <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="exp-category-pills">
-            <button type="button" onclick="setExpenseCategory('Accessories')" class="exp-cat-btn active p-2 rounded-xl border border-rose-500/40 bg-rose-500/20 text-rose-300 font-bold text-left text-xs transition-all" data-cat="Accessories">🧵 Accessories (সুতা/বোতাম)</button>
-            <button type="button" onclick="setExpenseCategory('Utility & Rent')" class="exp-cat-btn p-2 rounded-xl border border-ios-border bg-white/5 text-ios-subtext font-medium text-left text-xs hover:border-slate-600 transition-all" data-cat="Utility & Rent">⚡ Utility & Rent (ভাড়া/বিল)</button>
-            <button type="button" onclick="setExpenseCategory('Refreshment & Daily')" class="exp-cat-btn p-2 rounded-xl border border-ios-border bg-white/5 text-ios-subtext font-medium text-left text-xs hover:border-slate-600 transition-all" data-cat="Refreshment & Daily">☕ Refreshment (চা/নাস্তা)</button>
-            <button type="button" onclick="setExpenseCategory('Machine Maintenance')" class="exp-cat-btn p-2 rounded-xl border border-ios-border bg-white/5 text-ios-subtext font-medium text-left text-xs hover:border-slate-600 transition-all" data-cat="Machine Maintenance">✂️ Machine (মেরামত/তেল)</button>
-            <button type="button" onclick="setExpenseCategory('Staff Wages & Advance')" class="exp-cat-btn p-2 rounded-xl border border-ios-border bg-white/5 text-ios-subtext font-medium text-left text-xs hover:border-slate-600 transition-all" data-cat="Staff Wages & Advance">👥 Staff (মজুরি/খোরাকি)</button>
-            <button type="button" onclick="setExpenseCategory('Other Expense')" class="exp-cat-btn p-2 rounded-xl border border-ios-border bg-white/5 text-ios-subtext font-medium text-left text-xs hover:border-slate-600 transition-all" data-cat="Other Expense">📦 Other (অন্যান্য)</button>
+            <button type="button" onclick="setExpenseCategory('Accessories')" class="exp-cat-btn active p-2 rounded-xl border border-rose-500/40 bg-rose-500/20 text-rose-300 font-bold text-left text-xs transition-all" data-cat="Accessories">🧵 Accessories</button>
+            <button type="button" onclick="setExpenseCategory('Utility & Rent')" class="exp-cat-btn p-2 rounded-xl border border-ios-border bg-white/5 text-ios-subtext font-medium text-left text-xs hover:border-slate-600 transition-all" data-cat="Utility & Rent">⚡ Utility & Rent</button>
+            <button type="button" onclick="setExpenseCategory('Refreshment & Daily')" class="exp-cat-btn p-2 rounded-xl border border-ios-border bg-white/5 text-ios-subtext font-medium text-left text-xs hover:border-slate-600 transition-all" data-cat="Refreshment & Daily">☕ Refreshment</button>
+            <button type="button" onclick="setExpenseCategory('Machine Maintenance')" class="exp-cat-btn p-2 rounded-xl border border-ios-border bg-white/5 text-ios-subtext font-medium text-left text-xs hover:border-slate-600 transition-all" data-cat="Machine Maintenance">✂️ Machine</button>
+            <button type="button" onclick="setExpenseCategory('Staff Wages & Advance')" class="exp-cat-btn p-2 rounded-xl border border-ios-border bg-white/5 text-ios-subtext font-medium text-left text-xs hover:border-slate-600 transition-all" data-cat="Staff Wages & Advance">👥 Staff Wages</button>
+            <button type="button" onclick="setExpenseCategory('Other Expense')" class="exp-cat-btn p-2 rounded-xl border border-ios-border bg-white/5 text-ios-subtext font-medium text-left text-xs hover:border-slate-600 transition-all" data-cat="Other Expense">📦 Other</button>
           </div>
           <input type="hidden" id="exp-category" value="Accessories">
         </div>
 
         <div>
-          <label class="block font-bold text-ios-text mb-1.5">Description * (খরচের বিবরণ)</label>
+          <label class="block font-bold text-ios-text mb-1.5" data-i18n="exp_lbl_desc">Description *</label>
           <input type="text" id="exp-description" placeholder="e.g. 5 reel Royal blue thread + metallic zippers" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-xs text-ios-text focus:outline-none focus:border-rose-500">
         </div>
 
         <div class="grid grid-cols-2 gap-3.5">
           <div>
-            <label class="block font-bold text-ios-text mb-1.5">Amount (টাকার পরিমাণ ৳) *</label>
+            <label class="block font-bold text-ios-text mb-1.5" data-i18n="exp_lbl_amount">Amount (৳) *</label>
             <input type="number" id="exp-amount" placeholder="0" class="w-full border border-ios-border rounded-2xl px-4 py-2.5 text-sm font-black font-mono text-rose-400 focus:outline-none focus:border-rose-500">
           </div>
           <div>
-            <label class="block font-bold text-ios-text mb-1.5">Payment Method *</label>
+            <label class="block font-bold text-ios-text mb-1.5" data-i18n="exp_lbl_method">Payment Method *</label>
             <div class="relative">
               <button type="button" class="cyber-select-trigger w-full !py-2.5 !rounded-2xl" id="exp-method-btn" onclick="CyberSelect.openForSelect(this, 'exp-method')">
-                <span id="exp-method-label">Cash (নগদ ড্রয়ার)</span>
+                <span id="exp-method-label">Cash (Drawer)</span>
                 <span class="cyber-select-chevron">▾</span>
               </button>
               <select id="exp-method" class="sr-only" style="display:none !important;" aria-hidden="true" tabindex="-1">
-                <option value="Cash">Cash (নগদ ড্রয়ার)</option>
-                <option value="bKash">bKash (বিকাশ)</option>
-                <option value="Nagad">Nagad (নগদ ওয়ালেট)</option>
+                <option value="Cash">Cash (Drawer)</option>
+                <option value="bKash">bKash (Wallet)</option>
+                <option value="Nagad">Nagad (Wallet)</option>
                 <option value="Bank">Bank Transfer</option>
               </select>
             </div>
@@ -9354,11 +9354,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
         <div class="grid grid-cols-2 gap-3.5">
           <div>
-            <label class="block font-bold text-ios-text mb-1.5">Receipt / Memo Ref (মেমো নাম্বার)</label>
+            <label class="block font-bold text-ios-text mb-1.5" data-i18n="exp_lbl_ref">Receipt / Memo Ref</label>
             <input type="text" id="exp-reference" placeholder="e.g. MEMO-882" class="w-full border border-ios-border rounded-2xl px-4 py-2 text-xs font-mono text-ios-text">
           </div>
           <div>
-            <label class="block font-bold text-ios-text mb-1.5">Expense Date</label>
+            <label class="block font-bold text-ios-text mb-1.5" data-i18n="exp_lbl_date">Expense Date</label>
             <input type="date" id="exp-date" class="w-full border border-ios-border rounded-2xl px-4 py-2 text-xs text-ios-text">
           </div>
         </div>
@@ -9368,8 +9368,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <button onclick="closeModal('modal-add-expense')" class="px-5 py-2.5 border border-ios-border rounded-2xl text-xs font-bold text-ios-subtext hover:bg-white/10 active:scale-95">
           Cancel
         </button>
-        <button onclick="submitAddExpense()" class="px-6 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-2xl text-xs font-bold shadow-md active:scale-95">
-          খরচ সংরক্ষণ করুন ✓
+        <button onclick="submitAddExpense()" class="px-6 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-2xl text-xs font-bold shadow-md active:scale-95" data-i18n="exp_btn_submit">
+          Record Expense ✓
         </button>
       </div>
     </div>
@@ -9382,7 +9382,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     <div class="bento-card max-w-lg w-full p-6 sm:p-7 space-y-5 shadow-2xl max-h-[92vh] overflow-y-auto">
       <div class="flex justify-between items-center border-b border-ios-border pb-3.5">
         <h3 class="text-lg font-black text-ios-text flex items-center gap-2">
-          <span>🔒</span> <span>Daily Cash Register & Shift Close (ক্যাশ খাতা ক্লোজিং)</span>
+          <span>🔒</span> <span data-i18n="close_modal_title">Daily Cash Register & Shift Close</span>
         </h3>
         <button onclick="closeModal('modal-cash-close')" class="text-gray-400 hover:text-ios-text font-bold text-xl">✕</button>
       </div>
@@ -9406,25 +9406,25 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
         <div class="p-4 rounded-2xl bg-gradient-to-r from-cyan-950/40 to-blue-950/40 border border-cyan-500/30 flex items-center justify-between">
           <div>
-            <div class="text-xs text-cyan-300 font-bold">System Expected Cash (ক্যাশ বাক্সে থাকার কথা):</div>
+            <div class="text-xs text-cyan-300 font-bold" data-i18n="close_lbl_expected">System Expected Cash (In Drawer):</div>
             <div class="text-[10px] text-ios-subtext mt-0.5">Opening Float + Cash In − Cash Out</div>
           </div>
           <div class="text-2xl font-black font-mono text-cyan-300" id="close-expected-cash">৳0</div>
         </div>
 
         <div class="space-y-2">
-          <label class="block font-bold text-ios-text">Physical Cash Counted (ড্রয়ার গুনে বাস্তবে কত পাওয়া গেল) *</label>
+          <label class="block font-bold text-ios-text" data-i18n="close_lbl_physical">Physical Cash Counted (Actual in drawer) *</label>
           <input type="number" id="close-actual-cash" oninput="calculateClosingDiscrepancy()" placeholder="Enter physical cash in drawer" class="w-full border border-slate-700/80 rounded-2xl px-4 py-3 text-lg font-black font-mono text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
         </div>
 
         <!-- Discrepancy Alert Box -->
         <div id="close-diff-box" class="p-3.5 rounded-2xl border border-ios-border bg-white/5 flex items-center justify-between">
-          <span class="text-xs text-ios-subtext font-bold" id="close-diff-label">পার্থক্য / মিল:</span>
-          <span class="text-sm font-black font-mono text-ios-text" id="close-diff-val">৳0 (মিল আছে)</span>
+          <span class="text-xs text-ios-subtext font-bold" id="close-diff-label" data-i18n="close_lbl_diff">Discrepancy / Balance:</span>
+          <span class="text-sm font-black font-mono text-ios-text" id="close-diff-val">৳0 (Balanced ✓)</span>
         </div>
 
         <div>
-          <label class="block font-bold text-ios-text mb-1">Shift Closing Remarks / Notes (ঐচ্ছিক মন্তব্য)</label>
+          <label class="block font-bold text-ios-text mb-1" data-i18n="close_lbl_notes">Shift Closing Remarks / Notes (Optional)</label>
           <input type="text" id="close-notes" placeholder="e.g. Night shift closed by Manager" class="w-full border border-slate-700/80 rounded-2xl px-4 py-2.5 text-xs text-white placeholder-slate-400 bg-slate-900/90 focus:outline-none focus:border-cyan-400">
         </div>
       </div>
@@ -9433,8 +9433,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <button onclick="closeModal('modal-cash-close')" class="px-5 py-2.5 border border-slate-700 rounded-2xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 active:scale-95 transition-all">
           Cancel
         </button>
-        <button onclick="submitCashClose()" class="px-6 py-2.5 bg-gradient-to-r from-amber-600 to-orange-600 hover:brightness-110 text-white rounded-2xl text-xs font-bold shadow-md active:scale-95">
-          ক্যাশ ক্লোজ ও প্রিন্ট সামারি 🔒
+        <button onclick="submitCashClose()" class="px-6 py-2.5 bg-gradient-to-r from-amber-600 to-orange-600 hover:brightness-110 text-white rounded-2xl text-xs font-bold shadow-md active:scale-95" data-i18n="close_btn_submit">
+          Close Register & Print Summary 🔒
         </button>
       </div>
     </div>
@@ -10464,7 +10464,70 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         tooltip_collapse_sidebar: 'Collapse Sidebar',
         tooltip_nav_menu: 'Navigation Menu',
         tooltip_search: 'Search',
-        tooltip_lang: 'Change Language'
+        tooltip_lang: 'Change Language',
+        acc_sec_tag: 'FINANCIAL CONTROL CENTER',
+        acc_sec_sub: 'Cash Drawer · Due Recovery · Wallets & Ledger',
+        acc_title: 'Accounts & Financial Hub',
+        acc_desc: 'Real-time cash drawer, 1-click due recovery, payment wallets, artisan wages and daily balance sheet.',
+        acc_add_expense: '＋ Add Expense',
+        acc_receive_payment: '＋ Receive Payment',
+        acc_day_close: 'Day Close',
+        acc_statement: 'Statement',
+        acc_period: 'Period:',
+        acc_today: '📅 Today',
+        acc_yesterday: '⏪ Yesterday',
+        acc_week: '🗓️ This Week',
+        acc_month: '📊 This Month',
+        acc_all: '🌐 All Time',
+        acc_wallet_drawer: 'Cash Drawer',
+        acc_wallet_reconcile: 'Reconcile ▾',
+        acc_wallet_bkash: 'bKash Wallet',
+        acc_wallet_nagad: 'Nagad Wallet',
+        acc_wallet_bank: 'Bank Account',
+        acc_ledger_title: 'Transactions Ledger',
+        acc_ledger_desc: 'Live tracking of sales collections, shop expenses, and staff wages.',
+        acc_ledger_search_placeholder: 'Search (description, customer, order)...',
+        acc_filter_all: 'All Entries',
+        acc_filter_income: '📥 Income',
+        acc_filter_expense: '📤 Expenses',
+        acc_filter_karigar: '👥 Staff Wages',
+        acc_th_datetime: 'Date & Time',
+        acc_th_desc: 'Description & Category',
+        acc_th_method: 'Method',
+        acc_th_amount: 'Amount',
+        acc_th_receipt: 'Receipt',
+        acc_no_tx: 'No transactions found.',
+        acc_due_title: 'Smart Due Recovery',
+        acc_due_desc: '1-click WhatsApp reminder & due collection.',
+        acc_no_dues: 'All cleared! No outstanding dues.',
+        acc_exp_cat_title: 'Expense Categories',
+        acc_exp_cat_desc: 'Raw materials, utilities, refreshments and staff wages.',
+        acc_exp_add_btn: '＋ Add Expense',
+        acc_no_expenses: 'No expenses recorded.',
+        acc_encryption_note: 'Local Financial Encryption · All transactions and cash drawer records are securely stored in your local browser.',
+        acc_print_sheet: '🖨️ Print Balance Statement',
+        rcv_modal_title: 'Receive Payment & Collect Due',
+        rcv_lbl_order: 'Select Order / Customer *',
+        rcv_lbl_amount: 'Amount Received (৳) *',
+        rcv_full_due: 'Full Due',
+        rcv_lbl_method: 'Payment Method *',
+        rcv_lbl_notes: 'Remarks / Note (Optional)',
+        rcv_lbl_print_check: 'Auto-print 58mm Money Receipt after payment 🖨️',
+        rcv_btn_submit: 'Record Payment ✓',
+        exp_modal_title: 'Add Shop Expense',
+        exp_lbl_cat: 'Expense Category *',
+        exp_lbl_desc: 'Expense Description *',
+        exp_lbl_amount: 'Amount (৳) *',
+        exp_lbl_method: 'Payment Method *',
+        exp_lbl_ref: 'Receipt / Memo Ref',
+        exp_lbl_date: 'Expense Date',
+        exp_btn_submit: 'Record Expense ✓',
+        close_modal_title: 'Daily Cash Register & Shift Close',
+        close_lbl_expected: 'System Expected Cash (In Drawer):',
+        close_lbl_physical: 'Physical Cash Counted (Actual in drawer) *',
+        close_lbl_diff: 'Discrepancy / Balance:',
+        close_lbl_notes: 'Shift Closing Remarks / Notes (Optional)',
+        close_btn_submit: 'Close Register & Print Summary 🔒'
       },
       bn: {
         sec_shop: 'দোকান (Shop OS)',
@@ -10517,7 +10580,70 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         tooltip_collapse_sidebar: 'সাইডবার বন্ধ করুন',
         tooltip_nav_menu: 'মেনু',
         tooltip_search: 'অনুসন্ধান',
-        tooltip_lang: 'ভাষা পরিবর্তন'
+        tooltip_lang: 'ভাষা পরিবর্তন',
+        acc_sec_tag: 'আর্থিক নিয়ন্ত্রণ কেন্দ্র',
+        acc_sec_sub: 'ক্যাশ ড্রয়ার · বকেয়া তাগাদা · ওয়ালেট ও খতিয়ান',
+        acc_title: 'হিসাব খাতা ও আর্থিক নিয়ন্ত্রণ',
+        acc_desc: 'রিয়েল-টাইম ক্যাশবাক্স, ১-ক্লিক বকেয়া তাগাদা, পেমেন্ট ওয়ালেট, কারিগর মজুরি ও দৈনিক ব্যালেন্স শিট।',
+        acc_add_expense: '＋ খরচ এন্ট্রি',
+        acc_receive_payment: '＋ পেমেন্ট জমা',
+        acc_day_close: 'ক্যাশ ক্লোজ',
+        acc_statement: 'স্টেটমেন্ট',
+        acc_period: 'সময়সীমা:',
+        acc_today: '📅 আজ',
+        acc_yesterday: '⏪ গতকাল',
+        acc_week: '🗓️ এই সপ্তাহ',
+        acc_month: '📊 এই মাস',
+        acc_all: '🌐 সব সময়',
+        acc_wallet_drawer: 'নগদ ক্যাশবাক্স (Drawer)',
+        acc_wallet_reconcile: 'মিলান ▾',
+        acc_wallet_bkash: 'বিকাশ ওয়ালেট (bKash)',
+        acc_wallet_nagad: 'নগদ ওয়ালেট (Nagad)',
+        acc_wallet_bank: 'ব্যাংক একাউন্ট (Bank)',
+        acc_ledger_title: 'জমা-খরচ ও খতিয়ান',
+        acc_ledger_desc: 'সব ধরনের সেলস কালেকশন, দোকান খরচ ও কারিগর মজুরির লাইভ ট্র্যাকিং।',
+        acc_ledger_search_placeholder: 'খুঁজুন (বিবরণ, কাস্টমার, অর্ডার)...',
+        acc_filter_all: 'সব এন্ট্রি',
+        acc_filter_income: '📥 আদায়/জমা',
+        acc_filter_expense: '📤 দোকান খরচ',
+        acc_filter_karigar: '👥 কারিগর মজুরি',
+        acc_th_datetime: 'তারিখ ও সময়',
+        acc_th_desc: 'বিবরণ ও ক্যাটাগরি',
+        acc_th_method: 'মাধ্যম',
+        acc_th_amount: 'টাকার পরিমাণ',
+        acc_th_receipt: 'রসিদ',
+        acc_no_tx: 'কোনো ট্রানজ্যাকশন পাওয়া যায়নি।',
+        acc_due_title: 'বকেয়া তাগাদা (Due Recovery)',
+        acc_due_desc: '১-ক্লিক WhatsApp মেসেজ ও বকেয়া কালেকশন।',
+        acc_no_dues: 'আলহামদুলিল্লাহ! কোনো বকেয়া নেই।',
+        acc_exp_cat_title: 'দোকান খরচ বিশ্লেষণ',
+        acc_exp_cat_desc: 'কাঁচামাল, ইউটিলিটি, আপ্যায়ন ও কারিগর মজুরি।',
+        acc_exp_add_btn: '＋ খরচ এন্ট্রি',
+        acc_no_expenses: 'কোনো খরচ রেকর্ড করা হয়নি।',
+        acc_encryption_note: 'লোকাল ফাইন্যান্সিয়াল এনক্রিপশন · সব ট্রানজ্যাকশন ও ক্যাশবাক্স হিসাব লোকাল ব্রাউজারে সুরক্ষিত সংরক্ষিত থাকে।',
+        acc_print_sheet: '🖨️ A4 ব্যালেন্স শিট প্রিন্ট করুন',
+        rcv_modal_title: 'পেমেন্ট ও বকেয়া জমা (Receive Payment)',
+        rcv_lbl_order: 'বকেয়া অর্ডার / কাস্টমার নির্বাচন *',
+        rcv_lbl_amount: 'জমার পরিমাণ (৳) *',
+        rcv_full_due: 'সম্পূর্ণ বকেয়া',
+        rcv_lbl_method: 'পেমেন্ট মাধ্যম *',
+        rcv_lbl_notes: 'ঐচ্ছিক বিবরণ / মন্তব্য',
+        rcv_lbl_print_check: 'পেমেন্ট জমার পর সাথে সাথে 58mm Money Receipt প্রিন্ট করুন 🖨️',
+        rcv_btn_submit: 'জমা রেকর্ড করুন ✓',
+        exp_modal_title: 'দোকান খরচ এন্ট্রি (Add Expense)',
+        exp_lbl_cat: 'খরচের খাত *',
+        exp_lbl_desc: 'খরচের বিবরণ *',
+        exp_lbl_amount: 'টাকার পরিমাণ (৳) *',
+        exp_lbl_method: 'পরিশোধের মাধ্যম *',
+        exp_lbl_ref: 'মেমো / রসিদ নম্বর',
+        exp_lbl_date: 'খরচের তারিখ',
+        exp_btn_submit: 'খরচ সংরক্ষণ করুন ✓',
+        close_modal_title: 'ক্যাশ ড্রয়ার ক্লোজ ও হিসাব মিলানো',
+        close_lbl_expected: 'ক্যাশ বাক্সে থাকার কথা (System Expected):',
+        close_lbl_physical: 'ড্রয়ার গুনে বাস্তবে কত পাওয়া গেল *',
+        close_lbl_diff: 'পার্থক্য / মিল:',
+        close_lbl_notes: 'ঐচ্ছিক মন্তব্য / নোট',
+        close_btn_submit: 'ক্যাশ ক্লোজ ও প্রিন্ট সামারি 🔒'
       }
     };
 
@@ -10528,7 +10654,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       } catch(e) {}
 
       const ind = document.getElementById('lang-indicator');
-      if (ind) ind.innerText = currentLang === 'en' ? 'বাংলা' : 'English';
+      if (ind) ind.innerText = currentLang === 'en' ? 'English' : 'বাংলা';
       
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
@@ -10557,6 +10683,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       }
 
       if (typeof updateSidebarOwnerChip === 'function') updateSidebarOwnerChip();
+      if (typeof renderLedger === 'function') renderLedger();
+      if (typeof renderCustomerDues === 'function') renderCustomerDues();
       const shopOwnerModal = document.getElementById('modal-shop-owner');
       if (shopOwnerModal && !shopOwnerModal.classList.contains('hidden') && typeof openShopOwnerModal === 'function') {
         openShopOwnerModal();
@@ -16129,10 +16257,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
             <div class="flex items-center gap-2 pt-1 border-t border-ios-border/60">
               <button onclick="sendDueReminderWhatsApp('${o.id}')" title="Send WhatsApp Due Reminder" class="due-whatsapp-btn flex-1 py-1 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold flex items-center justify-center gap-1 transition-all active:scale-95">
-                <span>💬</span> <span>WhatsApp তাগাদা</span>
+                <span>💬</span> <span>${(typeof currentLang !== 'undefined' && currentLang === 'bn') ? 'WhatsApp তাগাদা' : 'WhatsApp Reminder'}</span>
               </button>
               <button onclick="openReceivePaymentModal('${o.id}')" title="Collect Payment Now" class="due-collect-btn flex-1 py-1 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 border border-cyan-500/30 text-[10px] font-bold flex items-center justify-center gap-1 transition-all active:scale-95">
-                <span>💰</span> <span>বকেয়া জমা</span>
+                <span>💰</span> <span>${(typeof currentLang !== 'undefined' && currentLang === 'bn') ? 'বকেয়া জমা' : 'Collect Due'}</span>
               </button>
             </div>
           </div>
