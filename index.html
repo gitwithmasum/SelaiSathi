@@ -11,10 +11,10 @@
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Google Fonts: Big Shoulders Inline, Hind Siliguri, Inter, JetBrains Mono -->
+  <!-- Google Fonts: Monoton, Big Shoulders Inline, Hind Siliguri, Inter, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Inline+Display:wght@400;500;600;700;800;900&family=Big+Shoulders+Inline+Text:wght@400;500;600;700;800;900&family=Hind+Siliguri:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Inline+Display:wght@400;500;600;700;800;900&family=Big+Shoulders+Inline+Text:wght@400;500;600;700;800;900&family=Hind+Siliguri:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Monoton&display=swap" rel="stylesheet">
   
   <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
@@ -275,14 +275,87 @@
 
     body:not(.theme-white) > aside .border-white\/5 { border-color: var(--ss-border) !important; }
     body:not(.theme-white) > aside .bg-cyber-black\/40 { background: rgba(5,10,19,.7) !important; }
-    body:not(.theme-white) aside .brand-selai {
+    /* ======================================================== */
+    /* MULTILINE NEON LOGO ENGINE (YAGI / MONOTON INTERACTIVE)  */
+    /* ======================================================== */
+    .brand-logo-text {
+      font-family: 'Monoton', cursive, sans-serif !important;
+      display: inline-flex;
+      align-items: baseline;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+      white-space: nowrap;
+    }
+    aside .brand-logo-text {
+      font-size: 17.5px !important;
+      line-height: 1 !important;
+      letter-spacing: 0.04em !important;
+    }
+    aside .brand-logo-text.style-titlecase {
+      font-size: 18.5px !important;
+      letter-spacing: 0.03em !important;
+    }
+    header .brand-logo-text {
+      font-size: 15px !important;
+      line-height: 1 !important;
+      letter-spacing: 0.04em !important;
+    }
+    header .brand-logo-text.style-titlecase {
+      font-size: 16px !important;
+      letter-spacing: 0.03em !important;
+    }
+
+    /* Style 1: Titlecase (SelaiSathi) */
+    .brand-logo-text.style-titlecase .brand-selai {
       color: #FFFFFF !important;
       -webkit-text-fill-color: #FFFFFF !important;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
     }
-    body:not(.theme-white) aside .brand-sathi {
+    .brand-logo-text.style-titlecase .brand-sathi {
       color: #76F7C7 !important;
       -webkit-text-fill-color: #76F7C7 !important;
-      text-shadow: 0 0 12px rgba(118, 247, 199, 0.45);
+      text-shadow: 0 0 14px rgba(118, 247, 199, 0.65), 0 0 28px rgba(118, 247, 199, 0.3);
+    }
+
+    /* Style 2: Pure Uppercase (SELAISATHI) */
+    .brand-logo-text.style-uppercase .brand-selai {
+      color: #FFFFFF !important;
+      -webkit-text-fill-color: #FFFFFF !important;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
+    .brand-logo-text.style-uppercase .brand-sathi {
+      color: #76F7C7 !important;
+      -webkit-text-fill-color: #76F7C7 !important;
+      text-shadow: 0 0 14px rgba(118, 247, 199, 0.65), 0 0 28px rgba(118, 247, 199, 0.3);
+    }
+
+    /* Style 3: Neon Gradient (Like User's Image: Pink -> Purple -> Cyan) */
+    .brand-logo-text.style-gradient {
+      background: linear-gradient(135deg, #FF1493 0%, #C026D3 35%, #8B5CF6 65%, #00F0FF 100%) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      filter: drop-shadow(0 0 12px rgba(192, 38, 211, 0.55));
+    }
+    .brand-logo-text.style-gradient .brand-selai,
+    .brand-logo-text.style-gradient .brand-sathi {
+      background: inherit !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      text-shadow: none !important;
+    }
+
+    /* Theme White adjustments */
+    body.theme-white .brand-logo-text.style-titlecase .brand-selai,
+    body.theme-white .brand-logo-text.style-uppercase .brand-selai {
+      color: #062B26 !important;
+      -webkit-text-fill-color: #062B26 !important;
+      text-shadow: none !important;
+    }
+    body.theme-white .brand-logo-text.style-titlecase .brand-sathi,
+    body.theme-white .brand-logo-text.style-uppercase .brand-sathi {
+      color: #0D9488 !important;
+      -webkit-text-fill-color: #0D9488 !important;
+      text-shadow: 0 0 8px rgba(13, 148, 136, 0.35);
     }
 
     body:not(.theme-white) > div.flex-1 { background: transparent !important; }
@@ -4743,14 +4816,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     <div class="flex flex-col flex-1 overflow-y-auto z-10">
       
       <!-- Futuristic Brand Header (Click to collapse on Desktop) -->
-      <div onclick="handleSidebarBrandClick()" class="h-20 flex items-center justify-between px-5 border-b border-white/5 cursor-pointer group hover:bg-white/[0.04] transition-colors select-none" title="Collapse Sidebar" data-i18n-title="tooltip_collapse_sidebar">
+      <div class="h-20 flex items-center justify-between px-5 border-b border-white/5 select-none">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-2xl overflow-hidden brand-glow shrink-0 shadow-md shadow-emerald-500/25 border border-emerald-400/30 group-hover:scale-105 transition-transform">
+          <div onclick="cycleLogoStyle()" class="w-10 h-10 rounded-2xl overflow-hidden brand-glow shrink-0 shadow-md shadow-emerald-500/25 border border-emerald-400/30 hover:scale-105 active:scale-95 transition-transform cursor-pointer" title="Click to Swap Logo Style (1 of 3)">
             <img src="assets/logo.png" alt="SelaiSathi Logo" class="w-full h-full object-cover rounded-2xl">
           </div>
-          <div>
+          <div onclick="cycleLogoStyle()" class="cursor-pointer group/brand flex flex-col justify-center" title="Click to Swap Logo Style (1 of 3)">
             <div class="flex items-center">
-              <span class="font-extrabold text-[17px] tracking-tight leading-none">
+              <span id="sidebar-brand-text" class="brand-logo-text style-titlecase">
                 <span class="brand-selai">Selai</span><span class="brand-sathi">Sathi</span>
               </span>
             </div>
@@ -4761,8 +4834,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           </div>
         </div>
         <!-- Desktop Collapse Chevron Icon -->
-        <div class="hidden lg:flex items-center justify-center w-8 h-8 rounded-xl bg-white/5 group-hover:bg-cyan-500/20 text-gray-400 group-hover:text-cyan-300 transition-all border border-white/5 group-hover:border-cyan-400/30 shadow-xs" title="Collapse Sidebar" data-i18n-title="tooltip_collapse_sidebar">
-          <svg class="w-4 h-4 transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path></svg>
+        <div onclick="handleSidebarBrandClick()" class="hidden lg:flex items-center justify-center w-8 h-8 rounded-xl bg-white/5 hover:bg-cyan-500/20 text-gray-400 hover:text-cyan-300 transition-all border border-white/5 hover:border-cyan-400/30 shadow-xs cursor-pointer" title="Collapse Sidebar" data-i18n-title="tooltip_collapse_sidebar">
+          <svg class="w-4 h-4 transition-transform hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path></svg>
         </div>
       </div>
       <!-- Navigation: workflow-first tailoring workspace -->
@@ -4893,12 +4966,12 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         </button>
       </div>
 
-      <!-- CENTER: Logo [S] + SelaiSathi Brand Text (Perfect Center Alignment) -->
-      <div class="flex items-center justify-center gap-2 cursor-pointer flex-1 mx-2" onclick="navigateTo('dashboard')">
-        <div class="w-8 h-8 rounded-xl overflow-hidden brand-glow border border-emerald-400/40 shrink-0 shadow-sm shadow-emerald-500/20 flex items-center justify-center bg-emerald-500/15">
+      <!-- CENTER: Logo [S] + SelaiSathi Brand Text (Click to Swap Logo Style) -->
+      <div class="flex items-center justify-center gap-2 cursor-pointer flex-1 mx-2 select-none group/hbrand" onclick="cycleLogoStyle()" title="Click to Swap Logo Style (1 of 3)">
+        <div class="w-8 h-8 rounded-xl overflow-hidden brand-glow border border-emerald-400/40 shrink-0 shadow-sm shadow-emerald-500/20 flex items-center justify-center bg-emerald-500/15 group-hover/hbrand:scale-105 active:scale-95 transition-transform">
           <img src="assets/logo.png" alt="SelaiSathi Logo" class="w-full h-full object-cover">
         </div>
-        <span class="font-extrabold text-sm sm:text-base tracking-tight select-none">
+        <span id="header-brand-text" class="brand-logo-text style-titlecase">
           <span class="brand-selai">Selai</span><span class="brand-sathi">Sathi</span>
         </span>
       </div>
@@ -20615,6 +20688,58 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         }
       } catch(e) {}
     })();
+
+    // =========================================================================
+    // 🎨 MULTILINE NEON LOGO ENGINE (Interactive 3-Style Swap)
+    // =========================================================================
+    const SS_LOGO_STYLES = [
+      { id: '1', name: 'Titlecase (SelaiSathi)', cls: 'style-titlecase', selai: 'Selai', sathi: 'Sathi', icon: '✨', type: 'emerald' },
+      { id: '2', name: 'Pure Uppercase (SELAISATHI)', cls: 'style-uppercase', selai: 'SELAI', sathi: 'SATHI', icon: '🔤', type: 'cyan' },
+      { id: '3', name: 'Neon Gradient (SELAISATHI)', cls: 'style-gradient', selai: 'SELAI', sathi: 'SATHI', icon: '🎨', type: 'purple' }
+    ];
+
+    function applyLogoStyle(styleId, showNotification = false) {
+      const current = SS_LOGO_STYLES.find(s => s.id === String(styleId)) || SS_LOGO_STYLES[0];
+      try {
+        localStorage.setItem('selaisathi_logo_style', current.id);
+      } catch (e) {}
+
+      const targets = [
+        document.getElementById('sidebar-brand-text'),
+        document.getElementById('header-brand-text')
+      ];
+
+      targets.forEach(el => {
+        if (!el) return;
+        el.className = `brand-logo-text ${current.cls}`;
+        el.innerHTML = `<span class="brand-selai">${current.selai}</span><span class="brand-sathi">${current.sathi}</span>`;
+        el.title = `Current: ${current.name} (Click to swap style)`;
+        el.style.transform = 'scale(0.92)';
+        setTimeout(() => { if (el) el.style.transform = ''; }, 160);
+      });
+
+      if (showNotification && typeof showCyberHudNotification === 'function') {
+        showCyberHudNotification('LOGO STYLE SWAP', current.name, current.icon, current.type);
+      }
+    }
+
+    function cycleLogoStyle() {
+      let saved = '1';
+      try {
+        saved = localStorage.getItem('selaisathi_logo_style') || '1';
+      } catch (e) {}
+
+      const currentIndex = SS_LOGO_STYLES.findIndex(s => s.id === String(saved));
+      const nextIndex = (currentIndex + 1) % SS_LOGO_STYLES.length;
+      const nextStyle = SS_LOGO_STYLES[nextIndex];
+      applyLogoStyle(nextStyle.id, true);
+    }
+
+    // Auto-initialize logo style
+    try {
+      const initStyle = localStorage.getItem('selaisathi_logo_style') || '1';
+      applyLogoStyle(initStyle, false);
+    } catch(e) {}
 
   
     // =========================================================================
