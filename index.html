@@ -9719,7 +9719,13 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               <option value="Suiting">🧥 Suiting</option>
               <option value="Silk">✨ Silk</option>
               <option value="Voile">💨 Voile</option>
-              <option value="Accessories">🧵 Accessories</option>
+              <option value="Fabric">🧵 Fabric</option>
+              <option value="Buttons">🔘 Buttons</option>
+              <option value="Zippers">🤐 Zippers</option>
+              <option value="Interlining">📐 Interlining</option>
+              <option value="Threads">🧶 Threads</option>
+              <option value="Packaging">🛍️ Packaging</option>
+              <option value="Accessories">🧷 Accessories</option>
             </select>
           </div>
           <div>
@@ -11791,9 +11797,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     function openNewOrderModal() {
       const modal = document.getElementById('modal-new-order');
       if (!modal) return;
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-      modal.style.display = 'flex';
+      if (typeof openModal === 'function') {
+        openModal('modal-new-order');
+      } else {
+        modal.style.removeProperty('display');
+        modal.style.display = '';
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
       modal.setAttribute('aria-hidden', 'false');
 
       // Update date picker default if needed
@@ -11825,12 +11836,24 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     window.openNewOrderModal = openNewOrderModal;
     window.toggleNewOrderModal = openNewOrderModal;
 
+    function openModal(id) {
+      const modal = typeof id === 'string' ? document.getElementById(id) : id;
+      if (!modal) return;
+      modal.style.removeProperty('display');
+      modal.style.display = '';
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      modal.setAttribute('aria-hidden', 'false');
+    }
+    window.openModal = openModal;
+
     function closeModal(id) {
-      const modal = document.getElementById(id);
+      const modal = typeof id === 'string' ? document.getElementById(id) : id;
       if (!modal) return;
       modal.classList.add('hidden');
       modal.classList.remove('flex');
-      modal.style.display = 'none';
+      modal.style.removeProperty('display');
+      modal.style.display = '';
       modal.setAttribute('aria-hidden', 'true');
     }
     window.closeModal = closeModal;
@@ -14180,8 +14203,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         if (notesInput) notesInput.value = '';
       }
 
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
+      if (typeof openModal === 'function') {
+        openModal('modal-fabric-entry');
+      } else {
+        modal.style.removeProperty('display');
+        modal.style.display = '';
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
       requestAnimationFrame(() => nameInput?.focus());
     }
 
@@ -14561,7 +14590,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       fabric:[['name','Material name','text'],['sku','SKU / Code','text'],['stock','Current stock','number'],['unit','Unit (yard/pcs)','text'],['cost','Unit cost (৳)','number'],['minimum','Low-stock threshold','number']]
     };
     function openDataModal(kind, record) {
-      if (kind === 'fabric') { openFabricModal(record?.id); return; }
+      if (kind === 'fabric') {
+        const editId = (typeof record === 'object' && record !== null) ? record.id : record;
+        openFabricModal(editId);
+        return;
+      }
       const fields = ssFieldSets[kind];
       const modal = document.getElementById('modal-data-entry');
       const title = document.getElementById('data-modal-title');
@@ -14622,9 +14655,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         '</div>';
       }).join('');
 
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-      modal.style.display = 'flex';
+      if (typeof openModal === 'function') {
+        openModal('modal-data-entry');
+      } else {
+        modal.style.removeProperty('display');
+        modal.style.display = '';
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
       modal.setAttribute('aria-hidden', 'false');
       requestAnimationFrame(() => fieldsHost.querySelector('input')?.focus());
     }
@@ -18428,9 +18466,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         document.getElementById('sup-address').value = '';
         document.getElementById('sup-due').value = '0';
       }
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-      modal.style.display = 'flex';
+      if (typeof openModal === 'function') {
+        openModal('modal-supplier-entry');
+      } else {
+        modal.style.removeProperty('display');
+        modal.style.display = '';
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
     }
 
     function saveSupplierRecord() {
@@ -18607,7 +18650,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       document.getElementById('inv-stock-op-qty').value = '';
       document.getElementById('inv-stock-op-note').value = '';
 
-      modal.classList.remove('hidden');
+      if (typeof openModal === 'function') {
+        openModal('modal-inv-quick-stock');
+      } else {
+        modal.style.removeProperty('display');
+        modal.style.display = '';
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
     }
 
     function handleInvStockSelectChange() {
@@ -18737,10 +18787,21 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         document.getElementById('bom-garment-type').value = presetGarment;
       }
       updateBOMRecipe();
-      document.getElementById('modal-bom-deduct')?.classList.remove('hidden');
+      if (typeof openModal === 'function') {
+        openModal('modal-bom-deduct');
+      } else {
+        const m = document.getElementById('modal-bom-deduct');
+        if (m) {
+          m.style.removeProperty('display');
+          m.style.display = '';
+          m.classList.remove('hidden');
+          m.classList.add('flex');
+        }
+      }
     }
 
     function updateBOMRecipe() {
+      const isBn = (localStorage.getItem('ss_lang') || 'bn') === 'bn';
       const type = document.getElementById('bom-garment-type')?.value || 'panjabi';
       const count = parseInt(document.getElementById('bom-garment-count')?.value) || 1;
       const recipe = BOM_RECIPES[type] || BOM_RECIPES.panjabi;
@@ -18869,7 +18930,17 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         `).join('');
       }
       updateAuditItemDetails();
-      document.getElementById('modal-stock-audit')?.classList.remove('hidden');
+      if (typeof openModal === 'function') {
+        openModal('modal-stock-audit');
+      } else {
+        const m = document.getElementById('modal-stock-audit');
+        if (m) {
+          m.style.removeProperty('display');
+          m.style.display = '';
+          m.classList.remove('hidden');
+          m.classList.add('flex');
+        }
+      }
     }
 
     function openAuditModalForItem(itemId) {
@@ -18997,7 +19068,17 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         `).join('');
       }
 
-      document.getElementById('modal-barcode-scan')?.classList.remove('hidden');
+      if (typeof openModal === 'function') {
+        openModal('modal-barcode-scan');
+      } else {
+        const m = document.getElementById('modal-barcode-scan');
+        if (m) {
+          m.style.removeProperty('display');
+          m.style.display = '';
+          m.classList.remove('hidden');
+          m.classList.add('flex');
+        }
+      }
     }
 
     function quickScanItem(code) {
@@ -19088,7 +19169,17 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         `).join('');
       }
       updateSupplierPOItems();
-      document.getElementById('modal-supplier-po')?.classList.remove('hidden');
+      if (typeof openModal === 'function') {
+        openModal('modal-supplier-po');
+      } else {
+        const m = document.getElementById('modal-supplier-po');
+        if (m) {
+          m.style.removeProperty('display');
+          m.style.display = '';
+          m.classList.remove('hidden');
+          m.classList.add('flex');
+        }
+      }
     }
 
     function updateSupplierPOItems() {
@@ -19195,7 +19286,17 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         document.getElementById('remnant-price').value = '150';
         document.getElementById('remnant-color').value = '';
       }
-      document.getElementById('modal-remnant-entry')?.classList.remove('hidden');
+      if (typeof openModal === 'function') {
+        openModal('modal-remnant-entry');
+      } else {
+        const m = document.getElementById('modal-remnant-entry');
+        if (m) {
+          m.style.removeProperty('display');
+          m.style.display = '';
+          m.classList.remove('hidden');
+          m.classList.add('flex');
+        }
+      }
     }
 
     function saveRemnantRecord() {
@@ -19263,9 +19364,13 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
     // --- PRINT & EXPORT TOOLS ---
     function printInventoryReport() {
+      const isBn = (localStorage.getItem('ss_lang') || 'bn') === 'bn';
       const all = ssRecords.fabrics || [];
       const printWindow = window.open('', '_blank');
-      const isBn = (localStorage.getItem('ss_lang') || 'bn') === 'bn';
+      if (!printWindow) {
+        showCyberToast(isBn ? 'পপ-আপ উইন্ডো ব্লক করা হয়েছে। অনুগ্রহ করে ব্রাউজারে অনুমতি দিন।' : 'Pop-up window blocked. Please allow popups to print report.', 'warning');
+        return;
+      }
       const dateStr = isBn ? new Date().toLocaleDateString('bn-BD') : new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
 
       let tableHtml = `
@@ -19326,13 +19431,16 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <div>${isBn ? 'স্টোর কিপার স্বাক্ষর: _________________' : 'Store Keeper Signature: _________________'}</div>
             <div>${isBn ? 'মাস্টার টেইলার স্বাক্ষর: _________________' : 'Master Tailor Signature: _________________'}</div>
           </div>
-          ' + '<' + 'script>window.onload = function() { window.print(); }<' + '/script>' + '
         </body>
         </html>
       `;
 
       printWindow.document.write(tableHtml);
       printWindow.document.close();
+      printWindow.focus();
+      setTimeout(() => {
+        try { printWindow.print(); } catch(e){}
+      }, 500);
     }
 
     
