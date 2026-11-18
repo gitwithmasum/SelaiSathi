@@ -22533,20 +22533,78 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
 
     function openFirebaseConfigModal() {
+      // 🔒 Security PIN Gate: Cloud Database Config is locked by default
+      const users = getSystemUsers();
+      const owner = users.find(u => u.role === 'owner') || users[0] || DEFAULT_SYSTEM_USERS[0];
+      const ownerPin = owner.pin || '1234';
+
+      if (window.CyberDialog && typeof CyberDialog.confirm === 'function') {
+        CyberDialog.confirm(
+          (currentLang === 'bn'
+            ? '🔒 <b>ক্লাউড ডাটাবেজ সিকিউরিটি ভল্ট লকড:</b><br><br>সংবেদনশীল Firebase API Keys ও সেটিংস দেখার জন্য দোকান প্রধান (Super Admin)-এর ৪-সংখ্যার সিকিউরিটি পিন দিন:<br><br>'
+            : '🔒 <b>Cloud Database Vault Locked:</b><br><br>To access sensitive Firebase API keys & settings, enter the Shop Owner 4-digit security PIN:<br><br>') +
+          '<input type="password" id="cyber-firebase-pin-input" maxlength="4" placeholder="••••" class="w-full text-center tracking-[0.4em] font-mono text-lg font-bold py-2 bg-slate-900 border border-white/20 rounded-xl text-white outline-none focus:border-cyan-400" autofocus />',
+          () => {
+            const inputPin = document.getElementById('cyber-firebase-pin-input')?.value.trim();
+            if (inputPin !== ownerPin) {
+              CyberDialog.alert(
+                currentLang === 'bn' ? 'ভুল সিকিউরিটি পিন! ক্লাউড সেটিংস অ্যাক্সেস বাতিল করা হলো।' : 'Incorrect security PIN! Cloud settings access denied.',
+                { icon: '🚫', title: currentLang === 'bn' ? 'ACCESS DENIED • প্রবেশাধিকার নেই' : 'ACCESS DENIED' }
+              );
+              return;
+            }
+            _actuallyOpenFirebaseConfigModal();
+          },
+          {
+            title: currentLang === 'bn' ? 'SECURITY AUTHENTICATION • পিন যাচাই' : 'SECURITY AUTHENTICATION',
+            confirmText: currentLang === 'bn' ? 'আনলক করুন 🔓' : 'Unlock 🔓',
+            cancelText: currentLang === 'bn' ? 'বাতিল' : 'Cancel'
+          }
+        );
+      } else {
+        const pin = prompt(currentLang === 'bn' ? 'Firebase কনফিগ অ্যাক্সেস করতে মালিকের ৪-সংখ্যার পিন দিন:' : 'Enter 4-digit owner PIN to unlock Firebase config:');
+        if (pin === ownerPin) {
+          _actuallyOpenFirebaseConfigModal();
+        } else {
+          alert('Incorrect PIN!');
+        }
+      }
+    }
+
+    function _actuallyOpenFirebaseConfigModal() {
       const cfg = getFirebaseConfig();
       const elKey = document.getElementById('fb-cfg-apikey');
       const elProj = document.getElementById('fb-cfg-projectid');
       const elAuth = document.getElementById('fb-cfg-authdomain');
       const elStorage = document.getElementById('fb-cfg-storage');
       const elApp = document.getElementById('fb-cfg-appid');
+      const elBtn = document.getElementById('fb-cfg-toggle-eye');
 
-      if (elKey) elKey.value = cfg.apiKey || '';
+      if (elKey) {
+        elKey.value = cfg.apiKey || '';
+        elKey.type = 'password';
+      }
+      if (elBtn) elBtn.textContent = '👁 Show';
       if (elProj) elProj.value = cfg.projectId || '';
       if (elAuth) elAuth.value = cfg.authDomain || '';
       if (elStorage) elStorage.value = cfg.storageBucket || '';
       if (elApp) elApp.value = cfg.appId || '';
 
       document.getElementById('modal-firebase-config')?.classList.remove('hidden');
+    }
+
+    function toggleFirebaseApiKeyVisibility() {
+      const elKey = document.getElementById('fb-cfg-apikey');
+      const elBtn = document.getElementById('fb-cfg-toggle-eye');
+      if (elKey) {
+        if (elKey.type === 'password') {
+          elKey.type = 'text';
+          if (elBtn) elBtn.textContent = '🙈 Hide';
+        } else {
+          elKey.type = 'password';
+          if (elBtn) elBtn.textContent = '👁 Show';
+        }
+      }
     }
 
     function closeFirebaseConfigModal() {
@@ -22590,7 +22648,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       _firebaseApp = null;
       _firestoreDb = null;
       _firebaseAuth = null;
-      openFirebaseConfigModal();
+      _actuallyOpenFirebaseConfigModal();
     }
 
     function getOwnerCustomPhoto() {
@@ -24776,14 +24834,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           </div>
         </form>
 
-        <!-- Footer -->
+        <!-- Footer (Secure Login - No Public Cloud Config Button) -->
         <div class="pt-2 border-t border-[#3c4043] flex items-center justify-between text-xs text-slate-500">
-          <button type="button" onclick="openFirebaseConfigModal()" class="hover:text-slate-300 flex items-center gap-1.5 transition-colors cursor-pointer">
-            <span>⚙</span> <span>Cloud Config</span>
-          </button>
           <span class="text-[11px] text-slate-500 flex items-center gap-1.5">
-            <span>🔒</span> <span>Google Cloud Firestore</span>
+            <span>🔒</span> <span>256-bit Encrypted Cloud Vault</span>
           </span>
+          <button type="button" onclick="showAuthHelpDialog()" class="text-xs text-blue-400 hover:underline cursor-pointer">
+            Need Help?
+          </button>
         </div>
 
       </div>
@@ -24935,8 +24993,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       <form onsubmit="saveCustomFirebaseConfig(event)" class="space-y-3">
         <div>
-          <label class="block text-xs font-bold text-ios-text mb-1">API Key</label>
-          <input type="text" id="fb-cfg-apikey" placeholder="AIzaSy..." class="w-full bg-slate-950 border border-ios-border rounded-xl px-3 py-2 text-xs font-mono text-ios-text outline-none focus:border-cyan-400" />
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-xs font-bold text-ios-text">API Key (Protected)</label>
+            <button type="button" id="fb-cfg-toggle-eye" onclick="toggleFirebaseApiKeyVisibility()" class="text-[11px] text-blue-400 hover:underline cursor-pointer">👁 Show</button>
+          </div>
+          <input type="password" id="fb-cfg-apikey" placeholder="AIzaSy..." class="w-full bg-slate-950 border border-ios-border rounded-xl px-3 py-2 text-xs font-mono text-ios-text outline-none focus:border-cyan-400" />
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
