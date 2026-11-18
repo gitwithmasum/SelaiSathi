@@ -10044,72 +10044,87 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
   <!-- ======================================================== -->
   <!-- MODAL: BOM GARMENT PRODUCTION DEDUCT                     -->
   <!-- ======================================================== -->
-  <div id="modal-bom-deduct" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bento-card max-w-xl w-full p-6 space-y-4 shadow-2xl max-h-[92vh] overflow-y-auto">
-      <div class="flex justify-between items-center border-b border-ios-border pb-3">
-        <div>
-          <h3 class="text-base font-black text-ios-text flex items-center gap-2">
-            <span>✂️</span> <span>BOM Garment Production Consumption (অর্ডার ম্যাটেরিয়াল সমন্বয়)</span>
-          </h3>
-          <p class="text-[11px] text-ios-subtext mt-0.5">নির্দিষ্ট পোশাক তৈরির উপকরণসমূহ এক ক্লিকে ইনভেন্টরি থেকে মাইনাস করুন।</p>
+  <div id="modal-bom-deduct" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 transition-all">
+    <div class="bento-card max-w-[460px] w-full p-4 sm:p-5 space-y-3.5 shadow-2xl rounded-2xl border border-white/10 bg-slate-950/95 max-h-[90vh] overflow-y-auto">
+      
+      <!-- Minimalist Header -->
+      <div class="flex items-center justify-between pb-2.5 border-b border-white/10">
+        <div class="flex items-center gap-2">
+          <span class="w-6 h-6 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 flex items-center justify-center text-xs">✂️</span>
+          <div>
+            <h3 class="text-xs font-bold text-white tracking-tight flex items-center gap-1.5" id="bom-modal-heading">
+              <span>BOM Consumption</span>
+              <span class="text-[10px] text-cyan-400/80 font-mono font-normal">· Auto-Deduct</span>
+            </h3>
+          </div>
         </div>
-        <button onclick="closeModal('modal-bom-deduct')" class="text-gray-400 hover:text-ios-text font-bold text-lg">✕</button>
+        <button onclick="closeModal('modal-bom-deduct')" class="w-6 h-6 rounded-lg flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors text-xs font-bold" title="Close">✕</button>
       </div>
 
-      <div class="space-y-4 text-xs">
-        <!-- Garment Preset & Count -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div>
-            <label class="block font-bold text-ios-text mb-1">Garment Type (পোশাকের ধরন)</label>
-            <select id="bom-garment-type" onchange="updateBOMRecipe()" class="w-full border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400 font-bold">
-              <option value="panjabi">👔 Panjabi (2.50 yds + Buckram + 6 Buttons)</option>
-              <option value="suit">🧥 Suit / Blazer (2.00 yds Wool + Lining + Canvas)</option>
-              <option value="shirt">👕 Formal Shirt (2.25 yds + Collar Pasting + 8 Buttons)</option>
-              <option value="pant">👖 Formal Pant (1.30 yds + Pocketing + 1 Zipper)</option>
-              <option value="waistcoat">🦺 Waistcoat / Mujib Coat (1.40 yds + Metal Buttons)</option>
-            </select>
+      <!-- Form Elements -->
+      <div class="space-y-3 text-xs">
+        
+        <!-- Garment Selector & Stepper in 1 Sleek Row -->
+        <div class="grid grid-cols-12 gap-2 items-end">
+          <div class="col-span-7">
+            <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Garment</label>
+            <div class="relative">
+              <select id="bom-garment-type" onchange="updateBOMRecipe()" class="w-full appearance-none border border-slate-700/80 rounded-xl px-2.5 py-1.5 pr-7 text-xs font-semibold text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400 transition-colors cursor-pointer">
+                <option value="panjabi">👔 Panjabi</option>
+                <option value="suit">🧥 Suit / Blazer</option>
+                <option value="shirt">👕 Formal Shirt</option>
+                <option value="pant">👖 Formal Pant</option>
+                <option value="waistcoat">🦺 Waistcoat</option>
+              </select>
+              <span class="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-[9px]">▼</span>
+            </div>
           </div>
-          <div>
-            <label class="block font-bold text-ios-text mb-1">Production Quantity (কত পিস তৈরি হচ্ছে) *</label>
-            <input type="number" id="bom-garment-count" value="1" min="1" max="100" oninput="updateBOMRecipe()" class="w-full border border-slate-700/80 rounded-xl px-3 py-2 text-sm font-mono font-bold text-cyan-300 bg-slate-900/90 focus:outline-none focus:border-cyan-400">
-          </div>
-        </div>
-
-        <div>
-          <label class="block font-bold text-ios-text mb-1">Link Order Number (অর্ডার রেফারেন্স নং) <span class="text-[10px] text-ios-subtext">(ঐচ্ছিক)</span></label>
-          <input type="text" id="bom-order-ref" placeholder="e.g. ORD-2026-0042 (Arif Hossain)" class="w-full border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-white bg-slate-900/90 focus:outline-none focus:border-cyan-400">
-        </div>
-
-        <!-- BOM Ingredients Breakdown List -->
-        <div>
-          <div class="flex items-center justify-between mb-1.5">
-            <label class="font-bold text-ios-text">Materials to Deduct (প্রয়োজনীয় উপকরণের তালিকা ও স্টক যাচাই):</label>
-            <span class="text-[10px] font-mono text-cyan-400" id="bom-status-summary">Checking stock...</span>
-          </div>
-          <div class="border border-ios-border rounded-2xl overflow-hidden bg-slate-900/50">
-            <div id="bom-ingredients-list" class="divide-y divide-ios-border">
-              <!-- Populated dynamically via updateBOMRecipe() -->
+          
+          <!-- Quantity Stepper -->
+          <div class="col-span-5">
+            <label class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Quantity</label>
+            <div class="flex items-center border border-slate-700/80 rounded-xl bg-slate-900/90 overflow-hidden">
+              <button type="button" onclick="stepBOMCount(-1)" class="w-7 py-1.5 text-slate-400 hover:text-white hover:bg-white/5 active:bg-white/10 text-xs font-bold transition-colors select-none">－</button>
+              <input type="number" id="bom-garment-count" value="1" min="1" max="100" oninput="updateBOMRecipe()" class="w-full text-center bg-transparent text-cyan-300 font-mono font-bold text-xs focus:outline-none p-0">
+              <button type="button" onclick="stepBOMCount(1)" class="w-7 py-1.5 text-slate-400 hover:text-white hover:bg-white/5 active:bg-white/10 text-xs font-bold transition-colors select-none">＋</button>
             </div>
           </div>
         </div>
 
-        <div id="bom-shortage-alert" class="hidden p-3 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-xs flex items-start gap-2">
-          <span class="text-base leading-none">⚠️</span>
-          <div>
-            <div class="font-bold">পর্যাপ্ত স্টক নেই (Insufficient Stock)!</div>
-            <div class="text-[11px] text-rose-200/90" id="bom-shortage-desc">কিছু উপকরণের পর্যাপ্ত মজুদ কারখানায় নেই। অনুগ্রহ করে স্টক ইন করুন অথবা পরিমাণ কমান।</div>
+        <!-- Optional Order Ref (Minimalist) -->
+        <div>
+          <input type="text" id="bom-order-ref" placeholder="Order / Memo # (optional)..." class="w-full border border-slate-700/70 rounded-xl px-2.5 py-1.5 text-[11px] text-white placeholder-slate-500 bg-slate-900/60 focus:outline-none focus:border-cyan-400 transition-colors">
+        </div>
+
+        <!-- Materials Breakdown -->
+        <div class="space-y-1.5 pt-0.5">
+          <div class="flex items-center justify-between text-[11px]">
+            <span class="font-medium text-slate-300">Required Ingredients</span>
+            <span id="bom-status-summary" class="text-[10px] font-mono font-bold"></span>
           </div>
+
+          <div class="rounded-xl border border-white/5 bg-slate-900/40 overflow-hidden divide-y divide-white/5" id="bom-ingredients-list">
+            <!-- Populated dynamically via updateBOMRecipe() -->
+          </div>
+        </div>
+
+        <!-- Minimal Shortage Alert -->
+        <div id="bom-shortage-alert" class="hidden px-2.5 py-1.5 rounded-xl bg-rose-500/10 border border-rose-500/25 text-rose-300 text-[11px] flex items-center gap-1.5">
+          <span class="text-xs">⚠️</span>
+          <span id="bom-shortage-desc">Insufficient stock for some materials.</span>
         </div>
       </div>
 
-      <div class="flex items-center justify-between gap-2 pt-3 border-t border-ios-border">
-        <div class="text-[11px] text-ios-subtext">
-          মোট খরচ সমন্বয়: <span class="font-bold font-mono text-emerald-400 text-xs" id="bom-total-cost-preview">৳0</span>
+      <!-- Minimalist Footer -->
+      <div class="flex items-center justify-between pt-2.5 border-t border-white/10">
+        <div class="text-[11px] text-slate-400 font-mono">
+          Cost: <span id="bom-total-cost-preview" class="font-bold text-emerald-400">৳0</span>
         </div>
         <div class="flex items-center gap-2">
-          <button onclick="closeModal('modal-bom-deduct')" class="px-4 py-2 border border-ios-border rounded-xl text-xs font-bold text-ios-subtext hover:bg-white/10">Cancel</button>
-          <button onclick="executeBOMDeduction()" id="btn-bom-confirm" class="px-5 py-2 bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-600 hover:brightness-110 text-white rounded-xl text-xs font-bold active:scale-95 shadow-md shadow-purple-600/20">
-            কাটিং স্টক মাইনাস করুন ✂️
+          <button onclick="closeModal('modal-bom-deduct')" class="px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-white/5 transition-all">Cancel</button>
+          <button onclick="executeBOMDeduction()" id="btn-bom-confirm" class="px-3.5 py-1.5 bg-gradient-to-r from-cyan-600 to-emerald-600 hover:brightness-110 text-white rounded-xl text-xs font-bold active:scale-95 shadow-sm transition-all flex items-center gap-1">
+            <span>Deduct Stock</span>
+            <span>✓</span>
           </button>
         </div>
       </div>
@@ -18782,6 +18797,16 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       }
     };
 
+    function stepBOMCount(delta) {
+      const el = document.getElementById('bom-garment-count');
+      if (!el) return;
+      const cur = parseInt(el.value) || 1;
+      const next = Math.max(1, Math.min(100, cur + delta));
+      el.value = next;
+      updateBOMRecipe();
+    }
+    window.stepBOMCount = stepBOMCount;
+
     function openBOMDeductModal(presetGarment) {
       if (presetGarment && document.getElementById('bom-garment-type')) {
         document.getElementById('bom-garment-type').value = presetGarment;
@@ -18817,16 +18842,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       const rowsHtml = recipe.materials.map(mat => {
         const requiredQty = Math.round(mat.qtyPerGarment * count * 100) / 100;
-        // Find best match in inventory
         let matchedItem = all.find(x => {
           const matchCat = x.category === mat.category || (mat.category === 'Fabric' && ['Cotton', 'Linen', 'Gabardine', 'Suiting', 'Silk', 'Voile'].includes(x.category));
           const matchName = String(x.name || '').toLowerCase().includes(mat.matchKeyword);
           return matchCat && matchName;
-        });
-
-        if (!matchedItem) {
-          matchedItem = all.find(x => x.category === mat.category);
-        }
+        }) || all.find(x => x.category === mat.category);
 
         const available = matchedItem ? Number(matchedItem.stock) : 0;
         const isSufficient = matchedItem && available >= requiredQty;
@@ -18836,22 +18856,24 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         totalCost += itemCost;
 
         return `
-          <div class="p-3 flex items-center justify-between gap-3 text-xs ${!isSufficient ? 'bg-rose-500/10' : ''}">
-            <div class="flex items-center gap-2.5 min-w-0">
-              <span class="text-base">${isSufficient ? '✓' : '⚠️'}</span>
+          <div class="px-3 py-2 flex items-center justify-between gap-2.5 text-xs transition-colors ${!isSufficient ? 'bg-rose-500/5' : 'hover:bg-white/[0.02]'}">
+            <div class="flex items-center gap-2 min-w-0">
+              <span class="w-4 h-4 rounded-full flex items-center justify-center text-[9px] shrink-0 font-bold ${isSufficient ? 'text-emerald-400 bg-emerald-500/10' : 'text-rose-400 bg-rose-500/15'}">
+                ${isSufficient ? '✓' : '!'}
+              </span>
               <div class="min-w-0">
-                <div class="font-bold text-ios-text truncate">${matchedItem ? safeText(matchedItem.name) : safeText(mat.defaultName)}</div>
-                <div class="text-[10px] text-ios-subtext">
-                  ${isBn ? 'মজুদ:' : 'Available:'} <span class="font-mono font-bold ${isSufficient ? 'text-emerald-400' : 'text-rose-400'}">${available} ${mat.unit}</span> · 
-                  ${isBn ? 'প্রয়োজন:' : 'Required:'} <span class="font-mono font-bold text-cyan-300">${requiredQty} ${mat.unit}</span>
+                <div class="font-medium text-slate-200 text-xs truncate leading-snug">
+                  ${matchedItem ? safeText(matchedItem.name) : safeText(mat.defaultName)}
+                </div>
+                <div class="text-[10px] text-slate-500 font-mono mt-0.5">
+                  ${requiredQty} ${mat.unit} ${isBn ? 'প্রয়োজন' : 'needed'} · <span class="${isSufficient ? 'text-slate-400' : 'text-rose-400 font-semibold'}">${available} ${isBn ? 'মজুদ' : 'avail'}</span>
                 </div>
               </div>
             </div>
             <div class="text-right shrink-0">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded-md font-bold ${isSufficient ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'}">
-                ${isSufficient ? 'In Stock' : 'Shortage'}
+              <span class="text-[11px] font-mono font-bold ${isSufficient ? 'text-slate-300' : 'text-rose-400'}">
+                ${isSufficient ? '৳' + Math.round(itemCost) : (isBn ? 'ঘাটতি' : 'Shortage')}
               </span>
-              <div class="text-[10px] font-mono text-ios-subtext mt-0.5">৳${Math.round(itemCost)}</div>
             </div>
           </div>
         `;
@@ -18861,8 +18883,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (shortageAlert) shortageAlert.classList.toggle('hidden', !hasShortage);
       if (costPreview) costPreview.textContent = `৳${Math.round(totalCost)}`;
       if (statusSummary) {
-        const isBn = (localStorage.getItem('ss_lang') || 'bn') === 'bn';
-        statusSummary.textContent = hasShortage ? (isBn ? '⚠️ উপাদান সংকট রয়েছে' : '⚠️ Material Shortage') : (isBn ? '✓ সব উপাদান মজুদে আছে' : '✓ All Materials In Stock');
+        statusSummary.textContent = hasShortage ? (isBn ? '⚠️ উপাদান সংকট' : '⚠️ Material Shortage') : (isBn ? '✓ উপাদান মজুদে আছে' : '✓ In Stock');
         statusSummary.className = hasShortage ? 'text-[10px] font-mono text-rose-400 font-bold' : 'text-[10px] font-mono text-emerald-400 font-bold';
       }
       if (confirmBtn) {
