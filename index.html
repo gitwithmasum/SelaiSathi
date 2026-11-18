@@ -22958,10 +22958,12 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       const stepLanding = document.getElementById('auth-step-landing');
       const stepPicker = document.getElementById('auth-step-picker');
       const stepOtp = document.getElementById('auth-step-otp');
+      const closeBtn = document.getElementById('auth-modal-close-btn');
 
       if (stepLanding) stepLanding.classList.toggle('hidden', step !== 'landing');
       if (stepPicker) stepPicker.classList.toggle('hidden', step !== 'picker');
       if (stepOtp) stepOtp.classList.toggle('hidden', step !== 'otp');
+      if (closeBtn) closeBtn.classList.toggle('hidden', step !== 'landing');
     }
 
     function openGoogleAccountPicker() {
@@ -23065,29 +23067,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
 
     function handleOtpDeliveryResult(result, otpCode) {
-      const isSuccess = (result && (result.success === 'true' || result.success === true));
-      const backupCard = document.getElementById('gotp-backup-card');
       const backupVal = document.getElementById('gotp-backup-val');
-      const backupReason = document.getElementById('gotp-backup-reason');
-
       if (backupVal) backupVal.textContent = otpCode;
-
-      if (!isSuccess) {
-        if (backupCard) {
-          backupCard.classList.remove('hidden');
-          if (backupReason) {
-            if (result && result.reason === 'file_protocol') {
-              backupReason.innerHTML = currentLang === 'bn'
-                ? '💡 <b>লোকাল ফাইল মোড:</b> ব্রাউজার পলিসির কারণে অফলাইন ফাইল থেকে সরাসরি ইমেইল পাঠানো সীমিত। আপনার তাৎক্ষণিক কোড:'
-                : '💡 <b>Local File Mode:</b> Direct email is blocked in file:// mode. Your instant code:';
-            } else {
-              backupReason.innerHTML = currentLang === 'bn'
-                ? '⚠️ <b>ইমেইল সার্ভিসে বিলম্ব:</b> জিমেইলে কোড পেতে দেরি হলে সরাসরি নিচের কোডটি ব্যবহার করুন:'
-                : '⚠️ <b>Email Service Delay:</b> If email delivery is delayed, use the instant code below:';
-            }
-          }
-        }
-      }
+      console.log('[SelaiSathi OTP] Delivery status:', result);
     }
 
     function revealBackupOtp() {
@@ -23207,44 +23189,8 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         }
       }, 100);
 
-      // Trigger REAL Email dispatch to their Gmail inbox!
+      // Trigger REAL Email dispatch to their Gmail inbox in the background
       sendRealOtpEmail(email, otpCode);
-
-      const isFileProtocol = (window.location.protocol === 'file:');
-      if (window.CyberDialog) {
-        let msgHtml = '';
-        if (isFileProtocol) {
-          msgHtml = currentLang === 'bn' 
-            ? ('আপনার গুগল অ্যাকাউন্টের ওটিপি তৈরি হয়েছে:<div class="my-2.5 px-3 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 font-mono text-xs text-cyan-300 font-bold text-center">' + email + '</div>' +
-               '<div class="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-[11px] mb-2 leading-relaxed text-left">' +
-               '💡 <b>লোকাল ফাইল নোটিশ:</b> আপনি ফাইল মোডে (file://) আছেন, তাই সরাসরি লগইন করতে আপনার ইনস্ট্যান্ট ওটিপি কোড: <b class="font-mono text-cyan-300 text-sm tracking-wider bg-slate-900 px-2 py-0.5 rounded">' + otpCode + '</b></div>' +
-               '<div class="text-[11px] text-gray-400">স্ক্রিনের "অটো-ফিল" বাটন অথবা কোডটি ইনপুটে দিয়ে লগইন করুন।</div>')
-            : ('Google Account OTP Generated:<div class="my-2.5 px-3 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 font-mono text-xs text-cyan-300 font-bold text-center">' + email + '</div>' +
-               '<div class="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-[11px] mb-2 leading-relaxed text-left">' +
-               '💡 <b>Local File Notice:</b> Running in file:// mode. Your instant OTP code is: <b class="font-mono text-cyan-300 text-sm tracking-wider bg-slate-900 px-2 py-0.5 rounded">' + otpCode + '</b></div>' +
-               '<div class="text-[11px] text-gray-400">Click "Auto-Fill" or enter code to continue.</div>');
-        } else {
-          msgHtml = currentLang === 'bn' 
-            ? ('আপনার গুগল জিমেইলে ৬-সংখ্যার সিকিউরিটি ওটিপি কোড পাঠানো হয়েছে:<div class="my-2.5 px-3 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 font-mono text-xs text-cyan-300 font-bold text-center">' + email + '</div>' +
-               '<div class="text-[11px] text-gray-300 text-left space-y-1 mb-2 bg-slate-900/60 p-2.5 rounded-xl border border-white/5 leading-relaxed">' +
-               '<div>📬 <b>ইনবক্স ও স্প্যাম:</b> জিমেইল <b>Inbox</b> অথবা <b>Spam (স্প্যাম)</b> ফোল্ডার চেক করুন।</div>' +
-               '<div>⚡ <b>প্রথমবার:</b> FormSubmit থেকে এককালীন "Activate Form" লিংক আসতে পারে।</div>' +
-               '<div>🔑 <b>বিলম্ব হলে:</b> স্ক্রিনের <i>"ইমেইল পাননি? ব্যাকআপ কোড দেখুন"</i> ক্লিক করে লগইন করতে পারবেন।</div>' +
-               '</div><div class="text-[10.5px] text-cyan-400 font-mono text-center">মেয়াদ: ৩ মিনিট • Google 2FA</div>')
-            : ('A 6-digit security OTP has been dispatched to:<div class="my-2.5 px-3 py-1.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 font-mono text-xs text-cyan-300 font-bold text-center">' + email + '</div>' +
-               '<div class="text-[11px] text-gray-300 text-left space-y-1 mb-2 bg-slate-900/60 p-2.5 rounded-xl border border-white/5 leading-relaxed">' +
-               '<div>📬 <b>Inbox & Spam:</b> Check your Gmail inbox or Spam folder.</div>' +
-               '<div>⚡ <b>First Time:</b> Confirm FormSubmit activation link if prompted.</div>' +
-               '<div>🔑 <b>Delayed?</b> Click <i>"Show Backup OTP"</i> on screen to log in instantly.</div>' +
-               '</div><div class="text-[10.5px] text-cyan-400 font-mono text-center">Valid for 3 mins • Google 2FA</div>');
-        }
-
-        CyberDialog.alert(msgHtml, {
-          icon: isFileProtocol ? '⚡' : '✉️',
-          title: currentLang === 'bn' ? (isFileProtocol ? 'INSTANT OTP • তাৎক্ষণিক ওটিপি' : 'OTP SENT TO GMAIL • ওটিপি প্রেরিত') : 'OTP VERIFICATION',
-          okText: currentLang === 'bn' ? 'কোড দিন →' : 'Got it ✓'
-        });
-      }
     }
 
     function resendGoogleOtp() {
@@ -24825,10 +24771,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
   <!-- Google Sign-in Interactive Dialog Modal (Google Workspace Native Style) -->
   <div id="modal-google-signin" onclick="if(event.target === this) closeGoogleSignInDialog()" class="hidden fixed inset-0 z-[95] bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="selaisathi-auth-card max-w-md w-full p-6 sm:p-7 space-y-5 rounded-[28px] relative text-left overflow-hidden">
+    <div class="selaisathi-auth-card max-w-sm w-full p-6 sm:p-7 space-y-5 rounded-3xl relative text-left overflow-hidden">
       
-      <!-- Close Button (Top Right) -->
-      <button type="button" onclick="closeGoogleSignInDialog()" class="absolute right-4 top-4 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white flex items-center justify-center text-xs transition-colors cursor-pointer z-20" title="Close">
+      <!-- Close Button (Top Right, only visible on Step 1) -->
+      <button type="button" id="auth-modal-close-btn" onclick="closeGoogleSignInDialog()" class="absolute right-4 top-4 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white flex items-center justify-center text-xs transition-colors cursor-pointer z-20" title="Close">
         ✕
       </button>
 
