@@ -22974,34 +22974,33 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       if (!container) return;
 
       const shop = getShopSettings();
-      const shopName = shop.name || shop.shopName || 'SELAISATHI TAILORS';
-      const ownerEmail = getOwnerGoogleEmail();
+      let ownerName = localStorage.getItem('selaisathi_owner_name') || shop.ownerName;
+      if (!ownerName || ownerName === 'Shop Owner') {
+        ownerName = 'Masum Billah';
+      }
+      const ownerEmail = getOwnerGoogleEmail() || 'sciencefiction844@gmail.com';
       const photoUrl = getOwnerCustomPhoto();
 
       let avatarInner = '';
       if (photoUrl) {
         avatarInner = '<img src="' + photoUrl + '" alt="Owner" class="w-full h-full object-cover rounded-full" />';
       } else {
-        const initial = (shopName[0] || ownerEmail[0] || 'M').toUpperCase();
+        const initial = (ownerName[0] || ownerEmail[0] || 'M').toUpperCase();
         avatarInner = '<span class="font-bold text-xs text-white">' + initial + '</span>';
       }
 
-      // Google Workspace Native Account Item
+      // Google Workspace Native Account Item - exactly matching user screenshot
       container.innerHTML = 
-        '<div onclick="selectGoogleAccountForOtp(\'' + ownerEmail + '\', \'' + safeText(shopName) + '\')" class="py-3 px-3 flex items-center justify-between hover:bg-[#2a2b2e] cursor-pointer rounded-xl transition-colors border border-transparent hover:border-[#444746] group">' +
-          '<div class="flex items-center gap-3.5 min-w-0">' +
-            '<div class="w-9 h-9 rounded-full bg-emerald-700 text-white font-bold flex items-center justify-center text-xs shrink-0 shadow-sm">' +
+        '<div onclick="selectGoogleAccountForOtp(\'' + ownerEmail + '\', \'' + safeText(ownerName) + '\')" class="py-3 px-2 flex items-center justify-between hover:bg-[#2a2b2e] cursor-pointer rounded-lg transition-colors">' +
+          '<div class="flex items-center gap-3">' +
+            '<div class="w-8 h-8 rounded-full bg-emerald-700 text-white font-bold flex items-center justify-center text-xs shrink-0">' +
               avatarInner +
             '</div>' +
-            '<div class="min-w-0">' +
-              '<div class="text-xs font-medium text-white truncate flex items-center gap-1.5">' +
-                '<span>' + safeText(shopName) + '</span>' +
-                '<span class="text-[9px] px-1.5 py-0.2 rounded bg-white/10 text-slate-300 font-normal leading-tight">' + (currentLang === 'bn' ? 'মালিক' : 'Owner') + '</span>' +
-              '</div>' +
-              '<div class="text-[11px] text-slate-400 truncate mt-0.5">' + safeText(ownerEmail) + '</div>' +
+            '<div>' +
+              '<div class="text-xs font-medium text-white">' + safeText(ownerName) + '</div>' +
+              '<div class="text-[11px] text-slate-400">' + safeText(ownerEmail) + '</div>' +
             '</div>' +
           '</div>' +
-          '<span class="text-xs text-blue-400 font-medium group-hover:translate-x-0.5 transition-transform">Next →</span>' +
         '</div>';
     }
 
@@ -23101,12 +23100,48 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
     function autoFillGoogleOtp() {
       if (!window._activeGoogleAuth || !window._activeGoogleAuth.otpCode) return;
+      const singleInp = document.getElementById('gotp-single');
+      if (singleInp) {
+        singleInp.value = window._activeGoogleAuth.otpCode;
+      }
       const digits = window._activeGoogleAuth.otpCode.split('');
       digits.forEach((d, idx) => {
         const inp = document.getElementById('gotp-' + (idx + 1));
         if (inp) inp.value = d;
       });
       verifyGoogleOtpAndLogin();
+    }
+
+    function setupGoogleOtpSingleInput() {
+      const inp = document.getElementById('gotp-single');
+      if (!inp) return;
+      inp.oninput = (e) => {
+        const val = e.target.value.replace(/\D/g, '').slice(0, 6);
+        e.target.value = val;
+        if (val.length === 6) {
+          setTimeout(() => {
+            verifyGoogleOtpAndLogin();
+          }, 250);
+        }
+      };
+      inp.onkeydown = (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          verifyGoogleOtpAndLogin();
+        }
+      };
+      inp.onpaste = (e) => {
+        e.preventDefault();
+        const paste = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '').slice(0, 6);
+        if (paste) {
+          inp.value = paste;
+          if (paste.length === 6) {
+            setTimeout(() => {
+              verifyGoogleOtpAndLogin();
+            }, 250);
+          }
+        }
+      };
     }
 
     function selectGoogleAccountForOtp(email, name) {
@@ -23122,6 +23157,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       const targetEl = document.getElementById('google-otp-target-email');
       if (targetEl) targetEl.textContent = email;
+
+      // Reset single input
+      const singleInp = document.getElementById('gotp-single');
+      if (singleInp) singleInp.value = '';
 
       // Reset digit inputs
       for (let i = 1; i <= 6; i++) {
@@ -23156,10 +23195,16 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       }, 1000);
 
       switchAuthStep('otp');
+      setupGoogleOtpSingleInput();
       setupGoogleOtpInputMatrix();
 
       setTimeout(() => {
-        document.getElementById('gotp-1')?.focus();
+        const single = document.getElementById('gotp-single');
+        if (single) {
+          single.focus();
+        } else {
+          document.getElementById('gotp-1')?.focus();
+        }
       }, 100);
 
       // Trigger REAL Email dispatch to their Gmail inbox!
@@ -23245,9 +23290,15 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     async function verifyGoogleOtpAndLogin() {
       if (!window._activeGoogleAuth) return;
 
-      const enteredCode = [1, 2, 3, 4, 5, 6]
-        .map(i => document.getElementById('gotp-' + i)?.value.trim() || '')
-        .join('');
+      let enteredCode = '';
+      const singleInp = document.getElementById('gotp-single');
+      if (singleInp && singleInp.value) {
+        enteredCode = singleInp.value.replace(/\D/g, '').trim();
+      } else {
+        enteredCode = [1, 2, 3, 4, 5, 6]
+          .map(i => document.getElementById('gotp-' + i)?.value.trim() || '')
+          .join('');
+      }
 
       if (enteredCode.length !== 6) {
         CyberDialog.alert(currentLang === 'bn' ? 'অনুগ্রহ করে ৬-সংখ্যার সম্পূর্ণ ওটিপি কোড দিন।' : 'Please enter the complete 6-digit OTP code.', { icon: '⚠️', title: currentLang === 'bn' ? 'INCOMPLETE OTP • অসম্পূর্ণ ওটিপি' : 'INCOMPLETE OTP' });
@@ -24851,49 +24902,31 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <!-- ============================================== -->
       <div id="auth-step-picker" class="hidden space-y-4 pt-1 relative z-10 text-left">
         <div class="space-y-1">
-          <div class="flex items-center gap-2">
-            <button type="button" onclick="switchAuthStep('landing')" class="w-7 h-7 rounded-full hover:bg-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-colors cursor-pointer text-xs" title="Back">
-              ←
-            </button>
-            <h3 class="text-lg font-normal text-white">Choose an account</h3>
-          </div>
-          <p class="text-xs text-slate-400 pl-9">to continue to <span class="text-blue-400 font-medium">SelaiSathi</span></p>
+          <h3 class="text-lg font-normal text-white">Choose an account</h3>
+          <p class="text-xs text-slate-400">to continue to SelaiSathi</p>
         </div>
 
-        <!-- Account List -->
-        <div class="space-y-1 divide-y divide-[#3c4043] border-y border-[#3c4043]" id="google-account-list">
-          <!-- Populated dynamically via renderGoogleAccountPicker() -->
-        </div>
-
-        <!-- Change / Use Another Google ID -->
-        <div onclick="toggleCustomGoogleInput()" class="py-3 px-3 flex items-center gap-3.5 hover:bg-[#2a2b2e] cursor-pointer rounded-xl transition-colors border border-transparent hover:border-[#444746] text-xs text-slate-300 group">
-          <div class="w-9 h-9 rounded-full border border-[#5f6368] flex items-center justify-center text-slate-400 text-sm shrink-0 group-hover:border-slate-300 transition-colors">
-            👤
+        <div class="divide-y divide-[#3c4043] border-y border-[#3c4043]">
+          <div id="google-account-list">
+            <!-- Populated dynamically via renderGoogleAccountPicker() -->
           </div>
-          <div>
-            <div class="font-medium text-white" data-i18n="auth_switch_account">Use another account</div>
-            <div class="text-[10px] text-slate-400" data-i18n="auth_switch_account_sub">Switch or add another Google ID</div>
+          <div onclick="toggleCustomGoogleInput()" class="py-3 px-2 flex items-center gap-3 hover:bg-[#2a2b2e] cursor-pointer rounded-lg transition-colors text-xs text-slate-300">
+            <div class="w-8 h-8 rounded-full border border-[#5f6368] flex items-center justify-center text-slate-400 text-xs">👤</div>
+            <span>Use another account</span>
           </div>
         </div>
 
         <!-- Hidden input for custom Google email -->
-        <div id="custom-google-input-box" class="hidden p-3.5 rounded-xl bg-[#2a2b2e] border border-[#5f6368] space-y-2.5 shadow-lg">
-          <label class="block text-[11px] text-slate-300" data-i18n="auth_enter_gmail">Enter Google account (Gmail):</label>
+        <div id="custom-google-input-box" class="hidden p-3 rounded-xl bg-[#2a2b2e] border border-[#5f6368] space-y-2.5">
           <input type="email" id="custom-picker-email" placeholder="owner@gmail.com" class="w-full bg-[#1e1f20] border border-[#5f6368] focus:border-blue-400 rounded-lg px-3 py-2 text-xs text-white outline-none" />
-          <p class="text-[10px] text-slate-400" data-i18n="auth_change_note">A 6-digit OTP will be sent to verify and set this as the new shop owner Google ID.</p>
-          <div class="flex items-center gap-2 pt-1">
-            <button type="button" onclick="submitCustomPickerAccount()" class="px-4 py-1.5 rounded-full text-xs font-bold bg-blue-500 hover:bg-blue-400 text-slate-950 transition-colors cursor-pointer">
-              Next
-            </button>
-            <button type="button" onclick="toggleCustomGoogleInput()" class="px-3 py-1.5 rounded-full text-xs text-slate-400 hover:text-white transition-colors">Cancel</button>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="submitCustomPickerAccount()" class="px-4 py-1.5 rounded-full text-xs font-bold bg-blue-500 hover:bg-blue-400 text-slate-950 transition-colors cursor-pointer">Next</button>
+            <button type="button" onclick="toggleCustomGoogleInput()" class="px-3 py-1.5 rounded-full text-xs text-slate-400 hover:text-white transition-colors cursor-pointer">Cancel</button>
           </div>
         </div>
 
-        <div class="pt-2 flex items-center justify-between border-t border-[#3c4043] text-xs">
-          <button type="button" onclick="switchAuthStep('landing')" class="text-blue-400 hover:underline transition-colors cursor-pointer flex items-center gap-1">
-            <span>←</span> <span>Back</span>
-          </button>
-          <span class="text-[10px] text-slate-500 font-sans">Google OAuth 2.0</span>
+        <div class="pt-1">
+          <button type="button" onclick="switchAuthStep('landing')" class="text-xs text-blue-400 hover:underline cursor-pointer">← Back</button>
         </div>
       </div>
 
@@ -24901,68 +24934,41 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <!-- STEP 3: GOOGLE OTP VERIFICATION               -->
       <!-- ============================================== -->
       <div id="auth-step-otp" class="hidden space-y-4 pt-1 relative z-10 text-left">
-        <!-- Step Header -->
         <div class="space-y-1">
-          <div class="flex items-center gap-2">
-            <button type="button" onclick="switchAuthStep('picker')" class="w-7 h-7 rounded-full hover:bg-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-colors cursor-pointer text-xs" title="Back">
-              ←
+          <h3 class="text-lg font-normal text-white">2-Step Verification</h3>
+          <p class="text-xs text-slate-400">A verification code was sent to your email.</p>
+        </div>
+
+        <div class="pt-2">
+          <input type="text" maxlength="6" id="gotp-single" placeholder="Enter 6-digit code" class="w-full h-11 px-3.5 rounded-lg bg-transparent border border-[#5f6368] text-center font-mono text-lg font-bold text-white placeholder-slate-600 focus:outline-none focus:border-blue-400" />
+        </div>
+
+        <!-- Emergency / Backup OTP Card (revealed on 'Try another way' or delayed delivery) -->
+        <div id="gotp-backup-card" class="hidden p-3 rounded-xl bg-[#2a2b2e] border border-[#444746] text-center space-y-2">
+          <div id="gotp-backup-reason" class="text-xs text-slate-300">
+            ইমেইল না পেলে ব্যাকআপ কোড ব্যবহার করুন:
+          </div>
+          <div class="flex items-center justify-center gap-2">
+            <span id="gotp-backup-val" class="px-3.5 py-1.5 rounded-lg bg-[#1e1f20] border border-[#5f6368] text-blue-400 font-mono font-bold text-base tracking-widest">
+              ------
+            </span>
+            <button type="button" onclick="autoFillGoogleOtp()" class="px-3.5 py-1.5 rounded-full bg-blue-500 hover:bg-blue-400 text-slate-950 font-bold text-xs cursor-pointer shadow-sm active:scale-95 transition-all">
+              অটো-ফিল
             </button>
-            <h3 class="text-lg font-normal text-white">2-Step Verification</h3>
           </div>
-          <p class="text-xs text-slate-400 pl-9 leading-relaxed">
-            To help keep your shop data safe, Google wants to make sure it's really you. A code was sent to <span id="google-otp-target-email" class="text-white font-medium">sciencefiction844@gmail.com</span>.
-          </p>
-        </div>
-
-        <!-- 6-Digit Matrix -->
-        <div class="flex items-center justify-center gap-2 sm:gap-2.5 py-2">
-          <input type="text" maxlength="1" id="gotp-1" class="google-otp-digit w-10 h-12 text-center text-xl font-bold font-mono rounded-lg bg-[#2a2b2e] border border-[#5f6368] text-white focus:border-blue-400 focus:bg-[#333538] outline-none transition-all" />
-          <input type="text" maxlength="1" id="gotp-2" class="google-otp-digit w-10 h-12 text-center text-xl font-bold font-mono rounded-lg bg-[#2a2b2e] border border-[#5f6368] text-white focus:border-blue-400 focus:bg-[#333538] outline-none transition-all" />
-          <input type="text" maxlength="1" id="gotp-3" class="google-otp-digit w-10 h-12 text-center text-xl font-bold font-mono rounded-lg bg-[#2a2b2e] border border-[#5f6368] text-white focus:border-blue-400 focus:bg-[#333538] outline-none transition-all" />
-          <input type="text" maxlength="1" id="gotp-4" class="google-otp-digit w-10 h-12 text-center text-xl font-bold font-mono rounded-lg bg-[#2a2b2e] border border-[#5f6368] text-white focus:border-blue-400 focus:bg-[#333538] outline-none transition-all" />
-          <input type="text" maxlength="1" id="gotp-5" class="google-otp-digit w-10 h-12 text-center text-xl font-bold font-mono rounded-lg bg-[#2a2b2e] border border-[#5f6368] text-white focus:border-blue-400 focus:bg-[#333538] outline-none transition-all" />
-          <input type="text" maxlength="1" id="gotp-6" class="google-otp-digit w-10 h-12 text-center text-xl font-bold font-mono rounded-lg bg-[#2a2b2e] border border-[#5f6368] text-white focus:border-blue-400 focus:bg-[#333538] outline-none transition-all" />
-        </div>
-
-        <!-- Telemetry HUD Bar: Gmail Quick Link & Countdown -->
-        <div class="flex items-center justify-between text-xs px-1">
-          <a href="https://mail.google.com" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline inline-flex items-center gap-1">
-            <span>Open Gmail Inbox ↗</span>
-          </a>
-          <div id="gotp-timer-box" class="text-slate-400 text-xs">
-            <span id="gotp-timer-label">Expires in <span id="gotp-seconds" class="text-white font-medium">59s</span></span>
-            <button type="button" id="gotp-btn-resend" onclick="resendGoogleOtp()" class="hidden text-blue-400 hover:underline">Resend code</button>
+          <div class="pt-1 text-center">
+            <button type="button" onclick="switchAuthStep('picker')" class="text-[11px] text-blue-400 hover:underline cursor-pointer">
+              ← অন্য অ্যাকাউন্ট নির্বাচন করুন
+            </button>
           </div>
         </div>
 
-        <!-- Emergency / Backup OTP Reveal & Auto-Fill Matrix -->
-        <div id="gotp-backup-container" class="pt-1">
-          <button type="button" onclick="revealBackupOtp()" id="gotp-btn-reveal-backup" class="text-xs text-blue-400 hover:underline cursor-pointer">
-            Don't have access to your email? Use backup code
-          </button>
-          
-          <div id="gotp-backup-card" class="hidden mt-2 p-3 rounded-xl bg-[#2a2b2e] border border-[#444746] text-center space-y-2">
-            <div id="gotp-backup-reason" class="text-xs text-slate-300">
-              ইনস্ট্যান্ট ব্যাকআপ কোড (ইমেইল না পেলে এটি ব্যবহার করুন):
-            </div>
-            <div class="flex items-center justify-center gap-2">
-              <span id="gotp-backup-val" class="px-3.5 py-1.5 rounded-lg bg-[#1e1f20] border border-[#5f6368] text-blue-400 font-mono font-bold text-base tracking-widest">
-                ------
-              </span>
-              <button type="button" onclick="autoFillGoogleOtp()" class="px-3.5 py-1.5 rounded-full bg-blue-500 hover:bg-blue-400 text-slate-950 font-bold text-xs cursor-pointer shadow-sm active:scale-95 transition-all">
-                Auto-fill
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Bottom Actions -->
-        <div class="flex items-center justify-between pt-3 border-t border-[#3c4043]">
-          <button type="button" onclick="switchAuthStep('picker')" class="text-xs text-blue-400 hover:underline cursor-pointer">
+        <div class="flex justify-between items-center pt-2">
+          <button type="button" onclick="revealBackupOtp()" class="text-xs text-blue-400 hover:underline cursor-pointer">
             Try another way
           </button>
-          <button type="button" onclick="verifyGoogleOtpAndLogin()" class="px-6 py-2.5 rounded-full bg-blue-500 hover:bg-blue-400 text-slate-950 font-bold text-xs transition-colors cursor-pointer shadow-sm">
-            Next
+          <button type="button" onclick="verifyGoogleOtpAndLogin()" class="px-5 py-2 rounded-full bg-blue-500 hover:bg-blue-400 text-slate-950 font-bold text-xs transition-colors cursor-pointer shadow-sm">
+            Verify
           </button>
         </div>
       </div>
