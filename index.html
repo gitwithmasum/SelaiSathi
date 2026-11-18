@@ -11,10 +11,10 @@
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Google Fonts: Inter & Hind Siliguri -->
+  <!-- Google Fonts: Big Shoulders Inline, Hind Siliguri, Inter, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Inline+Display:wght@400;500;600;700;800;900&family=Big+Shoulders+Inline+Text:wght@400;500;600;700;800;900&family=Hind+Siliguri:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
@@ -221,7 +221,21 @@
     aside .ss-nav-dot { width: 5px; height: 5px; border-radius: 50%; }
     aside .nav-item { position: relative; min-height: 42px; border-radius: 12px !important; gap: 12px !important; padding: 6px 10px !important; display: flex; align-items: center; transition: all .2s ease; cursor: pointer; }
     aside .nav-icon-badge { width: 32px !important; height: 32px !important; flex: 0 0 32px !important; display: grid !important; place-items: center !important; border-radius: 9px !important; font-size: 15px !important; font-weight: 700 !important; transition: all .2s ease; }
-    aside .ss-nav-label { min-width: 0; flex: 1; text-align: left; font-size: 12.5px; font-weight: 550; letter-spacing: .005em; }
+    aside .ss-nav-label {
+      min-width: 0;
+      flex: 1;
+      text-align: left;
+      font-family: 'Big Shoulders Inline Text', 'Big Shoulders Inline Display', 'Hind Siliguri', sans-serif !important;
+      font-size: 15.5px !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.05em !important;
+      text-transform: uppercase !important;
+      line-height: 1.15 !important;
+    }
+    aside .nav-item.active .ss-nav-label {
+      font-weight: 800 !important;
+      letter-spacing: 0.06em !important;
+    }
     aside .ss-nav-shortcut { font: 10px ui-monospace,monospace; opacity: 0; transition: opacity .2s; }
     aside .nav-item:hover .ss-nav-shortcut { opacity: 1; }
     aside .ss-nav-count { padding: 3px 7px; border-radius: 7px; font: 10px ui-monospace,monospace; }
@@ -4418,6 +4432,13 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       cursor: pointer;
       position: relative;
     }
+    .mobile-nav-item span:nth-child(2) {
+      font-family: 'Big Shoulders Inline Text', 'Big Shoulders Inline Display', 'Hind Siliguri', sans-serif !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.05em !important;
+      font-size: 11px !important;
+      font-weight: 700 !important;
+    }
     .mobile-nav-item:hover,
     .mobile-nav-item.active {
       color: #22D3EE !important;
@@ -4750,20 +4771,20 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <div class="ss-nav-heading"><span>WORKSPACE</span><span class="ss-nav-dot"></span></div>
           <nav class="space-y-1" aria-label="Main navigation">
             <button onclick="navigateTo('dashboard')" id="nav-dashboard" title="Dashboard" aria-label="Dashboard" class="nav-item active group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
-              <span class="nav-icon-badge"><span>⌂</span></span><span class="ss-nav-label" data-i18n="menu_dashboard">Dashboard</span><span class="ss-nav-shortcut">⌘1</span>
+              <span class="nav-icon-badge"><span>⌂</span></span><span class="ss-nav-label" data-i18n="menu_dashboard">DASHBOARD</span><span class="ss-nav-shortcut">⌘1</span>
             </button>
             <button onclick="navigateTo('orders')" id="nav-orders" title="Orders" aria-label="Orders" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
-              <span class="nav-icon-badge"><span>▤</span></span><span class="ss-nav-label" data-i18n="menu_orders">Orders</span>
+              <span class="nav-icon-badge"><span>▤</span></span><span class="ss-nav-label" data-i18n="menu_orders">ORDERS</span>
             </button>          </nav>        </div>
 
         <div class="ss-nav-group">
           <div class="ss-nav-heading"><span>CLIENT & WORKSHOP</span></div>
           <nav class="space-y-1" aria-label="Client and workshop">
-            <button onclick="navigateTo('customers')" id="nav-customers" title="Customers" aria-label="Customers" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all"><span class="nav-icon-badge"><span>♙</span></span><span class="ss-nav-label" data-i18n="menu_customers">Customers</span></button>
+            <button onclick="navigateTo('customers')" id="nav-customers" title="Customers" aria-label="Customers" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all"><span class="nav-icon-badge"><span>♙</span></span><span class="ss-nav-label" data-i18n="menu_customers">CUSTOMERS</span></button>
             <button onclick="navigateTo('measurements')" id="nav-measurements" title="Measurements" aria-label="Measurements" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
-              <span class="nav-icon-badge"><span>⌗</span></span><span class="ss-nav-label" data-i18n="menu_measurements">Measurements</span>
+              <span class="nav-icon-badge"><span>⌗</span></span><span class="ss-nav-label" data-i18n="menu_measurements">MEASUREMENTS</span>
             </button>
-            <button onclick="navigateTo('staff')" id="nav-staff" title="Staff" aria-label="Staff" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all"><span class="nav-icon-badge"><span>✂</span></span><span class="ss-nav-label" data-i18n="menu_staff">Staff</span></button>
+            <button onclick="navigateTo('staff')" id="nav-staff" title="Staff" aria-label="Staff" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all"><span class="nav-icon-badge"><span>✂</span></span><span class="ss-nav-label" data-i18n="menu_staff">STAFF</span></button>
           </nav>
         </div>
 
@@ -4771,14 +4792,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <div class="ss-nav-heading"><span>BUSINESS</span></div>
           <nav class="space-y-1" aria-label="Business management">
             <button onclick="navigateTo('accounts')" id="nav-accounts" title="Accounts" aria-label="Accounts" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
-              <span class="nav-icon-badge"><span>৳</span></span><span class="ss-nav-label" data-i18n="menu_accounts">Accounts</span>
+              <span class="nav-icon-badge"><span>৳</span></span><span class="ss-nav-label" data-i18n="menu_accounts">ACCOUNTS</span>
             </button>
-            <button onclick="navigateTo('fabrics')" id="nav-fabrics" title="Fabrics" aria-label="Fabrics" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all"><span class="nav-icon-badge"><span>▧</span></span><span class="ss-nav-label" data-i18n="menu_fabrics">Fabrics</span></button>
+            <button onclick="navigateTo('fabrics')" id="nav-fabrics" title="Fabrics" aria-label="Fabrics" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all"><span class="nav-icon-badge"><span>▧</span></span><span class="ss-nav-label" data-i18n="menu_fabrics">FABRICS</span></button>
             <button onclick="navigateTo('inventory')" id="nav-inventory" title="Inventory" aria-label="Inventory" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
-              <span class="nav-icon-badge"><span>▦</span></span><span class="ss-nav-label" data-i18n="menu_inventory">Inventory</span>
+              <span class="nav-icon-badge"><span>▦</span></span><span class="ss-nav-label" data-i18n="menu_inventory">INVENTORY</span>
             </button>
             <button onclick="navigateTo('reports')" id="nav-reports" title="Reports" aria-label="Reports" class="nav-item group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white transition-all">
-              <span class="nav-icon-badge"><span>▥</span></span><span class="ss-nav-label" data-i18n="menu_reports">Reports</span>
+              <span class="nav-icon-badge"><span>▥</span></span><span class="ss-nav-label" data-i18n="menu_reports">REPORTS</span>
             </button>
           </nav>
         </div>
@@ -4787,16 +4808,16 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           <div class="ss-nav-heading"><span>SYSTEM</span></div>
           <nav class="space-y-1" aria-label="System tools">
             <button onclick="navigateTo('settings')" id="nav-settings" title="Shop Settings" aria-label="Shop Settings" class="nav-item group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all">
-              <span class="nav-icon-badge"><span>⚙</span></span><span class="ss-nav-label text-xs" data-i18n="menu_settings">Shop settings</span>
+              <span class="nav-icon-badge"><span>⚙</span></span><span class="ss-nav-label" data-i18n="menu_settings">SHOP SETTINGS</span>
             </button>
             <button onclick="navigateTo('users')" id="nav-users" title="Users & Roles" aria-label="Users & Roles" class="nav-item group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all">
-              <span class="nav-icon-badge"><span>👥</span></span><span class="ss-nav-label text-xs" data-i18n="menu_users">Users & roles</span>
+              <span class="nav-icon-badge"><span>👥</span></span><span class="ss-nav-label" data-i18n="menu_users">USERS & ROLES</span>
             </button>
             <button onclick="navigateTo('backups')" id="nav-backups" title="Cloud Backups & Sync" aria-label="Cloud Backups & Sync" class="nav-item group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all">
-              <span class="nav-icon-badge"><span>☁</span></span><span class="ss-nav-label text-xs" data-i18n="menu_backups">Backups</span>
+              <span class="nav-icon-badge"><span>☁</span></span><span class="ss-nav-label" data-i18n="menu_backups">BACKUPS</span>
             </button>
             <button onclick="navigateTo('activity')" id="nav-activity" title="Activity Log & Audit Trail" aria-label="Activity Log" class="nav-item group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all">
-              <span class="nav-icon-badge"><span>◷</span></span><span class="ss-nav-label text-xs" data-i18n="menu_activity">Activity log</span>
+              <span class="nav-icon-badge"><span>◷</span></span><span class="ss-nav-label" data-i18n="menu_activity">ACTIVITY LOG</span>
             </button>
           </nav>
         </div>
@@ -8598,14 +8619,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <!-- 1. Home -->
       <button onclick="navigateTo('dashboard')" class="mobile-nav-item active flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all" data-nav="dashboard" title="Home">
         <span class="text-xl">📊</span>
-        <span class="text-[10px] font-bold mt-0.5 tracking-tight">Home</span>
+        <span class="text-[10px] font-bold mt-0.5 tracking-wider uppercase">HOME</span>
         <span class="active-dot-indicator"></span>
       </button>
 
       <!-- 2. Orders -->
       <button onclick="navigateTo('orders')" class="mobile-nav-item flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all" data-nav="orders" title="Orders">
         <span class="text-xl">📋</span>
-        <span class="text-[10px] font-bold mt-0.5 tracking-tight">Orders</span>
+        <span class="text-[10px] font-bold mt-0.5 tracking-wider uppercase">ORDERS</span>
         <span class="active-dot-indicator"></span>
       </button>
 
@@ -8617,14 +8638,14 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <!-- 4. Clients -->
       <button onclick="navigateTo('customers')" class="mobile-nav-item flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all" data-nav="customers" title="Clients">
         <span class="text-xl">👥</span>
-        <span class="text-[10px] font-bold mt-0.5 tracking-tight">Clients</span>
+        <span class="text-[10px] font-bold mt-0.5 tracking-wider uppercase">CLIENTS</span>
         <span class="active-dot-indicator"></span>
       </button>
 
       <!-- 5. Menu Drawer (More) -->
       <button onclick="openMobileSidebar()" class="mobile-nav-item flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all" id="mobile-nav-more" title="Menu">
         <span class="text-xl">☰</span>
-        <span class="text-[10px] font-bold mt-0.5 tracking-tight">Menu</span>
+        <span class="text-[10px] font-bold mt-0.5 tracking-wider uppercase">MENU</span>
         <span class="active-dot-indicator"></span>
       </button>
     </nav>
@@ -10433,19 +10454,19 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         sec_shop: 'SHOP OS',
         sec_admin: 'SYSTEM ADMIN',
         brand_os: 'SelaiSathi • OS',
-        menu_dashboard: 'Dashboard',
-        menu_orders: 'Orders',
-        menu_customers: 'Customers',
-        menu_measurements: 'Measurements',
-        menu_accounts: 'Accounts',
-        menu_staff: 'Staff',
-        menu_fabrics: 'Fabrics',
-        menu_inventory: 'Inventory',
-        menu_reports: 'Reports',
-        menu_settings: 'Shop settings',
-        menu_users: 'Users & roles',
-        menu_backups: 'Backups',
-        menu_activity: 'Activity log',
+        menu_dashboard: 'DASHBOARD',
+        menu_orders: 'ORDERS',
+        menu_customers: 'CUSTOMERS',
+        menu_measurements: 'MEASUREMENTS',
+        menu_accounts: 'ACCOUNTS',
+        menu_staff: 'STAFF',
+        menu_fabrics: 'FABRICS',
+        menu_inventory: 'INVENTORY',
+        menu_reports: 'REPORTS',
+        menu_settings: 'SHOP SETTINGS',
+        menu_users: 'USERS & ROLES',
+        menu_backups: 'BACKUPS',
+        menu_activity: 'ACTIVITY LOG',
         btn_new_order: 'New order',
         inv_title: 'Inventory',
         btn_collect_due: 'Collect Due',
