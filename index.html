@@ -2367,11 +2367,11 @@
       position: relative;
       width: 100%;
       max-width: 380px;
-      background: rgba(13, 18, 30, 0.96);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 18px;
-      padding: 18px 20px;
-      box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.04);
+      background: #1e1f20;
+      border: 1px solid #3c4043;
+      border-radius: 24px;
+      padding: 22px 24px;
+      box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.04);
       color: #f1f5f9;
       font-family: Inter, "Hind Siliguri", -apple-system, BlinkMacSystemFont, sans-serif;
       overflow: hidden;
@@ -2389,20 +2389,20 @@
       display: none !important;
     }
     .cyber-dialog-title {
-      font-size: 11px;
+      font-size: 13px;
       font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: #94a3b8;
+      letter-spacing: -0.01em;
+      text-transform: none;
+      color: #ffffff;
       font-family: inherit;
     }
     .cyber-dialog-close {
-      width: 24px;
-      height: 24px;
+      width: 28px;
+      height: 28px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 7px;
+      border-radius: 50%;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.08);
       color: #94a3b8;
@@ -2413,20 +2413,20 @@
     .cyber-dialog-close:hover {
       background: rgba(255, 255, 255, 0.1);
       border-color: rgba(255, 255, 255, 0.15);
-      color: #f8fafc;
+      color: #ffffff;
     }
     .cyber-dialog-icon-badge {
       flex-shrink: 0;
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.04);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: none;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      font-size: 18px;
       color: #38bdf8;
     }
     .cyber-dialog-icon-badge.is-danger {
@@ -2453,7 +2453,7 @@
       font-weight: 600;
     }
     .cyber-dialog-border {
-      border-color: rgba(255, 255, 255, 0.07) !important;
+      border-color: rgba(255, 255, 255, 0.06) !important;
     }
     .cyber-btn {
       display: inline-flex;
@@ -2461,8 +2461,8 @@
       justify-content: center;
       gap: 6px;
       height: 34px;
-      padding: 0 16px;
-      border-radius: 9px;
+      padding: 0 18px;
+      border-radius: 9999px;
       font-size: 12px;
       font-weight: 600;
       cursor: pointer;
@@ -2470,43 +2470,41 @@
       transition: all 0.15s ease;
     }
     .cyber-btn-primary {
-      background: #0284c7;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      color: #ffffff;
-      font-weight: 600;
+      background: #3b82f6;
+      border: none;
+      color: #020617;
+      font-weight: 700;
       letter-spacing: 0.01em;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
     }
     .cyber-btn-primary:hover {
-      background: #0369a1;
-      border-color: rgba(255, 255, 255, 0.22);
+      background: #60a5fa;
       transform: translateY(-0.5px);
     }
     .cyber-btn-primary:active {
       transform: scale(0.98);
     }
     .cyber-btn-danger {
-      background: #dc2626;
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: #ef4444;
+      border: none;
       color: #ffffff;
       font-weight: 600;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
     }
     .cyber-btn-danger:hover {
-      background: #b91c1c;
+      background: #dc2626;
       transform: translateY(-0.5px);
     }
     .cyber-btn-danger:active {
       transform: scale(0.98);
     }
     .cyber-btn-ghost {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: transparent;
+      border: none;
       color: #94a3b8;
     }
     .cyber-btn-ghost:hover {
-      background: rgba(255, 255, 255, 0.09);
-      border-color: rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.06);
       color: #f1f5f9;
     }
     .cyber-btn-ghost:active {
@@ -19966,7 +19964,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             this.cancelBtn.style.display = 'none';
           }
           if (this.okBtn) {
-            this.okBtn.textContent = options.okText || (isBnMode ? 'ঠিক আছে ✓' : 'OK ✓');
+            this.okBtn.textContent = options.okText || (isBnMode ? 'ঠিক আছে' : 'Continue');
             this.okBtn.className = 'cyber-btn cyber-btn-primary';
           }
 
@@ -23367,22 +23365,31 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         const custCount = ((cloudBundle.records && cloudBundle.records.customers) || []).filter(c => !isDemoCustomerId(c.id)).length;
         const orderCount = (cloudBundle.orders || []).filter(o => !isDemoOrderId(o.id)).length;
 
+        const custWord = currentLang === 'bn' ? (custCount + ' জন কাস্টমার') : (custCount + ' ' + (custCount === 1 ? 'Customer' : 'Customers'));
+        const orderWord = currentLang === 'bn' ? (orderCount + ' টি অর্ডার') : (orderCount + ' ' + (orderCount === 1 ? 'Order' : 'Orders'));
+
         if (window.CyberDialog) {
           CyberDialog.alert(
-            currentLang === 'bn'
-              ? ('স্বাগতম <b>' + user.name + '</b>!<br><br>' +
-                 'আপনার গুগল ক্লাউড ভল্ট (<b>' + user.email + '</b>) থেকে পূর্ববর্তী সংরক্ষিত সকল ডাটা সফলভাবে রিস্টোর হয়েছে:<br><br>' +
-                 '• কাস্টমার: <b>' + custCount + ' জন</b><br>' +
-                 '• অর্ডার: <b>' + orderCount + ' টি</b><br><br>' +
-                 'সকল ডাটা সুরক্ষিত এবং ব্যবহারের জন্য প্রস্তুত।')
-              : ('Welcome back <b>' + user.name + '</b>!<br><br>' +
-                 'Your cloud backup (<b>' + user.email + '</b>) has been successfully restored:<br><br>' +
-                 '• Customers: <b>' + custCount + '</b><br>' +
-                 '• Orders: <b>' + orderCount + '</b><br><br>' +
-                 'All your data is safe and ready.'),
+            '<div class="space-y-2">' +
+              '<div class="text-sm font-semibold text-white">' + (currentLang === 'bn' ? 'স্বাগতম, ' : 'Welcome back, ') + safeText(user.name) + '!</div>' +
+              '<p class="text-xs text-slate-400 leading-relaxed">' +
+                (currentLang === 'bn'
+                  ? 'আপনার গুগল ক্লাউড ভল্ট থেকে পূর্বের সকল ডাটা সফলভাবে রিস্টোর হয়েছে।'
+                  : 'Your cloud backup has been successfully restored and is ready.') +
+              '</p>' +
+              '<div class="flex items-center gap-2 pt-1">' +
+                '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[11px] font-medium text-emerald-300">' +
+                  '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> ' + custWord +
+                '</span>' +
+                '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-[11px] font-medium text-blue-300">' +
+                  '<span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span> ' + orderWord +
+                '</span>' +
+              '</div>' +
+            '</div>',
             {
               icon: '☁️',
-              title: currentLang === 'bn' ? 'CLOUD RESTORED • ডাটা রিস্টোর সম্পন্ন' : 'CLOUD RESTORED'
+              title: currentLang === 'bn' ? 'Cloud Restored • রিস্টোর সম্পন্ন' : 'Cloud Restored',
+              okText: currentLang === 'bn' ? 'শুরু করুন →' : 'Continue'
             }
           );
         }
@@ -23394,17 +23401,31 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
         const custCount = ((window.ssRecords && window.ssRecords.customers) || []).filter(c => !isDemoCustomerId(c.id)).length;
         const orderCount = (window.ordersData || []).filter(o => !isDemoOrderId(o.id)).length;
+        const custWord = currentLang === 'bn' ? (custCount + ' জন কাস্টমার') : (custCount + ' ' + (custCount === 1 ? 'Customer' : 'Customers'));
+        const orderWord = currentLang === 'bn' ? (orderCount + ' টি অর্ডার') : (orderCount + ' ' + (orderCount === 1 ? 'Order' : 'Orders'));
 
         if (window.CyberDialog) {
           CyberDialog.alert(
-            currentLang === 'bn'
-              ? ('অভিনন্দন <b>' + user.name + '</b>!<br><br>' +
-                 'আপনার গুগল আইডি (<b>' + user.email + '</b>) শপ ওনার হিসেবে যুক্ত হয়েছে এবং বর্তমান কাস্টমার (' + custCount + ' জন) ও অর্ডার (' + orderCount + ' টি) আপনার গুগল ক্লাউড ভল্টে সুরক্ষিতভাবে সেভ করা হয়েছে!')
-              : ('Congratulations <b>' + user.name + '</b>!<br><br>' +
-                 'Google ID (<b>' + user.email + '</b>) linked. Your active customers (' + custCount + ') and orders (' + orderCount + ') are now safely backed up to your Google Cloud Vault.'),
+            '<div class="space-y-2">' +
+              '<div class="text-sm font-semibold text-white">' + (currentLang === 'bn' ? 'অভিনন্দন, ' : 'Welcome, ') + safeText(user.name) + '!</div>' +
+              '<p class="text-xs text-slate-400 leading-relaxed">' +
+                (currentLang === 'bn'
+                  ? 'আপনার গুগল আইডি শপ ওনার হিসেবে যুক্ত হয়েছে এবং বর্তমান ডাটা ক্লাউডে সুরক্ষিত রাখা হয়েছে।'
+                  : 'Google ID linked as shop owner. Your current store records are now safely backed up.') +
+              '</p>' +
+              '<div class="flex items-center gap-2 pt-1">' +
+                '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[11px] font-medium text-emerald-300">' +
+                  '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> ' + custWord +
+                '</span>' +
+                '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-[11px] font-medium text-blue-300">' +
+                  '<span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span> ' + orderWord +
+                '</span>' +
+              '</div>' +
+            '</div>',
             {
               icon: '🛡️',
-              title: currentLang === 'bn' ? 'CLOUD BACKUP SYNCED • ব্যাকআপ সফল' : 'CLOUD BACKUP SYNCED'
+              title: currentLang === 'bn' ? 'Cloud Synced • সিঙ্ক সম্পন্ন' : 'Cloud Synced',
+              okText: currentLang === 'bn' ? 'শুরু করুন →' : 'Continue'
             }
           );
         }
@@ -23416,16 +23437,18 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
         if (window.CyberDialog) {
           CyberDialog.alert(
-            currentLang === 'bn'
-              ? ('অভিনন্দন <b>' + user.name + '</b>!<br><br>' +
-                 'আপনার গুগল আইডি (<b>' + user.email + '</b>) সফলভাবে ভেরিফাই ও শপ ওনার হিসেবে যুক্ত হয়েছে।<br><br>' +
-                 '✨ <b>ক্লিন শপ প্রস্তুত:</b> ডেমো স্যাম্পল ডাটা সরিয়ে সম্পূর্ণ পরিষ্কার শপ রেডি করা হয়েছে। এখন আপনার নিজস্ব কাস্টমার ও কারিগর যুক্ত করে কাজ শুরু করুন।')
-              : ('Congratulations <b>' + user.name + '</b>!<br><br>' +
-                 'Your Google ID (<b>' + user.email + '</b>) has been verified and set as Shop Owner.<br><br>' +
-                 '✨ <b>Clean Slate Ready:</b> Demo data removed. Your workspace is 100% clean and ready for your real customers and staff.'),
+            '<div class="space-y-2">' +
+              '<div class="text-sm font-semibold text-white">' + (currentLang === 'bn' ? 'অভিনন্দন, ' : 'Welcome, ') + safeText(user.name) + '!</div>' +
+              '<p class="text-xs text-slate-400 leading-relaxed">' +
+                (currentLang === 'bn'
+                  ? 'আপনার গুগল আইডি সফলভাবে যুক্ত হয়েছে। ক্লিন শপ প্রস্তুত—এখন আপনার নিজস্ব কাস্টমার ও কারিগর যুক্ত করে কাজ শুরু করুন।'
+                  : 'Your Google ID has been linked. Workspace is 100% clean and ready for your real customers and orders.') +
+              '</p>' +
+            '</div>',
             {
               icon: '✨',
-              title: currentLang === 'bn' ? 'GOOGLE CONNECTED • ক্লিন শপ রেডি' : 'GOOGLE CONNECTED • CLEAN SLATE'
+              title: currentLang === 'bn' ? 'Shop Ready • প্রস্তুত' : 'Shop Ready',
+              okText: currentLang === 'bn' ? 'শুরু করুন →' : 'Continue'
             }
           );
         }
@@ -23828,9 +23851,26 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             }
           };
 
-          const confirmMsg = currentLang === 'bn' 
-            ? ('ক্লাউডে (' + ownerIdentity + ') সংরক্ষিত ব্যাকআপ পাওয়া গেছে:<br><br>• কাস্টমার: <b>' + cloudCust + ' জন</b><br>• অর্ডার: <b>' + cloudOrders + ' টি</b><br>• ক্লাউড সেভ টাইম: ' + new Date(cloudBundle.exportedAt || Date.now()).toLocaleString() + '<br><br>আপনি কি ক্লাউড থেকে সমস্ত ডাটা এই ডিভাইসে রিস্টোর করতে চান?') 
-            : ('Cloud backup found for (' + ownerIdentity + '):<br><br>• Customers: <b>' + cloudCust + '</b><br>• Orders: <b>' + cloudOrders + '</b><br>• Cloud timestamp: ' + new Date(cloudBundle.exportedAt || Date.now()).toLocaleString() + '<br><br>Do you want to restore all data to this device?');
+          const custWord = currentLang === 'bn' ? (cloudCust + ' জন কাস্টমার') : (cloudCust + ' ' + (cloudCust === 1 ? 'Customer' : 'Customers'));
+          const orderWord = currentLang === 'bn' ? (cloudOrders + ' টি অর্ডার') : (cloudOrders + ' ' + (cloudOrders === 1 ? 'Order' : 'Orders'));
+
+          const confirmMsg =
+            '<div class="space-y-2">' +
+              '<p class="text-xs text-slate-300 leading-relaxed">' +
+                (currentLang === 'bn' ? 'ক্লাউডে সংরক্ষিত ব্যাকআপ ডাটা পাওয়া গেছে:' : 'Cloud backup found for <b>' + safeText(ownerIdentity) + '</b>:') +
+              '</p>' +
+              '<div class="flex items-center gap-2 pt-0.5">' +
+                '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[11px] font-medium text-emerald-300">' +
+                  '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> ' + custWord +
+                '</span>' +
+                '<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-[11px] font-medium text-blue-300">' +
+                  '<span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span> ' + orderWord +
+                '</span>' +
+              '</div>' +
+              '<p class="text-[11px] text-slate-400 pt-1">' +
+                (currentLang === 'bn' ? 'আপনি কি ক্লাউড থেকে এই ডাটা রিস্টোর করতে চান?' : 'Restore this cloud data to this device?') +
+              '</p>' +
+            '</div>';
           
           if (localTotal === 0) {
             doRestore();
@@ -23842,9 +23882,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
               confirmMsg, 
               doRestore, 
               {
-                title: currentLang === 'bn' ? 'CLOUD RESTORE • ক্লাউড রিস্টোর' : 'CLOUD RESTORE',
+                title: currentLang === 'bn' ? 'Cloud Restore • ক্লাউড রিস্টোর' : 'Cloud Restore',
                 icon: '☁️',
-                confirmText: currentLang === 'bn' ? 'রিস্টোর করুন ✓' : 'Restore Now ✓',
+                confirmText: currentLang === 'bn' ? 'রিস্টোর করুন' : 'Restore Now',
                 cancelText: currentLang === 'bn' ? 'বাতিল' : 'Cancel'
               }
             );
