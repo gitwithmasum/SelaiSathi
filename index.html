@@ -358,6 +358,55 @@
       text-shadow: 0 0 8px rgba(13, 148, 136, 0.35);
     }
 
+    /* Monoton Multiline Icon Badges (Linked to 3-Style Swap) */
+    .font-monoton {
+      font-family: 'Monoton', cursive, sans-serif !important;
+    }
+    .neon-mint-glow {
+      color: #76F7C7 !important;
+      -webkit-text-fill-color: #76F7C7 !important;
+      text-shadow: 0 0 14px rgba(118, 247, 199, 0.7), 0 0 28px rgba(118, 247, 199, 0.35);
+    }
+    .neon-user-gradient {
+      background: linear-gradient(135deg, #FF1493 0%, #C026D3 35%, #8B5CF6 65%, #00F0FF 100%) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      filter: drop-shadow(0 0 10px rgba(192, 38, 211, 0.6));
+    }
+    .brand-icon-box {
+      background: linear-gradient(135deg, #091322 0%, #050b14 100%) !important;
+      border-width: 1px !important;
+      border-style: solid !important;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .brand-icon-box.box-mint {
+      border-color: rgba(52, 211, 153, 0.45) !important;
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.25), inset 0 0 12px rgba(52, 211, 153, 0.08) !important;
+    }
+    .brand-icon-box.box-cyan {
+      border-color: rgba(34, 211, 238, 0.45) !important;
+      box-shadow: 0 4px 20px rgba(6, 182, 212, 0.28), inset 0 0 12px rgba(34, 211, 238, 0.08) !important;
+    }
+    .brand-icon-box.box-gradient {
+      border-color: rgba(232, 121, 249, 0.5) !important;
+      box-shadow: 0 4px 22px rgba(192, 38, 211, 0.35), inset 0 0 12px rgba(192, 38, 211, 0.12) !important;
+    }
+    body.theme-white .brand-icon-box {
+      background: #FFFFFF !important;
+    }
+    body.theme-white .brand-icon-box.box-mint {
+      border-color: rgba(13, 148, 136, 0.4) !important;
+      box-shadow: 0 2px 10px rgba(13, 148, 136, 0.15) !important;
+    }
+    body.theme-white .brand-icon-box.box-cyan {
+      border-color: rgba(2, 132, 199, 0.4) !important;
+      box-shadow: 0 2px 10px rgba(2, 132, 199, 0.15) !important;
+    }
+    body.theme-white .brand-icon-box.box-gradient {
+      border-color: rgba(192, 38, 211, 0.4) !important;
+      box-shadow: 0 2px 10px rgba(192, 38, 211, 0.15) !important;
+    }
+
     body:not(.theme-white) > div.flex-1 { background: transparent !important; }
     body:not(.theme-white) header {
       min-height: 70px; height: auto !important; padding-top: 12px !important; padding-bottom: 12px !important;
@@ -4818,8 +4867,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <!-- Futuristic Brand Header (Click to collapse on Desktop) -->
       <div class="h-20 flex items-center justify-between px-5 border-b border-white/5 select-none">
         <div class="flex items-center gap-3">
-          <div onclick="cycleLogoStyle()" class="w-10 h-10 rounded-2xl overflow-hidden brand-glow shrink-0 shadow-md shadow-emerald-500/25 border border-emerald-400/30 hover:scale-105 active:scale-95 transition-transform cursor-pointer" title="Click to Swap Logo Style (1 of 3)">
-            <img src="assets/logo.png" alt="SelaiSathi Logo" class="w-full h-full object-cover rounded-2xl">
+          <div onclick="cycleLogoStyle()" id="sidebar-brand-icon-box" class="w-10 h-10 rounded-2xl brand-icon-box box-mint shrink-0 hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center justify-center select-none" title="Click to Swap Logo Style (1 of 3)">
+            <div id="sidebar-brand-icon" class="flex items-center justify-center">
+              <span class="font-monoton text-2xl neon-mint-glow leading-none select-none">S</span>
+            </div>
           </div>
           <div onclick="cycleLogoStyle()" class="cursor-pointer group/brand flex flex-col justify-center" title="Click to Swap Logo Style (1 of 3)">
             <div class="flex items-center">
@@ -4968,8 +5019,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       <!-- CENTER: Logo [S] + SelaiSathi Brand Text (Click to Swap Logo Style) -->
       <div class="flex items-center justify-center gap-2 cursor-pointer flex-1 mx-2 select-none group/hbrand" onclick="cycleLogoStyle()" title="Click to Swap Logo Style (1 of 3)">
-        <div class="w-8 h-8 rounded-xl overflow-hidden brand-glow border border-emerald-400/40 shrink-0 shadow-sm shadow-emerald-500/20 flex items-center justify-center bg-emerald-500/15 group-hover/hbrand:scale-105 active:scale-95 transition-transform">
-          <img src="assets/logo.png" alt="SelaiSathi Logo" class="w-full h-full object-cover">
+        <div id="header-brand-icon-box" class="w-8 h-8 rounded-xl brand-icon-box box-mint shrink-0 group-hover/hbrand:scale-105 active:scale-95 transition-all flex items-center justify-center select-none">
+          <div id="header-brand-icon" class="flex items-center justify-center">
+            <span class="font-monoton text-lg neon-mint-glow select-none leading-none">S</span>
+          </div>
         </div>
         <span id="header-brand-text" class="brand-logo-text style-titlecase">
           <span class="brand-selai">Selai</span><span class="brand-sathi">Sathi</span>
@@ -20690,12 +20743,45 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     })();
 
     // =========================================================================
-    // 🎨 MULTILINE NEON LOGO ENGINE (Interactive 3-Style Swap)
+    // 🎨 MULTILINE NEON LOGO & ICON ENGINE (Interactive 3-Style Swap)
     // =========================================================================
     const SS_LOGO_STYLES = [
-      { id: '1', name: 'Titlecase (SelaiSathi)', cls: 'style-titlecase', selai: 'Selai', sathi: 'Sathi', icon: '✨', type: 'emerald' },
-      { id: '2', name: 'Pure Uppercase (SELAISATHI)', cls: 'style-uppercase', selai: 'SELAI', sathi: 'SATHI', icon: '🔤', type: 'cyan' },
-      { id: '3', name: 'Neon Gradient (SELAISATHI)', cls: 'style-gradient', selai: 'SELAI', sathi: 'SATHI', icon: '🎨', type: 'purple' }
+      {
+        id: '1',
+        name: 'Single Neon S • Titlecase',
+        cls: 'style-titlecase',
+        boxCls: 'box-mint',
+        selai: 'Selai',
+        sathi: 'Sathi',
+        iconSidebar: '<span class="font-monoton text-2xl neon-mint-glow leading-none select-none">S</span>',
+        iconHeader: '<span class="font-monoton text-lg neon-mint-glow leading-none select-none">S</span>',
+        icon: '✨',
+        type: 'emerald'
+      },
+      {
+        id: '2',
+        name: 'Twin SS Monogram • Uppercase',
+        cls: 'style-uppercase',
+        boxCls: 'box-cyan',
+        selai: 'SELAI',
+        sathi: 'SATHI',
+        iconSidebar: '<div class="flex items-center -space-x-1.5 font-monoton text-xl leading-none select-none"><span class="text-white drop-shadow-[0_0_6px_rgba(255,255,255,0.7)]">S</span><span class="neon-mint-glow">S</span></div>',
+        iconHeader: '<div class="flex items-center -space-x-1 font-monoton text-base leading-none select-none"><span class="text-white drop-shadow-[0_0_5px_rgba(255,255,255,0.7)]">S</span><span class="neon-mint-glow">S</span></div>',
+        icon: '🔤',
+        type: 'cyan'
+      },
+      {
+        id: '3',
+        name: 'Cyber Gradient SS • Gradient',
+        cls: 'style-gradient',
+        boxCls: 'box-gradient',
+        selai: 'SELAI',
+        sathi: 'SATHI',
+        iconSidebar: '<div class="flex items-center -space-x-1.5 font-monoton text-xl leading-none select-none neon-user-gradient"><span>S</span><span>S</span></div>',
+        iconHeader: '<div class="flex items-center -space-x-1 font-monoton text-base leading-none select-none neon-user-gradient"><span>S</span><span>S</span></div>',
+        icon: '🎨',
+        type: 'purple'
+      }
     ];
 
     function applyLogoStyle(styleId, showNotification = false) {
@@ -20704,12 +20790,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         localStorage.setItem('selaisathi_logo_style', current.id);
       } catch (e) {}
 
-      const targets = [
-        document.getElementById('sidebar-brand-text'),
-        document.getElementById('header-brand-text')
-      ];
+      // 1. Update text elements in sidebar & header
+      const sidebarText = document.getElementById('sidebar-brand-text');
+      const headerText = document.getElementById('header-brand-text');
 
-      targets.forEach(el => {
+      [sidebarText, headerText].forEach(el => {
         if (!el) return;
         el.className = `brand-logo-text ${current.cls}`;
         el.innerHTML = `<span class="brand-selai">${current.selai}</span><span class="brand-sathi">${current.sathi}</span>`;
@@ -20718,6 +20803,31 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         setTimeout(() => { if (el) el.style.transform = ''; }, 160);
       });
 
+      // 2. Update icon badges in sidebar & header
+      const sidebarIconBox = document.getElementById('sidebar-brand-icon-box');
+      const headerIconBox = document.getElementById('header-brand-icon-box');
+      const sidebarIcon = document.getElementById('sidebar-brand-icon');
+      const headerIcon = document.getElementById('header-brand-icon');
+
+      if (sidebarIconBox) {
+        sidebarIconBox.className = `w-10 h-10 rounded-2xl brand-icon-box ${current.boxCls} shrink-0 hover:scale-105 active:scale-95 transition-all cursor-pointer flex items-center justify-center select-none`;
+        sidebarIconBox.style.transform = 'scale(0.92)';
+        setTimeout(() => { if (sidebarIconBox) sidebarIconBox.style.transform = ''; }, 160);
+      }
+      if (sidebarIcon) {
+        sidebarIcon.innerHTML = current.iconSidebar;
+      }
+
+      if (headerIconBox) {
+        headerIconBox.className = `w-8 h-8 rounded-xl brand-icon-box ${current.boxCls} shrink-0 group-hover/hbrand:scale-105 active:scale-95 transition-all flex items-center justify-center select-none`;
+        headerIconBox.style.transform = 'scale(0.92)';
+        setTimeout(() => { if (headerIconBox) headerIconBox.style.transform = ''; }, 160);
+      }
+      if (headerIcon) {
+        headerIcon.innerHTML = current.iconHeader;
+      }
+
+      // 3. Show HUD toast notification
       if (showNotification && typeof showCyberHudNotification === 'function') {
         showCyberHudNotification('LOGO STYLE SWAP', current.name, current.icon, current.type);
       }
