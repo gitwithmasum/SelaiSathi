@@ -2,11 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>SelaiSathi — Next-Gen Tailoring OS</title>
   <meta name="description" content="Futuristic Bento-Grid Tailoring OS & Shop Management Ecosystem">
-  <link rel="icon" type="image/png" href="assets/logo.png">
-  <link rel="apple-touch-icon" href="assets/logo.png">
+  
+  <!-- PWA & Mobile Web App Meta Tags -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#030712">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SelaiSathi">
+  <meta name="application-name" content="SelaiSathi">
+  <meta name="msapplication-TileColor" content="#030712">
+  
+  <!-- Favicons and Touch Icons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -4931,6 +4945,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         <div class="ss-nav-group ss-nav-admin">
           <div class="ss-nav-heading"><span>SYSTEM</span></div>
           <nav class="space-y-1" aria-label="System tools">
+            <button onclick="openPWAInstallModal()" id="nav-pwa-install" title="Download & Install App" aria-label="Download & Install App" class="nav-item group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-cyan-400 hover:text-white hover:bg-cyan-500/10 transition-all border border-cyan-500/20">
+              <span class="nav-icon-badge bg-cyan-500/20 text-cyan-300"><span>📲</span></span><span class="ss-nav-label" data-i18n="menu_install_app">INSTALL APP</span>
+            </button>
             <button onclick="navigateTo('settings')" id="nav-settings" title="Shop Settings" aria-label="Shop Settings" class="nav-item group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-gray-400 hover:text-white transition-all">
               <span class="nav-icon-badge"><span>⚙</span></span><span class="ss-nav-label" data-i18n="menu_settings">SHOP SETTINGS</span>
             </button>
@@ -5032,6 +5049,12 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       <!-- RIGHT: Language Toggle [🌐] + Theme Slider [⚪|🔵] (+ New Order on desktop) -->
       <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
         
+        <!-- PWA Install Button (Desktop & Android Web App) -->
+        <button onclick="triggerPWAInstall()" id="btn-pwa-install" class="px-2.5 py-1.5 rounded-xl border border-cyan-500/30 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 active:scale-95 transition-all flex items-center gap-1.5 shrink-0 text-xs font-bold" title="Download & Install SelaiSathi App" data-i18n-title="tooltip_install_app">
+          <span class="text-sm">📲</span>
+          <span class="hidden sm:inline" id="btn-pwa-install-text" data-i18n="btn_install_app">Install App</span>
+        </button>
+
         <!-- Language Switcher: Compact Glass Icon Button -->
         <button onclick="toggleLanguage()" class="p-2 sm:px-3 sm:py-1.5 rounded-xl border border-ios-border bg-white/5 hover:bg-white/15 text-xs font-bold text-ios-text transition-all active:scale-95 flex items-center gap-1 shrink-0" title="Change Language" data-i18n-title="tooltip_lang">
           <span class="text-sm">🌐</span>
@@ -10129,6 +10152,127 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
   </div>
 
   <!-- ======================================================== -->
+  <!-- MODAL: PWA APP DOWNLOAD & INSTALL (Web & Android)        -->
+  <!-- ======================================================== -->
+  <div id="modal-pwa-install" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 transition-all">
+    <div class="bento-card max-w-[480px] w-full p-4 sm:p-6 space-y-4 shadow-2xl rounded-2xl border border-white/10 bg-slate-950/95 max-h-[92vh] overflow-y-auto">
+      
+      <!-- Minimalist Header -->
+      <div class="flex items-center justify-between pb-3 border-b border-white/10">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-500/20 to-teal-500/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center text-base shadow-sm">
+            📲
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-white tracking-tight flex items-center gap-1.5">
+              <span>SelaiSathi App</span>
+              <span class="text-[10px] text-cyan-400 font-mono px-1.5 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20">PWA · Web & Android</span>
+            </h3>
+            <p class="text-[11px] text-slate-400 mt-0.5">সহজে ইনস্টল করুন এবং ১০০% অফলাইনেও ব্যবহার করুন</p>
+          </div>
+        </div>
+        <button onclick="closeModal('modal-pwa-install')" class="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-colors text-sm font-bold" title="Close">✕</button>
+      </div>
+
+      <!-- Live App Status / 1-Click Action -->
+      <div id="pwa-install-action-box" class="p-3.5 rounded-xl border border-cyan-500/30 bg-gradient-to-r from-cyan-950/40 to-slate-900/60 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-lg shrink-0">
+            ⚡
+          </div>
+          <div class="min-w-0">
+            <div id="pwa-status-title" class="text-xs font-bold text-white">One-Click Direct Install</div>
+            <div id="pwa-status-sub" class="text-[10px] text-cyan-300 font-mono">অ্যান্ড্রয়েড ফোন বা কম্পিউটারে সরাসরি ইনস্টল</div>
+          </div>
+        </div>
+        <button id="btn-modal-install-now" onclick="executePWAInstallPrompt()" class="w-full sm:w-auto px-4 py-2 bg-gradient-to-r from-cyan-500 to-teal-500 hover:brightness-110 active:scale-95 text-slate-950 font-black rounded-xl text-xs transition-all shadow-md shadow-cyan-500/20 shrink-0 flex items-center justify-center gap-1.5 cursor-pointer">
+          <span>ইনস্টল করুন</span>
+          <span>↓</span>
+        </button>
+      </div>
+
+      <!-- Platform Guidance Accordion / Cards -->
+      <div class="space-y-2.5 text-xs">
+        
+        <!-- Android Guide -->
+        <div class="p-3 rounded-xl border border-white/5 bg-slate-900/50 hover:border-cyan-500/20 transition-all">
+          <div class="flex items-center gap-2 font-bold text-slate-200 mb-1.5">
+            <span class="text-emerald-400 text-sm">🤖</span>
+            <span>অ্যান্ড্রয়েড ফোন (Android Mobile / Chrome)</span>
+          </div>
+          <ol class="text-[11px] text-slate-400 space-y-1 list-decimal list-inside pl-0.5 leading-relaxed">
+            <li>ক্রোম ব্রাউজারে ওপরের <span class="text-white font-mono font-bold">⋮</span> (৩-ডট) মেনুতে চাপুন।</li>
+            <li>মেনু থেকে <span class="text-cyan-300 font-semibold">'Install app'</span> বা <span class="text-cyan-300 font-semibold">'Add to Home screen'</span> নির্বাচন করুন।</li>
+            <li>ইনস্টল নিশ্চিত করলেই ফোনের হোম স্ক্রিনে সেলাই সাথীর আইকন চলে আসবে।</li>
+          </ol>
+        </div>
+
+        <!-- Desktop / Computer Guide -->
+        <div class="p-3 rounded-xl border border-white/5 bg-slate-900/50 hover:border-cyan-500/20 transition-all">
+          <div class="flex items-center gap-2 font-bold text-slate-200 mb-1.5">
+            <span class="text-cyan-400 text-sm">💻</span>
+            <span>কম্পিউটার ও ল্যাপটপ (Windows / Mac / Chrome / Edge)</span>
+          </div>
+          <ol class="text-[11px] text-slate-400 space-y-1 list-decimal list-inside pl-0.5 leading-relaxed">
+            <li>ব্রাউজারের অ্যাড্রেস বারের ডানপাশে <span class="text-cyan-300 font-bold font-mono">⊕ (Install)</span> আইকনে ক্লিক করুন।</li>
+            <li><span class="text-white font-semibold">'Install'</span> বাটনে চাপলে এটি কোনো ব্রাউজার ট্যাব ছাড়া পৃথক উইন্ডো সফটওয়্যার হিসেবে ওপেন হবে।</li>
+          </ol>
+        </div>
+
+        <!-- iOS Safari Guide -->
+        <div class="p-3 rounded-xl border border-white/5 bg-slate-900/50 hover:border-cyan-500/20 transition-all">
+          <div class="flex items-center gap-2 font-bold text-slate-200 mb-1.5">
+            <span class="text-indigo-400 text-sm">🍏</span>
+            <span>আইফোন ও আইপ্যাড (iPhone / iPad Safari)</span>
+          </div>
+          <ol class="text-[11px] text-slate-400 space-y-1 list-decimal list-inside pl-0.5 leading-relaxed">
+            <li>সাফারি ব্রাউজারে নিচের <span class="text-white font-bold">Share</span> আইকনে ট্যাপ করুন।</li>
+            <li>মেনু নিচে স্ক্রল করে <span class="text-cyan-300 font-semibold">'Add to Home Screen'</span> নির্বাচন করে <span class="text-white font-semibold">'Add'</span> চাপুন।</li>
+          </ol>
+        </div>
+
+      </div>
+
+      <!-- Offline & Storage Perks Banner -->
+      <div class="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25 flex items-start gap-2 text-emerald-300 text-[11px]">
+        <span class="text-sm shrink-0">✨</span>
+        <div class="leading-relaxed">
+          <strong class="font-bold text-emerald-200">১০০% অফলাইন সুবিধা:</strong> অ্যাপটি একবার ইনস্টল করলে ইন্টারনেট সংযোগ না থাকলেও আপনি কাস্টমারের মাপ গ্রহণ ও হিসাব রাখতে পারবেন।
+        </div>
+      </div>
+
+      <!-- Footer Action -->
+      <div class="flex items-center justify-end pt-2 border-t border-white/10">
+        <button onclick="closeModal('modal-pwa-install')" class="px-4 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+          বন্ধ করুন (Close)
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Floating PWA Install Notification Bar (Mobile & Desktop) -->
+  <div id="pwa-floating-banner" class="hidden fixed bottom-4 right-4 left-4 sm:left-auto sm:max-w-md z-40 p-3 rounded-2xl bg-slate-950/95 border border-cyan-500/30 shadow-2xl backdrop-blur-xl flex items-center justify-between gap-3">
+    <div class="flex items-center gap-2.5 min-w-0">
+      <div class="w-9 h-9 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-base shrink-0">
+        📲
+      </div>
+      <div class="min-w-0">
+        <div class="text-xs font-bold text-white truncate">SelaiSathi অ্যাপ ইনস্টল করুন</div>
+        <div class="text-[10px] text-slate-400 truncate">সহজ অফলাইন ব্যবহার ও দ্রুত লোডিং</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-1.5 shrink-0">
+      <button onclick="triggerPWAInstall()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 hover:brightness-110 active:scale-95 text-slate-950 font-bold text-xs transition-all shadow-sm">
+        ইনস্টল
+      </button>
+      <button onclick="dismissPWABanner()" class="w-7 h-7 rounded-xl flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 text-xs" title="Dismiss">
+        ✕
+      </button>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
   <!-- MODAL: STOCK AUDIT & RECONCILIATION                      -->
   <!-- ======================================================== -->
   <div id="modal-stock-audit" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
@@ -10611,6 +10755,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         menu_users: 'USERS & ROLES',
         menu_backups: 'BACKUPS',
         menu_activity: 'ACTIVITY LOG',
+        menu_install_app: 'INSTALL APP',
+        btn_install_app: 'Install App',
+        tooltip_install_app: 'Download and Install SelaiSathi App',
         btn_new_order: 'New order',
         inv_title: 'Inventory',
         btn_collect_due: 'Collect Due',
@@ -10875,6 +11022,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         menu_users: 'ব্যবহারকারী',
         menu_backups: 'ব্যাকআপ',
         menu_activity: 'অ্যাক্টিভিটি লগ',
+        menu_install_app: 'অ্যাপ ডাউনলোড / ইনস্টল',
+        btn_install_app: 'অ্যাপ ইনস্টল',
+        tooltip_install_app: 'সেলাই সাথী অ্যাপ ডাউনলোড ও ইনস্টল করুন',
         btn_new_order: 'নতুন অর্ডার',
         inv_title: 'ইনভেন্টরি ও ফ্যাব্রিক স্টক',
         btn_collect_due: 'বাকি কালেকশন',
@@ -20814,8 +20964,157 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       }
     }
 
+
+    /* ========================================================== */
+    /* PWA (PROGRESSIVE WEB APP) & SERVICE WORKER ENGINE          */
+    /* ========================================================== */
+    let deferredPWAInstallPrompt = null;
+
+    function initPWAEngine() {
+      // 1. Register Service Worker for offline shell & speed
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js')
+            .then((reg) => {
+              console.log('[PWA] Service Worker registered. Scope:', reg.scope);
+              reg.addEventListener('updatefound', () => {
+                const newWorker = reg.installing;
+                if (newWorker) {
+                  newWorker.addEventListener('statechange', () => {
+                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                      console.log('[PWA] New version ready! Reloading for updates.');
+                    }
+                  });
+                }
+              });
+            })
+            .catch((err) => {
+              console.warn('[PWA] Service Worker registration failed:', err);
+            });
+        });
+      }
+
+      // 2. Check standalone display mode
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
+                           window.navigator.standalone === true ||
+                           document.referrer.includes('android-app://');
+
+      if (isStandalone) {
+        console.log('[PWA] Running in Standalone Installed Mode');
+        updatePWAUIAsInstalled();
+      }
+
+      // 3. Native beforeinstallprompt (Android Chrome & Desktop Chrome/Edge)
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPWAInstallPrompt = e;
+        window.deferredPWAInstallPrompt = e;
+        console.log('[PWA] beforeinstallprompt event captured');
+
+        const dismissed = localStorage.getItem('ss_pwa_banner_dismissed');
+        const banner = document.getElementById('pwa-floating-banner');
+        if (banner && !isStandalone && !dismissed) {
+          banner.classList.remove('hidden');
+        }
+
+        const btnText = document.getElementById('btn-pwa-install-text');
+        if (btnText) {
+          const isBn = (localStorage.getItem('ss_lang') || 'bn') === 'bn';
+          btnText.textContent = isBn ? 'অ্যাপ ইনস্টল' : 'Install App';
+        }
+      });
+
+      // 4. Listen for appinstalled
+      window.addEventListener('appinstalled', () => {
+        console.log('[PWA] SelaiSathi installed successfully');
+        deferredPWAInstallPrompt = null;
+        window.deferredPWAInstallPrompt = null;
+        updatePWAUIAsInstalled();
+        const banner = document.getElementById('pwa-floating-banner');
+        if (banner) banner.classList.add('hidden');
+        closeModal('modal-pwa-install');
+        if (typeof showHudToast === 'function') {
+          showHudToast('🎉 সেলাই সাথী অ্যাপ সফলভাবে আপনার ডিভাইসে ইনস্টল হয়েছে!');
+        }
+      });
+    }
+
+    function updatePWAUIAsInstalled() {
+      const installBtn = document.getElementById('btn-pwa-install');
+      if (installBtn) {
+        installBtn.title = 'App Installed ✓';
+        const text = document.getElementById('btn-pwa-install-text');
+        if (text) text.textContent = 'Installed ✓';
+        installBtn.classList.remove('border-cyan-500/30', 'bg-cyan-500/10', 'text-cyan-300');
+        installBtn.classList.add('border-emerald-500/30', 'bg-emerald-500/10', 'text-emerald-300');
+      }
+
+      const modalBtn = document.getElementById('btn-modal-install-now');
+      const modalTitle = document.getElementById('pwa-status-title');
+      const modalSub = document.getElementById('pwa-status-sub');
+      if (modalBtn) {
+        modalBtn.disabled = true;
+        modalBtn.classList.add('opacity-60', 'cursor-not-allowed');
+        modalBtn.innerHTML = '<span>ইনস্টল করা আছে ✓</span>';
+      }
+      if (modalTitle) modalTitle.textContent = 'অ্যাপটি ইতিমধ্যে ইনস্টল করা আছে ✓';
+      if (modalSub) modalSub.textContent = 'আপনি সরাসরি স্ট্যান্ডঅ্যালোন মোডে চালাচ্ছেন';
+    }
+
+    function triggerPWAInstall() {
+      if (deferredPWAInstallPrompt) {
+        deferredPWAInstallPrompt.prompt();
+        deferredPWAInstallPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('[PWA] User accepted the install prompt');
+            const banner = document.getElementById('pwa-floating-banner');
+            if (banner) banner.classList.add('hidden');
+          } else {
+            console.log('[PWA] User dismissed the install prompt');
+          }
+          deferredPWAInstallPrompt = null;
+          window.deferredPWAInstallPrompt = null;
+        });
+      } else {
+        openPWAInstallModal();
+      }
+    }
+
+    function executePWAInstallPrompt() {
+      triggerPWAInstall();
+    }
+
+    function openPWAInstallModal() {
+      if (typeof openModal === 'function') {
+        openModal('modal-pwa-install');
+      } else {
+        const m = document.getElementById('modal-pwa-install');
+        if (m) {
+          m.style.removeProperty('display');
+          m.style.display = '';
+          m.classList.remove('hidden');
+          m.classList.add('flex');
+        }
+      }
+    }
+
+    function dismissPWABanner() {
+      const banner = document.getElementById('pwa-floating-banner');
+      if (banner) banner.classList.add('hidden');
+      try {
+        localStorage.setItem('ss_pwa_banner_dismissed', '1');
+      } catch(e) {}
+    }
+
+    window.triggerPWAInstall = triggerPWAInstall;
+    window.executePWAInstallPrompt = executePWAInstallPrompt;
+    window.openPWAInstallModal = openPWAInstallModal;
+    window.dismissPWABanner = dismissPWABanner;
+    window.initPWAEngine = initPWAEngine;
+
     // Auto initialize on load
     document.addEventListener('DOMContentLoaded', () => {
+      initPWAEngine();
       applyLanguage(currentLang);
       applyThemeSliderState();
       CyberDialog.init();
