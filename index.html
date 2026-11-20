@@ -23930,12 +23930,19 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       }
     }
 
+    // ========================================================
+    // 🌟 SELAISATHI VERSO LUXURY AUTH & FIREBASE CLOUD CONTROLLER
+    // ========================================================
+    window._activeGoogleAuth = null;
+    window._googleOtpTimer = null;
+
     function switchVersoMode(mode) {
       const card = document.getElementById('auth-main-card');
       if (card) card.setAttribute('data-state', mode);
 
       const viewSignin = document.getElementById('verso-view-signin');
       const viewOtp = document.getElementById('verso-view-otp');
+      const viewSignup = document.getElementById('verso-view-signup');
 
       if (mode === 'signin') {
         if (viewSignin) {
@@ -23954,6 +23961,19 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         if (viewOtp) {
           viewOtp.classList.remove('verso-subform-hidden');
           viewOtp.classList.add('verso-subform-visible');
+        }
+      } else if (mode === 'signup') {
+        if (viewSignin) {
+          viewSignin.classList.add('verso-subform-hidden');
+          viewSignin.classList.remove('verso-subform-visible');
+        }
+        if (viewOtp) {
+          viewOtp.classList.add('verso-subform-hidden');
+          viewOtp.classList.remove('verso-subform-visible');
+        }
+        if (viewSignup) {
+          viewSignup.classList.remove('verso-subform-hidden');
+          viewSignup.classList.add('verso-subform-visible');
         }
       }
     }
@@ -23983,13 +24003,79 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       document.getElementById('modal-google-signin')?.classList.add('hidden');
     }
 
-    function continueWithGoogleQuickAuth() {
-      const email = getOwnerGoogleEmail() || 'sciencefiction844@gmail.com';
+    // 1-Click Official Google Sign-In with Firebase OAuth Popup
+    async function continueWithGoogleQuickAuth() {
+      const fb = initFirebaseClient();
+      if (fb && fb.auth && typeof firebase.auth.GoogleAuthProvider === 'function') {
+        try {
+          const provider = new firebase.auth.GoogleAuthProvider();
+          provider.addScope('profile');
+          provider.addScope('email');
+          provider.setCustomParameters({ prompt: 'select_account' });
+
+          const res = await fb.auth.signInWithPopup(provider);
+          const u = res.user;
+          const user = {
+            uid: u.uid,
+            email: (u.email || '').toLowerCase().trim(),
+            name: u.displayName || (u.email ? u.email.split('@')[0] : 'Shop Owner'),
+            picture: u.photoURL || '',
+            connectedAt: new Date().toISOString(),
+            provider: 'Firebase Google Auth'
+          };
+
+          // Save Google user and shop owner credentials
+          setOwnerGoogleEmail(user.email);
+          if (user.name) localStorage.setItem('selaisathi_owner_name', user.name);
+          if (user.picture) localStorage.setItem('selaisathi_owner_photo', user.picture);
+          localStorage.setItem('selaisathi_clean_slate_active', 'true');
+          saveGoogleAuthUser(user);
+
+          // Update UI immediately
+          updateSidebarOwnerChip();
+          closeGoogleSignInDialog();
+          closeShopOwnerModal();
+
+          // Confetti celebration
+          if (typeof confetti === 'function') {
+            confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+          }
+
+          // Complete Firestore Sync & Auto-Restore
+          await completePostLoginCloudSync(user);
+          return;
+        } catch (err) {
+          console.warn('Firebase Google Auth popup note / fallback:', err);
+          if (err && err.code === 'auth/popup-closed-by-user') {
+            return; // user closed the popup intentionally
+          }
+        }
+      }
+
+      // Fallback: Proceed with OTP Verification flow
+      const email = document.getElementById('g-signin-email')?.value.trim() || getOwnerGoogleEmail() || 'sciencefiction844@gmail.com';
       const shop = getShopSettings();
       const name = localStorage.getItem('selaisathi_owner_name') || shop.ownerName || 'Shop Owner';
       selectGoogleAccountForOtp(email, name);
     }
+    window.handleFirebaseGoogleSignIn = continueWithGoogleQuickAuth;
 
+    // Email Sign In form submission
+    async function submitGoogleSignIn(event) {
+      if (event) event.preventDefault();
+      const emailInput = document.getElementById('g-signin-email');
+      const email = emailInput?.value.trim();
+      const name = document.getElementById('g-signin-name')?.value.trim() || (email ? email.split('@')[0] : 'Shop Owner');
+
+      if (!email || !email.includes('@')) {
+        CyberDialog.alert(currentLang === 'bn' ? 'অনুগ্রহ করে একটি বৈধ জিমেইল বা গুগল ইমেইল এড্রেস প্রদান করুন।' : 'Please enter a valid Gmail or Google email address.', { icon: '⚠️', title: currentLang === 'bn' ? 'INVALID EMAIL • ভুল ইমেইল' : 'INVALID EMAIL' });
+        return;
+      }
+
+      selectGoogleAccountForOtp(email, name);
+    }
+
+    // Sign Up form submission
     function submitVersoSignUp(event) {
       if (event) event.preventDefault();
       const name = document.getElementById('verso-signup-name')?.value.trim() || 'Tailor Master';
@@ -24009,7 +24095,6 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     }
 
     function toggleEmailSignInForm() {
-      // In Google Workspace style, the email field is already integrated into the main form
       document.getElementById('g-signin-email')?.focus();
     }
 
@@ -24034,90 +24119,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       }
     }
 
-    // ========================================================
-    // 🌐 GOOGLE 2-STEP AUTHENTICATION & ID SELECTOR CONTROLLER
-    // ========================================================
-    window._activeGoogleAuth = null;
-    window._googleOtpTimer = null;
-
-    function switchAuthStep(step) {
-      const stepLanding = document.getElementById('auth-step-landing');
-      const stepPicker = document.getElementById('auth-step-picker');
-      const stepOtp = document.getElementById('auth-step-otp');
-      const closeBtn = document.getElementById('auth-modal-close-btn');
-
-      if (stepLanding) stepLanding.classList.toggle('hidden', step !== 'landing');
-      if (stepPicker) stepPicker.classList.toggle('hidden', step !== 'picker');
-      if (stepOtp) stepOtp.classList.toggle('hidden', step !== 'otp');
-      if (closeBtn) closeBtn.classList.toggle('hidden', step !== 'landing');
-    }
-
-    function openGoogleAccountPicker() {
-      renderGoogleAccountPicker();
-      switchAuthStep('picker');
-    }
-
-    function renderGoogleAccountPicker() {
-      const container = document.getElementById('google-account-list');
-      if (!container) return;
-
-      const shop = getShopSettings();
-      let ownerName = localStorage.getItem('selaisathi_owner_name') || shop.ownerName;
-      if (!ownerName || ownerName === 'Shop Owner') {
-        ownerName = 'Masum Billah';
-      }
-      const ownerEmail = getOwnerGoogleEmail() || 'sciencefiction844@gmail.com';
-      const photoUrl = getOwnerCustomPhoto();
-
-      let avatarInner = '';
-      if (photoUrl) {
-        avatarInner = '<img src="' + photoUrl + '" alt="Owner" class="w-full h-full object-cover rounded-full" />';
-      } else {
-        const initial = (ownerName[0] || ownerEmail[0] || 'M').toUpperCase();
-        avatarInner = '<span class="font-bold text-xs text-white">' + initial + '</span>';
-      }
-
-      // Google Workspace Native Account Item - exactly matching user screenshot
-      container.innerHTML = 
-        '<div onclick="selectGoogleAccountForOtp(\'' + ownerEmail + '\', \'' + safeText(ownerName) + '\')" class="py-3 px-2 flex items-center justify-between hover:bg-[#2a2b2e] cursor-pointer rounded-lg transition-colors">' +
-          '<div class="flex items-center gap-3">' +
-            '<div class="w-8 h-8 rounded-full bg-emerald-700 text-white font-bold flex items-center justify-center text-xs shrink-0">' +
-              avatarInner +
-            '</div>' +
-            '<div>' +
-              '<div class="text-xs font-medium text-white">' + safeText(ownerName) + '</div>' +
-              '<div class="text-[11px] text-slate-400">' + safeText(ownerEmail) + '</div>' +
-            '</div>' +
-          '</div>' +
-        '</div>';
-    }
-
-    function toggleCustomGoogleInput() {
-      const box = document.getElementById('custom-google-input-box');
-      if (box) {
-        box.classList.toggle('hidden');
-        if (!box.classList.contains('hidden')) {
-          document.getElementById('custom-picker-email')?.focus();
-        }
-      }
-    }
-
-    function submitCustomPickerAccount() {
-      const inp = document.getElementById('custom-picker-email');
-      const email = inp?.value.trim();
-      if (!email || !email.includes('@')) {
-        CyberDialog.alert(currentLang === 'bn' ? 'অনুগ্রহ করে সঠিক জিমেইল বা গুগল ইমেইল এড্রেস প্রদান করুন।' : 'Please enter a valid Gmail or Google email address.', { icon: '⚠️', title: currentLang === 'bn' ? 'INVALID EMAIL • ভুল ইমেইল' : 'INVALID EMAIL' });
-        return;
-      }
-      selectGoogleAccountForOtp(email, email.split('@')[0]);
-    }
-
+    // Dispatch real OTP Email
     async function sendRealOtpEmail(email, otpCode) {
       console.log('%c[SelaiSathi OTP Dispatch] Recipient: ' + email + ' | Code: ' + otpCode, 'color:#22d3ee;font-weight:bold;font-size:13px;');
       const isFileProtocol = (window.location.protocol === 'file:');
 
-      // If opened as a local file, FormSubmit strictly rejects with:
-      // "Make sure you open this page through a web server, FormSubmit will not work in pages browsed as HTML files."
       if (isFileProtocol) {
         console.warn('[SelaiSathi OTP] Running from file:// protocol. Direct web email API is restricted by browser.');
         handleOtpDeliveryResult({ success: false, reason: 'file_protocol' }, otpCode);
@@ -24198,18 +24204,6 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           verifyGoogleOtpAndLogin();
         }
       };
-      inp.onpaste = (e) => {
-        e.preventDefault();
-        const paste = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '').slice(0, 6);
-        if (paste) {
-          inp.value = paste;
-          if (paste.length === 6) {
-            setTimeout(() => {
-              verifyGoogleOtpAndLogin();
-            }, 250);
-          }
-        }
-      };
     }
 
     function selectGoogleAccountForOtp(email, name) {
@@ -24262,20 +24256,15 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         }
       }, 1000);
 
-      switchAuthStep('otp');
+      switchVersoMode('otp');
       setupGoogleOtpSingleInput();
       setupGoogleOtpInputMatrix();
 
       setTimeout(() => {
-        const single = document.getElementById('gotp-single');
-        if (single) {
-          single.focus();
-        } else {
-          document.getElementById('gotp-1')?.focus();
-        }
-      }, 100);
+        document.getElementById('gotp-1')?.focus();
+      }, 150);
 
-      // Trigger REAL Email dispatch to their Gmail inbox in the background
+      // Trigger REAL Email dispatch in background
       sendRealOtpEmail(email, otpCode);
     }
 
@@ -24294,16 +24283,19 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             inputs[index + 1].focus();
           }
           if (inputs.every(inp => inp.value.length === 1)) {
-            verifyGoogleOtpAndLogin();
+            setTimeout(() => {
+              verifyGoogleOtpAndLogin();
+            }, 100);
           }
         };
-
         input.onkeydown = (e) => {
           if (e.key === 'Backspace' && !input.value && index > 0) {
             inputs[index - 1].focus();
+          } else if (e.key === 'Enter') {
+            e.preventDefault();
+            verifyGoogleOtpAndLogin();
           }
         };
-
         input.onpaste = (e) => {
           e.preventDefault();
           const paste = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '').slice(0, 6);
@@ -24311,13 +24303,15 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             paste.split('').forEach((char, i) => {
               if (inputs[i]) inputs[i].value = char;
             });
-            if (paste.length === 6) verifyGoogleOtpAndLogin();
+            if (paste.length === 6) {
+              setTimeout(() => {
+                verifyGoogleOtpAndLogin();
+              }, 100);
+            }
           }
         };
       });
     }
-
-    // Auto-fill removed: user must retrieve code from their real Gmail inbox
 
     async function verifyGoogleOtpAndLogin() {
       if (!window._activeGoogleAuth) return;
@@ -24351,7 +24345,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       if (Date.now() > window._activeGoogleAuth.expiresAt) {
         CyberDialog.alert(currentLang === 'bn' ? 'ওটিপির মেয়াদ শেষ হয়ে গেছে। অনুগ্রহ করে আবার অ্যাকাউন্ট নির্বাচন করুন।' : 'OTP has expired. Please select your account again.', { icon: '⚠️', title: currentLang === 'bn' ? 'OTP EXPIRED • মেয়াদোত্তীর্ণ' : 'OTP EXPIRED' });
-        switchAuthStep('picker');
+        switchVersoMode('signin');
         return;
       }
 
@@ -24370,8 +24364,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
       // Set as Primary Shop Owner Google Account across the entire app
       setOwnerGoogleEmail(authData.email);
+      if (authData.name) localStorage.setItem('selaisathi_owner_name', authData.name);
       saveGoogleAuthUser(user);
       localStorage.setItem('selaisathi_clean_slate_active', 'true');
+      updateSidebarOwnerChip();
       closeGoogleSignInDialog();
       closeShopOwnerModal();
 
@@ -24379,7 +24375,13 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         confetti({ particleCount: 75, spread: 65, origin: { y: 0.6 } });
       }
 
-      // Check Cloud Vault for this Google ID
+      // Complete Cloud Sync & Restore
+      await completePostLoginCloudSync(user);
+    }
+
+    // Unified Post-Login Firestore Cloud Sync & Auto-Restore
+    async function completePostLoginCloudSync(user) {
+      if (!user || !user.email) return;
       const cloudKey = getActiveCloudKey() || ('google_' + user.email.toLowerCase().trim().replace(/[^a-z0-9]/g, '_'));
       let cloudBundle = null;
 
@@ -24392,11 +24394,11 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         );
       } catch(e) {}
 
-      // 2. Check Firestore with 2000ms timeout
+      // 2. Check Firestore with 2500ms timeout
       const fb = initFirebaseClient();
       if (fb && fb.db && cloudKey) {
         try {
-          const snap = await callWithTimeout(fb.db.collection('shops').doc(cloudKey).get(), 2000);
+          const snap = await callWithTimeout(fb.db.collection('shops').doc(cloudKey).get(), 2500);
           if (snap && snap.exists) {
             const fsBundle = snap.data();
             if (fsBundle && hasRealUserData(fsBundle)) {
@@ -24541,31 +24543,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
           );
         }
       }
-    }
 
-    async function handleFirebaseGoogleSignIn() {
-      // Direct 1-Click: Open Account Selector for instant user choice and OTP verification
-      openGoogleAccountPicker();
-    }
-
-    async function submitGoogleSignIn(event) {
-      if (event) event.preventDefault();
-      const emailInput = document.getElementById('g-signin-email');
-      const email = emailInput?.value.trim();
-      const name = document.getElementById('g-signin-name')?.value.trim() || (email ? email.split('@')[0] : 'Shop Owner');
-
-      if (!email || !email.includes('@')) {
-        CyberDialog.alert(currentLang === 'bn' ? 'অনুগ্রহ করে একটি বৈধ জিমেইল বা গুগল ইমেইল এড্রেস প্রদান করুন।' : 'Please enter a valid Gmail or Google email address.', { icon: '⚠️', title: currentLang === 'bn' ? 'INVALID EMAIL • ভুল ইমেইল' : 'INVALID EMAIL' });
-        return;
-      }
-
-      selectGoogleAccountForOtp(email, name);
-    }
-
-    function closeGoogleSignInDialog() {
-      if (window._googleOtpTimer) clearInterval(window._googleOtpTimer);
-      switchAuthStep('landing');
-      document.getElementById('modal-google-signin')?.classList.add('hidden');
+      triggerRealtimeCloudSync();
+      updateSidebarOwnerChip();
+      if (typeof renderBackupsView === 'function') renderBackupsView();
     }
 
     function switchAuthModalTab() { /* No-op: only Google account is supported */ }
