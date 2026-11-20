@@ -4960,7 +4960,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
 
     .verso-form-pane-right {
       right: 0;
-      padding-left: 4.75rem;
+      padding-left: 5rem;
       padding-right: 2.75rem;
     }
 
@@ -5173,9 +5173,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       box-shadow: 0 0 50px rgba(0, 0, 0, 0.7);
     }
 
-    /* Blade state when Sign Up is active (Generous clearance for right pane) */
+    /* Blade state when Sign Up is active (Balanced clearance so left text never clips) */
     .verso-auth-container[data-state="signup"] .verso-blade-slider {
-      transform: skewX(9.5deg) translateX(-108%);
+      transform: skewX(9.5deg) translateX(-96%);
     }
 
     /* Golden Edge Seams on Blade (Lead on left edge, Trail on right edge) */
@@ -5240,9 +5240,9 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       transform: translateY(16px);
     }
 
-    /* When Blade is on Left (Sign Up): Offsets the -8% translation for generous left breathing room */
+    /* When Blade is on Left (Sign Up): Zero clipping, full breathing room on left and right */
     .verso-blade-msg-signup {
-      padding: 3rem 3.5rem 3rem calc(8% + 3.8rem);
+      padding: 3rem 2.5rem 3rem 5.5rem;
       opacity: 0;
       pointer-events: none;
       transform: translateY(16px);
@@ -24186,17 +24186,26 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       selectGoogleAccountForOtp(email, name);
     }
 
-    // Sign Up form submission
+    // Sign Up form submission (Supports Email or Mobile Phone)
     function submitVersoSignUp(event) {
       if (event) event.preventDefault();
       const name = document.getElementById('verso-signup-name')?.value.trim() || 'Tailor Master';
-      const email = document.getElementById('verso-signup-email')?.value.trim();
-      if (!email || !email.includes('@')) {
-        CyberDialog.alert(currentLang === 'bn' ? 'অনুগ্রহ করে একটি বৈধ ইমেইল এড্রেস প্রদান করুন।' : 'Please enter a valid email address.', { icon: '⚠️', title: currentLang === 'bn' ? 'INVALID EMAIL • ভুল ইমেইল' : 'INVALID EMAIL' });
+      const input = document.getElementById('verso-signup-email')?.value.trim();
+      if (!input) {
+        CyberDialog.alert(currentLang === 'bn' ? 'অনুগ্রহ করে ইমেইল এড্রেস অথবা মোবাইল নম্বর প্রদান করুন।' : 'Please enter an email address or mobile phone.', { icon: '⚠️', title: currentLang === 'bn' ? 'REQUIRED FIELD • প্রয়োজনীয় তথ্য' : 'REQUIRED FIELD' });
         return;
       }
       localStorage.setItem('selaisathi_owner_name', name);
-      selectGoogleAccountForOtp(email, name);
+      if (input.includes('@')) {
+        selectGoogleAccountForOtp(input, name);
+      } else {
+        const cleanPhone = input.replace(/[^0-9+]/g, '');
+        if (cleanPhone.length < 10) {
+          CyberDialog.alert(currentLang === 'bn' ? 'অনুগ্রহ করে সঠিক মোবাইল নম্বর অথবা ইমেইল এড্রেস দিন।' : 'Please enter a valid mobile phone or email.', { icon: '⚠️', title: currentLang === 'bn' ? 'INVALID CONTACT' : 'INVALID CONTACT' });
+          return;
+        }
+        selectGoogleAccountForOtp(cleanPhone + '@selaisathi.cloud', name);
+      }
     }
 
     function toggleVersoPasswordVisibility(inputId) {
@@ -26093,9 +26102,10 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             </div>
 
             <!-- Divider -->
-            <div class="relative flex items-center justify-center my-3">
-              <div class="border-t border-[#CBD5E1] w-full"></div>
-              <span class="bg-[#FAF8F4] px-3 text-[11px] text-[#64748B] font-medium">or continue with</span>
+            <div class="flex items-center my-3.5">
+              <div class="flex-1 border-t border-[#CBD5E1]"></div>
+              <span class="px-3 text-[11px] text-[#64748B] font-medium whitespace-nowrap">or continue with</span>
+              <div class="flex-1 border-t border-[#CBD5E1]"></div>
             </div>
 
             <!-- Official Google Button (Crisp White Pill, Authentic Multi-color G) -->
@@ -26224,7 +26234,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             </div>
 
             <div class="verso-field-wrap">
-              <input type="email" id="verso-signup-email" class="verso-field-input" placeholder="Email address or mobile phone" required>
+              <input type="text" id="verso-signup-email" class="verso-field-input" placeholder="Email address or mobile phone" required>
               <span class="verso-field-icon">
                 <svg class="w-4 h-4 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
@@ -26306,7 +26316,7 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
             <p class="text-xs sm:text-sm text-[#A8BDB5] leading-relaxed max-w-[270px] font-light mb-6">
               One account for every tailor order, every customer measurement and every device you own.
             </p>
-            <span class="text-[10px] font-mono tracking-widest text-[#7B9E90] uppercase font-semibold">CLOUD SYNC & OFFLINE PWA</span>
+            <span class="text-[10px] font-mono tracking-widest text-[#7B9E90] uppercase font-semibold"><span class="text-[#C89B53] mr-1 font-bold">●</span> CLOUD SYNC & OFFLINE PWA</span>
           </div>
 
         </div>
