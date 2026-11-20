@@ -1,5 +1,5 @@
 // SelaiSathi PWA Service Worker (Offline Support & Fast Shell Caching)
-const CACHE_NAME = 'selaisathi-pwa-v1.1';
+const CACHE_NAME = 'selaisathi-pwa-v1.2';
 const PRECACHE_ASSETS = [
   './',
   './index.html',
