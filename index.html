@@ -25,10 +25,10 @@
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Google Fonts: Monoton, Big Shoulders Inline, Hind Siliguri, Inter, JetBrains Mono -->
+  <!-- Google Fonts: Monoton, Playfair Display, Big Shoulders Inline, Hind Siliguri, Inter, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Inline+Display:wght@400;500;600;700;800;900&family=Big+Shoulders+Inline+Text:wght@400;500;600;700;800;900&family=Hind+Siliguri:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Monoton&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Inline+Display:wght@400;500;600;700;800;900&family=Big+Shoulders+Inline+Text:wght@400;500;600;700;800;900&family=Hind+Siliguri:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Monoton&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
   
   <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
@@ -471,22 +471,22 @@
     body:not(.theme-white) table tbody tr:hover { background: rgba(34,211,238,.045) !important; }
 
     /* Universal Input & Textarea Fields - Galaxy Theme */
-    body:not(.theme-white) input:not([type=checkbox]):not([type=radio]):not(#printable-receipt *):not(#printable-money-receipt *),
-    body:not(.theme-white) select:not(#printable-receipt *):not(#printable-money-receipt *),
-    body:not(.theme-white) textarea:not(#printable-receipt *):not(#printable-money-receipt *) {
+    body:not(.theme-white) input:not([type=checkbox]):not([type=radio]):not(#printable-receipt *):not(#printable-money-receipt *):not(.verso-auth-container *),
+    body:not(.theme-white) select:not(#printable-receipt *):not(#printable-money-receipt *):not(.verso-auth-container *),
+    body:not(.theme-white) textarea:not(#printable-receipt *):not(#printable-money-receipt *):not(.verso-auth-container *) {
       color: #FFFFFF !important;
       background: rgba(13, 22, 38, 0.92) !important;
       border-color: rgba(148, 163, 184, 0.28) !important;
       border-radius: 14px !important;
     }
-    body:not(.theme-white) input::placeholder,
-    body:not(.theme-white) textarea::placeholder {
+    body:not(.theme-white) input:not(.verso-auth-container *)::placeholder,
+    body:not(.theme-white) textarea:not(.verso-auth-container *)::placeholder {
       color: #94A3B8 !important;
       opacity: 1 !important;
     }
-    body:not(.theme-white) input:focus,
-    body:not(.theme-white) select:focus,
-    body:not(.theme-white) textarea:focus {
+    body:not(.theme-white) input:not(.verso-auth-container *):focus,
+    body:not(.theme-white) select:not(.verso-auth-container *):focus,
+    body:not(.theme-white) textarea:not(.verso-auth-container *):focus {
       outline: none !important;
       background: rgba(15, 23, 42, 0.98) !important;
       border-color: rgba(34, 211, 238, 0.8) !important;
@@ -625,26 +625,26 @@
     }
 
     /* Modals & Popovers in Galaxy Theme */
-    body:not(.theme-white) [id^="modal-"] h1,
-    body:not(.theme-white) [id^="modal-"] h2,
-    body:not(.theme-white) [id^="modal-"] h3,
-    body:not(.theme-white) [id^="modal-"] h4,
-    body:not(.theme-white) [id^="modal-"] label,
+    body:not(.theme-white) [id^="modal-"]:not(#modal-google-signin) h1,
+    body:not(.theme-white) [id^="modal-"]:not(#modal-google-signin) h2,
+    body:not(.theme-white) [id^="modal-"]:not(#modal-google-signin) h3,
+    body:not(.theme-white) [id^="modal-"]:not(#modal-google-signin) h4,
+    body:not(.theme-white) [id^="modal-"]:not(#modal-google-signin) label,
     body:not(.theme-white) .bento-card h1,
     body:not(.theme-white) .bento-card h2,
     body:not(.theme-white) .bento-card h3,
     body:not(.theme-white) .bento-card h4 {
       color: #FFFFFF !important;
     }
-    body:not(.theme-white) [id^="modal-"] label,
+    body:not(.theme-white) [id^="modal-"]:not(#modal-google-signin) label,
     body:not(.theme-white) .bento-card label {
       color: #F8FAFC !important;
     }
 
-    /* Form controls in Galaxy Theme (except printable receipt) */
-    body:not(.theme-white) input:not([type="checkbox"]):not([type="radio"]):not(#printable-receipt *),
-    body:not(.theme-white) textarea:not(#printable-receipt *),
-    body:not(.theme-white) select:not(#printable-receipt *) {
+    /* Form controls in Galaxy Theme (except printable receipt & verso auth modal) */
+    body:not(.theme-white) input:not([type="checkbox"]):not([type="radio"]):not(#printable-receipt *):not(.verso-auth-container *),
+    body:not(.theme-white) textarea:not(#printable-receipt *):not(.verso-auth-container *),
+    body:not(.theme-white) select:not(#printable-receipt *):not(.verso-auth-container *) {
       color: #FFFFFF !important;
     }
 
@@ -3544,40 +3544,7 @@ body.theme-white #view-measurements #meas-quick-matrix {
       border-color: #7DD3FC !important;
     }
 
-    /* Google Workspace Native Sign-In Modal (Material 3 Style) */
-    #modal-google-signin .selaisathi-auth-card {
-      position: relative;
-      background: #1e1f20;
-      border: 1px solid #3c4043;
-      border-radius: 28px;
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      box-shadow: 0 25px 65px -12px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.04);
-      color: #e3e3e3;
-    }
-    body.theme-white #modal-google-signin .selaisathi-auth-card {
-      background: #FFFFFF !important;
-      border: 1px solid #DADCE0 !important;
-      box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.15) !important;
-      color: #1F1F1F !important;
-    }
-    body.theme-white #modal-google-signin h2,
-    body.theme-white #modal-google-signin h3 {
-      color: #1F1F1F !important;
-    }
-    body.theme-white #modal-google-signin .text-white {
-      color: #1F1F1F !important;
-    }
-    body.theme-white #modal-google-signin .bg-\[\#2a2b2e\],
-    body.theme-white #modal-google-signin .bg-\[\#26282b\] {
-      background-color: #F8FAFC !important;
-      border-color: #E2E8F0 !important;
-    }
-    body.theme-white #modal-google-signin .border-\[\#3c4043\],
-    body.theme-white #modal-google-signin .border-\[\#444746\],
-    body.theme-white #modal-google-signin .border-\[\#5f6368\] {
-      border-color: #DADCE0 !important;
-    }
+    /* Legacy auth styles replaced by Verso Auth System */
 
     /* Clean Minimalist view-backups & Shop Owner Theme-White Styles */
     body.theme-white #view-backups .bento-card,
@@ -3616,41 +3583,7 @@ body.theme-white #view-measurements #meas-quick-matrix {
       border: 1px solid #CBD5E1 !important;
       color: #0F172A !important;
     }
-    body.theme-white #modal-google-signin .auth-tab-bar {
-      background: #F0F9FF !important;
-      border: 1px solid #BAE6FD !important;
-    }
-    body.theme-white #modal-google-signin .auth-tab-bar button.active-tab {
-      background: #FFFFFF !important;
-      color: #0284C7 !important;
-      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.15) !important;
-    }
-    body.theme-white #modal-google-signin .auth-tab-bar button:not(.active-tab) {
-      color: #64748B !important;
-    }
-    body.theme-white #modal-google-signin .auth-capsule {
-      background: #F0F9FF !important;
-      border-color: #BAE6FD !important;
-      color: #0369A1 !important;
-    }
-    body.theme-white #modal-google-signin .auth-divider {
-      background-color: #E2E8F0 !important;
-    }
-    body.theme-white #modal-google-signin #p-dial-box {
-      background: #F1F5F9 !important;
-      border-color: #CBD5E1 !important;
-      color: #0369A1 !important;
-    }
-    body.theme-white #modal-google-signin input {
-      background: #F8FAFC !important;
-      border: 1.5px solid #CBD5E1 !important;
-      color: #082F49 !important;
-    }
-    body.theme-white #modal-google-signin input:focus {
-      border-color: #0284C7 !important;
-      background: #FFFFFF !important;
-      box-shadow: 0 0 12px rgba(2, 132, 199, 0.25) !important;
-    }
+    /* End legacy auth styles */
     body:not(.theme-white) #sidebar-owner-chip {
       background: rgba(15, 23, 42, 0.65);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -4856,6 +4789,441 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     /* Force #cyber-dialog-cancel to hide when it has class hidden, even with .cyber-btn */
     #cyber-dialog-cancel.hidden {
       display: none !important;
+    }
+
+    /* ========================================================================== */
+    /* 🌟 PROJECT VERSO: EDITORIAL LUXURY AUTH & OTP SYSTEM                      */
+    /* ========================================================================== */
+    :root {
+      --verso-card-w: 880px;
+      --verso-card-h: 560px;
+      --verso-green-dark: #071F1A;
+      --verso-green-mid: #0E352B;
+      --verso-green-light: #184D40;
+      --verso-gold: #C89B53;
+      --verso-gold-dark: #A1762F;
+      --verso-cream: #FAF8F4;
+    }
+
+    .verso-serif {
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+
+    /* Modal Backdrop */
+    #modal-google-signin {
+      position: fixed;
+      inset: 0;
+      z-index: 100000;
+      background: rgba(3, 13, 10, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+
+    #modal-google-signin.hidden {
+      display: none !important;
+    }
+
+    /* Main Container Card */
+    .verso-auth-container {
+      position: relative;
+      width: 100%;
+      max-width: var(--verso-card-w);
+      min-height: var(--verso-card-h);
+      background-color: var(--verso-cream);
+      border-radius: 32px;
+      box-shadow: 0 35px 80px -15px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      display: flex;
+    }
+
+    /* Modal Close Button */
+    .verso-close-btn {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      width: 34px;
+      height: 34px;
+      border-radius: 9999px;
+      background: rgba(0, 0, 0, 0.05);
+      color: #64748B;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      z-index: 50;
+    }
+    .verso-close-btn:hover {
+      background: rgba(0, 0, 0, 0.12);
+      color: #0F172A;
+      transform: scale(1.05);
+    }
+
+    /* Fixed Left & Right Halves */
+    .verso-form-pane {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      padding: 2.75rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-color: var(--verso-cream) !important;
+      color: #0F172A !important;
+      transition: all 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+      z-index: 5;
+    }
+
+    .verso-form-pane-left {
+      left: 0;
+      padding-right: 2.75rem;
+      padding-left: 2.75rem;
+    }
+
+    .verso-form-pane-right {
+      right: 0;
+      padding-left: 3.25rem;
+      padding-right: 2.75rem;
+    }
+
+    /* Headings, labels, and text colors inside Form Panes */
+    .verso-form-pane h2,
+    .verso-auth-container h2 {
+      color: #0F172A !important;
+      font-weight: 700 !important;
+    }
+
+    .verso-form-pane label,
+    .verso-auth-container label,
+    .verso-auth-container label span {
+      color: #334155 !important;
+      font-weight: 600 !important;
+    }
+
+    /* Form Fields - Underline Luxury Style */
+    .verso-field-wrap {
+      position: relative;
+      margin-bottom: 1.25rem;
+    }
+
+    .verso-field-input {
+      width: 100% !important;
+      background: transparent !important;
+      border: none !important;
+      border-bottom: 1.5px solid #CBD5E1 !important;
+      border-radius: 0 !important;
+      padding: 0.65rem 2rem 0.65rem 0.1rem !important;
+      font-size: 0.875rem !important;
+      font-weight: 600 !important;
+      color: #0F172A !important;
+      outline: none !important;
+      box-shadow: none !important;
+      transition: all 0.25s ease !important;
+      font-family: inherit;
+    }
+
+    .verso-field-input:focus {
+      background: transparent !important;
+      border: none !important;
+      border-bottom: 1.5px solid var(--verso-gold) !important;
+      box-shadow: 0 1.5px 0 0 var(--verso-gold) !important;
+      outline: none !important;
+      color: #0F172A !important;
+    }
+
+    .verso-field-input::placeholder {
+      color: #94A3B8 !important;
+      font-weight: 500 !important;
+    }
+
+    .verso-field-icon {
+      position: absolute;
+      right: 0.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Luxury Forest Green CTA Button */
+    .verso-btn-cta {
+      background: linear-gradient(135deg, #0E352B 0%, #154539 100%);
+      color: #FFFFFF !important;
+      border-radius: 9999px;
+      padding: 0.8rem 1.75rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      box-shadow: 0 6px 18px -2px rgba(14, 53, 43, 0.4);
+      transition: all 0.2s ease;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      width: 100%;
+    }
+
+    .verso-btn-cta:hover {
+      filter: brightness(1.15);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px -3px rgba(14, 53, 43, 0.55);
+    }
+
+    /* Fixed Clean Google Button */
+    .verso-btn-google {
+      width: 100%;
+      height: 44px;
+      background: #FFFFFF !important;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: #1F2937 !important;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      transition: all 0.2s ease;
+      cursor: pointer;
+      padding: 0 1rem;
+    }
+
+    .verso-btn-google:hover {
+      background: #F8FAFC !important;
+      border-color: #94A3B8;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .verso-btn-google svg {
+      width: 18px !important;
+      height: 18px !important;
+      min-width: 18px !important;
+      min-height: 18px !important;
+      display: inline-block !important;
+      flex-shrink: 0 !important;
+    }
+
+    /* Segmented OTP 6-Digit Boxes */
+    .verso-otp-card {
+      width: 44px !important;
+      height: 52px !important;
+      text-align: center !important;
+      font-family: 'JetBrains Mono', monospace !important;
+      font-size: 1.35rem !important;
+      font-weight: 700 !important;
+      border-radius: 12px !important;
+      border: 1.5px solid #CBD5E1 !important;
+      background: #FFFFFF !important;
+      color: #0F172A !important;
+      outline: none !important;
+      transition: all 0.2s ease !important;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03) !important;
+    }
+
+    .verso-otp-card:focus {
+      border-color: var(--verso-gold) !important;
+      box-shadow: 0 0 0 3px rgba(200, 155, 83, 0.25) !important;
+      background: #FFFFFF !important;
+      color: #0F172A !important;
+      outline: none !important;
+    }
+
+    /* Checkbox Styling inside Verso Auth */
+    .verso-auth-container input[type="checkbox"] {
+      width: 15px !important;
+      height: 15px !important;
+      accent-color: #0E352B !important;
+      cursor: pointer !important;
+    }
+
+    .verso-auth-container .bg-\[\#FAF8F4\] {
+      background-color: #FAF8F4 !important;
+    }
+
+    /* THE SKEWED SLIDING BLADE OVERLAY (True Verso Geometry: Slants from top-left to bottom-right \) */
+    .verso-blade-slider {
+      position: absolute;
+      top: -15%;
+      bottom: -15%;
+      width: 58%;
+      left: 50%;
+      background: linear-gradient(150deg, var(--verso-green-dark) 0%, var(--verso-green-mid) 50%, var(--verso-green-light) 100%);
+      transform-origin: center center;
+      transform: skewX(9.5deg) translateX(0%);
+      transition: transform 0.75s cubic-bezier(0.77, 0, 0.175, 1);
+      overflow: hidden;
+      z-index: 20;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Blade state when Sign Up is active */
+    .verso-auth-container[data-state="signup"] .verso-blade-slider {
+      transform: skewX(9.5deg) translateX(-100%);
+    }
+
+    /* Golden Edge Seams on Blade (Lead on left edge, Trail on right edge) */
+    .verso-blade-gold-seam {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 2.5px;
+      background: linear-gradient(to bottom, 
+        rgba(200, 155, 83, 0.1) 0%, 
+        rgba(245, 215, 154, 0.95) 25%, 
+        #FFFFFF 50%, 
+        rgba(225, 180, 107, 0.95) 75%, 
+        rgba(200, 155, 83, 0.1) 100%
+      );
+      box-shadow: 
+        0 0 14px 1px rgba(225, 180, 107, 0.85), 
+        0 0 4px #FFFFFF,
+        -5px 0 24px rgba(200, 155, 83, 0.45);
+      z-index: 25;
+      pointer-events: none;
+    }
+
+    .verso-blade-gold-seam-lead {
+      left: 0;
+    }
+
+    .verso-blade-gold-seam-trail {
+      right: 0;
+      box-shadow: 
+        0 0 14px 1px rgba(225, 180, 107, 0.85), 
+        0 0 4px #FFFFFF,
+        5px 0 24px rgba(200, 155, 83, 0.45);
+    }
+
+    /* Counter-Skew for Blade Content so typography is 100% upright */
+    .verso-blade-content-box {
+      position: absolute;
+      inset: 15% 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transform: skewX(-9.5deg);
+    }
+
+    /* Slide Content inside Blade */
+    .verso-blade-msg {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: opacity 0.45s ease 0.15s, transform 0.45s ease 0.15s;
+    }
+
+    /* When Blade is on Right (Sign In & OTP): Content sits inside visible card area */
+    .verso-blade-msg-signin,
+    .verso-blade-msg-otp {
+      padding: 3rem calc(8% + 2.5rem) 3rem 3.75rem;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(16px);
+    }
+
+    /* When Blade is on Left (Sign Up): Offsets the -8% translation for generous left breathing room */
+    .verso-blade-msg-signup {
+      padding: 3rem 3.5rem 3rem calc(8% + 3.8rem);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(16px);
+    }
+
+    .verso-auth-container[data-state="signin"] .verso-blade-msg-signin {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .verso-auth-container[data-state="otp"] .verso-blade-msg-otp {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .verso-auth-container[data-state="signup"] .verso-blade-msg-signup {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    /* Form Visibility within Form Panes */
+    .verso-subform {
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .verso-subform-hidden {
+      display: none !important;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px);
+    }
+
+    .verso-subform-visible {
+      display: block !important;
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    /* Switch links */
+    .verso-link-action {
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      color: #0F172A;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .verso-link-action:hover {
+      color: var(--verso-gold-dark);
+    }
+
+    /* Mobile Responsive Graceful Degradation */
+    @media (max-width: 768px) {
+      .verso-auth-container {
+        max-width: 440px !important;
+        min-height: auto !important;
+        display: block !important;
+        border-radius: 24px !important;
+      }
+      .verso-form-pane {
+        position: relative !important;
+        width: 100% !important;
+        padding: 2.5rem 1.5rem !important;
+      }
+      .verso-form-pane-left {
+        display: block !important;
+      }
+      .verso-form-pane-right {
+        display: none !important;
+      }
+      .verso-auth-container[data-state="signup"] .verso-form-pane-left {
+        display: none !important;
+      }
+      .verso-auth-container[data-state="signup"] .verso-form-pane-right {
+        display: block !important;
+      }
+      .verso-blade-slider {
+        display: none !important;
+      }
     }
 
   </style>
@@ -23562,40 +23930,82 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
       }
     }
 
-    function openGoogleSignInDialog() {
-      const gUser = getGoogleAuthUser();
-      const emailInput = document.getElementById('g-signin-email');
-      const nameInput = document.getElementById('g-signin-name');
-      const ownerEmail = getOwnerGoogleEmail();
-      if (emailInput) emailInput.value = ownerEmail;
-      if (nameInput) nameInput.value = gUser ? gUser.name : (getBrandName() || 'Shop Owner');
+    function switchVersoMode(mode) {
+      const card = document.getElementById('auth-main-card');
+      if (card) card.setAttribute('data-state', mode);
 
-      // Update quick account preview on landing card
-      const quickEmailEl = document.getElementById('google-quick-email');
-      const quickAvatarEl = document.getElementById('google-quick-avatar');
-      const quickSubEl = document.getElementById('google-quick-sub');
-      const shop = getShopSettings();
-      const shopName = shop.name || shop.shopName || 'SELAISATHI TAILORS';
-      if (quickEmailEl) quickEmailEl.textContent = ownerEmail;
-      if (quickAvatarEl) {
-        const photoUrl = getOwnerCustomPhoto();
-        if (photoUrl) {
-          quickAvatarEl.innerHTML = '<img src="' + photoUrl + '" alt="Avatar" class="w-full h-full object-cover rounded-full" />';
-        } else {
-          const initial = (shopName[0] || ownerEmail[0] || 'M').toUpperCase();
-          quickAvatarEl.textContent = initial;
+      const viewSignin = document.getElementById('verso-view-signin');
+      const viewOtp = document.getElementById('verso-view-otp');
+
+      if (mode === 'signin') {
+        if (viewSignin) {
+          viewSignin.classList.remove('verso-subform-hidden');
+          viewSignin.classList.add('verso-subform-visible');
+        }
+        if (viewOtp) {
+          viewOtp.classList.add('verso-subform-hidden');
+          viewOtp.classList.remove('verso-subform-visible');
+        }
+      } else if (mode === 'otp') {
+        if (viewSignin) {
+          viewSignin.classList.add('verso-subform-hidden');
+          viewSignin.classList.remove('verso-subform-visible');
+        }
+        if (viewOtp) {
+          viewOtp.classList.remove('verso-subform-hidden');
+          viewOtp.classList.add('verso-subform-visible');
         }
       }
-      if (quickSubEl) quickSubEl.textContent = shopName + ' • ' + (currentLang === 'bn' ? 'মালিক' : 'Owner');
+    }
 
-      switchAuthStep('landing');
+    function switchAuthStep(step) {
+      if (step === 'otp') {
+        switchVersoMode('otp');
+      } else if (step === 'signup') {
+        switchVersoMode('signup');
+      } else {
+        switchVersoMode('signin');
+      }
+    }
+
+    function openGoogleSignInDialog() {
+      const emailInput = document.getElementById('g-signin-email');
+      const ownerEmail = getOwnerGoogleEmail() || 'sciencefiction844@gmail.com';
+      if (emailInput) emailInput.value = ownerEmail;
+
+      switchVersoMode('signin');
       document.getElementById('modal-google-signin')?.classList.remove('hidden');
     }
 
     function closeGoogleSignInDialog() {
       if (window._googleOtpTimer) clearInterval(window._googleOtpTimer);
-      switchAuthStep('landing');
+      switchVersoMode('signin');
       document.getElementById('modal-google-signin')?.classList.add('hidden');
+    }
+
+    function continueWithGoogleQuickAuth() {
+      const email = getOwnerGoogleEmail() || 'sciencefiction844@gmail.com';
+      const shop = getShopSettings();
+      const name = localStorage.getItem('selaisathi_owner_name') || shop.ownerName || 'Shop Owner';
+      selectGoogleAccountForOtp(email, name);
+    }
+
+    function submitVersoSignUp(event) {
+      if (event) event.preventDefault();
+      const name = document.getElementById('verso-signup-name')?.value.trim() || 'Tailor Master';
+      const email = document.getElementById('verso-signup-email')?.value.trim();
+      if (!email || !email.includes('@')) {
+        CyberDialog.alert(currentLang === 'bn' ? 'অনুগ্রহ করে একটি বৈধ ইমেইল এড্রেস প্রদান করুন।' : 'Please enter a valid email address.', { icon: '⚠️', title: currentLang === 'bn' ? 'INVALID EMAIL • ভুল ইমেইল' : 'INVALID EMAIL' });
+        return;
+      }
+      localStorage.setItem('selaisathi_owner_name', name);
+      selectGoogleAccountForOtp(email, name);
+    }
+
+    function toggleVersoPasswordVisibility(inputId) {
+      const inp = document.getElementById(inputId);
+      if (!inp) return;
+      inp.type = inp.type === 'password' ? 'text' : 'password';
     }
 
     function toggleEmailSignInForm() {
@@ -25487,154 +25897,290 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
     </div>
   </div>
 
-  <!-- Google Sign-in Interactive Dialog Modal (Google Workspace Native Style) -->
-  <div id="modal-google-signin" onclick="if(event.target === this) closeGoogleSignInDialog()" class="hidden fixed inset-0 z-[95] bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="selaisathi-auth-card max-w-sm w-full p-6 sm:p-7 space-y-5 rounded-3xl relative text-left overflow-hidden">
+  <!-- ======================================================== -->
+  <!-- 🌟 SELAISATHI VERSO LUXURY AUTH & OTP SYSTEM (MODAL)    -->
+  <!-- ======================================================== -->
+  <div id="modal-google-signin" onclick="if(event.target === this) closeGoogleSignInDialog()" class="hidden fixed inset-0 z-[100000] flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    
+    <!-- Main Verso Dual-Pane Card -->
+    <div id="auth-main-card" class="verso-auth-container" data-state="signin">
       
-      <!-- Close Button (Top Right, only visible on Step 1) -->
-      <button type="button" id="auth-modal-close-btn" onclick="closeGoogleSignInDialog()" class="absolute right-4 top-4 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white flex items-center justify-center text-xs transition-colors cursor-pointer z-20" title="Close">
+      <!-- Close Button (Top Right) -->
+      <button type="button" onclick="closeGoogleSignInDialog()" class="verso-close-btn" title="Close">
         ✕
       </button>
 
-      <!-- ============================================== -->
-      <!-- STEP 1: MAIN LANDING VIEW                      -->
-      <!-- ============================================== -->
-      <div id="auth-step-landing" class="space-y-5 relative z-10">
+      <!-- ======================================================== -->
+      <!-- LEFT PANE: HOSTS SIGN-IN AND OTP VERIFICATION            -->
+      <!-- ======================================================== -->
+      <div class="verso-form-pane verso-form-pane-left">
         
-        <!-- Google Brand Header -->
-        <div class="space-y-1 pt-1">
-          <svg class="w-7 h-7" viewBox="0 0 24 24">
-            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-          </svg>
-          <h2 class="text-xl sm:text-2xl font-normal text-white">Sign in</h2>
-          <p class="text-xs text-slate-400">to continue to <span class="text-blue-400 font-medium">SelaiSathi Cloud</span></p>
-        </div>
+        <!-- SUBFORM A: SIGN IN -->
+        <div id="verso-view-signin" class="verso-subform verso-subform-visible">
+          
+          <!-- Minimalist Header -->
+          <div class="mb-6">
+            <span class="text-[10px] font-mono tracking-[0.25em] text-[#C89B53] font-semibold uppercase block mb-1">SELAISATHI</span>
+            <h2 class="verso-serif text-3xl font-normal text-[#0F172A] tracking-tight">Sign in</h2>
+            <div class="w-6 h-0.5 bg-[#C89B53] rounded-full mt-2"></div>
+          </div>
 
-        <!-- 1-Click Continue as Primary Owner Card -->
-        <div onclick="openGoogleAccountPicker()" class="p-3 rounded-full bg-[#2a2b2e] hover:bg-[#333538] border border-[#444746] transition-all cursor-pointer flex items-center justify-between gap-3 px-3.5 group">
-          <div class="flex items-center gap-3 min-w-0">
-            <div class="w-8 h-8 rounded-full bg-emerald-700 text-white font-bold flex items-center justify-center text-xs shrink-0" id="google-quick-avatar">
-              M
+          <form onsubmit="submitGoogleSignIn(event)">
+            
+            <!-- Email / Username -->
+            <div class="verso-field-wrap">
+              <input type="text" id="g-signin-email" class="verso-field-input" placeholder="Username or email" required value="sciencefiction844@gmail.com">
+              <input type="hidden" id="g-signin-name" value="Shop Owner">
+              <span class="verso-field-icon">
+                <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                </svg>
+              </span>
             </div>
-            <div class="min-w-0">
-              <div class="text-xs font-medium text-white truncate" id="google-quick-email">sciencefiction844@gmail.com</div>
-              <div class="text-[10px] text-slate-400 truncate" id="google-quick-sub">Primary Shop Owner</div>
+
+            <!-- Password -->
+            <div class="verso-field-wrap">
+              <input type="password" id="g-signin-password" class="verso-field-input" placeholder="Password" value="••••••••••••">
+              <span class="verso-field-icon cursor-pointer" onclick="toggleVersoPasswordVisibility('g-signin-password')">
+                <svg class="w-4 h-4 text-slate-400 hover:text-[#C89B53] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                </svg>
+              </span>
+            </div>
+
+            <!-- Keep me signed in & Forgot password -->
+            <div class="flex items-center justify-between text-xs mb-5 pt-1">
+              <label class="flex items-center gap-2 text-[#475569] font-medium cursor-pointer select-none">
+                <input type="checkbox" checked class="w-3.5 h-3.5 rounded text-[#0E352B] accent-[#0E352B]">
+                <span>Keep me signed in</span>
+              </label>
+              <a href="#" onclick="event.preventDefault(); switchVersoMode('otp');" class="text-[#9A6B25] font-semibold hover:underline">
+                Forgot password?
+              </a>
+            </div>
+
+            <!-- Primary Sign In Action Button -->
+            <div class="mb-4">
+              <button type="submit" class="verso-btn-cta">
+                <span>Sign in</span>
+              </button>
+            </div>
+
+            <!-- Divider -->
+            <div class="relative flex items-center justify-center my-3">
+              <div class="border-t border-[#CBD5E1] w-full"></div>
+              <span class="bg-[#FAF8F4] px-3 text-[11px] text-[#64748B] font-medium">or continue with</span>
+            </div>
+
+            <!-- Official Google Button -->
+            <div class="mb-5">
+              <button type="button" onclick="continueWithGoogleQuickAuth()" class="verso-btn-google">
+                <svg viewBox="0 0 24 24">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                </svg>
+                <span>Continue with Google</span>
+              </button>
+            </div>
+
+            <!-- Switch to Sign Up -->
+            <p class="text-xs text-[#475569] font-medium text-center">
+              New to SelaiSathi? <span onclick="switchVersoMode('signup')" class="verso-link-action">Create an account</span>
+            </p>
+
+          </form>
+
+        </div>
+
+        <!-- SUBFORM B: OTP VERIFICATION -->
+        <div id="verso-view-otp" class="verso-subform verso-subform-hidden">
+          
+          <!-- Header -->
+          <div class="mb-5">
+            <span class="text-[10px] font-mono tracking-[0.25em] text-[#C89B53] font-semibold uppercase block mb-1">SELAISATHI</span>
+            <h2 class="verso-serif text-3xl font-normal text-[#0F172A] tracking-tight">Enter OTP Code</h2>
+            <div class="w-6 h-0.5 bg-[#C89B53] rounded-full mt-2"></div>
+          </div>
+
+          <!-- Recipient Note -->
+          <div class="mb-5 flex items-center gap-2 text-xs text-[#64748B]">
+            <svg class="w-4 h-4 text-[#C89B53] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+            <span>Code sent to <b class="text-[#0F172A] font-medium" id="google-otp-target-email">sciencefiction844@gmail.com</b></span>
+          </div>
+
+          <!-- Hidden single input for paste compatibility -->
+          <input type="hidden" id="gotp-single" value="" />
+
+          <!-- 6 Segmented OTP Boxes (Linked to gotp-1..6) -->
+          <div class="mb-5">
+            <div class="flex items-center justify-between gap-1.5 sm:gap-2">
+              <input type="text" maxlength="1" id="gotp-1" class="verso-otp-card" autocomplete="off">
+              <input type="text" maxlength="1" id="gotp-2" class="verso-otp-card" autocomplete="off">
+              <input type="text" maxlength="1" id="gotp-3" class="verso-otp-card" autocomplete="off">
+              <input type="text" maxlength="1" id="gotp-4" class="verso-otp-card" autocomplete="off">
+              <input type="text" maxlength="1" id="gotp-5" class="verso-otp-card" autocomplete="off">
+              <input type="text" maxlength="1" id="gotp-6" class="verso-otp-card" autocomplete="off">
             </div>
           </div>
-          <span class="text-xs text-blue-400 font-medium group-hover:translate-x-0.5 transition-transform">Next →</span>
-        </div>
 
-        <!-- Divider -->
-        <div class="relative flex items-center justify-center my-1">
-          <div class="border-t border-[#3c4043] w-full"></div>
-          <span class="bg-[#1e1f20] px-3 text-[11px] text-slate-500">or sign in with email</span>
-        </div>
-
-        <!-- Email Input Form -->
-        <form onsubmit="submitGoogleSignIn(event)" class="space-y-3">
-          <div class="relative">
-            <input type="email" id="g-signin-email" required placeholder="Email or phone" class="w-full h-11 px-3.5 rounded-lg bg-transparent border border-[#5f6368] text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 transition-colors" />
-            <input type="hidden" id="g-signin-name" value="" />
-          </div>
-          <div class="flex items-center justify-between pt-1">
-            <button type="button" onclick="showAuthHelpDialog()" class="text-xs text-blue-400 hover:underline cursor-pointer">
-              Forgot email or need help?
-            </button>
-            <button type="submit" class="px-5 py-2 rounded-full bg-blue-500 hover:bg-blue-400 text-slate-950 font-bold text-xs transition-colors cursor-pointer shadow-sm">
-              Next
-            </button>
-          </div>
-        </form>
-
-        <!-- Footer (Secure Login - No Public Cloud Config Button) -->
-        <div class="pt-2 border-t border-[#3c4043] flex items-center justify-between text-xs text-slate-500">
-          <span class="text-[11px] text-slate-500 flex items-center gap-1.5">
-            <span>🔒</span> <span>256-bit Encrypted Cloud Vault</span>
-          </span>
-          <button type="button" onclick="showAuthHelpDialog()" class="text-xs text-blue-400 hover:underline cursor-pointer">
-            Need Help?
-          </button>
-        </div>
-
-      </div>
-
-      <!-- ============================================== -->
-      <!-- STEP 2: GOOGLE ID ACCOUNT SELECTOR             -->
-      <!-- ============================================== -->
-      <div id="auth-step-picker" class="hidden space-y-4 pt-1 relative z-10 text-left">
-        <div class="space-y-1">
-          <h3 class="text-lg font-normal text-white">Choose an account</h3>
-          <p class="text-xs text-slate-400">to continue to SelaiSathi</p>
-        </div>
-
-        <div class="divide-y divide-[#3c4043] border-y border-[#3c4043]">
-          <div id="google-account-list">
-            <!-- Populated dynamically via renderGoogleAccountPicker() -->
-          </div>
-          <div onclick="toggleCustomGoogleInput()" class="py-3 px-2 flex items-center gap-3 hover:bg-[#2a2b2e] cursor-pointer rounded-lg transition-colors text-xs text-slate-300">
-            <div class="w-8 h-8 rounded-full border border-[#5f6368] flex items-center justify-center text-slate-400 text-xs">👤</div>
-            <span>Use another account</span>
-          </div>
-        </div>
-
-        <!-- Hidden input for custom Google email -->
-        <div id="custom-google-input-box" class="hidden p-3 rounded-xl bg-[#2a2b2e] border border-[#5f6368] space-y-2.5">
-          <input type="email" id="custom-picker-email" placeholder="owner@gmail.com" class="w-full bg-[#1e1f20] border border-[#5f6368] focus:border-blue-400 rounded-lg px-3 py-2 text-xs text-white outline-none" />
-          <div class="flex items-center gap-2">
-            <button type="button" onclick="submitCustomPickerAccount()" class="px-4 py-1.5 rounded-full text-xs font-bold bg-blue-500 hover:bg-blue-400 text-slate-950 transition-colors cursor-pointer">Next</button>
-            <button type="button" onclick="toggleCustomGoogleInput()" class="px-3 py-1.5 rounded-full text-xs text-slate-400 hover:text-white transition-colors cursor-pointer">Cancel</button>
-          </div>
-        </div>
-
-        <div class="pt-1">
-          <button type="button" onclick="switchAuthStep('landing')" class="text-xs text-blue-400 hover:underline cursor-pointer">← Back</button>
-        </div>
-      </div>
-
-      <!-- ============================================== -->
-      <!-- STEP 3: GOOGLE OTP VERIFICATION               -->
-      <!-- ============================================== -->
-      <div id="auth-step-otp" class="hidden space-y-4 pt-1 relative z-10 text-left">
-        <div class="space-y-1">
-          <h3 class="text-lg font-normal text-white">2-Step Verification</h3>
-          <p class="text-xs text-slate-400">A verification code was sent to your email.</p>
-        </div>
-
-        <div class="pt-2">
-          <input type="text" maxlength="6" id="gotp-single" placeholder="Enter 6-digit code" class="w-full h-11 px-3.5 rounded-lg bg-transparent border border-[#5f6368] text-center font-mono text-lg font-bold text-white placeholder-slate-600 focus:outline-none focus:border-blue-400" />
-        </div>
-
-        <!-- Emergency / Backup OTP Card (revealed on 'Try another way' or delayed delivery) -->
-        <div id="gotp-backup-card" class="hidden p-3 rounded-xl bg-[#2a2b2e] border border-[#444746] text-center space-y-2">
-          <div id="gotp-backup-reason" class="text-xs text-slate-300">
-            ইমেইল না পেলে ব্যাকআপ কোড ব্যবহার করুন:
-          </div>
-          <div class="flex items-center justify-center gap-2">
-            <span id="gotp-backup-val" class="px-3.5 py-1.5 rounded-lg bg-[#1e1f20] border border-[#5f6368] text-blue-400 font-mono font-bold text-base tracking-widest">
-              ------
+          <!-- Resend Timer Row -->
+          <div class="flex items-center justify-between text-xs mb-5 px-0.5">
+            <span class="text-[#64748B] font-medium flex items-center gap-1.5" id="gotp-timer-label">
+              <svg class="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <span>Resend in <strong class="text-[#0F172A] font-mono font-bold" id="gotp-seconds">45s</strong></span>
             </span>
-            <button type="button" onclick="autoFillGoogleOtp()" class="px-3.5 py-1.5 rounded-full bg-blue-500 hover:bg-blue-400 text-slate-950 font-bold text-xs cursor-pointer shadow-sm active:scale-95 transition-all">
-              অটো-ফিল
+            <button type="button" id="gotp-btn-resend" onclick="resendGoogleOtp()" class="text-[#9A6B25] font-semibold hover:underline cursor-pointer hidden">
+              Resend Code
             </button>
           </div>
-          <div class="pt-1 text-center">
-            <button type="button" onclick="switchAuthStep('picker')" class="text-[11px] text-blue-400 hover:underline cursor-pointer">
-              ← অন্য অ্যাকাউন্ট নির্বাচন করুন
+
+          <!-- Backup OTP Reveal Card (revealed when user clicks backup code) -->
+          <div id="gotp-backup-card" class="hidden mb-4 p-2.5 rounded-xl bg-[#F1EFEA] border border-[#CBD5E1] text-center space-y-1.5 text-xs text-[#334155]">
+            <div class="text-[11px] text-[#64748B]">ইমেইল না পেলে ব্যাকআপ কোড ব্যবহার করুন:</div>
+            <div class="flex items-center justify-center gap-2">
+              <span id="gotp-backup-val" class="font-mono font-bold text-sm tracking-widest text-[#0E352B] bg-white px-3 py-1 rounded-lg border border-[#CBD5E1]">------</span>
+              <button type="button" onclick="autoFillGoogleOtp()" class="px-3 py-1 rounded-full bg-[#0E352B] text-white text-[11px] font-bold cursor-pointer hover:brightness-110">অটো-ফিল</button>
+            </div>
+          </div>
+
+          <!-- Primary Action -->
+          <div class="mb-4">
+            <button type="button" onclick="verifyGoogleOtpAndLogin()" class="verso-btn-cta">
+              <span>Verify code</span>
             </button>
           </div>
+
+          <!-- Footer Links -->
+          <div class="flex items-center justify-between text-xs pt-1 px-0.5">
+            <span onclick="switchVersoMode('signin')" class="verso-link-action text-[#475569]">
+              ← Back to Sign in
+            </span>
+            <span onclick="revealBackupOtp()" class="text-[#9A6B25] font-semibold hover:underline cursor-pointer">
+              Backup code?
+            </span>
+          </div>
+
         </div>
 
-        <div class="flex justify-between items-center pt-2">
-          <button type="button" onclick="revealBackupOtp()" class="text-xs text-blue-400 hover:underline cursor-pointer">
-            Try another way
-          </button>
-          <button type="button" onclick="verifyGoogleOtpAndLogin()" class="px-5 py-2 rounded-full bg-blue-500 hover:bg-blue-400 text-slate-950 font-bold text-xs transition-colors cursor-pointer shadow-sm">
-            Verify
-          </button>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- RIGHT PANE: HOSTS SIGN-UP / CREATE ACCOUNT FORM          -->
+      <!-- ======================================================== -->
+      <div class="verso-form-pane verso-form-pane-right">
+        
+        <!-- SUBFORM C: CREATE ACCOUNT -->
+        <div id="verso-view-signup" class="verso-subform verso-subform-visible">
+          
+          <!-- Minimalist Header -->
+          <div class="mb-6">
+            <span class="text-[10px] font-mono tracking-[0.25em] text-[#C89B53] font-semibold uppercase block mb-1">SELAISATHI</span>
+            <h2 class="verso-serif text-3xl font-normal text-[#0F172A] tracking-tight">Create account</h2>
+            <div class="w-6 h-0.5 bg-[#C89B53] rounded-full mt-2"></div>
+          </div>
+
+          <form onsubmit="submitVersoSignUp(event)">
+            
+            <div class="verso-field-wrap">
+              <input type="text" id="verso-signup-name" class="verso-field-input" placeholder="Full name" required>
+              <span class="verso-field-icon">
+                <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                </svg>
+              </span>
+            </div>
+
+            <div class="verso-field-wrap">
+              <input type="email" id="verso-signup-email" class="verso-field-input" placeholder="Email address" required>
+              <span class="verso-field-icon">
+                <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+              </span>
+            </div>
+
+            <div class="verso-field-wrap mb-1">
+              <input type="password" id="verso-signup-password" class="verso-field-input" placeholder="Password" required>
+              <span class="verso-field-icon cursor-pointer" onclick="toggleVersoPasswordVisibility('verso-signup-password')">
+                <svg class="w-4 h-4 text-slate-400 hover:text-[#C89B53] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                </svg>
+              </span>
+            </div>
+            <p class="text-[11px] text-[#64748B] font-light mb-6">Use 8 characters or more.</p>
+
+            <!-- Primary CTA Button -->
+            <div class="mb-4">
+              <button type="submit" class="verso-btn-cta">
+                <span>Create account</span>
+              </button>
+            </div>
+
+            <!-- Switch to Sign In -->
+            <p class="text-xs text-[#475569] font-medium text-center">
+              Already have an account? <span onclick="switchVersoMode('signin')" class="verso-link-action">Sign in</span>
+            </p>
+
+          </form>
+
         </div>
+
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- THE SKEWED SLIDING BLADE OVERLAY (True Verso Geometry)   -->
+      <!-- ======================================================== -->
+      <div class="verso-blade-slider">
+        
+        <!-- Golden Glowing Edge Seams (Lead on left, Trail on right) -->
+        <div class="verso-blade-gold-seam verso-blade-gold-seam-lead"></div>
+        <div class="verso-blade-gold-seam verso-blade-gold-seam-trail"></div>
+
+        <!-- Upright Typography Box -->
+        <div class="verso-blade-content-box">
+          
+          <!-- 1. Welcome Back Slide (Sign In State) -->
+          <div class="verso-blade-msg verso-blade-msg-signin">
+            <span class="text-[11px] font-mono tracking-[0.3em] text-[#C89B53] uppercase font-semibold mb-3">SELAISATHI</span>
+            <h1 class="verso-serif text-4xl sm:text-5xl font-normal text-[#FAF8F4] leading-[1.12] mb-4">
+              Welcome <br><em class="italic text-[#EAD8B8] font-normal">back.</em>
+            </h1>
+            <p class="text-xs sm:text-sm text-[#A8BDB5] leading-relaxed max-w-[270px] font-light">
+              Your orders, customer measurements and fabric stock are exactly where you left them.
+            </p>
+          </div>
+
+          <!-- 2. Protect Workshop Slide (OTP State) -->
+          <div class="verso-blade-msg verso-blade-msg-otp">
+            <span class="text-[11px] font-mono tracking-[0.3em] text-[#C89B53] uppercase font-semibold mb-3">SELAISATHI</span>
+            <h1 class="verso-serif text-4xl sm:text-5xl font-normal text-[#FAF8F4] leading-[1.12] mb-4">
+              Protect your <br><em class="italic text-[#EAD8B8] font-normal">workshop.</em>
+            </h1>
+            <p class="text-xs sm:text-sm text-[#A8BDB5] leading-relaxed max-w-[270px] font-light">
+              Instant 256-bit encrypted verification keeps your shop financials, customer data and designs safe.
+            </p>
+          </div>
+
+          <!-- 3. Start First Page Slide (Sign Up State) -->
+          <div class="verso-blade-msg verso-blade-msg-signup">
+            <span class="text-[11px] font-mono tracking-[0.3em] text-[#C89B53] uppercase font-semibold mb-3">SELAISATHI</span>
+            <h1 class="verso-serif text-4xl sm:text-5xl font-normal text-[#FAF8F4] leading-[1.12] mb-4">
+              Start the <br><em class="italic text-[#EAD8B8] font-normal">first page.</em>
+            </h1>
+            <p class="text-xs sm:text-sm text-[#A8BDB5] leading-relaxed max-w-[270px] font-light">
+              One account for every tailor order, every customer measurement and every device you own.
+            </p>
+          </div>
+
+        </div>
+
       </div>
 
     </div>

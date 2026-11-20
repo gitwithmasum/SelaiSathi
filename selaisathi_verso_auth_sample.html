@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SelaiSathi — Perfected VERSO Auth & OTP System</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Playfair Display, Inter, JetBrains Mono, Monoton -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Monoton&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --card-w: 880px;
+      --card-h: 560px;
+      --color-green-dark: #071F1A;
+      --color-green-mid: #0E352B;
+      --color-green-light: #184D40;
+      --color-gold: #C89B53;
+      --color-gold-dark: #A1762F;
+      --color-cream: #FAF8F4;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: radial-gradient(circle at 50% 15%, #0c2b23 0%, #061713 55%, #020806 100%);
+      color: #E2E8F0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      overflow-x: hidden;
+    }
+
+    .serif-heading {
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+
+    .font-monoton {
+      font-family: 'Monoton', cursive;
+    }
+
+    /* Top Control Bar */
+    .control-bar {
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 0.4rem 0.8rem;
+      border-radius: 9999px;
+      backdrop-blur: 12px;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
+    }
+
+    .control-tab-btn {
+      padding: 0.4rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .control-tab-btn.active {
+      background: #10B981;
+      color: #042017;
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+    }
+
+    .control-tab-btn:not(.active) {
+      color: #94A3B8;
+      background: transparent;
+    }
+
+    .control-tab-btn:not(.active):hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #FFFFFF;
+    }
+
+    /* Main Container Card */
+    .auth-container {
+      position: relative;
+      width: 100%;
+      max-width: var(--card-w);
+      min-height: var(--card-h);
+      background-color: var(--color-cream);
+      border-radius: 32px;
+      box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      display: flex;
+    }
+
+    /* Fixed Left & Right Halves */
+    .form-pane {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      padding: 2.75rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-color: var(--color-cream);
+      color: #0F172A !important;
+      transition: all 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+      z-index: 5;
+    }
+
+    .form-pane-left {
+      left: 0;
+      padding-right: 2.75rem;
+      padding-left: 2.75rem;
+    }
+
+    .form-pane-right {
+      right: 0;
+      padding-left: 3.25rem;
+      padding-right: 2.75rem;
+    }
+
+    /* Text Colors inside Form Panes (High Contrast, Bold, Crisp) */
+    .form-pane h2 {
+      color: #0F172A !important;
+      font-weight: 700 !important;
+    }
+
+    .form-pane label {
+      color: #334155 !important;
+      font-weight: 600 !important;
+    }
+
+    .form-pane input {
+      color: #0F172A !important;
+    }
+
+    .form-pane input::placeholder {
+      color: #94A3B8 !important;
+    }
+
+    /* Form Fields - Underline Luxury Style */
+    .field-wrap {
+      position: relative;
+      margin-bottom: 1.35rem;
+    }
+
+    .field-underline-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1.5px solid #CBD5E1;
+      padding: 0.65rem 2rem 0.65rem 0.2rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #0F172A !important;
+      outline: none;
+      transition: all 0.25s ease;
+    }
+
+    .field-underline-input:focus {
+      border-bottom-color: var(--color-gold);
+      box-shadow: 0 1.5px 0 0 var(--color-gold);
+    }
+
+    .field-icon-glyph {
+      position: absolute;
+      right: 0.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94A3B8;
+      pointer-events: none;
+      font-size: 0.95rem;
+    }
+
+    /* Luxury Forest Green CTA Button */
+    .btn-verso-cta {
+      background: linear-gradient(135deg, #0E352B 0%, #154539 100%);
+      color: #FFFFFF !important;
+      border-radius: 9999px;
+      padding: 0.8rem 1.75rem;
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      box-shadow: 0 6px 18px -2px rgba(14, 53, 43, 0.4);
+      transition: all 0.2s ease;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-verso-cta:hover {
+      filter: brightness(1.15);
+      transform: translateY(-1.5px);
+      box-shadow: 0 10px 22px -3px rgba(14, 53, 43, 0.55);
+    }
+
+    .btn-verso-cta:active {
+      transform: translateY(0);
+    }
+
+    /* Fixed Clean Google Button */
+    .btn-google-official {
+      width: 100%;
+      height: 44px;
+      background: #FFFFFF !important;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: #1F2937 !important;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      transition: all 0.2s ease;
+      cursor: pointer;
+      padding: 0 1rem;
+    }
+
+    .btn-google-official:hover {
+      background: #F8FAFC !important;
+      border-color: #94A3B8;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .btn-google-official svg {
+      width: 18px !important;
+      height: 18px !important;
+      min-width: 18px !important;
+      min-height: 18px !important;
+      display: inline-block !important;
+      flex-shrink: 0 !important;
+    }
+
+    /* Segmented OTP 6-Digit Boxes */
+    .otp-digit-card {
+      width: 46px;
+      height: 54px;
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.35rem;
+      font-weight: 700;
+      border-radius: 14px;
+      border: 1.5px solid #CBD5E1;
+      background: #FFFFFF;
+      color: #0F172A !important;
+      outline: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    }
+
+    .otp-digit-card:focus {
+      border-color: var(--color-gold);
+      box-shadow: 0 0 0 3px rgba(200, 155, 83, 0.25);
+      background: #FFFFFF;
+    }
+
+    /* THE SKEWED SLIDING BLADE OVERLAY (True Verso Geometry: Slants from top-left to bottom-right \) */
+    .blade-slider {
+      position: absolute;
+      top: -15%;
+      bottom: -15%;
+      width: 58%;
+      left: 50%;
+      background: linear-gradient(150deg, var(--color-green-dark) 0%, var(--color-green-mid) 50%, var(--color-green-light) 100%);
+      transform-origin: center center;
+      transform: skewX(9.5deg) translateX(0%);
+      transition: transform 0.75s cubic-bezier(0.77, 0, 0.175, 1);
+      overflow: hidden;
+      z-index: 20;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Blade state when Sign Up is active */
+    .auth-container[data-state="signup"] .blade-slider {
+      transform: skewX(9.5deg) translateX(-100%);
+    }
+
+    /* Golden Edge Seams on Blade (Lead on left edge, Trail on right edge) */
+    .blade-gold-seam {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 2.5px;
+      background: linear-gradient(to bottom, 
+        rgba(200, 155, 83, 0.1) 0%, 
+        rgba(245, 215, 154, 0.95) 25%, 
+        #FFFFFF 50%, 
+        rgba(225, 180, 107, 0.95) 75%, 
+        rgba(200, 155, 83, 0.1) 100%
+      );
+      box-shadow: 
+        0 0 14px 1px rgba(225, 180, 107, 0.85), 
+        0 0 4px #FFFFFF,
+        -5px 0 24px rgba(200, 155, 83, 0.45);
+      z-index: 25;
+      pointer-events: none;
+    }
+
+    .blade-gold-seam-lead {
+      left: 0;
+    }
+
+    .blade-gold-seam-trail {
+      right: 0;
+      box-shadow: 
+        0 0 14px 1px rgba(225, 180, 107, 0.85), 
+        0 0 4px #FFFFFF,
+        5px 0 24px rgba(200, 155, 83, 0.45);
+    }
+
+    /* Counter-Skew for Blade Content so typography is 100% upright */
+    .blade-content-box {
+      position: absolute;
+      inset: 15% 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transform: skewX(-9.5deg);
+    }
+
+    /* Slide Content inside Blade */
+    .blade-msg {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: opacity 0.45s ease 0.15s, transform 0.45s ease 0.15s;
+    }
+
+    /* When Blade is on Right (Sign In & OTP): Content sits inside visible card area */
+    .blade-msg-signin,
+    .blade-msg-otp {
+      padding: 3rem calc(8% + 2.5rem) 3rem 3.75rem;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(16px);
+    }
+
+    /* When Blade is on Left (Sign Up): Offsets the -8% translation for generous left breathing room */
+    .blade-msg-signup {
+      padding: 3rem 3.5rem 3rem calc(8% + 3.8rem);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(16px);
+    }
+
+    .auth-container[data-state="signin"] .blade-msg-signin {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .auth-container[data-state="otp"] .blade-msg-otp {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .auth-container[data-state="signup"] .blade-msg-signup {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    /* Form Visibility within Form Panes */
+    .subform {
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .subform-hidden {
+      display: none;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px);
+    }
+
+    .subform-visible {
+      display: block;
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    /* Switch links */
+    .link-action {
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      color: #0F172A;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .link-action:hover {
+      color: var(--color-gold-dark);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Interactive Control Bar -->
+  <div class="control-bar text-xs">
+    <span class="text-emerald-400 font-mono font-bold tracking-wider px-2">SELAISATHI • VERSO ENGINE</span>
+    <span class="text-slate-600">|</span>
+    <button onclick="switchMode('signin')" id="btn-mode-signin" class="control-tab-btn active">
+      <span>🔑</span> <span>Sign In</span>
+    </button>
+    <button onclick="switchMode('otp')" id="btn-mode-otp" class="control-tab-btn">
+      <span>📲</span> <span>OTP Verification</span>
+    </button>
+    <button onclick="switchMode('signup')" id="btn-mode-signup" class="control-tab-btn">
+      <span>✍️</span> <span>Sign Up</span>
+    </button>
+  </div>
+
+  <!-- Main Dual-Pane Card -->
+  <div id="auth-main-card" class="auth-container" data-state="signin">
+    
+    <!-- ======================================================== -->
+    <!-- LEFT PANE: HOSTS SIGN-IN AND OTP VERIFICATION            -->
+    <!-- ======================================================== -->
+    <div class="form-pane form-pane-left">
+      
+      <!-- SUBFORM A: SIGN IN -->
+      <div id="view-signin" class="subform subform-visible">
+        
+        <!-- Minimalist Header -->
+        <div class="mb-6">
+          <span class="text-[10px] font-mono tracking-[0.25em] text-[#C89B53] font-semibold uppercase block mb-1">SELAISATHI</span>
+          <h2 class="serif-heading text-3xl font-normal text-[#0F172A] tracking-tight">Sign in</h2>
+          <div class="w-6 h-0.5 bg-[#C89B53] rounded-full mt-2"></div>
+        </div>
+
+        <form onsubmit="event.preventDefault(); switchMode('otp');">
+          
+          <!-- Email / Username -->
+          <div class="field-wrap">
+            <input type="text" id="signin-email-input" class="field-underline-input" placeholder="Username or email" required value="sciencefiction844@gmail.com">
+            <span class="field-icon-glyph">
+              <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+            </span>
+          </div>
+
+          <!-- Password -->
+          <div class="field-wrap">
+            <input type="password" class="field-underline-input" placeholder="Password" required value="••••••••••••">
+            <span class="field-icon-glyph cursor-pointer">
+              <svg class="w-4 h-4 text-slate-400 hover:text-[#C89B53] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+              </svg>
+            </span>
+          </div>
+
+          <!-- Keep me signed in & Forgot password -->
+          <div class="flex items-center justify-between text-xs mb-5 pt-1">
+            <label class="flex items-center gap-2 text-[#475569] font-medium cursor-pointer select-none">
+              <input type="checkbox" checked class="w-3.5 h-3.5 rounded text-[#0E352B] accent-[#0E352B]">
+              <span>Keep me signed in</span>
+            </label>
+            <a href="#" onclick="event.preventDefault(); switchMode('otp');" class="text-[#9A6B25] font-semibold hover:underline">
+              Forgot password?
+            </a>
+          </div>
+
+          <!-- Primary Sign In Action Button -->
+          <div class="mb-4">
+            <button type="submit" class="btn-verso-cta w-full">
+              <span>Sign in</span>
+            </button>
+          </div>
+
+          <!-- Divider -->
+          <div class="relative flex items-center justify-center my-3">
+            <div class="border-t border-[#CBD5E1] w-full"></div>
+            <span class="bg-[#FAF8F4] px-3 text-[11px] text-[#64748B] font-medium">or continue with</span>
+          </div>
+
+          <!-- Official Google Button (Fixed Size & Multi-color SVG) -->
+          <div class="mb-5">
+            <button type="button" onclick="switchMode('otp');" class="btn-google-official">
+              <svg viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              </svg>
+              <span>Continue with Google</span>
+            </button>
+          </div>
+
+          <!-- Switch to Sign Up -->
+          <p class="text-xs text-[#475569] font-medium text-center">
+            New to SelaiSathi? <span onclick="switchMode('signup')" class="link-action">Create an account</span>
+          </p>
+
+        </form>
+
+      </div>
+
+      <!-- SUBFORM B: OTP VERIFICATION -->
+      <div id="view-otp" class="subform subform-hidden">
+        
+        <!-- Header -->
+        <div class="mb-5">
+          <span class="text-[10px] font-mono tracking-[0.25em] text-[#C89B53] font-semibold uppercase block mb-1">SELAISATHI</span>
+          <h2 class="serif-heading text-3xl font-normal text-[#0F172A] tracking-tight">Enter OTP Code</h2>
+          <div class="w-6 h-0.5 bg-[#C89B53] rounded-full mt-2"></div>
+        </div>
+
+        <!-- Recipient Note -->
+        <div class="mb-5 flex items-center gap-2 text-xs text-[#64748B]">
+          <svg class="w-4 h-4 text-[#C89B53] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          <span>Code sent to <b class="text-[#0F172A] font-medium" id="otp-target-email">sciencefiction844@gmail.com</b></span>
+        </div>
+
+        <!-- 6 Segmented OTP Boxes (Fixed Spacing & Clean Layout) -->
+        <div class="mb-5">
+          <div class="flex items-center justify-between gap-1.5 sm:gap-2">
+            <input type="text" maxlength="1" class="otp-digit-card" value="7">
+            <input type="text" maxlength="1" class="otp-digit-card" value="4">
+            <input type="text" maxlength="1" class="otp-digit-card" value="2">
+            <input type="text" maxlength="1" class="otp-digit-card" value="9">
+            <input type="text" maxlength="1" class="otp-digit-card" value="1">
+            <input type="text" maxlength="1" class="otp-digit-card" value="8">
+          </div>
+        </div>
+
+        <!-- Resend Timer Row (Properly Spaced, Zero Overlap) -->
+        <div class="flex items-center justify-between text-xs mb-5 px-0.5">
+          <span class="text-[#64748B] font-medium flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span>Resend in <strong class="text-[#0F172A] font-mono font-bold">0:45</strong></span>
+          </span>
+          <button type="button" onclick="alert('New OTP sent!');" class="text-[#9A6B25] font-semibold hover:underline cursor-pointer">
+            Resend Code
+          </button>
+        </div>
+
+        <!-- Primary Action -->
+        <div class="mb-4">
+          <button type="button" onclick="alert('OTP Verified! Welcome.');" class="btn-verso-cta w-full">
+            <span>Verify code</span>
+          </button>
+        </div>
+
+        <!-- Footer Links (Clean Flex Layout) -->
+        <div class="flex items-center justify-between text-xs pt-1 px-0.5">
+          <span onclick="switchMode('signin')" class="link-action text-[#475569]">
+            ← Back to Sign in
+          </span>
+          <span onclick="alert('Backup Code: 742918');" class="text-[#9A6B25] font-semibold hover:underline cursor-pointer">
+            Backup code?
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- RIGHT PANE: HOSTS SIGN-UP / CREATE ACCOUNT FORM          -->
+    <!-- ======================================================== -->
+    <div class="form-pane form-pane-right">
+      
+      <!-- SUBFORM C: CREATE ACCOUNT -->
+      <div id="view-signup" class="subform subform-visible">
+        
+        <!-- Minimalist Header -->
+        <div class="mb-6">
+          <span class="text-[10px] font-mono tracking-[0.25em] text-[#C89B53] font-semibold uppercase block mb-1">SELAISATHI</span>
+          <h2 class="serif-heading text-3xl font-normal text-[#0F172A] tracking-tight">Create account</h2>
+          <div class="w-6 h-0.5 bg-[#C89B53] rounded-full mt-2"></div>
+        </div>
+
+        <form onsubmit="event.preventDefault(); switchMode('otp');">
+          
+          <div class="field-wrap">
+            <input type="text" class="field-underline-input" placeholder="Full name" required>
+            <span class="field-icon-glyph">
+              <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+            </span>
+          </div>
+
+          <div class="field-wrap">
+            <input type="email" class="field-underline-input" placeholder="Email address" required>
+            <span class="field-icon-glyph">
+              <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+            </span>
+          </div>
+
+          <div class="field-wrap mb-1">
+            <input type="password" class="field-underline-input" placeholder="Password" required>
+            <span class="field-icon-glyph">
+              <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+              </svg>
+            </span>
+          </div>
+          <p class="text-[11px] text-[#64748B] font-light mb-6">Use 8 characters or more.</p>
+
+          <!-- Primary CTA Button -->
+          <div class="mb-4">
+            <button type="submit" class="btn-verso-cta w-full">
+              <span>Create account</span>
+            </button>
+          </div>
+
+          <!-- Switch to Sign In -->
+          <p class="text-xs text-[#475569] font-medium text-center">
+            Already have an account? <span onclick="switchMode('signin')" class="link-action">Sign in</span>
+          </p>
+
+        </form>
+
+      </div>
+
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- THE SKEWED SLIDING BLADE OVERLAY (50% WIDTH, FULL COVER) -->
+    <!-- ======================================================== -->
+    <div class="blade-slider">
+      
+      <!-- Golden Glowing Edge Seams (Lead on left, Trail on right) -->
+      <div class="blade-gold-seam blade-gold-seam-lead"></div>
+      <div class="blade-gold-seam blade-gold-seam-trail"></div>
+
+      <!-- Upright Typography Box -->
+      <div class="blade-content-box">
+        
+        <!-- 1. Welcome Back Slide (Sign In State) -->
+        <div class="blade-msg blade-msg-signin">
+          <span class="text-[11px] font-mono tracking-[0.3em] text-[#C89B53] uppercase font-semibold mb-3">SELAISATHI</span>
+          <h1 class="serif-heading text-4xl sm:text-5xl font-normal text-[#FAF8F4] leading-[1.12] mb-4">
+            Welcome <br><em class="italic text-[#EAD8B8] font-normal">back.</em>
+          </h1>
+          <p class="text-xs sm:text-sm text-[#A8BDB5] leading-relaxed max-w-[270px] font-light">
+            Your orders, customer measurements and fabric stock are exactly where you left them.
+          </p>
+        </div>
+
+        <!-- 2. Protect Workshop Slide (OTP State) -->
+        <div class="blade-msg blade-msg-otp">
+          <span class="text-[11px] font-mono tracking-[0.3em] text-[#C89B53] uppercase font-semibold mb-3">SELAISATHI</span>
+          <h1 class="serif-heading text-4xl sm:text-5xl font-normal text-[#FAF8F4] leading-[1.12] mb-4">
+            Protect your <br><em class="italic text-[#EAD8B8] font-normal">workshop.</em>
+          </h1>
+          <p class="text-xs sm:text-sm text-[#A8BDB5] leading-relaxed max-w-[270px] font-light">
+            Instant 256-bit encrypted verification keeps your shop financials, customer data and designs safe.
+          </p>
+        </div>
+
+        <!-- 3. Start First Page Slide (Sign Up State) -->
+        <div class="blade-msg blade-msg-signup">
+          <span class="text-[11px] font-mono tracking-[0.3em] text-[#C89B53] uppercase font-semibold mb-3">SELAISATHI</span>
+          <h1 class="serif-heading text-4xl sm:text-5xl font-normal text-[#FAF8F4] leading-[1.12] mb-4">
+            Start the <br><em class="italic text-[#EAD8B8] font-normal">first page.</em>
+          </h1>
+          <p class="text-xs sm:text-sm text-[#A8BDB5] leading-relaxed max-w-[270px] font-light">
+            One account for every tailor order, every customer measurement and every device you own.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Instruction footer -->
+  <div class="mt-6 text-center text-xs text-slate-400 max-w-md">
+    💡 ওপরের <b>Sign In</b>, <b>OTP</b>, এবং <b>Sign Up</b> বাটনে ক্লিক করে প্রতিটি স্টেটের পারফেক্ট অ্যানিমেশন লাইভ টেস্ট করুন।
+  </div>
+
+  <script>
+    function switchMode(mode) {
+      const card = document.getElementById('auth-main-card');
+      card.setAttribute('data-state', mode);
+
+      // Tab button active states
+      ['signin', 'otp', 'signup'].forEach(m => {
+        const btn = document.getElementById('btn-mode-' + m);
+        if (btn) {
+          if (m === mode) {
+            btn.className = 'control-tab-btn active';
+          } else {
+            btn.className = 'control-tab-btn';
+          }
+        }
+      });
+
+      // Left pane subform toggling
+      const viewSignin = document.getElementById('view-signin');
+      const viewOtp = document.getElementById('view-otp');
+
+      if (mode === 'otp') {
+        viewSignin.className = 'subform subform-hidden';
+        viewOtp.className = 'subform subform-visible';
+
+        // Auto update target email
+        const email = document.getElementById('signin-email-input')?.value.trim();
+        if (email) {
+          const target = document.getElementById('otp-target-email');
+          if (target) target.textContent = email;
+        }
+      } else {
+        viewSignin.className = 'subform subform-visible';
+        viewOtp.className = 'subform subform-hidden';
+      }
+    }
+
+    // Auto-focus next digit on OTP typing
+    document.addEventListener('DOMContentLoaded', () => {
+      const inputs = document.querySelectorAll('.otp-digit-card');
+      inputs.forEach((box, idx) => {
+        box.addEventListener('input', (e) => {
+          if (e.target.value.length === 1 && idx < inputs.length - 1) {
+            inputs[idx + 1].focus();
+          }
+        });
+        box.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace' && !e.target.value && idx > 0) {
+            inputs[idx - 1].focus();
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
