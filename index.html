@@ -20097,7 +20097,76 @@ body.theme-white #view-staff #staff-display-container tbody tr:hover{background:
         '.text-right { text-align: right; }' +
         '.footer { margin-top: 40px; display: flex; justify-content: space-between; font-size: 11px; padding-top: 15px; }' +
         '@media print { body { padding: 0; } }' +
-        '</style></head><body>' +
+        '
+    /* SelaiSathi sidebar owner chip — Galaxy Glass concept (option 2 only) */
+    body:not(.theme-white) #sidebar-owner-chip {
+      isolation: isolate;
+      background:
+        radial-gradient(ellipse at 4% 0%, rgba(37, 99, 235, 0.20), transparent 48%),
+        radial-gradient(ellipse at 100% 100%, rgba(124, 58, 237, 0.20), transparent 52%),
+        linear-gradient(125deg, rgba(9, 20, 45, 0.96), rgba(10, 15, 35, 0.94) 58%, rgba(25, 20, 55, 0.94)) !important;
+      border: 1px solid rgba(96, 165, 250, 0.32) !important;
+      box-shadow: 0 8px 24px rgba(2, 8, 28, 0.42), inset 0 1px 0 rgba(191, 219, 254, 0.10), 0 0 18px rgba(59, 130, 246, 0.08) !important;
+      backdrop-filter: blur(18px) saturate(145%);
+      -webkit-backdrop-filter: blur(18px) saturate(145%);
+      transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease, background .25s ease;
+    }
+    body:not(.theme-white) #sidebar-owner-chip::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      opacity: .42;
+      background: linear-gradient(112deg, transparent 12%, rgba(147, 197, 253, .07) 48%, transparent 78%);
+    }
+    body:not(.theme-white) #sidebar-owner-chip:hover {
+      border-color: rgba(96, 165, 250, .62) !important;
+      box-shadow: 0 10px 28px rgba(2, 8, 28, .5), inset 0 1px 0 rgba(219, 234, 254, .16), 0 0 22px rgba(59, 130, 246, .16), 0 0 18px rgba(139, 92, 246, .10) !important;
+      transform: translateY(-1px);
+    }
+    body:not(.theme-white) #sidebar-owner-avatar {
+      border-radius: 50% !important;
+      background: radial-gradient(circle at 32% 24%, rgba(96, 165, 250, .34), rgba(30, 64, 175, .18) 52%, rgba(15, 23, 42, .92)) !important;
+      border: 1px solid rgba(125, 211, 252, .58) !important;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, .10), 0 0 18px rgba(59, 130, 246, .24), inset 0 1px 5px rgba(219, 234, 254, .22) !important;
+    }
+    body:not(.theme-white) #sidebar-owner-avatar svg {
+      color: #BFDBFE !important;
+    }
+    body:not(.theme-white) #sidebar-owner-name {
+      color: #F1F5FF !important;
+      letter-spacing: .015em;
+    }
+    body:not(.theme-white) #sidebar-owner-badge {
+      color: #DBEAFE !important;
+      background: linear-gradient(135deg, rgba(37, 99, 235, .30), rgba(124, 58, 237, .22)) !important;
+      border: 1px solid rgba(129, 140, 248, .42) !important;
+      border-radius: 999px !important;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .10), 0 0 12px rgba(99, 102, 241, .10);
+      letter-spacing: .08em;
+    }
+    body:not(.theme-white) #sidebar-owner-sub {
+      color: #34D399 !important;
+    }
+    body:not(.theme-white) #sidebar-owner-sub span {
+      color: #6EE7B7 !important;
+    }
+    body:not(.theme-white) #sidebar-owner-status-dot {
+      border-color: #111B36 !important;
+      box-shadow: 0 0 8px rgba(52, 211, 153, .55);
+    }
+    body:not(.theme-white) #sidebar-owner-arrow {
+      color: #A5B4FC !important;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      body:not(.theme-white) #sidebar-owner-chip,
+      body:not(.theme-white) #sidebar-owner-chip * {
+        transition-duration: .01ms !important;
+      }
+    }
+
+  </style></head><body>' +
         '<div style="display:flex; justify-content:space-between; align-items:flex-start; border-bottom:1px solid #cbd5e1; padding-bottom:15px;">' +
           '<div>' +
             '<h1>' + esc(getBrandName()) + '</h1>' +
